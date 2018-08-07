@@ -1,6 +1,21 @@
-.side-menu-wrap{
+.side-menu-wrap {
   z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 318px;
+  @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.4));
+  @include transition(0.5s);
+  background-color: white;
+  .logo {
+    border-bottom: 1px solid $border_color;
+    img {
+      padding: 10px 69px 10px 30px;
+    }
+  }
 }
+
 .inner-menu-wrap{
   img {
     margin-left: 25px;
@@ -21,49 +36,37 @@
     outline: none;
     margin: 23px 0 0 30px;
   }
+  $aside_colors: (#d6eaf1,#cce5ed,#c2e0ea,#b8dbe7,#aed6e3,#a3d1df,#99cbdc,#90c6d9,#85c1d5,#7bbcd1,#71b1ce);
+  $i:0;
   ul {
-    width: 300px;
+    width: 318px;
     overflow: hidden;
     li {
       position: relative;
-      &:first-child {
-        padding-top: 20px;
-        .hint{
-          top: 20px;
+      @each $color in $aside_colors {
+        $i: $i+1;
+        @if $i == 1{
+          &:nth-child(#{$i}){
+            padding-top: 20px;
+            .hint{
+              top: 20px;
+            }
+            a:hover {
+              background-color: $color;
+            }
+          }
+      }@else{
+          &:nth-child(#{$i}){
+            a{
+              &:hover{
+                background-color: $color;
+                .hint{
+                  background-color: $color;
+                }
+              }
+            }
+          }
         }
-        a:hover {
-          background-color: #d6eaf1;
-        }
-      }
-      &:nth-child(2) a:hover {
-        background-color: #cce5ed;
-      }
-      &:nth-child(3) a:hover {
-        background-color: #c2e0ea;
-      }
-      &:nth-child(4) a:hover {
-        background-color: #b8dbe7;
-      }
-      &:nth-child(5) a:hover {
-        background-color: #aed6e3;
-      }
-      &:nth-child(6) a:hover {
-        background-color: #a3d1df;
-      }
-      &:nth-child(7) a:hover {
-        background-color: #99cbdc;
-      }
-      &:nth-child(8) a:hover {
-        background-color: #90c6d9;
-      }
-      &:nth-child(9) a:hover {
-        background-color: #85c1d5;
-      }
-      &:nth-child(10) a:hover {
-        background-color: #7bbcd1;
-      }
-      &:nth-child(11) a:hover {
-        background-color: #71b1ce;
       }
       a {
         display: block;
@@ -110,9 +113,87 @@
     }
   }
 }
+.side-second-menu-wrap{
+  @extend .side-menu-wrap;
+  left: -15px;
+  background-color: $background-color;
+  z-index: 19;
+}
+.all-menu-wrap{
+  z-index: 25;
+  &:hover{
+    .side-second-menu-wrap{
+      left: 25px;
+    }
+  }
+}
 .short-menu{
+  z-index: 20;
+  .content-main-wrap {
+    position: relative;
+    margin-left: 65px;
+    width: calc(100% - 65px);
+  }
   .inner-menu-wrap ul {
     width: 70px;
     overflow: hidden;
   }
+  .side-second-menu-wrap{
+    left: 15px;
+  }
+  .side-menu-wrap {
+    width: 65px;
+  }
+  .inner-menu-wrap img {
+    margin-left: 8px;
+  }
+  .search-wrap img {
+    margin-left: 23px;
+    margin-top: 15px;
+  }
+  .inner-menu-wrap ul li a {
+    width: 65px;
+  }
+  .breadcrumb {
+    background-color: transparent;
+    font-size: 12px;
+    margin-left: 35px;
+  }
+  .side-logo-wrap .logo, .search-wrap input, .inner-menu-wrap li span {
+    display: none !important;
+  }
 }
+@media (max-width: 1199px) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

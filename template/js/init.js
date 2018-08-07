@@ -24,16 +24,10 @@ $(document).ready(function () {
         else {navbar.removeClass('fix-on');  }
         if (nsc>bp2) { navbar.removeClass('fix-on'); }
 
-
-
-
-
-        console.log( bp1);
-        console.log(navbPos);
+    });
+    $('.side-second-menu-wrap').on('click',function () {
 
     });
-
-
     /*range slider*/
     $('.f-slider').each(function () {
         var data = $(this).data()

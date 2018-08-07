@@ -361,36 +361,6 @@ footer a {
   }
 }
 
-.short-menu {
-  .side-menu-wrap {
-    width: 65px;
-    z-index: 5;
-  }
-  .content-main-wrap {
-    position: relative;
-    margin-left: 65px;
-    width: calc(100% - 65px);
-  }
-  .inner-menu-wrap img {
-    margin-left: 8px;
-  }
-  .search-wrap img {
-    margin-left: 23px;
-    margin-top: 15px;
-  }
-  .inner-menu-wrap ul li a {
-    width: 65px;
-  }
-  .breadcrumb {
-    background-color: transparent;
-    font-size: 12px;
-    margin-left: 35px;
-  }
-  .side-logo-wrap .logo, .search-wrap input, .inner-menu-wrap li span {
-    display: none !important;
-  }
-}
-
 nav.breadcrumb-wrap {
   padding-top: 100px;
 }

@@ -52,21 +52,7 @@ a {
 .text-light-c {
   color: $text_light;
 }
-.side-menu-wrap {
-  .logo {
-    border-bottom: 1px solid $border_color;
-    img {
-      padding: 10px 69px 10px 30px;
-    }
-  }
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 318px;
-  @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.4));
-  @include transition(0.5s);
-}
+
 .title h3 {
   display: inline-block;
   margin-left: 230px;
