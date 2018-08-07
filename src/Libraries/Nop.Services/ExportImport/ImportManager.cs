@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +11,7 @@ using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Media;
 using Nop.Core.Domain.Messages;
+using Nop.Core.Domain.OneC;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Vendors;
@@ -1149,6 +1150,242 @@ namespace Nop.Services.ExportImport
             }
 
             return properties;
+        }
+
+        /// <summary>
+        /// Import products from 1C
+        /// </summary>
+        /// <param name="products">List<ProductFromOneC></param>
+        public virtual Tuple<bool, string> ImportProductsFromOneC(List<OneCProduct> products)
+        {
+            try
+            {
+                int newCount = 0, updateCount = 0, manufacturAddedCount = 0;
+                foreach (var item in products)
+                {
+                    //manufacture
+                    Manufacturer manufacturer = _manufacturerService.GetManufacturerByName(item.Manufacturer);
+                    if (!string.IsNullOrEmpty(item.Manufacturer) && manufacturer == null)
+                    {
+                        manufacturer = new Manufacturer()
+                        {
+                            Name = item.Manufacturer,
+                            ManufacturerTemplateId = 1,
+                            PageSize = 6,
+                            AllowCustomersToSelectPageSize = true,
+                            PageSizeOptions = "6, 3, 9",
+                            SubjectToAcl = false,
+                            LimitedToStores = false,
+                            Published = true,
+                            Deleted = false,
+                            DisplayOrder = 1,
+                            CreatedOnUtc = DateTime.UtcNow,
+                            UpdatedOnUtc = DateTime.UtcNow
+                        };
+                        _manufacturerService.InsertManufacturer(manufacturer);
+                        manufacturAddedCount++;
+                    }
+
+                    //warehouse
+                    var productWarehouseStatuses = new List<ProductWarehouseStatus>();
+                    foreach (var itemWarehouse in item.Warehouses)
+                    {
+                        var warehouse = _shippingService.GetWarehouseByName(itemWarehouse.WarehouseName);
+                        if (warehouse == null)
+                        {
+                            warehouse = new Warehouse()
+                            {
+                                Name = itemWarehouse.WarehouseName
+                            };
+                            _shippingService.InsertWarehouse(warehouse);
+                        }
+
+                        var status = _productService.GetStatusByName(itemWarehouse.WarehouseStatus);
+                        if (status == null)
+                        {
+                            status = new Status()
+                            {
+                                Name = itemWarehouse.WarehouseStatus
+                            };
+                        }
+
+                        productWarehouseStatuses.Add(new ProductWarehouseStatus()
+                        {
+                            WarehouseId = warehouse.Id,
+                            StatusId = status.Id
+                        });
+                    }
+
+                    //status
+                    int statusId = 0;
+                    if (!string.IsNullOrEmpty(item.Status))
+                    {
+                        statusId = _productService.GetStatusByName(item.Status)?.Id ?? 1;
+                    }
+
+                    //product
+                    var product = _productService.GetProductBySku(item.Sku) ?? _productService.GetProductByName(item.Name);
+                    if (product == null)
+                    {
+                        product = new Product()
+                        {
+                            Name = item.Name,
+                            Price = item.Price,
+                            Sku = item.Sku,
+                            Published = false,
+                            ProductTypeId = 5,
+                            ParentGroupedProductId = 0,
+                            VisibleIndividually = true,
+                            ProductTemplateId = 1,
+                            VendorId = 0,
+                            ShowOnHomePage = false,
+                            AllowCustomerReviews = true,
+                            GiftCardTypeId = 0,
+                            IsShipEnabled = true,
+                            TaxCategoryId = 0,
+                            OrderMaximumQuantity = 10000,
+                            OrderMinimumQuantity = 1,
+                            StockQuantity = 10000,
+                            CreatedOnUtc = DateTime.UtcNow,
+                            UpdatedOnUtc = DateTime.UtcNow
+                        };
+
+                        if (statusId > 0)
+                        {
+                            product.StatusId = statusId;
+                        }
+                        else
+                        {
+                            product.StatusId = 3;//The status is "Ожидает модерации" it needs for if adding new product without status.
+                        }
+
+                        _productService.InsertProduct(product);
+
+                        if (manufacturer != null)
+                        {
+                            _manufacturerService.InsertProductManufacturer(new ProductManufacturer()
+                            {
+                                DisplayOrder = 1,
+                                IsFeaturedProduct = false,
+                                ManufacturerId = manufacturer.Id,
+                                ProductId = product.Id,
+                            });
+                        }
+
+                        foreach (var itemProductWarehouseStatuse in productWarehouseStatuses)
+                        {
+                            itemProductWarehouseStatuse.ProductId = product.Id;
+                            _shippingService.InsertProductWarehouseStatus(itemProductWarehouseStatuse);
+                        }
+
+                        newCount++;
+                    }
+                    else
+                    {
+                        product.Name = item.Name;
+                        product.Sku = item.Sku;
+                        product.Price = item.Price;
+                        product.OrderMaximumQuantity = 10000;
+                        product.OrderMinimumQuantity = 1;
+                        product.StockQuantity = 10000;
+
+                        if (statusId > 0)
+                        {
+                            product.StatusId = statusId;
+                        }
+
+                        _productService.UpdateProduct(product);
+
+                        if (manufacturer != null)
+                        {
+                            var productManufacturers = _manufacturerService.GetProductManufacturersByProductId(product.Id);
+                            if (productManufacturers.FirstOrDefault(x => x.ManufacturerId == manufacturer.Id) == null)
+                            {
+                                productManufacturers.Clear();
+                                _manufacturerService.InsertProductManufacturer(new ProductManufacturer()
+                                {
+                                    DisplayOrder = 1,
+                                    IsFeaturedProduct = false,
+                                    ManufacturerId = manufacturer.Id,
+                                    ProductId = product.Id
+                                });
+                            }
+                        }
+
+                        foreach (var itemProductWarehouseStatuse in productWarehouseStatuses)
+                        {
+                            itemProductWarehouseStatuse.ProductId = product.Id;
+                            var productWarehouseStatuse = _shippingService.GetProductWarehouseStatus(product.Id, itemProductWarehouseStatuse.Id);
+                            if (productWarehouseStatuse == null)
+                            {
+                                _shippingService.InsertProductWarehouseStatus(new ProductWarehouseStatus()
+                                {
+                                    ProductId = product.Id,
+                                    StatusId = itemProductWarehouseStatuse.StatusId,
+                                    WarehouseId = itemProductWarehouseStatuse.WarehouseId
+                                });
+                            }
+                            else
+                            {
+                                _shippingService.UpdateProductWarehouseStatus(itemProductWarehouseStatuse);
+                            }
+                        }
+
+                        updateCount++;
+                    }
+
+                    //attributes
+                    foreach (var itemAttribute in item.Attributes)
+                    {
+                        var attribute = _productAttributeService.GetProductAttributeByName(itemAttribute.Name);
+                        if (attribute == null)
+                        {
+                            attribute = new ProductAttribute()
+                            {
+                                Name = itemAttribute.Name,
+                            };
+                            _productAttributeService.InsertProductAttribute(attribute);
+                        }
+
+                        var productAttributeMapping = _productAttributeService.GetProductAttributeMappingByAttributeIdProductId(attribute.Id, product.Id);
+                        if (productAttributeMapping == null)
+                        {
+                            _productAttributeService.InsertProductAttributeMapping(new ProductAttributeMapping()
+                            {
+                                ProductAttributeId = attribute.Id,
+                                ProductId = product.Id,
+                                AttributeControlTypeId = itemAttribute.UiType == 0 ? 1 : itemAttribute.UiType
+                            });
+                        }
+                        else
+                        {
+                            productAttributeMapping.AttributeControlTypeId = itemAttribute.UiType == 0 ? 1 : itemAttribute.UiType;
+                            _productAttributeService.UpdateProductAttributeMapping(productAttributeMapping);
+                        }
+
+                        foreach (var itemAttributeValue in itemAttribute.AttributeValues)
+                        {
+                            var attributeValue = _productAttributeService.GetProductAttributeValueByName(productAttributeMapping.Id, itemAttributeValue.Name);
+                            if (attributeValue == null)
+                            {
+                                attributeValue = new ProductAttributeValue()
+                                {
+                                    Name = itemAttributeValue.Name,
+                                    Quantity = itemAttributeValue.Count,
+                                    AttributeValueTypeId = 0,
+                                    ProductAttributeMappingId = productAttributeMapping.Id
+                                };
+                                _productAttributeService.InsertProductAttributeValue(attributeValue);
+                            }
+                        }
+                    }
+                }
+                return new Tuple<bool, string>(true, String.Format("Products {0} added. Products {1} Updated. Manufactures {2} added.", newCount, updateCount, manufacturAddedCount));
+            }
+            catch (Exception ex)
+            {
+                return new Tuple<bool, string>(false, ex.Message);
+            }
         }
 
         /// <summary>

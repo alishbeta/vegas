@@ -11,6 +11,12 @@ namespace Nop.Services.Catalog
     {
         #region Product attributes
 
+        ProductAttribute GetProductAttributeByName(string name);
+
+        ProductAttributeMapping GetProductAttributeMappingByAttributeIdProductId(int AttributeId, int productId);
+
+        ProductAttributeValue GetProductAttributeValueByName(int productAttributeMappingId, string name);
+
         /// <summary>
         /// Deletes a product attribute
         /// </summary>

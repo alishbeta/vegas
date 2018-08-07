@@ -854,6 +854,9 @@ namespace Nop.Web.Areas.Admin.Factories
             model.BaseDimensionIn = _measureService.GetMeasureDimensionById(_measureSettings.BaseDimensionId).Name;
             model.IsLoggedInAsVendor = _workContext.CurrentVendor != null;
 
+            model.StatusId = product?.StatusId ?? 1;
+            model.AvailableStatuses = _productService.GetAllStatuses().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
+
             //prepare localized models
             if (!excludeProperties)
                 model.Locales = _localizedModelFactory.PrepareLocalizedModels(localizedModelConfiguration);

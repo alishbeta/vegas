@@ -56,7 +56,7 @@
             @Html.Raw(Model.ShortDescription)
         </div>
         <div class="add-info">
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductBoxAddinfoBefore, additionalData = Model })
+            @await Component.InvokeAsync("Widget", new { widgetZone = "productbox_addinfo_before", additionalData = Model.Id })
             <div class="prices">
                 @if (!string.IsNullOrEmpty(Model.ProductPrice.OldPrice))
                 {
@@ -79,21 +79,28 @@
                     </div>
                 }
             </div>
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductBoxAddinfoMiddle, additionalData = Model })
+            @await Component.InvokeAsync("Widget", new { widgetZone = "productbox_addinfo_middle", additionalData = Model.Id })
             <div class="buttons">
                 @*<input type="button" value="@T("Products.Details")" class="button-1 product-box-detail-button" onclick="setLocation('@Url.RouteUrl("Product", new { SeName = Model.SeName })')" />*@
                 @if (!Model.ProductPrice.DisableBuyButton)
                 {
-                    var addToCartText = T("ShoppingCart.AddToCart").Text;
-                    if (Model.ProductPrice.IsRental)
+                    if (true)
                     {
-                        addToCartText = T("ShoppingCart.Rent").Text;
+                        <input type="button" value="@T("ShoppingCart.Order").Text" class="button-2 product-box-add-to-cart-button" onclick="false;" />
                     }
-                    if (Model.ProductPrice.AvailableForPreOrder)
+                    else
                     {
-                        addToCartText = T("ShoppingCart.PreOrder").Text;
+                        var addToCartText = T("ShoppingCart.AddToCart").Text;
+                        if (Model.ProductPrice.IsRental)
+                        {
+                            addToCartText = T("ShoppingCart.Rent").Text;
+                        }
+                        if (Model.ProductPrice.AvailableForPreOrder)
+                        {
+                            addToCartText = T("ShoppingCart.PreOrder").Text;
+                        }
+                        <input type="button" value="@(addToCartText)" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;" />
                     }
-                    <input type="button" value="@(addToCartText)" class="button-2 product-box-add-to-cart-button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;" />
                 }
                 @if (!Model.ProductPrice.DisableAddToCompareListButton)
                 {
@@ -104,7 +111,7 @@
                     <input type="button" value="@T("ShoppingCart.AddToWishlist")" title="@T("ShoppingCart.AddToWishlist")" class="button-2 add-to-wishlist-button" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;" />
                 }
             </div>
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductBoxAddinfoAfter, additionalData = Model })
+            @await Component.InvokeAsync("Widget", new { widgetZone = "productbox_addinfo_after", additionalData = Model.Id })
         </div>
     </div>
 </div>

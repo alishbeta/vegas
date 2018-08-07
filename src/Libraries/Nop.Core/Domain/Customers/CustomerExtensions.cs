@@ -118,6 +118,11 @@ namespace Nop.Core.Domain.Customers
             return IsInCustomerRole(customer, NopCustomerDefaults.VendorsRoleName, onlyActiveCustomerRoles);
         }
 
+        public static bool IsOneC(this Customer customer, bool onlyActiveCustomerRoles = true)
+        {
+            return IsInCustomerRole(customer, NopCustomerDefaults.OneC, onlyActiveCustomerRoles);
+        }
+
         /// <summary>
         /// Get customer role identifiers
         /// </summary>

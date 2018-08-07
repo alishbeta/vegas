@@ -31,6 +31,8 @@ namespace Nop.Core.Domain.Catalog
         /// </summary>
         public int ProductTypeId { get; set; }
 
+        public int StatusId { get; set; }
+
         /// <summary>
         /// Gets or sets the parent product identifier. It's used to identify associated products (only with "grouped" products)
         /// </summary>

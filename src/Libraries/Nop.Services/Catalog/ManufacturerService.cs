@@ -63,6 +63,18 @@ namespace Nop.Services.Catalog
 
         #region Methods
 
+        public virtual Manufacturer GetManufacturerByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
+            var query = from m in _manufacturerRepository.Table
+                        orderby m.Id
+                        where !m.Deleted &&
+                        m.Name.ToLower() == name.ToLower()
+                        select m;
+            return query.FirstOrDefault();
+        }
+
         /// <summary>
         /// Deletes a manufacturer
         /// </summary>

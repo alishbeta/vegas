@@ -130,6 +130,8 @@ namespace Nop.Web.Models.Catalog
             }
             public int ProductId { get; set; }
 
+            public int StatusId { get; set; }
+
             //qty
             [NopResourceDisplayName("Products.Qty")]
             public int EnteredQuantity { get; set; }

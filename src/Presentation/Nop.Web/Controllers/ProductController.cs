@@ -109,7 +109,7 @@ namespace Nop.Web.Controllers
         public virtual IActionResult ProductDetails(int productId, int updatecartitemid = 0)
         {
             var product = _productService.GetProductById(productId);
-            if (product == null || product.Deleted)
+            if (product == null || product.Deleted || product.StatusId == 3 || product.StatusId == 5)
                 return InvokeHttp404();
 
             var notAvailable =

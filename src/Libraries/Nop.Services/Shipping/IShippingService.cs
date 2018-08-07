@@ -93,6 +93,14 @@ namespace Nop.Services.Shipping
 
         #region Warehouses
 
+        Warehouse GetWarehouseByName(string name);
+
+        ProductWarehouseStatus GetProductWarehouseStatus(int productId, int wareHouseId);
+
+        void InsertProductWarehouseStatus(ProductWarehouseStatus productWarehouseStatus);
+
+        void UpdateProductWarehouseStatus(ProductWarehouseStatus productWarehouseStatus);
+
         /// <summary>
         /// Deletes a warehouse
         /// </summary>

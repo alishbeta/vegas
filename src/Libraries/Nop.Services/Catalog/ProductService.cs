@@ -57,6 +57,7 @@ namespace Nop.Services.Catalog
         private readonly IWorkContext _workContext;
         private readonly LocalizationSettings _localizationSettings;
         private readonly string _entityName;
+        private readonly IRepository<Status> _statusRepository;
 
         #endregion
 
@@ -86,7 +87,8 @@ namespace Nop.Services.Catalog
             IRepository<TierPrice> tierPriceRepository,
             IStoreMappingService storeMappingService,
             IWorkContext workContext,
-            LocalizationSettings localizationSettings)
+            LocalizationSettings localizationSettings,
+            IRepository<Status> statusRepository)
         {
             this._catalogSettings = catalogSettings;
             this._commonSettings = commonSettings;
@@ -114,6 +116,7 @@ namespace Nop.Services.Catalog
             this._workContext = workContext;
             this._localizationSettings = localizationSettings;
             this._entityName = typeof(Product).Name;
+            this._statusRepository = statusRepository;
         }
 
         #endregion
@@ -276,6 +279,50 @@ namespace Nop.Services.Catalog
         #region Methods
 
         #region Products
+
+        public virtual Product GetProductByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
+
+            name = name.Trim();
+
+            var query = from p in _productRepository.Table
+                        orderby p.Id
+                        where !p.Deleted &&
+                        p.Name.ToLower() == name.ToLower()
+                        select p;
+            var product = query.FirstOrDefault();
+            return product;
+        }
+
+        public virtual Status GetStatusByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
+
+            name = name.Trim();
+
+            var query = from s in _statusRepository.Table
+                        orderby s.Id
+                        where s.Name.ToLower() == name.ToLower()
+                        select s;
+
+            return query.FirstOrDefault();
+        }
+
+        public virtual Status GetStatusById(int id)
+        {
+            if (id <= 0)
+                return null;
+
+            return _statusRepository.GetById(id);
+        }
+
+        public virtual List<Status> GetAllStatuses()
+        {
+            return _statusRepository.Table.ToList();
+        }
 
         /// <summary>
         /// Delete a product

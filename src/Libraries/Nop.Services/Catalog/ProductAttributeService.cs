@@ -49,6 +49,45 @@ namespace Nop.Services.Catalog
 
         #region Methods
 
+        public virtual ProductAttribute GetProductAttributeByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
+
+            name = name.Trim();
+
+            var query = from s in _productAttributeRepository.Table
+                        orderby s.Id
+                        where s.Name.ToLower() == name.ToLower()
+                        select s;
+
+            return query.FirstOrDefault();
+        }
+
+        public virtual ProductAttributeMapping GetProductAttributeMappingByAttributeIdProductId(int AttributeId, int productId)
+        {
+            var query = from pam in _productAttributeMappingRepository.Table
+                        orderby pam.DisplayOrder, pam.Id
+                        where pam.ProductAttributeId == AttributeId && pam.ProductId == productId
+                        select pam;
+            return query.FirstOrDefault();
+        }
+
+        public virtual ProductAttributeValue GetProductAttributeValueByName(int productAttributeMappingId, string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
+
+            name = name.Trim();
+
+            var query = from pav in _productAttributeValueRepository.Table
+                        orderby pav.Id
+                        where pav.Name.ToLower() == name.ToLower() && pav.ProductAttributeMappingId == productAttributeMappingId
+                        select pav;
+
+            return query.FirstOrDefault();
+        }
+
         #region Product attributes
 
         /// <summary>

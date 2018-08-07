@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using Nop.Core.Domain.OneC;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Nop.Services.ExportImport
 {
@@ -38,5 +41,11 @@ namespace Nop.Services.ExportImport
         /// </summary>
         /// <param name="stream">Stream</param>
         void ImportCategoriesFromXlsx(Stream stream);
+
+        /// <summary>
+        /// Import products from 1C
+        /// </summary>
+        /// <param name="products">List<Product></param>
+        Tuple<bool, string> ImportProductsFromOneC(List<OneCProduct> products);
     }
 }

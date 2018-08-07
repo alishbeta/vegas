@@ -43,6 +43,7 @@ namespace Nop.Services.Shipping
         private readonly IStoreContext _storeContext;
         private readonly ShippingSettings _shippingSettings;
         private readonly ShoppingCartSettings _shoppingCartSettings;
+        private readonly IRepository<ProductWarehouseStatus> _productWarehouseStatusRepository;
 
         #endregion
 
@@ -63,7 +64,8 @@ namespace Nop.Services.Shipping
             IRepository<Warehouse> warehouseRepository,
             IStoreContext storeContext,
             ShippingSettings shippingSettings,
-            ShoppingCartSettings shoppingCartSettings)
+            ShoppingCartSettings shoppingCartSettings,
+            IRepository<ProductWarehouseStatus> productWarehouseStatusRepository)
         {
             this._addressService = addressService;
             this._cacheManager = cacheManager;
@@ -81,6 +83,7 @@ namespace Nop.Services.Shipping
             this._warehouseRepository = warehouseRepository;
             this._shippingSettings = shippingSettings;
             this._shoppingCartSettings = shoppingCartSettings;
+            this._productWarehouseStatusRepository = productWarehouseStatusRepository;
         }
 
         #endregion
@@ -303,6 +306,52 @@ namespace Nop.Services.Shipping
         #endregion
 
         #region Warehouses
+
+        public virtual Warehouse GetWarehouseByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
+
+            var query = from w in _warehouseRepository.Table
+                        orderby w.Id
+                        where w.Name.ToLower() == name.ToLower()
+                        select w;
+            return query.FirstOrDefault();
+        }
+
+        public virtual ProductWarehouseStatus GetProductWarehouseStatus(int productId, int wareHouseId)
+        {
+            if (productId < 1 || wareHouseId < 1)
+                return null;
+
+            var query = from pws in _productWarehouseStatusRepository.Table
+                        orderby pws.Id
+                        where pws.ProductId == productId && pws.WarehouseId == wareHouseId
+                        select pws;
+            return query.FirstOrDefault();
+        }
+
+        public virtual void InsertProductWarehouseStatus(ProductWarehouseStatus productWarehouseStatus)
+        {
+            if (productWarehouseStatus == null)
+                throw new ArgumentNullException(nameof(productWarehouseStatus));
+
+            _productWarehouseStatusRepository.Insert(productWarehouseStatus);
+
+            //event notification
+            _eventPublisher.EntityInserted(productWarehouseStatus);
+        }
+
+        public virtual void UpdateProductWarehouseStatus(ProductWarehouseStatus productWarehouseStatus)
+        {
+            if (productWarehouseStatus == null)
+                throw new ArgumentNullException(nameof(productWarehouseStatus));
+
+            _productWarehouseStatusRepository.Update(productWarehouseStatus);
+
+            //event notification
+            _eventPublisher.EntityUpdated(productWarehouseStatus);
+        }
 
         /// <summary>
         /// Deletes a warehouse

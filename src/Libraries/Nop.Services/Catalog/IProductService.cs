@@ -15,6 +15,14 @@ namespace Nop.Services.Catalog
     {
         #region Products
 
+        Product GetProductByName(string name);
+
+        Status GetStatusByName(string name);
+
+        Status GetStatusById(int id);
+
+        List<Status> GetAllStatuses();
+
         /// <summary>
         /// Delete a product
         /// </summary>

@@ -9,6 +9,8 @@ namespace Nop.Services.Catalog
     /// </summary>
     public partial interface IManufacturerService
     {
+        Manufacturer GetManufacturerByName(string name);
+
         /// <summary>
         /// Deletes a manufacturer
         /// </summary>

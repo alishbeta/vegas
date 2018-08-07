@@ -33,6 +33,11 @@ namespace Nop.Core.Domain.Customers
         /// </summary>
         public static string VendorsRoleName => "Vendors";
 
+        /// <summary>
+        /// OneC
+        /// </summary>
+        public static string OneC => "1C";
+
         #endregion
 
         #region System customers

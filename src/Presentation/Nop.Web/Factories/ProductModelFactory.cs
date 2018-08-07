@@ -647,7 +647,8 @@ namespace Nop.Web.Factories
 
             var model = new ProductDetailsModel.AddToCartModel
             {
-                ProductId = product.Id
+                ProductId = product.Id,
+                StatusId = product.StatusId
             };
 
             if (updatecartitem != null)
