@@ -733,7 +733,8 @@ namespace Nop.Web.Areas.Admin.Factories
                 productType: searchModel.SearchProductTypeId > 0 ? (ProductType?)searchModel.SearchProductTypeId : null,
                 keywords: searchModel.SearchProductName,
                 pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
-                overridePublished: overridePublished);
+                overridePublished: overridePublished,
+                isAdmin: true);
 
             //prepare list model
             var model = new ProductListModel
@@ -996,7 +997,8 @@ namespace Nop.Web.Areas.Admin.Factories
                 vendorId: searchModel.SearchVendorId,
                 productType: searchModel.SearchProductTypeId > 0 ? (ProductType?)searchModel.SearchProductTypeId : null,
                 keywords: searchModel.SearchProductName,
-                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize);
+                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
+                isAdmin: true);
 
             //prepare grid model
             var model = new AddRequiredProductListModel
@@ -1105,7 +1107,8 @@ namespace Nop.Web.Areas.Admin.Factories
                 vendorId: searchModel.SearchVendorId,
                 productType: searchModel.SearchProductTypeId > 0 ? (ProductType?)searchModel.SearchProductTypeId : null,
                 keywords: searchModel.SearchProductName,
-                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize);
+                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
+                isAdmin: true);
 
             //prepare grid model
             var model = new AddRelatedProductListModel
@@ -1213,7 +1216,8 @@ namespace Nop.Web.Areas.Admin.Factories
                 vendorId: searchModel.SearchVendorId,
                 productType: searchModel.SearchProductTypeId > 0 ? (ProductType?)searchModel.SearchProductTypeId : null,
                 keywords: searchModel.SearchProductName,
-                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize);
+                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
+                isAdmin: true);
 
             //prepare grid model
             var model = new AddCrossSellProductListModel
@@ -1316,7 +1320,8 @@ namespace Nop.Web.Areas.Admin.Factories
                 vendorId: searchModel.SearchVendorId,
                 productType: searchModel.SearchProductTypeId > 0 ? (ProductType?)searchModel.SearchProductTypeId : null,
                 keywords: searchModel.SearchProductName,
-                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize);
+                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
+                isAdmin: true);
 
             //prepare grid model
             var model = new AddAssociatedProductListModel
@@ -1630,7 +1635,8 @@ namespace Nop.Web.Areas.Admin.Factories
                 vendorId: _workContext.CurrentVendor?.Id ?? 0,
                 productType: searchModel.SearchProductTypeId > 0 ? (ProductType?)searchModel.SearchProductTypeId : null,
                 keywords: searchModel.SearchProductName,
-                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize);
+                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
+                isAdmin: true);
 
             //prepare list model
             var model = new BulkEditProductListModel
@@ -2152,7 +2158,8 @@ namespace Nop.Web.Areas.Admin.Factories
                 vendorId: searchModel.SearchVendorId,
                 productType: searchModel.SearchProductTypeId > 0 ? (ProductType?)searchModel.SearchProductTypeId : null,
                 keywords: searchModel.SearchProductName,
-                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize);
+                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
+                isAdmin: true);
 
             //prepare grid model
             var model = new AssociateProductToAttributeValueListModel

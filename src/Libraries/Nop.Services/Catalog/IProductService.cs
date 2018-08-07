@@ -137,7 +137,8 @@ namespace Nop.Services.Catalog
             IList<int> filteredSpecs = null,
             ProductSortingEnum orderBy = ProductSortingEnum.Position,
             bool showHidden = false,
-            bool? overridePublished = null);
+            bool? overridePublished = null,
+            bool isAdmin = false);
 
         /// <summary>
         /// Search products
@@ -199,7 +200,8 @@ namespace Nop.Services.Catalog
             IList<int> filteredSpecs = null,
             ProductSortingEnum orderBy = ProductSortingEnum.Position,
             bool showHidden = false,
-            bool? overridePublished = null);
+            bool? overridePublished = null,
+            bool isAdmin = false);
 
         /// <summary>
         /// Gets products by product attribute

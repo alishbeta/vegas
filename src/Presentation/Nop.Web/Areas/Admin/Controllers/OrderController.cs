@@ -488,7 +488,8 @@ namespace Nop.Web.Areas.Admin.Controllers
                 vendorId: vendorId,
                 keywords: term,
                 pageSize: productNumber,
-                showHidden: true);
+                showHidden: true,
+                isAdmin: true);
 
             var result = (from p in products
                           select new

@@ -588,7 +588,8 @@ namespace Nop.Services.Catalog
             IList<int> filteredSpecs = null,
             ProductSortingEnum orderBy = ProductSortingEnum.Position,
             bool showHidden = false,
-            bool? overridePublished = null)
+            bool? overridePublished = null,
+            bool isAdmin = false)
         {
             return SearchProducts(out var _, false,
                 pageIndex, pageSize, categoryIds, manufacturerId,
@@ -596,7 +597,7 @@ namespace Nop.Services.Catalog
                 productType, visibleIndividuallyOnly, markedAsNewOnly, featuredProducts,
                 priceMin, priceMax, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku,
                 searchProductTags, languageId, filteredSpecs,
-                orderBy, showHidden, overridePublished);
+                orderBy, showHidden, overridePublished, isAdmin);
         }
 
         /// <summary>
@@ -659,7 +660,8 @@ namespace Nop.Services.Catalog
             IList<int> filteredSpecs = null,
             ProductSortingEnum orderBy = ProductSortingEnum.Position,
             bool showHidden = false,
-            bool? overridePublished = null)
+            bool? overridePublished = null,
+            bool isAdmin = false)
         {
             filterableSpecificationAttributeOptionIds = new List<int>();
 
@@ -731,6 +733,7 @@ namespace Nop.Services.Catalog
             var pPageIndex = _dataProvider.GetInt32Parameter("PageIndex", pageIndex);
             var pPageSize = _dataProvider.GetInt32Parameter("PageSize", pageSize);
             var pShowHidden = _dataProvider.GetBooleanParameter("ShowHidden", showHidden);
+            var pIsAdmin = _dataProvider.GetBooleanParameter("IsAdmin", isAdmin);
             var pOverridePublished = _dataProvider.GetBooleanParameter("OverridePublished", overridePublished);
             var pLoadFilterableSpecificationAttributeOptionIds = _dataProvider.GetBooleanParameter("LoadFilterableSpecificationAttributeOptionIds", loadFilterableSpecificationAttributeOptionIds);
 
@@ -767,6 +770,7 @@ namespace Nop.Services.Catalog
                 pPageIndex,
                 pPageSize,
                 pShowHidden,
+                pIsAdmin,
                 pOverridePublished,
                 pLoadFilterableSpecificationAttributeOptionIds,
                 pFilterableSpecificationAttributeOptionIds,

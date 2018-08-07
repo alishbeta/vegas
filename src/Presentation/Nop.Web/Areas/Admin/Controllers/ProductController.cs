@@ -1983,7 +1983,8 @@ namespace Nop.Web.Areas.Admin.Controllers
                 productType: model.SearchProductTypeId > 0 ? (ProductType?)model.SearchProductTypeId : null,
                 keywords: model.SearchProductName,
                 showHidden: true,
-                overridePublished: overridePublished);
+                overridePublished: overridePublished,
+                isAdmin: true);
 
             try
             {
@@ -2039,7 +2040,8 @@ namespace Nop.Web.Areas.Admin.Controllers
                 productType: model.SearchProductTypeId > 0 ? (ProductType?)model.SearchProductTypeId : null,
                 keywords: model.SearchProductName,
                 showHidden: true,
-                overridePublished: overridePublished);
+                overridePublished: overridePublished,
+                isAdmin: true);
 
             try
             {
@@ -2116,7 +2118,8 @@ namespace Nop.Web.Areas.Admin.Controllers
                 productType: model.SearchProductTypeId > 0 ? (ProductType?)model.SearchProductTypeId : null,
                 keywords: model.SearchProductName,
                 showHidden: true,
-                overridePublished: overridePublished);
+                overridePublished: overridePublished,
+                isAdmin: true);
 
             try
             {
