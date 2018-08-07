@@ -57,7 +57,27 @@ namespace Nop.Plugin.Widgets.NivoSlider.Components
                 Picture5Url = GetPictureUrl(nivoSliderSettings.Picture5Id),
                 Text5 = nivoSliderSettings.Text5,
                 Link5 = nivoSliderSettings.Link5,
-                AltText5 = nivoSliderSettings.AltText5
+                AltText5 = nivoSliderSettings.AltText5,
+
+                Picture6Url = GetPictureUrl(nivoSliderSettings.Picture6Id),
+                Text6 = nivoSliderSettings.Text6,
+                Link6 = nivoSliderSettings.Link6,
+
+                Picture7Url = GetPictureUrl(nivoSliderSettings.Picture7Id),
+                Text7 = nivoSliderSettings.Text7,
+                Link7 = nivoSliderSettings.Link7,
+
+                Picture8Url = GetPictureUrl(nivoSliderSettings.Picture8Id),
+                Text8 = nivoSliderSettings.Text8,
+                Link8 = nivoSliderSettings.Link8,
+
+                Picture9Url = GetPictureUrl(nivoSliderSettings.Picture9Id),
+                Text9 = nivoSliderSettings.Text9,
+                Link9 = nivoSliderSettings.Link9,
+
+                Picture10Url = GetPictureUrl(nivoSliderSettings.Picture10Id),
+                Text10 = nivoSliderSettings.Text10,
+                Link10 = nivoSliderSettings.Link10
             };
 
             if (string.IsNullOrEmpty(model.Picture1Url) && string.IsNullOrEmpty(model.Picture2Url) &&

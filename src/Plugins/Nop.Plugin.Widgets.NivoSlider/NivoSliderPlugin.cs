@@ -90,6 +90,11 @@ namespace Nop.Plugin.Widgets.NivoSlider
             _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture3", "Picture 3");
             _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture4", "Picture 4");
             _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture5", "Picture 5");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture5", "Picture 6");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture5", "Picture 7");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture5", "Picture 8");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture5", "Picture 9");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture5", "Picture 10");
             _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture", "Picture");
             _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture.Hint", "Upload picture.");
             _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Widgets.NivoSlider.Text", "Comment");
@@ -116,6 +121,11 @@ namespace Nop.Plugin.Widgets.NivoSlider
             _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture3");
             _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture4");
             _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture5");
+            _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture6");
+            _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture7");
+            _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture8");
+            _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture9");
+            _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture10");
             _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture");
             _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Picture.Hint");
             _localizationService.DeletePluginLocaleResource("Plugins.Widgets.NivoSlider.Text");
