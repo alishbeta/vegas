@@ -6,24 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css"
-          integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/slick.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.css"/>
     <title></title>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="/js/bootstrap.min.js"
-            integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
-            crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="/js/init.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!--[if lt IE 9]>
@@ -54,38 +50,59 @@
                         <input class="d-md-none d-xl-inline" type="text" placeholder="Поиск">
                     </div>
                     <ul>
-                        <li><a href=""><img class="side-icons" src="/img/bedroom_set_icon.svg" alt="bedroom_set_icon">
-                            <span class="d-inline d-sm-inline d-md-none d-xl-inline">Спальные гарнитуры</span></a></li>
-                        <li><a href=""><img class="side-icons" src="/img/bed_icon.svg" alt="bed_icon"> <span
-                                class="d-inline d-sm-inline d-md-none d-xl-inline">Кровати</span></a></li>
-                        <li><a href=""><img class="side-icons" src="/img/on-mattress_icon.svg" alt="mattress_icon"> <span
-                                class="d-inline d-sm-inline d-md-none d-xl-inline">Матрасы</span></a>
+                        <li><a onclick="return false;" href=""><img class="side-icons" src="/img/bedroom_set_icon.svg" alt="bedroom_set_icon">
+                            <span class="d-inline d-sm-inline d-md-none d-xl-inline">Спальные гарнитуры</span>
+                            <div class="hint d-xl-none"><span>Спальные гарнитуры</span></div>
+                        </a>
+                            <ul class="d-none sub-menu">
+                                <li><a href="">Гарнитур</a></li>
+                                <li><a href="">Еще один</a></li>
+                                <li><a href="">Детские</a></li>
+                                <li><a href="">Vegas (Беларусь)</a></li>
+                                <li><a href="">Infinito (Италия)</a></li>
+                            </ul>
                         </li>
-                        <li><a href=""><img class="side-icons" src="/img/tumba_icon.svg" alt="tumba_icon"> <span
-                                class="d-inline d-sm-inline d-md-none d-xl-inline">Тумбы и
-                        комоды</span></a></li>
-                        <li><a href=""><img class="side-icons" src="/img/base_icon.svg" alt="base_icon"> <span
-                                class="d-inline d-sm-inline d-md-none d-xl-inline">Оропедические
-                        основания</span></a></li>
-                        <li><a href=""><img class="side-icons" src="/img/matress_icon.svg" alt="matress_icon"> <span
-                                class="d-inline d-sm-inline d-md-none d-xl-inline">Наматрасники</span></a>
+                        <li><a  onclick="return false;" href=""><img class="side-icons" src="/img/bed_icon.svg" alt="bed_icon">
+                            <span class="d-inline d-sm-inline d-md-none d-xl-inline">Кровати</span>
+                            <div class="hint d-xl-none"><span>Кровати</span></div>
+                        </a></li>
+                        <li><a  onclick="return false;" href=""><img class="side-icons" src="/img/on-mattress_icon.svg" alt="mattress_icon"> <span class="d-inline d-sm-inline d-md-none d-xl-inline">Матрасы</span>
+                            <div class="hint d-xl-none"><span>Матрасы</span></div>
+                        </a>
+                            <ul class="d-none sub-menu">
+                                <li><a href="">Матрас</a></li>
+                                <li><a href="">Дормео</a></li>
+                                <li><a href="">Детские</a></li>
+                                <li><a href="">Vegas (Беларусь)</a></li>
+                                <li><a href="">Infinito (Италия)</a></li>
+                            </ul>
                         </li>
-                        <li><a href=""><img class="side-icons" src="/img/pillow_icon.svg" alt="pillow_icon"> <span
-                                class="d-inline d-sm-inline d-md-none d-xl-inline">Подушки</span></a>
+                        <li><a  onclick="return false;" href=""><img class="side-icons" src="/img/tumba_icon.svg" alt="tumba_icon"> <span class="d-inline d-sm-inline d-md-none d-xl-inline">
+                        Тумбы и комоды</span>
+                            <div class="hint d-xl-none"><span>Тумбы и комоды</span></div>
+                        </a></li>
+                        <li><a  onclick="return false;" href=""><img class="side-icons" src="/img/base_icon.svg" alt="base_icon"> <span class="d-inline d-sm-inline d-md-none d-xl-inline">
+                        Ортопедические основания</span>
+                            <div class="hint d-xl-none"><span>Ортопедические основания</span></div>
+                        </a></li>
+                        <li><a  onclick="return false;" href=""><img class="side-icons" src="/img/matress_icon.svg" alt="matress_icon"> <span class="d-inline d-sm-inline d-md-none d-xl-inline">Наматрасники</span>
+                            <div class="hint d-xl-none"><span>Наматрасники</span></div></a>
                         </li>
-                        <li><a href=""><img class="side-icons" src="/img/accessorize_icon.svg" alt="accessorize_icon">
-                            <span class="d-inline d-sm-inline d-md-none d-xl-inline">Аксессуары для сна</span></a></li>
-                        <li><a href=""><img class="side-icons" src="/img/carpet_icon.svg" alt="carpet_icon"> <span
-                                class="d-inline d-sm-inline d-md-none d-xl-inline">Ковры</span></a></li>
-                        <li><a href=""><img class="side-icons" src="/img/light_icon.svg" alt="light_icon"> <span
-                                class="d-inline d-sm-inline d-md-none d-xl-inline">Свет</span></a></li>
-                        <li><a href=""><img class="side-icons" src="/img/sale_icon.svg" alt="sale_icon"> <span
-                                class="d-inline d-sm-inline d-md-none d-xl-inline">Акции</span></a></li>
-                        <li><a class="mm" href=""> <span class="d-inline d-sm-inline d-md-none">Доставка и оплата</span></a>
+                        <li><a  onclick="return false;" href=""><img class="side-icons" src="/img/pillow_icon.svg" alt="pillow_icon"> <span class="d-inline d-sm-inline d-md-none d-xl-inline">Подушки</span>
+                            <div class="hint d-xl-none"><span>Подушки</span></div></a>
                         </li>
+                        <li><a  onclick="return false;" href=""><img class="side-icons" src="/img/accessorize_icon.svg" alt="accessorize_icon">
+                            <span class="d-inline d-sm-inline d-md-none d-xl-inline">Аксессуары для сна</span>
+                            <div class="hint d-xl-none"><span>Аксессуары для сна</span></div></a></li>
+                        <li><a  onclick="return false;" href=""><img class="side-icons" src="/img/carpet_icon.svg" alt="carpet_icon"> <span class="d-inline d-sm-inline d-md-none d-xl-inline">Ковры</span>
+                            <div class="hint d-xl-none"><span>Ковры</span></div></a></li>
+                        <li><a  onclick="return false;" href=""><img class="side-icons" src="/img/light_icon.svg" alt="light_icon"> <span class="d-inline d-sm-inline d-md-none d-xl-inline">Свет</span>
+                            <div class="hint d-xl-none"><span>Свет</span></div></a></li>
+                        <li><a  onclick="return false;" href=""><img class="side-icons" src="/img/sale_icon.svg" alt="sale_icon"> <span class="d-inline d-sm-inline d-md-none d-xl-inline">Акции</span>
+                            <div class="hint d-xl-none"><span>Акции</span></div></a></li>
+                        <li><a class="mm" href=""> <span class="d-inline d-sm-inline d-md-none">Доставка и оплата</span></a></li>
                         <li><a class="mm" href=""> <span class="d-inline d-sm-inline d-md-none">Салоны</span></a></li>
-                        <li><a class="mm" href=""> <span class="d-inline d-sm-inline d-md-none">Личный кабинет</span></a>
-                        </li>
+                        <li><a class="mm" href=""> <span class="d-inline d-sm-inline d-md-none">Личный кабинет</span></a></li>
                         <li><a class="mm" href=""> <span class="d-inline d-sm-inline d-md-none">О нас</span></a></li>
                     </ul>
                     <div class="mob-lang text-center">
@@ -95,7 +112,12 @@
                 </div>
             </div>
         </nav>
-        <nav class="side-second-menu-wrap"></nav>
+        <nav class="side-second-menu-wrap">
+            <div class="title"></div>
+            <i class="close-i"></i>
+            <div class="clearfix"></div>
+            <div class="sub-menu"></div>
+        </nav>
     </div>
 
     <div class="content content-main-wrap">

@@ -6,7 +6,7 @@
   bottom: 0;
   width: 318px;
   @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.4));
-  @include transition(0.5s);
+  @include transition(0.1s);
   background-color: white;
   .logo {
     border-bottom: 1px solid $border_color;
@@ -39,45 +39,40 @@
   $aside_colors: (#d6eaf1,#cce5ed,#c2e0ea,#b8dbe7,#aed6e3,#a3d1df,#99cbdc,#90c6d9,#85c1d5,#7bbcd1,#71b1ce);
   $i:0;
   ul {
-    width: 318px;
-    overflow: hidden;
     li {
       position: relative;
       @each $color in $aside_colors {
         $i: $i+1;
         @if $i == 1{
           &:nth-child(#{$i}){
-            padding-top: 20px;
-            .hint{
-              top: 20px;
-            }
-            a:hover {
+            margin-top: 20px;
+            &:hover {
               background-color: $color;
             }
           }
       }@else{
           &:nth-child(#{$i}){
-            a{
               &:hover{
                 background-color: $color;
                 .hint{
                   background-color: $color;
                 }
               }
-            }
           }
         }
       }
       a {
         display: block;
         padding: 10px;
-        @include transition(0.4s);
+        @include transition(0.2s);
         &:hover {
           text-decoration: none;
           color: $link_color;
-          background-color: #bfdce6;
+          height: 53px;
+
+          /*background-color: #bfdce6;*/
           .hint{
-            width: 300px;
+            width: 250px;
             @include transition(0.5s);
           }
         }
@@ -87,10 +82,8 @@
         position: absolute;
         top: 0;
         left: 65px;
-        background-color: #cce5ed;
         width: 0;
         padding: 11px 0;
-        font-weight: 600;
         overflow: hidden;
         span{
           display: inline-block;
@@ -115,12 +108,49 @@
 }
 .side-second-menu-wrap{
   @extend .side-menu-wrap;
+  width: 350px;
   left: -15px;
   background-color: $background-color;
   z-index: 19;
+  overflow: hidden;
+  &.open{
+    left: 300px;
+  }
+  i{
+    display: block;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    &.close-i{
+      -webkit-mask-image: url(/img/close.svg);
+      mask-image: url(/img/close.svg);
+      background-color: black;
+      float: right;
+      margin: 25px 29px 10px 5px;
+    }
+  }
+  .title{
+    font-size: $size-title;
+    font-weight: 600;
+    margin: 20px 10px 30px;
+    float: left;
+  }
+  li{
+    &:hover{
+      background-color: white;
+    }
+    a{
+      display: inline-block;
+      padding: 10px 10px 10px 50px;
+      width: 100%;
+      color: $link_color/2;
+    }
+  }
 }
+
 .all-menu-wrap{
   z-index: 25;
+  font-size: 16px;
   &:hover{
     .side-second-menu-wrap{
       left: 25px;
@@ -134,18 +164,54 @@
     margin-left: 65px;
     width: calc(100% - 65px);
   }
-  .inner-menu-wrap ul {
-    width: 70px;
-    overflow: hidden;
-  }
   .side-second-menu-wrap{
     left: 15px;
+    &.open{
+      left: 300px;
+      width: 350px;
+    }
   }
   .side-menu-wrap {
     width: 65px;
+    &.open{
+      width: 300px;
+      ul{
+        width: 300px;
+      }
+      li a .hint{
+        width: 300px;
+        background-color: transparent;
+        height: 100%;
+        &:after{
+          display: none;
+        }
+        span{
+          margin-left: 5px  ;
+        }
+      }
+    }
   }
-  .inner-menu-wrap img {
-    margin-left: 8px;
+  .side-second-menu-wrap.open{
+    width: 350px;
+    ul{
+      width: 350px;
+    }
+  }
+  .inner-menu-wrap{
+    .d-xl-none {
+      display: block!important;
+    }
+    img {
+      margin-left: 8px;
+    }
+    ul {
+      width: 70px;
+      overflow: hidden;
+    }
+    &:hover ul{
+      width: 300px;
+      transition: 0.5s;
+    }
   }
   .search-wrap img {
     margin-left: 23px;
@@ -153,13 +219,14 @@
   }
   .inner-menu-wrap ul li a {
     width: 65px;
+    height: 53px;
   }
   .breadcrumb {
     background-color: transparent;
     font-size: 12px;
     margin-left: 35px;
   }
-  .side-logo-wrap .logo, .search-wrap input, .inner-menu-wrap li span {
+  .side-logo-wrap .logo, .search-wrap input, .inner-menu-wrap li a>span {
     display: none !important;
   }
 }
