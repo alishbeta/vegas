@@ -10,23 +10,43 @@ $(document).ready(function () {
         $('html, body').animate({scrollTop: $('head').position().top}, 2000);
     });
 
+    if ($('.wrap').hasClass('product')){
+        var navbar =  $('.opt-wrap');
+        var wrapper = $('.product-content-wrap');
+        $(window).on('scroll',function(){
+            var nsc = $(document).scrollTop();
+            var bp1 = wrapper.offset().top;
+            var bp2 = bp1 + wrapper.outerHeight() - navbar.height();
+            var navbPos = navbar.offset().top;
 
-    var navbar =  $('.opt-wrap');  // navigation block
-    var wrapper = $('.product-content-wrap');        // may be: navbar.parent();
+            if (nsc>bp1) {  navbar.addClass('fix-on'); }
+            else {navbar.removeClass('fix-on');  }
+            if (nsc>bp2) { navbar.removeClass('fix-on'); }
 
-    $(window).on('scroll',function(){
-        var nsc = $(document).scrollTop();
-        var bp1 = wrapper.offset().top;
-        var bp2 = bp1 + wrapper.outerHeight() - navbar.height();
-        var navbPos = navbar.offset().top;
+        });
+    }
 
-        if (nsc>bp1) {  navbar.addClass('fix-on'); }
-        else {navbar.removeClass('fix-on');  }
-        if (nsc>bp2) { navbar.removeClass('fix-on'); }
 
+    $('.side-menu-wrap ul li').on('click',function () {
+        var color = rgb2hex($(this).css("background-color"));
+        $('.side-second-menu-wrap').css("background-color", color)
+        $('.side-second-menu-wrap').addClass('open');
+        $('.side-menu-wrap').addClass('open');
+        var data = $(this);
+        $('.side-second-menu-wrap .sub-menu').fadeOut(function () {
+            $(this).html("<ul> " +data.find("ul.sub-menu").html() + "</ul>").fadeIn();
+        });
+        $('.side-second-menu-wrap .title').fadeOut(function () {
+            $(this).html(data.find("a .hint").text()).fadeIn();
+        });
     });
-    $('.side-second-menu-wrap').on('click',function () {
 
+
+    $('.side-second-menu-wrap .close-i').on('click', function () {
+        $('.side-second-menu-wrap').removeClass('open');
+        $('.side-menu-wrap').removeClass('open');
+        $('.side-second-menu-wrap .sub-menu').html("");
+        $('.side-second-menu-wrap .title').html("");
     });
     /*range slider*/
     $('.f-slider').each(function () {
@@ -51,6 +71,7 @@ $(document).ready(function () {
         $('.prod-wrap').toggleClass('short');
 
     });
+
     $('.slider').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -71,5 +92,17 @@ $(document).ready(function () {
         nextArrow:'<div class="next-arrow"></div>',
     });
 });
+//Function to convert rgb color to hex format
+var hexDigits = new Array
+("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
+
+function rgb2hex(rgb) {
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+function hex(x) {
+    return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+}
 
 
