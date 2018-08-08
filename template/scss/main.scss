@@ -362,18 +362,6 @@ footer a {
   }
 }
 
-nav.breadcrumb-wrap {
-  padding-top: 100px;
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-  content: ">";
-}
-
-nav.breadcrumb-wrap a:hover {
-  text-decoration: underline;
-}
-
 .filters-wrap {
   background-color: #bfdce6;
   .f1 {
@@ -873,6 +861,9 @@ html .ui-button.ui-state-disabled {
   -moz-box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.33);
   -webkit-box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.33);
   box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.33); }
+
+@import "cart";
+
 
 @media (max-width: 1199px) {
   .side-menu-wrap {

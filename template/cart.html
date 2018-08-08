@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/slick.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.css"/>
+    <title></title>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="/js/init.js" crossorigin="anonymous"></script>
+    <!--[if lt IE 9]>
+    <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('section');
+        document.createElement('article');
+        document.createElement('aside');
+        document.createElement('footer');
+    </script>
+    <![endif]-->
+</head>
+<body>
+<div class="wrap cart">
+    <div class="top-wraper d-none d-md-block" style="display: none;">
+        <a onclick="return false;" href="#"><i class="top"></i></a>
+    </div>
+    <div class="content content-main-wrap">
+        <div class="header-wrap">
+            <div class="phone-wrap d-none d-md-inline-block">
+                <div class="phone-title text-light-c">Бесплатная линия</div>
+                <div class="phone">0 800 604 597</div>
+            </div>
+            <div class="shedule-wrapp d-none d-md-inline-block">
+                <div class="text-light-c">09:00-20:00 (будние)</div>
+                <div class="text-light-c">10:00-18:00 (выходные)</div>
+            </div>
+            <button type="button" class="btn btn-sm btn-blue d-none d-md-inline-block">Обратный звонок</button>
+            <ul class="head-menu d-none d-md-inline-block">
+                <li><a class="d-none d-lg-inline" href="#">О нас</a></li>
+                <li><a class="d-none d-xl-inline" href="#">Магазины</a></li>
+                <li><a href="#">Доставка и оплата</a></li>
+            </ul>
+            <div class="icons-wrap">
+                <div class="lang-swich-wrap d-none d-md-block">
+                    <span><a href="#">UA</a></span>
+                    <span><a class="active" href="#">RU</a></span>
+                </div>
+                <i class="favorit close"></i>
+                <i class="favorit hanburger d-md-none"></i>
+                <img class="d-md-none" src="/img/logo.png" alt="logo.png">
+                <i class="favorit shopping_bag_icon"><span>0</span></i>
+                <i class="favorit favorite_i"><span>1</span></i>
+                <i class="favorit call-from-site d-md-none"></i>
+                <i class="favorit compare_icon d-none d-md-inline-block"></i>
+                <i class="favorit user_icon d-none d-md-inline-block"></i>
+            </div>
+        </div>
+
+        <nav class="breadcrumb-wrap" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Матрасы</li>
+            </ol>
+        </nav>
+
+        <div class="cart-wrap">
+            <div class="title">Оформление заказа</div>
+            <div class="row">
+                <div class="col-sm-10 col-md-8 offset-md-1 offset-xl-1 col-xl-6">
+                    <div class="tabs-wraper">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                   aria-controls="home" aria-selected="true">Новый покупатель</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                   aria-controls="profile" aria-selected="false">Постоянный клиент</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                 aria-labelledby="home-tab">
+
+                                <form class="text-right" action="">
+                                    <div class="title">Заполните информацию о себе</div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-sm-4" for="i1">Имя и фамилия</label>
+                                        <input id="i1" type="text" class="form-control col-sm-8">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-sm-4" for="i2">Номер теелфона</label>
+                                        <input id="i2" type="text" class="form-control col-sm-8">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-sm-4" for="i3">E-mail</label>
+                                        <input id="i3" type="text" class="form-control col-sm-8">
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    <div class="title">Выберитеспособ доставки</div>
+                                    <div class="form-inline row">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="radio" type="radio" id="r1" checked>
+                                            <label class="col-form-label" for="r1">Самовывоз</label>
+                                        </div>
+                                        <div class="form-check  form-check-inline">
+                                            <input class="form-check-input" name="radio" type="radio" id="r2" >
+                                            <label class="col-form-label" for="r2">Наша служба доставки</label>
+                                        </div>
+                                        <div class="form-check  form-check-inline">
+                                            <input class="form-check-input" name="radio" type="radio" id="r2" >
+                                            <label class="col-form-label" for="r3">Новая почта</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-sm-4" for="">Город доставки</label>
+                                        <input type="text" class="form-control col-sm-8">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-sm-4" for="">Улица</label>
+                                        <input type="text" class="form-control col-sm-8">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-sm-4" for="">Дом</label>
+                                        <input type="text" class="form-control col-sm-2">
+                                        <label class="col-form-label col-sm-4" for="">Квартира</label>
+                                        <input type="text" class="form-control col-sm-2">
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    <div class="title">Выберите способ доставки</div>
+                                    <div class="form-inline row">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="money" type="radio" id="r4" checked>
+                                            <label class="col-form-label" for="r4">Наличными при оплаты</label>
+                                        </div>
+                                        <div class="form-check  form-check-inline">
+                                            <input class="form-check-input" name="money" type="radio" id="r5" >
+                                            <label class="col-form-label" for="r5">Visa/MasterCard</label>
+                                        </div>
+                                        <div class="form-check  form-check-inline">
+                                            <input class="form-check-input" name="money" type="radio" id="r6" >
+                                            <label class="col-form-label" for="r6">Приват24</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-inline row">
+                                        <input class="form-check-inline" type="checkbox">
+                                        <label class="col-form-label" for="r6">Оплата бонусами</label>
+                                        <button class="btn btn-link">Подробнее</button>
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    <div class="title">Коментарий к заказу</div>
+                                    <div class="form-group row text-left">
+                                        <textarea class="form-control col-sm-8" rows="4"></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <button class="btn btn-blue pl-5 pr-5">Подтверждаю заказ</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                ...
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer>
+        <div class="footer-wrap">
+            <div class="row">
+                <div class="col-lg-3 d-none d-md-block">
+                    <img src="/img/logo.png" alt="logo">
+                    <div class="phone-footer-wrap">
+                        <div class="text">09:00-20:00 (будни)</div>
+                        <div class="text">10:00-18:00 (выходные)</div>
+                        <div class="phone">0 800 604 597</div>
+                        <div class="text">Бесплатная линия</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 socials d-none d-md-block">
+                    <h6 class="title">Мы в соцсетях</h6>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">YouTube</a></li>
+                    </ul>
+                    <h6>Обратный звонок</h6>
+                </div>
+                <div class="col-lg-3 pay d-none d-md-block">
+                    <h6 class="title">Способы оплаты</h6>
+                    <ul>
+                        <li><a href="#">Приват 24</a></li>
+                        <li><a href="#">Viza</a></li>
+                        <li><a href="#">Mastercard</a></li>
+                        <li><a href="#">LiqPay</a></li>
+                    </ul>
+                    <h6 class="title">Отзывы о нас</h6>
+                </div>
+                <div class="col-lg-3 other">
+                    <ul>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">О компании</a></li>
+                        <li><a href="#">Сертификаты</a></li>
+                        <li><a href="#">Контакты</a></li>
+                        <li><a href="#">Статьи</a></li>
+                        <li><a href="#">Условия гарантии</a></li>
+                        <li><a href="#">Правила эксплкатации</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center cop">2018 ООО "Вегас Украина"</div>
+    </footer>
+</div>
+
+</body>
+</html>
