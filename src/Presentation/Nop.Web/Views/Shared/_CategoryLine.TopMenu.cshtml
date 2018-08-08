@@ -1,4 +1,6 @@
-﻿@model TopMenuModel.CategoryLineModel
+﻿@{
+    /*
+@model TopMenuModel.CategoryLineModel
 <li>
     <a href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })">@Model.Category.Name
     @if (Model.Category.NumberOfProducts.HasValue)
@@ -32,6 +34,57 @@
                         ResponsiveMobileMenu = Model.ResponsiveMobileMenu
                     };
                     @await Html.PartialAsync("_CategoryLine.TopMenu", categoryLineModel)
+                }
+            </ul>
+        }
+    }
+</li>
+*/
+}
+
+@model TopMenuModel.CategoryLineModel
+<li>
+    <a onclick="return false;" href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })">
+        @if (Model.Category.Name == "Матрасы")
+        {
+            <img class="side-icons" src="/img/on-mattress_icon.svg" alt="@Model.Category.Name">
+        }
+        @if (Model.Category.Name == "Наматрасники")
+        {
+            <img class="side-icons" src="/img/matress_icon.svg" alt="@Model.Category.Name">
+        }
+        @if (Model.Category.Name == "Кровати")
+        {
+            <img class="side-icons" src="/img/bed_icon.svg" alt="@Model.Category.Name">
+        }
+        @if (Model.Category.Name == "Тумбы и комоды")
+        {
+            <img class="side-icons" src="/img/tumba_icon.svg" alt="@Model.Category.Name">
+        }
+        @if (Model.Category.Name == "Подушки")
+        {
+            <img class="side-icons" src="/img/pillow_icon.svg" alt="@Model.Category.Name">
+        }
+        @if (Model.Category.Name == "Аксессуары для сна")
+        {
+            <img class="side-icons" src="/img/accessorize_icon.svg" alt="@Model.Category.Name">
+        }
+        <span class="d-inline d-sm-inline d-md-none d-xl-inline">@Model.Category.Name</span>
+        <div class="hint d-xl-none"><span>@Model.Category.Name</span></div>
+    </a>
+    @{
+        //subcategories
+        var subCategories = Model.ResponsiveMobileMenu ?
+            //responsive (all categories)
+            Model.Category.SubCategories :
+            //standard design (only categories with "IncludeInTopMenu")
+            Model.Category.SubCategories.Where(x => x.IncludeInTopMenu).ToList();
+        if (subCategories.Count > 0)
+        {
+            <ul class="d-none sub-menu">
+                @foreach (var subCategory in subCategories)
+                {
+                    <li><a href="@Url.RouteUrl("Category", new { SeName = subCategory.Name })">@subCategory.Name</a></li>
                 }
             </ul>
         }
