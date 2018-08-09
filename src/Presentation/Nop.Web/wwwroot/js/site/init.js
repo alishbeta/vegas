@@ -74,8 +74,17 @@ $(document).ready(function () {
 
     /*#####################    Корзина   ###############################*/
     $('.cart .minus').on('click', function () {
-        console.log($(this + '.count').html());
-    })
+        var count = +$(this).next().html();
+        if (count > 1){
+            $(this).next().html(count -= 1);
+            $(this).next().next().val(count -= 1);
+        }
+    });
+    $('.cart .plus').on('click', function () {
+        var count = +$(this).prev().prev().html();
+            $(this).prev().prev().html(count += 1);
+            $(this).prev().val(count -= 1);
+    });
 });
 //Function to convert rgb color to hex format
 var hexDigits = new Array
