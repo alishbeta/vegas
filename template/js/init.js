@@ -72,24 +72,18 @@ $(document).ready(function () {
 
     });
 
-    $('.slider').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        fade: true,
-        asNavFor: '.slider-nav'
+    /*#####################    Корзина   ###############################*/
+    $('.cart .minus').on('click', function () {
+        var count = +$(this).next().html();
+        if (count > 1){
+            $(this).next().html(count -= 1);
+            $(this).next().next().val(count -= 1);
+        }
     });
-    $('.slider-nav').slick({
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        asNavFor: '.slider',
-        dots: false,
-        centerMode: false,
-        focusOnSelect: true,
-        vertical:true,
-        verticalSwiping:true,
-        prevArrow:'<div class="prev-arrow"></div>',
-        nextArrow:'<div class="next-arrow"></div>',
+    $('.cart .plus').on('click', function () {
+        var count = +$(this).prev().prev().html();
+            $(this).prev().prev().html(count += 1);
+            $(this).prev().val(count -= 1);
     });
 });
 //Function to convert rgb color to hex format
