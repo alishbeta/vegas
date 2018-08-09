@@ -1,4 +1,6 @@
-﻿@model ProductOverviewModel
+﻿@{
+    /*
+@model ProductOverviewModel
 @using Nop.Core
 @using Nop.Core.Domain.Catalog
 @using Nop.Core.Domain.Orders
@@ -43,7 +45,7 @@
             var ratingPercent = 0;
             if (Model.ReviewOverviewModel.TotalReviews != 0)
             {
-                ratingPercent = ((Model.ReviewOverviewModel.RatingSum*100)/Model.ReviewOverviewModel.TotalReviews)/5;
+                ratingPercent = ((Model.ReviewOverviewModel.RatingSum * 100) / Model.ReviewOverviewModel.TotalReviews) / 5;
             }
             <div class="product-rating-box" title="@string.Format(T("Reviews.TotalReviews").Text, Model.ReviewOverviewModel.TotalReviews)">
                 <div class="rating">
@@ -113,5 +115,89 @@
             </div>
             @await Component.InvokeAsync("Widget", new { widgetZone = "productbox_addinfo_after", additionalData = Model.Id })
         </div>
+    </div>
+</div>
+*/
+}
+@model ProductOverviewModel
+@using Nop.Core
+@using Nop.Core.Domain.Catalog
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@inject CatalogSettings catalogSettings
+@inject IWorkContext workContext
+@{
+    //prepare "Add to cart" AJAX link
+    var addtocartlink = "";
+    var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+    var quantity = 1;
+    if (Model.ProductPrice.ForceRedirectionAfterAddingToCart)
+    {
+        addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity, forceredirection = Model.ProductPrice.ForceRedirectionAfterAddingToCart });
+    }
+    else
+    {
+        addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
+    }
+
+    var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
+    var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
+}
+<div class="outer-wrapp float-left">
+    <div class="item-wrap">
+        <div class="product-img-wrap">
+            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+            <div class="discount">-20%</div>
+        </div>
+        <div class="main-prop-wrap text-left">
+            <div class="product-name text-light-c">@Model.Name</div>
+            <div class="product-prop">@Model.SeName</div>
+            <div class="price-titile">Цена</div>
+            <div class="price-wrap clearfix">
+                @if (!string.IsNullOrEmpty(Model.ProductPrice.OldPrice))
+                {
+                    <div class="price-old">@Model.ProductPrice.OldPrice</div>
+                }
+                <div class="price-new">@Model.ProductPrice.Price</div>
+            </div>
+        </div>
+    </div>
+    <div class="item-wrap-full">
+        <i class="favorite_i float-left"></i>
+        <i class="compare_icon float-right"></i>
+        <div class="product-img-wrap">
+            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+            <div class="discount">-20%</div>
+        </div>
+        <div class="main-prop-wrap text-left">
+            <div class="product-name text-light-c">@Model.Name</div>
+            <div class="product-prop">@Model.SeName</div>
+            <div class="price-titile">Цена</div>
+            <div class="price-wrap clearfix">
+                @if (!string.IsNullOrEmpty(Model.ProductPrice.OldPrice))
+                {
+                    <div class="price-old">@Model.ProductPrice.OldPrice</div>
+                }
+            </div>
+        </div>
+        <div class="sizes-wrap clearfix">
+            <div class="title">Размеры</div>
+            <div class="inner-wrap">
+                <div class="block float-left">
+                    <div class="title">Ширина</div>
+                    <div class="value">80 см</div>
+                </div>
+                <div class="block float-left">
+                    <div class="title">Длина</div>
+                    <div class="value">190 см</div>
+                </div>
+                <div class="block float-left">
+                    <div class="title">Высота</div>
+                    <div class="value">22 см</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center"></div>
+        <button type="button" class="btn btn-sm btn-blue btn-block">Купить</button>
     </div>
 </div>
