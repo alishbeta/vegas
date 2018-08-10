@@ -1,4 +1,4 @@
-html, body{
+html, body, .wrap, .r-wrap{
   height: 100%;
 }
 body {
@@ -18,6 +18,14 @@ body {
 }
 header, nav, section, article, aside, footer {
   display: block;
+}
+.r-wrap{
+margin-left: 300px;
+}
+.short-menu{
+  .r-wrap{
+    margin-left: 70px;
+  }
 }
 input {
   &::-webkit-input-placeholder, &::-moz-placeholder, &:-moz-placeholder, &:-ms-input-placeholder {
@@ -49,6 +57,11 @@ a {
     color: $link_color_hover;
     text-decoration: none;
   }
+}
+.h1, h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 30px;
 }
 .h3, h3 {
   font-size: 1.50rem;

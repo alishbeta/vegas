@@ -1,0 +1,52 @@
+.check-blue{
+  input{
+    display: none;
+    + label {
+      position: relative;
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      border: 3px solid white;
+      @include border-radius(15px);
+      margin-left: 10px;
+      vertical-align: text-top;
+      &:after {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border: 1px solid $text_light;
+        -moz-border-radius: 15px;
+        -webkit-border-radius: 15px;
+        border-radius: 15px;
+        top: -5px;
+        left: -5px;
+      }
+      + label {
+        margin-left: 8px;
+      }
+    }
+    &:checked + label {
+      background-color: $bluish;
+      + label{
+        color: $bluish;
+      }
+      &:after {
+        border: 1px solid $bluish;
+      }
+    }
+  }
+}
+
+i{
+  width: 15px;
+  height: 15px;
+  &.close-i {
+    -webkit-mask-image: url(/img/close.svg);
+    mask-image: url(/img/close.svg);
+    background-color: black;
+    margin: 25px 29px 10px 5px;
+  }
+}
