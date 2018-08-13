@@ -10,8 +10,8 @@
     box-sizing: border-box;
     min-height: 100%;
     padding-bottom: 250px;
-    width: 100%;
-    margin-left: 0;
+    width: calc(100% + 4px);
+    margin-left: -4px;
   }
 
   .optc-wrap{

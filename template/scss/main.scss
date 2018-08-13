@@ -121,17 +121,6 @@
   position: relative;
 }
 
-.discount {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background-color: #ff9b35;
-  border-radius: 30px;
-  line-height: 3.5;
-  color: white;
-  text-align: center;
-}
-
 .item-wrap .product-img-wrap .discount {
   bottom: 15px;
   right: 15px;
@@ -865,6 +854,7 @@ html .ui-button.ui-state-disabled {
 
 @import "cart";
 @import "compare";
+@import "sales";
 
 
 @media (max-width: 1199px) {

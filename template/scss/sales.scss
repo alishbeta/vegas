@@ -1,0 +1,48 @@
+.sales{
+  .content {
+    box-sizing: border-box;
+    min-height: 100%;
+    width: calc(100% + 4px);
+    margin-left: -4px;
+  }
+  [class*='col'] {
+    padding: 0 0px;
+  }
+  .item{
+    width: 330px;
+    float: left;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    border: 1px solid $border_color;
+  }
+  .img-wrap{
+    position: relative;
+    img{
+      width: 100%;
+    }
+  }
+  .discount{
+    width: 75px;
+    height: 75px;
+    @include border-radius(45px);
+    font-size: 24px;
+    line-height: 3.1;
+    top: 120px;
+    left: 40px;
+  }
+  .text{
+    padding: 20px;
+  }
+  .item-footer{
+    padding: 0 20px 30px;
+    div{
+      display: inline-block;
+      vertical-align: -10px;
+    }
+    button{
+      display: inline-block;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+}

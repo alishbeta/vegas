@@ -45,6 +45,18 @@ i {
     background-color: black;
     margin: 25px 29px 10px 5px; }
 
+.discount {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #ff9b35;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+  line-height: 3.5;
+  color: white;
+  text-align: center; }
+
 html, body, .wrap, .r-wrap {
   height: 100%; }
 
@@ -556,16 +568,6 @@ nav.breadcrumb-wrap {
 
 .item-wrap .product-img-wrap {
   position: relative; }
-
-.discount {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background-color: #ff9b35;
-  border-radius: 30px;
-  line-height: 3.5;
-  color: white;
-  text-align: center; }
 
 .item-wrap .product-img-wrap .discount {
   bottom: 15px;
@@ -1313,8 +1315,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   box-sizing: border-box;
   min-height: 100%;
   padding-bottom: 250px;
-  width: 100%;
-  margin-left: 0; }
+  width: calc(100% + 4px);
+  margin-left: -4px; }
 .compare .optc-wrap {
   position: relative;
   width: 255px;
@@ -1369,6 +1371,45 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
         position: absolute; }
 .compare .compare-wrap {
   margin-bottom: 100px; }
+
+.sales .content {
+  box-sizing: border-box;
+  min-height: 100%;
+  width: calc(100% + 4px);
+  margin-left: -4px; }
+.sales [class*='col'] {
+  padding: 0 0px; }
+.sales .item {
+  width: 330px;
+  float: left;
+  margin-left: 30px;
+  margin-bottom: 30px;
+  border: 1px solid #cdd2d4; }
+.sales .img-wrap {
+  position: relative; }
+  .sales .img-wrap img {
+    width: 100%; }
+.sales .discount {
+  width: 75px;
+  height: 75px;
+  -moz-border-radius: 45px;
+  -webkit-border-radius: 45px;
+  border-radius: 45px;
+  font-size: 24px;
+  line-height: 3.1;
+  top: 120px;
+  left: 40px; }
+.sales .text {
+  padding: 20px; }
+.sales .item-footer {
+  padding: 0 20px 30px; }
+  .sales .item-footer div {
+    display: inline-block;
+    vertical-align: -10px; }
+  .sales .item-footer button {
+    display: inline-block;
+    padding-left: 40px;
+    padding-right: 40px; }
 
 @media (max-width: 1199px) {
   .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
