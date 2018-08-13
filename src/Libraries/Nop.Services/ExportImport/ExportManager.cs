@@ -657,18 +657,26 @@ namespace Nop.Services.ExportImport
 
         public virtual IEnumerable<OneCOrder> ExportOrdersToOneC()
         {
-            return _orderService.GetNotSyncOrders()
-                    .Select(o => new OneCOrder()
-                    {
-                        Price = o.OrderTotal,
-                        OrderNumber = o.Id,
-                        Discount = o.OrderDiscount,
-                        BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o.PaymentMethodSystemName).PaymentMethodDescription,
-                        DeliveryMethod = o.ShippingMethod,
-                        CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
-                        DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
-                        Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProductId = oi.ProductId, ProduxtSku = oi.Product.Sku })
-                    });
+            var orders = _orderService.GetNotSyncOrders();
+
+            foreach (var order in orders)
+            {
+                order.IsSync = true;
+                _orderService.UpdateOrder(order);
+            }
+
+            return orders
+                .Select(o => new OneCOrder()
+                {
+                    Price = o.OrderTotal,
+                    OrderNumber = o.Id,
+                    Discount = o.OrderDiscount,
+                    BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o.PaymentMethodSystemName).PaymentMethodDescription,
+                    DeliveryMethod = o.ShippingMethod,
+                    CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
+                    DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
+                    Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProductId = oi.ProductId, ProduxtSku = oi.Product.Sku })
+                });
         }
 
         /// <summary>
