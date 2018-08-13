@@ -100,18 +100,27 @@ a {
 }
 .content-main-wrap {
   position: relative;
-  margin-left: 318px;
-  width: calc(100% - 318px);
+  margin-left: 18px;
+  width: calc(100% - 18px);
   @include transition(0.1s);
   .header-wrap {
     background-color: rgba(255, 255, 255, 0.8);
     height: 75px;
     position: absolute;
     top: 0;
-    width: 100%;
+    width: calc(100% + 318px);
+    margin-left: -318px;
+    .side-logo-wrap{
+      float: left;
+      width: 318px;
+      position: fixed;
+      top: 10px;
+      left: 40px;
+      z-index: 30;
+    }
     .phone-wrap {
       display: inline-block;
-      margin: 13px 0 0 25px;
+      margin: 13px 0 0 328px;
     }
     .phone-title {
       font-size: 12px;
@@ -139,6 +148,23 @@ a {
     }
   }
 }
+.short-menu{
+  > .content-main-wrap {
+    .header-wrap {
+      width: calc(100% + 70px);
+      margin-left: -70px;
+      .side-logo-wrap{
+        position: relative;
+        left: 105px;
+        z-index: 0;
+      }
+    }
+    .phone-wrap {
+      margin: 13px 0 0 51px;
+    }
+  }
+}
+
 .icons-wrap {
   margin-right: 50px;
   .lang-swich-wrap {

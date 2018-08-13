@@ -41,8 +41,10 @@
 }
 
 i{
+  display: inline-block;
   width: 15px;
   height: 15px;
+  cursor: pointer;
   &.close-i {
     -webkit-mask-image: url(/img/close.svg);
     mask-image: url(/img/close.svg);
