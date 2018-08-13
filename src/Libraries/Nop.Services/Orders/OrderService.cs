@@ -54,6 +54,14 @@ namespace Nop.Services.Orders
 
         #region Orders
 
+        public virtual IList<Order> GetNotSyncOrders()
+        {
+            var query = from o in _orderRepository.Table
+                        where !o.Deleted && !o.IsSync
+                        select o;
+            return query.OrderBy(x => x.CreatedOnUtc).ToList();
+        }
+
         /// <summary>
         /// Gets an order
         /// </summary>

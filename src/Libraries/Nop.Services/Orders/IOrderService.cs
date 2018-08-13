@@ -12,6 +12,8 @@ namespace Nop.Services.Orders
     {
         #region Orders
 
+        IList<Order> GetNotSyncOrders();
+
         /// <summary>
         /// Gets an order
         /// </summary>

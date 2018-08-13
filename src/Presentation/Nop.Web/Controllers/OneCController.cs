@@ -9,6 +9,8 @@ using Nop.Services.Orders;
 using Nop.Web.Factories;
 using Nop.Web.Framework.Mvc.Filters;
 using Nop.Web.Models.OneC;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nop.Web.Controllers
 {
@@ -22,7 +24,7 @@ namespace Nop.Web.Controllers
         private readonly CustomerSettings _customerSettings;
         private readonly ICustomerActivityService _customerActivityService;
         private readonly IImportManager _importManager;
-        private readonly IOrderService _orderService;
+        private readonly IExportManager _exportManager;
 
         #endregion
 
@@ -35,7 +37,7 @@ namespace Nop.Web.Controllers
             CustomerSettings customerSettings,
             ICustomerActivityService customerActivityService,
             IImportManager importManager,
-            IOrderService orderService)
+            IExportManager exportManager)
         {
             this._localizationService = localizationService;
             this._customerService = customerService;
@@ -43,56 +45,29 @@ namespace Nop.Web.Controllers
             this._customerSettings = customerSettings;
             this._customerActivityService = customerActivityService;
             this._importManager = importManager;
-            this._orderService = orderService;
+            this._exportManager = exportManager;
         }
 
         #endregion
 
-        [HttpPost]
-        //available even when a store is closed
-        [CheckAccessClosedStore(true)]
-        //available even when navigation is not allowed
-        [CheckAccessPublicStore(true)]
-        public virtual JsonResult ImportProducts([FromBody]OneCProductsImport model)
+        public OneCResponse IsLogin(string userName, string email, string password)
         {
             var response = new OneCResponse
             {
                 Success = false
             };
 
-            if (_customerSettings.UsernamesEnabled && model.Username != null)
+            if (_customerSettings.UsernamesEnabled && userName != null)
             {
-                model.Username = model.Username.Trim();
+                userName = userName.Trim();
             }
 
-            var loginResult = _customerRegistrationService.ValidateCustomer(_customerSettings.UsernamesEnabled ? model.Username : model.Email, model.Password);
+            var loginResult = _customerRegistrationService.ValidateCustomer(_customerSettings.UsernamesEnabled ? userName : email, password);
             switch (loginResult)
             {
                 case CustomerLoginResults.Successful:
-                    {
-                        var customer = _customerSettings.UsernamesEnabled
-                            ? _customerService.GetCustomerByUsername(model.Username)
-                            : _customerService.GetCustomerByEmail(model.Email);
-
-                        //activity log
-                        _customerActivityService.InsertActivity(customer, "PublicStore.1C.ImportProducts.Login", "1C Importing products begin.");
-
-                        if (model.Products != null)
-                        {
-                            //import product
-                            var result = _importManager.ImportProductsFromOneC(model.Products);
-                            response.Success = result.Item1;
-                            response.Message = result.Item2;
-                        }
-                        else
-                        {
-                            response.Message = "Products is null.";
-                        }
-
-                        //activiti log
-                        _customerActivityService.InsertActivity(customer, "PublicStore.1C.ImportProducts.LogOut", "1C Importing products end.");
-                        break;
-                    }
+                    response.Success = true;
+                    break;
                 case CustomerLoginResults.CustomerNotExist:
                     response.Message = _localizationService.GetResource("Account.Login.WrongCredentials.CustomerNotExist");
                     break;
@@ -113,6 +88,43 @@ namespace Nop.Web.Controllers
                     response.Message = _localizationService.GetResource("Account.Login.WrongCredentials");
                     break;
             }
+
+            return response;
+        }
+
+        [HttpPost]
+        //available even when a store is closed
+        [CheckAccessClosedStore(true)]
+        //available even when navigation is not allowed
+        [CheckAccessPublicStore(true)]
+        public virtual JsonResult ImportProducts([FromBody]OneCProductsImport model)
+        {
+            var response = IsLogin(model?.Username, model?.Email, model?.Password);
+            if (response.Success)
+            {
+                var customer = _customerSettings.UsernamesEnabled
+                    ? _customerService.GetCustomerByUsername(model.Username)
+                    : _customerService.GetCustomerByEmail(model.Email);
+
+                //activity log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ImportProducts.Login", "1C Importing products begin.");
+
+                if (model.Products != null)
+                {
+                    //import product
+                    var result = _importManager.ImportProductsFromOneC(model.Products);
+                    response.Success = result.Item1;
+                    response.Message = result.Item2;
+                }
+                else
+                {
+                    response.Message = "Products is null.";
+                    response.Success = false;
+                }
+
+                //activiti log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ImportProducts.LogOut", "1C Importing products end.");
+            }
             return Json(response);
         }
 
@@ -121,10 +133,34 @@ namespace Nop.Web.Controllers
         [CheckAccessClosedStore(true)]
         //available even when navigation is not allowed
         [CheckAccessPublicStore(true)]
-        public virtual JsonResult ExportOrders([FromBody]OneCProductsImport model)
+        public virtual JsonResult ExportOrders([FromBody]OneCAuth model)
         {
-            //_orderService
-            return Json(null);
+            var response = IsLogin(model?.Username, model?.Email, model?.Password);
+            if (response.Success)
+            {
+                var customer = _customerSettings.UsernamesEnabled
+                    ? _customerService.GetCustomerByUsername(model.Username)
+                    : _customerService.GetCustomerByEmail(model.Email);
+
+                //activity log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportOrders.Login", "1C Exporting orders begin.");
+
+                var orders = _exportManager.ExportOrdersToOneC();
+
+                if (orders.Count() > 0)
+                {
+                    response.Data = orders;
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Does not have any order.";
+                }
+
+                //activiti log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportOrders.LogOut", "1C Exporting orders end.");
+            }
+            return Json(response);
         }
 
         [HttpPost]

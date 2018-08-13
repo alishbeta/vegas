@@ -287,6 +287,8 @@ namespace Nop.Core.Domain.Orders
         /// </summary>
         public bool Deleted { get; set; }
 
+        public bool IsSync { get; set; }
+
         /// <summary>
         /// Gets or sets the date and time of order creation
         /// </summary>
