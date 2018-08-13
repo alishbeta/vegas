@@ -35,6 +35,7 @@
       border: 1px solid #2c96b9; }
 
 i {
+  position: relative;
   display: inline-block;
   width: 15px;
   height: 15px;
@@ -43,7 +44,15 @@ i {
     -webkit-mask-image: url(/img/close.svg);
     mask-image: url(/img/close.svg);
     background-color: black;
-    margin: 25px 29px 10px 5px; }
+    margin: 24px 0px 10px 5px; }
+  i.compare_icon {
+    background: url("/img/compare_icon.svg") no-repeat center; }
+  i.user_icon {
+    background: url("/img/user_icon.svg") no-repeat center; }
+  i span {
+    position: absolute;
+    top: 5px;
+    left: 11px; }
 
 .discount {
   position: absolute;
@@ -254,12 +263,6 @@ a {
   position: absolute;
   top: 10px;
   left: 12px; }
-
-.compare_icon {
-  background: url("/img/compare_icon.svg") no-repeat center; }
-
-.user_icon {
-  background: url("/img/user_icon.svg") no-repeat center; }
 
 .delivery {
   -webkit-mask-image: url(/img/delivery.svg);
@@ -1410,6 +1413,44 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     display: inline-block;
     padding-left: 40px;
     padding-right: 40px; }
+
+.favorite .content {
+  box-sizing: border-box;
+  min-height: 100%;
+  width: calc(100% + 4px);
+  margin-left: -4px; }
+.favorite [class*='col'] {
+  padding: 0 0px; }
+.favorite .favorite-wrap {
+  margin-bottom: 30px; }
+.favorite .item-wrap {
+  position: relative;
+  float: left;
+  border: 1px solid #cdd2d4;
+  margin: 0 20px 30px; }
+.favorite .product-img-wrap div:first-child {
+  width: 100%;
+  position: absolute; }
+.favorite h1 .favorite_i {
+  width: 30px;
+  height: 30px; }
+  .favorite h1 .favorite_i:hover {
+    background-color: transparent;
+    cursor: inherit; }
+.favorite h1 i {
+  vertical-align: middle;
+  margin-left: 10px; }
+  .favorite h1 i span {
+    top: 6px;
+    left: 10px;
+    font-size: 14px; }
+.favorite .compare_icon {
+  width: 22px;
+  height: 22px;
+  float: left;
+  margin: 19px 0px; }
+.favorite .close-i {
+  float: right; }
 
 @media (max-width: 1199px) {
   .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {

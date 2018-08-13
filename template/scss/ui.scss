@@ -41,6 +41,7 @@
 }
 
 i{
+  position: relative;
   display: inline-block;
   width: 15px;
   height: 15px;
@@ -49,7 +50,18 @@ i{
     -webkit-mask-image: url(/img/close.svg);
     mask-image: url(/img/close.svg);
     background-color: black;
-    margin: 25px 29px 10px 5px;
+    margin: 24px 0px 10px 5px;
+  }
+  &.compare_icon {
+    background: url("/img/compare_icon.svg") no-repeat center;
+  }
+  &.user_icon {
+    background: url("/img/user_icon.svg") no-repeat center;
+  }
+   span {
+    position: absolute;
+    top: 5px;
+    left: 11px;
   }
 }
 
