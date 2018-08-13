@@ -1452,6 +1452,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .favorite .close-i {
   float: right; }
 
+.seen-wrap .compare_icon {
+  float: right; }
+.seen-wrap .favorite_i {
+  width: 22px;
+  height: 22px;
+  margin: 19px 0px; }
+
 @media (max-width: 1199px) {
   .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
     width: 65px; }
