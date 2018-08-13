@@ -21,6 +21,7 @@
     div:first-child{
       width: 100%;
       position: absolute;
+      opacity: 0.7;
     }
   }
   h1 {
@@ -43,13 +44,15 @@
     }
 
   }
-  .compare_icon{
-    width: 22px;
-    height: 22px;
-    float: left;
-    margin: 19px 0px;
-
+  .favorite-wrap{
+    .compare_icon{
+      width: 22px;
+      height: 22px;
+      float: left;
+      margin: 19px 0px;
+    }
   }
+
   .close-i{
     float: right;
   }

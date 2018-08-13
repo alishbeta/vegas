@@ -29,11 +29,11 @@ $(document).ready(function () {
 
     $('.side-menu-wrap ul li').on('click',function () {
         var color = rgb2hex($(this).css("background-color"));
-        $('.side-second-menu-wrap').css("background-color", color)
         $('.side-second-menu-wrap').addClass('open');
         $('.side-menu-wrap').addClass('open');
         var data = $(this);
         $('.side-second-menu-wrap .sub-menu').fadeOut(function () {
+            $('.side-second-menu-wrap').css("background-color", color);
             $(this).html("<ul> " +data.find("ul.sub-menu").html() + "</ul>").fadeIn();
         });
         $('.side-second-menu-wrap .title').fadeOut(function () {
@@ -48,6 +48,7 @@ $(document).ready(function () {
         $('.side-second-menu-wrap .sub-menu').html("");
         $('.side-second-menu-wrap .title').html("");
     });
+
     /*range slider*/
     $('.f-slider').each(function () {
         var data = $(this).data()
@@ -85,6 +86,49 @@ $(document).ready(function () {
             $(this).prev().prev().html(count += 1);
             $(this).prev().val(count -= 1);
     });
+    /*#####################    Корзина  (Редактировать личных данных и адреса) ###############################*/
+    $('#edit-name, #edit-addres').on('click', function () {
+        var el = $(this).next().next().children();
+        var el2 = $(this).next().next().next().children();
+        $(this).fadeOut(function () {
+            $(this).next().fadeIn();
+        });
+        $(el[2]).fadeToggle(function () {
+            $(el[0]).fadeToggle();
+            $(el[1]).fadeToggle();
+        });
+        $(el[3]).fadeToggle();
+
+        $(el2[2]).fadeToggle(function () {
+            $(el2[0]).fadeToggle();
+            $(el2[1]).fadeToggle();
+        });
+        $(el2[3]).fadeToggle();
+
+        //$(this).next().$('label').fadeToggle();
+    });
+
+    $('#edit-name-close, #edit-addres-close').on('click', function () {
+        var el = $(this).next().children();
+        var el2 = $(this).next().next().children();
+        $(this).fadeOut(function () {
+            $(this).prev().fadeIn();
+        });
+        $(el[0]).fadeToggle(function () {
+            $(el[2]).fadeToggle();
+            $(el[3]).fadeToggle();
+        });
+        $(el[1]).fadeToggle()
+
+        $(el2[0]).fadeToggle(function () {
+            $(el2[2]).fadeToggle();
+            $(el2[3]).fadeToggle();
+        });
+        $(el2[1]).fadeToggle()
+
+        //$(this).next().$('label').fadeToggle();
+    });
+
 });
 //Function to convert rgb color to hex format
 var hexDigits = new Array

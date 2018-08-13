@@ -1,4 +1,7 @@
 .cart{
+  form{
+    width: 100%;
+  }
   label:hover, .form-check-input{
     cursor: pointer;
   }
@@ -17,17 +20,21 @@
   }
   .cart-wrap{
     .tabs-wraper{
-      .title{
-        font-size: 16px;
-        span{
+        .title{
           display: inline-block;
-          border: 1px solid $bluish;
-          padding: 5px 11px;
-          @include border-radius(18px);
-          font-size: 14px;
-          margin-right: 15px;
+          font-size: 16px;
+          margin-bottom: 20px;
+          span{
+            display: inline-block;
+            border: 1px solid $bluish;
+            padding: 5px 11px;
+            @include border-radius(18px);
+            font-size: 14px;
+            margin-right: 15px;
+          }
         }
-      }
+
+
       input[type="radio"]{
         display: none;
         + label{

@@ -200,14 +200,14 @@ a {
     .content-main-wrap .header-wrap .head-menu {
       font-size: 14px; }
 
-.short-menu > .content-main-wrap .header-wrap {
+.short-menu .content-main-wrap .header-wrap {
   width: calc(100% + 70px);
   margin-left: -70px; }
-  .short-menu > .content-main-wrap .header-wrap .side-logo-wrap {
+  .short-menu .content-main-wrap .header-wrap .side-logo-wrap {
     position: relative;
     left: 105px;
     z-index: 0; }
-.short-menu > .content-main-wrap .phone-wrap {
+.short-menu .content-main-wrap .phone-wrap {
   margin: 13px 0 0 51px; }
 
 .icons-wrap {
@@ -1176,6 +1176,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   -webkit-box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.33);
   box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.33); }
 
+.cart form {
+  width: 100%; }
 .cart label:hover, .cart .form-check-input {
   cursor: pointer; }
 .cart.wrap {
@@ -1189,7 +1191,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .cart nav.breadcrumb-wrap .breadcrumb {
   margin-left: 130px; }
 .cart .cart-wrap .tabs-wraper .title {
-  font-size: 16px; }
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 20px; }
   .cart .cart-wrap .tabs-wraper .title span {
     display: inline-block;
     border: 1px solid #2c96b9;
@@ -1430,7 +1434,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   margin: 0 20px 30px; }
 .favorite .product-img-wrap div:first-child {
   width: 100%;
-  position: absolute; }
+  position: absolute;
+  opacity: 0.7; }
 .favorite h1 .favorite_i {
   width: 30px;
   height: 30px; }
@@ -1444,7 +1449,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     top: 6px;
     left: 10px;
     font-size: 14px; }
-.favorite .compare_icon {
+.favorite .favorite-wrap .compare_icon {
   width: 22px;
   height: 22px;
   float: left;
@@ -1457,6 +1462,11 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .seen-wrap .favorite_i {
   width: 22px;
   height: 22px;
+  margin: 19px 0px; }
+.seen-wrap .compare_icon {
+  width: 22px;
+  height: 22px;
+  float: right;
   margin: 19px 0px; }
 
 @media (max-width: 1199px) {
