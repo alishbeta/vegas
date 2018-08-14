@@ -110,6 +110,7 @@ a {
     top: 0;
     width: calc(100% + 318px);
     margin-left: -318px;
+    z-index: 1;
     .side-logo-wrap{
       float: left;
       width: 318px;

@@ -87,3 +87,16 @@ i{
   opacity: 0.5;
   z-index: 1000;
 }
+
+i.arrows {
+  position: relative;
+  &:after{
+    position: absolute;
+    display: block;
+    content: '';
+    width: 25px;
+    height: 25px;
+    border-left: 2px solid $bluish ;
+    border-bottom: 2px solid $bluish ;
+  }
+}

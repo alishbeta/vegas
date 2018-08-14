@@ -7,11 +7,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/main.css" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/slick.css"/>
-
     <link rel="stylesheet" type="text/css" href="css/slick-theme.css"/>
+    <link rel="stylesheet" href="/css/main.css" crossorigin="anonymous">
     <title></title>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -21,6 +20,7 @@
             crossorigin="anonymous"></script>
     <script src="/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="/js/init.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/slick.min.js"></script>
     <!--[if lt IE 9]>
     <script>
         document.createElement('header');
@@ -93,20 +93,20 @@
         <div class="title">С этим товаром покупают</div>
         <a href="">
             <div class="item-wrap">
-            <div class="product-img-wrap">
-                <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                <div class="discount">-20%</div>
-            </div>
-            <div class="main-prop-wrap text-left">
-                <div class="product-name text-light-c">Матрас</div>
-                <div class="product-prop">M1 - 80*190</div>
-                <div class="price-titile">Цена</div>
-                <div class="price-wrap clearfix">
-                    <div class="price-old">18 843</div>
-                    <div class="price-new">110 306 грн</div>
+                <div class="product-img-wrap">
+                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                    <div class="discount">-20%</div>
+                </div>
+                <div class="main-prop-wrap text-left">
+                    <div class="product-name text-light-c">Матрас</div>
+                    <div class="product-prop">M1 - 80*190</div>
+                    <div class="price-titile">Цена</div>
+                    <div class="price-wrap clearfix">
+                        <div class="price-old">18 843</div>
+                        <div class="price-new">110 306 грн</div>
+                    </div>
                 </div>
             </div>
-        </div>
         </a>
         <a href="">
             <div class="item-wrap">
@@ -232,7 +232,7 @@
 <div class="wrap">
     <div class="r-wrap">
 
-        <div class="top-wraper d-none d-md-block" style="display: none;">
+        <div class="top-wraper" style="display: none;">
             <a onclick="return false;" href="#"><i class="top"></i></a>
         </div>
         <div class="all-menu-wrap">
@@ -375,23 +375,52 @@
                 </div>
             </div>
             <div class="main-baner-wrap">
-                <img src="/img/main-baner.jpg" alt="main-baner.jpg">
-                <div class="baner-info-wrap">
-                    <span>Скидка при покупке комплекта Кровать+Матрас!</span>
-                    <div class="discount"><span>-20%</span></div>
+                <div class="item">
+                    <a href=""><img src="/img/main-baner.jpg" alt="main-baner.jpg"></a>
+                    <div class="baner-info-wrap">
+                        <span>Скидка при покупке комплекта Кровать+Матрас!</span>
+                        <div class="discount"><span>-20%</span></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href=""><img src="/img/main-baner.jpg" alt="main-baner.jpg"></a>
+                    <div class="baner-info-wrap">
+                        <span>Скидка при покупке комплекта Кровать+Матрас!</span>
+                        <div class="discount"><span>-20%</span></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href=""><img src="/img/main-baner.jpg" alt="main-baner.jpg"></a>
+                    <div class="baner-info-wrap">
+                        <span>Скидка при покупке комплекта Кровать+Матрас!</span>
+                        <div class="discount"><span>-20%</span></div>
+                    </div>
                 </div>
             </div>
+            <script>
+                $('.main-baner-wrap').slick({
+                    dots: true,
+                    prevArrow: '<div class="baner-prev-arrow"></div>',
+                    nextArrow: '<div class="baner-next-arrow"></div>',
+                });
+            </script>
             <div class="big-links-wrap d-none d-md-block">
                 <div>
                     <a href="#"></a>
                     <img src="/img/banner1.png" alt="banner1">
+                    <div>Распродажа</div>
                 </div>
                 <div>
                     <a href="#"></a>
-                    <img src="/img/banner2.png" alt="banner2"></div>
+                    <img src="/img/banner2.png" alt="banner2">
+                    <div>Доставка</div>
+                </div>
                 <div>
                     <a href="#"></a>
-                    <img src="/img/banner3.png" alt="banner3"></div>
+                    <img src="/img/banner3.png" alt="banner3">
+                    <div>Салоны</div>
+                </div>
+
             </div>
             <!--***************Топ продаж***************-->
             <div class="sell-wrap pad-norm">

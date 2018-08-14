@@ -10,6 +10,7 @@ $(document).ready(function () {
         $('html, body').animate({scrollTop: $('head').position().top}, 2000);
     });
 
+
     if ($('.wrap').hasClass('product')){
         var navbar =  $('.opt-wrap');
         var wrapper = $('.product-content-wrap');
@@ -49,7 +50,7 @@ $(document).ready(function () {
         $('.side-second-menu-wrap .title').html("");
     });
 
-    /*range slider*/
+    /*#####################    Слайдер для фильтров   ###############################*/
     $('.f-slider').each(function () {
         var data = $(this).data()
         $("#slider-"+data.filterNumber +"-r").slider({
