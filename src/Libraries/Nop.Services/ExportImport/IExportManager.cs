@@ -3,6 +3,7 @@ using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Messages;
+using Nop.Core.Domain.OneC;
 using Nop.Core.Domain.Orders;
 
 namespace Nop.Services.ExportImport
@@ -12,6 +13,8 @@ namespace Nop.Services.ExportImport
     /// </summary>
     public partial interface IExportManager
     {
+        IEnumerable<OneCOrder> ExportOrdersToOneC();
+
         /// <summary>
         /// Export manufacturer list to XML
         /// </summary>

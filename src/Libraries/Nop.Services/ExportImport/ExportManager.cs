@@ -13,6 +13,7 @@ using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Forums;
 using Nop.Core.Domain.Gdpr;
 using Nop.Core.Domain.Messages;
+using Nop.Core.Domain.OneC;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Domain.Tax;
@@ -29,6 +30,7 @@ using Nop.Services.Localization;
 using Nop.Services.Media;
 using Nop.Services.Messages;
 using Nop.Services.Orders;
+using Nop.Services.Payments;
 using Nop.Services.Seo;
 using Nop.Services.Shipping.Date;
 using Nop.Services.Stores;
@@ -78,6 +80,7 @@ namespace Nop.Services.ExportImport
         private readonly IWorkContext _workContext;
         private readonly OrderSettings _orderSettings;
         private readonly ProductEditorSettings _productEditorSettings;
+        private readonly IPaymentService _paymentService;
 
         #endregion
 
@@ -115,7 +118,8 @@ namespace Nop.Services.ExportImport
             IVendorService vendorService,
             IWorkContext workContext,
             OrderSettings orderSettings,
-            ProductEditorSettings productEditorSettings)
+            ProductEditorSettings productEditorSettings,
+            IPaymentService paymentService)
         {
             this._addressSettings = addressSettings;
             this._catalogSettings = catalogSettings;
@@ -150,6 +154,7 @@ namespace Nop.Services.ExportImport
             this._workContext = workContext;
             this._orderSettings = orderSettings;
             this._productEditorSettings = productEditorSettings;
+            this._paymentService = paymentService;
         }
 
         #endregion
@@ -649,6 +654,30 @@ namespace Nop.Services.ExportImport
         #endregion
 
         #region Methods
+
+        public virtual IEnumerable<OneCOrder> ExportOrdersToOneC()
+        {
+            var orders = _orderService.GetNotSyncOrders();
+
+            foreach (var order in orders)
+            {
+                order.IsSync = true;
+                _orderService.UpdateOrder(order);
+            }
+
+            return orders
+                .Select(o => new OneCOrder()
+                {
+                    Price = o.OrderTotal,
+                    OrderNumber = o.Id,
+                    Discount = o.OrderDiscount,
+                    BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o.PaymentMethodSystemName).PaymentMethodDescription,
+                    DeliveryMethod = o.ShippingMethod,
+                    CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
+                    DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
+                    Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProductId = oi.ProductId, ProduxtSku = oi.Product.Sku })
+                });
+        }
 
         /// <summary>
         /// Export manufacturer list to XML
