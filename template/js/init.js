@@ -73,20 +73,36 @@ $(document).ready(function () {
 
     });
 
+
+
+
     /*#####################    Корзина   ###############################*/
-    $('.cart .minus').on('click', function () {
+    $('.cart .minus, .cart-popup-wrap .minus').on('click', function () {
         var count = +$(this).next().html();
         if (count > 1){
             $(this).next().html(count -= 1);
             $(this).next().next().val(count -= 1);
         }
     });
-    $('.cart .plus').on('click', function () {
+    $('.cart .plus, .cart-popup-wrap .plus').on('click', function () {
         var count = +$(this).prev().prev().html();
             $(this).prev().prev().html(count += 1);
             $(this).prev().val(count -= 1);
     });
-    /*#####################    Корзина  (Редактировать личных данных и адреса) ###############################*/
+
+    /*#####################    Корзина (Скрытие pop-up)   ###############################*/
+    $('.cart-popup-wrap .close-i, #pop-up-close, .back-shadow').on('click', function () {
+        $('.cart-popup-wrap').removeClass('open');
+        $('.back-shadow').fadeOut();
+    });
+
+    /*#####################    Корзина   (Отображение popup)###############################*/
+    $('.item-wrap-full button').on('click', function () {
+        $('.cart-popup-wrap').addClass('open');
+        $('.back-shadow').fadeIn();
+    });
+
+    /*#####################    Корзина  (Редактирование личных данных и адреса) ###############################*/
     $('#edit-name, #edit-addres').on('click', function () {
         var el = $(this).next().next().children();
         var el2 = $(this).next().next().next().children();
