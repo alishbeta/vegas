@@ -748,7 +748,8 @@ nav.breadcrumb-wrap {
 .subscription-wrap {
   background-color: #bfdce6;
   padding-top: 40px;
-  padding-bottom: 40px; }
+  padding-bottom: 40px;
+  margin: 0 -15px; }
   .subscription-wrap .inner-wrap {
     width: 900px;
     margin-right: auto;
@@ -1665,6 +1666,22 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
         padding: 5px 50px;
         font-size: 10px;
         font-weight: 600; }
+.news .news-full-wrap .img-wrap {
+  width: 920px;
+  min-height: 500px;
+  background-color: #d4d4d4;
+  border: 1px solid #cdd2d4;
+  margin-bottom: 30px; }
+  .news .news-full-wrap .img-wrap img {
+    width: 100%; }
+.news .text {
+  width: 920px; }
+.news .btn-wrap {
+  margin: 60px 0; }
+  .news .btn-wrap button:last-child {
+    float: right; }
+  .news .btn-wrap .btn-link {
+    font-size: 14px; }
 
 @media (max-width: 1199px) {
   .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
