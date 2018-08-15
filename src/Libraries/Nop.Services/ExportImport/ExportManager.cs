@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Microsoft.AspNetCore.WebUtilities;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Common;
@@ -22,6 +23,7 @@ using Nop.Services.Catalog;
 using Nop.Services.Common;
 using Nop.Services.Customers;
 using Nop.Services.Directory;
+using Nop.Services.Discounts;
 using Nop.Services.ExportImport.Help;
 using Nop.Services.Forums;
 using Nop.Services.Gdpr;
@@ -81,6 +83,7 @@ namespace Nop.Services.ExportImport
         private readonly OrderSettings _orderSettings;
         private readonly ProductEditorSettings _productEditorSettings;
         private readonly IPaymentService _paymentService;
+        private readonly IDiscountService _discountService;
 
         #endregion
 
@@ -119,7 +122,8 @@ namespace Nop.Services.ExportImport
             IWorkContext workContext,
             OrderSettings orderSettings,
             ProductEditorSettings productEditorSettings,
-            IPaymentService paymentService)
+            IPaymentService paymentService,
+            IDiscountService discountService)
         {
             this._addressSettings = addressSettings;
             this._catalogSettings = catalogSettings;
@@ -155,6 +159,7 @@ namespace Nop.Services.ExportImport
             this._orderSettings = orderSettings;
             this._productEditorSettings = productEditorSettings;
             this._paymentService = paymentService;
+            this._discountService = discountService;
         }
 
         #endregion
@@ -676,6 +681,34 @@ namespace Nop.Services.ExportImport
                     CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
                     DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
                     Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProductId = oi.ProductId, ProduxtSku = oi.Product.Sku })
+                });
+        }
+
+        public virtual IEnumerable<OneCDiscount> ExportDiscountsToOneC()
+        {
+            var discounts = _discountService.GetAllDiscounts();
+
+            foreach (var discount in discounts)
+            {
+                discount.IsSync = true;
+                _discountService.UpdateDiscount(discount);
+            }
+
+            return discounts
+                .Select(d => new OneCDiscount()
+                {
+                    Name = d.Name,
+                    DiscountType = d.DiscountType.ToString(),
+                    UsePercentage = d.UsePercentage,
+                    DiscountPercentage = d.DiscountPercentage,
+                    MaximumDiscountAmount = d.MaximumDiscountAmount,
+                    RequiresCouponCode = d.RequiresCouponCode,
+                    CouponCode = d.CouponCode,
+                    //DiscountUrl = QueryHelpers.AddQueryString(_webHelper.GetStoreLocation().TrimEnd('/'), NopDiscountDefaults.DiscountCouponQueryParameter, model.CouponCode),
+                    StartDateUtc = d.StartDateUtc,
+                    EndDateUtc = d.EndDateUtc,
+                    IsCumulative = d.IsCumulative,
+                    DiscountLimitation = d.DiscountLimitation.ToString()
                 });
         }
 
