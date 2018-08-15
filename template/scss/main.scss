@@ -893,7 +893,11 @@ html .ui-button.ui-state-disabled {
   transform: rotate(135deg); }
 
 .slider-nav .slick-list {
-  width: 145px; }
+  width: 145px;
+}
+.slider-wrap .slick-list {
+  cursor: move;
+}
 .slider-nav .slick-slide {
   border: 1px solid #e4e4e4;
   margin: 8px 0 8px 9px;
