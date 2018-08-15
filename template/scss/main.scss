@@ -1,4 +1,5 @@
 @import "compass/css3";
+@import "font";
 @import "var";
 @import "ui";
 @import "header";
@@ -893,11 +894,7 @@ html .ui-button.ui-state-disabled {
   transform: rotate(135deg); }
 
 .slider-nav .slick-list {
-  width: 145px;
-}
-.slider-wrap .slick-list {
-  cursor: move;
-}
+  width: 145px; }
 .slider-nav .slick-slide {
   border: 1px solid #e4e4e4;
   margin: 8px 0 8px 9px;
@@ -923,6 +920,7 @@ html .ui-button.ui-state-disabled {
 @import "favorite";
 @import "seen";
 @import "cart_pop_up";
+@import "news";
 
 
 @media (max-width: 1199px) {

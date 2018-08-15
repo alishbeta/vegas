@@ -1,0 +1,27 @@
+.news{
+  .news-wrap{
+    border-bottom: none;
+    .title {
+      margin-bottom: 20px;
+    }
+    .item-wrap{
+      margin-bottom: 20px;
+      @include transition(0.5s);
+      &:hover{
+        @include box-shadow($shadow);
+      }
+      .img-wrap{
+        position: relative;
+        .date{
+          position: absolute;
+          bottom: 0;
+          background-color: $background-color;
+          padding: 5px 50px;
+          font-size: 10px;
+          font-weight: 600;
+
+        }
+      }
+    }
+  }
+}
