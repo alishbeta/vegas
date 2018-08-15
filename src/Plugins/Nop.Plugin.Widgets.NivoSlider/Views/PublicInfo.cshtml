@@ -7,8 +7,7 @@
     Html.AddCssFileParts("~/Plugins/Widgets.NivoSlider/Content/nivoslider/themes/custom/custom.css");
 }
 
-<div class="slider-wrapper theme-custom">
-    <div id="nivo-slider" class="nivoSlider">
+<div class="main-baner-wrap">
         @{
             var dataSlide1 = new ViewDataDictionary(ViewData)
             {
@@ -125,10 +124,11 @@
 
             @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide10)
         }
-    </div>
 </div>
-<script asp-location="Footer">
-    $(window).on('load', function () {
-        $('#nivo-slider').nivoSlider();
-    });
+<script>
+	$('.main-baner-wrap').slick({
+		dots: true,
+		prevArrow: '<div class="baner-prev-arrow"></div>',
+		nextArrow: '<div class="baner-next-arrow"></div>',
+	});
 </script>

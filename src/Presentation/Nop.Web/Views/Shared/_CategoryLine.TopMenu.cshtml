@@ -45,32 +45,34 @@
 @model TopMenuModel.CategoryLineModel
 <li>
     <a onclick="return false;" href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })">
-        @if (Model.Category.Name == "Матрасы")
+        @if (Model.Category.Id == 17)
         {
             <img class="side-icons" src="/img/on-mattress_icon.svg" alt="@Model.Category.Name">
         }
-        @if (Model.Category.Name == "Наматрасники")
+        @if (Model.Category.Id == 18)
         {
             <img class="side-icons" src="/img/matress_icon.svg" alt="@Model.Category.Name">
         }
-        @if (Model.Category.Name == "Кровати")
+        @if (Model.Category.Id == 19)
         {
             <img class="side-icons" src="/img/bed_icon.svg" alt="@Model.Category.Name">
         }
-        @if (Model.Category.Name == "Тумбы и комоды")
+        @if (Model.Category.Id == 21)
         {
             <img class="side-icons" src="/img/tumba_icon.svg" alt="@Model.Category.Name">
         }
-        @if (Model.Category.Name == "Подушки")
+        @if (Model.Category.Id == 45)
         {
             <img class="side-icons" src="/img/pillow_icon.svg" alt="@Model.Category.Name">
         }
-        @if (Model.Category.Name == "Аксессуары для сна")
+        @if (Model.Category.Id == 20)
         {
             <img class="side-icons" src="/img/accessorize_icon.svg" alt="@Model.Category.Name">
         }
         <span class="d-inline d-sm-inline d-md-none d-xl-inline">@Model.Category.Name</span>
-        <div class="hint d-xl-none"><span>@Model.Category.Name</span></div>
+        <div class="hint d-xl-none">
+			<span>@Model.Category.Name</span>
+		</div>
     </a>
     @{
         //subcategories

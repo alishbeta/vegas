@@ -1,81 +1,84 @@
 ﻿@{
-    Layout = "_Root.Head";
+	Layout = "_Root.Head";
 }
 
 @{
-    /*
-    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.BodyStartHtmlTagAfter })
-    @await Html.PartialAsync("_Notifications")
-    @await Html.PartialAsync("_JavaScriptDisabledWarning")
-    @await Html.PartialAsync("_OldInternetExplorerWarning")
-    <div class="master-wrapper-page">
-        @await Component.InvokeAsync("AdminHeaderLinks")
-        @await Html.PartialAsync("_Header")
-        <script asp-location="Footer">
-            AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
-        </script>
-        <div class="header-menu">
-            @await Component.InvokeAsync("TopMenu")
-        </div>
-        <div class="master-wrapper-content">
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContentBefore })
+/*
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.BodyStartHtmlTagAfter })
+@await Html.PartialAsync("_Notifications")
+@await Html.PartialAsync("_JavaScriptDisabledWarning")
+@await Html.PartialAsync("_OldInternetExplorerWarning")
+<div class="master-wrapper-page">
+	@await Component.InvokeAsync("AdminHeaderLinks")
+	@await Html.PartialAsync("_Header")
+	<script asp-location="Footer">
+		AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+	</script>
+	<div class="header-menu">
+		@await Component.InvokeAsync("TopMenu")
+	</div>
+	<div class="master-wrapper-content">
+		@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContentBefore })
 
-            @if (IsSectionDefined("Breadcrumb"))
-            {
-                @RenderSection("Breadcrumb") 
-            }
-            <div class="master-column-wrapper">
-                @RenderBody()
-            </div>
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContentAfter })
-        </div>
-        @await Component.InvokeAsync("Footer")
-    </div>
-    @await Component.InvokeAsync("EuCookieLaw")
-    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.BodyEndHtmlTagBefore })
-    */
+		@if (IsSectionDefined("Breadcrumb"))
+		{
+			@RenderSection("Breadcrumb") 
+		}
+		<div class="master-column-wrapper">
+			@RenderBody()
+		</div>
+		@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContentAfter })
+	</div>
+	@await Component.InvokeAsync("Footer")
+</div>
+@await Component.InvokeAsync("EuCookieLaw")
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.BodyEndHtmlTagBefore })
+*/
 }
-<div class="wrap short-menu cat">
-    <div class="top-wraper d-none d-md-block" style="display: none;">
-        <a onclick="return false;" href="#"><i class="top"></i></a>
-    </div>
-    <div class="all-menu-wrap">
-        <nav class="side-menu-wrap d-md-block">
-            <div class="side-logo-wrap">
-                <div class="logo">
-                    <img class="d-none d-xl-block" src="/img/logo.png" alt="logo.png">
-                </div>
-                <div class="inner-menu-wrap">
-                    <div class="search-wrap">
-                        <img class="side-icons-search" src="/img/search_icon.svg" alt="search_icon">
-                        <input class="d-md-none d-xl-inline" type="text" placeholder="Поиск">
-                    </div>
-                    @await Component.InvokeAsync("TopMenu")
-                    <div class="mob-lang text-center">
-                        <span class="d-inline d-sm-inline d-md-none"><a class="select" href="#">Русский</a></span>
-                        <span class="d-inline d-sm-inline d-md-none"><a href="#">Украинский</a></span>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <nav class="side-second-menu-wrap">
-            <div class="title"></div>
-            <i class="close-i"></i>
-            <div class="clearfix"></div>
-            <div class="sub-menu"></div>
-        </nav>
-    </div>
-    <div class="content content-main-wrap">
-        @await Html.PartialAsync("_Header")
-        @if (IsSectionDefined("Breadcrumb"))
-        {
-            @RenderSection("Breadcrumb")
-        }
+@{
+	if (ViewData["class"] == null)
+	{
+		ViewData["class"] = "wrap short-menu cat";
+	}
+}
+<div class="@ViewData["class"]">
+	<div class="r-wrap">
+		<div class="top-wraper" style="display: none;">
+			<a onclick="return false;" href="#"><i class="top"></i></a>
+		</div>
+		<div class="all-menu-wrap">
+			<nav class="side-menu-wrap d-md-block">
+				<div class="inner-menu-wrap">
+					<div class="search-wrap">
+						<img class="side-icons-search" src="/img/search_icon.svg" alt="search_icon">
+						<input class="d-md-none d-xl-inline" type="text" placeholder="Поиск">
+					</div>
+					@await Component.InvokeAsync("TopMenu")
+					<div class="mob-lang text-center">
+						<span class="d-inline d-sm-inline d-md-none"><a class="select" href="#">Русский</a></span>
+						<span class="d-inline d-sm-inline d-md-none"><a href="#">Украинский</a></span>
+					</div>
+				</div>
+			</nav>
+			<nav class="side-second-menu-wrap">
+				<div class="title"></div>
+				<i class="close-i"></i>
+				<div class="clearfix"></div>
+				<div class="sub-menu"></div>
+			</nav>
+		</div>
+		<div class="content content-main-wrap">
+			@await Html.PartialAsync("_Header")
+			@if (IsSectionDefined("Breadcrumb"))
+			{
+				@RenderSection("Breadcrumb")
+			}
 
-        <!-- RENDER BODY -->
-        @RenderBody()
-        <!-- END RENDER BODY -->
+			<!-- RENDER BODY -->
+			@RenderBody()
+			<!-- END RENDER BODY -->
 
-        @await Component.InvokeAsync("Footer")
-    </div>
+			@await Component.InvokeAsync("Footer")
+		</div>
+	</div>
 </div>

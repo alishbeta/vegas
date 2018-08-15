@@ -28,32 +28,32 @@
 
 @{
     Layout = "_ColumnsOne";
+	ViewData["class"] = "wrap";
 }
-@*@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageTop })*@
-<div class="main-baner-wrap">
-    <img src="/img/main-baner.jpg" alt="main-baner.jpg">
-    <div class="baner-info-wrap">
-        <span>Скидка при покупке комплекта Кровать+Матрас!</span>
-        <div class="discount"><span>-20%</span></div>
-    </div>
-</div>
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageTop })
 <div class="big-links-wrap d-none d-md-block">
-    <div>
-        <a href="#"></a>
-        <img src="/img/banner1.png" alt="banner1">
-    </div>
-    <div>
-        <a href="#"></a>
-        <img src="/img/banner2.png" alt="banner2">
-    </div>
-    <div>
-        <a href="#"></a>
-        <img src="/img/banner3.png" alt="banner3">
-    </div>
+	<div>
+		<a href="#"></a>
+		<img src="/img/banner1.png" alt="banner1">
+		<div>Распродажа</div>
+	</div>
+	<div>
+		<a href="#"></a>
+		<img src="/img/banner2.png" alt="banner2">
+		<div>Доставка</div>
+	</div>
+	<div>
+		<a href="#"></a>
+		<img src="/img/banner3.png" alt="banner3">
+		<div>Салоны</div>
+	</div>
 </div>
 <!--***************Топ продаж***************-->
 @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeBestSellers })
 <!--***************Новинки***************-->
+<!--dg-->
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeNews })
+<!--dg-->
 <div class="new-wrap pad-norm">
     <div class="title text-center">
         <h3 class="">Новинки</h3>
