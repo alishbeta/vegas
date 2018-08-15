@@ -1,33 +1,33 @@
 ﻿@{
-    /*
-    @{
-        Layout = "_ColumnsOne";
+	/*
+	@{
+		Layout = "_ColumnsOne";
 
-        //page class
-        Html.AppendPageCssClassParts("html-home-page");
-    }
-    <div class="page home-page">
-        <div class="page-body">
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageTop })
-            @await Component.InvokeAsync("TopicBlock", new { systemName = "HomePageText" })
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeCategories })
-            @await Component.InvokeAsync("HomepageCategories")
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeProducts })
-            @await Component.InvokeAsync("HomepageProducts")
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeBestSellers })
-            @await Component.InvokeAsync("HomepageBestSellers")
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeNews })
-            @await Component.InvokeAsync("HomepageNews")
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforePoll })
-            @await Component.InvokeAsync("HomepagePolls")
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBottom })
-        </div>
-    </div>
-    */
+		//page class
+		Html.AppendPageCssClassParts("html-home-page");
+	}
+	<div class="page home-page">
+		<div class="page-body">
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageTop })
+			@await Component.InvokeAsync("TopicBlock", new { systemName = "HomePageText" })
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeCategories })
+			@await Component.InvokeAsync("HomepageCategories")
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeProducts })
+			@await Component.InvokeAsync("HomepageProducts")
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeBestSellers })
+			@await Component.InvokeAsync("HomepageBestSellers")
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeNews })
+			@await Component.InvokeAsync("HomepageNews")
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforePoll })
+			@await Component.InvokeAsync("HomepagePolls")
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBottom })
+		</div>
+	</div>
+	*/
 }
 
 @{
-    Layout = "_ColumnsOne";
+	Layout = "_ColumnsOne";
 	ViewData["class"] = "wrap";
 }
 @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageTop })
@@ -53,296 +53,297 @@
 <!--***************Новинки***************-->
 <!--dg-->
 @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeNews })
+<!--dg--><!--dg-->
 <!--dg-->
 <div class="new-wrap pad-norm">
-    <div class="title text-center">
-        <h3 class="">Новинки</h3>
-        <button class="btn btn-sm btn-blue-white float-right d-none d-md-block">Смотреть все</button>
-    </div>
-    <div class="slider-wrap clearfix">
-        <div class="outer-wrapp float-left">
-            <div class="item-wrap">
-                <div class="product-img-wrap">
-                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                    <div class="discount">-20%</div>
-                </div>
-                <div class="main-prop-wrap text-left">
-                    <div class="product-name text-light-c">Матрас</div>
-                    <div class="product-prop">M1 - 80*190</div>
-                    <div class="price-titile">Цена</div>
-                    <div class="price-wrap clearfix">
-                        <div class="price-old">18 843 грн</div>
-                        <div class="price-new">110 306 грн</div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap-full">
-                <i class="favorite_i float-left"></i>
-                <i class="compare_icon float-right"></i>
-                <div class="product-img-wrap">
-                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                    <div class="discount">-20%</div>
-                </div>
-                <div class="main-prop-wrap text-left">
-                    <div class="product-name text-light-c">Матрас</div>
-                    <div class="product-prop">M1 - 80*190</div>
-                    <div class="price-titile">Цена</div>
-                    <div class="price-wrap clearfix">
-                        <div class="price-old">18 843 грн</div>
-                        <div class="price-new">110 306 грн</div>
-                    </div>
-                </div>
-                <div class="sizes-wrap clearfix">
-                    <div class="title">Размеры</div>
-                    <div class="inner-wrap">
-                        <div class="block float-left">
-                            <div class="title">Ширина</div>
-                            <div class="value">80 см</div>
-                        </div>
-                        <div class="block float-left">
-                            <div class="title">Длина</div>
-                            <div class="value">190 см</div>
-                        </div>
-                        <div class="block float-left">
-                            <div class="title">Высота</div>
-                            <div class="value">22 см</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center"></div>
-                <button type="button" class="btn btn-sm btn-blue btn-block">Купить</button>
-            </div>
-        </div>
-        <div class="outer-wrapp float-left">
-            <div class="item-wrap">
-                <div class="product-img-wrap">
-                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                    <div class="discount">-20%</div>
-                </div>
-                <div class="main-prop-wrap text-left">
-                    <div class="product-name text-light-c">Матрас</div>
-                    <div class="product-prop">M1 - 80*190</div>
-                    <div class="price-titile">Цена</div>
-                    <div class="price-wrap clearfix">
-                        <div class="price-old">18 843 грн</div>
-                        <div class="price-new">110 306 грн</div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap-full">
-                <i class="favorite_i float-left"></i>
-                <i class="compare_icon float-right"></i>
-                <div class="product-img-wrap">
-                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                    <div class="discount">-20%</div>
-                </div>
-                <div class="main-prop-wrap text-left">
-                    <div class="product-name text-light-c">Матрас</div>
-                    <div class="product-prop">M1 - 80*190</div>
-                    <div class="price-titile">Цена</div>
-                    <div class="price-wrap clearfix">
-                        <div class="price-old">18 843 грн</div>
-                        <div class="price-new">110 306 грн</div>
-                    </div>
-                </div>
-                <div class="sizes-wrap clearfix">
-                    <div class="title">Размеры</div>
-                    <div class="inner-wrap">
-                        <div class="block float-left">
-                            <div class="title">Ширина</div>
-                            <div class="value">80 см</div>
-                        </div>
-                        <div class="block float-left">
-                            <div class="title">Длина</div>
-                            <div class="value">190 см</div>
-                        </div>
-                        <div class="block float-left">
-                            <div class="title">Высота</div>
-                            <div class="value">22 см</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center"></div>
-                <button type="button" class="btn btn-sm btn-blue btn-block">Купить</button>
-            </div>
-        </div>
-        <div class="outer-wrapp float-left">
-            <div class="item-wrap">
-                <div class="product-img-wrap">
-                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                    <div class="discount">-20%</div>
-                </div>
-                <div class="main-prop-wrap text-left">
-                    <div class="product-name text-light-c">Матрас</div>
-                    <div class="product-prop">M1 - 80*190</div>
-                    <div class="price-titile">Цена</div>
-                    <div class="price-wrap clearfix">
-                        <div class="price-old">18 843 грн</div>
-                        <div class="price-new">110 306 грн</div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap-full">
-                <i class="favorite_i float-left"></i>
-                <i class="compare_icon float-right"></i>
-                <div class="product-img-wrap">
-                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                    <div class="discount">-20%</div>
-                </div>
-                <div class="main-prop-wrap text-left">
-                    <div class="product-name text-light-c">Матрас</div>
-                    <div class="product-prop">M1 - 80*190</div>
-                    <div class="price-titile">Цена</div>
-                    <div class="price-wrap clearfix">
-                        <div class="price-old">18 843 грн</div>
-                        <div class="price-new">110 306 грн</div>
-                    </div>
-                </div>
-                <div class="sizes-wrap clearfix">
-                    <div class="title">Размеры</div>
-                    <div class="inner-wrap">
-                        <div class="block float-left">
-                            <div class="title">Ширина</div>
-                            <div class="value">80 см</div>
-                        </div>
-                        <div class="block float-left">
-                            <div class="title">Длина</div>
-                            <div class="value">190 см</div>
-                        </div>
-                        <div class="block float-left">
-                            <div class="title">Высота</div>
-                            <div class="value">22 см</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center"></div>
-                <button type="button" class="btn btn-sm btn-blue btn-block">Купить</button>
-            </div>
-        </div>
-        <div class="outer-wrapp float-left">
-            <div class="item-wrap">
-                <div class="product-img-wrap">
-                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                    <div class="discount">-20%</div>
-                </div>
-                <div class="main-prop-wrap text-left">
-                    <div class="product-name text-light-c">Матрас</div>
-                    <div class="product-prop">M1 - 80*190</div>
-                    <div class="price-titile">Цена</div>
-                    <div class="price-wrap clearfix">
-                        <div class="price-old">18 843 грн</div>
-                        <div class="price-new">110 306 грн</div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-wrap-full">
-                <i class="favorite_i float-left"></i>
-                <i class="compare_icon float-right"></i>
-                <div class="product-img-wrap">
-                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                    <div class="discount">-20%</div>
-                </div>
-                <div class="main-prop-wrap text-left">
-                    <div class="product-name text-light-c">Матрас</div>
-                    <div class="product-prop">M1 - 80*190</div>
-                    <div class="price-titile">Цена</div>
-                    <div class="price-wrap clearfix">
-                        <div class="price-old">18 843 грн</div>
-                        <div class="price-new">110 306 грн</div>
-                    </div>
-                </div>
-                <div class="sizes-wrap clearfix">
-                    <div class="title">Размеры</div>
-                    <div class="inner-wrap">
-                        <div class="block float-left">
-                            <div class="title">Ширина</div>
-                            <div class="value">80 см</div>
-                        </div>
-                        <div class="block float-left">
-                            <div class="title">Длина</div>
-                            <div class="value">190 см</div>
-                        </div>
-                        <div class="block float-left">
-                            <div class="title">Высота</div>
-                            <div class="value">22 см</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center"></div>
-                <button type="button" class="btn btn-sm btn-blue btn-block">Купить</button>
-            </div>
-        </div>
-    </div>
+	<div class="title text-center">
+		<h3 class="">Новинки</h3>
+		<button class="btn btn-sm btn-blue-white float-right d-none d-md-block">Смотреть все</button>
+	</div>
+	<div class="slider-wrap clearfix">
+		<div class="outer-wrapp float-left">
+			<div class="item-wrap">
+				<div class="product-img-wrap">
+					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+					<div class="discount">-20%</div>
+				</div>
+				<div class="main-prop-wrap text-left">
+					<div class="product-name text-light-c">Матрас</div>
+					<div class="product-prop">M1 - 80*190</div>
+					<div class="price-titile">@T("main.product.price")</div>
+					<div class="price-wrap clearfix">
+						<div class="price-old">18 843 грн</div>
+						<div class="price-new">110 306 грн</div>
+					</div>
+				</div>
+			</div>
+			<div class="item-wrap-full">
+				<i class="favorite_i float-left"></i>
+				<i class="compare_icon float-right"></i>
+				<div class="product-img-wrap">
+					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+					<div class="discount">-20%</div>
+				</div>
+				<div class="main-prop-wrap text-left">
+					<div class="product-name text-light-c">Матрас</div>
+					<div class="product-prop">M1 - 80*190</div>
+					<div class="price-titile">Цена</div>
+					<div class="price-wrap clearfix">
+						<div class="price-old">18 843 грн</div>
+						<div class="price-new">110 306 грн</div>
+					</div>
+				</div>
+				<div class="sizes-wrap clearfix">
+					<div class="title">Размеры</div>
+					<div class="inner-wrap">
+						<div class="block float-left">
+							<div class="title">Ширина</div>
+							<div class="value">80 см</div>
+						</div>
+						<div class="block float-left">
+							<div class="title">Длина</div>
+							<div class="value">190 см</div>
+						</div>
+						<div class="block float-left">
+							<div class="title">Высота</div>
+							<div class="value">22 см</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center"></div>
+				<button type="button" class="btn btn-sm btn-blue btn-block">Купить</button>
+			</div>
+		</div>
+		<div class="outer-wrapp float-left">
+			<div class="item-wrap">
+				<div class="product-img-wrap">
+					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+					<div class="discount">-20%</div>
+				</div>
+				<div class="main-prop-wrap text-left">
+					<div class="product-name text-light-c">Матрас</div>
+					<div class="product-prop">M1 - 80*190</div>
+					<div class="price-titile">Цена</div>
+					<div class="price-wrap clearfix">
+						<div class="price-old">18 843 грн</div>
+						<div class="price-new">110 306 грн</div>
+					</div>
+				</div>
+			</div>
+			<div class="item-wrap-full">
+				<i class="favorite_i float-left"></i>
+				<i class="compare_icon float-right"></i>
+				<div class="product-img-wrap">
+					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+					<div class="discount">-20%</div>
+				</div>
+				<div class="main-prop-wrap text-left">
+					<div class="product-name text-light-c">Матрас</div>
+					<div class="product-prop">M1 - 80*190</div>
+					<div class="price-titile">Цена</div>
+					<div class="price-wrap clearfix">
+						<div class="price-old">18 843 грн</div>
+						<div class="price-new">110 306 грн</div>
+					</div>
+				</div>
+				<div class="sizes-wrap clearfix">
+					<div class="title">Размеры</div>
+					<div class="inner-wrap">
+						<div class="block float-left">
+							<div class="title">Ширина</div>
+							<div class="value">80 см</div>
+						</div>
+						<div class="block float-left">
+							<div class="title">Длина</div>
+							<div class="value">190 см</div>
+						</div>
+						<div class="block float-left">
+							<div class="title">Высота</div>
+							<div class="value">22 см</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center"></div>
+				<button type="button" class="btn btn-sm btn-blue btn-block">Купить</button>
+			</div>
+		</div>
+		<div class="outer-wrapp float-left">
+			<div class="item-wrap">
+				<div class="product-img-wrap">
+					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+					<div class="discount">-20%</div>
+				</div>
+				<div class="main-prop-wrap text-left">
+					<div class="product-name text-light-c">Матрас</div>
+					<div class="product-prop">M1 - 80*190</div>
+					<div class="price-titile">Цена</div>
+					<div class="price-wrap clearfix">
+						<div class="price-old">18 843 грн</div>
+						<div class="price-new">110 306 грн</div>
+					</div>
+				</div>
+			</div>
+			<div class="item-wrap-full">
+				<i class="favorite_i float-left"></i>
+				<i class="compare_icon float-right"></i>
+				<div class="product-img-wrap">
+					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+					<div class="discount">-20%</div>
+				</div>
+				<div class="main-prop-wrap text-left">
+					<div class="product-name text-light-c">Матрас</div>
+					<div class="product-prop">M1 - 80*190</div>
+					<div class="price-titile">Цена</div>
+					<div class="price-wrap clearfix">
+						<div class="price-old">18 843 грн</div>
+						<div class="price-new">110 306 грн</div>
+					</div>
+				</div>
+				<div class="sizes-wrap clearfix">
+					<div class="title">Размеры</div>
+					<div class="inner-wrap">
+						<div class="block float-left">
+							<div class="title">Ширина</div>
+							<div class="value">80 см</div>
+						</div>
+						<div class="block float-left">
+							<div class="title">Длина</div>
+							<div class="value">190 см</div>
+						</div>
+						<div class="block float-left">
+							<div class="title">Высота</div>
+							<div class="value">22 см</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center"></div>
+				<button type="button" class="btn btn-sm btn-blue btn-block">Купить</button>
+			</div>
+		</div>
+		<div class="outer-wrapp float-left">
+			<div class="item-wrap">
+				<div class="product-img-wrap">
+					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+					<div class="discount">-20%</div>
+				</div>
+				<div class="main-prop-wrap text-left">
+					<div class="product-name text-light-c">Матрас</div>
+					<div class="product-prop">M1 - 80*190</div>
+					<div class="price-titile">Цена</div>
+					<div class="price-wrap clearfix">
+						<div class="price-old">18 843 грн</div>
+						<div class="price-new">110 306 грн</div>
+					</div>
+				</div>
+			</div>
+			<div class="item-wrap-full">
+				<i class="favorite_i float-left"></i>
+				<i class="compare_icon float-right"></i>
+				<div class="product-img-wrap">
+					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+					<div class="discount">-20%</div>
+				</div>
+				<div class="main-prop-wrap text-left">
+					<div class="product-name text-light-c">Матрас</div>
+					<div class="product-prop">M1 - 80*190</div>
+					<div class="price-titile">Цена</div>
+					<div class="price-wrap clearfix">
+						<div class="price-old">18 843 грн</div>
+						<div class="price-new">110 306 грн</div>
+					</div>
+				</div>
+				<div class="sizes-wrap clearfix">
+					<div class="title">Размеры</div>
+					<div class="inner-wrap">
+						<div class="block float-left">
+							<div class="title">Ширина</div>
+							<div class="value">80 см</div>
+						</div>
+						<div class="block float-left">
+							<div class="title">Длина</div>
+							<div class="value">190 см</div>
+						</div>
+						<div class="block float-left">
+							<div class="title">Высота</div>
+							<div class="value">22 см</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center"></div>
+				<button type="button" class="btn btn-sm btn-blue btn-block">Купить</button>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="news-wrap pad-norm clearfix">
-    <div class="title text-center">
-        <h3 class="">Новости, статьи и обзоры</h3>
-        <button class="btn btn-sm btn-blue-white float-right d-none d-md-block">Смотреть все</button>
-    </div>
-    <div class="item-wrap">
-        <img src="/img/news.png" alt="news">
-        <div class="text-wrap">
-            <div class="title"><a href="#">Как выбрать кровать?</a></div>
-            <div class="short-text">
-                Современный рынок мебельной продукции богат и разнообразен, поэтому у покупателя может возникнуть
-                множество вопросов при выборе подходящей кровати.
-            </div>
-        </div>
+	<div class="title text-center">
+		<h3 class="">Новости, статьи и обзоры</h3>
+		<button class="btn btn-sm btn-blue-white float-right d-none d-md-block">Смотреть все</button>
+	</div>
+	<div class="item-wrap">
+		<img src="/img/news.png" alt="news">
+		<div class="text-wrap">
+			<div class="title"><a href="#">Как выбрать кровать?</a></div>
+			<div class="short-text">
+				Современный рынок мебельной продукции богат и разнообразен, поэтому у покупателя может возникнуть
+				множество вопросов при выборе подходящей кровати.
+			</div>
+		</div>
 
-    </div>
-    <div class="item-wrap">
-        <img src="/img/news.png" alt="news">
-        <div class="text-wrap">
-            <div class="title"><a href="#">Как выбрать кровать?</a></div>
-            <div class="short-text">
-                Современный рынок мебельной продукции богат и разнообразен, поэтому у покупателя может возникнуть
-                множество вопросов при выборе подходящей кровати.
-            </div>
-        </div>
+	</div>
+	<div class="item-wrap">
+		<img src="/img/news.png" alt="news">
+		<div class="text-wrap">
+			<div class="title"><a href="#">Как выбрать кровать?</a></div>
+			<div class="short-text">
+				Современный рынок мебельной продукции богат и разнообразен, поэтому у покупателя может возникнуть
+				множество вопросов при выборе подходящей кровати.
+			</div>
+		</div>
 
-    </div>
-    <div class="item-wrap">
-        <img src="/img/news.png" alt="news">
-        <div class="text-wrap">
-            <div class="title"><a href="#">Как выбрать кровать?</a></div>
-            <div class="short-text">
-                Современный рынок мебельной продукции богат и разнообразен, поэтому у покупателя может возникнуть
-                множество вопросов при выборе подходящей кровати.
-            </div>
-        </div>
+	</div>
+	<div class="item-wrap">
+		<img src="/img/news.png" alt="news">
+		<div class="text-wrap">
+			<div class="title"><a href="#">Как выбрать кровать?</a></div>
+			<div class="short-text">
+				Современный рынок мебельной продукции богат и разнообразен, поэтому у покупателя может возникнуть
+				множество вопросов при выборе подходящей кровати.
+			</div>
+		</div>
 
-    </div>
+	</div>
 </div>
 <div class="some-info d-none d-md-block">
-    <div class="title text-center">
-        <h3 class="">Лучшие товары для сна</h3>
-        <div class="row text-left">
-            <div class="col-lg-6">
-                <div class="text">
-                    Компания «Вегас» — крупнейший белорусский производитель матрасов и аксессуаров
-                    для сна — на протяжении многих лет предлагает своим покупателям продукт, в котором
-                    воплотились самые яркие мечты об исключительном отдыхе. Внимание к традициям и
-                    ультрасовременные технологии позволяют компании производить матрасы высочайшего качества.
-                    Обладая великолепными ортопедическими свойствами, они дарят вам глубокий, спокойный сон и
-                    быстро восстанавливают силы.
-                    За долгий срок своего существования компания «Вегас» прошла славный путь от небольшого
-                    производства, использующего только ручной труд, до крупного промышленного предприятия,
-                    располагающего самым современным оборудованием.
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="text">
-                    Коллекции матрасов Vegas призваны в мельчайших нюансах соответствовать вашему
-                    стилю жизни — каким бы он ни был. Вы можете следовать четкому распорядку дня и вставать в 6
-                    утра по звонку будильника. А может быть,
-                    не упускаете возможности поваляться в постели столько, сколько захочется. Перед тем, как
-                    погрузиться в сон, вы совершаете целый ритуал. Или мгновенно засыпаете, едва коснувшись
-                    уютной поверхности матраса. Может быть, закрывая глаза, вы мечтаете о солнечном утре. Или
-                    предвкушаете очередное невероятное приключение, которое ожидает вас во сне. Мы знаем одно —
-                    вы тоже верите в то, что жизнь может быть яркой не только при свете солнца!
-                </div>
-            </div>
+	<div class="title text-center">
+		<h3 class="">Лучшие товары для сна</h3>
+		<div class="row text-left">
+			<div class="col-lg-6">
+				<div class="text">
+					Компания «Вегас» — крупнейший белорусский производитель матрасов и аксессуаров
+					для сна — на протяжении многих лет предлагает своим покупателям продукт, в котором
+					воплотились самые яркие мечты об исключительном отдыхе. Внимание к традициям и
+					ультрасовременные технологии позволяют компании производить матрасы высочайшего качества.
+					Обладая великолепными ортопедическими свойствами, они дарят вам глубокий, спокойный сон и
+					быстро восстанавливают силы.
+					За долгий срок своего существования компания «Вегас» прошла славный путь от небольшого
+					производства, использующего только ручной труд, до крупного промышленного предприятия,
+					располагающего самым современным оборудованием.
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="text">
+					Коллекции матрасов Vegas призваны в мельчайших нюансах соответствовать вашему
+					стилю жизни — каким бы он ни был. Вы можете следовать четкому распорядку дня и вставать в 6
+					утра по звонку будильника. А может быть,
+					не упускаете возможности поваляться в постели столько, сколько захочется. Перед тем, как
+					погрузиться в сон, вы совершаете целый ритуал. Или мгновенно засыпаете, едва коснувшись
+					уютной поверхности матраса. Может быть, закрывая глаза, вы мечтаете о солнечном утре. Или
+					предвкушаете очередное невероятное приключение, которое ожидает вас во сне. Мы знаем одно —
+					вы тоже верите в то, что жизнь может быть яркой не только при свете солнца!
+				</div>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
