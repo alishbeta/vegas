@@ -168,6 +168,41 @@ namespace Nop.Web.Controllers
         [CheckAccessClosedStore(true)]
         //available even when navigation is not allowed
         [CheckAccessPublicStore(true)]
+        public virtual JsonResult ExportDiscounts([FromBody]OneCAuth model)
+        {
+            var response = IsLogin(model?.Username, model?.Email, model?.Password);
+            if (response.Success)
+            {
+                var customer = _customerSettings.UsernamesEnabled
+                    ? _customerService.GetCustomerByUsername(model.Username)
+                    : _customerService.GetCustomerByEmail(model.Email);
+
+                //activity log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportOrders.Login", "1C Exporting discount begin.");
+
+                var discounts = _exportManager.ExportDiscountsToOneC();
+
+                if (discounts.Count() > 0)
+                {
+                    response.Data = discounts;
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Does not have any discount.";
+                }
+
+                //activiti log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportOrders.LogOut", "1C Exporting discount end.");
+            }
+            return Json(response);
+        }
+
+        [HttpPost]
+        //available even when a store is closed
+        [CheckAccessClosedStore(true)]
+        //available even when navigation is not allowed
+        [CheckAccessPublicStore(true)]
         public virtual JsonResult Test()
         {
             return Json(new OneCProductsImport() { Products = new System.Collections.Generic.List<OneCProduct>() { new OneCProduct() { Attributes = new System.Collections.Generic.List<OneCAttribute>() { new OneCAttribute() { AttributeValues = new System.Collections.Generic.List<OneCAttributeValue>() { new OneCAttributeValue() } } } } } });

@@ -13,6 +13,8 @@ namespace Nop.Core.Domain.Discounts
         private ICollection<DiscountManufacturerMapping> _discountManufacturerMappings;
         private ICollection<DiscountProductMapping> _discountProductMappings;
 
+
+        public bool IsSync { get; set; }
         /// <summary>
         /// Gets or sets the name
         /// </summary>

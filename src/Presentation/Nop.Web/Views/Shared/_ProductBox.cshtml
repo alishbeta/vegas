@@ -146,13 +146,13 @@
 <div class="outer-wrapp float-left">
     <div class="item-wrap">
         <div class="product-img-wrap">
-            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+            <img class="product" src="@Model.DefaultPictureModel.ImageUrl" alt="@Model.DefaultPictureModel.AlternateText">
             <div class="discount">-20%</div>
         </div>
         <div class="main-prop-wrap text-left">
             <div class="product-name text-light-c">@Model.Name</div>
             <div class="product-prop">@Model.SeName</div>
-            <div class="price-titile">Цена</div>
+            <div class="price-titile">@T("main.product.price")</div>
             <div class="price-wrap clearfix">
                 @if (!string.IsNullOrEmpty(Model.ProductPrice.OldPrice))
                 {

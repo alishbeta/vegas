@@ -14,6 +14,7 @@ namespace Nop.Services.ExportImport
     public partial interface IExportManager
     {
         IEnumerable<OneCOrder> ExportOrdersToOneC();
+        IEnumerable<OneCDiscount> ExportDiscountsToOneC();
 
         /// <summary>
         /// Export manufacturer list to XML
