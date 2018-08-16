@@ -176,50 +176,69 @@
     </div>
 </div>
 <footer class="">
-    <div class="footer-wrap">
-        <div class="row">
-            <div class="col-lg-3 d-none d-md-block">
-                <img src="/img/logo.png" alt="logo">
-                <div class="phone-footer-wrap">
-                    <div class="text">09:00-20:00 (будни)</div>
-                    <div class="text">10:00-18:00 (выходные)</div>
-                    <div class="phone">0 800 604 597</div>
-                    <div class="text">Бесплатная линия</div>
-                </div>
-            </div>
-            <div class="col-lg-3 socials d-none d-md-block">
-                <h6 class="title">Мы в соцсетях</h6>
-                <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">YouTube</a></li>
-                </ul>
-                <h6>Обратный звонок</h6>
-            </div>
-            <div class="col-lg-3 pay d-none d-md-block">
-                <h6 class="title">Способы оплаты</h6>
-                <ul>
-                    <li><a href="#">Приват 24</a></li>
-                    <li><a href="#">Viza</a></li>
-                    <li><a href="#">Mastercard</a></li>
-                    <li><a href="#">LiqPay</a></li>
-                </ul>
-                <h6 class="title">Отзывы о нас</h6>
-            </div>
-            <div class="col-lg-3 other">
-                <ul>
-                    <li><a href="#">Новости</a></li>
-                    <li><a href="#">О компании</a></li>
-                    <li><a href="#">Сертификаты</a></li>
-                    <li><a href="#">Контакты</a></li>
-                    <li><a href="#">Статьи</a></li>
-                    <li><a href="#">Условия гарантии</a></li>
-                    <li><a href="#">Правила эксплкатации</a></li>
-                    <li><a href="#">Политика конфиденциальности</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="text-center cop">2018 ООО "Вегас Украина"</div>
+	<div class="footer-wrap">
+		<div class="row">
+			<div class="col-lg-3 d-none d-md-block">
+				@await Component.InvokeAsync("Logo")
+				<div class="phone-footer-wrap">
+					<div class="text">09:00-20:00 (будни)</div>
+					<div class="text">10:00-18:00 (выходные)</div>
+					<div class="phone">0 800 604 597</div>
+					<div class="text">Бесплатная линия</div>
+				</div>
+			</div>
+			<div class="col-lg-3 socials d-none d-md-block">
+				<h6 class="title">Мы в соцсетях</h6>
+				<ul>
+					<li><a href="#">Facebook</a></li>
+					<li><a href="#">Instagram</a></li>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">YouTube</a></li>
+				</ul>
+				<h6>Обратный звонок</h6>
+			</div>
+			<div class="col-lg-3 pay d-none d-md-block">
+				<h6 class="title">Способы оплаты</h6>
+				<ul>
+					<li><a href="#">Приват 24</a></li>
+					<li><a href="#">Viza</a></li>
+					<li><a href="#">Mastercard</a></li>
+					<li><a href="#">LiqPay</a></li>
+				</ul>
+				<h6 class="title">Отзывы о нас</h6>
+			</div>
+			<div class="col-lg-3 other">
+				<ul>
+					<li><a href="#">Новости</a></li>
+					<li><a href="#">О компании</a></li>
+					<li><a href="#">Сертификаты</a></li>
+					<li><a href="#">Контакты</a></li>
+					<li><a href="#">Статьи</a></li>
+					<li><a href="#">Условия гарантии</a></li>
+					<li><a href="#">Правила эксплкатации</a></li>
+					<li><a href="#">Политика конфиденциальности</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="text-center cop">2018 ООО "Вегас Украина"</div>
+	<script type="text/javascript">
+		$('.slider').slick({
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			fade: true,
+			asNavFor: '.slider-nav',
+			prevArrow: '<div class="prev-arrow"></div>',
+			nextArrow: '<div class="next-arrow"></div>',
+		});
+		$('.slider-nav').slick({
+			slidesToShow: 4,
+			slidesToScroll: 1,
+			asNavFor: '.slider',
+			dots: false,
+			centerMode: false,
+			focusOnSelect: true,
+			arrows: false,
+		});
+	</script>
 </footer>
