@@ -1572,6 +1572,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     font-weight: 600;
     margin-left: 20px; }
 
+.news .text {
+  font-size: 16px; }
 .news .subscription-wrap {
   margin-top: 40px; }
 .news .news-wrap {
@@ -1654,7 +1656,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     border-bottom: 3px solid white; }
 .news .about-full-wrap .text {
   margin-bottom: 60px; }
-.news .cert-full-wrap .img-wrap {
+.news .cert-wrap .img-wrap {
   float: left;
   padding: 70px 0 50px;
   margin: 0 40px 30px 0;
@@ -1668,18 +1670,23 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   border-radius: 5px;
   text-align: center;
   width: 290px; }
-  .news .cert-full-wrap .img-wrap:hover {
+  .news .cert-wrap .img-wrap:hover {
     -moz-box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5);
     box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5); }
-  .news .cert-full-wrap .img-wrap p {
+  .news .cert-wrap .img-wrap p {
     margin-top: 40px; }
-  .news .cert-full-wrap .img-wrap a {
+  .news .cert-wrap .img-wrap a {
     display: block; }
-  .news .cert-full-wrap .img-wrap:hover {
+  .news .cert-wrap .img-wrap:hover {
     text-decoration: underline; }
-.news .cert-full-wrap img {
+.news .cert-wrap img {
   width: 150px; }
+.news .cert-full-wrap {
+  width: 920px; }
+  .news .cert-full-wrap h1 img {
+    width: 50px;
+    margin-left: 30px; }
 
 .product .prev-arrow, .product .next-arrow {
   position: relative;
