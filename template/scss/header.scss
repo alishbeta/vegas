@@ -99,6 +99,17 @@ a {
     color: white;
   }
 }
+.content{
+  box-sizing: border-box;
+  min-height: 100%;
+  padding-bottom: 250px;
+  margin-left: 0;
+  width: 100%;
+}
+footer {
+  height: 250px;
+  margin-top: -250px;
+}
 .content-main-wrap {
   position: relative;
   margin-left: 18px;

@@ -8,13 +8,6 @@
   &.wrap{
     height: 100%;
   }
-  .content{
-    box-sizing: border-box;
-    min-height: 100%;
-    padding-bottom: 250px;
-    margin-left: 0;
-    width: 100%;
-  }
   nav.breadcrumb-wrap .breadcrumb {
     margin-left: 130px;
   }
@@ -175,9 +168,5 @@
       margin-top: 15px;
     }
   }
-
-  footer {
-    height: 250px;
-    margin-top: -250px;
-  }
+  
 }

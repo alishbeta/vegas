@@ -227,6 +227,17 @@ a {
     background-color: #4da2c1;
     color: white; }
 
+.content {
+  box-sizing: border-box;
+  min-height: 100%;
+  padding-bottom: 250px;
+  margin-left: 0;
+  width: 100%; }
+
+footer {
+  height: 250px;
+  margin-top: -250px; }
+
 .content-main-wrap {
   position: relative;
   margin-left: 18px;
@@ -1207,12 +1218,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   cursor: pointer; }
 .cart.wrap, .wrap.cart-popup-wrap {
   height: 100%; }
-.cart .content, .cart-popup-wrap .content {
-  box-sizing: border-box;
-  min-height: 100%;
-  padding-bottom: 250px;
-  margin-left: 0;
-  width: 100%; }
 .cart nav.breadcrumb-wrap .breadcrumb, .cart-popup-wrap nav.breadcrumb-wrap .breadcrumb {
   margin-left: 130px; }
 .cart .cart-wrap .tabs-wraper .title, .cart-popup-wrap .cart-wrap .tabs-wraper .title {
@@ -1334,9 +1339,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   .cart .order-wrapp small, .cart-popup-wrap .order-wrapp small {
     display: inline-block;
     margin-top: 15px; }
-.cart footer, .cart-popup-wrap footer {
-  height: 250px;
-  margin-top: -250px; }
 
 .compare [class*='col'] {
   padding: 0 0px; }
