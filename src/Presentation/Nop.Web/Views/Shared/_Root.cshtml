@@ -46,9 +46,13 @@
 		<div class="top-wraper" style="display: none;">
 			<a onclick="return false;" href="#"><i class="top"></i></a>
 		</div>
-		@await Component.InvokeAsync("Logo")
 		<div class="all-menu-wrap">
 			<nav class="side-menu-wrap d-md-block">
+				<div class="side-logo-wrap">
+					<div class="logo">
+						@await Component.InvokeAsync("Logo")
+					</div>
+                </div>
 				<div class="inner-menu-wrap">
 					<div class="search-wrap">
 						<img class="side-icons-search" src="/img/search_icon.svg" alt="search_icon">
@@ -56,8 +60,8 @@
 					</div>
 					@await Component.InvokeAsync("TopMenu")
 					<div class="mob-lang text-center">
-						<span class="d-inline d-sm-inline d-md-none"><a class="select" href="#">Русский</a></span>
-						<span class="d-inline d-sm-inline d-md-none"><a href="#">Украинский</a></span>
+						<span class="d-inline d-sm-inline d-md-none"><a class="select" href="/ru">Русский</a></span>
+						<span class="d-inline d-sm-inline d-md-none"><a href="/ua">Украинский</a></span>
 					</div>
 				</div>
 			</nav>

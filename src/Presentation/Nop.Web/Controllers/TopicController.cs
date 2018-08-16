@@ -59,7 +59,8 @@ namespace Nop.Web.Controllers
 
             //template
             var templateViewPath = _topicModelFactory.PrepareTemplateViewPath(model.TopicTemplateId);
-            return View(templateViewPath, model);
+			ViewData["class"] = "wrap news";
+			return View(templateViewPath, model);
         }
 
         public virtual IActionResult TopicDetailsPopup(string systemName)
