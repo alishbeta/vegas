@@ -74,9 +74,6 @@ $(document).ready(function () {
 
     });
 
-
-
-
     /*#####################    Корзина   ###############################*/
     $('.cart .minus, .cart-popup-wrap .minus').on('click', function () {
         var count = +$(this).next().html();

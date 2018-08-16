@@ -1,4 +1,7 @@
 .news{
+  .subscription-wrap{
+    margin-top: 40px;
+  }
   .news-wrap{
     border-bottom: none;
     .title {
@@ -96,6 +99,34 @@
     }
     .text{
       margin-bottom: 60px;
+    }
+  }
+  .cert-full-wrap{
+    .img-wrap{
+      float: left;
+      padding: 70px 0 50px;
+      margin: 0 40px 30px 0;
+      border: 1px solid $border_color;
+      @include transition(.5s);
+      @include border-radius(5px);
+      text-align: center;
+      width: 290px;
+      &:hover{
+        @include box-shadow($shadow);
+
+      }
+      p{
+        margin-top: 40px;
+      }
+      a{
+        display: block;
+      }
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+    img{
+      width: 150px;
     }
   }
 }
