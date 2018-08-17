@@ -20,8 +20,10 @@ namespace Nop.Web.Models.Catalog
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
         public string SeName { get; set; }
-
-        public string Sku { get; set; }
+		public decimal Length { get; set; }
+		public decimal Width { get; set; }
+		public decimal Height { get; set; }
+		public string Sku { get; set; }
 
         public ProductType ProductType { get; set; }
 
@@ -42,7 +44,8 @@ namespace Nop.Web.Models.Catalog
         {
             public string OldPrice { get; set; }
             public string Price { get; set; }
-            public decimal PriceValue { get; set; }
+			public decimal Discount { get; set; }
+			public decimal PriceValue { get; set; }
             /// <summary>
             /// PAngV baseprice (used in Germany)
             /// </summary>

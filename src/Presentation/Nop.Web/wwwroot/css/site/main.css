@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 @font-face {
   font-family: Lato;
   src: url("../fonts/Lato-Regular.eot");
@@ -360,7 +360,6 @@ nav.breadcrumb-wrap {
   bottom: 0;
   width: 318px;
   background: white;
-  padding-top: 65px;
   -moz-box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);

@@ -1125,8 +1125,8 @@ namespace Nop.Web.Factories
 
             var models = new List<ProductOverviewModel>();
             foreach (var product in products)
-            {
-                var model = new ProductOverviewModel
+			{
+				var model = new ProductOverviewModel
                 {
                     Id = product.Id,
                     Name = _localizationService.GetLocalized(product, x => x.Name),
@@ -1140,14 +1140,19 @@ namespace Nop.Web.Factories
                         (!product.MarkAsNewEndDateTimeUtc.HasValue || product.MarkAsNewEndDateTimeUtc.Value > DateTime.UtcNow)
                 };
 
+				model.Height = product.Height;
+				model.Width = product.Width;
+				model.Length = product.Length;
+
                 //price
                 if (preparePriceModel)
                 {
                     model.ProductPrice = PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
                 }
+				model.ProductPrice.Discount = product.DiscountProductMappings.ToList().Count > 0 ? product.DiscountProductMappings.ToList()[0].Discount.DiscountPercentage : (decimal)0;
 
-                //picture
-                if (preparePictureModel)
+				//picture
+				if (preparePictureModel)
                 {
                     model.DefaultPictureModel = PrepareProductOverviewPictureModel(product, productThumbPictureSize);
                 }

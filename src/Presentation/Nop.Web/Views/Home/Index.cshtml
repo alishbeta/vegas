@@ -50,9 +50,11 @@
 </div>
 <!--***************Топ продаж***************-->
 @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeBestSellers })
+@await Component.InvokeAsync("HomepageBestSellers")
 <!--***************Новинки***************-->
 <!--dg-->
-@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeNews })
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeBestSellers })
+@await Component.InvokeAsync("HomepageNewProducts")
 <!--dg--><!--dg-->
 <!--dg-->
 <div class="new-wrap pad-norm">
