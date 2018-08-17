@@ -137,3 +137,12 @@ i.arrows {
 .text-blue{
   color: $bluish;
 }
+
+.btn-grey{
+    border-color: black;
+  background-color: transparent;
+  &:focus{
+    box-shadow: none;
+  }
+}
+

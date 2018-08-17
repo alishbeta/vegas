@@ -243,19 +243,24 @@
                         <img class="side-icons-search" src="/img/search_icon.svg" alt="search_icon">
                         <input class="d-md-none d-xl-inline" type="text" placeholder="Поиск">
                     </div>
-                    <ul>
+                    <ul id="main-menu">
                         <li><a onclick="return false;" href=""><img class="side-icons" src="/img/bedroom_set_icon.svg"
                                                                     alt="bedroom_set_icon">
                             <span class="d-inline d-sm-inline d-md-none d-xl-inline">Спальные гарнитуры</span>
                             <div class="hint d-xl-none"><span>Спальные гарнитуры</span></div>
                         </a>
-                            <ul class="d-none sub-menu">
-                                <li><a href="">Гарнитур</a></li>
-                                <li><a href="">Еще один</a></li>
-                                <li><a href="">Детские</a></li>
-                                <li><a href="">Vegas (Беларусь)</a></li>
-                                <li><a href="">Infinito (Италия)</a></li>
-                            </ul>
+                            <div class="sub-menu">
+                                <ul>
+                                    <li><a href="">Гарнитур</a></li>
+                                    <li><a href="">Еще один</a></li>
+                                    <li><a href="">Детские</a></li>
+                                    <li><a href="">Vegas (Беларусь)</a></li>
+                                    <li><a href="">Infinito (Италия)</a></li>
+                                </ul>
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-grey btn-sm pl-5 pr-5">Смотреть все</button>
+                                </div>
+                            </div>
                         </li>
                         <li><a onclick="return false;" href=""><img class="side-icons" src="/img/bed_icon.svg"
                                                                     alt="bed_icon">
@@ -267,13 +272,18 @@
                                 class="d-inline d-sm-inline d-md-none d-xl-inline">Матрасы</span>
                             <div class="hint d-xl-none"><span>Матрасы</span></div>
                         </a>
-                            <ul class="d-none sub-menu">
-                                <li><a href="">Матрас</a></li>
-                                <li><a href="">Дормео</a></li>
-                                <li><a href="">Детские</a></li>
-                                <li><a href="">Vegas (Беларусь)</a></li>
-                                <li><a href="">Infinito (Италия)</a></li>
-                            </ul>
+                            <div class="sub-menu">
+                                <ul>
+                                    <li><a href="">Матрас</a></li>
+                                    <li><a href="">Дормео</a></li>
+                                    <li><a href="">Детские</a></li>
+                                    <li><a href="">Vegas (Беларусь)</a></li>
+                                    <li><a href="">Infinito (Италия)</a></li>
+                                </ul>
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-grey btn-sm pl-5 pr-5">Смотреть все</button>
+                                </div>
+                            </div>
                         </li>
                         <li><a onclick="return false;" href=""><img class="side-icons" src="/img/tumba_icon.svg"
                                                                     alt="tumba_icon"> <span
@@ -1114,7 +1124,7 @@
         dots: false,
         slidesToShow: 5,
         slidesToScroll: 3,
-        speed:600,
+        speed: 600,
         prevArrow: '<div class="carusel-prev-arrow"></div>',
         nextArrow: '<div class="carusel-next-arrow"></div>',
     });

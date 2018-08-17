@@ -54,7 +54,7 @@ ul {
 a {
   color: $link_color;
   &:hover {
-    color: $link_color_hover;
+    color: black;
     text-decoration: none;
   }
 }
@@ -170,6 +170,7 @@ footer {
     .header-wrap {
       width: calc(100% + 70px);
       margin-left: -70px;
+      border-bottom: 1px solid $border_color;
       .side-logo-wrap{
         position: relative;
         left: 105px;

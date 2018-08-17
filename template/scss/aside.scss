@@ -31,7 +31,7 @@ $i: 0;
         margin-bottom: 20px;
         > img {
           width: 23px;
-          margin-left: 40px;
+          margin-left: 20px;
         }
         input {
           border: transparent;
@@ -52,11 +52,15 @@ $i: 0;
                   background-color: $color;
                 }
               }
+              &.active{
+                background-color: $color;
+              }
             }
           }
           a {
             display: block;
             padding: 10px;
+            font-weight: 600;
             @include transition(0.2s);
             &:hover {
               text-decoration: none;
@@ -96,11 +100,15 @@ $i: 0;
           }
         }
       }
+      .sub-menu{
+        display: none;
+      }
     }
     .side-logo-wrap{
       margin-top: -65px;
     }
   }
+
   .side-second-menu-wrap {
     padding-left: 318px;
     overflow: hidden;
@@ -113,6 +121,7 @@ $i: 0;
     }
     .close-i{
       float: right;
+      margin: 40px 29px 20px 15px;
     }
     .title{
       float: left;
@@ -126,8 +135,9 @@ $i: 0;
             background-color: white;
           }
           a{
+            font-weight: 600;
             display: block;
-            padding: 14px;
+            padding: 14px 14px 14px 60px;
             @include transition(0.2s);
           }
         }
@@ -194,6 +204,10 @@ $i: 0;
     ul li{
       width: 100%!important;
     }
+  }
+  .subscription-wrap{
+    margin: 50px -15px 0 -20%;
+
   }
 }
 

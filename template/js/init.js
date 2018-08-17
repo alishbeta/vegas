@@ -11,31 +11,65 @@ $(document).ready(function () {
     });
 
 
-    if ($('.wrap').hasClass('product')){
-        var navbar =  $('.opt-wrap');
+    if ($('.wrap').hasClass('product')) {
+        var navbar = $('.opt-wrap');
         var wrapper = $('.product-content-wrap');
-        $(window).on('scroll',function(){
+        $(window).on('scroll', function () {
             var nsc = $(document).scrollTop();
             var bp1 = wrapper.offset().top;
             var bp2 = bp1 + wrapper.outerHeight() - navbar.height();
             var navbPos = navbar.offset().top;
 
-            if (nsc>bp1) {  navbar.addClass('fix-on'); }
-            else {navbar.removeClass('fix-on');  }
-            if (nsc>bp2) { navbar.removeClass('fix-on'); }
+            if (nsc > bp1) {
+                navbar.addClass('fix-on');
+            }
+            else {
+                navbar.removeClass('fix-on');
+            }
+            if (nsc > bp2) {
+                navbar.removeClass('fix-on');
+            }
 
         });
     }
 
+    /*#####################    Отображение подменю   ###############################*/
 
-    $('.side-menu-wrap ul li').on('click',function () {
+/*    var colors = ['#d6eaf1', '#71b1ce', '#c2e0ea', '#b8dbe7', '#aed6e3', '#a3d1df', '#99cbdc',
+        '#90c6d9', '#85c1d5', '#7bbcd1', '#71b1ce'];
+    var i = 0;
+    $('#main-menu>li').each(function () {
+        $(this).data('color', colors[i]);
+        console.log(i);
+        i++;
+    });*/
+
+
+    $('.side-menu-wrap ul li').on('click', function () {
+
+        $(this).parent().find('li').each(function () {
+            if($(this).hasClass('active')){
+                $(this).removeClass('active');
+            }
+        });
+
         var color = rgb2hex($(this).css("background-color"));
         $('.side-second-menu-wrap').addClass('open');
         $('.side-menu-wrap').addClass('open');
+        $(this).addClass('active');
+        /*var curent_color = $(this).next().data('color');*/
+        console.log($(this).next().data());
+
         var data = $(this);
         $('.side-second-menu-wrap .sub-menu').fadeOut(function () {
             $('.side-second-menu-wrap').css("background-color", color);
-            $(this).html("<ul> " +data.find("ul.sub-menu").html() + "</ul>").fadeIn();
+            $(this).html(data.find("div.sub-menu").html()).fadeIn(function () {
+
+/*                $('.side-second-menu-wrap .sub-menu li').hover(function () {
+                    $(this).css("background-color", curent_color);
+                });*/
+            });
+
         });
         $('.side-second-menu-wrap .title').fadeOut(function () {
             $(this).html(data.find("a .hint").text()).fadeIn();
@@ -48,23 +82,24 @@ $(document).ready(function () {
         $('.side-menu-wrap').removeClass('open');
         $('.side-second-menu-wrap .sub-menu').html("");
         $('.side-second-menu-wrap .title').html("");
+        $(this).removeClass('active');
     });
 
     /*#####################    Слайдер для фильтров   ###############################*/
     $('.f-slider').each(function () {
         var data = $(this).data()
-        $("#slider-"+data.filterNumber +"-r").slider({
+        $("#slider-" + data.filterNumber + "-r").slider({
             range: true,
             min: data.min,
             max: data.max,
             values: [data.min, data.max],
             slide: function (event, ui) {
-                $("#slider-"+data.filterNumber+"-a1").val(ui.values[0]);
-                $("#slider-"+data.filterNumber+"-a2").val(ui.values[1]);
+                $("#slider-" + data.filterNumber + "-a1").val(ui.values[0]);
+                $("#slider-" + data.filterNumber + "-a2").val(ui.values[1]);
             }
         });
-        $("#slider-"+data.filterNumber+"-a1").val($("#slider-"+data.filterNumber +"-r").slider("values", 0));
-        $("#slider-"+data.filterNumber+"-a2").val($("#slider-"+data.filterNumber +"-r").slider("values", 1));
+        $("#slider-" + data.filterNumber + "-a1").val($("#slider-" + data.filterNumber + "-r").slider("values", 0));
+        $("#slider-" + data.filterNumber + "-a2").val($("#slider-" + data.filterNumber + "-r").slider("values", 1));
     });
 
     $('.filters-wrap .vg-filter').on('click', function () {
@@ -75,20 +110,18 @@ $(document).ready(function () {
     });
 
 
-
-
     /*#####################    Корзина   ###############################*/
     $('.cart .minus, .cart-popup-wrap .minus').on('click', function () {
         var count = +$(this).next().html();
-        if (count > 1){
+        if (count > 1) {
             $(this).next().html(count -= 1);
             $(this).next().next().val(count -= 1);
         }
     });
     $('.cart .plus, .cart-popup-wrap .plus').on('click', function () {
         var count = +$(this).prev().prev().html();
-            $(this).prev().prev().html(count += 1);
-            $(this).prev().val(count -= 1);
+        $(this).prev().prev().html(count += 1);
+        $(this).prev().val(count -= 1);
     });
 
     /*#####################    Корзина (Скрытие pop-up)   ###############################*/
@@ -149,7 +182,7 @@ $(document).ready(function () {
 });
 //Function to convert rgb color to hex format
 var hexDigits = new Array
-("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
+("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
 
 function rgb2hex(rgb) {
     rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
