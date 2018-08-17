@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
+using Nop.Core.Caching;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Localization;
@@ -25,6 +26,7 @@ using Nop.Web.Framework.Mvc.Filters;
 using Nop.Web.Framework.Mvc.Rss;
 using Nop.Web.Framework.Security;
 using Nop.Web.Framework.Security.Captcha;
+using Nop.Web.Infrastructure.Cache;
 using Nop.Web.Models.Catalog;
 
 namespace Nop.Web.Controllers
@@ -49,22 +51,25 @@ namespace Nop.Web.Controllers
         private readonly IStoreMappingService _storeMappingService;
         private readonly IUrlRecordService _urlRecordService;
         private readonly IWebHelper _webHelper;
-        private readonly IWorkContext _workContext;
+		private readonly IStaticCacheManager _cacheManager;
+		private readonly IWorkContext _workContext;
         private readonly IWorkflowMessageService _workflowMessageService;
         private readonly LocalizationSettings _localizationSettings;
         private readonly ShoppingCartSettings _shoppingCartSettings;
+		private readonly IOrderReportService _orderReportService;
 
-        #endregion
+		#endregion
 
-        #region Ctor
+		#region Ctor
 
-        public ProductController(CaptchaSettings captchaSettings,
+		public ProductController(CaptchaSettings captchaSettings,
             CatalogSettings catalogSettings,
             IAclService aclService,
             ICompareProductsService compareProductsService,
             ICustomerActivityService customerActivityService,
-            IEventPublisher eventPublisher,
-            ILocalizationService localizationService,
+            IEventPublisher eventPublisher, 
+			IOrderReportService orderReportService,
+			ILocalizationService localizationService,
             IOrderService orderService,
             IPermissionService permissionService,
             IProductModelFactory productModelFactory,
@@ -74,13 +79,15 @@ namespace Nop.Web.Controllers
             IStoreMappingService storeMappingService,
             IUrlRecordService urlRecordService,
             IWebHelper webHelper,
-            IWorkContext workContext,
+			IStaticCacheManager cacheManager,
+			IWorkContext workContext,
             IWorkflowMessageService workflowMessageService,
             LocalizationSettings localizationSettings,
             ShoppingCartSettings shoppingCartSettings)
         {
             this._captchaSettings = captchaSettings;
-            this._catalogSettings = catalogSettings;
+			this._orderReportService = orderReportService;
+			this._catalogSettings = catalogSettings;
             this._aclService = aclService;
             this._compareProductsService = compareProductsService;
             this._customerActivityService = customerActivityService;
@@ -99,7 +106,8 @@ namespace Nop.Web.Controllers
             this._workflowMessageService = workflowMessageService;
             this._localizationSettings = localizationSettings;
             this._shoppingCartSettings = shoppingCartSettings;
-        }
+			this._cacheManager = cacheManager;
+		}
 
         #endregion
 
@@ -224,7 +232,35 @@ namespace Nop.Web.Controllers
             return View(model);
         }
 
-        public virtual IActionResult NewProductsRss()
+		[HttpsRequirement(SslRequirement.No)]
+		public virtual IActionResult BestSellers()
+		{
+			if (!_catalogSettings.ShowBestsellersOnHomepage || _catalogSettings.NumberOfBestsellersOnHomepage == 0)
+				return Content("");
+
+			//load and cache report
+			var report = _cacheManager.Get(string.Format(ModelCacheEventConsumer.HOMEPAGE_BESTSELLERS_IDS_KEY, _storeContext.CurrentStore.Id),
+				() => _orderReportService.BestSellersReport(
+						storeId: _storeContext.CurrentStore.Id,
+						pageSize: _catalogSettings.NumberOfBestsellersOnHomepage)
+					.ToList());
+
+			//load products
+			var products = _productService.GetProductsByIds(report.Select(x => x.ProductId).ToArray());
+			//ACL and store mapping
+			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+			//availability dates
+			products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+
+			if (!products.Any())
+				return Content("");
+
+			//prepare model
+			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true).ToList();
+			return View(model);
+		}
+
+		public virtual IActionResult NewProductsRss()
         {
             var feed = new RssFeed(
                 $"{_localizationService.GetLocalized(_storeContext.CurrentStore, x => x.Name)}: New products",

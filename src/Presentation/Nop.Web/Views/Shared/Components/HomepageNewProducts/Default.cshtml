@@ -3,8 +3,8 @@
 {
 	<div class="new-wrap pad-norm">
 		<div class="title text-center">
-			<h3 class="">@T("Bestsellers")</h3>
-			<button class="btn btn-sm btn-blue-white float-right d-none d-md-block">@T("Bestsellers.ViewAll")</button>
+			<h3 class="">@T("NewProducts")</h3>
+			<button class="btn btn-sm btn-blue-white float-right d-none d-md-block" id="new-products-view-all">@T("NewProducts.ViewAll")</button>
 		</div>
 		<div class="slider-wrap clearfix">
 			@foreach (var item in Model)
@@ -13,4 +13,9 @@
 			}
 		</div>
 	</div>
+	<script>
+		$("#new-products-view-all").on("click", function () {
+			window.location.replace("@Url.RouteUrl("newproducts")");
+		});
+	</script>
 }
