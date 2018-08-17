@@ -138,6 +138,9 @@ i.arrows {
     transform: rotate(225deg);
     left: unset; }
 
+.text-blue {
+  color: #2c96b9; }
+
 html, body, .wrap, .r-wrap {
   height: 100%; }
 
@@ -195,6 +198,11 @@ a {
 
 .h1, h1 {
   font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 30px; }
+
+.h5, h5 {
+  font-size: 18px;
   font-weight: 600;
   margin-bottom: 30px; }
 
@@ -1570,7 +1578,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     margin-left: 20px; }
 
 .news img {
-  border: 1px solid #cdd2d4;
   max-width: 100%;
   margin-bottom: 40px;
   -moz-border-radius: 5px;
@@ -1585,6 +1592,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   line-height: 2; }
 .news .text {
   font-size: 16px; }
+  .news .text a {
+    color: #2c96b9;
+    text-decoration: underline; }
 .news .news-wrap, .news .article-wrap {
   margin-left: -20px;
   border-bottom: none; }
@@ -1615,12 +1625,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     float: right; }
   .news .btn-wrap .btn-link {
     font-size: 14px; }
-.news .about-full-wrap .slider {
-  margin-bottom: 30px; }
-  .news .about-full-wrap .slider:hover .prev-arrow {
-    opacity: 1; }
-  .news .about-full-wrap .slider:hover .next-arrow {
-    opacity: 1; }
+.news .about-full-wrap .slider:hover .prev-arrow {
+  opacity: 1; }
+.news .about-full-wrap .slider:hover .next-arrow {
+  opacity: 1; }
 .news .about-full-wrap .slider-nav img {
   margin: 13px 5px;
   cursor: pointer;
@@ -1716,6 +1724,21 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   -webkit-border-radius: 80px;
   border-radius: 80px;
   line-height: 3.1; }
+.news .visa {
+  display: block;
+  width: 220px;
+  margin-bottom: 0; }
+.news .liq {
+  width: 150px;
+  margin-bottom: 0;
+  margin-left: 15px; }
+.news .pci-wrap {
+  background-color: #d9dee0;
+  padding: 20px;
+  margin-top: 40px; }
+  .news .pci-wrap img {
+    float: left;
+    margin: 10px 15px 0 0; }
 
 .product .prev-arrow, .product .next-arrow {
   position: relative;
