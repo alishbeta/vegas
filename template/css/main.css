@@ -717,11 +717,11 @@ nav.breadcrumb-wrap {
 .item-wrap-full button {
   margin: 20px 0; }
 
-.news-wrap {
+.news-wrap, .news .article-wrap {
   margin-bottom: 50px;
   padding-left: 20px; }
-  .news-wrap .item-wrap {
-    margin-left: 30px;
+  .news-wrap .item-wrap, .news .article-wrap .item-wrap {
+    margin-right: 30px;
     width: 228px;
     border: 1px solid #d9dee0;
     border-radius: 5px;
@@ -729,27 +729,27 @@ nav.breadcrumb-wrap {
     overflow: hidden;
     float: left;
     padding: 0; }
-    .news-wrap .item-wrap .text-wrap {
+    .news-wrap .item-wrap .text-wrap, .news .article-wrap .item-wrap .text-wrap {
       padding: 20px 20px 25px 20px; }
-  .news-wrap .title {
+  .news-wrap .title, .news .article-wrap .title {
     margin-bottom: 40px; }
-    .news-wrap .title a {
+    .news-wrap .title a, .news .article-wrap .title a {
       color: black;
       font-weight: bold; }
-      .news-wrap .title a:hover {
+      .news-wrap .title a:hover, .news .article-wrap .title a:hover {
         text-decoration: underline; }
-  .news-wrap .short-text {
+  .news-wrap .short-text, .news .article-wrap .short-text {
     color: #767c7e;
     font-size: 14px; }
 
-.sell-wrap, .new-wrap, .news-wrap, .see-wrap, .product-content-wrap {
+.sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .see-wrap, .product-content-wrap {
   border-bottom: 1px solid #cdd2d4;
   padding-bottom: 41px; }
 
 .cat-content-wrap {
   border-bottom: 1px solid #cdd2d4; }
 
-.sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .see-wrap .btn-blue-white, .cat-content-wrap .btn-blue-white, .see-wrap .btn-blue-white {
+.sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .see-wrap .btn-blue-white, .cat-content-wrap .btn-blue-white, .see-wrap .btn-blue-white {
   margin-right: 200px; }
 
 .some-info {
@@ -763,7 +763,7 @@ nav.breadcrumb-wrap {
   background-color: #bfdce6;
   padding-top: 40px;
   padding-bottom: 40px;
-  margin: 0 -15px; }
+  margin: 50px -15px 0; }
   .subscription-wrap .inner-wrap {
     width: 900px;
     margin-right: auto;
@@ -1576,25 +1576,24 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 
 .news .text {
   font-size: 16px; }
-.news .subscription-wrap {
-  margin-top: 40px; }
-.news .news-wrap {
+.news .news-wrap, .news .article-wrap {
+  margin-left: -20px;
   border-bottom: none; }
-  .news .news-wrap .title {
+  .news .news-wrap .title, .news .article-wrap .title {
     margin-bottom: 20px; }
-  .news .news-wrap .item-wrap {
+  .news .news-wrap .item-wrap, .news .article-wrap .item-wrap {
     margin-bottom: 20px;
     -moz-transition: 0.5s;
     -o-transition: 0.5s;
     -webkit-transition: 0.5s;
     transition: 0.5s; }
-    .news .news-wrap .item-wrap:hover {
+    .news .news-wrap .item-wrap:hover, .news .article-wrap .item-wrap:hover {
       -moz-box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5);
       -webkit-box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5);
       box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5); }
-    .news .news-wrap .item-wrap .img-wrap {
+    .news .news-wrap .item-wrap .img-wrap, .news .article-wrap .item-wrap .img-wrap {
       position: relative; }
-      .news .news-wrap .item-wrap .img-wrap .date {
+      .news .news-wrap .item-wrap .img-wrap .date, .news .article-wrap .item-wrap .img-wrap .date, .news .news-wrap .item-wrap .img-wrap .article-wrap .label, .news .article-wrap .item-wrap .img-wrap .label {
         position: absolute;
         bottom: 0;
         background-color: #bfdce6;
@@ -1613,19 +1612,19 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     min-height: 500px;
     background-color: #d4d4d4;
     margin-bottom: 30px; }
-  .news .news-full-wrap .btn-wrap, .news .about-full-wrap .btn-wrap {
-    margin: 60px 0; }
-    .news .news-full-wrap .btn-wrap button:last-child, .news .about-full-wrap .btn-wrap button:last-child {
-      float: right; }
-    .news .news-full-wrap .btn-wrap .btn-link, .news .about-full-wrap .btn-wrap .btn-link {
-      font-size: 14px; }
-  .news .news-full-wrap .date, .news .about-full-wrap .date {
+  .news .news-full-wrap .date, .news .about-full-wrap .date, .news .news-full-wrap .article-wrap .label, .news .article-wrap .news-full-wrap .label, .news .about-full-wrap .article-wrap .label, .news .article-wrap .about-full-wrap .label {
     display: inline-block;
     float: right;
     font-size: 10px;
     background-color: #bfdce6;
     padding: 5px 80px 3px 20px;
     line-height: 2; }
+.news .btn-wrap {
+  margin: 60px 0; }
+  .news .btn-wrap button:last-child {
+    float: right; }
+  .news .btn-wrap .btn-link {
+    font-size: 14px; }
 .news .about-full-wrap .slider {
   margin-bottom: 30px; }
   .news .about-full-wrap .slider:hover .prev-arrow {
@@ -1689,6 +1688,29 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   .news .cert-full-wrap h1 img {
     width: 50px;
     margin-left: 30px; }
+.news nav {
+  margin-bottom: 30px;
+  font-size: 16px;
+  font-weight: 600; }
+.news ul li {
+  float: left;
+  width: 20%;
+  text-align: center; }
+  .news ul li a {
+    display: block;
+    padding: 20px;
+    background-color: #bfdce6;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s; }
+    .news ul li a:hover {
+      position: relative;
+      background-color: white;
+      color: #2c96b9;
+      -moz-box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.2);
+      -webkit-box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.2); }
 
 .product .prev-arrow, .product .next-arrow {
   position: relative;
