@@ -252,6 +252,14 @@ namespace Nop.Services.Customers
             return customers;
         }
 
+        public virtual IList<Customer> GetNotSyncCustomers()
+        {
+            var query = from c in _customerRepository.Table
+                        where !c.Deleted && !c.IsSync
+                        select c;
+            return query.OrderBy(x => x.CreatedOnUtc).ToList();
+        }
+
         /// <summary>
         /// Gets online customers
         /// </summary>

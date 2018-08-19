@@ -178,7 +178,7 @@ namespace Nop.Web.Controllers
                     : _customerService.GetCustomerByEmail(model.Email);
 
                 //activity log
-                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportOrders.Login", "1C Exporting discount begin.");
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportDiscounts.Login", "1C Exporting discount begin.");
 
                 var discounts = _exportManager.ExportDiscountsToOneC();
 
@@ -193,7 +193,42 @@ namespace Nop.Web.Controllers
                 }
 
                 //activiti log
-                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportOrders.LogOut", "1C Exporting discount end.");
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportDiscounts.LogOut", "1C Exporting discount end.");
+            }
+            return Json(response);
+        }
+
+        [HttpPost]
+        //available even when a store is closed
+        [CheckAccessClosedStore(true)]
+        //available even when navigation is not allowed
+        [CheckAccessPublicStore(true)]
+        public virtual JsonResult ExportCustomers([FromBody]OneCAuth model)
+        {
+            var response = IsLogin(model?.Username, model?.Email, model?.Password);
+            if (response.Success)
+            {
+                var customer = _customerSettings.UsernamesEnabled
+                    ? _customerService.GetCustomerByUsername(model.Username)
+                    : _customerService.GetCustomerByEmail(model.Email);
+
+                //activity log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportCustomers.Login", "1C Exporting customers begin.");
+
+                var customers = _exportManager.ExportUsersToOneC();
+
+                if (customers.Count() > 0)
+                {
+                    response.Data = customers;
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Does not have any customer.";
+                }
+
+                //activiti log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportCustomers.LogOut", "1C Exporting customers end.");
             }
             return Json(response);
         }

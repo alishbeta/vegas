@@ -48,6 +48,8 @@ namespace Nop.Services.Customers
             string ipAddress = null, bool loadOnlyWithShoppingCart = false, ShoppingCartType? sct = null,
             int pageIndex = 0, int pageSize = int.MaxValue, bool getOnlyTotalCount = false);
 
+        IList<Customer> GetNotSyncCustomers();
+
         /// <summary>
         /// Gets online customers
         /// </summary>

@@ -260,6 +260,13 @@ namespace Nop.Services.Discounts
             return query.ToList();
         }
 
+        public virtual IList<Discount> GetNotSyncDiscounts()
+        {
+            var query = from d in _discountRepository.Table
+                        where !d.IsSync
+                        select d;
+            return query.OrderBy(x => x.Id).ToList();
+        }
         /// <summary>
         /// Inserts a discount
         /// </summary>

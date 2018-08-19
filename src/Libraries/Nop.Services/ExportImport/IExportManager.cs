@@ -15,6 +15,7 @@ namespace Nop.Services.ExportImport
     {
         IEnumerable<OneCOrder> ExportOrdersToOneC();
         IEnumerable<OneCDiscount> ExportDiscountsToOneC();
+        IEnumerable<OneCUser> ExportUsersToOneC();
 
         /// <summary>
         /// Export manufacturer list to XML

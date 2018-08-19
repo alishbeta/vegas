@@ -41,6 +41,8 @@ namespace Nop.Services.Discounts
             string couponCode = null, string discountName = null, bool showHidden = false,
             DateTime? startDateUtc = null, DateTime? endDateUtc = null);
 
+        IList<Discount> GetNotSyncDiscounts();
+
         /// <summary>
         /// Inserts a discount
         /// </summary>

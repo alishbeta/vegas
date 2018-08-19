@@ -686,7 +686,7 @@ namespace Nop.Services.ExportImport
 
         public virtual IEnumerable<OneCDiscount> ExportDiscountsToOneC()
         {
-            var discounts = _discountService.GetAllDiscounts();
+            var discounts = _discountService.GetNotSyncDiscounts();
 
             foreach (var discount in discounts)
             {
@@ -709,6 +709,25 @@ namespace Nop.Services.ExportImport
                     EndDateUtc = d.EndDateUtc,
                     IsCumulative = d.IsCumulative,
                     DiscountLimitation = d.DiscountLimitation.ToString()
+                });
+        }
+
+        public virtual IEnumerable<OneCUser> ExportUsersToOneC()
+        {
+            var customers = _customerService.GetAllCustomers();
+            foreach (var customer in customers)
+            {
+                customer.IsSync = true;
+                _customerService.UpdateCustomer(customer);
+            }
+
+            return customers
+                .Select(d => new OneCUser()
+                {
+                    Id = d.Id,
+                    Username = d.Username,
+                    Email = d.Email,
+                    Addresses = d.Addresses
                 });
         }
 
