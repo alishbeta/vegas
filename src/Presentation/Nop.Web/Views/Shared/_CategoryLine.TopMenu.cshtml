@@ -83,12 +83,17 @@
             Model.Category.SubCategories.Where(x => x.IncludeInTopMenu).ToList();
         if (subCategories.Count > 0)
         {
-            <ul class="d-none sub-menu">
-                @foreach (var subCategory in subCategories)
-                {
-                    <li><a href="@Url.RouteUrl("Category", new { SeName = subCategory.Name })">@subCategory.Name</a></li>
-                }
-            </ul>
+            <div class="sub-menu">
+				<ul>
+					@foreach (var subCategory in subCategories)
+					{
+					<li><a href="@Url.RouteUrl("Category", new { SeName = subCategory.Name })">@subCategory.Name</a></li>
+					}
+				</ul>
+				<div class="text-center mt-3">
+					<button class="btn btn-grey btn-sm pl-5 pr-5">@T("bestsellers.ViewAll")</button>
+				</div>
+            </div>
         }
     }
 </li>

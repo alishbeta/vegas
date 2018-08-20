@@ -38,10 +38,10 @@
 @{
 	if (ViewData["class"] == null)
 	{
-		ViewData["class"] = "wrap short-menu cat";
+		ViewData["class"] = "wrap short-menu cat";//@ViewData["class"]
 	}
 }
-<div class="@ViewData["class"]">
+<div class="wrap">
 	<div class="r-wrap">
 		<div class="top-wraper" style="display: none;">
 			<a onclick="return false;" href="#"><i class="top"></i></a>
@@ -52,12 +52,9 @@
 					<div class="logo">
 						@await Component.InvokeAsync("Logo")
 					</div>
-                </div>
+				</div>
 				<div class="inner-menu-wrap">
-					<div class="search-wrap">
-						<img class="side-icons-search" src="/img/search_icon.svg" alt="search_icon">
-						<input class="d-md-none d-xl-inline" type="text" placeholder="Поиск">
-					</div>
+					@await Component.InvokeAsync("SearchBox")
 					@await Component.InvokeAsync("TopMenu")
 					<div class="mob-lang text-center">
 						<span class="d-inline d-sm-inline d-md-none"><a class="select" href="/ru">Русский</a></span>
@@ -83,7 +80,7 @@
 			@RenderBody()
 			<!-- END RENDER BODY -->
 
-			@await Component.InvokeAsync("Footer")
 		</div>
+		@await Component.InvokeAsync("Footer")
 	</div>
 </div>
