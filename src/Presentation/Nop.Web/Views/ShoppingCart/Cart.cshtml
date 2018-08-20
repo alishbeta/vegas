@@ -1,21 +1,81 @@
-﻿@model ShoppingCartModel
+﻿@*@model ShoppingCartModel
 @{
-    Layout = "_ColumnsOne";
+	Layout = "_ColumnsOne";
 
-    //title
-    Html.AddTitleParts(T("PageTitle.ShoppingCart").Text);
-    //page class
-    Html.AppendPageCssClassParts("html-shopping-cart-page");
+	//title
+	Html.AddTitleParts(T("PageTitle.ShoppingCart").Text);
+	//page class
+	Html.AppendPageCssClassParts("html-shopping-cart-page");
 }
 @if (!Model.OnePageCheckoutEnabled)
 {
-    @await Component.InvokeAsync("CheckoutProgress", new {step = CheckoutProgressStep.Cart})
+	@await Component.InvokeAsync("CheckoutProgress", new { step = CheckoutProgressStep.Cart })
 }
 <div class="page shopping-cart-page">
-    <div class="page-title">
-        <h1>@T("ShoppingCart")</h1>
-    </div>
-    <div class="page-body">
-        @await Component.InvokeAsync("OrderSummary", new { overriddenModel = Model})
-    </div>
+	<div class="page-title">
+		<h1>@T("ShoppingCart")</h1>
+	</div>
+	<div class="page-body">
+		@await Component.InvokeAsync("OrderSummary", new { overriddenModel = Model })
+	</div>
+</div>*@
+
+
+@model ShoppingCartModel
+@using Nop.Core
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@inject IWebHelper webHelper
+@inject IWorkContext workContext
+@inject OrderSettings orderSettings
+@{
+	Layout = "_ColumnsOne";
+
+	//title
+	Html.AddTitleParts(T("PageTitle.ShoppingCart").Text);
+	//page class
+	Html.AppendPageCssClassParts("html-shopping-cart-page");
+}
+@if (!Model.OnePageCheckoutEnabled)
+{
+	@await Component.InvokeAsync("CheckoutProgress", new { step = CheckoutProgressStep.Cart })
+}
+<nav class="breadcrumb-wrap"></nav>
+<div class="cart-wrap cart short-menu">
+	<div class="row">
+		<div class="col-sm-10 col-md-8 offset-md-1 offset-lg-1 col-lg-7 offset-xl-1 col-xl-6">
+			<h1>@T("ShoppingCart")</h1>
+			@await Component.InvokeAsync("OrderSummary", new { overriddenModel = Model })
+		</div>
+		<div class="order-wrapp ml-3 rounded">
+			<div class="title mb-4">@T("Cart.YourOrder")</div>
+			@foreach (var item in Model.Items)
+			{
+				<div class="item">
+					<img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+					<div class="title">@item.ProductName</div>
+					<div class="item-name">@item.ProductSeName</div>
+					<div class="count-wrap mt-2 mb-2">
+						<button class="minus"></button>
+						<div class="count">@item.Quantity</div>
+						<input id="it-count@(item.Id)" type="hidden" value="@item.Quantity">
+						<button class="plus"></button>
+						<div class="closee"></div>
+					</div>
+					<div class="price-wrap">
+						<div class="price-old">@item.SubTotal</div>
+						<div class="price">@(item.MaximumDiscountedQty.HasValue ? T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value).ToString() : item.SubTotal)</div>
+					</div>
+				</div>
+				<div class="line"></div>
+			}
+			<div class="total-wrap mb-3">
+				<span>Итого 2 товара на сумму</span>
+				<span>27 008 грн</span>
+			</div>
+			<button class="btn btn-link">Использовать промокод</button>
+			<button class="btn btn-link">Использовать скидочную карточку</button>
+			<small>Стоимость указана без учета доставки</small>
+		</div>
+	</div>
 </div>
