@@ -5,7 +5,7 @@
 @inject SeoSettings seoSettings
 @inject CommonSettings commonSettings
 @{
-    Layout = "_ColumnsTwo";
+    Layout = "_ColumnsOne";
 
     //title
     Html.AddTitleParts(!string.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
@@ -28,17 +28,16 @@
     {
     @if (Model.DisplayCategoryBreadcrumb)
     {
-        <div class="breadcrumb">
-            <ul itemscope itemtype="http://schema.org/BreadcrumbList">
-                <li>
+        <nav class="breadcrumb-wrap" aria-label="breadcrumb">
+            <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+                <li class="breadcrumb-item">
                     <a href="@Url.RouteUrl("HomePage")" title="@T("Categories.Breadcrumb.Top")">@T("Categories.Breadcrumb.Top")</a>
-                    <span class="delimiter">@breadcrumbDelimiter</span>
                 </li>
                 @{ int position = 1; }
                 @foreach (var cat in Model.CategoryBreadcrumb)
                 {
                     var isLastCategory = cat.Id == Model.Id;
-                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <li class="breadcrumb-item @(isLastCategory == true ? "active" : "")" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                         @if (isLastCategory)
                         {
                             <strong class="current-item" itemprop="name">@cat.Name</strong>
@@ -51,116 +50,190 @@
                             <a href="@Url.RouteUrl("Category", new { SeName = cat.SeName })" title="@cat.Name" itemprop="item">
                                 <span itemprop="name">@cat.Name</span>
                             </a>
-                            <span class="delimiter">@breadcrumbDelimiter</span>
                         }
                         <meta itemprop="position" content="@position" />
                     </li>
                     position++;
                 }
-            </ul>
-        </div>
+            </ol>
+        </nav>
         @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsAfterBreadcrumb, additionalData = Model })
     }
 }
-<div class="page category-page">
-    <div class="page-title">
-        <h1>@Model.Name</h1>
-    </div>
-    <div class="page-body">
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsTop, additionalData = Model })
-        @*description*@
-        @if (!string.IsNullOrWhiteSpace(Model.Description))
-        {
-            <div class="category-description">
-                @Html.Raw(Model.Description)
-            </div>
-        }
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBeforeSubcategories, additionalData = Model })
-        @*subcategories*@
-        @if (Model.SubCategories.Count > 0)
-        {
-            <div class="category-grid sub-category-grid">
-                <div class="item-grid">
-                    @foreach (var item in Model.SubCategories)
-                    {
-                        <div class="item-box">
-                            <div class="sub-category-item">
-                                <h2 class="title">
-                                    <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
-                                        @item.Name
-                                    </a>
-                                </h2>
-                                <div class="picture">
-                                    <a href="@Url.RouteUrl("Category", new { SeName = item.SeName })" title="@item.PictureModel.Title">
-                                        <img alt="@item.PictureModel.AlternateText" src="@item.PictureModel.ImageUrl" title="@item.PictureModel.Title" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        }
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBeforeFeaturedProducts, additionalData = Model })
-        @*featured products*@
-        @if (Model.FeaturedProducts.Count > 0)
-        {
-            <div class="product-grid featured-product-grid">
-                <div class="title">
-                    <strong>@T("Products.FeaturedProducts")</strong>
-                </div>
-                <div class="item-grid">
-                    @foreach (var item in Model.FeaturedProducts)
-                    {
-                        <div class="item-box">
-                            @await Html.PartialAsync("_ProductBox", item)
-                        </div>
-                    }
-                </div>
-            </div>
-        }
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsAfterFeaturedProducts, additionalData = Model })
-        @if (Model.Products.Count > 0)
-        {
-            @await Html.PartialAsync("_CatalogSelectors", Model.PagingFilteringContext)
-        }
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBeforeFilters, additionalData = Model })
-        <div class="product-filters">
-            @*filtering*@
-            @if (Model.PagingFilteringContext.PriceRangeFilter.Enabled)
-            {
-                @await Html.PartialAsync("_FilterPriceBox", Model.PagingFilteringContext.PriceRangeFilter)
-            }
-            @*filtering*@
-            @if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
-            {
-                @await Html.PartialAsync("_FilterSpecsBox", Model.PagingFilteringContext.SpecificationFilter)
-            }
-        </div>
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBeforeProductList, additionalData = Model })
-
-        @if (Model.Products.Count > 0)
-        {
-            <div class="@(Model.PagingFilteringContext.ViewMode == "list" ? "product-list" : "product-grid")">
-                <div class="item-grid">
-                    @foreach (var product in Model.Products)
-                    {
-                        <div class="item-box">
-                            @await Html.PartialAsync("_ProductBox", product)
-                        </div>
-                    }
-                </div>
-            </div>
-        }
-        @{
-            var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
-        }
-        @if (!pager.IsEmpty())
-        {
-            <div class="pager">
-                @pager
-            </div>
-        }
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBottom, additionalData = Model })
-    </div>
-</div>
+		<div class="cat-content-wrap">
+			<div class="title text-center">
+				<h3><b>@Model.Name</b></h3>
+				<p>
+					<small>@Model.Products.Count товаров</small>
+				</p>
+			</div>
+			<div class="filters-wrap">
+				<div class="d-inline-block f1">
+					<button class="btn btn-outline-secondary btn-sm vg-filter" type="button">
+						Показать фильтры
+					</button>
+				</div>
+				<div class="d-inline-block f2 float-right">
+					<button class="btn btn-outline-secondary btn-sm vg-filter" type="button">
+						По популярности
+					</button>
+					<button class="btn btn-outline-secondary btn-sm vg-filter" type="button">
+						По группам
+					</button>
+				</div>
+			</div>
+			<div class="items clearfix">
+				<div class="filters-data">
+					<div class="inner-wrap f-slider" data-filter-number="1" data-min="0" data-max="300">
+						<div class="title">Цена (грн)</div>
+						<div class="form-inline">
+							<div class="form-group">
+								<span>от: </span><input class="form-control" type="text" id="slider-1-a1">
+								<span>до: </span><input class="form-control" type="text" id="slider-1-a2">
+							</div>
+						</div>
+						<div id="slider-1-r" class="slider-range"></div>
+					</div>
+					<div class="inner-wrap f-slider" data-filter-number="2" data-min="0" data-max="200">
+						<div class="title">Длина (см)</div>
+						<div class="form-inline">
+							<div class="form-group">
+								<span>от: </span><input class="form-control" type="text" id="slider-2-a1">
+								<span>до: </span><input class="form-control" type="text" id="slider-2-a2">
+							</div>
+						</div>
+						<div id="slider-2-r" class="slider-range"></div>
+					</div>
+					<div class="inner-wrap f-slider" data-filter-number="3" data-min="0" data-max="200">
+						<div class="title">Шириина (см)</div>
+						<div class="form-inline">
+							<div class="form-group">
+								<span>от: </span><input class="form-control" type="text" id="slider-3-a1">
+								<span>до: </span><input class="form-control" type="text" id="slider-3-a2">
+							</div>
+						</div>
+						<div id="slider-3-r" class="slider-range"></div>
+					</div>
+					<div class="inner-wrap f-slider" data-filter-number="4" data-min="0" data-max="200">
+						<div class="title">Высота (см)</div>
+						<div class="form-inline">
+							<div class="form-group">
+								<span>от: </span><input class="form-control" type="text" id="slider-4-a1">
+								<span>до: </span><input class="form-control" type="text" id="slider-4-a2">
+							</div>
+						</div>
+						<div id="slider-4-r" class="slider-range"></div>
+					</div>
+					<div class="inner-wrap f-slider" data-filter-number="5" data-min="0" data-max="200">
+						<div class="title">Максимальная нагрузка (кг)</div>
+						<div class="form-inline">
+							<div class="form-group">
+								<span>от: </span><input class="form-control" type="text" id="slider-5-a1">
+								<span>до: </span><input class="form-control" type="text" id="slider-5-a2">
+							</div>
+						</div>
+						<div id="slider-5-r" class="slider-range"></div>
+					</div>
+					<div class="inner-wrap f-slider" data-filter-number="6" data-min="0" data-max="200">
+						<div class="title">Количество пружин</div>
+						<div class="form-inline">
+							<div class="form-group">
+								<span>от: </span><input class="form-control" type="text" id="slider-6-a1">
+								<span>до: </span><input class="form-control" type="text" id="slider-6-a2">
+							</div>
+						</div>
+						<div id="slider-6-r" class="slider-range"></div>
+					</div>
+					<div class="inner-wrap">
+						<div class="title">По конструкции</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="">
+							<label class="form-check-label">
+								С памятью формы
+								<small>400</small>
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="">
+							<label class="form-check-label">
+								Пружинные
+								<small>400</small>
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="">
+							<label class="form-check-label">
+								Безпружинные
+								<small>400</small>
+							</label>
+						</div>
+					</div>
+					<div class="inner-wrap">
+						<div class="title">По размеру</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="">
+							<label class="form-check-label">
+								Односпальные
+								<small>400</small>
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="">
+							<label class="form-check-label">
+								Двуспальные
+								<small>400</small>
+							</label>
+						</div>
+					</div>
+					<div class="inner-wrap" data-filter-number="6" data-min="0" data-max="200">
+						<div class="title">По свойствам</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="">
+							<label class="form-check-label">
+								Мягкие
+								<small>400</small>
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="">
+							<label class="form-check-label">
+								Жесткие
+								<small>400</small>
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="">
+							<label class="form-check-label">
+								Средней жесткости
+								<small>400</small>
+							</label>
+						</div>
+					</div>
+					<div class="inner-wrap text-center">
+						<div class="btn-group-vertical">
+							<button class="btn btn-lg btn-blue rounded">Применить</button>
+							<button class="btn btn-link">Очистить фильтры</button>
+						</div>
+					</div>
+				</div>
+				@if (Model.Products.Count > 0)
+				{
+					<div class="prod-wrap float-right">
+						@foreach (var product in Model.Products)
+						{
+							@await Html.PartialAsync("_ProductBox", product)
+						}
+					</div>
+				}
+				@{
+					var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+				}
+				@if (!pager.IsEmpty())
+				{
+					<div class="pager">
+						@pager
+					</div>
+				}
+				@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBottom, additionalData = Model })
+			</div>
+		</div>
