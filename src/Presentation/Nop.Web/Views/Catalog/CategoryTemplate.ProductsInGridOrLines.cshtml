@@ -241,3 +241,6 @@
 				@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBottom, additionalData = Model })
 			</div>
 		</div>
+@*await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeBestSellers })*@
+
+@await Component.InvokeAsync("RecentlyViewedProductsBlock", new { productThumbPictureSize = 450, preparePriceModel = true })
