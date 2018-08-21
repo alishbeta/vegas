@@ -90,7 +90,6 @@
 
 
 .item-wrap-full {
-display: none;
   top: 0;
   position: absolute;
   width: 268px;
@@ -98,7 +97,7 @@ display: none;
   @include box-shadow(0 3px 16px 1px rgba(0, 0, 0, 0.5));
   @include border-radius(5px);
   background-color: white;
-  /*opacity: 0;*/
+  opacity: 0;
   z-index: 2;
   /*меняем тут*/
   i {
@@ -124,6 +123,7 @@ display: none;
 
 .item-wrap {
   width: 268px;
+  height: 350px;
   padding: 0 20px;
   span img {
     width: 20px;
@@ -175,11 +175,24 @@ display: none;
   line-height: 0.9;
 }
 
-.slider-wrap .outer-wrapp, .items .outer-wrapp {
- /* position: relative;*/
+.items .outer-wrapp, .outer-wrapp{
+  position: relative;
+  &:hover .item-wrap-full{
+    opacity: 1;
 
-  margin-right: 20px;
+  }
 }
+
+.slider-wrap{
+  .outer-wrapp {
+    position: static;
+    margin-right: 20px;
+  }
+  .item-wrap-full{
+    display: none;
+  }
+}
+
 
 .item-wrap-full {
   .sizes-wrap {
@@ -521,13 +534,13 @@ small {
   }
 }
 
-.form-inline .form-control {
+/*.form-inline .form-control {
   width: 70px;
   margin: 0 15px;
   padding: 4px 10px;
   font-size: 14px;
   color: $text_light;
-}
+}*/
 
 .filters-data {
   .form-group {
