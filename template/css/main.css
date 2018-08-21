@@ -556,6 +556,8 @@ nav.breadcrumb-wrap {
     -webkit-transition: 0.2s;
     transition: 0.2s; }
 
+.short-menu .side-logo-wrap {
+  display: none; }
 .short-menu .content-main-wrap {
   position: relative; }
 .short-menu .side-menu-wrap, .short-menu .all-menu-wrap .side-second-menu-wrap, .all-menu-wrap .short-menu .side-second-menu-wrap {
@@ -680,7 +682,7 @@ nav.breadcrumb-wrap {
   background-color: white;
   /*opacity: 0;*/
   z-index: 2;
-  /*меняем тут*/ }
+  /*╨╝╨╡╨╜╤П╨╡╨╝ ╤В╤Г╤В*/ }
   .item-wrap-full i {
     position: absolute;
     display: inline-block;
