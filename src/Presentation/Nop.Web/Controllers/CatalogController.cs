@@ -134,6 +134,31 @@ namespace Nop.Web.Controllers
             return View(templateViewPath, model);
         }
 
+		[HttpPost]
+		[HttpsRequirement(SslRequirement.No)]
+		public dynamic GetProducts(int categoryId, int pageIndex)
+		{
+			System.Collections.Generic.List<int> categories = new System.Collections.Generic.List<int>() { categoryId };
+			var products = _productService.SearchProducts(
+				storeId: _storeContext.CurrentStore.Id,
+				categoryIds: categories,
+				pageIndex: pageIndex,
+				pageSize: 6).ToList();
+
+
+			//ACL and store mapping
+			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+			//availability dates
+			products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+
+			if (!products.Any())
+				return Content("");
+
+			//prepare model
+			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true).ToList();
+			return new { model };
+		}
+
         #endregion
 
         #region Manufacturers
