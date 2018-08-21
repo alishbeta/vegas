@@ -87,11 +87,11 @@
 				<ul>
 					@foreach (var subCategory in subCategories)
 					{
-					<li><a href="@Url.RouteUrl("Category", new { SeName = subCategory.Name })">@subCategory.Name</a></li>
+					<li><a href="@Url.RouteUrl("Category", new { SeName = subCategory.SeName })">@subCategory.Name</a></li>
 					}
 				</ul>
 				<div class="text-center mt-3">
-					<button class="btn btn-grey btn-sm pl-5 pr-5">@T("bestsellers.ViewAll")</button>
+					<a href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })" class="btn btn-grey btn-sm pl-5 pr-5">@T("bestsellers.ViewAll")</a>
 				</div>
             </div>
         }
