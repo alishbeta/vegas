@@ -33,6 +33,38 @@ $(document).ready(function () {
         });
     }
 
+
+    /*#####################    Карусель  ###############################*/
+    $('.slick-slider .item-wrap').on('mouseover', function () {
+        $('.slick-slider .item-wrap-full').fadeOut(250);
+        $(this).parent().parent().css('position', 'static');
+        $(this).next().fadeIn(250);
+/*        $(this).next().on('mousedown', function () {
+            $(this).prev().off('mouseover');
+            $(this).fadeOut(250, function () {
+                $(this).parent().parent().css('position', 'relative');
+            });
+
+        });*/
+        $(this).next().on('mouseleave',function(){
+            $(this).fadeOut(0);
+        });
+/*        $(this).on('mouseup', function () {
+            $(this).on('mouseover', function () {
+                $(this).parent().parent().css('position', 'static');
+                $(this).next().fadeIn(250);
+            });
+        });*/
+    });
+    $('.slick-arrow').on('mouseover',function(){
+        $('.slick-slider .item-wrap-full').fadeOut(250);
+        setTimeout(function () {
+            $('.slick-track').css('position', 'relative');
+        }, 500);
+
+    });
+
+
     /*#####################    Отображение подменю   ###############################*/
 
 /*    var colors = ['#d6eaf1', '#71b1ce', '#c2e0ea', '#b8dbe7', '#aed6e3', '#a3d1df', '#99cbdc',
@@ -52,7 +84,6 @@ $(document).ready(function () {
                 $(this).removeClass('active');
             }
         });
-
         var color = rgb2hex($(this).css("background-color"));
         $('.side-second-menu-wrap').addClass('open');
         $('.side-menu-wrap').addClass('open');
@@ -75,7 +106,6 @@ $(document).ready(function () {
             $(this).html(data.find("a .hint").text()).fadeIn();
         });
     });
-
 
     $('.side-second-menu-wrap .close-i').on('click', function () {
         $('.side-second-menu-wrap').removeClass('open');

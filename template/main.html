@@ -1123,10 +1123,13 @@
     $('.slider-wrap').slick({
         dots: false,
         slidesToShow: 5,
-        slidesToScroll: 3,
+        slidesToScroll: 1,
         speed: 600,
-        prevArrow: '<div class="carusel-prev-arrow"></div>',
-        nextArrow: '<div class="carusel-next-arrow"></div>',
+        useTransform: false,
+        prevArrow: '<div class="baner-prev-arrow"></div>',
+        nextArrow: '<div class="baner-next-arrow"></div>',
+        infinite:false,
+        variableWidth: true
     });
 </script>
 </body>

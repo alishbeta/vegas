@@ -77,18 +77,20 @@
   padding-top: 65px;
 }
 
-.slider-wrap .outer-wrapp:hover .item-wrap-full, .items .outer-wrapp:hover .item-wrap-full {
-  opacity: 1;
-  transition: 0.5s;
-  z-index: 5;
+.slider-wrap {
+  margin-left: 60px;
+  &:hover .baner-prev-arrow{
+    opacity: 1;
+  }
+  .baner-prev-arrow{
+    top: 0;
+    height: 100%;
+  }
 }
 
-.slider-wrap .outer-wrapp:hover .item-wrap, .items .outer-wrapp:hover .item-wrap {
-  opacity: 0;
-  transition: 3s;
-}
 
 .item-wrap-full {
+display: none;
   top: 0;
   position: absolute;
   width: 268px;
@@ -96,7 +98,7 @@
   @include box-shadow(0 3px 16px 1px rgba(0, 0, 0, 0.5));
   @include border-radius(5px);
   background-color: white;
-  opacity: 0;
+  /*opacity: 0;*/
   z-index: 2;
   /*меняем тут*/
   i {
@@ -115,6 +117,9 @@
     right: 20px;
     top: 20px;
   }
+}
+.bx-wrapper{
+  min-width: 100%;
 }
 
 .item-wrap {
@@ -171,8 +176,9 @@
 }
 
 .slider-wrap .outer-wrapp, .items .outer-wrapp {
-  position: relative;
-  margin-left: 50px;
+ /* position: relative;*/
+
+  margin-right: 20px;
 }
 
 .item-wrap-full {
@@ -822,6 +828,7 @@ html .ui-button.ui-state-disabled {
 @import "cart_pop_up";
 @import "news";
 @import "prod";
+@import "map";
 
 
 @media (max-width: 1199px) {
@@ -898,10 +905,12 @@ html .ui-button.ui-state-disabled {
     }
   }
 
-  .slider-wrap .outer-wrapp, .items .outer-wrapp {
-    position: relative;
-    width: 100%;
-    margin-left: 0;
+  .slider-wrap{
+    .outer-wrapp, .items .outer-wrapp {
+      position: relative;
+      width: 100%;
+      margin-left: 0;
+    }
   }
   .item-wrap, .slider-wrap .item-wrap-full, .items .item-wrap-full {
     margin-right: auto;
