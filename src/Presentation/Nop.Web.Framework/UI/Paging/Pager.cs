@@ -76,23 +76,23 @@ namespace Nop.Web.Framework.UI.Paging
 		/// <summary>
 		/// First page css class name
 		/// </summary>
-		protected string firstPageCssClass = "first-page";
+		protected string firstPageCssClass = "page-item";
 		/// <summary>
 		/// Previous page css class name
 		/// </summary>
-		protected string previousPageCssClass = "previous-page";
+		protected string previousPageCssClass = "page-item";
         /// <summary>
 		/// Current page css class name
 		/// </summary>
-        protected string currentPageCssClass = "current-page";
+        protected string currentPageCssClass = "active page-item";
 		/// <summary>
 		/// Individual page css class name
 		/// </summary>
-        protected string individualPageCssClass = "individual-page";
+        protected string individualPageCssClass = "page-item";
         /// <summary>
 		/// Next page css class name
 		/// </summary>
-        protected string nextPageCssClass = "next-page";
+        protected string nextPageCssClass = "page-item";
         /// <summary>
 		/// Last page css class name
 		/// </summary>
@@ -100,7 +100,7 @@ namespace Nop.Web.Framework.UI.Paging
         /// <summary>
 		/// Main ul css class name
 		/// </summary>
-        protected string mainUlCssClass = "";
+        protected string mainUlCssClass = "pagination";
 
 
         /// <summary>
@@ -360,7 +360,7 @@ namespace Nop.Web.Framework.UI.Paging
                     {
                         if (model.PageIndex == i)
                         {
-                            links.AppendFormat("<li class=\"" + currentPageCssClass + "\"><span>{0}</span></li>", (i + 1));
+                            links.AppendFormat("<li class=\"" + currentPageCssClass + "\"><a href='#' class='page-link'>{0}</a></li>", (i + 1));
                         }
                         else
                         {
@@ -457,6 +457,7 @@ namespace Nop.Web.Framework.UI.Paging
                 liBuilder.AddCssClass(cssClass);
 
             var aBuilder = new TagBuilder("a");
+			aBuilder.AddCssClass("page-link");
             aBuilder.InnerHtml.AppendHtml(text);
             aBuilder.MergeAttribute("href", CreateDefaultUrl(pageNumber));
 

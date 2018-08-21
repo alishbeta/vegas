@@ -226,26 +226,16 @@
 					</div>
 				}
 
-				<div class="more-wrapp text-center mt-3 mb-3">
-					<button class="btn btn-sm btn-blue-white d-none d-md-inline-block">Больше товаров</button>
-					<nav class="float-right" aria-label="Page navigation example">
-						<ul class="pagination">
-							<li class="page-item"><a class="page-link active" href="#">Пред.</a></li>
-							<li class="page-item active"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">След.</a></li>
-						</ul>
-					</nav>
-				</div>
-
 				@{
 					var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
 				}
 				@if (!pager.IsEmpty())
 				{
-					<div class="pager">
-						@pager
+					<div class="more-wrapp text-center mt-3 mb-3">
+						<button class="btn btn-sm btn-blue-white d-none d-md-inline-block">@T("cat.more")</button>
+						<nav class="float-right" aria-label="">
+							@pager
+						</nav>
 					</div>
 				}
 				@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBottom, additionalData = Model })
