@@ -88,7 +88,6 @@
   }
 }
 
-
 .item-wrap-full {
   top: 0;
   position: absolute;
@@ -98,7 +97,7 @@
   @include border-radius(5px);
   background-color: white;
   opacity: 0;
-  z-index: 2;
+  z-index: -1;
   /*меняем тут*/
   i {
     position: absolute;
@@ -186,6 +185,7 @@
   position: relative;
   &:hover .item-wrap-full{
     opacity: 1;
+    z-index: 10;
   }
 }
 
@@ -838,6 +838,35 @@ html .ui-button.ui-state-disabled {
   text-align: center;
   top: 9px;
   right: 12px; }
+.login-form-wrap{
+  display: none;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: 75px;
+  right: 1px;
+  background-color: white;
+  z-index: 1055;
+  padding: 30px;
+  i{
+    width: 20px;
+    height: 20px;
+    &.close-i{
+      float: right;
+      margin: 0px 20px 0px 0px;
+      vertical-align: bottom;
+    }
+  }
+  .btn-link{
+    margin-top: -2px;
+  }
+  .btn-blue-white{
+    margin-top: 10px;
+  }
+  h5{
+    margin-bottom: 60px;
+  }
+}
 
 
 @import "cart";
@@ -849,6 +878,7 @@ html .ui-button.ui-state-disabled {
 @import "news";
 @import "prod";
 @import "map";
+@import "cabinet";
 
 
 @media (max-width: 1199px) {

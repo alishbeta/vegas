@@ -189,71 +189,86 @@
             <nav class="breadcrumb-wrap" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Bed4you</a></li>
-                    <li class="breadcrumb-item active">Статьи</li>
+                    <li class="breadcrumb-item"><a href="#">Личный кабинет</a></li>
+                    <li class="breadcrumb-item active">Контактная информация</li>
                 </ol>
             </nav>
 
-            <div class="row map">
+            <div class="row cabinet">
                 <div class="offset-xl-1 col-xl-8">
-                    <h1 class="title">Наши салоны</h1>
-                    <nav class="blue-menu">
-                        <ul class="clearfix">
-                            <li><a href="">Карта салонов</a></li>
-                            <li><a class="active" href="">Киев</a></li>
-                            <li><a href="">Харьков</a></li>
-                            <li><a href="">Львов</a></li>
-                            <li><a href="">Днепр</a></li>
-                            <li><a href="">Одесса</a></li>
+                    <div class="title-wrap clearfix">
+                        <h1 class="title float-left">Личный кабинет</h1>
+                        <button class="btn btn-blue float-right">Выход</button>
+                    </div>
+                    <nav class="blue-menu clearfix">
+                        <ul>
+                            <li><a class="active" href="">Контактная информация</a></li>
+                            <li><a href="">Избранное (3)</a></li>
+                            <li><a href="">История заказов</a></li>
+                            <li><a href="">Мои бонусы</a></li>
                         </ul>
                     </nav>
-                    <div class="map-wrap">
-                        <div id="map"></div>
-                        <div class="img-wrap">
-                            <div class="img">
-                                <img src="https://via.placeholder.com/540x320" alt="">
-                                <div class="text-wrap">
-                                    <div><b>"Матрасы Vegas"</b></div>
-                                    <div>ул. Николая Ушаков, 1Б, офис 134</div>
-                                    <div>пн-вс 10:00-20:00</div>
+                    <div class="cabinet-info rounded">
+                        <div class="row login-wrap">
+                            <form class="col-sm-12" action="">
+                                <div class="title"><span>1</span>Личные данные</div>
+                                <button type="button" id="edit-name" class="btn btn-link">Изменить контактную информацию
+                                </button>
+                                <button style="display: none;" type="button" id="edit-name-close" class="btn btn-link">Отмена
+                                </button>
+                                <div class="form-group row">
+                                    <label style="display: none" class="col-form-label col-sm-3" for="li1">Имя и
+                                        фамилия</label>
+                                    <input style="display: none" id="li1" type="text" class="form-control col-sm-8">
+                                    <div class="col-sm-3">Имя и фамилия</div>
+                                    <div class="col-sm-8 text-light-c">Иван Иванов</div>
                                 </div>
-                            </div>
-                            <div class="img">
-                                <img src="https://via.placeholder.com/540x320" alt="">
-                                <div class="text-wrap">
-                                    <div><b>"Матрасы Vegas"</b></div>
-                                    <div>ул. Николая Ушаков, 1Б, офис 134</div>
-                                    <div>пн-вс 10:00-20:00</div>
+                                <div class="form-group row">
+                                    <label style="display: none" class="col-form-label col-sm-3" for="li2">Номер
+                                        теелфона</label>
+                                    <input style="display: none" id="li2" type="text" class="form-control col-sm-8">
+                                    <div class="col-sm-3">Номер телефона</div>
+                                    <div class="col-sm-8 text-light-c">+38 093 796-96-08</div>
                                 </div>
-                            </div>
-                            <div class="img">
-                                <img src="https://via.placeholder.com/540x320" alt="">
-                                <div class="text-wrap">
-                                    <div><b>"Матрасы Vegas"</b></div>
-                                    <div>ул. Николая Ушаков, 1Б, офис 134</div>
-                                    <div>пн-вс 10:00-20:00</div>
+                                <div class="form-group row">
+                                    <label class="d-none col-form-label col-sm-3" for="li1">E-mail</label>
+                                    <input id="li3" type="text" class="d-none form-control col-sm-8">
+                                    <div class="col-sm-3">E-mail</div>
+                                    <div class="col-sm-8 text-light-c">ivan.ivanov@gmail.com</div>
                                 </div>
-                            </div>
-                            <div class="img">
-                                <img src="https://via.placeholder.com/540x320" alt="">
-                                <div class="text-wrap">
-                                    <div><b>"Матрасы Vegas"</b></div>
-                                    <div>ул. Николая Ушаков, 1Б, офис 134</div>
-                                    <div>пн-вс 10:00-20:00</div>
+
+                                <div class="line"></div>
+
+                                <div class="title"><span>2</span>Адрес</div>
+                                <button type="button" id="edit-addres" class="btn btn-link">Изменить адрес</button>
+                                <button type="button" id="edit-addres-close" style="display: none" class="btn btn-link">Отмена</button>
+                                <div class="form-group row">
+                                    <label style="display: none" class="col-form-label col-sm-3" for="li1">Имя и
+                                        фамилия</label>
+                                    <input style="display: none" id="ai1" type="text" class="form-control col-sm-8">
+                                    <div class="col-sm-3">Город доставки</div>
+                                    <div class="col-sm-8 text-light-c">Киев</div>
                                 </div>
-                            </div>
+                                <div class="form-group row">
+                                    <label style="display: none" class="col-form-label col-sm-3" for="li2">Номер
+                                        теелфона</label>
+                                    <input style="display: none" id="ai2" type="text" class="form-control col-sm-8">
+                                    <div class="col-sm-3">Адрес</div>
+                                    <div class="col-sm-8 text-light-c">Рижская, 25, кв. 17</div>
+                                </div>
+
+                                <div class="line"></div>
+
+                                <div class="title"><span>3</span>Пароль</div>
+                                <button type="button" id="edit-pass" class="btn btn-link">Изменить пароль</button>
+                                <button type="button" id="edit-pass-close" style="display: none" class="btn btn-link">Отмена</button>
+                                <div class="form-group row">
+                                    <label style="display: none" class="col-form-label col-sm-3" for="p">Новый пароль</label>
+                                    <input style="display: none" id="p" type="password" class="form-control col-sm-8">
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <script>
-                        var map;
-                        function initMap() {
-                            map = new google.maps.Map(document.getElementById('map'), {
-                                center: {lat: -34.397, lng: 150.644},
-                                zoom: 8
-                            });
-                        }
-                    </script>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbEYKU92y_bwmjNE_HOjPxoaNFbnpnD9I&callback=initMap"async defer></script>
-
                 </div>
             </div>
             <div class="row">

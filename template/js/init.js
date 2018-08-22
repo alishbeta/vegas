@@ -76,6 +76,13 @@ $(document).ready(function () {
         i++;
     });*/
 
+$('.header-wrap .user_icon').on('click', function () {
+    $('.back-shadow, .login-form-wrap').fadeIn();
+});
+$('.login-form-wrap .close-i').on('click', function () {
+    $('.back-shadow, .login-form-wrap').fadeOut();
+});
+
 
     $('.side-menu-wrap ul li').on('click', function () {
 
@@ -167,7 +174,7 @@ $(document).ready(function () {
     });
 
     /*#####################    Корзина  (Редактирование личных данных и адреса) ###############################*/
-    $('#edit-name, #edit-addres').on('click', function () {
+    $('#edit-name, #edit-addres, #edit-pass').on('click', function () {
         var el = $(this).next().next().children();
         var el2 = $(this).next().next().next().children();
         $(this).fadeOut(function () {
@@ -184,11 +191,9 @@ $(document).ready(function () {
             $(el2[1]).fadeToggle();
         });
         $(el2[3]).fadeToggle();
-
-        //$(this).next().$('label').fadeToggle();
     });
 
-    $('#edit-name-close, #edit-addres-close').on('click', function () {
+    $('#edit-name-close, #edit-addres-close, #edit-pass-close').on('click', function () {
         var el = $(this).next().children();
         var el2 = $(this).next().next().children();
         $(this).fadeOut(function () {
@@ -205,8 +210,6 @@ $(document).ready(function () {
             $(el2[3]).fadeToggle();
         });
         $(el2[1]).fadeToggle()
-
-        //$(this).next().$('label').fadeToggle();
     });
 
 });
