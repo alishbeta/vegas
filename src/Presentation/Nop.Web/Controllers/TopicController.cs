@@ -59,7 +59,7 @@ namespace Nop.Web.Controllers
 
             //template
             var templateViewPath = _topicModelFactory.PrepareTemplateViewPath(model.TopicTemplateId);
-			ViewData["class"] = "wrap news";
+			//ViewData["class"] = "wrap news";
 			return View(templateViewPath, model);
         }
 

@@ -38,7 +38,7 @@
 @{
 	if (ViewData["class"] == null)
 	{
-		ViewData["class"] = "wrap short-menu cat";//@ViewData["class"]
+		ViewData["class"] = "wrap short-menu";
 	}
 }
 <div class="back-shadow"></div>
@@ -237,7 +237,7 @@
 		</a>
 	</div>
 </div>
-<div class="wrap">
+<div class="@ViewData["class"]">
 	<div class="r-wrap">
 		<div class="top-wraper" style="display: none;">
 			<a onclick="return false;" href="#"><i class="top"></i></a>
