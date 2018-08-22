@@ -279,9 +279,9 @@
 	Html.AppendPageCssClassParts("html-wishlist-page");
 }
 <nav class="breadcrumb-wrap"></nav>
-<div class="row">
+<div class="row favorite">
 	<div class="offset-xl-1 col-xl-11">
-		<h1>@T("Wishlist") <i class="favorite_i"><span>@Model.Items.Count</span></i></h1>
+		<h1 class="title">@T("Wishlist") <i class="favorite_i"><span>@Model.Items.Count</span></i></h1>
 		<div class="favorite-wrap clearfix">
 			@foreach (var item in Model.Items)
 			{
@@ -291,8 +291,8 @@
 							<i class="compare_icon"></i>
 							<i class="close-i"></i>
 						</div>
-						<img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
-						@if (item.Discount != "")
+						<img class="product" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+						@if (item.Discount != "" && item.Discount != null)
 						{
 							<div class="discount">@item.Discount%</div>
 						}
@@ -313,13 +313,6 @@
 				</div>
 			}
 		</div>
-		@if (Model.IsEditable && Model.Items.Count > 0)
-		{
-			var wishlistUrl = Url.RouteUrl("Wishlist", new { customerGuid = Model.CustomerGuid }, webHelper.CurrentRequestProtocol);
-			<div class="share-info">
-				<span class="share-label">@T("Wishlist.YourWishlistURL"):</span>
-				<a href="@wishlistUrl" class="share-link">@wishlistUrl</a>
-			</div>
-		}
 	</div>
 </div>
+@await Component.InvokeAsync("NewsletterBox")
