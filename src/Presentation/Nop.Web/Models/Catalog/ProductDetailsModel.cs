@@ -42,6 +42,7 @@ namespace Nop.Web.Models.Catalog
         public string MetaDescription { get; set; }
         public string MetaTitle { get; set; }
         public string SeName { get; set; }
+		
 
         public ProductType ProductType { get; set; }
 
@@ -173,8 +174,9 @@ namespace Nop.Web.Models.Catalog
             public string Price { get; set; }
             public string PriceWithDiscount { get; set; }
             public decimal PriceValue { get; set; }
+			public decimal Discount { get; set; }
 
-            public bool CustomerEntersPrice { get; set; }
+			public bool CustomerEntersPrice { get; set; }
 
             public bool CallForPrice { get; set; }
 
