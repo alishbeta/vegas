@@ -175,13 +175,20 @@
   line-height: 0.9;
 }
 
-.items .outer-wrapp, .outer-wrapp{
-  position: relative;
-  &:hover .item-wrap-full{
+.items .item-wrap-full, .item-wrap-full{
+  &:hover{
     opacity: 1;
 
   }
 }
+
+.items .outer-wrapp, .outer-wrapp{
+  position: relative;
+  &:hover .item-wrap-full{
+    opacity: 1;
+  }
+}
+
 
 .slider-wrap{
   .outer-wrapp {

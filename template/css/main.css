@@ -760,6 +760,9 @@ nav.breadcrumb-wrap {
   font-size: 22px;
   line-height: 0.9; }
 
+.items .item-wrap-full:hover, .item-wrap-full:hover {
+  opacity: 1; }
+
 .items .outer-wrapp, .outer-wrapp {
   position: relative; }
   .items .outer-wrapp:hover .item-wrap-full, .outer-wrapp:hover .item-wrap-full {
