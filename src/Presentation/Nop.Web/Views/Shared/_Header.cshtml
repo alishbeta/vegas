@@ -47,10 +47,7 @@
 		<li><a href="/delivery">Доставка и оплата</a></li>
 	</ul>
 	<div class="icons-wrap">
-		<div class="lang-swich-wrap d-none d-md-block">
-			<span><a href="/ua">UA</a></span>
-			<span><a class="active" href="/ru">RU</a></span>
-		</div>
+        @await Component.InvokeAsync("LanguageSelector")
 		<i class="favorit close"></i>
 		<i class="favorit hanburger d-md-none"></i>
 		<img class="d-md-none" src="/img/logo.png" alt="logo.png">
