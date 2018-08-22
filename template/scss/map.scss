@@ -41,6 +41,9 @@
   }
 }
 .show-room{
+  .addres{
+    font-size: 16px;
+  }
   .slider{
     &:hover .prev-arrow{
       opacity: 1;
@@ -77,5 +80,92 @@
       border-bottom: 3px solid white;
     }
   }
-}
+  p{
+    margin-bottom: 0.5rem;
+    span{
+      color: $bluish;
+    }
+  }
+  .show-room-wrap{
+    margin: 40px 0;
+    .bl-1{
+      border: 1px solid $border_color;
+      .i-bl-w1{
+        float: left;
+        font-weight: bold;
+        font-size: 16px;
+        padding: 30px;
+      }
+      .i-bl-w2{
+        width: 55%;
+        height: 280px;
+        float: right;
+      }
+    }
 
+    #map{
+      width: 100%;
+      height: 100%;
+    }
+    button{
+      margin-top: 30px;
+    }
+  }
+  .new-wrap{
+    margin-bottom: 30px;
+    border-bottom: none;
+    .img{
+      position: relative;
+    }
+    .text-wrap{
+      width: 250px;
+      height: 115px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      padding: 15px;
+    }
+  }
+  .btn-blue-white{
+    margin-right: 100px;
+  }
+
+  .line{
+    margin: 20px -15px 60px -40px;;
+  }
+
+}
+.contacts{
+  font-size: 16px;
+  #map{
+    height: 330px;
+
+  }
+  .info{
+    margin-bottom: 15px;
+  }
+  .contact-form{
+    margin-top: 30px;
+  }
+  form{
+    margin-top: 15px;
+  }
+}
+.p404{
+  font-size: 16px;
+  .text{
+    margin-bottom: 15px;
+  }
+}
+.search{
+  .btn.btn-blue{
+    margin-left: -8px;
+    z-index: 1;
+    padding: 8px 15px;
+  }
+}

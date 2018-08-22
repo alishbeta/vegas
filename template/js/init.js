@@ -56,15 +56,6 @@ $(document).ready(function () {
             });
         });*/
     });
-    $('.slider-wrap').on('beforeChange', function(event, slick, currentSlide, nextSlide){
-        $(this).next().off('mouseover');
-    });
-    $('.slider-wrap').on('afterChange', function(event, slick, currentSlide, nextSlide){
-        $('.slick-slider .item-wrap').on('mouseover', function () {
-            $(this).parent().parent().css('position', 'static');
-            $(this).next().fadeIn(250);
-        });
-    });
     $('.slick-arrow').on('mouseover',function(){
         $('.slick-slider .item-wrap-full').fadeOut(250);
         setTimeout(function () {

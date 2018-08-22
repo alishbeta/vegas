@@ -147,6 +147,20 @@ i.arrows {
   .btn-grey:focus {
     box-shadow: none; }
 
+.modal-dialog {
+  max-width: 600px; }
+
+.modal-content {
+  padding: 4rem; }
+  .modal-content .header {
+    margin-bottom: 15px;
+    margin-top: -30px; }
+    .modal-content .header .modal-title {
+      float: left;
+      color: #2c96b9; }
+      .modal-content .header .modal-title button {
+        margin: -15px -40px; }
+
 html, body, .wrap, .r-wrap {
   height: 100%; }
 
@@ -204,6 +218,11 @@ a {
 
 .h1, h1 {
   font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 30px; }
+
+.h4, h4 {
+  font-size: 20px;
   font-weight: 600;
   margin-bottom: 30px; }
 
@@ -556,8 +575,6 @@ nav.breadcrumb-wrap {
     -webkit-transition: 0.2s;
     transition: 0.2s; }
 
-.short-menu .side-logo-wrap {
-  display: none; }
 .short-menu .content-main-wrap {
   position: relative; }
 .short-menu .side-menu-wrap, .short-menu .all-menu-wrap .side-second-menu-wrap, .all-menu-wrap .short-menu .side-second-menu-wrap {
@@ -668,7 +685,6 @@ nav.breadcrumb-wrap {
     height: 100%; }
 
 .item-wrap-full {
-  display: none;
   top: 0;
   position: absolute;
   width: 268px;
@@ -680,7 +696,7 @@ nav.breadcrumb-wrap {
   -webkit-border-radius: 5px;
   border-radius: 5px;
   background-color: white;
-  /*opacity: 0;*/
+  opacity: 0;
   z-index: 2;
   /*╨╝╨╡╨╜╤П╨╡╨╝ ╤В╤Г╤В*/ }
   .item-wrap-full i {
@@ -702,6 +718,7 @@ nav.breadcrumb-wrap {
 
 .item-wrap {
   width: 268px;
+  height: 350px;
   padding: 0 20px; }
   .item-wrap span img {
     width: 20px; }
@@ -743,9 +760,19 @@ nav.breadcrumb-wrap {
   font-size: 22px;
   line-height: 0.9; }
 
-.slider-wrap .outer-wrapp, .items .outer-wrapp {
-  /* position: relative;*/
+.items .item-wrap-full:hover, .item-wrap-full:hover {
+  opacity: 1; }
+
+.items .outer-wrapp, .outer-wrapp {
+  position: relative; }
+  .items .outer-wrapp:hover .item-wrap-full, .outer-wrapp:hover .item-wrap-full {
+    opacity: 1; }
+
+.slider-wrap .outer-wrapp {
+  position: static;
   margin-right: 20px; }
+.slider-wrap .item-wrap-full {
+  display: none; }
 
 .item-wrap-full .sizes-wrap > .title {
   font-size: 14px;
@@ -1019,13 +1046,13 @@ small {
     font-weight: 600;
     width: 100px; }
 
-.form-inline .form-control {
+/*.form-inline .form-control {
   width: 70px;
   margin: 0 15px;
   padding: 4px 10px;
   font-size: 14px;
-  color: #767c7e; }
-
+  color: $text_light;
+}*/
 .filters-data .form-group {
   margin-bottom: 20px; }
 .filters-data .inner-wrap:last-child {
@@ -1881,6 +1908,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
       text-align: center;
       padding: 15px; }
 
+.show-room .addres {
+  font-size: 16px; }
 .show-room .slider:hover .prev-arrow {
   opacity: 1; }
 .show-room .slider:hover .next-arrow {
@@ -1909,6 +1938,70 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   .show-room .next-arrow:after {
     border-left: 3px solid white;
     border-bottom: 3px solid white; }
+.show-room p {
+  margin-bottom: 0.5rem; }
+  .show-room p span {
+    color: #2c96b9; }
+.show-room .show-room-wrap {
+  margin: 40px 0; }
+  .show-room .show-room-wrap .bl-1 {
+    border: 1px solid #cdd2d4; }
+    .show-room .show-room-wrap .bl-1 .i-bl-w1 {
+      float: left;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 30px; }
+    .show-room .show-room-wrap .bl-1 .i-bl-w2 {
+      width: 55%;
+      height: 280px;
+      float: right; }
+  .show-room .show-room-wrap #map {
+    width: 100%;
+    height: 100%; }
+  .show-room .show-room-wrap button {
+    margin-top: 30px; }
+.show-room .new-wrap {
+  margin-bottom: 30px;
+  border-bottom: none; }
+  .show-room .new-wrap .img {
+    position: relative; }
+  .show-room .new-wrap .text-wrap {
+    width: 250px;
+    height: 115px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 15px; }
+.show-room .btn-blue-white {
+  margin-right: 100px; }
+.show-room .line {
+  margin: 20px -15px 60px -40px; }
+
+.contacts {
+  font-size: 16px; }
+  .contacts #map {
+    height: 330px; }
+  .contacts .info {
+    margin-bottom: 15px; }
+  .contacts .contact-form {
+    margin-top: 30px; }
+  .contacts form {
+    margin-top: 15px; }
+
+.p404 {
+  font-size: 16px; }
+  .p404 .text {
+    margin-bottom: 15px; }
+
+.search .btn.btn-blue {
+  margin-left: -8px;
+  z-index: 1;
+  padding: 8px 15px; }
 
 @media (max-width: 1199px) {
   .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {

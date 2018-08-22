@@ -145,4 +145,21 @@ i.arrows {
     box-shadow: none;
   }
 }
+.modal-dialog {
+  max-width: 600px;
+}
+.modal-content{
+  padding: 4rem;
+  .header{
+    margin-bottom: 15px;
+    margin-top: -30px;
+    .modal-title{
+      float: left;
+      color: $bluish;
+      button{
+        margin: -15px -40px;
+      }
+    }
+  }
 
+}
