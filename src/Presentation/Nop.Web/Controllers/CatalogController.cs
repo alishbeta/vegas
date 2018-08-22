@@ -128,9 +128,13 @@ namespace Nop.Web.Controllers
 
             //model
             var model = _catalogModelFactory.PrepareCategoryModel(category, command);
+			System.Collections.Generic.List<int> categories = new System.Collections.Generic.List<int>() { categoryId };
+			model.ProductsCount = _productService.SearchProducts(
+				storeId: _storeContext.CurrentStore.Id,
+				categoryIds: categories).Count;
 
-            //template
-            var templateViewPath = _catalogModelFactory.PrepareCategoryTemplateViewPath(category.CategoryTemplateId);
+			//template
+			var templateViewPath = _catalogModelFactory.PrepareCategoryTemplateViewPath(category.CategoryTemplateId);
             return View(templateViewPath, model);
         }
 

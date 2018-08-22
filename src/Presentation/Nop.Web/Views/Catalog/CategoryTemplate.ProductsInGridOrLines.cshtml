@@ -64,7 +64,7 @@
 	<div class="title text-center">
 		<h3><b>@Model.Name</b></h3>
 		<p>
-			<small>@Model.Products.Count товаров</small>
+			<small>@Model.ProductsCount товаров</small>
 		</p>
 	</div>
 	<div class="filters-wrap">
@@ -244,8 +244,14 @@
 @await Component.InvokeAsync("RecentlyViewedProductsBlock", new { productThumbPictureSize = 450, preparePriceModel = true })
 
 <script>
+	var prodsOnPageCount = 6;
+	$(document).ready(function () {
+		if ($("ul.pagination li").last().hasClass("active")) {
+			$("#loadMore").addClass("invisible");
+		}
+	});
 	$("#loadMore").on("click", function () {
-		var pagesLoaded = parseInt($("#prods div.outer-wrapp").length / 6);
+		var pagesLoaded = parseInt($("#prods div.outer-wrapp").length / prodsOnPageCount);
 		var currentPageIndex = parseInt($(".active a.page-link").text());
 		var pageIndex = pagesLoaded + currentPageIndex - 1;
 		$.ajax({
@@ -330,6 +336,9 @@
 				'</div>' + 
 			'</div>';
 				$("#prods").append(element);
+				if ((currentPageIndex + pagesLoaded) * prodsOnPageCount >= parseInt("@Model.ProductsCount")) {
+					$("#loadMore").addClass("invisible");
+				}
 			});
 		});
 	});
