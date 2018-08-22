@@ -1,16 +1,40 @@
-﻿@{
-    Layout = "_ColumnsOne";
+﻿@*@{
+		Layout = "_ColumnsOne";
 
-    //title
-    Html.AddTitleParts(T("PageTitle.PageNotFound").Text);
-    //page class
-    Html.AppendPageCssClassParts("html-not-found-page");
+		//title
+		Html.AddTitleParts(T("PageTitle.PageNotFound").Text);
+		//page class
+		Html.AppendPageCssClassParts("html-not-found-page");
+	}
+	<div class="page not-found-page">
+		<div class="page-title">
+			<h1>@T("PageTitle.PageNotFound")</h1>
+		</div>
+		<div class="page-body">
+			@await Component.InvokeAsync("TopicBlock", new { systemName = "PageNotFound" })
+		</div>
+	</div>
+*@
+@{
+	Layout = "_ColumnsOne";
+
+	//title
+	Html.AddTitleParts(T("PageTitle.PageNotFound").Text);
+	//page class
+	Html.AppendPageCssClassParts("html-not-found-page");
 }
-<div class="page not-found-page">
-    <div class="page-title">
-        <h1>@T("PageTitle.PageNotFound")</h1>
-    </div>
-    <div class="page-body">
-        @await Component.InvokeAsync("TopicBlock", new { systemName = "PageNotFound" })
-    </div>
+<nav class="breadcrumb-wrap"></nav>
+<div class="row p404">
+	<div class="offset-xl-2 col-xl-8">
+		<div class="text">
+			@T("PageTitle.PageNotFound")
+		</div>
+		<div class="float-left">
+			<button class="btn btn-blue-white pr-4 pl-4">@("return.main")</button>
+		</div>
+		<div>
+			<img src="~/img/404.png" alt="404">
+		</div>
+	</div>
 </div>
+@await Component.InvokeAsync("NewsletterBox")
