@@ -12,6 +12,8 @@ namespace Nop.Services.News
     {
         #region News
 
+        IList<NewsTags> GetAllNewsTags(int storeId, int languageId, bool showHidden = false);
+
         /// <summary>
         /// Deletes a news
         /// </summary>

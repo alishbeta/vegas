@@ -1,59 +1,102 @@
 @model TopicModel
+@using System.Text
+@using System.Text.Encodings.Web
+@using Nop.Services.Topics
+@inject ITopicService topicService
 
+@{
+    //resources for product tags input
+    Html.AppendCssFileParts("~/lib/tagEditor/jquery.tag-editor.css");
+    Html.AppendScriptParts("~/lib/tagEditor/jquery.tag-editor.min.js");
+    Html.AppendScriptParts("~/lib/tagEditor/jquery.caret.min.js");
+}
+<script>
+    @{
+        //TODO move to Model
+        var blogTags = topicService.GetAllTopicsTags(0, true);
+        var blogTagsSb = new StringBuilder();
+        blogTagsSb.Append("var initialBlogTags = [");
+        for (var i = 0; i < blogTags.Count; i++)
+        {
+            var tag = blogTags[i];
+            blogTagsSb.Append("'");
+            blogTagsSb.Append(JavaScriptEncoder.Default.Encode(tag.Name));
+            blogTagsSb.Append("'");
+            if (i != blogTags.Count - 1)
+            {
+                blogTagsSb.Append(",");
+            }
+        }
+        blogTagsSb.Append("]");
+    }
+    //tags
+    $(document).ready(function() {
+        @Html.Raw(blogTagsSb.ToString())
+        $("#@Html.IdFor(model => model.Tags)").tagEditor({
+            autocomplete: {
+                delay: 0,
+                position: { collision: 'flip' },
+                source: initialBlogTags
+            },
+            delimiter: ',',
+            placeholder: '@T("Admin.ContentManagement.Topics.Fields.Tags.Placeholder")'
+        });
+    });
+</script>
 <div class="panel-group">
     @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.TopicDetailsInfoTop, additionalData = Model })
     <div class="panel panel-default">
         <div class="panel-body">
             @(Html.LocalizedEditor<TopicModel, TopicLocalizedModel>("topic-info-localized",
-            @<div>
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <nop-label asp-for="@Model.Locales[item].Title" />
-                    </div>
-                    <div class="col-md-9">
-                        <nop-editor asp-for="@Model.Locales[item].Title" />
-                        <span asp-validation-for="@Model.Locales[item].Title"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <nop-label asp-for="@Model.Locales[item].Body" />
-                    </div>
-                    <div class="col-md-9">
-                        <nop-editor asp-for="@Model.Locales[item].Body" asp-template="RichEditor" />
-                        <span asp-validation-for="@Model.Locales[item].Body"></span>
-                    </div>
-                </div>
-                <input type="hidden" asp-for="@Model.Locales[item].LanguageId" />
-            </div>
-    ,
-            @<div>
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <nop-label asp-for="Title" />
-                    </div>
-                    <div class="col-md-9">
-                        <nop-editor asp-for="Title" />
-                        <span asp-validation-for="Title"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <nop-label asp-for="Body" />
-                    </div>
-                    <div class="col-md-9">
-                        <nop-editor asp-for="Body" asp-template="RichEditor" />
-                        <span asp-validation-for="Body"></span>
-                    </div>
-                </div>
-            </div>
-      ))
+                                            @<div>
+                                                <div class="form-group">
+                                                    <div class="col-md-3">
+                                                        <nop-label asp-for="@Model.Locales[item].Title" />
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <nop-editor asp-for="@Model.Locales[item].Title" />
+                                                        <span asp-validation-for="@Model.Locales[item].Title"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-3">
+                                                        <nop-label asp-for="@Model.Locales[item].Body" />
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <nop-editor asp-for="@Model.Locales[item].Body" asp-template="RichEditor" />
+                                                        <span asp-validation-for="@Model.Locales[item].Body"></span>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" asp-for="@Model.Locales[item].LanguageId" />
+                                            </div>
+                                                                                                                                    ,
+                                                                                                                                            @<div>
+                                                                                                                                                <div class="form-group">
+                                                                                                                                                    <div class="col-md-3">
+                                                                                                                                                        <nop-label asp-for="Title" />
+                                                                                                                                                    </div>
+                                                                                                                                                    <div class="col-md-9">
+                                                                                                                                                        <nop-editor asp-for="Title" />
+                                                                                                                                                        <span asp-validation-for="Title"></span>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                                <div class="form-group">
+                                                                                                                                                    <div class="col-md-3">
+                                                                                                                                                        <nop-label asp-for="Body" />
+                                                                                                                                                    </div>
+                                                                                                                                                    <div class="col-md-9">
+                                                                                                                                                        <nop-editor asp-for="Body" asp-template="RichEditor" />
+                                                                                                                                                        <span asp-validation-for="Body"></span>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                              ))
             <div class="form-group advanced-setting">
                 <div class="col-md-3">
                     <nop-label asp-for="SystemName" />
                 </div>
                 <div class="col-md-9">
-                    <nop-editor asp-for="SystemName"/>
+                    <nop-editor asp-for="SystemName" />
                     <span asp-validation-for="SystemName"></span>
                 </div>
             </div>
@@ -149,7 +192,7 @@
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-4">
-                            <nop-select asp-for="SelectedCustomerRoleIds" asp-items="Model.AvailableCustomerRoles" asp-multiple="true"/>
+                            <nop-select asp-for="SelectedCustomerRoleIds" asp-items="Model.AvailableCustomerRoles" asp-multiple="true" />
                             <script>
                                 $(document).ready(function() {
                                     var rolesIdsInput = $('#@Html.IdFor(model => model.SelectedCustomerRoleIds)').data("kendoMultiSelect");
@@ -241,11 +284,19 @@
                     <span asp-validation-for="TopicTemplateId"></span>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <nop-label asp-for="Tags" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="Tags" />
+                    <span asp-validation-for="Tags"></span>
+                </div>
+            </div>
         </div>
     </div>
     @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.TopicDetailsInfoBottom, additionalData = Model })
 </div>
-
 <script>
     $(document).ready(function () {
         $("#@Html.IdFor(model => model.IsPasswordProtected)").click(togglePassword);

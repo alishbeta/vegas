@@ -8,6 +8,7 @@ namespace Nop.Services.Topics
     /// </summary>
     public partial interface ITopicService
     {
+        IList<TopicTag> GetAllTopicsTags(int storeId, bool showHidden = false);
         /// <summary>
         /// Deletes a topic
         /// </summary>
