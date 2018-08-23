@@ -47,14 +47,10 @@
 		<li><a href="/delivery">Доставка и оплата</a></li>
 	</ul>
 	<div class="icons-wrap">
-        @await Component.InvokeAsync("LanguageSelector")
+		@await Component.InvokeAsync("LanguageSelector")
 		<i class="favorit close"></i>
 		<i class="favorit hanburger d-md-none"></i>
 		<img class="d-md-none" src="/img/logo.png" alt="logo.png">
-		<a href="/cart"><i class="favorit shopping_bag_icon"><span>0</span></i></a>
-		<a href="/wishlist"><i class="favorit favorite_i"><span>1</span></i></a>
-		<i class="favorit call-from-site d-md-none"></i>
-		<a href="/compareproducts"><i class="favorit compare_icon d-none d-md-inline-block"></i></a>
-		<a href="/customer/info"><i class="favorit user_icon d-none d-md-inline-block"></i></a>
+		@await Component.InvokeAsync("HeaderLinks")
 	</div>
 </div>
