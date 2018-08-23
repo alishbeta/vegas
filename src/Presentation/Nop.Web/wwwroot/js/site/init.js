@@ -33,37 +33,47 @@ $(document).ready(function () {
         });
     }
 
-
     /*#####################    Карусель  ###############################*/
-    $('.slick-slider .item-wrap').on('mouseover', function () {
-        $('.slick-slider .item-wrap-full').fadeOut(250);
-        $(this).parent().parent().css('position', 'static');
-        $(this).next().fadeIn(250);
-/*        $(this).next().on('mousedown', function () {
-            $(this).prev().off('mouseover');
-            $(this).fadeOut(250, function () {
-                $(this).parent().parent().css('position', 'relative');
-            });
 
-        });*/
-        $(this).next().on('mouseleave',function(){
-            $(this).fadeOut(0);
+
+    $('.outer-wrapp.scroll').hover(function() {
+        if ($(this).find(".item-wrap-full").length) {
+            var b = $(this).find(".item-wrap-full")
+                , c = $(this).position()
+                , d = $(this).parents(".scrollWrapper");
+            (c.left >= 0 && c.left +  $(this).find(".item-wrap-full").width() - Math.abs($(this).width() - $(this).find(".item-wrap-full").width()) / 2 <= $(this).parents(".scrollWrapper").width() || 0 == $(this).parents(".scrollWrapper").length) &&  $(this).find(".item-wrap-full").css({
+                left: c.left,
+                top: c.top
+            }).stop().fadeIn(750)
+        }
+    }, function() {
+        $(this).find(".item-wrap-full").hide()
+    });
+    $('.scrollWrapper').on('scroll', function () {
+        $(".item-wrap-full").hide();
+    });
+
+
+/*    $('.outer-wrapp.scroll .item-wrap').on('mouseover', function () {
+        $(this).next().fadeIn();
+
+
+        console.log($(this).position().left);
+
+    }).next().on('mousedown', function () {
+        var curentPosition = $(this).position().left;
+        console.log(scrollerOffset);
+    }).on('mouseup', function () {
+        var scrollerOffset = $(".scrollComtent").smoothDivScroll("getScrollerOffset");
+        var newPosition = curentPosition
+    });*/
+
+    setTimeout(function () {
+        $(".scrollComtent").smoothDivScroll({
+            hotSpotScrolling: true,
+            touchScrolling: true
         });
-/*        $(this).on('mouseup', function () {
-            $(this).on('mouseover', function () {
-                $(this).parent().parent().css('position', 'static');
-                $(this).next().fadeIn(250);
-            });
-        });*/
-    });
-    $('.slick-arrow').on('mouseover',function(){
-        $('.slick-slider .item-wrap-full').fadeOut(250);
-        setTimeout(function () {
-            $('.slick-track').css('position', 'relative');
-        }, 500);
-
-    });
-
+    }, 300);
 
     /*#####################    Отображение подменю   ###############################*/
 
@@ -75,6 +85,13 @@ $(document).ready(function () {
         console.log(i);
         i++;
     });*/
+
+$('.header-wrap .user_icon').on('click', function () {
+    $('.back-shadow, .login-form-wrap').fadeIn();
+});
+$('.login-form-wrap .close-i').on('click', function () {
+    $('.back-shadow, .login-form-wrap').fadeOut();
+});
 
 
     $('.side-menu-wrap ul li').on('click', function () {
@@ -139,6 +156,11 @@ $(document).ready(function () {
 
     });
 
+    /*#####################    Личный кабинет   ###############################*/
+    $('.cabinet .order-wrap a').on('click', function () {
+        $(this).children().toggleClass('open');
+    });
+
 
     /*#####################    Корзина   ###############################*/
     $('.cart .minus, .cart-popup-wrap .minus').on('click', function () {
@@ -161,34 +183,38 @@ $(document).ready(function () {
     });
 
     /*#####################    Корзина   (Отображение popup)###############################*/
-    $('.item-wrap-full button').on('click', function () {
+    $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived)').on('click', function () {
         $('.cart-popup-wrap').addClass('open');
         $('.back-shadow').fadeIn();
     });
 
     /*#####################    Корзина  (Редактирование личных данных и адреса) ###############################*/
-    $('#edit-name, #edit-addres').on('click', function () {
+    $('#edit-name, #edit-addres, #edit-pass').on('click', function () {
         var el = $(this).next().next().children();
         var el2 = $(this).next().next().next().children();
         $(this).fadeOut(function () {
             $(this).next().fadeIn();
         });
-        $(el[2]).fadeToggle(function () {
-            $(el[0]).fadeToggle();
-            $(el[1]).fadeToggle();
-        });
-        $(el[3]).fadeToggle();
+        if (!!el[2]){
+            console.log(1);
+            $(el[2]).fadeToggle(function () {
+                $(el[0]).fadeToggle();
+                $(el[1]).fadeToggle();
+            });
+            $(el[3]).fadeToggle();
 
-        $(el2[2]).fadeToggle(function () {
-            $(el2[0]).fadeToggle();
-            $(el2[1]).fadeToggle();
-        });
-        $(el2[3]).fadeToggle();
-
-        //$(this).next().$('label').fadeToggle();
+            $(el2[2]).fadeToggle(function () {
+                $(el2[0]).fadeToggle();
+                $(el2[1]).fadeToggle();
+            });
+            $(el2[3]).fadeToggle();
+        }else{
+                $(el[0]).fadeToggle();
+                $(el[1]).fadeToggle();
+        }
     });
 
-    $('#edit-name-close, #edit-addres-close').on('click', function () {
+    $('#edit-name-close, #edit-addres-close, #edit-pass-close').on('click', function () {
         var el = $(this).next().children();
         var el2 = $(this).next().next().children();
         $(this).fadeOut(function () {
@@ -205,8 +231,6 @@ $(document).ready(function () {
             $(el2[3]).fadeToggle();
         });
         $(el2[1]).fadeToggle()
-
-        //$(this).next().$('label').fadeToggle();
     });
 
 });

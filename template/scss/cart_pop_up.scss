@@ -10,7 +10,7 @@
   bottom: 0;
   width: 0;
   background-color: white;
-  z-index: 1010;
+  z-index: 1055;
   @include transition(0.3s);
   &.open{
     width: 500px;
