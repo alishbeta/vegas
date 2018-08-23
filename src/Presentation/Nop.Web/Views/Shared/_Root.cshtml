@@ -49,23 +49,36 @@
 			<i class="close-i"></i>
 			<i class="shopping_bag_icon"></i>
 		</div>
-		<div class="item">
-			<img src="/prod_img/bad7.jpg" alt="bad7">
-			<div class="title">Кровать</div>
-			<div class="item-name">Faina- Trinity Cream</div>
-			<div class="count-wrap mt-2 mb-2">
-				<button class="minus"></button>
-				<div class="count">1</div>
-				<input id="it-count1" type="hidden" value="1">
-				<button class="plus"></button>
-				<div class="closee"></div>
+		<script>
+			$.ajax({
+				url: "ShoppingCart/getcart",
+				type: "POST",
+				dataType: 'json',
+				traditional: true
+			}).done(function (responce) {
+				console.log(responce);
+			});
+		</script>
+		
+		
+			<div class="item">
+				<img src="/prod_img/bad7.jpg" alt="bad7">
+				<div class="title">Кровать</div>
+				<div class="item-name">Faina- Trinity Cream</div>
+				<div class="count-wrap mt-2 mb-2">
+					<button class="minus"></button>
+					<div class="count">1</div>
+					<input id="it-count1" type="hidden" value="1">
+					<button class="plus"></button>
+					<div class="closee"></div>
+				</div>
+				<div class="price-wrap">
+					<div class="price-old">18 843</div>
+					<div class="price">15 702</div>
+				</div>
 			</div>
-			<div class="price-wrap">
-				<div class="price-old">18 843</div>
-				<div class="price">15 702</div>
-			</div>
-		</div>
-		<div class="line"></div>
+			<div class="line"></div>
+		
 		<div class="item">
 			<img src="/img/bs-mattress-rx-med.png" alt="mattress">
 			<div class="title">Матрас</div>
