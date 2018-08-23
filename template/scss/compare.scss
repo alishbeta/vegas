@@ -13,7 +13,6 @@
     width: calc(100% + 4px);
     margin-left: -4px;
   }
-
   .optc-wrap{
     position: relative;
     width: 255px;
@@ -30,7 +29,7 @@
     .show-wrap{
       + .line{
         margin-bottom: 0;
-        margin-top: 109px;
+        margin-top: 111px;
       }
       div:first-child{
         color: $text_light;
@@ -53,6 +52,9 @@
     overflow: auto;
     .scroll-wrap{
       width: 5000px;
+      .item-wrap{
+        height: auto;
+      }
     }
     .outer-wrapp{
       float: left;

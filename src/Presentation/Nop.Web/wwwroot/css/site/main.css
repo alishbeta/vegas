@@ -215,7 +215,7 @@ header, nav, section, article, aside, footer {
   margin-left: 300px; }
 
 .short-menu .r-wrap {
-  margin-left: 70px; }
+  margin-left: 65px; }
 
 input {
   outline: none; }
@@ -292,7 +292,6 @@ a {
   box-sizing: border-box;
   min-height: 100%;
   padding-bottom: 250px;
-  margin-left: 0;
   width: 100%; }
 
 footer {
@@ -301,8 +300,6 @@ footer {
 
 .content-main-wrap {
   position: relative;
-  margin-left: 18px;
-  width: calc(100% - 18px);
   -moz-transition: 0.1s;
   -o-transition: 0.1s;
   -webkit-transition: 0.1s;
@@ -604,8 +601,6 @@ nav.breadcrumb-wrap {
     -webkit-transition: 0.2s;
     transition: 0.2s; }
 
-.short-menu .content-main-wrap {
-  position: relative; }
 .short-menu .side-menu-wrap, .short-menu .all-menu-wrap .side-second-menu-wrap, .all-menu-wrap .short-menu .side-second-menu-wrap {
   width: 65px; }
   .short-menu .side-menu-wrap.open, .short-menu .all-menu-wrap .open.side-second-menu-wrap, .all-menu-wrap .short-menu .open.side-second-menu-wrap {
@@ -1506,7 +1501,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
       color: #2c96b9; }
   .compare .optc-wrap .show-wrap + .line {
     margin-bottom: 0;
-    margin-top: 109px; }
+    margin-top: 111px; }
   .compare .optc-wrap .show-wrap div:first-child {
     color: #767c7e;
     margin-bottom: 15px; }
@@ -1521,6 +1516,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   overflow: auto; }
   .compare .compare-content .scroll-wrap {
     width: 5000px; }
+    .compare .compare-content .scroll-wrap .item-wrap {
+      height: auto; }
   .compare .compare-content .outer-wrapp {
     float: left;
     border: 1px solid #cdd2d4; }
@@ -2291,8 +2288,7 @@ div.scrollingHotSpotRight {
 
   .content-main-wrap {
     position: relative;
-    margin-left: 65px;
-    width: calc(100% - 65px); }
+    width: 100%; }
 
   .inner-menu-wrap img {
     margin-left: 8px; }
@@ -2306,11 +2302,6 @@ div.scrollingHotSpotRight {
 @media (max-width: 765px) {
   body {
     min-width: 0; }
-
-  .content-main-wrap {
-    position: relative;
-    margin-left: 0;
-    width: 100%; }
 
   .header-wrap {
     background-color: rgba(255, 255, 255, 0.8);
