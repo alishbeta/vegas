@@ -1,11 +1,13 @@
-﻿@model LanguageSelectorModel
-@using Microsoft.AspNetCore.Http
-@using System.Net
-@using Nop.Core
-@inject IWebHelper webHelper
-@inject IHttpContextAccessor httpContextAccessor
-@if (Model.AvailableLanguages.Count > 1)
-{
+﻿@{
+    /*
+    @model LanguageSelectorModel
+    @using Microsoft.AspNetCore.Http
+    @using System.Net
+    @using Nop.Core
+    @inject IWebHelper webHelper
+    @inject IHttpContextAccessor httpContextAccessor
+    @if (Model.AvailableLanguages.Count > 1)
+    {
     <div class="language-selector">
     @{
         var rawUrl = webHelper.GetRawUrl(httpContextAccessor.HttpContext.Request);
@@ -36,5 +38,37 @@
             <select id="customerlanguage" name="customerlanguage" asp-items="@languages" onchange="setLocation(this.value);"></select>
         }
     }
+    </div>
+    }
+    */
+}
+
+@model LanguageSelectorModel
+@using Microsoft.AspNetCore.Http
+@using System.Net
+@using Nop.Core
+@inject IWebHelper webHelper
+@inject IHttpContextAccessor httpContextAccessor
+@if (Model.AvailableLanguages.Count > 1)
+{
+    <div class="lang-swich-wrap d-none d-md-block">
+        @{
+            var rawUrl = webHelper.GetRawUrl(httpContextAccessor.HttpContext.Request);
+            foreach (var language in Model.AvailableLanguages)
+            {
+                if (language.Id.Equals(Model.CurrentLanguageId))
+                {
+                    <span>
+                        <a class="active" href="@webHelper.ModifyQueryString(Url.RouteUrl("ChangeLanguage", new { langid = language.Id }, webHelper.CurrentRequestProtocol), "returnurl", rawUrl)" title="@language.Name" >@language.LanguageCulture</a>
+                    </span>
+                }
+                else
+                {
+                    <span>
+                        <a href="@webHelper.ModifyQueryString(Url.RouteUrl("ChangeLanguage", new { langid = language.Id }, webHelper.CurrentRequestProtocol), "returnurl", rawUrl)" title="@language.Name" >@language.LanguageCulture</a>
+                    </span>
+                }
+            }
+        }
     </div>
 }

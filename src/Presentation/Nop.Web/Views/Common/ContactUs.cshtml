@@ -1,71 +1,177 @@
-﻿@model ContactUsModel
-@{
-    Layout = "_ColumnsOne";
+﻿@*@model ContactUsModel
+	@{
+		Layout = "_ColumnsOne";
 
-    //title
-    Html.AddTitleParts(T("PageTitle.ContactUs").Text);
-    //page class
-    Html.AppendPageCssClassParts("html-contact-page");
+		//title
+		Html.AddTitleParts(T("PageTitle.ContactUs").Text);
+		//page class
+		Html.AppendPageCssClassParts("html-contact-page");
+	}
+	<div class="page contact-page">
+		<div class="page-title">
+			<h1>@T("PageTitle.ContactUs")</h1>
+		</div>
+		<div class="page-body">
+			@await Component.InvokeAsync("TopicBlock", new { systemName = "ContactUs" })
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContactUsTop })
+			@if (Model.SuccessfullySent)
+			{
+				<div class="result">
+					@Model.Result
+				</div>
+			}
+			else
+			{
+				<form asp-route="ContactUs" method="post">
+					<div asp-validation-summary="ModelOnly" class="message-error"></div>
+					<div class="fieldset">
+						<div class="form-fields">
+							<div class="inputs">
+								<label asp-for="FullName" asp-postfix=":"></label>
+								<input asp-for="FullName" placeholder="@T("ContactUs.FullName.Hint")" class="fullname" />
+								<nop-required />
+								<span asp-validation-for="FullName"></span>
+							</div>
+							<div class="inputs">
+								<label asp-for="Email" asp-postfix=":"></label>
+								<input asp-for="Email" placeholder="@T("ContactUs.Email.Hint")" class="email"/>
+								<nop-required />
+								<span asp-validation-for="Email"></span>
+							</div>
+							@if (Model.SubjectEnabled)
+							{
+								<div class="inputs">
+									<label asp-for="Subject" asp-postfix=":"></label>
+									<input asp-for="Subject" placeholder="@T("ContactUs.Subject.Hint")" class="subject" />
+									<nop-required />
+									<span asp-validation-for="Subject"></span>
+								</div>
+							}
+							<div class="inputs">
+								<label asp-for="Enquiry" asp-postfix=":"></label>
+								<textarea asp-for="Enquiry" placeholder="@T("ContactUs.Enquiry.Hint")" class="enquiry"></textarea>
+								<nop-required />
+								<span asp-validation-for="Enquiry"></span>
+							</div>
+							@if (Model.DisplayCaptcha)
+							{
+								<div class="captcha-box">
+									<nop-captcha />
+								</div>
+							}
+						</div>
+					</div>
+					<div class="buttons">
+						<input type="submit" name="send-email" class="button-1 contact-us-button" value="@T("ContactUs.Button")" />
+					</div>
+				</form>
+			}
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContactUsBottom })
+		</div>
+	</div>*@
+
+@model ContactUsModel
+@{
+	Layout = "_ColumnsOne";
+
+	//title
+	Html.AddTitleParts(T("PageTitle.ContactUs").Text);
+	//page class
+	Html.AppendPageCssClassParts("html-contact-page");
 }
-<div class="page contact-page">
-    <div class="page-title">
-        <h1>@T("PageTitle.ContactUs")</h1>
-    </div>
-    <div class="page-body">
-        @await Component.InvokeAsync("TopicBlock", new { systemName = "ContactUs" })
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContactUsTop })
-        @if (Model.SuccessfullySent)
-        {
-            <div class="result">
-                @Model.Result
-            </div>
-        }
-        else
-        {
-            <form asp-route="ContactUs" method="post">
-                <div asp-validation-summary="ModelOnly" class="message-error"></div>
-                <div class="fieldset">
-                    <div class="form-fields">
-                        <div class="inputs">
-                            <label asp-for="FullName" asp-postfix=":"></label>
-                            <input asp-for="FullName" placeholder="@T("ContactUs.FullName.Hint")" class="fullname" />
-                            <nop-required />
-                            <span asp-validation-for="FullName"></span>
-                        </div>
-                        <div class="inputs">
-                            <label asp-for="Email" asp-postfix=":"></label>
-                            <input asp-for="Email" placeholder="@T("ContactUs.Email.Hint")" class="email"/>
-                            <nop-required />
-                            <span asp-validation-for="Email"></span>
-                        </div>
-                        @if (Model.SubjectEnabled)
-                        {
-                            <div class="inputs">
-                                <label asp-for="Subject" asp-postfix=":"></label>
-                                <input asp-for="Subject" placeholder="@T("ContactUs.Subject.Hint")" class="subject" />
-                                <nop-required />
-                                <span asp-validation-for="Subject"></span>
-                            </div>
-                        }
-                        <div class="inputs">
-                            <label asp-for="Enquiry" asp-postfix=":"></label>
-                            <textarea asp-for="Enquiry" placeholder="@T("ContactUs.Enquiry.Hint")" class="enquiry"></textarea>
-                            <nop-required />
-                            <span asp-validation-for="Enquiry"></span>
-                        </div>
-                        @if (Model.DisplayCaptcha)
-                        {
-                            <div class="captcha-box">
-                                <nop-captcha />
-                            </div>
-                        }
-                    </div>
-                </div>
-                <div class="buttons">
-                    <input type="submit" name="send-email" class="button-1 contact-us-button" value="@T("ContactUs.Button")" />
-                </div>
-            </form>
-        }
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContactUsBottom })
-    </div>
-</div>
+
+	<nav class="breadcrumb-wrap" aria-label="breadcrumb"></nav>
+	<div class="row contacts">
+		<div class="offset-xl-2 col-xl-8">
+			<div class="row">
+				<div class="col">
+					<h1 class="title">@T("PageTitle.ContactUs")</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<h5 class="text-blue">BedForYou</h5>
+					<div class="info">
+						<div>ТОВ «Вегас Україна»</div>
+						<div>ул. Николая Ушакова, 1Б, оф. 134</div>
+						<div>03179, Киев</div>
+					</div>
+					<div class="info">
+						<div>ІПН 309315426585</div>
+						<div>р/р 26004015514101 в ПАТ «АЛЬФА-БАНК»</div>
+						<div>МФО 300346, код ЄДРПОУ 30931542</div>
+					</div>
+					<div class="info">
+						<div>тел. <span class="text-blue">0 800 604 597</span> (бесплатно)</div>
+						<div>тел. <span class="text-blue">(044) 599 22 89</span></div>
+						<div>тел. <span class="text-blue">(067) 217 34 17</span></div>
+					</div>
+					<div class="contact-form">
+						<h5 class="modal-title text-blue" id="exampleModalLabel">Напишите нам:</h5>
+						@if (Model.SuccessfullySent)
+						{
+							<div class="result">
+								@Model.Result
+							</div>
+						}
+						else
+						{
+							<form asp-route="ContactUs" method="post">
+								<div asp-validation-summary="ModelOnly" class="message-error"></div>
+								<div class="form-group">
+									<div class="form-row">
+										<div class="col">
+											<label asp-for="FullName" asp-postfix=":"></label>
+											<input asp-for="FullName" placeholder="@T("ContactUs.FullName.Hint")" class="form-control col form-inline" />
+											<nop-required />
+											<span asp-validation-for="FullName"></span>
+										</div>
+										<div class="col">
+											<label asp-for="Email" asp-postfix=":"></label>
+											<input asp-for="Email" placeholder="@T("ContactUs.Email.Hint")" class="form-control col form-inline" />
+											<nop-required />
+											<span asp-validation-for="Email"></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="form-row">
+										<div class="col">
+											<label asp-for="Phone" asp-postfix=":"></label>
+											<input asp-for="Phone" placeholder="@T("ContactUs.Phone.Hint")" class="form-control col form-inline" />
+											<nop-required />
+											<span asp-validation-for="Phone"></span>
+										</div>
+									</div>
+									<div class="form-group">
+											<label asp-for="Enquiry" asp-postfix=":"></label>
+											<textarea asp-for="Enquiry" placeholder="@T("ContactUs.Enquiry.Hint")" rows="5" class="form-control col form-inline"></textarea>
+											<nop-required />
+											<span asp-validation-for="Enquiry"></span>
+									</div>
+									<div class="buttons">
+										<input type="submit" name="send-email" class="btn btn-blue float-right" value="@T("ContactUs.Button")" />
+									</div>
+								</div>
+							</form>
+						}
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="rounded" id="map"></div>
+				</div>
+			</div>
+
+			<script>
+							var map;
+							function initMap() {
+								map = new google.maps.Map(document.getElementById('map'), {
+									center: {lat: -34.397, lng: 150.644},
+									zoom: 8
+								});
+							}
+			</script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbEYKU92y_bwmjNE_HOjPxoaNFbnpnD9I&callback=initMap" async defer></script>
+		</div>
+
+	</div>

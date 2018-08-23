@@ -1284,7 +1284,22 @@ namespace Nop.Web.Controllers
             return View(model);
         }
 
-        [HttpPost, ActionName("Cart")]
+		[HttpPost, ActionName("GetCart")]
+		public dynamic GetCart()
+		{
+			if (!_permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart))
+				return null;
+
+			var cart = _workContext.CurrentCustomer.ShoppingCartItems
+				.Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+				.LimitPerStore(_storeContext.CurrentStore.Id)
+				.ToList();
+			var model = new ShoppingCartModel();
+			model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
+			return new { model };
+		}
+
+		[HttpPost, ActionName("Cart")]
         [FormValueRequired("updatecart")]
         public virtual IActionResult UpdateCart(IFormCollection form)
         {

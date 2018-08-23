@@ -1,46 +1,85 @@
-﻿@model NewsItemListModel
-@{
-    Layout = "_ColumnsTwo";
+﻿@*@model NewsItemListModel
+	@{
+		Layout = "_ColumnsTwo";
 
-    //title
-    Html.AddTitleParts(T("PageTitle.NewsArchive").Text);
-    //page class
-    Html.AppendPageCssClassParts("html-news-list-page");
+		//title
+		Html.AddTitleParts(T("PageTitle.NewsArchive").Text);
+		//page class
+		Html.AppendPageCssClassParts("html-news-list-page");
+	}
+	<div class="page news-list-page">
+		<div class="page-title">
+			<a href="@Url.RouteUrl("NewsRSS", new { languageId = Model.WorkingLanguageId })" class="link-rss" title="@T("News.RSS.Hint")">@T("News.RSS")</a>
+			<h1>@T("News")</h1>
+		</div>
+		<div class="page-body">
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.NewsListPageBeforeItems })
+			<div class="news-items">
+				@foreach (var item in Model.NewsItems)
+				{
+					<div class="news-item">
+						<div class="news-head">
+							<a class="news-title" href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">@item.Title</a>
+							<span class="news-date">-@item.CreatedOn.ToString("D")</span>
+						</div>
+						<div class="news-body">
+							@Html.Raw(item.Short)
+						</div>
+						<div class="buttons">
+							<a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })" class="read-more">@T("News.MoreInfo")</a>
+						</div>
+						@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.NewsListPageInsideItem, additionalData = item })
+					</div>
+				}
+			</div>
+			@{
+				var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+			}
+			@if (!pager.IsEmpty())
+			{
+				<div class="pager">
+					@pager
+				</div>
+			}
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.NewsListPageAfterItems })
+		</div>
+	</div>*@
+
+@model NewsItemListModel
+@{
+	Layout = "_ColumnsOne";
+
+	//title
+	Html.AddTitleParts(T("PageTitle.NewsArchive").Text);
+	//page class
+	Html.AppendPageCssClassParts("html-news-list-page");
 }
-<div class="page news-list-page">
-    <div class="page-title">
-        <a href="@Url.RouteUrl("NewsRSS", new { languageId = Model.WorkingLanguageId })" class="link-rss" title="@T("News.RSS.Hint")">@T("News.RSS")</a>
-        <h1>@T("News")</h1>
-    </div>
-    <div class="page-body">
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.NewsListPageBeforeItems })
-        <div class="news-items">
-            @foreach (var item in Model.NewsItems)
-            {
-                <div class="news-item">
-                    <div class="news-head">
-                        <a class="news-title" href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">@item.Title</a>
-                        <span class="news-date">-@item.CreatedOn.ToString("D")</span>
-                    </div>
-                    <div class="news-body">
-                        @Html.Raw(item.Short)
-                    </div>
-                    <div class="buttons">
-                        <a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })" class="read-more">@T("News.MoreInfo")</a>
-                    </div>
-                    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.NewsListPageInsideItem, additionalData = item })
-                </div>
-            }
-        </div>
-        @{
-            var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
-        }
-        @if (!pager.IsEmpty())
-        {
-            <div class="pager">
-                @pager
-            </div>
-        }
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.NewsListPageAfterItems })
-    </div>
+
+<nav class="breadcrumb-wrap" aria-label="breadcrumb"></nav>
+
+<div class="row news">
+	<div class="offset-xl-1 col-xl-11">
+		<h1 class="title">@T("News")</h1>
+		<div class="news-wrap clearfix">
+			@foreach (var item in Model.NewsItems)
+			{
+				<div class="item-wrap">
+					<div class="img-wrap">
+						<a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })"><img src="/img/news.png" alt="news"></a>
+
+						<div class="date">@item.CreatedOn.ToString("D")</div>
+					</div>
+					<div class="text-wrap">
+						<div class="title"><a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">@item.Title</a></div>
+						<div class="short-text">
+							@Html.Raw(item.Short)
+						</div>
+					</div>
+
+				</div>
+			}
+		</div>
+	</div>
 </div>
+
+

@@ -242,6 +242,7 @@ namespace Nop.Web.Factories
                         Id = x.Id,
                         Name = x.Name,
                         FlagImageFileName = x.FlagImageFileName,
+                        LanguageCulture = x.UniqueSeoCode.ToUpper()
                     })
                     .ToList();
                 return result;

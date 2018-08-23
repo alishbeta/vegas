@@ -1296,9 +1296,10 @@ namespace Nop.Web.Factories
 
             //price
             model.ProductPrice = PrepareProductPriceModel(product);
+			model.ProductPrice.Discount = product.DiscountProductMappings.ToList().Count > 0 ? product.DiscountProductMappings.ToList()[0].Discount.DiscountPercentage : (decimal)0;
 
-            //'Add to cart' model
-            model.AddToCart = PrepareProductAddToCartModel(product, updatecartitem);
+			//'Add to cart' model
+			model.AddToCart = PrepareProductAddToCartModel(product, updatecartitem);
 
             //gift card
             if (product.IsGiftCard)

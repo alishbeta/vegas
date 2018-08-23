@@ -7,5 +7,6 @@ namespace Nop.Web.Models.Common
         public string Name { get; set; }
 
         public string FlagImageFileName { get; set; }
+        public string LanguageCulture { get; internal set; }
     }
 }

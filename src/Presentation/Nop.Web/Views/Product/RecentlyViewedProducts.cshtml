@@ -43,8 +43,8 @@
 				
 				<div class="product-img-wrap">
 					<div>
-						<i class="favorite_i"></i>
-						<i class="compare_icon"></i>
+						<i class="favorite_i float-left" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i>
+						<i class="compare_icon float-right" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
 					</div>
 					<a href="@Url.RouteUrl("Product", new { productId = product.Id, SeName = product.SeName })">
 						<img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
@@ -69,7 +69,7 @@
 						<div class="price-new">@product.ProductPrice.Price</div>
 					</div>
 				</div>
-				<button class="btn btn-blue btn-block mt-4 mb-4">Купить</button>
+				<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
 			</div>
 					}
 				}
