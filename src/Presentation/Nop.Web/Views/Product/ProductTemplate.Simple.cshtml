@@ -284,12 +284,26 @@
 						<div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.Price</s></div>
 						<div class="text-center mt-3 mb-2"><a href="#">Наличие в салонах</a></div>
 						<div class="btn-group-vertical btn-block">
-							<button class="btn btn-blue mb-2 rounded">В корзину</button>
+							@{
+								var dataDictAddToCart = new ViewDataDictionary(ViewData);
+								dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+								@await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
+							}
 							<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
 						</div>
 						<div class="icons-wrap d-block ml-3">
-							<div class="mb-2"><i class="favorite_i mr-1"></i> Добавить в избраное</div>
-							<div><i class="compare_icon mr-1"></i> Добавить в сравнение</div>
+							@{
+								var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
+								dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+								@await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
+							}
+							@await Html.PartialAsync("_CompareProductsButton", Model)
+							@*<button class="btn btn-blue mb-2 rounded" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">В корзину</button>
+				<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
+			</div>
+			<div class="icons-wrap d-block ml-3">
+				<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
+				<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
 						</div>
 					</div>
 					<div class="line"></div>
