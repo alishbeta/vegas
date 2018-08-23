@@ -21,7 +21,10 @@ namespace Nop.Web.Models.Common
         public string Enquiry { get; set; }
 
         [NopResourceDisplayName("ContactUs.FullName")]
-        public string FullName { get; set; }
+        public string FullName { get; set; }  
+
+		[NopResourceDisplayName("ContactUs.Phone")]
+        public string Phone { get; set; }
 
         public bool SuccessfullySent { get; set; }
         public string Result { get; set; }
