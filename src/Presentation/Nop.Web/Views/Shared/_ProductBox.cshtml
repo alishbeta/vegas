@@ -145,15 +145,16 @@
 }
 	<div class="outer-wrapp float-left">
 		<div class="item-wrap">
-			<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
-				<div class="product-img-wrap">
+			
+			<div class="product-img-wrap">
+				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
 					<img class="product" src="@Model.DefaultPictureModel.ImageUrl" alt="@Model.DefaultPictureModel.AlternateText">
-					@if (@Model.ProductPrice.Discount.ToString("#.##") != "")
-					{
-						<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
-					}
-				</div>
-			</a>
+				</a>
+				@if (@Model.ProductPrice.Discount.ToString("#.##") != "")
+				{
+					<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
+				}
+			</div>
 			<div class="main-prop-wrap text-left">
 				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
 					<div class="product-name text-light-c">@Model.Name</div>
@@ -172,15 +173,15 @@
 		<div class="item-wrap-full">
 			<i class="favorite_i float-left" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i>
 			<i class="compare_icon float-right" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
-			<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
-				<div class="product-img-wrap">
+			<div class="product-img-wrap">
+				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
 					<img class="product" src="@Model.DefaultPictureModel.ImageUrl" alt="@Model.DefaultPictureModel.AlternateText">
-					@if (@Model.ProductPrice.Discount.ToString("#.##") != "")
-					{
-						<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
-					}
-				</div>
-			</a>
+				</a>
+				@if (@Model.ProductPrice.Discount.ToString("#.##") != "")
+				{
+					<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
+				}
+			</div>
 			<div class="main-prop-wrap text-left">
 				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
 					<div class="product-name text-light-c">@Model.Name</div>
