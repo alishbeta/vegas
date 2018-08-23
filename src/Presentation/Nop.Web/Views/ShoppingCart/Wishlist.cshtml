@@ -298,7 +298,12 @@
 					<div class="product-img-wrap">
 						<div>
 							<i class="compare_icon" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
-							<i class="close-i"></i>
+							<form asp-route="Wishlist" method="post">
+								<input type="hidden" checked="checked" name="removefromcart" value="@(item.Id)" />
+								<input type="submit" style="display: none;" class="close-i" id="subm" name="updatecart" value="@T("Wishlist.UpdateCart")" />
+								<i class="close-i" onclick="$('#subm').click()"></i>
+							</form>
+								
 						</div>
 						<img class="product" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
 						@if (item.Discount != "" && item.Discount != null)
