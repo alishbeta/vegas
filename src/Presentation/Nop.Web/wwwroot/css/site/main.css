@@ -644,8 +644,6 @@ nav.breadcrumb-wrap {
     padding-left: 300px; }
   .short-menu .side-second-menu-wrap ul li {
     width: 100% !important; }
-.short-menu .subscription-wrap {
-  margin: 50px -15px 0 -20%; }
 
 .main-baner-wrap {
   overflow: hidden;
@@ -758,6 +756,7 @@ nav.breadcrumb-wrap {
     width: 20px; }
   .item-wrap img.product {
     width: 228px;
+    height: 215px;
     margin-top: 25px; }
 
 .item-wrap-full img.product {
