@@ -403,6 +403,13 @@ namespace Nop.Web.Controllers
 		public virtual IActionResult CityMap()
 		{
 			return View();
+		}	  	
+
+		//store info page
+		[HttpsRequirement(SslRequirement.Yes)]
+		public virtual IActionResult StoreInfo()
+		{
+			return View();
 		}
 
 		#endregion
