@@ -107,6 +107,10 @@ namespace Nop.Web.Infrastructure
 			//best sellers
 			routeBuilder.MapLocalizedRoute("BestSellers", "bestsellers/",
 				new { controller = "Product", action = "BestSellers" });
+				
+			//sales products
+			routeBuilder.MapLocalizedRoute("SalesProducts", "sales/",
+				new { controller = "Product", action = "SalesProducts" });
 
 			//blog
 			routeBuilder.MapLocalizedRoute("Blog", "blog",

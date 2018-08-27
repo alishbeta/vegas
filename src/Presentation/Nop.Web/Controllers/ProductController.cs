@@ -230,6 +230,21 @@ namespace Nop.Web.Controllers
             model.AddRange(_productModelFactory.PrepareProductOverviewModels(products));
 
             return View(model);
+        }	
+
+		[HttpsRequirement(SslRequirement.No)]
+        public virtual IActionResult SalesProducts()
+        {
+            var products = _productService.SearchProducts(
+                storeId: _storeContext.CurrentStore.Id,
+                visibleIndividuallyOnly: true,
+                orderBy: ProductSortingEnum.CreatedOn);
+
+			var discountedProds = products.Where(x => x.DiscountProductMappings.ToList().Count > 0);
+            var model = new List<ProductOverviewModel>();
+            model.AddRange(_productModelFactory.PrepareProductOverviewModels(discountedProds));
+
+            return View(model);
         }
 
 		[HttpsRequirement(SslRequirement.No)]
