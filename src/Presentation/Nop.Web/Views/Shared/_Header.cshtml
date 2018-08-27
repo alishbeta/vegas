@@ -34,17 +34,17 @@
 		</div>
 	</div>
 	<div class="phone-wrap d-none d-md-inline-block">
-		<div class="phone-title text-light-c">Бесплатная линия</div>
+		<div class="phone-title text-light-c">@T("topmenu.freeline")</div>
 		<div class="phone">0 800 604 597</div>
 	</div>
 	<div class="shedule-wrapp d-none d-md-inline-block">
-		<div class="text-light-c">09:00-20:00 (будние)</div>
-		<div class="text-light-c">10:00-18:00 (выходные)</div>
+		<div class="text-light-c">09:00-20:00 (@T("topmenu.weekdays"))</div>
+		<div class="text-light-c">10:00-18:00 (@T("topmenu.weekend"))</div>
 	</div>
 	<ul class="head-menu d-none d-md-inline-block">
-		<li><a class="d-none d-lg-inline" href="/about-us">О компании</a></li>
-		<li><a class="d-none d-xl-inline" href="/ourstores">Салоны</a></li>
-		<li><a href="/delivery">Доставка и оплата</a></li>
+		<li><a class="d-none d-lg-inline" href="/about-us">@T("topmenu.about")</a></li>
+		<li><a class="d-none d-xl-inline" href="/ourstores">@T("topmenu.ourstores")</a></li>
+		<li><a href="/delivery">@T("topmenu.delivery")</a></li>
 	</ul>
 	<div class="icons-wrap">
 		@await Component.InvokeAsync("LanguageSelector")
