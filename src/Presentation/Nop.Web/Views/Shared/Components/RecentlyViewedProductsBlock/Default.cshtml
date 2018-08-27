@@ -32,7 +32,7 @@
 <div class="see-wrap pad-norm">
 	<div class="title text-center">
 		<h3 class="">@T("Products.RecentlyViewedProducts")</h3>
-		<button class="btn btn-sm btn-blue-white float-right d-none d-md-block">@T("Bestsellers.ViewAll")</button>
+		<button class="btn btn-sm btn-blue-white float-right d-none d-md-block" onclick="window.location.replace('/recentlyviewedproducts')">@T("Bestsellers.ViewAll")</button>
 	</div>
 	<div class="slider-wrap clearfix">
 		@foreach (var product in Model)
