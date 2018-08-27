@@ -48,6 +48,49 @@ namespace Nop.Services.News
 
         #region News
 
+        public virtual IList<string> ParseTags(NewsItem news)
+        {
+            if (news == null)
+                throw new ArgumentNullException(nameof(news));
+
+            if (news.Tags == null)
+                return new List<string>();
+
+            var tags = news.Tags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(tag => tag?.Trim())
+                .Where(tag => !string.IsNullOrEmpty(tag)).ToList();
+
+            return tags;
+        }
+
+        public virtual IList<NewsTags> GetAllNewsTags(int storeId, int languageId, bool showHidden = false)
+        {
+            var blogPostTags = new List<NewsTags>();
+
+            var news = GetAllNews(storeId: storeId, languageId: languageId, showHidden: showHidden);
+            foreach (var newsItem in news)
+            {
+                var tags = this.ParseTags(newsItem);
+                foreach (var tag in tags)
+                {
+                    var foundNewsTag = blogPostTags.Find(bpt => bpt.Name.Equals(tag, StringComparison.InvariantCultureIgnoreCase));
+                    if (foundNewsTag == null)
+                    {
+                        foundNewsTag = new NewsTags
+                        {
+                            Name = tag,
+                            NewsCount = 1
+                        };
+                        blogPostTags.Add(foundNewsTag);
+                    }
+                    else
+                        foundNewsTag.NewsCount++;
+                }
+            }
+
+            return blogPostTags;
+        }
+
         /// <summary>
         /// Deletes a news
         /// </summary>

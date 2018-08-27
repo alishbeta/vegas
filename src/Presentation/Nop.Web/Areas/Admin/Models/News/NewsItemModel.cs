@@ -78,6 +78,9 @@ namespace Nop.Web.Areas.Admin.Models.News
         [NopResourceDisplayName("Admin.ContentManagement.News.NewsItems.Fields.Published")]
         public bool Published { get; set; }
 
+        [NopResourceDisplayName("Admin.ContentManagement.News.NewsItems.Fields.Tags")]
+        public string Tags { get; set; }
+
         public int ApprovedComments { get; set; }
 
         public int NotApprovedComments { get; set; }

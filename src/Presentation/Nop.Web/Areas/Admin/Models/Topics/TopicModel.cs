@@ -78,6 +78,9 @@ namespace Nop.Web.Areas.Admin.Models.Topics
 
         public IList<SelectListItem> AvailableTopicTemplates { get; set; }
 
+        [NopResourceDisplayName("Admin.ContentManagement.Topics.Fields.Tags")]
+        public string Tags { get; set; }
+
         [NopResourceDisplayName("Admin.ContentManagement.Topics.Fields.MetaKeywords")]
         public string MetaKeywords { get; set; }
 

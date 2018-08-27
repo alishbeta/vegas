@@ -104,5 +104,7 @@ namespace Nop.Core.Domain.Topics
         /// Gets or sets a value indicating whether the entity is limited/restricted to certain stores
         /// </summary>
         public bool LimitedToStores { get; set; }
+
+        public string Tags { get; set; }
     }
 }

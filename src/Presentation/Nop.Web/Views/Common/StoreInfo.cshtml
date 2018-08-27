@@ -1,0 +1,145 @@
+﻿@{
+	Layout = "_ColumnsOne";
+}
+
+<nav class="breadcrumb-wrap" aria-label="breadcrumb">
+</nav>
+<div class="row show-room">
+	<div class="offset-xl-2 col-xl-8">
+		<h1 class="title text-center">Матрасы Vegas</h1>
+		<div class="addres text-center">
+			<p>ул. Николая Ушакова, 1Б, офис 134</p>
+			<p>тел. <span>(044) 599 22 89</span></p>
+			<p>пн-вс 10:00-20:00</p>
+		</div>
+		<div class="show-room-wrap">
+			<div class="slider">
+				<img src="~/img/img1.jpg" alt="img1">
+				<img src="~/img/img2.jpg" alt="img2">
+				<img src="~/img/img1.jpg" alt="img1">
+				<img src="~/img/img2.jpg" alt="img2">
+				<img src="~/img/img1.jpg" alt="img1">
+			</div>
+			<div class="slider-nav">
+				<img src="~/img/img1.jpg" alt="img1">
+				<img src="~/img/img2.jpg" alt="img2">
+				<img src="~/img/img1.jpg" alt="img1">
+				<img src="~/img/img2.jpg" alt="img2">
+				<img src="~/img/img1.jpg" alt="img1">
+			</div>
+			<div class="bl-1 rounded clearfix">
+				<div class="i-bl-w1">
+					<div class="title"><h4>Как нас найти</h4></div>
+					<p>ул. Николая Ушакова, 1Б, офис 134</p>
+					<p>тел. <span>(044) 599 22 89</span></p>
+					<p>пн-вс 10:00-20:00</p>
+					<button class="btn btn-blue pl-5 pr-5" data-toggle="modal" data-target="#writUs">Напишите нам</button>
+				</div>
+				<div class="i-bl-w2">
+					<div id="map"></div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var map;
+			function initMap() {
+				map = new google.maps.Map(document.getElementById('map'), {
+					center: { lat: -34.397, lng: 150.644 },
+					zoom: 8
+				});
+			}
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbEYKU92y_bwmjNE_HOjPxoaNFbnpnD9I&callback=initMap" async defer></script>
+	</div>
+	<div class="col-xl-12">
+		<div class="line"></div>
+		@await Component.InvokeAsync("HomepageNewProducts")
+		<div class="line"></div>
+	</div>
+	<div class="col-xl-12">
+		<div class="title text-center mb-5">
+			<h3 class="">Другие салоны Киева</h3>
+			<button class="btn btn-sm btn-blue-white float-right d-none d-md-block" onclick="window.location.replace('/ourstores')">@T("Bestsellers.ViewAll")</button>
+		</div>
+	</div>
+	<div class="offset-xl-2 col-xl-8">
+		<div class="new-wrap">
+			<div class="salon-slider-wrap clearfix">
+				<div class="img">
+					<img src="https://via.placeholder.com/540x320" alt="">
+					<div class="text-wrap">
+						<div><b>"Матрасы Vegas"</b></div>
+						<div>ул. Николая Ушаков, 1Б, офис 134</div>
+						<div>пн-вс 10:00-20:00</div>
+					</div>
+				</div>
+				<div class="img">
+					<img src="https://via.placeholder.com/540x320" alt="">
+					<div class="text-wrap">
+						<div><b>"Матрасы Vegas"</b></div>
+						<div>ул. Николая Ушаков, 1Б, офис 134</div>
+						<div>пн-вс 10:00-20:00</div>
+					</div>
+				</div>
+				<div class="img">
+					<img src="https://via.placeholder.com/540x320" alt="">
+					<div class="text-wrap">
+						<div><b>"Матрасы Vegas"</b></div>
+						<div>ул. Николая Ушаков, 1Б, офис 134</div>
+						<div>пн-вс 10:00-20:00</div>
+					</div>
+				</div>
+				<div class="img">
+					<img src="https://via.placeholder.com/540x320" alt="">
+					<div class="text-wrap">
+						<div><b>"Матрасы Vegas"</b></div>
+						<div>ул. Николая Ушаков, 1Б, офис 134</div>
+						<div>пн-вс 10:00-20:00</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript" src="js/slick.min.js"></script>
+<script type="text/javascript">
+	$('.slider').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		fade: true,
+		asNavFor: '.slider-nav',
+		prevArrow: '<div class="prev-arrow"></div>',
+		nextArrow: '<div class="next-arrow"></div>',
+	});
+	$('.slider-nav').slick({
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		asNavFor: '.slider',
+		dots: false,
+		centerMode: false,
+		focusOnSelect: true,
+		arrows: false,
+	});
+	$('.slider-wrap').slick({
+		dots: false,
+		slidesToShow: 6,
+		slidesToScroll: 1,
+		speed: 600,
+		useTransform: false,
+		prevArrow: '<div class="baner-prev-arrow"></div>',
+		nextArrow: '<div class="baner-next-arrow"></div>',
+		infinite: false,
+	});
+	$('.salon-slider-wrap').slick({
+		dots: false,
+		slidesToShow: 2,
+		slidesToScroll: 1,
+		speed: 600,
+		useTransform: false,
+		prevArrow: '<div class="baner-prev-arrow"></div>',
+		nextArrow: '<div class="baner-next-arrow"></div>',
+		infinite: false,
+	});
+
+</script>

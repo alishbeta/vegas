@@ -63,6 +63,49 @@ namespace Nop.Services.Topics
 
         #region Methods
 
+        public virtual IList<string> ParseTags(Topic topic)
+        {
+            if (topic == null)
+                throw new ArgumentNullException(nameof(topic));
+
+            if (topic.Tags == null)
+                return new List<string>();
+
+            var tags = topic.Tags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(tag => tag?.Trim())
+                .Where(tag => !string.IsNullOrEmpty(tag)).ToList();
+
+            return tags;
+        }
+
+        public virtual IList<TopicTag> GetAllTopicsTags(int storeId, bool showHidden = false)
+        {
+            var topicTags = new List<TopicTag>();
+
+            var topics = GetAllTopics(storeId: storeId, showHidden: showHidden);
+            foreach (var topic in topics)
+            {
+                var tags = this.ParseTags(topic);
+                foreach (var tag in tags)
+                {
+                    var foundTopicTag = topicTags.Find(bpt => bpt.Name.Equals(tag, StringComparison.InvariantCultureIgnoreCase));
+                    if (foundTopicTag == null)
+                    {
+                        foundTopicTag = new TopicTag
+                        {
+                            Name = tag,
+                            TopicCount = 1
+                        };
+                        topicTags.Add(foundTopicTag);
+                    }
+                    else
+                        foundTopicTag.TopicCount++;
+                }
+            }
+
+            return topicTags;
+        }
+
         /// <summary>
         /// Deletes a topic
         /// </summary>

@@ -45,7 +45,7 @@
 <div class="cart-popup-wrap">
 	<div class="order-wrapp">
 		<div class="title-wrap clearfix">
-			<h1>Товар добавлен в корзину</h1>
+			<h1>@T("cart.title")</h1>
 			<i class="close-i"></i>
 			<i class="shopping_bag_icon"></i>
 		</div>
@@ -265,7 +265,11 @@
 										'<div class="count">' + product.Quantity + '</div>' +
 										'<input id="it-count1" type="hidden" value="' + product.Quantity + '">' +
 										'<button class="plus"></button>' +
-										'<div class="closee"></div>' +
+										'<div class="closee" onclick="$(\'#subm\').click()"></div>' + 
+										'<form asp-route="Cart" method="post">' +
+											'<input type="hidden" checked="checked" name="removefromcart" value="' + product.Id + '" />' + 
+											'<input type="submit" style="display: none;" class="close-i" id="subm" name="updatecart" value="@T("Wishlist.UpdateCart")" />' +
+										'</form>' +
 									'</div>' +
 									'<div class="price-wrap">' +
 										oldPrice +

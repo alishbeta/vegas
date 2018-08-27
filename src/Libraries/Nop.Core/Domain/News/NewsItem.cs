@@ -38,6 +38,8 @@ namespace Nop.Core.Domain.News
         /// </summary>
         public bool Published { get; set; }
 
+        public string Tags { get; set; }
+
         /// <summary>
         /// Gets or sets the news item start date and time
         /// </summary>

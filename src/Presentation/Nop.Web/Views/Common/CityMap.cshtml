@@ -1,0 +1,78 @@
+﻿@{
+	Layout = "_ColumnsOne";
+}
+
+<nav class="breadcrumb-wrap" aria-label="breadcrumb">
+</nav>
+
+<div class="row map">
+	<div class="offset-xl-1 col-xl-8">
+		<h1 class="title">Наши салоны</h1>
+		<nav class="blue-menu">
+			<ul class="clearfix">
+				<li><a href="/OurStores">Карта салонов</a></li>
+				<li><a class="active" href="#">Киев</a></li>
+				<li><a href="">Харьков</a></li>
+				<li><a href="">Львов</a></li>
+				<li><a href="">Днепр</a></li>
+				<li><a href="">Одесса</a></li>
+			</ul>
+		</nav>
+		<div class="map-wrap">
+			<div id="map"></div>
+			<div class="img-wrap">
+				<a href="/StoreInfo">
+					<div class="img">
+						<img src="https://via.placeholder.com/540x320" alt="">
+						<div class="text-wrap">
+							<div><b>"Матрасы Vegas"</b></div>
+							<div>ул. Николая Ушаков, 1Б, офис 134</div>
+							<div>пн-вс 10:00-20:00</div>
+						</div>
+					</div>
+				</a>
+				<a href="">
+				<div class="img">
+					<img src="https://via.placeholder.com/540x320" alt="">
+					<div class="text-wrap">
+						<div><b>"Матрасы Vegas"</b></div>
+						<div>ул. Николая Ушаков, 1Б, офис 134</div>
+						<div>пн-вс 10:00-20:00</div>
+					</div>
+				</div>
+				</a>
+				<a href="">
+					<div class="img">
+						<img src="https://via.placeholder.com/540x320" alt="">
+						<div class="text-wrap">
+							<div><b>"Матрасы Vegas"</b></div>
+							<div>ул. Николая Ушаков, 1Б, офис 134</div>
+							<div>пн-вс 10:00-20:00</div>
+						</div>
+					</div>
+				</a>
+				<a href="">
+					<div class="img">
+						<img src="https://via.placeholder.com/540x320" alt="">
+						<div class="text-wrap">
+							<div><b>"Матрасы Vegas"</b></div>
+							<div>ул. Николая Ушаков, 1Б, офис 134</div>
+							<div>пн-вс 10:00-20:00</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<script>
+			var map;
+			function initMap() {
+				map = new google.maps.Map(document.getElementById('map'), {
+					center: { lat: -34.397, lng: 150.644 },
+					zoom: 8
+				});
+			}
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbEYKU92y_bwmjNE_HOjPxoaNFbnpnD9I&callback=initMap" async defer></script>
+
+	</div>
+</div>
