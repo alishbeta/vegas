@@ -29,6 +29,7 @@ namespace Nop.Services.Topics
         private readonly IRepository<AclRecord> _aclRepository;
         private readonly IRepository<StoreMapping> _storeMappingRepository;
         private readonly IRepository<Topic> _topicRepository;
+        private readonly IRepository<TopicCategory> _topicCategoryRepository;
         private readonly IStoreMappingService _storeMappingService;
         private readonly IWorkContext _workContext;
         private readonly string _entityName;
@@ -45,7 +46,8 @@ namespace Nop.Services.Topics
             IRepository<StoreMapping> storeMappingRepository,
             IRepository<Topic> topicRepository,
             IStoreMappingService storeMappingService,
-            IWorkContext workContext)
+            IWorkContext workContext,
+            IRepository<TopicCategory> topicCategoryRepository)
         {
             this._catalogSettings = catalogSettings;
             this._aclService = aclService;
@@ -56,12 +58,48 @@ namespace Nop.Services.Topics
             this._topicRepository = topicRepository;
             this._storeMappingService = storeMappingService;
             this._workContext = workContext;
+            this._topicCategoryRepository = topicCategoryRepository;
             this._entityName = typeof(Topic).Name;
         }
 
         #endregion
 
         #region Methods
+
+        public virtual IList<TopicCategory> GetAllTopicCategories()
+        {
+            return _topicCategoryRepository.Table.Where(x => true).ToList();
+        }
+
+        public virtual TopicCategory GetTopicCategoryById(int topicCategoryId)
+        {
+            if (topicCategoryId == 0)
+                return null;
+
+            return _topicCategoryRepository.GetById(topicCategoryId);
+        }
+
+        public virtual void InsertTopicCategory(TopicCategory topicCategory)
+        {
+            if (topicCategory == null)
+                throw new ArgumentNullException(nameof(topicCategory));
+
+            _topicCategoryRepository.Insert(topicCategory);
+
+            //event notification
+            _eventPublisher.EntityInserted(topicCategory);
+        }
+
+        public virtual void UpdateTopicCategory(TopicCategory topicCategory)
+        {
+            if (topicCategory == null)
+                throw new ArgumentNullException(nameof(topicCategory));
+
+            _topicCategoryRepository.Update(topicCategory);
+
+            //event notification
+            _eventPublisher.EntityUpdated(topicCategory);
+        }
 
         public virtual IList<string> ParseTags(Topic topic)
         {
