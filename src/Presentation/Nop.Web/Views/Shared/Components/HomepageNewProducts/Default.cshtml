@@ -6,16 +6,26 @@
 			<h3 class="">@T("NewProducts")</h3>
 			<button class="btn btn-sm btn-blue-white float-right d-none d-md-block" id="new-products-view-all">@T("NewProducts.ViewAll")</button>
 		</div>
-		<div class="slider-wrap clearfix">
-			@foreach (var item in Model)
-			{
-				@await Html.PartialAsync("_ProductBox", item)
-			}
+		<div class="scrollComtent clearfix">
+			<div class="scrollingHotSpotLeft" style="display: none;">
+				<div class="arrow"></div>
+			</div>
+			<div class="scrollingHotSpotRight" style="display: none;">
+				<div class="arrow"></div>
+			</div>
+			<div class="scrollWrapper">
+				<div class="scrollableArea clearfix">
+					@foreach (var item in Model)
+					{
+						@await Html.PartialAsync("_ProductBox", item)
+					}
+				</div>
+			</div>
 		</div>
 	</div>
-	<script>
+			<script>
 		$("#new-products-view-all").on("click", function () {
 			window.location.replace("@Url.RouteUrl("newproducts")");
 		});
-	</script>
-}
+			</script>
+			}

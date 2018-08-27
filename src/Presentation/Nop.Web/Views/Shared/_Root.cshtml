@@ -265,7 +265,11 @@
 										'<div class="count">' + product.Quantity + '</div>' +
 										'<input id="it-count1" type="hidden" value="' + product.Quantity + '">' +
 										'<button class="plus"></button>' +
-										'<div class="closee"></div>' +
+										'<div class="closee" onclick="$(\'#subm\').click()"></div>' + 
+										'<form asp-route="Cart" method="post">' +
+											'<input type="hidden" checked="checked" name="removefromcart" value="' + product.Id + '" />' + 
+											'<input type="submit" style="display: none;" class="close-i" id="subm" name="updatecart" value="@T("Wishlist.UpdateCart")" />' +
+										'</form>' +
 									'</div>' +
 									'<div class="price-wrap">' +
 										oldPrice +

@@ -391,6 +391,20 @@ namespace Nop.Web.Controllers
             return Redirect(url);
         }
 
-        #endregion
-    }
+		//our stores page
+		[HttpsRequirement(SslRequirement.Yes)]
+		public virtual IActionResult OurStores()
+		{
+			return View();
+		}	
+
+		//our stores page
+		[HttpsRequirement(SslRequirement.Yes)]
+		public virtual IActionResult CityMap()
+		{
+			return View();
+		}
+
+		#endregion
+	}
 }
