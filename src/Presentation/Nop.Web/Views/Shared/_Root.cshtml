@@ -45,27 +45,27 @@
 <div class="cart-popup-wrap">
 	<div class="order-wrapp">
 		<div class="title-wrap clearfix">
-			<h1>Товар добавлен в корзину</h1>
+			<h1>@T("cart.title")</h1>
 			<i class="close-i"></i>
 			<i class="shopping_bag_icon"></i>
 		</div>
 		<div id="cartItems">@*CART ITEMS FROM AJAX*@</div>
 		<div class="total-wrap mb-3">
-			<span>Итого 2 товара на сумму</span>
-			<span>27 008 грн</span>
+			<span>@T("cart.total") <span id="cart-count">0</span> @T("cart.total.text")</span>
+			<span><span id="cart-price">0</span> грн</span>
 		</div>
 		<div class="text-center">
-			<button class="btn btn-blue pr-4 pl-4" onclick="window.location.replace('/cart')">Оформить заказ</button>
-			<button class="btn btn-blue-white pr-4 pl-4">Купить в 1 клик</button>
+			<button class="btn btn-blue pr-4 pl-4" onclick="window.location.replace('/cart')">@T("cart.continue")</button>
+			<button class="btn btn-blue-white pr-4 pl-4">@T("cart.buynow")</button>
 		</div>
 		<div class="text-center">
-			<button id="pop-up-close" class="btn btn-link ">Продолжить выбор товаров</button>
+			<button id="pop-up-close" class="btn btn-link ">@T("cart.close")</button>
 		</div>
 
 	</div>
 	<div class="line"></div>
 	<div class="similar-wrap">
-		<div class="title">С этим товаром покупают</div>
+		<div class="title">@T("cart.suggestions")</div>
 		<a href="">
 			<div class="item-wrap">
 				<div class="product-img-wrap">
@@ -220,8 +220,8 @@
 					@await Component.InvokeAsync("SearchBox")
 					@await Component.InvokeAsync("TopMenu")
 					<div class="mob-lang text-center">
-						<span class="d-inline d-sm-inline d-md-none"><a class="select" href="/ru">Русский</a></span>
-						<span class="d-inline d-sm-inline d-md-none"><a href="/ua">Украинский</a></span>
+						<span class="d-inline d-sm-inline d-md-none"><a class="select" href="/ru">@T("lang.ru")</a></span>
+						<span class="d-inline d-sm-inline d-md-none"><a href="/ua">@T("lang.ua")</a></span>
 					</div>
 				</div>
 			</nav>
@@ -243,40 +243,54 @@
 			@RenderBody()
 			<!-- END RENDER BODY -->
 			<script>
-				$(document).ready(function () {
-					$.ajax({
-						url: "ShoppingCart/getcart",
-						type: "POST",
-						dataType: 'json',
-						traditional: true
-					}).done(function (responce) {
-						responce.model.Items.forEach(function (product) {
-							var oldPrice = "";
-							if (false) {
-								oldPrice = '<div class="price-old">' + '</div>';
-							}
-							var element =
-								'<div class="item">' +
+				function UpdateCart() {
+					$(document).ready(function () {
+						$("#cartItems").empty();
+						$.ajax({
+							url: "ShoppingCart/getcart",
+							type: "POST",
+							dataType: 'json',
+							traditional: true
+						}).done(function (responce) {
+							var sum = 0.0;
+							var count = 0;
+							responce.model.Items.forEach(function (product) {
+								var oldPrice = "";
+								if (false) {
+									oldPrice = '<div class="price-old">' + '</div>';
+								}
+								var element =
+									'<div class="item">' +
 									'<img src="' + product.Picture.ImageUrl + '" alt="' + product.Picture.AlternateText + '">' +
 									'<div class="title">' + product.ProductName + '</div>' +
 									'<div class="item-name">' + product.ProductSeName + '</div>' +
 									'<div class="count-wrap mt-2 mb-2">' +
-										'<button class="minus"></button>' +
-										'<div class="count">' + product.Quantity + '</div>' +
-										'<input id="it-count1" type="hidden" value="' + product.Quantity + '">' +
-										'<button class="plus"></button>' +
-										'<div class="closee"></div>' +
+									'<button class="minus"></button>' +
+									'<div class="count">' + product.Quantity + '</div>' +
+									'<input id="it-count1" type="hidden" value="' + product.Quantity + '">' +
+									'<button class="plus"></button>' +
+									'<div class="closee" onclick="$(\'#subm\').click()"></div>' +
+									'<form asp-route="Cart" method="post">' +
+									'<input type="hidden" checked="checked" name="removefromcart" value="' + product.Id + '" />' +
+									'<input type="submit" style="display: none;" class="close-i" id="subm" name="updatecart" value="@T("Wishlist.UpdateCart")" />' +
+									'</form>' +
 									'</div>' +
 									'<div class="price-wrap">' +
-										oldPrice +
+									oldPrice +
 									'<div class="price">' + product.SubTotal + '</div>' +
 									'</div>' +
-								'</div>' +
-								'<div class="line"></div>';
-							$("#cartItems").append(element);
+									'</div>' +
+									'<div class="line"></div>';
+								$("#cartItems").append(element);
+								sum += parseFloat(product.SubTotal);
+								count++;
+							});
+							$("#cart-price").text(sum);
+							$("#cart-count").text(count);
 						});
 					});
-				});
+				}
+				$(document).ready(UpdateCart());
 			</script>
 		</div>
 		@await Component.InvokeAsync("Footer")

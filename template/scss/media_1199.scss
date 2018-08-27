@@ -1,0 +1,32 @@
+@media (max-width: 1199px) {
+  .r-wrap {
+    margin-left: 80px;
+  }
+  .all-menu-wrap{
+    .search-wrap{
+      margin-top: 20px;
+    }
+    .side-menu-wrap{
+      width: 60px;
+      overflow: hidden;
+      li{
+        width: 318px;
+      }
+    }
+    .side-second-menu-wrap{
+      padding-left: 80px;
+    }
+  }
+  .content-main-wrap{
+    .header-wrap .side-logo-wrap {
+      float: left;
+      width: 250px;
+      position: relative;
+      left: 350px;
+      top: 13px;
+    }
+    .head-menu{
+      margin: 28px 0 0 310px;
+    }
+  }
+}

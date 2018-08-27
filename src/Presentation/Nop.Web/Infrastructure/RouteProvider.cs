@@ -95,6 +95,18 @@ namespace Nop.Web.Infrastructure
             //new products
             routeBuilder.MapLocalizedRoute("NewProducts", "newproducts/",
 				new { controller = "Product", action = "NewProducts" });
+				 
+			//our stores
+            routeBuilder.MapLocalizedRoute("OurStores", "ourstores/",
+				new { controller = "Common", action = "OurStores" });
+				 	 
+			//city map
+            routeBuilder.MapLocalizedRoute("CityMap", "citymap/",
+				new { controller = "Common", action = "CityMap" });
+				   	 
+			//store info
+            routeBuilder.MapLocalizedRoute("StoreInfo", "storeinfo/",
+				new { controller = "Common", action = "StoreInfo" });
 
 			//get products
 			routeBuilder.MapLocalizedRoute("GetProducts", "catalog/getproducts/",
@@ -107,6 +119,10 @@ namespace Nop.Web.Infrastructure
 			//best sellers
 			routeBuilder.MapLocalizedRoute("BestSellers", "bestsellers/",
 				new { controller = "Product", action = "BestSellers" });
+				
+			//sales products
+			routeBuilder.MapLocalizedRoute("SalesProducts", "sales/",
+				new { controller = "Product", action = "SalesProducts" });
 
 			//blog
 			routeBuilder.MapLocalizedRoute("Blog", "blog",

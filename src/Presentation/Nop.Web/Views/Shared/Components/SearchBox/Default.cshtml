@@ -1,7 +1,7 @@
 ﻿@model SearchBoxModel
 @using System.Text.Encodings.Web
 <form asp-route="ProductSearch" class="search-wrap" method="get" id="small-search-box-form">
-	<img class="side-icons-search" src="/img/search_icon.svg" alt="search_icon">
+	<img class="side-icons-search" src="/img/search_icon.svg" onclick="window.location.replace('/search')" alt="search_icon">
 	<input type="text" class="d-md-none d-xl-inline" id="small-searchterms" autocomplete="off" name="q" placeholder="@T("Search.SearchBox.Tooltip")" aria-label="@T("Search.SearchBox.Text.Label")" />
     @if (Model.SearchTermMinimumLength > 0)
     {

@@ -174,47 +174,47 @@
 			<div class="col-lg-3 d-none d-md-block">
 				@await Component.InvokeAsync("Logo")
 				<div class="phone-footer-wrap">
-					<div class="text">09:00-20:00 (будни)</div>
-					<div class="text">10:00-18:00 (выходные)</div>
+					<div class="text">09:00-20:00 (@T("topmenu.weekdays"))</div>
+					<div class="text">10:00-18:00 (@T("topmenu.weekend"))</div>
 					<div class="phone">0 800 604 597</div>
-					<div class="text">Бесплатная линия</div>
+					<div class="text">@T("topmenu.freeline")</div>
 				</div>
 			</div>
 			<div class="col-lg-3 socials d-none d-md-block">
-				<h6 class="title">Мы в соцсетях</h6>
+				<h6 class="title">@T("footer.social")</h6>
 				<ul>
 					<li><a href="#">Facebook</a></li>
 					<li><a href="#">Instagram</a></li>
 					<li><a href="#">Twitter</a></li>
 					<li><a href="#">YouTube</a></li>
 				</ul>
-				<h6>Обратный звонок</h6>
+				<h6>@T("footer.callback")</h6>
 			</div>
 			<div class="col-lg-3 pay d-none d-md-block">
-				<h6 class="title">Способы оплаты</h6>
+				<h6 class="title">@T("footer.payment")</h6>
 				<ul>
 					<li><a href="#">Приват 24</a></li>
 					<li><a href="#">Viza</a></li>
 					<li><a href="#">Mastercard</a></li>
 					<li><a href="#">LiqPay</a></li>
 				</ul>
-				<h6 class="title">Отзывы о нас</h6>
+				<h6 class="title">@T("footer.reviews")</h6>
 			</div>
 			<div class="col-lg-3 other">
 				<ul>
-					<li><a href="/news">Новости</a></li>
-					<li><a href="/about-us">О компании</a></li>
-					<li><a href="/certs">Сертификаты</a></li>
-					<li><a href="/contactus">Контакты</a></li>
-					<li><a href="/blog">Статьи</a></li>
-					<li><a href="/guarantee">Условия гарантии</a></li>
-					<li><a href="/spec">Правила эксплуатации</a></li>
-					<li><a href="#">Политика конфиденциальности</a></li>
+					<li><a href="/news">@T("footer.news")</a></li>
+					<li><a href="/about-us">@T("footer.about")</a></li>
+					<li><a href="/certs">@T("footer.certs")</a></li>
+					<li><a href="/contactus">@T("footer.contacts")</a></li>
+					<li><a href="/blog">@T("footer.blog")</a></li>
+					<li><a href="/guarantee">@T("footer.guarantee")</a></li>
+					<li><a href="/spec">@T("footer.rules")</a></li>
+					<li><a href="#">@T("footer.politics")</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	<div class="text-center cop">2018 ООО "Вегас Украина"</div>
+	<div class="text-center cop">2018 ООО "@T("footer.company.name")"</div>
 	<script type="text/javascript">
 		$('.slider').slick({
 			slidesToShow: 1,
