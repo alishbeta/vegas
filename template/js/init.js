@@ -80,7 +80,7 @@ $(document).ready(function () {
                 touchScrolling: true
             });
         }
-    }, 300);
+    }, 200);
 
     /*#####################    Отображение подменю   ###############################*/
 
@@ -156,7 +156,7 @@ $(document).ready(function () {
         $("#slider-" + data.filterNumber + "-a2").val($("#slider-" + data.filterNumber + "-r").slider("values", 1));
     });
 
-    $('.filters-wrap .vg-filter').on('click', function () {
+    $('.filters-wrap .btn-display').on('click', function () {
         $('.filters-data').toggleClass('open');
         $('.f1').toggleClass('open');
         $('.prod-wrap').toggleClass('short');

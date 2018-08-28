@@ -212,10 +212,10 @@ header, nav, section, article, aside, footer {
   display: block; }
 
 .r-wrap {
-  margin-left: 300px; }
+  margin-left: 335px; }
 
 .short-menu .r-wrap {
-  margin-left: 65px; }
+  margin-left: 80px; }
 
 input {
   outline: none; }
@@ -640,9 +640,29 @@ nav.breadcrumb-wrap {
   .short-menu .side-second-menu-wrap ul li {
     width: 100% !important; }
 
+.cat .f1 {
+  float: left; }
+  .cat .f1 button {
+    position: relative; }
+    .cat .f1 button:after {
+      top: 40%;
+      right: 15px; }
+.cat .f2 button {
+  position: relative; }
+  .cat .f2 button:first-child:after {
+    top: 40%;
+    left: 160px; }
+  .cat .f2 button:last-child:after {
+    top: 40%;
+    left: 140px; }
+.cat .filters-data input:not([type*='checkbox']) {
+  width: 70px;
+  margin: 0 15px; }
+
 .main-baner-wrap {
   overflow: hidden;
-  position: relative; }
+  position: relative;
+  margin-left: -16px; }
   .main-baner-wrap a {
     display: block; }
   .main-baner-wrap img {
@@ -842,7 +862,10 @@ nav.breadcrumb-wrap {
     color: #767c7e;
     font-size: 14px; }
 
-.sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap, .see-wrap, .product-content-wrap {
+.see-wrap .line {
+  margin: 50px 0px 0 -15px; }
+
+.sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap, .product-content-wrap {
   border-bottom: 1px solid #cdd2d4;
   padding-bottom: 41px; }
 
@@ -850,7 +873,8 @@ nav.breadcrumb-wrap {
   margin-bottom: 30px; }
 
 .cat-content-wrap {
-  border-bottom: 1px solid #cdd2d4; }
+  border-bottom: 1px solid #cdd2d4;
+  margin-left: -15px; }
 
 .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .see-wrap .btn-blue-white, .cat-content-wrap .btn-blue-white, .see-wrap .btn-blue-white {
   margin-right: 200px; }
@@ -867,7 +891,8 @@ nav.breadcrumb-wrap {
 .subscription-wrap {
   background-color: #bfdce6;
   padding-top: 40px;
-  padding-bottom: 40px; }
+  padding-bottom: 40px;
+  margin-left: -14px; }
   .subscription-wrap label {
     font-size: 18px;
     font-weight: 600;
@@ -997,7 +1022,7 @@ button.vg-filter:after {
   height: 6px;
   border-bottom: 1px solid;
   border-right: 1px solid;
-  position: relative;
+  position: absolute;
   top: -2px;
   right: -54px;
   -moz-transform: rotate(45deg);
@@ -1034,15 +1059,16 @@ small {
   color: #767c7e; }
 
 .more-wrapp {
+  position: relative;
   display: inline-block;
-  padding: 40px 0 0 0;
+  margin: 60px 0;
   text-align: center;
   width: 100%; }
   .more-wrapp button {
+    position: absolute;
+    right: 0;
     margin-right: 0;
     margin-left: 320px; }
-  .more-wrapp nav {
-    margin-right: 200px; }
 
 .page-link {
   padding-top: 5px;
@@ -1072,8 +1098,7 @@ small {
     border-bottom: 1px solid #d9dee0; }
   .filters-data .title {
     margin-bottom: 15px;
-    font-weight: 600;
-    width: 100px; }
+    font-weight: 600; }
 
 /*.form-inline .form-control {
   width: 70px;
@@ -2180,8 +2205,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 
 .scrollComtent {
   width: 100%;
-  position: relative;
-  margin-left: 40px; }
+  position: relative; }
 
 .scrollComtent .outer-wrapp {
   /* If you don't want the images in the scroller to be selectable, try the following
@@ -2304,7 +2328,10 @@ div.scrollingHotSpotRight {
     left: 350px;
     top: 13px; }
   .content-main-wrap .head-menu {
-    margin: 28px 0 0 310px; } }
+    margin: 28px 0 0 310px; }
+
+  .short-menu .content-main-wrap .head-menu {
+    margin: 28px 0 0 60px; } }
 @media (max-width: 992px) {
   .head-menu {
     width: 170px; }
@@ -2473,9 +2500,9 @@ div.scrollingHotSpotRight {
   .outer-wrapp {
     width: 100%; }
 
-  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap, .news .article-wrap, .map .article-wrap, .map .article-wrap {
+  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap, .news .article-wrap, .map .article-wrap, .map .article-wrap, .see-wrap {
     position: relative; }
-    .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white {
+    .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .see-wrap .btn-blue-white {
       margin: auto;
       position: absolute;
       left: 0;
@@ -2537,6 +2564,59 @@ div.scrollingHotSpotRight {
     overflow: hidden;
     height: 100%;
     width: 100%;
-    -webkit-overflow-scrolling: touch; } }
+    -webkit-overflow-scrolling: touch; }
+
+  .short-menu .content-main-wrap .header-wrap {
+    width: 100%;
+    margin-left: 0; }
+  .short-menu .r-wrap {
+    margin-left: 0; }
+
+  nav.breadcrumb-wrap .breadcrumb {
+    margin-left: 0; }
+
+  .filters-wrap .f1 {
+    padding: 0;
+    width: 100%;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+    .filters-wrap .f1 button.vg-filter {
+      position: relative;
+      border-color: transparent;
+      padding: 15px 90% 15px 9%; }
+      .filters-wrap .f1 button.vg-filter:after {
+        top: 46%;
+        right: 15px; }
+    .filters-wrap .f1.open {
+      background-color: transparent; }
+
+  .mobile-f {
+    width: 310px;
+    margin: 15px auto 0; }
+    .mobile-f button {
+      position: relative;
+      width: 150px;
+      font-size: 13px; }
+      .mobile-f button.vg-filter:after {
+        top: 40%;
+        right: 10px; }
+
+  .filters-data .inner-wrap {
+    padding: 20px 50px; }
+  .filters-data.open {
+    width: 100%; }
+  .filters-data input:not([type*='checkbox']) {
+    display: inline-block; }
+
+  .prod-wrap.short {
+    width: 100%; }
+
+  .more-wrapp button {
+    position: static;
+    margin: 0 0 15px !important;
+    width: 268px; }
+  .more-wrapp nav {
+    margin: auto; } }
 
 /*# sourceMappingURL=main.css.map */

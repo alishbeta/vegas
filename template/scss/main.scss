@@ -9,6 +9,7 @@
 .main-baner-wrap {
   overflow: hidden;
   position: relative;
+  margin-left: -16px;
   a{
     display: block;
   }
@@ -269,7 +270,14 @@
   }
 }
 
-.sell-wrap, .new-wrap, .news-wrap, .see-wrap, .product-content-wrap {
+.see-wrap{
+  .line{
+    margin: 50px 0px 0 -15px;
+
+  }
+}
+
+.sell-wrap, .new-wrap, .news-wrap, .product-content-wrap {
   border-bottom: 1px solid $border_color;
   padding-bottom: 41px;
 }
@@ -283,6 +291,7 @@
 
 .cat-content-wrap {
   border-bottom: 1px solid $border_color;
+  margin-left: -15px;
 }
 
 .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .see-wrap .btn-blue-white, .cat-content-wrap .btn-blue-white, .see-wrap .btn-blue-white {
@@ -305,7 +314,7 @@
   background-color: #bfdce6;
   padding-top: 40px;
   padding-bottom: 40px;
-  //margin: 50px 0px 0 -20%;
+  margin-left: -14px;
 
   .inner-wrap {
     //margin-left: 30%;
@@ -466,11 +475,12 @@ button.vg-filter:after {
   height: 6px;
   border-bottom: 1px solid;
   border-right: 1px solid;
-  position: relative;
+  position: absolute;
   top: -2px;
   right: -54px;
   @include transform(rotate(45deg));
   @include transition(all 0.25s ease 0s);
+
 }
 
 .filters-wrap .f2 button {
@@ -506,16 +516,17 @@ small {
 }
 
 .more-wrapp {
-  display: inline-block;
-  padding: 40px 0 0 0;
+  position: relative;
+  display:inline-block;
+  margin: 60px 0;
   text-align: center;
   width: 100%;
   button {
+    position: absolute;
+    right: 0;
     margin-right: 0;
     margin-left: 320px;
-  }
-  nav {
-    margin-right: 200px;
+
   }
 }
 
@@ -554,7 +565,6 @@ small {
   .title {
     margin-bottom: 15px;
     font-weight: 600;
-    width: 100px;
   }
 }
 

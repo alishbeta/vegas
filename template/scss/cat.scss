@@ -1,3 +1,29 @@
 .cat{
+  .f1{
+  float: left;
+    button{
+      position: relative;
+      &:after{
+        top: 40%;
+        right: 15px;
 
+      }
+    }
+  }
+  .f2 button{
+    position: relative;
+    &:first-child:after{
+      top: 40%;
+      left: 160px;
+
+    }
+    &:last-child:after{
+      top: 40%;
+      left: 140px;
+    }
+  }
+  .filters-data input:not([type*='checkbox']){
+    width: 70px;
+    margin: 0 15px;
+  }
 }

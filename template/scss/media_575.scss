@@ -38,7 +38,7 @@
   .outer-wrapp{
     width: 100%;
   }
-  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap{
+  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap, .see-wrap{
     position: relative;
     .btn-blue-white{
       margin: auto;
@@ -110,5 +110,74 @@
     height: 100%;
     width: 100%;
     -webkit-overflow-scrolling: touch;
+  }
+  .short-menu{
+    .content-main-wrap .header-wrap {
+      width: 100%;
+      margin-left: 0;
+    }
+    .r-wrap {
+      margin-left: 0;
+    }
+  }
+  nav.breadcrumb-wrap .breadcrumb {
+    margin-left: 0;
+  }
+  .filters-wrap{
+    .f1 {
+      padding: 0;
+      width: 100%;
+      @include box-shadow(none);
+      button.vg-filter{
+        position: relative;
+        border-color: transparent;
+        padding: 15px 90% 15px 9%;
+        &:after {
+          top: 46%;
+          right: 15px;
+        }
+      }
+      &.open{
+        background-color: transparent;
+      }
+    }
+  }
+  .mobile-f{
+    width: 310px;
+    margin: 15px auto 0;
+    button{
+      position: relative;
+      width: 150px;
+      font-size: 13px;
+
+      &.vg-filter:after{
+        top: 40%;
+        right: 10px;
+      }
+    }
+  }
+  .filters-data {
+    .inner-wrap {
+      padding: 20px 50px;
+    }
+    &.open{
+      width: 100%;
+    }
+    input:not([type*='checkbox']) {
+      display: inline-block;
+    }
+  }
+  .prod-wrap.short {
+    width: 100%;
+  }
+  .more-wrapp{
+    button{
+      position: static;
+      margin: 0 0 15px!important;
+      width: 268px;
+    }
+    nav{
+      margin: auto;
+    }
   }
 }
