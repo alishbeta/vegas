@@ -171,8 +171,8 @@
 			</div>
 		</div>
 		<div class="item-wrap-full">
-			<i class="favorite_i float-left" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i>
-			<i class="compare_icon float-right" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
+			<i class="favorite_i float-left" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');UpdateCart();return false;"></i>
+			<i class="compare_icon float-right" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');UpdateCart();return false;"></i>
 			<div class="product-img-wrap">
 				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
 					<img class="product" src="@Model.DefaultPictureModel.ImageUrl" alt="@Model.DefaultPictureModel.AlternateText">
@@ -214,6 +214,6 @@
 				</div>
 			</div>
 			<div class="text-center"></div>
-			<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;" class="btn btn-sm btn-blue btn-block">Купить</button>
+			<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');UpdateCart();return false;" class="btn btn-sm btn-blue btn-block">Купить</button>
 		</div>
 	</div>
