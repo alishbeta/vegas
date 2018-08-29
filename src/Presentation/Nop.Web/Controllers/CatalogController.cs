@@ -132,6 +132,9 @@ namespace Nop.Web.Controllers
 			model.ProductsCount = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				categoryIds: categories).Count;
+			model.AllProducts = _productService.SearchProducts(
+				storeId: _storeContext.CurrentStore.Id,
+				categoryIds: categories);
 
 			//template
 			var templateViewPath = _catalogModelFactory.PrepareCategoryTemplateViewPath(category.CategoryTemplateId);

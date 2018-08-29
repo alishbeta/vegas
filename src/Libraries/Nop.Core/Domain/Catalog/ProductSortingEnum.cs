@@ -34,5 +34,10 @@
         /// Product creation date
         /// </summary>
         CreatedOn = 15,
+
+		/// <summary>
+		/// New products only
+		/// </summary>
+		NewProducts = 16,
     }
 }

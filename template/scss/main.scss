@@ -6,9 +6,19 @@
 @import "aside";
 @import "cat";
 
+.content .title{
+  position: relative;
+  button{
+    position: absolute;
+    right: 0;
+  }
+
+}
+
 .main-baner-wrap {
   overflow: hidden;
   position: relative;
+  margin-left: -16px;
   a{
     display: block;
   }
@@ -269,7 +279,14 @@
   }
 }
 
-.sell-wrap, .new-wrap, .news-wrap, .see-wrap, .product-content-wrap {
+.see-wrap{
+  .line{
+    margin: 50px 0px 0 -15px;
+
+  }
+}
+
+.sell-wrap, .new-wrap, .news-wrap, .product-content-wrap {
   border-bottom: 1px solid $border_color;
   padding-bottom: 41px;
 }
@@ -283,6 +300,7 @@
 
 .cat-content-wrap {
   border-bottom: 1px solid $border_color;
+  margin-left: -15px;
 }
 
 .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .see-wrap .btn-blue-white, .cat-content-wrap .btn-blue-white, .see-wrap .btn-blue-white {
@@ -305,10 +323,9 @@
   background-color: #bfdce6;
   padding-top: 40px;
   padding-bottom: 40px;
-  //margin: 50px 0px 0 -20%;
+  &.row {
+    margin: 40px 0 0 -20px;
 
-  .inner-wrap {
-    //margin-left: 30%;
   }
   label {
     font-size: 18px;
@@ -337,6 +354,10 @@ footer {
 }
 
 .footer-wrap {
+  .row{
+    margin-left: 0;
+    margin-right: 0;
+  }
   img {
     width: 180px;
     height: 45px;
@@ -466,11 +487,12 @@ button.vg-filter:after {
   height: 6px;
   border-bottom: 1px solid;
   border-right: 1px solid;
-  position: relative;
+  position: absolute;
   top: -2px;
   right: -54px;
   @include transform(rotate(45deg));
   @include transition(all 0.25s ease 0s);
+
 }
 
 .filters-wrap .f2 button {
@@ -506,16 +528,17 @@ small {
 }
 
 .more-wrapp {
-  display: inline-block;
-  padding: 40px 0 0 0;
+  position: relative;
+  display:inline-block;
+  margin: 60px 0;
   text-align: center;
   width: 100%;
   button {
+    position: absolute;
+    right: 0;
     margin-right: 0;
     margin-left: 320px;
-  }
-  nav {
-    margin-right: 200px;
+
   }
 }
 
@@ -528,9 +551,11 @@ small {
   }
 }
 
-.cat .some-info .text {
-  margin-top: 50px;
+.some-info .row{
+  margin-right: 0;
+  margin-left: 0;
 }
+
 
 .cat-content-wrap .title h3 {
   margin-left: 0;
@@ -554,7 +579,6 @@ small {
   .title {
     margin-bottom: 15px;
     font-weight: 600;
-    width: 100px;
   }
 }
 
@@ -681,11 +705,9 @@ html .ui-button.ui-state-disabled {
 }
 
 .product-content-wrap {
-  .icons-wrap {
-    margin-right: 115px;
-  }
   .tabs-wraper {
     min-height: 400px;
+    width: 800px;
   }
   .title h3 {
     margin-left: 0;
@@ -707,7 +729,7 @@ html .ui-button.ui-state-disabled {
     box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.53);
     border-radius: 3px;
     padding: 25px 30px;
-    position: relative;
+    position: absolute;
   }
 
     .price {
@@ -739,21 +761,26 @@ html .ui-button.ui-state-disabled {
   margin: 20px -30px;
 }
 
-.product .opt-wrap .drop-wrap {
-  position: relative;
-  font-size: 12px;
-  color: $text_light;
-  .w {
-    position: absolute;
-    top: 5px;
-    left: 2px;
-    z-index: 5;
-  }
-  .h {
-    position: absolute;
-    top: 5px;
-    left: 78px;
-    z-index: 5;
+.product{
+  .title.row {
+      margin: 0;
+    }
+  .opt-wrap .drop-wrap {
+    position: relative;
+    font-size: 12px;
+    color: $text_light;
+    .w {
+      position: absolute;
+      top: 5px;
+      left: 2px;
+      z-index: 5;
+    }
+    .h {
+      position: absolute;
+      top: 5px;
+      left: 78px;
+      z-index: 5;
+    }
   }
 }
 
@@ -914,6 +941,7 @@ html .ui-button.ui-state-disabled {
 @import "map";
 @import "cabinet";
 @import "carusel";
+@import "tabs";
 @import "media_1199";
 @import "media_992";
 @import "media_765";

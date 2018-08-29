@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Nop.Core;
+using Nop.Core.Domain.Catalog;
 using Nop.Web.Framework.Models;
 using Nop.Web.Models.Media;
 
@@ -20,6 +22,7 @@ namespace Nop.Web.Models.Catalog
         public string Description { get; set; }
         public string MetaKeywords { get; set; }
         public int ProductsCount { get; set; }
+        public IPagedList<Product> AllProducts { get; set; }
         public string MetaDescription { get; set; }
         public string MetaTitle { get; set; }
         public string SeName { get; set; }

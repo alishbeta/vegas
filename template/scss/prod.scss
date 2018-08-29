@@ -1,4 +1,26 @@
 .product{
+  .price-wrap{
+    .icons-wrap{
+      margin-right: 0;
+      div{
+        margin-bottom: 15px;
+      }
+      i {
+        width: 20px;
+        height: 20px;
+        vertical-align: bottom;
+      }
+    }
+    .discount {
+      top: 30px;
+      right: 15px;
+      width: 60px;
+      height: 60px;
+      line-height: 3.4;
+
+    }
+  }
+
   .prev-arrow, .next-arrow {
     position: relative;
     display: block;

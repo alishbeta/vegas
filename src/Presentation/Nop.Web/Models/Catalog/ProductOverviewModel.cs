@@ -6,41 +6,45 @@ using Nop.Web.Models.Media;
 
 namespace Nop.Web.Models.Catalog
 {
-    public partial class ProductOverviewModel : BaseNopEntityModel
-    {
-        public ProductOverviewModel()
-        {
-            ProductPrice = new ProductPriceModel();
-            DefaultPictureModel = new PictureModel();
-            SpecificationAttributeModels = new List<ProductSpecificationModel>();
-            ReviewOverviewModel = new ProductReviewOverviewModel();
-        }
+	public partial class ProductOverviewModel : BaseNopEntityModel
+	{
+		public ProductOverviewModel()
+		{
+			ProductPrice = new ProductPriceModel();
+			DefaultPictureModel = new PictureModel();
+			SpecificationAttributeModels = new List<ProductSpecificationModel>();
+			ReviewOverviewModel = new ProductReviewOverviewModel();
+			ProductSpecificationAttributes = new List<ProductSpecificationAttribute>();
 
-        public string Name { get; set; }
-        public string ShortDescription { get; set; }
-        public string FullDescription { get; set; }
-        public string SeName { get; set; }
+		}
+
+		public string Name { get; set; }
+		public string ShortDescription { get; set; }
+		public string FullDescription { get; set; }
+		public string SeName { get; set; }
 		public decimal Length { get; set; }
 		public decimal Width { get; set; }
 		public decimal Height { get; set; }
 		public string Sku { get; set; }
 
-        public ProductType ProductType { get; set; }
+		public ProductType ProductType { get; set; }
 
-        public bool MarkAsNew { get; set; }
+		public bool MarkAsNew { get; set; }
 
-        //price
-        public ProductPriceModel ProductPrice { get; set; }
-        //picture
-        public PictureModel DefaultPictureModel { get; set; }
-        //specification attributes
-        public IList<ProductSpecificationModel> SpecificationAttributeModels { get; set; }
-        //price
-        public ProductReviewOverviewModel ReviewOverviewModel { get; set; }
+		//price
+		public ProductPriceModel ProductPrice { get; set; }
+		//picture
+		public PictureModel DefaultPictureModel { get; set; }
+		//specification attributes
+		public IList<ProductSpecificationModel> SpecificationAttributeModels { get; set; }
+		//price
+		public ProductReviewOverviewModel ReviewOverviewModel { get; set; }
+
+		public List<ProductSpecificationAttribute> ProductSpecificationAttributes { get; set; }
 
 		#region Nested Classes
 
-        public partial class ProductPriceModel : BaseNopModel
+		public partial class ProductPriceModel : BaseNopModel
         {
             public string OldPrice { get; set; }
             public string Price { get; set; }
