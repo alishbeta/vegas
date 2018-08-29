@@ -1188,6 +1188,9 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(model => model.Url, options => options.Ignore());
             CreateMap<TopicModel, Topic>();
 
+            CreateMap<TopicCategory, TopicCategoryModel>();
+            CreateMap<TopicCategoryModel, TopicCategory>();
+
             CreateMap<TopicTemplate, TopicTemplateModel>();
             CreateMap<TopicTemplateModel, TopicTemplate>();
         }

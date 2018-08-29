@@ -151,6 +151,29 @@ namespace Nop.Web.Areas.Admin.Controllers
 
         #region List
 
+        public virtual IActionResult ListCategory()
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageTopics))
+                return AccessDeniedView();
+
+            //prepare model
+            var model = _topicModelFactory.PrepareTopicSearchModel(new TopicSearchModel());
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public virtual IActionResult ListCategory(TopicSearchModel searchModel)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageTopics))
+                return AccessDeniedKendoGridJson();
+
+            //prepare model
+            var model = _topicModelFactory.PrepareTopicCategoryListModel(searchModel);
+
+            return Json(model);
+        }
+
         public virtual IActionResult Index()
         {
             return RedirectToAction("List");
@@ -182,6 +205,136 @@ namespace Nop.Web.Areas.Admin.Controllers
         #endregion
 
         #region Create / Edit / Delete
+
+        public virtual IActionResult CreateCategory()
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageTopics))
+                return AccessDeniedView();
+
+            //prepare model
+            var model = _topicModelFactory.PrepareTopicModel(new TopicModel(), null);
+
+            return View(model);
+        }
+
+        [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
+        public virtual IActionResult CreateCategory(TopicModel model, bool continueEditing)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageTopics))
+                return AccessDeniedView();
+
+            if (ModelState.IsValid)
+            {
+                if (!model.IsPasswordProtected)
+                    model.Password = null;
+
+                var topic = model.ToEntity<Topic>();
+                _topicService.InsertTopic(topic);
+
+                //search engine name
+                model.SeName = _urlRecordService.ValidateSeName(topic, model.SeName, topic.Title ?? topic.SystemName, true);
+                _urlRecordService.SaveSlug(topic, model.SeName, 0);
+
+                //ACL (customer roles)
+                SaveTopicAcl(topic, model);
+
+                //stores
+                SaveStoreMappings(topic, model);
+
+                //locales
+                UpdateLocales(topic, model);
+
+                SuccessNotification(_localizationService.GetResource("Admin.ContentManagement.Topics.Added"));
+
+                //activity log
+                _customerActivityService.InsertActivity("AddNewTopic",
+                    string.Format(_localizationService.GetResource("ActivityLog.AddNewTopic"), topic.Title ?? topic.SystemName), topic);
+
+                if (!continueEditing)
+                    return RedirectToAction("List");
+
+                //selected tab
+                SaveSelectedTabName();
+
+                return RedirectToAction("Edit", new { id = topic.Id });
+            }
+
+            //prepare model
+            model = _topicModelFactory.PrepareTopicModel(model, null, true);
+
+            //if we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        public virtual IActionResult EditCategory(int id)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageTopics))
+                return AccessDeniedView();
+
+            //try to get a topic with the specified id
+            var topic = _topicService.GetTopicById(id);
+            if (topic == null)
+                return RedirectToAction("List");
+
+            //prepare model
+            var model = _topicModelFactory.PrepareTopicModel(null, topic);
+
+            return View(model);
+        }
+
+        [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
+        public virtual IActionResult EditCategory(TopicModel model, bool continueEditing)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageTopics))
+                return AccessDeniedView();
+
+            //try to get a topic with the specified id
+            var topic = _topicService.GetTopicById(model.Id);
+            if (topic == null)
+                return RedirectToAction("List");
+
+            if (!model.IsPasswordProtected)
+                model.Password = null;
+
+            if (ModelState.IsValid)
+            {
+                topic = model.ToEntity(topic);
+                _topicService.UpdateTopic(topic);
+
+                //search engine name
+                model.SeName = _urlRecordService.ValidateSeName(topic, model.SeName, topic.Title ?? topic.SystemName, true);
+                _urlRecordService.SaveSlug(topic, model.SeName, 0);
+
+                //ACL (customer roles)
+                SaveTopicAcl(topic, model);
+
+                //stores
+                SaveStoreMappings(topic, model);
+
+                //locales
+                UpdateLocales(topic, model);
+
+                SuccessNotification(_localizationService.GetResource("Admin.ContentManagement.Topics.Updated"));
+
+                //activity log
+                _customerActivityService.InsertActivity("EditTopic",
+                    string.Format(_localizationService.GetResource("ActivityLog.EditTopic"), topic.Title ?? topic.SystemName), topic);
+
+                if (!continueEditing)
+                    return RedirectToAction("List");
+
+                //selected tab
+                SaveSelectedTabName();
+
+                return RedirectToAction("Edit", new { id = topic.Id });
+            }
+
+            //prepare model
+            model = _topicModelFactory.PrepareTopicModel(model, topic, true);
+
+            //if we got this far, something failed, redisplay form
+            return View(model);
+        }
 
         public virtual IActionResult Create()
         {
