@@ -1135,6 +1135,7 @@ namespace Nop.Web.Factories
                     SeName = _urlRecordService.GetSeName(product),
                     Sku = product.Sku,
                     ProductType = product.ProductType,
+					ProductSpecificationAttributes = product.ProductSpecificationAttributes.ToList(),
                     MarkAsNew = product.MarkAsNew &&
                         (!product.MarkAsNewStartDateTimeUtc.HasValue || product.MarkAsNewStartDateTimeUtc.Value < DateTime.UtcNow) &&
                         (!product.MarkAsNewEndDateTimeUtc.HasValue || product.MarkAsNewEndDateTimeUtc.Value > DateTime.UtcNow)

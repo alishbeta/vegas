@@ -339,7 +339,7 @@ namespace Nop.Web.Factories
                 category.PageSize);
 
             //price ranges
-            model.PagingFilteringContext.PriceRangeFilter.LoadPriceRangeFilters(category.PriceRanges, _webHelper, _priceFormatter);
+            //model.PagingFilteringContext.PriceRangeFilter.LoadPriceRangeFilters(category.PriceRanges, _webHelper, _priceFormatter);
             var selectedPriceRange = model.PagingFilteringContext.PriceRangeFilter.GetSelectedPriceRange(_webHelper, category.PriceRanges);
             decimal? minPriceConverted = null;
             decimal? maxPriceConverted = null;
@@ -456,6 +456,18 @@ namespace Nop.Web.Factories
                 //include subcategories
                 categoryIds.AddRange(_categoryService.GetChildCategoryIds(category.Id, _storeContext.CurrentStore.Id));
             }
+
+			var order = _webHelper.QueryString<int>("orderby");
+			bool onlyNew = false;
+
+			if (order == (int)ProductSortingEnum.NewProducts) 
+			{
+				onlyNew = true;
+				command.OrderBy = (int)ProductSortingEnum.Position;
+			}
+
+			
+
             //products
             IList<int> alreadyFilteredSpecOptionIds = model.PagingFilteringContext.SpecificationFilter.GetAlreadyFilteredSpecOptionIds(_webHelper);
             var products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
@@ -466,11 +478,12 @@ namespace Nop.Web.Factories
                 featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
                 priceMin: minPriceConverted,
                 priceMax: maxPriceConverted,
+				markedAsNewOnly: onlyNew,
                 filteredSpecs: alreadyFilteredSpecOptionIds,
                 orderBy: (ProductSortingEnum)command.OrderBy,
                 pageIndex: command.PageNumber - 1,
                 pageSize: command.PageSize);
-            model.Products = _productModelFactory.PrepareProductOverviewModels(products).ToList();
+            model.Products = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true).ToList();
 
             model.PagingFilteringContext.LoadPagedList(products);
 

@@ -184,12 +184,17 @@ namespace Nop.Web.Models.Catalog
                     if (!string.IsNullOrEmpty(fromTo[1]) && !string.IsNullOrEmpty(fromTo[1].Trim()))
                         to = decimal.Parse(fromTo[1].Trim(), new CultureInfo("en-US"));
 
-                    var priceRangeList = GetPriceRangeList(priceRangesStr);
-                    foreach (var pr in priceRangeList)
-                    {
-                        if (pr.From == from && pr.To == to)
-                            return pr;
-                    }
+					//var priceRangeList = GetPriceRangeList(priceRangesStr);
+					//foreach (var pr in priceRangeList)
+					//{
+					//    if (pr.From == from && pr.To == to)
+					//        return pr;
+					//}
+					return new PriceRange()
+					{
+						From = from,
+						To = to
+					};
                 }
                 return null;
             }
