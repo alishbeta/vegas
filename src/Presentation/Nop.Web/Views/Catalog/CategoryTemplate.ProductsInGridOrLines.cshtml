@@ -23,6 +23,34 @@
 
 	var breadcrumbDelimiter = commonSettings.BreadcrumbDelimiter;
 }
+@{
+	Layout = "_ColumnsOne";
+	ViewData["class"] = "wrap short-menu cat";
+}
+@{
+	var OptionFilters = new List<Nop.Core.Domain.Catalog.SpecificationAttribute>();
+	var CustomTextFilters = new List<Nop.Core.Domain.Catalog.SpecificationAttribute>();
+}
+@foreach (var product in Model.Products)
+{
+	foreach (var spec in product.ProductSpecificationAttributes)
+	{
+		if (spec.AttributeType == Nop.Core.Domain.Catalog.SpecificationAttributeType.Option)
+		{
+			if (OptionFilters.Count(x => x.Name == spec.SpecificationAttributeOption.SpecificationAttribute.Name) == 0)
+			{
+				OptionFilters.Add(spec.SpecificationAttributeOption.SpecificationAttribute);
+			}
+		}
+		else
+		{
+			if (CustomTextFilters.Count(x => x.Name == spec.SpecificationAttributeOption.SpecificationAttribute.Name) == 0)
+			{
+				CustomTextFilters.Add(spec.SpecificationAttributeOption.SpecificationAttribute);
+			}
+		}
+	}
+}
 @*category breadcrumb*@
 @section Breadcrumb
 	{
@@ -67,151 +95,119 @@
 			<small>@Model.ProductsCount товаров</small>
 		</p>
 	</div>
-	<div class="filters-wrap">
-		<div class="d-inline-block f1">
-			<button class="btn btn-outline-secondary btn-sm vg-filter" type="button">
+	<div class="filters-wrap clearfix">
+		<div class="f1">
+			<button class="btn btn-outline-secondary btn-sm vg-filter btn-display" type="button">
 				Показать фильтры
 			</button>
+			<button style="display: none;" class="btn btn-outline-secondary btn-sm vg-filter btn-close" type="button">
+				Скрыть фильтры
+			</button>
 		</div>
-		<div class="d-inline-block f2 float-right">
-			<button class="btn btn-outline-secondary btn-sm vg-filter" type="button">
+		<div class="f2 d-none d-sm-block float-right ">
+			<div class="btn-group">
+				<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="popular" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
+					По популярности
+				</button>
+				<div class="dropdown-menu" aria-labelledby="popular">
+					<a href="" onclick="submitFilters()" class="dropdown-item">
+						<input type="radio" id="priceAsc" name="sort" value="10">
+						<label for="priceAsc">По возрастанию цены</label>
+					</a>
+					<a href="" onclick="submitFilters()" class="dropdown-item">
+						<input type="radio" id="priceDesc" name="sort" value="11">
+						<label for="priceAsc">По убыванию цены</label>
+					</a>
+					<a class="dropdown-item" href="#">По новинкам</a>
+					<a class="dropdown-item" href="#">По скидкам</a>
+				</div>
+			</div>
+			<div class="btn-group">
+				<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
+					По группам
+				</button>
+				<div class="dropdown-menu" aria-labelledby="group">
+					<a class="dropdown-item" href="#">,kf ,kf</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="mobile-f d-sm-none">
+		<div class="btn-group">
+			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="popular" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
 				По популярности
 			</button>
-			<button class="btn btn-outline-secondary btn-sm vg-filter" type="button">
+			<div class="dropdown-menu" aria-labelledby="popular">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+			</div>
+		</div>
+		<div class="btn-group">
+			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
 				По группам
 			</button>
+			<div class="dropdown-menu" aria-labelledby="group">
+				<a class="dropdown-item" href="#">,kf ,kf</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+			</div>
 		</div>
 	</div>
 	<div class="items clearfix">
 		<div class="filters-data">
-			<div class="inner-wrap f-slider" data-filter-number="1" data-min="0" data-max="300">
+			<div class="inner-wrap f-slider" data-filter-number="1" data-min="0" data-max="15000">
 				<div class="title">Цена (грн)</div>
 				<div class="form-inline">
 					<div class="form-group">
-						<span>от: </span><input class="form-control" type="text" id="slider-1-a1">
-						<span>до: </span><input class="form-control" type="text" id="slider-1-a2">
+						<span>от: </span>
+						<input class="form-control" name="MinPrice" type="text" id="slider-1-a1">
+						<span>до: </span>
+						<input class="form-control" name="MaxPrice" type="text" id="slider-1-a2">
 					</div>
 				</div>
 				<div id="slider-1-r" class="slider-range"></div>
 			</div>
-			<div class="inner-wrap f-slider" data-filter-number="2" data-min="0" data-max="200">
-				<div class="title">Длина (см)</div>
-				<div class="form-inline">
-					<div class="form-group">
-						<span>от: </span><input class="form-control" type="text" id="slider-2-a1">
-						<span>до: </span><input class="form-control" type="text" id="slider-2-a2">
+			@{
+				int filterNum = 2;
+			}
+			@foreach (var filter in CustomTextFilters)
+			{
+				<div class="inner-wrap f-slider" data-filter-number="@filterNum" data-min="0" data-max="200">
+					<div class="title">@filter.Name</div>
+					<div class="form-inline">
+						<div class="form-group">
+							<span>от: </span><input class="form-control" type="text" id="slider-@filterNum-a1">
+							<span>до: </span><input class="form-control" type="text" id="slider-@filterNum-a2">
+						</div>
 					</div>
+					<div id="slider-@filterNum-r" class="slider-range"></div>
 				</div>
-				<div id="slider-2-r" class="slider-range"></div>
-			</div>
-			<div class="inner-wrap f-slider" data-filter-number="3" data-min="0" data-max="200">
-				<div class="title">Шириина (см)</div>
-				<div class="form-inline">
-					<div class="form-group">
-						<span>от: </span><input class="form-control" type="text" id="slider-3-a1">
-						<span>до: </span><input class="form-control" type="text" id="slider-3-a2">
-					</div>
+				{
+					filterNum++;
+				}
+			}
+			@foreach (var filter in OptionFilters)
+			{
+				<div class="inner-wrap">
+					<div class="title">@filter.Name</div>
+					@foreach (var specValue in filter.SpecificationAttributeOptions)
+					{
+						<div class="form-check">
+							<input class="form-check-input" name="@filter.Id" type="checkbox" value="@specValue.Id">
+							<label class="form-check-label">
+								@specValue.Name
+								<small>@Model.Products.Count(x => x.ProductSpecificationAttributes.Count(u => u.SpecificationAttributeOption.Name == specValue.Name) > 0)</small>
+							</label>
+						</div>
+					}
 				</div>
-				<div id="slider-3-r" class="slider-range"></div>
-			</div>
-			<div class="inner-wrap f-slider" data-filter-number="4" data-min="0" data-max="200">
-				<div class="title">Высота (см)</div>
-				<div class="form-inline">
-					<div class="form-group">
-						<span>от: </span><input class="form-control" type="text" id="slider-4-a1">
-						<span>до: </span><input class="form-control" type="text" id="slider-4-a2">
-					</div>
-				</div>
-				<div id="slider-4-r" class="slider-range"></div>
-			</div>
-			<div class="inner-wrap f-slider" data-filter-number="5" data-min="0" data-max="200">
-				<div class="title">Максимальная нагрузка (кг)</div>
-				<div class="form-inline">
-					<div class="form-group">
-						<span>от: </span><input class="form-control" type="text" id="slider-5-a1">
-						<span>до: </span><input class="form-control" type="text" id="slider-5-a2">
-					</div>
-				</div>
-				<div id="slider-5-r" class="slider-range"></div>
-			</div>
-			<div class="inner-wrap f-slider" data-filter-number="6" data-min="0" data-max="200">
-				<div class="title">Количество пружин</div>
-				<div class="form-inline">
-					<div class="form-group">
-						<span>от: </span><input class="form-control" type="text" id="slider-6-a1">
-						<span>до: </span><input class="form-control" type="text" id="slider-6-a2">
-					</div>
-				</div>
-				<div id="slider-6-r" class="slider-range"></div>
-			</div>
-			<div class="inner-wrap">
-				<div class="title">По конструкции</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="">
-					<label class="form-check-label">
-						С памятью формы
-						<small>400</small>
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="">
-					<label class="form-check-label">
-						Пружинные
-						<small>400</small>
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="">
-					<label class="form-check-label">
-						Безпружинные
-						<small>400</small>
-					</label>
-				</div>
-			</div>
-			<div class="inner-wrap">
-				<div class="title">По размеру</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="">
-					<label class="form-check-label">
-						Односпальные
-						<small>400</small>
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="">
-					<label class="form-check-label">
-						Двуспальные
-						<small>400</small>
-					</label>
-				</div>
-			</div>
-			<div class="inner-wrap" data-filter-number="6" data-min="0" data-max="200">
-				<div class="title">По свойствам</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="">
-					<label class="form-check-label">
-						Мягкие
-						<small>400</small>
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="">
-					<label class="form-check-label">
-						Жесткие
-						<small>400</small>
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="">
-					<label class="form-check-label">
-						Средней жесткости
-						<small>400</small>
-					</label>
-				</div>
-			</div>
+			}
 			<div class="inner-wrap text-center">
 				<div class="btn-group-vertical">
-					<button class="btn btn-lg btn-blue rounded">Применить</button>
+					<button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">Применить</button>
 					<button class="btn btn-link">Очистить фильтры</button>
 				</div>
 			</div>
@@ -244,6 +240,19 @@
 @await Component.InvokeAsync("RecentlyViewedProductsBlock", new { productThumbPictureSize = 450, preparePriceModel = true })
 
 <script>
+	function submitFilters() {
+		var query = "";
+		query += "?price=" + $("[name=MinPrice]").val() + "-" + $("[name=MaxPrice]").val();
+		$("input.form-check-input:checked").each(function () {
+			query += "&specs=" + this.value;
+		});
+		window.location.replace(query);
+	}
+</script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/js/site/tp.js"></script>
+<script>
 	var prodsOnPageCount = 6;
 	$(document).ready(function () {
 		if ($("ul.pagination li").last().hasClass("active")) {
@@ -267,73 +276,73 @@
 			responce.model.forEach(function (product) {
 				var discount = "";
 				if (product.ProductPrice.Discount != 0) {
-					discount = '<div class="discount">' + + product.ProductPrice.Discount + '%</div>'; 
+					discount = '<div class="discount">' + + product.ProductPrice.Discount + '%</div>';
 				}
 				var oldPrice = "";
 				if (product.ProductPrice.OldPrice != null && product.ProductPrice.OldPrice != "" ) {
-					oldPrice = '<div class="price-old">' + + product.ProductPrice.OldPrice + '</div>'; 
+					oldPrice = '<div class="price-old">' + + product.ProductPrice.OldPrice + '</div>';
 				}
 				var shortDesc = "";
 				if (product.ShortDescription != null) {
 					shortDesc = product.ShortDescription;
 				}
 				var element =
-	'<div class="outer-wrapp float-left">' + 
-		'<div class="item-wrap">' + 
-			'<a href="' + product.SeName + '?productId=' + product.Id + '">' + 
-				'<div class="product-img-wrap">' + 
-				'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' + 
+	'<div class="outer-wrapp float-left">' +
+		'<div class="item-wrap">' +
+			'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+				'<div class="product-img-wrap">' +
+				'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
 					discount +
-				'</div>' + 
-			'</a>' + 
-			'<div class="main-prop-wrap text-left">' + 
-				'<a href="' + product.SeName + '?productId=' + product.Id + '">' + 
-					'<div class="product-name text-light-c">' + product.Name + '</div>' + 
-				'</a>' + 
-				'<div class="product-prop">' + shortDesc + '</div>' + 
-				'<div class="price-titile">' + '@T("main.product.price")' + '</div>' + 
-				'<div class="price-wrap clearfix">' + 
-					oldPrice + 
-					'<div class="price-new">' + product.ProductPrice.Price + '</div>' + 
-				'</div>' + 
-			'</div>' + 
-		'</div>' + 
-		'<div class="item-wrap-full">' + 
-			'<i class="favorite_i float-left"></i>' + 
-			'<i class="compare_icon float-right"></i>' + 
-			'<a href="' + product.SeName + '?productId=' + product.Id + '">' + 
-				'<div class="product-img-wrap">' + 
-					'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' + 
+				'</div>' +
+			'</a>' +
+			'<div class="main-prop-wrap text-left">' +
+				'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+					'<div class="product-name text-light-c">' + product.Name + '</div>' +
+				'</a>' +
+				'<div class="product-prop">' + shortDesc + '</div>' +
+				'<div class="price-titile">' + '@T("main.product.price")' + '</div>' +
+				'<div class="price-wrap clearfix">' +
+					oldPrice +
+					'<div class="price-new">' + product.ProductPrice.Price + '</div>' +
+				'</div>' +
+			'</div>' +
+		'</div>' +
+		'<div class="item-wrap-full">' +
+			'<i class="favorite_i float-left"></i>' +
+			'<i class="compare_icon float-right"></i>' +
+			'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+				'<div class="product-img-wrap">' +
+					'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
 					discount +
-				'</div>' + 
-			'</a>' + 
-			'<div class="main-prop-wrap text-left">' + 
-				'<a href="' + product.SeName + '?productId=' + product.Id + '">' + 
-				'<div class="product-name text-light-c">' + product.Name + '</div>' + 
-				'</a>' + 
-				'<div class="product-prop">' + shortDesc + '</div>' + 
-				'<div class="price-titile">' + '@T("main.product.price")' + '</div>' + 
-				'<div class="price-wrap clearfix">' + 
-					oldPrice + 
-					'<div class="price-new">' + product.ProductPrice.Price + '</div>' + 
-				'</div>' + 
-			'</div>' + 
-			'<div class="sizes-wrap clearfix">' + 
-				'<div class="title">Размеры</div>' + 
-				'<div class="inner-wrap">' + 
-					'<div class="block float-left">' + 
-						'<div class="title">Ширина</div>' + 
-						'<div class="value">' + product.Width + ' см</div>' + 
-					'</div>' + 
-					'<div class="block float-left">' + 
-						'<div class="title">Длина</div>' + 
-						'<div class="value">' + product.Length + ' см</div>' + 
-					'</div>' + 
-					'<div class="block float-left">' + 
-						'<div class="title">Высота</div>' + 
-						'<div class="value">' + product.Height + ' см</div>' + 
-					'</div>' + 
-				'</div>' + 
+				'</div>' +
+			'</a>' +
+			'<div class="main-prop-wrap text-left">' +
+				'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+				'<div class="product-name text-light-c">' + product.Name + '</div>' +
+				'</a>' +
+				'<div class="product-prop">' + shortDesc + '</div>' +
+				'<div class="price-titile">' + '@T("main.product.price")' + '</div>' +
+				'<div class="price-wrap clearfix">' +
+					oldPrice +
+					'<div class="price-new">' + product.ProductPrice.Price + '</div>' +
+				'</div>' +
+			'</div>' +
+			'<div class="sizes-wrap clearfix">' +
+				'<div class="title">Размеры</div>' +
+				'<div class="inner-wrap">' +
+					'<div class="block float-left">' +
+						'<div class="title">Ширина</div>' +
+						'<div class="value">' + product.Width + ' см</div>' +
+					'</div>' +
+					'<div class="block float-left">' +
+						'<div class="title">Длина</div>' +
+						'<div class="value">' + product.Length + ' см</div>' +
+					'</div>' +
+					'<div class="block float-left">' +
+						'<div class="title">Высота</div>' +
+						'<div class="value">' + product.Height + ' см</div>' +
+					'</div>' +
+				'</div>' +
 			'</div>';
 				$("#prods").append(element);
 				if ((currentPageIndex + pagesLoaded) * prodsOnPageCount >= parseInt("@Model.ProductsCount")) {
