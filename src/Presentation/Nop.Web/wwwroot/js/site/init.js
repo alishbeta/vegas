@@ -173,9 +173,17 @@ $(document).ready(function () {
         });
     });
 
+    $(document).on('click', '.dropdown-menu', function (e) {
+        console.log(this);
+        $(this).hasClass('keep_open') && e.stopPropagation(); // This replace if conditional.
+    });
+
     $('#clr-filters').on('click', function () {
         $('.filters-data form')[0].reset();
     });
+
+
+
     /*#####################    Личный кабинет   ###############################*/
     $('.cabinet .order-wrap a').on('click', function () {
         $(this).children().toggleClass('open');

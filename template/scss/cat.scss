@@ -29,4 +29,20 @@
   button.vg-filter.open:after{
     @include transform(rotate(-135deg));
   }
+  .filters-wrap{
+    .dropdown-menu{
+      width: 250px;
+    }
+  }
+  .mobile-f{
+    .dropdown-menu{
+      width: 50vw;
+    }
+    .check-fly input:checked + label + label {
+      font-size: 12px;
+    }
+    .check-fly input + label + label {
+      font-size: 12px;
+    }
+  }
 }

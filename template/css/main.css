@@ -47,6 +47,34 @@
     .check-blue input:checked + label:after {
       border: 1px solid #2c96b9; }
 
+.check-fly input {
+  display: none; }
+  .check-fly input + label {
+    cursor: pointer; }
+    .check-fly input + label + label {
+      cursor: pointer;
+      margin-left: 40px; }
+  .check-fly input:checked + label {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 15px;
+    vertical-align: text-top; }
+    .check-fly input:checked + label:after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      width: 16px;
+      height: 12px;
+      -webkit-mask-image: url(/img/tick_icon.svg);
+      mask-image: url(/img/tick_icon.svg);
+      background-color: #2c96b9; }
+    .check-fly input:checked + label + label {
+      color: #2c96b9;
+      margin-left: 15px; }
+    .check-fly input:checked + label:after {
+      border: 1px solid #2c96b9; }
+
 i {
   position: relative;
   display: inline-block;
@@ -62,6 +90,8 @@ i {
     background: url("/img/compare_icon.svg") no-repeat center; }
   i.user_icon {
     background: url("/img/user_icon.svg") no-repeat center; }
+  i.tick_icon {
+    background: url("/img/tick_icon.svg") no-repeat center; }
   i span {
     position: absolute;
     top: 5px;
@@ -664,6 +694,14 @@ nav.breadcrumb-wrap {
   -ms-transform: rotate(-135deg);
   -webkit-transform: rotate(-135deg);
   transform: rotate(-135deg); }
+.cat .filters-wrap .dropdown-menu {
+  width: 250px; }
+.cat .mobile-f .dropdown-menu {
+  width: 50vw; }
+.cat .mobile-f .check-fly input:checked + label + label {
+  font-size: 12px; }
+.cat .mobile-f .check-fly input + label + label {
+  font-size: 12px; }
 
 .content .title {
   position: relative; }
