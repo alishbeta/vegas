@@ -1,0 +1,149 @@
+/*
+SCSS variables and mixins
+*/
+$color__main: #444;
+$color__active: grey;
+$background__active: #eee;
+$width__tabs-side: 150px;
+$breakpoint: 800px;
+@mixin tab-active() {
+  background: #808080;
+  color: $background__active;
+}
+
+/*
+Some styles to make this demo look pretty (or at least decent)
+If you want to style everything yourself, you shouldn't need these
+*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,900');
+
+.tabbed-content {
+  background: #fff;
+  width: 800px;
+  padding: 1em;
+  margin-left: 100px;
+}
+.tabs {
+  ul {
+    margin: 0;
+    font-weight: bold;
+    li {
+      border: 1px solid $border_color;
+      border-bottom: none;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      a {
+        padding: .5em 30px;
+        &:hover,
+        &.active {
+          @include tab-active();
+        }
+      }
+    }
+  }
+}
+.item {
+  position: relative;
+  margin-bottom: 2px;
+
+  &::before {
+    cursor: pointer;
+    font-weight: bold;
+    background: $background__active;
+    padding: .5em;
+    display: block;
+  }
+  &.active {
+    border: 1px solid $border_color;
+    @include border-radius(5px);
+
+    &::before {
+      @include tab-active();
+    }
+    .item-content {
+      padding: 1em;
+      -webkit-transition: opacity 0.3s ease-in-out;
+      -moz-transition: opacity 0.3s ease-in-out;
+      -o-transition: opacity 0.3s ease-in-out;
+      -ms-transition: opacity 0.3s ease-in-out;
+      transition: opacity 0.3s ease-in-out;
+    }
+  }
+}
+@media all and (min-width: $breakpoint ) {
+  .item {
+    &.active {
+      .item-content {
+        padding-top: 0;
+      }
+    }
+  }
+  .tabs-side {
+    .tabs {
+      li {
+        margin-bottom: 2px;
+      }
+    }
+  }
+}
+
+// Accordion for small screens (mobile first principle)
+.tabbed-content {
+  .tabs {
+    display: none;
+  }
+  .item {
+    min-height: 2em; // We need a minimum height for each item or else the accordion buttons would dissapear
+    &::before {
+      content: attr(data-title); // Instead of polluting the HTML with a duplicate set of tabs, we get the accordion using the data-title attribute.
+    }
+    .item-content { // We hide the inactive content with zero opacity instead of "display:none" because this allows us to apply transition effects if we want.
+      opacity: 0;
+      visibility: hidden;
+      height: 0;
+    }
+    &.active {
+      .item-content {
+        opacity: 1;
+        visibility: visible;
+        height:auto;
+        padding: 25px;
+      }
+    }
+  }
+}
+
+
+// Tabs for larger screens
+@media all and (min-width: $breakpoint) {
+  .tabbed-content {
+    .tabs {
+      display: block;
+      li {
+        display: inline-block;
+        a {
+          display: block;
+        }
+      }
+    }
+    .item {
+      min-height: 0;
+      &::before {
+        display: none;
+      }
+    }
+    // Tabs on the side (works only on big screens)
+    &.tabs-side {
+      .tabs {
+        width: $width__tabs-side;
+        float: left;
+        li {
+          display: block;
+        }
+      }
+      .item {
+        margin-left: $width__tabs-side;
+      }
+    }
+  }
+}

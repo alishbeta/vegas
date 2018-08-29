@@ -1,4 +1,4 @@
-@media (max-width: 765px) {
+@media (max-width: 769px) {
   body {
     min-width: 0;
   }
@@ -18,20 +18,7 @@
       margin-top: 20px;
     }
   }
-  i {
-    &.call-from-site {
-      background: url("/img/call-from-site.svg") left -7px top -5px no-repeat;
-      float: right;
-    }
-    &.hanburger {
-      background: url("/img/hamburger_icon.svg") left no-repeat;
-      margin-left: 15px;
-    }
-    &.close {
-      background: url("/img/krest.svg") no-repeat;
-      opacity: 1;
-    }
-  }
+
   .main-baner-wrap{
     img {
       width: 100%;

@@ -6,6 +6,15 @@
 @import "aside";
 @import "cat";
 
+.content .title{
+  position: relative;
+  button{
+    position: absolute;
+    right: 0;
+  }
+
+}
+
 .main-baner-wrap {
   overflow: hidden;
   position: relative;
@@ -314,10 +323,9 @@
   background-color: #bfdce6;
   padding-top: 40px;
   padding-bottom: 40px;
-  margin-left: -14px;
+  &.row {
+    margin: 40px 0 0 -20px;
 
-  .inner-wrap {
-    //margin-left: 30%;
   }
   label {
     font-size: 18px;
@@ -346,6 +354,10 @@ footer {
 }
 
 .footer-wrap {
+  .row{
+    margin-left: 0;
+    margin-right: 0;
+  }
   img {
     width: 180px;
     height: 45px;
@@ -539,9 +551,11 @@ small {
   }
 }
 
-.cat .some-info .text {
-  margin-top: 50px;
+.some-info .row{
+  margin-right: 0;
+  margin-left: 0;
 }
+
 
 .cat-content-wrap .title h3 {
   margin-left: 0;
@@ -691,11 +705,9 @@ html .ui-button.ui-state-disabled {
 }
 
 .product-content-wrap {
-  .icons-wrap {
-    margin-right: 115px;
-  }
   .tabs-wraper {
     min-height: 400px;
+    width: 800px;
   }
   .title h3 {
     margin-left: 0;
@@ -717,7 +729,7 @@ html .ui-button.ui-state-disabled {
     box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.53);
     border-radius: 3px;
     padding: 25px 30px;
-    position: relative;
+    position: absolute;
   }
 
     .price {
@@ -749,21 +761,26 @@ html .ui-button.ui-state-disabled {
   margin: 20px -30px;
 }
 
-.product .opt-wrap .drop-wrap {
-  position: relative;
-  font-size: 12px;
-  color: $text_light;
-  .w {
-    position: absolute;
-    top: 5px;
-    left: 2px;
-    z-index: 5;
-  }
-  .h {
-    position: absolute;
-    top: 5px;
-    left: 78px;
-    z-index: 5;
+.product{
+  .title.row {
+      margin: 0;
+    }
+  .opt-wrap .drop-wrap {
+    position: relative;
+    font-size: 12px;
+    color: $text_light;
+    .w {
+      position: absolute;
+      top: 5px;
+      left: 2px;
+      z-index: 5;
+    }
+    .h {
+      position: absolute;
+      top: 5px;
+      left: 78px;
+      z-index: 5;
+    }
   }
 }
 
@@ -924,6 +941,7 @@ html .ui-button.ui-state-disabled {
 @import "map";
 @import "cabinet";
 @import "carusel";
+@import "tabs";
 @import "media_1199";
 @import "media_992";
 @import "media_765";
