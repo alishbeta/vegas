@@ -30,8 +30,9 @@
 @{
 	var OptionFilters = new List<Nop.Core.Domain.Catalog.SpecificationAttribute>();
 	var CustomTextFilters = new List<Nop.Core.Domain.Catalog.SpecificationAttribute>();
+	//var FilterValues = new List<FilterValuesModel>();
 }
-@foreach (var product in Model.Products)
+@foreach (var product in Model.AllProducts)
 {
 	foreach (var spec in product.ProductSpecificationAttributes)
 	{
@@ -51,6 +52,43 @@
 		}
 	}
 }
+@*@foreach (var filter in CustomTextFilters)
+{
+	FilterValues.Add(new FilterValuesModel()
+	{
+		FilterName = filter.Name
+	});
+}
+@foreach (var filter in FilterValues)
+{
+	var vals = new List<string>();
+	foreach (var product in Model.AllProducts)
+	{
+		foreach (var specAttr in product.ProductSpecificationAttributes)
+		{
+			if (filter.FilterName == specAttr.SpecificationAttributeOption.SpecificationAttribute.Name)
+			{
+				if (!vals.Contains(specAttr.SpecificationAttributeOption.Name)) 
+				{
+					vals.Add(specAttr.SpecificationAttributeOption.Name);
+				}
+			}
+		}
+	}
+	filter.FilterValues = vals;
+}
+@foreach (var filter in FilterValues)
+{
+	<p>
+		@filter.FilterName
+
+
+			@foreach (var item in filter.FilterValues)
+			{
+				<span>@item</span>
+			}
+	</p>
+}*@
 @*category breadcrumb*@
 @section Breadcrumb
 	{
@@ -173,22 +211,25 @@
 			@{
 				int filterNum = 2;
 			}
-			@foreach (var filter in CustomTextFilters)
-			{
-				<div class="inner-wrap f-slider" data-filter-number="@filterNum" data-min="0" data-max="200">
-					<div class="title">@filter.Name</div>
-					<div class="form-inline">
-						<div class="form-group">
-							<span>от: </span><input class="form-control" type="text" id="slider-@filterNum-a1">
-							<span>до: </span><input class="form-control" type="text" id="slider-@filterNum-a2">
-						</div>
-					</div>
-					<div id="slider-@filterNum-r" class="slider-range"></div>
-				</div>
+			<div id="CustomFilters">
+				@foreach (var filter in CustomTextFilters)
 				{
-					filterNum++;
+					<div class="inner-wrap f-slider" data-filter-number="@filterNum" data-min="0" data-max="200">
+						<div class="title">@filter.Name</div>
+						<div class="form-inline">
+							<div class="form-group">
+								<input type="hidden" name="filterId" value="@filter.Id" />
+								<span>от: </span><input class="form-control" type="text" id="slider-@filterNum-a1">
+								<span>до: </span><input class="form-control" type="text" id="slider-@filterNum-a2">
+							</div>
+						</div>
+						<div id="slider-@filterNum-r" class="slider-range"></div>
+					</div>
+					{
+						filterNum++;
+					}
 				}
-			}
+			</div>
 			@foreach (var filter in OptionFilters)
 			{
 				<div class="inner-wrap">
@@ -199,7 +240,7 @@
 							<input class="form-check-input" name="@filter.Id" type="checkbox" value="@specValue.Id">
 							<label class="form-check-label">
 								@specValue.Name
-								<small>@Model.Products.Count(x => x.ProductSpecificationAttributes.Count(u => u.SpecificationAttributeOption.Name == specValue.Name) > 0)</small>
+								<small>@Model.AllProducts.Count(x => x.ProductSpecificationAttributes.Count(u => u.SpecificationAttributeOption.Name == specValue.Name) > 0)</small>
 							</label>
 						</div>
 					}
@@ -245,6 +286,19 @@
 		query += "?price=" + $("[name=MinPrice]").val() + "-" + $("[name=MaxPrice]").val();
 		$("input.form-check-input:checked").each(function () {
 			query += "&specs=" + this.value;
+		});
+		var que = "";
+		$("#CustomFilters .inner-wrap").each(function () {
+			que = "&spec=";
+			$(this).find(".form-group input").each(function (index) {
+				if (index < 2) {
+					que += $(this).val() + "-";
+				}
+				else {
+					que += $(this).val();
+				}
+			});
+			query += que;
 		});
 		window.location.replace(query);
 	}
