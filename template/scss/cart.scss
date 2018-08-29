@@ -1,4 +1,8 @@
 .cart{
+  .row{
+    margin-right: 0;
+    margin-left: 0;
+  }
   form{
     width: 100%;
   }
@@ -12,7 +16,9 @@
     margin-left: 130px;
   }
   .cart-wrap{
-    .tabs-wraper{
+    .line {
+      margin: 20px -25px;
+    }
         .title{
           display: inline-block;
           font-size: 16px;
@@ -66,7 +72,6 @@
       .bonus{
         margin-left: 10px;
       }
-    }
   }
   .order-wrapp{
     width: 370px;
@@ -168,5 +173,7 @@
       margin-top: 15px;
     }
   }
-  
+  .tabbed-content {
+    margin-left: 0;
+  }
 }

@@ -1428,6 +1428,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   display: inline-block;
   vertical-align: middle; }
 
+.cart .row, .cart-popup-wrap .row {
+  margin-right: 0;
+  margin-left: 0; }
 .cart form, .cart-popup-wrap form {
   width: 100%; }
 .cart label:hover, .cart-popup-wrap label:hover, .cart .form-check-input, .cart-popup-wrap .form-check-input {
@@ -1436,11 +1439,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   height: 100%; }
 .cart nav.breadcrumb-wrap .breadcrumb, .cart-popup-wrap nav.breadcrumb-wrap .breadcrumb {
   margin-left: 130px; }
-.cart .cart-wrap .tabs-wraper .title, .cart-popup-wrap .cart-wrap .tabs-wraper .title {
+.cart .cart-wrap .line, .cart-popup-wrap .cart-wrap .line {
+  margin: 20px -25px; }
+.cart .cart-wrap .title, .cart-popup-wrap .cart-wrap .title {
   display: inline-block;
   font-size: 16px;
   margin-bottom: 20px; }
-  .cart .cart-wrap .tabs-wraper .title span, .cart-popup-wrap .cart-wrap .tabs-wraper .title span {
+  .cart .cart-wrap .title span, .cart-popup-wrap .cart-wrap .title span {
     display: inline-block;
     border: 1px solid #2c96b9;
     padding: 5px 11px;
@@ -1449,9 +1454,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     border-radius: 18px;
     font-size: 14px;
     margin-right: 15px; }
-.cart .cart-wrap .tabs-wraper input[type="radio"], .cart-popup-wrap .cart-wrap .tabs-wraper input[type="radio"] {
+.cart .cart-wrap input[type="radio"], .cart-popup-wrap .cart-wrap input[type="radio"] {
   display: none; }
-  .cart .cart-wrap .tabs-wraper input[type="radio"] + label, .cart-popup-wrap .cart-wrap .tabs-wraper input[type="radio"] + label {
+  .cart .cart-wrap input[type="radio"] + label, .cart-popup-wrap .cart-wrap input[type="radio"] + label {
     position: relative;
     display: inline-block;
     width: 16px;
@@ -1460,7 +1465,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     border: 3px solid white;
     border-radius: 15px;
     margin-left: 10px; }
-    .cart .cart-wrap .tabs-wraper input[type="radio"] + label:after, .cart-popup-wrap .cart-wrap .tabs-wraper input[type="radio"] + label:after {
+    .cart .cart-wrap input[type="radio"] + label:after, .cart-popup-wrap .cart-wrap input[type="radio"] + label:after {
       content: "";
       display: inline-block;
       position: absolute;
@@ -1472,13 +1477,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
       border-radius: 15px;
       top: -5px;
       left: -5px; }
-    .cart .cart-wrap .tabs-wraper input[type="radio"] + label + label, .cart-popup-wrap .cart-wrap .tabs-wraper input[type="radio"] + label + label {
+    .cart .cart-wrap input[type="radio"] + label + label, .cart-popup-wrap .cart-wrap input[type="radio"] + label + label {
       margin-left: 8px; }
-  .cart .cart-wrap .tabs-wraper input[type="radio"]:checked + label, .cart-popup-wrap .cart-wrap .tabs-wraper input[type="radio"]:checked + label {
+  .cart .cart-wrap input[type="radio"]:checked + label, .cart-popup-wrap .cart-wrap input[type="radio"]:checked + label {
     background-color: #2c96b9; }
-    .cart .cart-wrap .tabs-wraper input[type="radio"]:checked + label + label, .cart-popup-wrap .cart-wrap .tabs-wraper input[type="radio"]:checked + label + label {
+    .cart .cart-wrap input[type="radio"]:checked + label + label, .cart-popup-wrap .cart-wrap input[type="radio"]:checked + label + label {
       color: #2c96b9; }
-.cart .cart-wrap .tabs-wraper .bonus, .cart-popup-wrap .cart-wrap .tabs-wraper .bonus {
+.cart .cart-wrap .bonus, .cart-popup-wrap .cart-wrap .bonus {
   margin-left: 10px; }
 .cart .order-wrapp, .cart-popup-wrap .order-wrapp {
   width: 370px;
@@ -1555,6 +1560,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   .cart .order-wrapp small, .cart-popup-wrap .order-wrapp small {
     display: inline-block;
     margin-top: 15px; }
+.cart .tabbed-content, .cart-popup-wrap .tabbed-content {
+  margin-left: 0; }
 
 .compare [class*='col'] {
   padding: 0 0px; }
@@ -1740,6 +1747,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     padding-top: 30px;
     padding-bottom: 15px;
     width: max-content; }
+    .cart-popup-wrap .order-wrapp .item.active {
+      border: none; }
     .cart-popup-wrap .order-wrapp .title-wrap {
       margin-left: 20px; }
       .cart-popup-wrap .order-wrapp .title-wrap h1 {
@@ -1752,10 +1761,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
           margin: 7px 0 0; }
         .cart-popup-wrap .order-wrapp .title-wrap i.shopping_bag_icon {
           margin: 7px 65px 0 0; }
+    .cart-popup-wrap .order-wrapp .total-wrap {
+      margin: -20px -55px 0;
+      padding: 40px 100px; }
   .cart-popup-wrap .similar-wrap {
     font-size: 16px; }
   .cart-popup-wrap .item-wrap {
-    width: 140px;
+    width: 148px;
+    height: auto;
     float: left;
     padding: 5px 5px 15px 5px;
     margin: 5px 5px 0 5px;
@@ -1766,7 +1779,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     font-size: 14px; }
     .cart-popup-wrap .item-wrap img {
       width: 100%;
-      margin-top: 0; }
+      margin-top: 0;
+      height: auto; }
     .cart-popup-wrap .item-wrap .product-name {
       font-size: 12px; }
     .cart-popup-wrap .item-wrap:hover {
@@ -2389,6 +2403,8 @@ If you want to style everything yourself, you shouldn't need these
   width: 800px;
   padding: 1em;
   margin-left: 100px; }
+  .tabbed-content .item {
+    display: none; }
 
 .tabs ul {
   margin: 0;
@@ -2417,7 +2433,8 @@ If you want to style everything yourself, you shouldn't need these
     border: 1px solid #cdd2d4;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    border-radius: 5px; }
+    border-radius: 5px;
+    display: block; }
     .item.active::before {
       background: #808080;
       color: #eee; }
@@ -2754,7 +2771,26 @@ If you want to style everything yourself, you shouldn't need these
     border-bottom: none; }
 
   .footer-wrap {
-    padding: 0 15px; } }
+    padding: 0 15px; }
+
+  .cart .row, .cart-popup-wrap .row {
+    margin-left: 0;
+    margin-right: 0; }
+  .cart .order-wrapp, .cart-popup-wrap .order-wrapp {
+    width: 100%;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding: 0 30px;
+    margin-top: 0px; }
+    .cart .order-wrapp .total-wrap, .cart-popup-wrap .order-wrapp .total-wrap {
+      margin: -20px -45px 0; }
+    .cart .order-wrapp .btn-link, .cart-popup-wrap .order-wrapp .btn-link {
+      display: block; }
+  .cart .tabbed-content, .cart-popup-wrap .tabbed-content {
+    width: 100%; }
+  .cart form, .cart-popup-wrap form {
+    width: auto; } }
 @media (max-width: 769px) {
   body {
     min-width: 0; }
@@ -2885,6 +2921,36 @@ If you want to style everything yourself, you shouldn't need these
     bottom: -400px; }
 
   .subscription-wrap.row {
-    margin: 0 0 0 -14px; } }
+    margin: 0 0 0 -14px; }
+
+  .cart-popup-wrap.open {
+    width: 100%; }
+  .cart-popup-wrap .order-wrapp {
+    width: 400px;
+    padding: 25px 5px; }
+    .cart-popup-wrap .order-wrapp h1 {
+      font-size: 18px; }
+    .cart-popup-wrap .order-wrapp .title-wrap i {
+      width: 15px;
+      height: 15px;
+      float: right; }
+      .cart-popup-wrap .order-wrapp .title-wrap i.close-i {
+        margin: -14px 15px 0; }
+      .cart-popup-wrap .order-wrapp .title-wrap i.shopping_bag_icon {
+        margin: 3px 50px 0 0; }
+    .cart-popup-wrap .order-wrapp .total-wrap {
+      padding: 40px 65px; }
+      .cart-popup-wrap .order-wrapp .total-wrap span:last-child {
+        font-size: 16px; }
+    .cart-popup-wrap .order-wrapp .btn.btn-blue, .cart-popup-wrap .order-wrapp .btn-blue-white {
+      margin-bottom: 15px; }
+
+  .cart form, .cart-popup-wrap form {
+    width: 95%; }
+
+  .tabbed-content {
+    padding: 0; }
+    .tabbed-content .item {
+      margin: 15px -15px; } }
 
 /*# sourceMappingURL=main.css.map */

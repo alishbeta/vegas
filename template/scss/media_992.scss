@@ -329,4 +329,31 @@
   .footer-wrap{
     padding: 0 15px;
   }
+
+
+
+  .cart{
+    .row{
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .order-wrapp{
+      width: 100%;
+      @include box-shadow(none);
+      padding: 0 30px;
+      margin-top: 0px;
+      .total-wrap{
+        margin: -20px -45px 0;
+      }
+      .btn-link{
+        display: block;
+      }
+    }
+    .tabbed-content {
+      width: 100%;
+    }
+    form{
+      width: auto;
+    }
+  }
 }

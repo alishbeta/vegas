@@ -1,5 +1,5 @@
 @media (max-width: 575px) {
-  .product .see-wrap{
+  .product .see-wrap {
     height: 500px;
     .btn-blue-white {
       margin: 0 auto;
@@ -14,9 +14,51 @@
     width: 120px;
     bottom: -400px;
   }
-
   .subscription-wrap.row {
     margin: 0 0 0 -14px;
   }
 
+  .cart-popup-wrap {
+    &.open {
+      width: 100%;
+    }
+    .order-wrapp {
+      width: 400px;
+      padding: 25px 5px;
+      h1 {
+        font-size: 18px;
+      }
+      .title-wrap i {
+        width: 15px;
+        height: 15px;
+        float: right;
+        &.close-i {
+          margin: -14px 15px 0;
+        }
+        &.shopping_bag_icon {
+          margin: 3px 50px 0 0;
+        }
+      }
+      .total-wrap {
+        padding: 40px 65px;
+        span:last-child {
+          font-size: 16px;
+        }
+      }
+      .btn.btn-blue, .btn-blue-white {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  .cart form{
+    width: 95%;
+  }
+
+  .tabbed-content {
+    padding: 0;
+    .item {
+      margin: 15px -15px;
+    }
+  }
 }
