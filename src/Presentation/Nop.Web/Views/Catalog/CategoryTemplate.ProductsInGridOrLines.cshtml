@@ -144,33 +144,75 @@
 				<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
 					По группам
 				</button>
-				<div class="dropdown-menu" aria-labelledby="group">
-					<a class="dropdown-item" href="#">,kf ,kf</a>
-					<a class="dropdown-item" href="#">Another action</a>
-					<a class="dropdown-item" href="#">Something else here</a>
+				<div class="dropdown-menu keep_open" aria-labelledby="group">
+					<div class="form-group">
+						<div class="form-check form-check-inline check-fly">
+							<input class="form-check-input" value="1" name="radio3" type="radio" id="lr10" checked="">
+							<label for="lr10"></label>
+							<label class="col-form-label" for="lr10">По популярности</label>
+						</div>
+						<div class="form-check  form-check-inline check-fly">
+							<input class="form-check-input" value="2" name="radio3" type="radio" id="lr11">
+							<label for="lr11"></label>
+							<label class="col-form-label" for="lr11">По возрастанию цены</label>
+						</div>
+						<div class="form-check  form-check-inline check-fly">
+							<input class="form-check-input" value="3" name="radio3" type="radio" id="lr12">
+							<label for="lr12"></label>
+							<label class="col-form-label" for="lr12">По убыванию цены</label>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="mobile-f d-sm-none">
 		<div class="btn-group">
-			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="popular" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
+			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="popular_m" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
 				По популярности
 			</button>
-			<div class="dropdown-menu" aria-labelledby="popular">
-				<a class="dropdown-item" href="#">Action</a>
-				<a class="dropdown-item" href="#">Another action</a>
-				<a class="dropdown-item" href="#">Something else here</a>
+			<div class="dropdown-menu keep_open" aria-labelledby="popular">
+				<div class="form-group">
+					<div class="form-check form-check-inline check-fly">
+						<input class="form-check-input" value="1" name="radio2" type="radio" id="lr7" checked="">
+						<label for="lr7"></label>
+						<label class="col-form-label" for="lr7">По популярности</label>
+					</div>
+					<div class="form-check  form-check-inline check-fly">
+						<input class="form-check-input" value="2" name="radio2" type="radio" id="lr8">
+						<label for="lr8"></label>
+						<label class="col-form-label" for="lr8">По возрастанию цены</label>
+					</div>
+					<div class="form-check  form-check-inline check-fly">
+						<input class="form-check-input" value="3" name="radio2" type="radio" id="lr9">
+						<label for="lr9"></label>
+						<label class="col-form-label" for="lr9">По убыванию цены</label>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="btn-group">
-			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
+			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group_m" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
 				По группам
 			</button>
-			<div class="dropdown-menu" aria-labelledby="group">
-				<a class="dropdown-item" href="#">,kf ,kf</a>
-				<a class="dropdown-item" href="#">Another action</a>
-				<a class="dropdown-item" href="#">Something else here</a>
+			<div class="dropdown-menu keep_open" aria-labelledby="group">
+				<div class="form-group">
+					<div class="form-check form-check-inline check-fly">
+						<input class="form-check-input" value="1" name="radio3" type="radio" id="lr10" checked="">
+						<label for="lr10"></label>
+						<label class="col-form-label" for="lr10">По популярности</label>
+					</div>
+					<div class="form-check  form-check-inline check-fly">
+						<input class="form-check-input" value="2" name="radio3" type="radio" id="lr11">
+						<label for="lr11"></label>
+						<label class="col-form-label" for="lr11">По возрастанию цены</label>
+					</div>
+					<div class="form-check  form-check-inline check-fly">
+						<input class="form-check-input" value="3" name="radio3" type="radio" id="lr12">
+						<label for="lr12"></label>
+						<label class="col-form-label" for="lr12">По убыванию цены</label>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -226,12 +268,12 @@
 					}
 				</div>
 			}
-			<div class="inner-wrap text-center">
-				<div class="btn-group-vertical">
-					<button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">Применить</button>
-					<button class="btn btn-link">Очистить фильтры</button>
+				<div class="inner-wrap text-center">
+					<div class="btn-group-vertical">
+						<button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">Применить</button>
+						<button type="button" id="clr-filters" class="btn btn-link">Очистить фильтры</button>
+					</div>
 				</div>
-			</div>
 		</div>
 		@if (Model.Products.Count > 0)
 		{
@@ -248,8 +290,8 @@
 		}
 		@if (!pager.IsEmpty())
 		{
-			<div class="more-wrapp text-center mt-3 mb-3">
-				<button class="btn btn-sm btn-blue-white d-none d-md-inline-block" id="loadMore">@T("cat.more")</button>
+			<div class="more-wrapp text-center">
+				<button class="btn btn-sm btn-blue-white" id="loadMore">@T("cat.more")</button>
 				<nav class="float-right" aria-label="">
 					@pager
 				</nav>
