@@ -8,6 +8,7 @@ namespace Nop.Web.Areas.Admin.Factories
     /// </summary>
     public partial interface ITopicModelFactory
     {
+        TopicCategoryListModel PrepareTopicCategoryListModel(TopicSearchModel searchModel);
         /// <summary>
         /// Prepare topic search model
         /// </summary>

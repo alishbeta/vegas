@@ -1,0 +1,16 @@
+@media (max-width: 1199px) {
+  .r-wrap {
+    margin-left: 80px; }
+
+  .all-menu-wrap .side-menu-wrap {
+    width: 60px;
+    overflow: hidden; }
+    .all-menu-wrap .side-menu-wrap li {
+      width: 318px; }
+  .all-menu-wrap .side-second-menu-wrap {
+    padding-left: 80px; }
+
+  ul.head-menu li {
+    margin-left: 0; } }
+
+/*# sourceMappingURL=media-1199.css.map */

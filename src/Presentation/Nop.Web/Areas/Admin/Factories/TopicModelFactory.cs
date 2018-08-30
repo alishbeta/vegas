@@ -64,6 +64,35 @@ namespace Nop.Web.Areas.Admin.Factories
 
         #region Methods
 
+        public virtual TopicCategoryListModel PrepareTopicCategoryListModel(TopicSearchModel searchModel)
+        {
+            if (searchModel == null)
+                throw new ArgumentNullException(nameof(searchModel));
+
+            //get topics
+            var topicCategories = _topicService.GetAllTopicCategories();
+
+            //filter topics
+            //TODO: move filter to topic service
+            if (!string.IsNullOrEmpty(searchModel.SearchKeywords))
+            {
+                topicCategories = topicCategories.Where(topic => topic.Name?.ToLower()?.Contains(searchModel.SearchKeywords.ToLower()) ?? false).ToList();
+            }
+
+            //prepare grid model
+            var model = new TopicCategoryListModel
+            {
+                Data = topicCategories.PaginationByRequestModel(searchModel).Select(topicCategory =>
+                {
+                    var topicModel = topicCategory.ToModel<TopicCategoryModel>();
+                    return topicModel;
+                }),
+                Total = topicCategories.Count
+            };
+
+            return model;
+        }
+
         /// <summary>
         /// Prepare topic search model
         /// </summary>

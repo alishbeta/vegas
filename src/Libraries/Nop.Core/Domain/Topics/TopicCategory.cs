@@ -8,15 +8,12 @@ using System.Text;
 
 namespace Nop.Core.Domain.Topics
 {
-    public class TopicCategory : BaseEntity, ILocalizedEntity, ISlugSupported, IStoreMappingSupported, IAclSupported
+    public class TopicCategory : BaseEntity, ILocalizedEntity, ISlugSupported
     {
-        public int Id { get; set; }
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
         public string Name { get; set; }
         public string MetaKeywords { get; set; }
         public string MetaDescription { get; set; }
         public string MetaTitle { get; set; }
-        public bool LimitedToStores { get; set; }
-        public bool SubjectToAcl { get; set; }
     }
 }
