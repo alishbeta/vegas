@@ -202,7 +202,7 @@ nav.blue-menu {
     text-align: center; }
     nav.blue-menu ul li a {
       display: block;
-      padding: 20px;
+      padding: 20px 0;
       background-color: #bfdce6;
       -moz-transition: 0.3s;
       -o-transition: 0.3s;
@@ -1218,7 +1218,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 
 .product .left-wrap {
   margin-left: 100px;
-  width: 800px; }
+  width: 850px; }
 .product .icons-wrap .delivery, .product .icons-wrap .star {
   vertical-align: middle; }
 
@@ -1815,6 +1815,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     font-weight: 600;
     margin-left: 20px; }
 
+.news.row, .row.map {
+  margin-right: 0;
+  margin-left: 0; }
 .news img, .map img {
   max-width: 100%;
   margin-bottom: 40px;
@@ -2116,7 +2119,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   .show-room .show-room-wrap button {
     margin-top: 30px; }
 .show-room .new-wrap {
-  margin-bottom: 30px;
+  margin: 30px 0;
   border-bottom: none; }
   .show-room .new-wrap .img {
     position: relative; }
@@ -2138,7 +2141,11 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   margin: 20px -15px 60px -40px; }
 
 .contacts {
-  font-size: 16px; }
+  font-size: 16px;
+  margin-bottom: 30px; }
+  .contacts.row {
+    margin-left: 0;
+    margin-right: 0; }
   .contacts #map {
     height: 330px; }
   .contacts .info {
@@ -2928,12 +2935,15 @@ If you want to style everything yourself, you shouldn't need these
 
   .content .title button {
     bottom: -1130px; }
-
   .content .see-wrap .title button {
     right: 0;
     left: 0;
     width: 120px;
     bottom: -400px; }
+  .content .show-room .see-wrap .title button {
+    left: 33% !important; }
+  .content .show-room .news-wrap .title button, .content .show-room .news .article-wrap .title button, .news .content .show-room .article-wrap .title button, .content .show-room .map .article-wrap .title button, .map .content .show-room .article-wrap .title button {
+    bottom: -400px !important; }
 
   .subscription-wrap.row {
     margin: 0 0 0 -14px; }
@@ -3033,6 +3043,35 @@ If you want to style everything yourself, you shouldn't need these
       .compare .compare-content .outer-wrapp li:nth-child(2n) {
         background-color: #efefef; }
   .compare i.close-i {
-    margin: 0; } }
+    margin: 0; }
+
+  nav.blue-menu {
+    margin: 0 -15px 30px; }
+    nav.blue-menu ul li {
+      float: none;
+      width: 100%; }
+      nav.blue-menu ul li a.active {
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none; }
+
+  .map .map-wrap {
+    margin: 0 -15px 30px; }
+    .map .map-wrap .img {
+      padding: 0 15px; }
+  .map .img-wrap .img {
+    width: 100%;
+    margin-left: 0; }
+
+  #map {
+    margin-top: 15px !important; }
+
+  .show-room.row {
+    margin-right: 0;
+    margin-left: 0; }
+  .show-room .show-room-wrap .bl-1 .i-bl-w2 {
+    width: 100%; }
+  .show-room .line {
+    margin: 50px -15px 60px -40px; } }
 
 /*# sourceMappingURL=main.css.map */

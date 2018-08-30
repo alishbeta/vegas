@@ -107,8 +107,9 @@
     }
   }
   .new-wrap{
-    margin-bottom: 30px;
+    margin: 30px 0;
     border-bottom: none;
+
     .img{
       position: relative;
     }
@@ -137,6 +138,11 @@
 }
 .contacts{
   font-size: 16px;
+  margin-bottom: 30px;
+  &.row{
+    margin-left: 0;
+    margin-right: 0;
+  }
   #map{
     height: 330px;
 

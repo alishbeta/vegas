@@ -1,4 +1,8 @@
 .news{
+  &.row{
+    margin-right: 0;
+    margin-left: 0;
+  }
   img{
     max-width: 100%;
     margin-bottom: 40px;

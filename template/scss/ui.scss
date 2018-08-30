@@ -214,7 +214,7 @@ nav.blue-menu{
       text-align: center;
       a{
         display: block;
-        padding: 20px;
+        padding: 20px 0;
         background-color: $background-color;
         @include transition(.3s);
         &:hover{
@@ -227,7 +227,6 @@ nav.blue-menu{
           background-color: white;
           color: #2c96b9;
           @include box-shadow(0 0 16px 2px rgba(0, 0, 0, 0.2));
-
         }
       }
     }
