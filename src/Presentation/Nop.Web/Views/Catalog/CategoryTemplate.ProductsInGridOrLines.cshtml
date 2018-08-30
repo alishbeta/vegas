@@ -105,22 +105,39 @@
 				Скрыть фильтры
 			</button>
 		</div>
-		<div class="f2 d-none d-sm-block float-right ">
+		<div class="f2 d-none d-sm-block float-right">
 			<div class="btn-group">
 				<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="popular" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
 					По популярности
 				</button>
-				<div class="dropdown-menu" aria-labelledby="popular">
-					<a href="" onclick="submitFilters()" class="dropdown-item">
-						<input type="radio" id="priceAsc" name="sort" value="10">
-						<label for="priceAsc">По возрастанию цены</label>
-					</a>
-					<a href="" onclick="submitFilters()" class="dropdown-item">
-						<input type="radio" id="priceDesc" name="sort" value="11">
-						<label for="priceAsc">По убыванию цены</label>
-					</a>
-					<a class="dropdown-item" href="#">По новинкам</a>
-					<a class="dropdown-item" href="#">По скидкам</a>
+				<div class="dropdown-menu keep_open" aria-labelledby="popular">
+					<div class="form-group">
+						<div class="form-check form-check-inline check-fly">
+							<input class="form-check-input" onclick="submitFilters()" value="1" name="orderby" type="radio" id="lr1" checked="">
+							<label for="lr1"></label>
+							<label class="col-form-label" for="lr1">По популярности</label>
+						</div>
+						<div class="form-check  form-check-inline check-fly">
+							<input class="form-check-input" onclick="submitFilters()" value="10" name="orderby" type="radio" id="lr2">
+							<label for="lr2"></label>
+							<label class="col-form-label" for="lr2">По возрастанию цены</label>
+						</div>
+						<div class="form-check  form-check-inline check-fly">
+							<input class="form-check-input" onclick="submitFilters()" value="11" name="orderby" type="radio" id="lr3">
+							<label for="lr3"></label>
+							<label class="col-form-label" for="lr3">По убыванию цены</label>
+						</div>
+						<div class="form-check  form-check-inline check-fly">
+							<input class="form-check-input" onclick="submitFilters()" value="16" name="orderby" type="radio" id="lr4">
+							<label for="lr4"></label>
+							<label class="col-form-label" for="lr4">По новинкам</label>
+						</div>
+						<div class="form-check  form-check-inline check-fly">
+							<input class="form-check-input" onclick="submitFilters()" value="5" name="orderby" type="radio" id="lr5">
+							<label for="lr5"></label>
+							<label class="col-form-label" for="lr5">По скидкам</label>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="btn-group">
@@ -266,6 +283,7 @@
 			query += que;
 			que = "";
 		});
+		query += "&orderby=" + $("[name=orderby]:checked").val();
 		window.location.replace(query);
 	}
 </script>
