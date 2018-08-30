@@ -239,7 +239,9 @@
 			<nav class="side-menu-wrap d-md-block">
 				<div class="side-logo-wrap">
 					<div class="logo">
-						@await Component.InvokeAsync("Logo")
+						<div class="d-none d-xl-block">
+							@await Component.InvokeAsync("Logo")
+						</div>
 					</div>
 				</div>
 				<div class="inner-menu-wrap">
@@ -251,7 +253,7 @@
 					</div>
 				</div>
 			</nav>
-			<nav class="side-second-menu-wrap">
+			<nav class="side-second-menu-wrap d-none d-lg-block">
 				<div class="title"></div>
 				<i class="close-i"></i>
 				<div class="clearfix"></div>

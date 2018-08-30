@@ -314,7 +314,7 @@ namespace Nop.Web.Factories
         /// <returns>Category model</returns>
         public virtual CategoryModel PrepareCategoryModel(Category category, CatalogPagingFilteringModel command)
         {
-            if (category == null)
+			if (category == null)
                 throw new ArgumentNullException(nameof(category));
 
             var model = new CategoryModel
@@ -466,10 +466,10 @@ namespace Nop.Web.Factories
 				command.OrderBy = (int)ProductSortingEnum.Position;
 			}
 
-			
+			var filterRanges = _webHelper.QueryString<string>("spec");
 
-            //products
-            IList<int> alreadyFilteredSpecOptionIds = model.PagingFilteringContext.SpecificationFilter.GetAlreadyFilteredSpecOptionIds(_webHelper);
+			//products
+			IList<int> alreadyFilteredSpecOptionIds = model.PagingFilteringContext.SpecificationFilter.GetAlreadyFilteredSpecOptionIds(_webHelper);
             var products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
                 true,
                 categoryIds: categoryIds,
@@ -478,6 +478,7 @@ namespace Nop.Web.Factories
                 featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
                 priceMin: minPriceConverted,
                 priceMax: maxPriceConverted,
+				specificationFilters: filterRanges,
 				markedAsNewOnly: onlyNew,
                 filteredSpecs: alreadyFilteredSpecOptionIds,
                 orderBy: (ProductSortingEnum)command.OrderBy,

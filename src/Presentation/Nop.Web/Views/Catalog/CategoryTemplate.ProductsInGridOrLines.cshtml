@@ -52,43 +52,6 @@
 		}
 	}
 }
-@*@foreach (var filter in CustomTextFilters)
-{
-	FilterValues.Add(new FilterValuesModel()
-	{
-		FilterName = filter.Name
-	});
-}
-@foreach (var filter in FilterValues)
-{
-	var vals = new List<string>();
-	foreach (var product in Model.AllProducts)
-	{
-		foreach (var specAttr in product.ProductSpecificationAttributes)
-		{
-			if (filter.FilterName == specAttr.SpecificationAttributeOption.SpecificationAttribute.Name)
-			{
-				if (!vals.Contains(specAttr.SpecificationAttributeOption.Name)) 
-				{
-					vals.Add(specAttr.SpecificationAttributeOption.Name);
-				}
-			}
-		}
-	}
-	filter.FilterValues = vals;
-}
-@foreach (var filter in FilterValues)
-{
-	<p>
-		@filter.FilterName
-
-
-			@foreach (var item in filter.FilterValues)
-			{
-				<span>@item</span>
-			}
-	</p>
-}*@
 @*category breadcrumb*@
 @section Breadcrumb
 	{
@@ -287,18 +250,21 @@
 		$("input.form-check-input:checked").each(function () {
 			query += "&specs=" + this.value;
 		});
-		var que = "";
+		var que = "&spec=";
 		$("#CustomFilters .inner-wrap").each(function () {
-			que = "&spec=";
 			$(this).find(".form-group input").each(function (index) {
-				if (index < 2) {
+				if (index == 0) {
+					que += $(this).val() + ",";
+				}
+				if (index == 1) {
 					que += $(this).val() + "-";
 				}
-				else {
-					que += $(this).val();
+				if (index == 2) {
+					que += $(this).val() + "|";
 				}
 			});
 			query += que;
+			que = "";
 		});
 		window.location.replace(query);
 	}

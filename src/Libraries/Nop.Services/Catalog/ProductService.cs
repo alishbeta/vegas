@@ -578,6 +578,7 @@ namespace Nop.Services.Catalog
             bool? featuredProducts = null,
             decimal? priceMin = null,
             decimal? priceMax = null,
+			string specificationFilters = null,
             int productTagId = 0,
             string keywords = null,
             bool searchDescriptions = false,
@@ -595,61 +596,62 @@ namespace Nop.Services.Catalog
                 pageIndex, pageSize, categoryIds, manufacturerId,
                 storeId, vendorId, warehouseId,
                 productType, visibleIndividuallyOnly, markedAsNewOnly, featuredProducts,
-                priceMin, priceMax, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku,
+                priceMin, priceMax, specificationFilters, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku,
                 searchProductTags, languageId, filteredSpecs,
                 orderBy, showHidden, overridePublished, isAdmin);
         }
 
-        /// <summary>
-        /// Search products
-        /// </summary>
-        /// <param name="filterableSpecificationAttributeOptionIds">The specification attribute option identifiers applied to loaded products (all pages)</param>
-        /// <param name="loadFilterableSpecificationAttributeOptionIds">A value indicating whether we should load the specification attribute option identifiers applied to loaded products (all pages)</param>
-        /// <param name="pageIndex">Page index</param>
-        /// <param name="pageSize">Page size</param>
-        /// <param name="categoryIds">Category identifiers</param>
-        /// <param name="manufacturerId">Manufacturer identifier; 0 to load all records</param>
-        /// <param name="storeId">Store identifier; 0 to load all records</param>
-        /// <param name="vendorId">Vendor identifier; 0 to load all records</param>
-        /// <param name="warehouseId">Warehouse identifier; 0 to load all records</param>
-        /// <param name="productType">Product type; 0 to load all records</param>
-        /// <param name="visibleIndividuallyOnly">A values indicating whether to load only products marked as "visible individually"; "false" to load all records; "true" to load "visible individually" only</param>
-        /// <param name="markedAsNewOnly">A values indicating whether to load only products marked as "new"; "false" to load all records; "true" to load "marked as new" only</param>
-        /// <param name="featuredProducts">A value indicating whether loaded products are marked as featured (relates only to categories and manufacturers). 0 to load featured products only, 1 to load not featured products only, null to load all products</param>
-        /// <param name="priceMin">Minimum price; null to load all records</param>
-        /// <param name="priceMax">Maximum price; null to load all records</param>
-        /// <param name="productTagId">Product tag identifier; 0 to load all records</param>
-        /// <param name="keywords">Keywords</param>
-        /// <param name="searchDescriptions">A value indicating whether to search by a specified "keyword" in product descriptions</param>
-        /// <param name="searchManufacturerPartNumber">A value indicating whether to search by a specified "keyword" in manufacturer part number</param>
-        /// <param name="searchSku">A value indicating whether to search by a specified "keyword" in product SKU</param>
-        /// <param name="searchProductTags">A value indicating whether to search by a specified "keyword" in product tags</param>
-        /// <param name="languageId">Language identifier (search for text searching)</param>
-        /// <param name="filteredSpecs">Filtered product specification identifiers</param>
-        /// <param name="orderBy">Order by</param>
-        /// <param name="showHidden">A value indicating whether to show hidden records</param>
-        /// <param name="overridePublished">
-        /// null - process "Published" property according to "showHidden" parameter
-        /// true - load only "Published" products
-        /// false - load only "Unpublished" products
-        /// </param>
-        /// <returns>Products</returns>
-        public virtual IPagedList<Product> SearchProducts(
-            out IList<int> filterableSpecificationAttributeOptionIds,
-            bool loadFilterableSpecificationAttributeOptionIds = false,
-            int pageIndex = 0,
-            int pageSize = int.MaxValue,
-            IList<int> categoryIds = null,
-            int manufacturerId = 0,
-            int storeId = 0,
-            int vendorId = 0,
-            int warehouseId = 0,
-            ProductType? productType = null,
-            bool visibleIndividuallyOnly = false,
-            bool markedAsNewOnly = false,
-            bool? featuredProducts = null,
-            decimal? priceMin = null,
-            decimal? priceMax = null,
+		/// <summary>
+		/// Search products
+		/// </summary>
+		/// <param name="filterableSpecificationAttributeOptionIds">The specification attribute option identifiers applied to loaded products (all pages)</param>
+		/// <param name="loadFilterableSpecificationAttributeOptionIds">A value indicating whether we should load the specification attribute option identifiers applied to loaded products (all pages)</param>
+		/// <param name="pageIndex">Page index</param>
+		/// <param name="pageSize">Page size</param>
+		/// <param name="categoryIds">Category identifiers</param>
+		/// <param name="manufacturerId">Manufacturer identifier; 0 to load all records</param>
+		/// <param name="storeId">Store identifier; 0 to load all records</param>
+		/// <param name="vendorId">Vendor identifier; 0 to load all records</param>
+		/// <param name="warehouseId">Warehouse identifier; 0 to load all records</param>
+		/// <param name="productType">Product type; 0 to load all records</param>
+		/// <param name="visibleIndividuallyOnly">A values indicating whether to load only products marked as "visible individually"; "false" to load all records; "true" to load "visible individually" only</param>
+		/// <param name="markedAsNewOnly">A values indicating whether to load only products marked as "new"; "false" to load all records; "true" to load "marked as new" only</param>
+		/// <param name="featuredProducts">A value indicating whether loaded products are marked as featured (relates only to categories and manufacturers). 0 to load featured products only, 1 to load not featured products only, null to load all products</param>
+		/// <param name="priceMin">Minimum price; null to load all records</param>
+		/// <param name="priceMax">Maximum price; null to load all records</param>
+		/// <param name="productTagId">Product tag identifier; 0 to load all records</param>
+		/// <param name="keywords">Keywords</param>
+		/// <param name="searchDescriptions">A value indicating whether to search by a specified "keyword" in product descriptions</param>
+		/// <param name="searchManufacturerPartNumber">A value indicating whether to search by a specified "keyword" in manufacturer part number</param>
+		/// <param name="searchSku">A value indicating whether to search by a specified "keyword" in product SKU</param>
+		/// <param name="searchProductTags">A value indicating whether to search by a specified "keyword" in product tags</param>
+		/// <param name="languageId">Language identifier (search for text searching)</param>
+		/// <param name="filteredSpecs">Filtered product specification identifiers</param>
+		/// <param name="orderBy">Order by</param>
+		/// <param name="showHidden">A value indicating whether to show hidden records</param>
+		/// <param name="overridePublished">
+		/// null - process "Published" property according to "showHidden" parameter
+		/// true - load only "Published" products
+		/// false - load only "Unpublished" products
+		/// </param>
+		/// <returns>Products</returns>
+		public virtual IPagedList<Product> SearchProducts(
+			out IList<int> filterableSpecificationAttributeOptionIds,
+			bool loadFilterableSpecificationAttributeOptionIds = false,
+			int pageIndex = 0,
+			int pageSize = int.MaxValue,
+			IList<int> categoryIds = null,
+			int manufacturerId = 0,
+			int storeId = 0,
+			int vendorId = 0,
+			int warehouseId = 0,
+			ProductType? productType = null,
+			bool visibleIndividuallyOnly = false,
+			bool markedAsNewOnly = false,
+			bool? featuredProducts = null,
+			decimal? priceMin = null,
+			decimal? priceMax = null,
+			string specificationFilters = null,
             int productTagId = 0,
             string keywords = null,
             bool searchDescriptions = false,
@@ -719,6 +721,7 @@ namespace Nop.Services.Catalog
             var pFeaturedProducts = _dataProvider.GetBooleanParameter("FeaturedProducts", featuredProducts);
             var pPriceMin = _dataProvider.GetDecimalParameter("PriceMin", priceMin);
             var pPriceMax = _dataProvider.GetDecimalParameter("PriceMax", priceMax);
+			var pSpecificationFilter = _dataProvider.GetStringParameter("Spec", specificationFilters);
             var pKeywords = _dataProvider.GetStringParameter("Keywords", keywords);
             var pSearchDescriptions = _dataProvider.GetBooleanParameter("SearchDescriptions", searchDescriptions);
             var pSearchManufacturerPartNumber = _dataProvider.GetBooleanParameter("SearchManufacturerPartNumber", searchManufacturerPartNumber);
@@ -756,6 +759,7 @@ namespace Nop.Services.Catalog
                 pFeaturedProducts,
                 pPriceMin,
                 pPriceMax,
+				//pSpecificationFilter,
                 pKeywords,
                 pSearchDescriptions,
                 pSearchManufacturerPartNumber,

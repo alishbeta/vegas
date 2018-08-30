@@ -57,21 +57,23 @@
 <!--***************Новости***************-->
 @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeNews })
 @await Component.InvokeAsync("HomepageNews")
-<div class="some-info d-none d-md-block">
-	<div class="title text-center">
-		<h3 class="">@T("main.textblock.title")</h3>
-	</div>
-		<div class="row text-left">
-			<div class="col-lg-6">
-				<div class="text">
-					@T("main.textblock.text1")
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="text">
-					@T("main.textblock.text2")
-				</div>
-			</div>
-
+<div class="some-info">
+	<div class="title row justify-content-center">
+		<div class="col-auto">
+			<h3 class="">@T("main.textblock.title")</h3>
 		</div>
 	</div>
+	<div class="row text-left">
+		<div class="col-lg-6">
+			<div class="text">
+				@T("main.textblock.text1")
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="text">
+				@T("main.textblock.text2")
+			</div>
+		</div>
+
+	</div>
+</div>
