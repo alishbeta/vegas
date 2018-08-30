@@ -99,6 +99,32 @@ namespace Nop.Web.Areas.Admin.Controllers
             }
         }
 
+        protected virtual void UpdateLocales(TopicCategory topic, TopicCategoryModel model)
+        {
+            foreach (var localized in model.Locales)
+            {
+                _localizedEntityService.SaveLocalizedValue(topic,
+                    x => x.Name,
+                    localized.Name,
+                    localized.LanguageId);
+
+                _localizedEntityService.SaveLocalizedValue(topic,
+                    x => x.MetaKeywords,
+                    localized.MetaKeywords,
+                    localized.LanguageId);
+
+                _localizedEntityService.SaveLocalizedValue(topic,
+                    x => x.MetaDescription,
+                    localized.MetaDescription,
+                    localized.LanguageId);
+
+                _localizedEntityService.SaveLocalizedValue(topic,
+                    x => x.MetaTitle,
+                    localized.MetaTitle,
+                    localized.LanguageId);
+            }
+        }
+
         protected virtual void SaveTopicAcl(Topic topic, TopicModel model)
         {
             topic.SubjectToAcl = model.SelectedCustomerRoleIds.Any();
@@ -212,55 +238,42 @@ namespace Nop.Web.Areas.Admin.Controllers
                 return AccessDeniedView();
 
             //prepare model
-            var model = _topicModelFactory.PrepareTopicModel(new TopicModel(), null);
+            var model = _topicModelFactory.PrepareTopicCategoryModel(new TopicCategoryModel(), null);
 
             return View(model);
         }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
-        public virtual IActionResult CreateCategory(TopicModel model, bool continueEditing)
+        public virtual IActionResult CreateCategory(TopicCategoryModel model, bool continueEditing)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageTopics))
                 return AccessDeniedView();
 
             if (ModelState.IsValid)
             {
-                if (!model.IsPasswordProtected)
-                    model.Password = null;
-
-                var topic = model.ToEntity<Topic>();
-                _topicService.InsertTopic(topic);
-
-                //search engine name
-                model.SeName = _urlRecordService.ValidateSeName(topic, model.SeName, topic.Title ?? topic.SystemName, true);
-                _urlRecordService.SaveSlug(topic, model.SeName, 0);
-
-                //ACL (customer roles)
-                SaveTopicAcl(topic, model);
-
-                //stores
-                SaveStoreMappings(topic, model);
+                var topic = model.ToEntity<TopicCategory>();
+                _topicService.InsertTopicCategory(topic);
 
                 //locales
                 UpdateLocales(topic, model);
 
-                SuccessNotification(_localizationService.GetResource("Admin.ContentManagement.Topics.Added"));
+                SuccessNotification(_localizationService.GetResource("Admin.ContentManagement.TopicCategories.Added"));
 
                 //activity log
-                _customerActivityService.InsertActivity("AddNewTopic",
-                    string.Format(_localizationService.GetResource("ActivityLog.AddNewTopic"), topic.Title ?? topic.SystemName), topic);
+                _customerActivityService.InsertActivity("AddNewTopicCategory",
+                    string.Format(_localizationService.GetResource("ActivityLog.AddNewTopic"), topic.Name), topic);
 
                 if (!continueEditing)
-                    return RedirectToAction("List");
+                    return RedirectToAction("ListCategory");
 
                 //selected tab
                 SaveSelectedTabName();
 
-                return RedirectToAction("Edit", new { id = topic.Id });
+                return RedirectToAction("EditCategory", new { id = topic.Id });
             }
 
             //prepare model
-            model = _topicModelFactory.PrepareTopicModel(model, null, true);
+            model = _topicModelFactory.PrepareTopicCategoryModel(model, null, true);
 
             //if we got this far, something failed, redisplay form
             return View(model);
@@ -272,68 +285,77 @@ namespace Nop.Web.Areas.Admin.Controllers
                 return AccessDeniedView();
 
             //try to get a topic with the specified id
-            var topic = _topicService.GetTopicById(id);
+            var topic = _topicService.GetTopicCategoryById(id);
             if (topic == null)
-                return RedirectToAction("List");
+                return RedirectToAction("ListCategory");
 
             //prepare model
-            var model = _topicModelFactory.PrepareTopicModel(null, topic);
+            var model = _topicModelFactory.PrepareTopicCategoryModel(null, topic);
 
             return View(model);
         }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
-        public virtual IActionResult EditCategory(TopicModel model, bool continueEditing)
+        public virtual IActionResult EditCategory(TopicCategoryModel model, bool continueEditing)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageTopics))
                 return AccessDeniedView();
 
             //try to get a topic with the specified id
-            var topic = _topicService.GetTopicById(model.Id);
+            var topic = _topicService.GetTopicCategoryById(model.Id);
             if (topic == null)
-                return RedirectToAction("List");
-
-            if (!model.IsPasswordProtected)
-                model.Password = null;
+                return RedirectToAction("ListCategory");
 
             if (ModelState.IsValid)
             {
                 topic = model.ToEntity(topic);
-                _topicService.UpdateTopic(topic);
-
-                //search engine name
-                model.SeName = _urlRecordService.ValidateSeName(topic, model.SeName, topic.Title ?? topic.SystemName, true);
-                _urlRecordService.SaveSlug(topic, model.SeName, 0);
-
-                //ACL (customer roles)
-                SaveTopicAcl(topic, model);
-
-                //stores
-                SaveStoreMappings(topic, model);
+                _topicService.UpdateTopicCategory(topic);
 
                 //locales
                 UpdateLocales(topic, model);
 
-                SuccessNotification(_localizationService.GetResource("Admin.ContentManagement.Topics.Updated"));
+                SuccessNotification(_localizationService.GetResource("Admin.ContentManagement.TopicCategories.Updated"));
 
                 //activity log
-                _customerActivityService.InsertActivity("EditTopic",
-                    string.Format(_localizationService.GetResource("ActivityLog.EditTopic"), topic.Title ?? topic.SystemName), topic);
+                _customerActivityService.InsertActivity("EditTopicCategory",
+                    string.Format(_localizationService.GetResource("ActivityLog.EditTopic"), topic.Name), topic);
 
                 if (!continueEditing)
-                    return RedirectToAction("List");
+                    return RedirectToAction("ListCategory");
 
                 //selected tab
                 SaveSelectedTabName();
 
-                return RedirectToAction("Edit", new { id = topic.Id });
+                return RedirectToAction("EditCategory", new { id = topic.Id });
             }
 
             //prepare model
-            model = _topicModelFactory.PrepareTopicModel(model, topic, true);
+            model = _topicModelFactory.PrepareTopicCategoryModel(model, topic, true);
 
             //if we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [HttpPost]
+        public virtual IActionResult DeleteCategory(int id)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageTopics))
+                return AccessDeniedView();
+
+            //try to get a topic with the specified id
+            var topic = _topicService.GetTopicCategoryById(id);
+            if (topic == null)
+                return RedirectToAction("ListCategory");
+
+            _topicService.DeleteTopicCategory(topic);
+
+            SuccessNotification(_localizationService.GetResource("Admin.ContentManagement.TopicCategoriess.Deleted"));
+
+            //activity log
+            _customerActivityService.InsertActivity("DeleteTopic",
+                string.Format(_localizationService.GetResource("ActivityLog.DeleteTopic"), topic.Name), topic);
+
+            return RedirectToAction("ListCategory");
         }
 
         public virtual IActionResult Create()

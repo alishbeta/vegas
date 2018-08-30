@@ -10,6 +10,7 @@ namespace Nop.Core.Domain.Topics
     /// </summary>
     public partial class Topic : BaseEntity, ILocalizedEntity, ISlugSupported, IStoreMappingSupported, IAclSupported
     {
+        public int TopicCategoryId { get; set; }
         /// <summary>
         /// Gets or sets the name
         /// </summary>

@@ -13,6 +13,7 @@ namespace Nop.Web.Areas.Admin.Models.Topics
         public TopicCategoryModel()
         {
             Locales = new List<TopicCategoryLocalizedModel>();
+            TopicCategories = new List<TopicCategory>();
         }
 
         [NopResourceDisplayName("Admin.ContentManagement.TopicCategories.Fields.Title")]

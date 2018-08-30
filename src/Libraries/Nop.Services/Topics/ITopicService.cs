@@ -8,6 +8,7 @@ namespace Nop.Services.Topics
     /// </summary>
     public partial interface ITopicService
     {
+        void DeleteTopicCategory(TopicCategory topic);
         IList<TopicCategory> GetAllTopicCategories();
         TopicCategory GetTopicCategoryById(int topicCategoryId);
         void InsertTopicCategory(TopicCategory topicCategory);

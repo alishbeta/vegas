@@ -1,0 +1,37 @@
+@model TopicCategoryModel
+
+@{
+    //page title
+    ViewBag.Title = T("Admin.ContentManagement.TopicCategories.EditTopicDetails").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("Topic categories");
+}
+
+<form asp-controller="Topic" asp-action="EditCategory" method="post">
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Admin.ContentManagement.TopicCategories.EditTopicDetails") - @Model.Name
+            <small>
+                <i class="fa fa-arrow-circle-left"></i>
+                <a asp-action="List">@T("Admin.ContentManagement.TopicCategories.BackToList")</a>
+            </small>
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.Save")
+            </button>
+            <button type="submit" name="save-continue" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.SaveContinue")
+            </button>
+            <span id="topic-category-delete" class="btn bg-red">
+                <i class="fa fa-trash-o"></i>
+                @T("Admin.Common.Delete")
+            </span>
+            @*@await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.TopicCategoryDetailsButtons, additionalData = Model })*@
+        </div>
+    </div>
+    @await Html.PartialAsync("_CreateOrUpdateCategory", Model)
+</form>
+<nop-delete-confirmation asp-model-id="@Model.Id" asp-button-id="topic-category-delete" asp-action="DeleteCategory" />

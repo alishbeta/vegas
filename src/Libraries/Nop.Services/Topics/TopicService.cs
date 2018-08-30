@@ -66,6 +66,17 @@ namespace Nop.Services.Topics
 
         #region Methods
 
+        public virtual void DeleteTopicCategory(TopicCategory topic)
+        {
+            if (topic == null)
+                throw new ArgumentNullException(nameof(topic));
+
+            _topicCategoryRepository.Delete(topic);
+
+            //event notification
+            _eventPublisher.EntityDeleted(topic);
+        }
+
         public virtual IList<TopicCategory> GetAllTopicCategories()
         {
             return _topicCategoryRepository.Table.Where(x => true).ToList();
