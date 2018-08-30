@@ -3,17 +3,14 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/slick.css"/>
-
     <link rel="stylesheet" type="text/css" href="css/slick-theme.css"/>
     <link rel="stylesheet" href="/css/main.css" crossorigin="anonymous">
-
     <title></title>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -22,8 +19,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
             crossorigin="anonymous"></script>
     <script src="/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <script src="/js/init.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!--[if lt IE 9]>
     <script>
         document.createElement('header');
@@ -36,100 +31,328 @@
     <![endif]-->
 </head>
 <body>
-<div class="wrap compare short-menu">
+<div class="back-shadow"></div>
+<div class="cart-popup-wrap">
+    <div class="order-wrapp">
+        <div class="title-wrap clearfix">
+            <h1>Товар добавлен в корзину</h1>
+            <i class="close-i"></i>
+            <i class="shopping_bag_icon"></i>
+        </div>
+        <div class="item">
+            <img src="/prod_img/bad7.jpg" alt="bad7">
+            <div class="title">Кровать</div>
+            <div class="item-name">Faina- Trinity Cream</div>
+            <div class="count-wrap mt-2 mb-2">
+                <button class="minus"></button>
+                <div class="count">1</div>
+                <input id="it-count1" type="hidden" value="1">
+                <button class="plus"></button>
+                <div class="closee"></div>
+            </div>
+            <div class="price-wrap">
+                <div class="price-old">18 843</div>
+                <div class="price">15 702</div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="item">
+            <img src="/img/bs-mattress-rx-med.png" alt="mattress">
+            <div class="title">Матрас</div>
+            <div class="item-name">М1 - 80*190</div>
+            <div class="count-wrap mt-2 mb-2">
+                <button class="minus"></button>
+                <div class="count">1</div>
+                <input id="it-count2" type="hidden" value="1">
+                <button class="plus"></button>
+                <div class="closee"></div>
+            </div>
+            <div class="price-wrap">
+                <div class="price-old">18 843</div>
+                <div class="price">15 702</div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="total-wrap mb-3">
+            <span>Итого 2 товара на сумму</span>
+            <span>27 008 грн</span>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-blue pr-4 pl-4">Оформить заказ</button>
+            <button class="btn btn-blue-white pr-4 pl-4">Купить в 1 клик</button>
+        </div>
+        <div class="text-center">
+            <button id="pop-up-close" class="btn btn-link ">Продолжить выбор товаров</button>
+        </div>
+
+    </div>
+    <div class="line"></div>
+    <div class="similar-wrap">
+        <div class="title">С этим товаром покупают</div>
+        <a href="">
+            <div class="item-wrap">
+                <div class="product-img-wrap">
+                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                    <div class="discount">-20%</div>
+                </div>
+                <div class="main-prop-wrap text-left">
+                    <div class="product-name text-light-c">Матрас</div>
+                    <div class="product-prop">M1 - 80*190</div>
+                    <div class="price-titile">Цена</div>
+                    <div class="price-wrap clearfix">
+                        <div class="price-old">18 843</div>
+                        <div class="price-new">110 306 грн</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="">
+            <div class="item-wrap">
+                <div class="product-img-wrap">
+                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                    <div class="discount">-20%</div>
+                </div>
+                <div class="main-prop-wrap text-left">
+                    <div class="product-name text-light-c">Матрас</div>
+                    <div class="product-prop">M1 - 80*190</div>
+                    <div class="price-titile">Цена</div>
+                    <div class="price-wrap clearfix">
+                        <div class="price-old">18 843</div>
+                        <div class="price-new">110 306 грн</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="">
+            <div class="item-wrap">
+                <div class="product-img-wrap">
+                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                    <div class="discount">-20%</div>
+                </div>
+                <div class="main-prop-wrap text-left">
+                    <div class="product-name text-light-c">Матрас</div>
+                    <div class="product-prop">M1 - 80*190</div>
+                    <div class="price-titile">Цена</div>
+                    <div class="price-wrap clearfix">
+                        <div class="price-old">18 843</div>
+                        <div class="price-new">110 306 грн</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="">
+            <div class="item-wrap">
+                <div class="product-img-wrap">
+                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                    <div class="discount">-20%</div>
+                </div>
+                <div class="main-prop-wrap text-left">
+                    <div class="product-name text-light-c">Матрас</div>
+                    <div class="product-prop">M1 - 80*190</div>
+                    <div class="price-titile">Цена</div>
+                    <div class="price-wrap clearfix">
+                        <div class="price-old">18 843</div>
+                        <div class="price-new">110 306 грн</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="">
+            <div class="item-wrap">
+                <div class="product-img-wrap">
+                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                    <div class="discount">-20%</div>
+                </div>
+                <div class="main-prop-wrap text-left">
+                    <div class="product-name text-light-c">Матрас</div>
+                    <div class="product-prop">M1 - 80*190</div>
+                    <div class="price-titile">Цена</div>
+                    <div class="price-wrap clearfix">
+                        <div class="price-old">18 843</div>
+                        <div class="price-new">110 306 грн</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="">
+            <div class="item-wrap">
+                <div class="product-img-wrap">
+                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                    <div class="discount">-20%</div>
+                </div>
+                <div class="main-prop-wrap text-left">
+                    <div class="product-name text-light-c">Матрас</div>
+                    <div class="product-prop">M1 - 80*190</div>
+                    <div class="price-titile">Цена</div>
+                    <div class="price-wrap clearfix">
+                        <div class="price-old">18 843</div>
+                        <div class="price-new">110 306 грн</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="">
+            <div class="item-wrap">
+                <div class="product-img-wrap">
+                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                    <div class="discount">-20%</div>
+                </div>
+                <div class="main-prop-wrap text-left">
+                    <div class="product-name text-light-c">Матрас</div>
+                    <div class="product-prop">M1 - 80*190</div>
+                    <div class="price-titile">Цена</div>
+                    <div class="price-wrap clearfix">
+                        <div class="price-old">18 843</div>
+                        <div class="price-new">110 306 грн</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="">
+            <div class="item-wrap">
+                <div class="product-img-wrap">
+                    <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                    <div class="discount">-20%</div>
+                </div>
+                <div class="main-prop-wrap text-left">
+                    <div class="product-name text-light-c">Матрас</div>
+                    <div class="product-prop">M1 - 80*190</div>
+                    <div class="price-titile">Цена</div>
+                    <div class="price-wrap clearfix">
+                        <div class="price-old">18 843</div>
+                        <div class="price-new">110 306 грн</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="login-form-wrap rounded">
+    <h5>Вход в личный кабинет <i class="favorit user_icon"></i>
+        <i class="favorit close-i"></i></h5>
+    <div class="form-wrap">
+        <div class="form-group form-inline">
+            <label class="col-sm-3" for=""><b>E-mail</b></label>
+            <input class="col-sm-8 form-control" type="text">
+        </div>
+        <div class="form-group form-inline">
+            <label class="col-sm-3" for=""><b>Пароль</b></label>
+            <input class="col-sm-8 form-control" type="text">
+        </div>
+        <div>
+            <button class="btn btn-blue btn-block offset-sm-3 col-sm-8">Войти</button>
+            <button class="btn btn-link btn-block offset-sm-3 col-sm-8 ">Забыли пароль</button>
+            <button class="btn btn-blue-white btn-block offset-sm-3 col-sm-8">Регистрация</button>
+        </div>
+
+    </div>
+</div>
+<div class="wrap  short-menu">
     <div class="r-wrap">
         <div class="content content-main-wrap">
             <div class="top-wraper d-none d-md-block" style="display: none;">
                 <a onclick="return false;" href="#"><i class="top"></i></a>
             </div>
             <div class="all-menu-wrap">
-                <nav class="side-menu-wrap d-md-block">
+                <nav class="side-menu-wrap">
+                    <div class="side-logo-wrap">
+                        <div class="logo">
+                            <img class="d-none d-xl-block" src="/img/logo.png" alt="logo.png">
+                        </div>
+                    </div>
                     <div class="inner-menu-wrap">
                         <div class="search-wrap">
                             <img class="side-icons-search" src="/img/search_icon.svg" alt="search_icon">
                             <input class="d-md-none d-xl-inline" type="text" placeholder="Поиск">
                         </div>
-                        <ul>
+                        <ul id="main-menu">
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/bedroom_set_icon.svg"
                                                                         alt="bedroom_set_icon">
-                                <span class="d-inline d-sm-inline d-md-none d-xl-inline">Спальные гарнитуры</span>
-                                <div class="hint d-xl-none"><span>Спальные гарнитуры</span></div>
+                                <span>Спальные гарнитуры</span>
                             </a>
-                                <ul class="d-none sub-menu">
-                                    <li><a href="">Гарнитур</a></li>
-                                    <li><a href="">Еще один</a></li>
-                                    <li><a href="">Детские</a></li>
-                                    <li><a href="">Vegas (Беларусь)</a></li>
-                                    <li><a href="">Infinito (Италия)</a></li>
-                                </ul>
+                                <div class="sub-menu">
+                                    <ul>
+                                        <li><a href="">Гарнитур</a></li>
+                                        <li><a href="">Еще один</a></li>
+                                        <li><a href="">Детские</a></li>
+                                        <li><a href="">Vegas (Беларусь)</a></li>
+                                        <li><a href="">Infinito (Италия)</a></li>
+                                    </ul>
+                                    <div class="text-center mt-3">
+                                        <button class="btn btn-grey btn-sm pl-5 pr-5">Смотреть все</button>
+                                    </div>
+                                </div>
                             </li>
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/bed_icon.svg"
                                                                         alt="bed_icon">
-                                <span class="d-inline d-sm-inline d-md-none d-xl-inline">Кровати</span>
-                                <div class="hint d-xl-none"><span>Кровати</span></div>
+                                <span>Кровати</span>
                             </a></li>
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/on-mattress_icon.svg"
                                                                         alt="mattress_icon"> <span
-                                    class="d-inline d-sm-inline d-md-none d-xl-inline">Матрасы</span>
-                                <div class="hint d-xl-none"><span>Матрасы</span></div>
+                            >Матрасы</span>
                             </a>
-                                <ul class="d-none sub-menu">
-                                    <li><a href="">Матрас</a></li>
-                                    <li><a href="">Дормео</a></li>
-                                    <li><a href="">Детские</a></li>
-                                    <li><a href="">Vegas (Беларусь)</a></li>
-                                    <li><a href="">Infinito (Италия)</a></li>
-                                </ul>
+                                <div class="sub-menu">
+                                    <ul>
+                                        <li><a href="">Матрас</a></li>
+                                        <li><a href="">Дормео</a></li>
+                                        <li><a href="">Детские</a></li>
+                                        <li><a href="">Vegas (Беларусь)</a></li>
+                                        <li><a href="">Infinito (Италия)</a></li>
+                                    </ul>
+                                    <div class="text-center mt-3">
+                                        <button class="btn btn-grey btn-sm pl-5 pr-5">Смотреть все</button>
+                                    </div>
+                                </div>
                             </li>
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/tumba_icon.svg"
                                                                         alt="tumba_icon"> <span
-                                    class="d-inline d-sm-inline d-md-none d-xl-inline">
+                            >
                         Тумбы и комоды</span>
                                 <div class="hint d-xl-none"><span>Тумбы и комоды</span></div>
                             </a></li>
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/base_icon.svg"
                                                                         alt="base_icon"> <span
-                                    class="d-inline d-sm-inline d-md-none d-xl-inline">
+                            >
                         Ортопедические основания</span>
                                 <div class="hint d-xl-none"><span>Ортопедические основания</span></div>
                             </a></li>
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/matress_icon.svg"
                                                                         alt="matress_icon"> <span
-                                    class="d-inline d-sm-inline d-md-none d-xl-inline">Наматрасники</span>
+                            >Наматрасники</span>
                                 <div class="hint d-xl-none"><span>Наматрасники</span></div>
                             </a>
                             </li>
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/pillow_icon.svg"
                                                                         alt="pillow_icon"> <span
-                                    class="d-inline d-sm-inline d-md-none d-xl-inline">Подушки</span>
+                            >Подушки</span>
                                 <div class="hint d-xl-none"><span>Подушки</span></div>
                             </a>
                             </li>
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/accessorize_icon.svg"
                                                                         alt="accessorize_icon">
-                                <span class="d-inline d-sm-inline d-md-none d-xl-inline">Аксессуары для сна</span>
+                                <span>Аксессуары для сна</span>
                                 <div class="hint d-xl-none"><span>Аксессуары для сна</span></div>
                             </a></li>
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/carpet_icon.svg"
                                                                         alt="carpet_icon"> <span
-                                    class="d-inline d-sm-inline d-md-none d-xl-inline">Ковры</span>
+                            >Ковры</span>
                                 <div class="hint d-xl-none"><span>Ковры</span></div>
                             </a></li>
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/light_icon.svg"
                                                                         alt="light_icon"> <span
-                                    class="d-inline d-sm-inline d-md-none d-xl-inline">Свет</span>
+                            >Свет</span>
                                 <div class="hint d-xl-none"><span>Свет</span></div>
                             </a></li>
                             <li><a onclick="return false;" href=""><img class="side-icons" src="/img/sale_icon.svg"
                                                                         alt="sale_icon"> <span
-                                    class="d-inline d-sm-inline d-md-none d-xl-inline">Акции</span>
+                            >Акции</span>
                                 <div class="hint d-xl-none"><span>Акции</span></div>
                             </a></li>
                             <li><a class="mm" href=""> <span class="d-inline d-sm-inline d-md-none">Доставка и оплата</span></a>
                             </li>
                             <li><a class="mm" href=""> <span class="d-inline d-sm-inline d-md-none">Салоны</span></a></li>
-                            <li><a class="mm" href=""> <span class="d-inline d-sm-inline d-md-none">Личный кабинет</span></a>
-                            </li>
+                            <li><a class="mm" href=""> <span
+                                    class="d-inline d-sm-inline d-md-none">Личный кабинет</span></a></li>
                             <li><a class="mm" href=""> <span class="d-inline d-sm-inline d-md-none">О нас</span></a></li>
                         </ul>
                         <div class="mob-lang text-center">
@@ -138,7 +361,7 @@
                         </div>
                     </div>
                 </nav>
-                <nav class="side-second-menu-wrap">
+                <nav class="side-second-menu-wrap d-none d-lg-block">
                     <div class="title"></div>
                     <i class="close-i"></i>
                     <div class="clearfix"></div>
@@ -146,37 +369,35 @@
                 </nav>
             </div>
             <div class="header-wrap">
-                <div class="side-logo-wrap">
+                <div class="side-logo-wrap d-none d-md-inline-block">
                     <div class="logo">
-                        <img class="d-none d-xl-block" src="/img/logo.png" alt="logo.png">
+                        <img class="" src="/img/logo.png" alt="logo.png">
                     </div>
                 </div>
-                <div class="phone-wrap d-none d-md-inline-block">
-                    <div class="phone-title text-light-c">Бесплатная линия</div>
+                <div class="phone-wrap d-none d-xl-inline-block">
+                    <div class="phone-title text-light-c d-none d-xl-inline-block">Бесплатная линия</div>
                     <div class="phone">0 800 604 597</div>
                 </div>
-                <div class="shedule-wrapp d-none d-md-inline-block">
+                <div class="shedule-wrapp d-none d-xl-inline-block">
                     <div class="text-light-c">09:00-20:00 (будние)</div>
                     <div class="text-light-c">10:00-18:00 (выходные)</div>
                 </div>
-                <button type="button" class="btn btn-sm btn-blue d-none d-md-inline-block">Обратный звонок</button>
-                <ul class="head-menu d-none d-md-inline-block">
+                <ul class="head-menu d-none d-lg-inline-block">
                     <li><a class="d-none d-lg-inline" href="#">О нас</a></li>
-                    <li><a class="d-none d-xl-inline" href="#">Магазины</a></li>
+                    <li><a class="d-none d-lg-inline" href="#">Магазины</a></li>
                     <li><a href="#">Доставка и оплата</a></li>
                 </ul>
                 <div class="icons-wrap">
-                    <div class="lang-swich-wrap d-none d-md-block">
+                    <div class="lang-swich-wrap d-none d-lg-block">
                         <span><a href="#">UA</a></span>
                         <span><a class="active" href="#">RU</a></span>
                     </div>
                     <i class="favorit close"></i>
-                    <i class="favorit hanburger d-md-none"></i>
-                    <img class="d-md-none" src="/img/logo.png" alt="logo.png">
+                    <i class="favorit hanburger d-lg-none"></i>
+                    <img class="d-sm-none" src="/img/lg_m.png" alt="logo_m.png">
                     <i class="favorit shopping_bag_icon"><span>0</span></i>
                     <i class="favorit favorite_i"><span>1</span></i>
-                    <i class="favorit call-from-site d-md-none"></i>
-                    <i class="favorit compare_icon d-none d-md-inline-block"></i>
+                    <i class="favorit compare_icon"></i>
                     <i class="favorit user_icon d-none d-md-inline-block"></i>
                 </div>
             </div>
@@ -187,303 +408,448 @@
                 </ol>
             </nav>
 
-            <div class="row compare-wrap">
-                <div class="offset-xl-1 col-xl-11">
-                    <h1 class="title">Сравнение товаров</h1>
-                    <div class="optc-wrap rounded">
-                        <div class="add-ct">Добавлено товаров <span>2</span></div>
-                        <button class="btn btn-blue btn-block">Добавить еще товар</button>
-                        <button class="btn btn-link btn-block"><span>+</span> Очистить список</button>
-                        <div class="line"></div>
-                        <div class="show-wrap">
-                            <div>Показывать:</div>
-                            <div class="form-group check-blue">
-                                <input name="opt" type="radio" id="c1" checked>
-                                <label for="c1"></label>
-                                <label for="c1">Все характеристики</label>
+            <div class="compare">
+                <div class="row compare-wrap">
+                    <div class="offset-lg-1 col-xl-11">
+                        <div class="title-wrap">
+                            <h1 class="title">Сравнение товаров</h1>
+                            <i class="favorit compare_icon"></i>
+                        </div>
+                        <div class="optc-wrap rounded">
+                            <div class="add-ct">Добавлено товаров <span>2</span></div>
+                            <button class="btn btn-blue btn-block">Добавить еще товар</button>
+                            <button class="btn btn-link btn-block"><span>+</span> Очистить список</button>
+                            <div class="line"></div>
+                            <div class="show-wrap">
+                                <div>Показывать:</div>
+                                <div>
+                                    <div class="form-group check-blue">
+                                        <input name="opt" type="radio" id="c1" checked>
+                                        <label for="c1"></label>
+                                        <label for="c1">Все характеристики</label>
+                                    </div>
+                                    <div class="form-group check-blue">
+                                        <input name="opt" type="radio" id="c2">
+                                        <label for="c2"></label>
+                                        <label for="c2">Различия</label>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="form-group check-blue">
-                                <input name="opt" type="radio" id="c2">
-                                <label for="c2"></label>
-                                <label for="c2">Различия</label>
+                            <div class="line"></div>
+                            <div class="titles-wrap">
+                                <ul>
+                                    <li>Длина (см)</li>
+                                    <li>Ширина (см)</li>
+                                    <li>Высота (см)</li>
+                                    <li>Максимальная нагрузка (кг)</li>
+                                    <li>Количество пружин (на м2)</li>
+                                    <li>Конструкция</li>
+                                    <li>Размер</li>
+                                    <li>Свойства</li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="line"></div>
-                        <div class="titles-wrap">
-                            <ul>
-                                <li>Длина (см)</li>
-                                <li>Ширина (см)</li>
-                                <li>Высота (см)</li>
-                                <li>Максимальная нагрузка (кг)</li>
-                                <li>Количество пружин (на м2)</li>
-                                <li>Конструкция</li>
-                                <li>Размер</li>
-                                <li>Свойства</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="compare-content">
-                        <div class="scroll-wrap">
-                            <div class="outer-wrapp rounded">
-                                <div class="item-wrap">
-                                    <div class="product-img-wrap">
-                                        <div><i class="close-i"></i></div>
-                                        <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                                        <div class="discount">-20%</div>
-                                    </div>
-                                    <div class="main-prop-wrap text-left">
-                                        <div class="product-name text-light-c">Матрас</div>
-                                        <div class="product-prop">M1 - 80*190</div>
-                                        <div class="price-titile">Цена</div>
-                                        <div class="price-wrap clearfix">
-                                            <div class="price-old">18 843 грн</div>
-                                            <div class="price-new">110 306 грн</div>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-blue btn-block">Купить</button>
-                                    <div class="line"></div>
+                        <div class="compare-content">
+                            <div class="scroll-wrap">
+                                <div class="m-titles d-sm-none">
                                     <ul>
-                                        <li>180</li>
-                                        <li>90</li>
-                                        <li>22</li>
-                                        <li>160</li>
-                                        <li>296</li>
-                                        <li>Пружинный</li>
-                                        <li>Односпальный</li>
-                                        <li>Средней жесткости</li>
+                                        <li>Длина (см)</li>
+                                        <li></li>
+                                        <li>Ширина (см)</li>
+                                        <li></li>
+                                        <li>Высота (см)</li>
+                                        <li></li>
+                                        <li>Максимальная нагрузка (кг)</li>
+                                        <li></li>
+                                        <li>Количество пружин на (м2)</li>
+                                        <li></li>
+                                        <li>Конструкция</li>
+                                        <li></li>
+                                        <li>Размер</li>
+                                        <li></li>
+                                        <li>Свойства</li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="outer-wrapp rounded">
-                                <div class="item-wrap">
-                                    <div class="product-img-wrap">
-                                        <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                                        <div class="discount">-20%</div>
-                                    </div>
-                                    <div class="main-prop-wrap text-left">
-                                        <div class="product-name text-light-c">Матрас</div>
-                                        <div class="product-prop">M1 - 80*190</div>
-                                        <div class="price-titile">Цена</div>
-                                        <div class="price-wrap clearfix">
-                                            <div class="price-old">18 843 грн</div>
-                                            <div class="price-new">110 306 грн</div>
+                                <div class="outer-wrapp rounded">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="close-wrap"><i class="close-i"></i></div>
+                                            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                                            <div class="discount">-20%</div>
                                         </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">Матрас</div>
+                                            <div class="product-prop">M1 - 80*190</div>
+                                            <div class="price-titile">Цена</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">18 843 грн</div>
+                                                <div class="price-new">110 306 грн</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-blue btn-block">Купить</button>
+                                        <div class="line"></div>
+                                        <ul>
+                                            <li class="d-sm-none"></li>
+                                            <li>180</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>90</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>22</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>160</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>296</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Пружинный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Односпальный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Средней жесткости</li>
+                                        </ul>
                                     </div>
-                                    <button class="btn btn-blue btn-block">Купить</button>
-                                    <div class="line"></div>
-                                    <ul>
-                                        <li>180</li>
-                                        <li>90</li>
-                                        <li>22</li>
-                                        <li>160</li>
-                                        <li>296</li>
-                                        <li>Пружинный</li>
-                                        <li>Односпальный</li>
-                                        <li>Средней жесткости</li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="outer-wrapp rounded">
-                                <div class="item-wrap">
-                                    <div class="product-img-wrap">
-                                        <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                                        <div class="discount">-20%</div>
-                                    </div>
-                                    <div class="main-prop-wrap text-left">
-                                        <div class="product-name text-light-c">Матрас</div>
-                                        <div class="product-prop">M1 - 80*190</div>
-                                        <div class="price-titile">Цена</div>
-                                        <div class="price-wrap clearfix">
-                                            <div class="price-old">18 843 грн</div>
-                                            <div class="price-new">110 306 грн</div>
+                                <div class="outer-wrapp rounded">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="close-wrap"><i class="close-i"></i></div>
+                                            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                                            <div class="discount">-20%</div>
                                         </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">Матрас</div>
+                                            <div class="product-prop">M1 - 80*190</div>
+                                            <div class="price-titile">Цена</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">18 843 грн</div>
+                                                <div class="price-new">110 306 грн</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-blue btn-block">Купить</button>
+                                        <div class="line"></div>
+                                        <ul>
+                                            <li class="d-sm-none"></li>
+                                            <li>180</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>90</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>22</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>160</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>296</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Пружинный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Односпальный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Средней жесткости</li>
+                                        </ul>
                                     </div>
-                                    <button class="btn btn-blue btn-block">Купить</button>
-                                    <div class="line"></div>
-                                    <ul>
-                                        <li>180</li>
-                                        <li>90</li>
-                                        <li>22</li>
-                                        <li>160</li>
-                                        <li>296</li>
-                                        <li>Пружинный</li>
-                                        <li>Односпальный</li>
-                                        <li>Средней жесткости</li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="outer-wrapp rounded">
-                                <div class="item-wrap">
-                                    <div class="product-img-wrap">
-                                        <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                                        <div class="discount">-20%</div>
-                                    </div>
-                                    <div class="main-prop-wrap text-left">
-                                        <div class="product-name text-light-c">Матрас</div>
-                                        <div class="product-prop">M1 - 80*190</div>
-                                        <div class="price-titile">Цена</div>
-                                        <div class="price-wrap clearfix">
-                                            <div class="price-old">18 843 грн</div>
-                                            <div class="price-new">110 306 грн</div>
+                                <div class="outer-wrapp rounded">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="close-wrap"><i class="close-i"></i></div>
+                                            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                                            <div class="discount">-20%</div>
                                         </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">Матрас</div>
+                                            <div class="product-prop">M1 - 80*190</div>
+                                            <div class="price-titile">Цена</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">18 843 грн</div>
+                                                <div class="price-new">110 306 грн</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-blue btn-block">Купить</button>
+                                        <div class="line"></div>
+                                        <ul>
+                                            <li class="d-sm-none"></li>
+                                            <li>180</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>90</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>22</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>160</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>296</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Пружинный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Односпальный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Средней жесткости</li>
+                                        </ul>
                                     </div>
-                                    <button class="btn btn-blue btn-block">Купить</button>
-                                    <div class="line"></div>
-                                    <ul>
-                                        <li>180</li>
-                                        <li>90</li>
-                                        <li>22</li>
-                                        <li>160</li>
-                                        <li>296</li>
-                                        <li>Пружинный</li>
-                                        <li>Односпальный</li>
-                                        <li>Средней жесткости</li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="outer-wrapp rounded">
-                                <div class="item-wrap">
-                                    <div class="product-img-wrap">
-                                        <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                                        <div class="discount">-20%</div>
-                                    </div>
-                                    <div class="main-prop-wrap text-left">
-                                        <div class="product-name text-light-c">Матрас</div>
-                                        <div class="product-prop">M1 - 80*190</div>
-                                        <div class="price-titile">Цена</div>
-                                        <div class="price-wrap clearfix">
-                                            <div class="price-old">18 843 грн</div>
-                                            <div class="price-new">110 306 грн</div>
+                                <div class="outer-wrapp rounded">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="close-wrap"><i class="close-i"></i></div>
+                                            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                                            <div class="discount">-20%</div>
                                         </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">Матрас</div>
+                                            <div class="product-prop">M1 - 80*190</div>
+                                            <div class="price-titile">Цена</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">18 843 грн</div>
+                                                <div class="price-new">110 306 грн</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-blue btn-block">Купить</button>
+                                        <div class="line"></div>
+                                        <ul>
+                                            <li class="d-sm-none"></li>
+                                            <li>180</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>90</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>22</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>160</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>296</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Пружинный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Односпальный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Средней жесткости</li>
+                                        </ul>
                                     </div>
-                                    <button class="btn btn-blue btn-block">Купить</button>
-                                    <div class="line"></div>
-                                    <ul>
-                                        <li>180</li>
-                                        <li>90</li>
-                                        <li>22</li>
-                                        <li>160</li>
-                                        <li>296</li>
-                                        <li>Пружинный</li>
-                                        <li>Односпальный</li>
-                                        <li>Средней жесткости</li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="outer-wrapp rounded">
-                                <div class="item-wrap">
-                                    <div class="product-img-wrap">
-                                        <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                                        <div class="discount">-20%</div>
-                                    </div>
-                                    <div class="main-prop-wrap text-left">
-                                        <div class="product-name text-light-c">Матрас</div>
-                                        <div class="product-prop">M1 - 80*190</div>
-                                        <div class="price-titile">Цена</div>
-                                        <div class="price-wrap clearfix">
-                                            <div class="price-old">18 843 грн</div>
-                                            <div class="price-new">110 306 грн</div>
+                                <div class="outer-wrapp rounded">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="close-wrap"><i class="close-i"></i></div>
+                                            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                                            <div class="discount">-20%</div>
                                         </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">Матрас</div>
+                                            <div class="product-prop">M1 - 80*190</div>
+                                            <div class="price-titile">Цена</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">18 843 грн</div>
+                                                <div class="price-new">110 306 грн</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-blue btn-block">Купить</button>
+                                        <div class="line"></div>
+                                        <ul>
+                                            <li class="d-sm-none"></li>
+                                            <li>180</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>90</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>22</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>160</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>296</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Пружинный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Односпальный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Средней жесткости</li>
+                                        </ul>
                                     </div>
-                                    <button class="btn btn-blue btn-block">Купить</button>
-                                    <div class="line"></div>
-                                    <ul>
-                                        <li>180</li>
-                                        <li>90</li>
-                                        <li>22</li>
-                                        <li>160</li>
-                                        <li>296</li>
-                                        <li>Пружинный</li>
-                                        <li>Односпальный</li>
-                                        <li>Средней жесткости</li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="outer-wrapp rounded">
-                                <div class="item-wrap">
-                                    <div class="product-img-wrap">
-                                        <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                                        <div class="discount">-20%</div>
-                                    </div>
-                                    <div class="main-prop-wrap text-left">
-                                        <div class="product-name text-light-c">Матрас</div>
-                                        <div class="product-prop">M1 - 80*190</div>
-                                        <div class="price-titile">Цена</div>
-                                        <div class="price-wrap clearfix">
-                                            <div class="price-old">18 843 грн</div>
-                                            <div class="price-new">110 306 грн</div>
+                                <div class="outer-wrapp rounded">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="close-wrap"><i class="close-i"></i></div>
+                                            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                                            <div class="discount">-20%</div>
                                         </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">Матрас</div>
+                                            <div class="product-prop">M1 - 80*190</div>
+                                            <div class="price-titile">Цена</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">18 843 грн</div>
+                                                <div class="price-new">110 306 грн</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-blue btn-block">Купить</button>
+                                        <div class="line"></div>
+                                        <ul>
+                                            <li class="d-sm-none"></li>
+                                            <li>180</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>90</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>22</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>160</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>296</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Пружинный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Односпальный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Средней жесткости</li>
+                                        </ul>
                                     </div>
-                                    <button class="btn btn-blue btn-block">Купить</button>
-                                    <div class="line"></div>
-                                    <ul>
-                                        <li>180</li>
-                                        <li>90</li>
-                                        <li>22</li>
-                                        <li>160</li>
-                                        <li>296</li>
-                                        <li>Пружинный</li>
-                                        <li>Односпальный</li>
-                                        <li>Средней жесткости</li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="outer-wrapp rounded">
-                                <div class="item-wrap">
-                                    <div class="product-img-wrap">
-                                        <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                                        <div class="discount">-20%</div>
-                                    </div>
-                                    <div class="main-prop-wrap text-left">
-                                        <div class="product-name text-light-c">Матрас</div>
-                                        <div class="product-prop">M1 - 80*190</div>
-                                        <div class="price-titile">Цена</div>
-                                        <div class="price-wrap clearfix">
-                                            <div class="price-old">18 843 грн</div>
-                                            <div class="price-new">110 306 грн</div>
+                                <div class="outer-wrapp rounded">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="close-wrap"><i class="close-i"></i></div>
+                                            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                                            <div class="discount">-20%</div>
                                         </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">Матрас</div>
+                                            <div class="product-prop">M1 - 80*190</div>
+                                            <div class="price-titile">Цена</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">18 843 грн</div>
+                                                <div class="price-new">110 306 грн</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-blue btn-block">Купить</button>
+                                        <div class="line"></div>
+                                        <ul>
+                                            <li class="d-sm-none"></li>
+                                            <li>180</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>90</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>22</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>160</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>296</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Пружинный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Односпальный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Средней жесткости</li>
+                                        </ul>
                                     </div>
-                                    <button class="btn btn-blue btn-block">Купить</button>
-                                    <div class="line"></div>
-                                    <ul>
-                                        <li>180</li>
-                                        <li>90</li>
-                                        <li>22</li>
-                                        <li>160</li>
-                                        <li>296</li>
-                                        <li>Пружинный</li>
-                                        <li>Односпальный</li>
-                                        <li>Средней жесткости</li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="outer-wrapp rounded">
-                                <div class="item-wrap">
-                                    <div class="product-img-wrap">
-                                        <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-                                        <div class="discount">-20%</div>
-                                    </div>
-                                    <div class="main-prop-wrap text-left">
-                                        <div class="product-name text-light-c">Матрас</div>
-                                        <div class="product-prop">M1 - 80*190</div>
-                                        <div class="price-titile">Цена</div>
-                                        <div class="price-wrap clearfix">
-                                            <div class="price-old">18 843 грн</div>
-                                            <div class="price-new">110 306 грн</div>
+                                <div class="outer-wrapp rounded">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="close-wrap"><i class="close-i"></i></div>
+                                            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                                            <div class="discount">-20%</div>
                                         </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">Матрас</div>
+                                            <div class="product-prop">M1 - 80*190</div>
+                                            <div class="price-titile">Цена</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">18 843 грн</div>
+                                                <div class="price-new">110 306 грн</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-blue btn-block">Купить</button>
+                                        <div class="line"></div>
+                                        <ul>
+                                            <li class="d-sm-none"></li>
+                                            <li>180</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>90</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>22</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>160</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>296</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Пружинный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Односпальный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Средней жесткости</li>
+                                        </ul>
                                     </div>
-                                    <button class="btn btn-blue btn-block">Купить</button>
-                                    <div class="line"></div>
-                                    <ul>
-                                        <li>180</li>
-                                        <li>90</li>
-                                        <li>22</li>
-                                        <li>160</li>
-                                        <li>296</li>
-                                        <li>Пружинный</li>
-                                        <li>Односпальный</li>
-                                        <li>Средней жесткости</li>
-                                    </ul>
+                                </div>
+                                <div class="outer-wrapp rounded">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="close-wrap"><i class="close-i"></i></div>
+                                            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                                            <div class="discount">-20%</div>
+                                        </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">Матрас</div>
+                                            <div class="product-prop">M1 - 80*190</div>
+                                            <div class="price-titile">Цена</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">18 843 грн</div>
+                                                <div class="price-new">110 306 грн</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-blue btn-block">Купить</button>
+                                        <div class="line"></div>
+                                        <ul>
+                                            <li class="d-sm-none"></li>
+                                            <li>180</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>90</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>22</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>160</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>296</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Пружинный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Односпальный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Средней жесткости</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="outer-wrapp rounded">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="close-wrap"><i class="close-i"></i></div>
+                                            <img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
+                                            <div class="discount">-20%</div>
+                                        </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">Матрас</div>
+                                            <div class="product-prop">M1 - 80*190</div>
+                                            <div class="price-titile">Цена</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">18 843 грн</div>
+                                                <div class="price-new">110 306 грн</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-blue btn-block">Купить</button>
+                                        <div class="line"></div>
+                                        <ul>
+                                            <li class="d-sm-none"></li>
+                                            <li>180</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>90</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>22</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>160</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>296</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Пружинный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Односпальный</li>
+                                            <li class="d-sm-none"></li>
+                                            <li>Средней жесткости</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -502,7 +868,7 @@
         <footer>
             <div class="footer-wrap">
                 <div class="row">
-                    <div class="col-lg-3 d-none d-md-block">
+                    <div class="col-6  col-lg-3">
                         <img src="/img/logo.png" alt="logo">
                         <div class="phone-footer-wrap">
                             <div class="text">09:00-20:00 (будни)</div>
@@ -511,7 +877,7 @@
                             <div class="text">Бесплатная линия</div>
                         </div>
                     </div>
-                    <div class="col-lg-3 socials d-none d-md-block">
+                    <div class="col-6  col-lg-3 socials">
                         <h6 class="title">Мы в соцсетях</h6>
                         <ul>
                             <li><a href="#">Facebook</a></li>
@@ -521,7 +887,7 @@
                         </ul>
                         <h6>Обратный звонок</h6>
                     </div>
-                    <div class="col-lg-3 pay d-none d-md-block">
+                    <div class="col-6 col-lg-3 pay">
                         <h6 class="title">Способы оплаты</h6>
                         <ul>
                             <li><a href="#">Приват 24</a></li>
@@ -531,7 +897,7 @@
                         </ul>
                         <h6 class="title">Отзывы о нас</h6>
                     </div>
-                    <div class="col-lg-3 other">
+                    <div class="col-6  col-lg-3 other">
                         <ul>
                             <li><a href="#">Новости</a></li>
                             <li><a href="#">О компании</a></li>
@@ -548,8 +914,43 @@
             <div class="text-center cop">2018 ООО "Вегас Украина"</div>
         </footer>
     </div>
-
 </div>
+    <script src="/js/init.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/slick.min.js"></script>
+    <script src="js/jquery-ui-1.8.23.custom.min.js" crossorigin="anonymous"></script>
+    <script src="js/jquery.mousewheel.min.js" crossorigin="anonymous"></script>
+    <script src="js/jquery.kinetic.min.js" crossorigin="anonymous"></script>
+    <script src="js/jquery.smoothdivscroll-1.3-min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $('.main-baner-wrap').slick({
+            dots: true,
+            prevArrow: '<div class="baner-prev-arrow"></div>',
+            nextArrow: '<div class="baner-next-arrow"></div>',
+            responsive: [
+                {
+                    breakpoint: 575,
+                    settings: {
+                        prevArrow: '',
+                        nextArrow: '',
+                    }
+                }
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
+            ]
+        });
+        $('.slider-wrap').slick({
+            dots: false,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            speed: 600,
+            useTransform: false,
+            prevArrow: '<div class="baner-prev-arrow"></div>',
+            nextArrow: '<div class="baner-next-arrow"></div>',
+            infinite: false,
+            variableWidth: true
+        });
+    </script>
 <script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript">
     $('.slider').slick({

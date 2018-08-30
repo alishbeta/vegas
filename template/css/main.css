@@ -269,7 +269,7 @@ ul {
     list-style: none; }
   ul.head-menu li {
     float: left;
-    margin-left: 40px; }
+    margin-left: 30px; }
 
 a {
   color: black; }
@@ -385,7 +385,7 @@ footer {
   margin: 13px 0 0 51px; }
 
 .icons-wrap {
-  margin-right: 50px; }
+  margin-right: 30px; }
   .icons-wrap .lang-swich-wrap {
     margin-bottom: 6px;
     text-align: right; }
@@ -632,6 +632,8 @@ nav.breadcrumb-wrap {
     -webkit-transition: 0.2s;
     transition: 0.2s; }
 
+.short-menu .side-logo-wrap {
+  display: none; }
 .short-menu .side-menu-wrap, .short-menu .all-menu-wrap .side-second-menu-wrap, .all-menu-wrap .short-menu .side-second-menu-wrap {
   width: 65px; }
   .short-menu .side-menu-wrap.open, .short-menu .all-menu-wrap .open.side-second-menu-wrap, .all-menu-wrap .short-menu .open.side-second-menu-wrap {
@@ -1563,6 +1565,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .cart .tabbed-content, .cart-popup-wrap .tabbed-content {
   margin-left: 0; }
 
+.compare .title-wrap h1 {
+  display: inline-block;
+  margin-right: 10px; }
+.compare .row {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 15px; }
 .compare [class*='col'] {
   padding: 0 0px; }
 .compare footer {
@@ -2510,7 +2519,7 @@ If you want to style everything yourself, you shouldn't need these
     margin: 28px 0 0 310px; }
 
   .short-menu .content-main-wrap .head-menu {
-    margin: 28px 0 0 60px; } }
+    margin: 28px 0 0 80px; } }
 @media (max-width: 992px) {
   .r-wrap {
     margin-left: 0; }
@@ -2522,7 +2531,16 @@ If you want to style everything yourself, you shouldn't need these
     padding-top: 75px; }
 
   .icons-wrap {
-    margin-right: 0; }
+    margin-right: 15px; }
+    .icons-wrap i {
+      margin-right: 10px;
+      margin-top: 22px; }
+      .icons-wrap i.hanburger {
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        left: 0;
+        margin-top: 15px; }
     .icons-wrap img {
       margin-left: 0;
       width: 110px;
@@ -2531,13 +2549,6 @@ If you want to style everything yourself, you shouldn't need these
       left: 61px;
       top: 25px; }
 
-  i.hanburger {
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    left: 0;
-    margin-top: 15px; }
-
   .content-main-wrap .header-wrap {
     width: 100%;
     margin-left: 0; }
@@ -2545,6 +2556,12 @@ If you want to style everything yourself, you shouldn't need these
       z-index: 1055;
       background-color: white;
       position: fixed; }
+
+  .short-menu .content-main-wrap .header-wrap {
+    width: 100%;
+    margin-left: 0; }
+  .short-menu .r-wrap {
+    margin-left: 0; }
 
   .slick-dots {
     bottom: -2px; }
@@ -2581,7 +2598,7 @@ If you want to style everything yourself, you shouldn't need these
       width: 180px; }
 
   .scrollComtent div.scrollWrapper {
-    height: 1120px; }
+    max-height: 1120px; }
     .scrollComtent div.scrollWrapper .outer-wrapp {
       width: 100%; }
 
@@ -2616,12 +2633,6 @@ If you want to style everything yourself, you shouldn't need these
     height: 100%;
     width: 100%;
     -webkit-overflow-scrolling: touch; }
-
-  .short-menu .content-main-wrap .header-wrap {
-    width: 100%;
-    margin-left: 0; }
-  .short-menu .r-wrap {
-    margin-left: 0; }
 
   nav.breadcrumb-wrap .breadcrumb {
     margin-left: 0; }
@@ -2808,7 +2819,9 @@ If you want to style everything yourself, you shouldn't need these
     margin-right: 10px; }
     .icons-wrap i {
       margin-right: 10px;
-      margin-top: 20px; }
+      margin-top: 22px; }
+    .icons-wrap i.hanburger {
+      margin-top: 15px; }
 
   .main-baner-wrap img {
     width: 100%;
@@ -2855,8 +2868,10 @@ If you want to style everything yourself, you shouldn't need these
     margin-left: 15px;
     display: none; }
 
-  .logo img {
-    width: 150px; }
+  .content-main-wrap .header-wrap .side-logo-wrap {
+    left: 90px; }
+    .content-main-wrap .header-wrap .side-logo-wrap .logo img {
+      width: 220px; }
 
   .icons-wrap img {
     height: 40px;
@@ -2951,6 +2966,73 @@ If you want to style everything yourself, you shouldn't need these
   .tabbed-content {
     padding: 0; }
     .tabbed-content .item {
-      margin: 15px -15px; } }
+      margin: 15px -15px; }
+
+  .compare .h1, .compare h1 {
+    font-size: 20px;
+    margin-bottom: 20px; }
+  .compare .row {
+    padding-left: 15px;
+    padding-right: 15px; }
+  .compare .optc-wrap {
+    position: static;
+    float: none;
+    width: 100%;
+    box-shadow: none;
+    padding: 0; }
+    .compare .optc-wrap .btn-blue {
+      display: none; }
+    .compare .optc-wrap .btn-link {
+      position: absolute;
+      top: 30px;
+      right: 10px;
+      width: 100px; }
+    .compare .optc-wrap .line {
+      display: none; }
+    .compare .optc-wrap .show-wrap {
+      margin-top: 15px; }
+      .compare .optc-wrap .show-wrap > div:first-child {
+        float: left;
+        height: 50px; }
+      .compare .optc-wrap .show-wrap div:first-child {
+        margin-bottom: 0; }
+  .compare .titles-wrap {
+    display: none; }
+  .compare .item-wrap {
+    width: 160px;
+    height: 350px;
+    padding: 0 10px; }
+    .compare .item-wrap img.product {
+      width: 100%;
+      height: auto; }
+    .compare .item-wrap .close-wrap {
+      right: 0px;
+      top: 10px; }
+  .compare .compare-content {
+    margin: 0 -15px; }
+    .compare .compare-content .m-titles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin: -5px auto 0;
+      width: 185px;
+      text-align: center;
+      font-weight: 600; }
+      .compare .compare-content .m-titles ul {
+        margin-top: 507px; }
+        .compare .compare-content .m-titles ul li {
+          height: 41px;
+          padding: 10px 0; }
+    .compare .compare-content .outer-wrapp li {
+      padding: 10px 10px;
+      margin: 0 -10px; }
+      .compare .compare-content .outer-wrapp li:nth-child(2n + 1) {
+        height: 41px;
+        background-color: transparent; }
+      .compare .compare-content .outer-wrapp li:nth-child(2n) {
+        background-color: #efefef; }
+  .compare i.close-i {
+    margin: 0; } }
 
 /*# sourceMappingURL=main.css.map */
