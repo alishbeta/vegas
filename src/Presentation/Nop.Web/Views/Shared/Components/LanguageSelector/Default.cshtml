@@ -51,7 +51,7 @@
 @inject IHttpContextAccessor httpContextAccessor
 @if (Model.AvailableLanguages.Count > 1)
 {
-    <div class="lang-swich-wrap d-none d-md-block">
+    <div class="lang-swich-wrap d-none d-lg-block">
         @{
             var rawUrl = webHelper.GetRawUrl(httpContextAccessor.HttpContext.Request);
             foreach (var language in Model.AvailableLanguages)

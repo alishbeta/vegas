@@ -15,18 +15,22 @@
     margin-right: 10px;
     i {
       margin-right: 10px;
-      margin-top: 20px;
+      margin-top: 22px;
+
+    }
+    i.hanburger {
+      margin-top: 15px;
     }
   }
 
-  .main-baner-wrap{
+  .main-baner-wrap {
     img {
       width: 100%;
       height: auto;
     }
   }
 
-  .slider-wrap{
+  .slider-wrap {
     .outer-wrapp, .items .outer-wrapp {
       position: relative;
       width: 100%;
@@ -74,9 +78,15 @@
     margin-left: 15px;
     display: none;
   }
-  .logo img {
-    width: 150px;
+
+
+  .content-main-wrap .header-wrap .side-logo-wrap {
+    left: 90px;
+    .logo img {
+      width: 220px;
+    }
   }
+
   .icons-wrap img {
     height: 40px;
     margin-left: 10px;

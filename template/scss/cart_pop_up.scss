@@ -22,6 +22,9 @@
     padding-top: 30px;
     padding-bottom: 15px;
     width: max-content;
+    .item.active {
+      border: none;
+    }
     .title-wrap{
       margin-left: 20px;
       h1{
@@ -39,12 +42,17 @@
         }
       }
     }
+    .total-wrap{
+      margin: -20px -55px 0;
+      padding: 40px 100px;
+    }
   }
   .similar-wrap{
     font-size: 16px;
   }
   .item-wrap{
-    width: 140px;
+    width: 148px;
+    height: auto;
     float: left;
     padding: 5px 5px 15px 5px;
     margin: 5px 5px 0 5px;
@@ -52,6 +60,7 @@
     img{
       width: 100%;
       margin-top: 0;
+      height: auto;
     }
     .product-name{
       font-size: 12px;

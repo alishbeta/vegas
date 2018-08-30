@@ -147,6 +147,9 @@ $i: 0;
 }
 
 .short-menu{
+  .side-logo-wrap{
+    display: none;
+  }
   .side-menu-wrap {
     width: 65px;
     &.open{
@@ -160,6 +163,7 @@ $i: 0;
     }
     .search-wrap{
       margin-top: -40px;
+
       input{
         display: none!important;
       }

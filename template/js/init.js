@@ -207,7 +207,7 @@ $(document).ready(function () {
     });
 
     /*#####################    Корзина   (Отображение popup)###############################*/
-    $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived)').on('click', function () {
+    $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived), .product .price-wrap .btn-blue').on('click', function () {
         $('.cart-popup-wrap').addClass('open');
         $('.back-shadow').fadeIn();
     });
