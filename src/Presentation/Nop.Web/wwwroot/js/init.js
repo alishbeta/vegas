@@ -192,7 +192,8 @@ $(document).ready(function () {
     /*#####################    Корзина   (Отображение popup)###############################*/
     $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived)').on('click', function () {
         $('.cart-popup-wrap').addClass('open');
-        $('.back-shadow').fadeIn();
+		$('.back-shadow').fadeIn();
+		UpdateCart();
     });
 
     /*#####################    Корзина  (Редактирование личных данных и адреса) ###############################*/
