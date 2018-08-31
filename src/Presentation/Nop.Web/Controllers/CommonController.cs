@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
@@ -6,6 +7,7 @@ using Nop.Core.Domain;
 using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Localization;
+using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Vendors;
@@ -14,6 +16,7 @@ using Nop.Services.Directory;
 using Nop.Services.Localization;
 using Nop.Services.Logging;
 using Nop.Services.Messages;
+using Nop.Services.Orders;
 using Nop.Services.Vendors;
 using Nop.Web.Factories;
 using Nop.Web.Framework.Localization;
@@ -88,12 +91,22 @@ namespace Nop.Web.Controllers
             this._vendorSettings = vendorSettings;
         }
 
-        #endregion
+		#endregion
 
-        #region Methods
-        
-        //page not found
-        public virtual IActionResult PageNotFound()
+		#region Methods
+
+		public dynamic GetWishlistCount()
+		{
+			var customer = _workContext.CurrentCustomer;
+			var WishlistItems = customer.ShoppingCartItems
+				  .Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
+				  .LimitPerStore(_storeContext.CurrentStore.Id)
+				  .Sum(item => item.Quantity);
+			return WishlistItems;
+		}
+
+		//page not found
+		public virtual IActionResult PageNotFound()
         {
             if (_commonSettings.Log404Errors)
             {

@@ -1,0 +1,49 @@
+﻿@model WishlistModel
+@using Nop.Core
+@using Nop.Core.Domain.Catalog
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@inject CatalogSettings catalogSettings
+@inject IWorkContext workContext
+
+@foreach (var item in Model.Items)
+{
+	//prepare "Add to cart" AJAX link
+	var addtocartlink = "";
+	var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+	var quantity = 1;
+	addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
+	var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
+	var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = item.Id });
+	<div class="item-wrap">
+		<div class="product-img-wrap">
+			<div>
+				<i class="compare_icon" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
+				<form asp-route="Wishlist" method="post">
+					<input type="hidden" checked="checked" name="removefromcart" value="@(item.Id)" />
+					<input type="submit" style="display: none;" class="close-i" id="subm" name="updatecart" value="@T("Wishlist.UpdateCart")" />
+					<i class="close-i" onclick="$('#subm').click()"></i>
+				</form>
+
+			</div>
+			<img class="product" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+			@if (item.Discount != "" && item.Discount != null)
+			{
+				<div class="discount">@item.Discount%</div>
+			}
+		</div>
+		<div class="main-prop-wrap text-left">
+			<div class="product-name text-light-c">@item.ProductName</div>
+			<div class="product-prop">@item.ProductSeName</div>
+			<div class="price-titile">Цена</div>
+			<div class="price-wrap clearfix">
+				@if (!string.IsNullOrEmpty(item.SubTotal))
+				{
+					<div class="price-old">@item.SubTotal</div>
+				}
+				<div class="price-new">@item.SubTotal</div>
+			</div>
+		</div>
+		<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
+	</div>
+}

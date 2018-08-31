@@ -1,0 +1,65 @@
+﻿@model WishlistModel
+@using Nop.Core
+@using Nop.Core.Domain.Catalog
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@inject CatalogSettings catalogSettings
+@inject IWorkContext workContext
+@{
+	Layout = "_ColumnsOne";
+
+	//title
+	Html.AddTitleParts(T("PageTitle.Wishlist").Text);
+	//page class
+	Html.AppendPageCssClassParts("html-wishlist-page");
+}
+<nav class="breadcrumb-wrap" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="#">Bed4you</a></li>
+		<li class="breadcrumb-item"><a href="#">Личный кабинет</a></li>
+		<li class="breadcrumb-item active">Контактная информация</li>
+	</ol>
+</nav>
+
+<div class="row cabinet">
+	<div class="offset-xl-1 col-xl-8">
+		<div class="title-wrap clearfix">
+			<h1 class="title float-left">Личный кабинет</h1>
+			<button class="btn btn-blue float-right">Выход</button>
+		</div>
+		<nav class="blue-menu clearfix">
+			<ul>
+				<li><a href="/customer/info">Контактная информация</a></li>
+				<li><a class="active" href="/customer/wishlist">Избранное <span id="wishlistCount"></span></a></li>
+				<li><a href="/order/history">История заказов</a></li>
+				<li><a href="/rewardpoints/history">Мои бонусы</a></li>
+			</ul>
+		</nav>
+		<div class="cabinet-info rounded">
+			<div class="row favorite-wrap">
+				<div class="title-wrap">
+					<h6><b>Избранное</b></h6>
+					<div class="close-wrap">
+						<i class="close-i"></i>
+						<button class="btn btn-link">Очистить список</button>
+					</div>
+				</div>
+				<div class="items">
+					@await Html.PartialAsync("_WishlistItems", Model)
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function () {
+		$.ajax({
+			url: "/Common/GetWishlistCount",
+			type: "POST",
+			dataType: 'text',
+			traditional: true
+		}).done(function (responce) {
+			$("#wishlistCount").text("(" + responce + ")");
+		});
+	});
+</script>

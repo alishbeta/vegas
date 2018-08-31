@@ -112,7 +112,7 @@
 		var currentPageIndex = parseInt($(".active a.page-link").text());
 		var pageIndex = pagesLoaded + currentPageIndex - 1;
 		$.ajax({
-			url: "catalog/getproducts",
+			url: "/ru/Catalog/GetProducts",
 			type: "POST",
 			dataType: 'json',
 			traditional: true,
