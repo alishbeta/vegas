@@ -29,6 +29,7 @@ namespace Nop.Web.Models.Order
             public string OrderStatus { get; set; }
             public string PaymentStatus { get; set; }
             public string ShippingStatus { get; set; }
+            public IEnumerable<OrderItem> OrderItems { get; set; }
             public DateTime CreatedOn { get; set; }
         }
 
