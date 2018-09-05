@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentValidation.Attributes;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Nop.Core.Domain.Topics;
 using Nop.Web.Areas.Admin.Validators.Topics;
 using Nop.Web.Framework.Models;
 using Nop.Web.Framework.Mvc.ModelBinding;
@@ -25,6 +26,8 @@ namespace Nop.Web.Areas.Admin.Models.Topics
 
             SelectedStoreIds = new List<int>();
             AvailableStores = new List<SelectListItem>();
+
+            AvailableCategories = new List<SelectListItem>();
         }
 
         #endregion
@@ -76,6 +79,9 @@ namespace Nop.Web.Areas.Admin.Models.Topics
         [NopResourceDisplayName("Admin.ContentManagement.Topics.Fields.TopicTemplate")]
         public int TopicTemplateId { get; set; }
 
+        [NopResourceDisplayName("Admin.ContentManagement.Topics.Fields.TopicCategory")]
+        public int TopicCategoryId { get; set; }
+
         public IList<SelectListItem> AvailableTopicTemplates { get; set; }
 
         [NopResourceDisplayName("Admin.ContentManagement.Topics.Fields.Tags")]
@@ -106,7 +112,7 @@ namespace Nop.Web.Areas.Admin.Models.Topics
         public IList<int> SelectedCustomerRoleIds { get; set; }
 
         public IList<SelectListItem> AvailableCustomerRoles { get; set; }
-
+        public IList<SelectListItem> AvailableCategories { get; set; }
         #endregion
     }
 

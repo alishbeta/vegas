@@ -27,31 +27,7 @@
 	Layout = "_ColumnsOne";
 	ViewData["class"] = "wrap short-menu cat";
 }
-@{
-	var OptionFilters = new List<Nop.Core.Domain.Catalog.SpecificationAttribute>();
-	var CustomTextFilters = new List<Nop.Core.Domain.Catalog.SpecificationAttribute>();
-	//var FilterValues = new List<FilterValuesModel>();
-}
-@foreach (var product in Model.AllProducts)
-{
-	foreach (var spec in product.ProductSpecificationAttributes)
-	{
-		if (spec.AttributeType == Nop.Core.Domain.Catalog.SpecificationAttributeType.Option)
-		{
-			if (OptionFilters.Count(x => x.Name == spec.SpecificationAttributeOption.SpecificationAttribute.Name) == 0)
-			{
-				OptionFilters.Add(spec.SpecificationAttributeOption.SpecificationAttribute);
-			}
-		}
-		else
-		{
-			if (CustomTextFilters.Count(x => x.Name == spec.SpecificationAttributeOption.SpecificationAttribute.Name) == 0)
-			{
-				CustomTextFilters.Add(spec.SpecificationAttributeOption.SpecificationAttribute);
-			}
-		}
-	}
-}
+
 @*category breadcrumb*@
 @section Breadcrumb
 	{
@@ -90,173 +66,7 @@
 	}
 }
 <div class="cat-content-wrap">
-	<div class="title text-center">
-		<h3><b>@Model.Name</b></h3>
-		<p>
-			<small>@Model.ProductsCount товаров</small>
-		</p>
-	</div>
-	<div class="filters-wrap clearfix">
-		<div class="f1">
-			<button class="btn btn-outline-secondary btn-sm vg-filter btn-display" type="button">
-				Показать фильтры
-			</button>
-			<button style="display: none;" class="btn btn-outline-secondary btn-sm vg-filter btn-close" type="button">
-				Скрыть фильтры
-			</button>
-		</div>
-		<div class="f2 d-none d-sm-block float-right">
-			<div class="btn-group">
-				<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="popular" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
-					По популярности
-				</button>
-				<div class="dropdown-menu keep_open" aria-labelledby="popular">
-					<div class="form-group">
-						<div class="form-check form-check-inline check-fly">
-							<input class="form-check-input" onclick="submitFilters()" value="1" name="orderby" type="radio" id="lr1" checked="">
-							<label for="lr1"></label>
-							<label class="col-form-label" for="lr1">По популярности</label>
-						</div>
-						<div class="form-check  form-check-inline check-fly">
-							<input class="form-check-input" onclick="submitFilters()" value="10" name="orderby" type="radio" id="lr2">
-							<label for="lr2"></label>
-							<label class="col-form-label" for="lr2">По возрастанию цены</label>
-						</div>
-						<div class="form-check  form-check-inline check-fly">
-							<input class="form-check-input" onclick="submitFilters()" value="11" name="orderby" type="radio" id="lr3">
-							<label for="lr3"></label>
-							<label class="col-form-label" for="lr3">По убыванию цены</label>
-						</div>
-						<div class="form-check  form-check-inline check-fly">
-							<input class="form-check-input" onclick="submitFilters()" value="16" name="orderby" type="radio" id="lr4">
-							<label for="lr4"></label>
-							<label class="col-form-label" for="lr4">По новинкам</label>
-						</div>
-						<div class="form-check  form-check-inline check-fly">
-							<input class="form-check-input" onclick="submitFilters()" value="5" name="orderby" type="radio" id="lr5">
-							<label for="lr5"></label>
-							<label class="col-form-label" for="lr5">По скидкам</label>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="btn-group">
-				<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
-					По группам
-				</button>
-				<div class="dropdown-menu" aria-labelledby="group">
-					<a class="dropdown-item" href="#">,kf ,kf</a>
-					<a class="dropdown-item" href="#">Another action</a>
-					<a class="dropdown-item" href="#">Something else here</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="mobile-f d-sm-none">
-		<div class="btn-group">
-			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="popular" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
-				По популярности
-			</button>
-			<div class="dropdown-menu" aria-labelledby="popular">
-				<a class="dropdown-item" href="#">Action</a>
-				<a class="dropdown-item" href="#">Another action</a>
-				<a class="dropdown-item" href="#">Something else here</a>
-			</div>
-		</div>
-		<div class="btn-group">
-			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
-				По группам
-			</button>
-			<div class="dropdown-menu" aria-labelledby="group">
-				<a class="dropdown-item" href="#">,kf ,kf</a>
-				<a class="dropdown-item" href="#">Another action</a>
-				<a class="dropdown-item" href="#">Something else here</a>
-			</div>
-		</div>
-	</div>
-	<div class="items clearfix">
-		<div class="filters-data">
-			<div class="inner-wrap f-slider" data-filter-number="1" data-min="0" data-max="15000">
-				<div class="title">Цена (грн)</div>
-				<div class="form-inline">
-					<div class="form-group">
-						<span>от: </span>
-						<input class="form-control" name="MinPrice" type="text" id="slider-1-a1">
-						<span>до: </span>
-						<input class="form-control" name="MaxPrice" type="text" id="slider-1-a2">
-					</div>
-				</div>
-				<div id="slider-1-r" class="slider-range"></div>
-			</div>
-			@{
-				int filterNum = 2;
-			}
-			<div id="CustomFilters">
-				@foreach (var filter in CustomTextFilters)
-				{
-					<div class="inner-wrap f-slider" data-filter-number="@filterNum" data-min="0" data-max="200">
-						<div class="title">@filter.Name</div>
-						<div class="form-inline">
-							<div class="form-group">
-								<input type="hidden" name="filterId" value="@filter.Id" />
-								<span>от: </span><input class="form-control" type="text" id="slider-@filterNum-a1">
-								<span>до: </span><input class="form-control" type="text" id="slider-@filterNum-a2">
-							</div>
-						</div>
-						<div id="slider-@filterNum-r" class="slider-range"></div>
-					</div>
-					{
-						filterNum++;
-					}
-				}
-			</div>
-			@foreach (var filter in OptionFilters)
-			{
-				<div class="inner-wrap">
-					<div class="title">@filter.Name</div>
-					@foreach (var specValue in filter.SpecificationAttributeOptions)
-					{
-						<div class="form-check">
-							<input class="form-check-input" name="@filter.Id" type="checkbox" value="@specValue.Id">
-							<label class="form-check-label">
-								@specValue.Name
-								<small>@Model.AllProducts.Count(x => x.ProductSpecificationAttributes.Count(u => u.SpecificationAttributeOption.Name == specValue.Name) > 0)</small>
-							</label>
-						</div>
-					}
-				</div>
-			}
-			<div class="inner-wrap text-center">
-				<div class="btn-group-vertical">
-					<button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">Применить</button>
-					<button class="btn btn-link">Очистить фильтры</button>
-				</div>
-			</div>
-		</div>
-		@if (Model.Products.Count > 0)
-		{
-			<div class="prod-wrap float-right" id="prods">
-				@foreach (var product in Model.Products)
-				{
-					@await Html.PartialAsync("_ProductBox", product)
-				}
-			</div>
-		}
-
-		@{
-			var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
-		}
-		@if (!pager.IsEmpty())
-		{
-			<div class="more-wrapp text-center mt-3 mb-3">
-				<button class="btn btn-sm btn-blue-white d-none d-md-inline-block" id="loadMore">@T("cat.more")</button>
-				<nav class="float-right" aria-label="">
-					@pager
-				</nav>
-			</div>
-		}
-		@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBottom, additionalData = Model })
-	</div>
+		@await Html.PartialAsync("_FiltersBox", Model);
 </div>
 @await Component.InvokeAsync("RecentlyViewedProductsBlock", new { productThumbPictureSize = 450, preparePriceModel = true })
 
@@ -302,7 +112,7 @@
 		var currentPageIndex = parseInt($(".active a.page-link").text());
 		var pageIndex = pagesLoaded + currentPageIndex - 1;
 		$.ajax({
-			url: "catalog/getproducts",
+			url: "/ru/Catalog/GetProducts",
 			type: "POST",
 			dataType: 'json',
 			traditional: true,

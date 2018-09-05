@@ -92,8 +92,16 @@ namespace Nop.Web.Infrastructure
             routeBuilder.MapLocalizedRoute("RecentlyViewedProducts", "recentlyviewedproducts/",
 				new { controller = "Product", action = "RecentlyViewedProducts" });
 
-            //new products
-            routeBuilder.MapLocalizedRoute("NewProducts", "newproducts/",
+			//wishlist count
+			routeBuilder.MapLocalizedRoute("GetWishlistCount", "Common/GetWishlistCount/",
+				new { controller = "Common", action = "GetWishlistCount" });
+				
+			//customer wishlist
+			routeBuilder.MapLocalizedRoute("GetCustomerWishlist", "/customer/wishlist",
+				new { controller = "Customer", action = "Wishlist" });
+
+			//new products
+			routeBuilder.MapLocalizedRoute("NewProducts", "newproducts/",
 				new { controller = "Product", action = "NewProducts" });
 				 
 			//our stores
@@ -109,7 +117,7 @@ namespace Nop.Web.Infrastructure
 				new { controller = "Common", action = "StoreInfo" });
 
 			//get products
-			routeBuilder.MapLocalizedRoute("GetProducts", "catalog/getproducts/",
+			routeBuilder.MapLocalizedRoute("GetProducts", "Catalog/GetProducts/",
 				new { controller = "Catalog", action = "GetProducts" });  
 
 			//get cart

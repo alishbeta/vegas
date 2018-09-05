@@ -93,7 +93,7 @@ $(document).ready(function () {
             i++;
         });*/
 
-    $('.header-wrap .user_icon').on('click', function () {
+	$('.header-wrap #non-authorized .user_icon').on('click', function () {
         $('.back-shadow, .login-form-wrap').fadeIn();
     });
     $('.login-form-wrap .close-i').on('click', function () {
@@ -192,7 +192,8 @@ $(document).ready(function () {
     /*#####################    Корзина   (Отображение popup)###############################*/
     $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived)').on('click', function () {
         $('.cart-popup-wrap').addClass('open');
-        $('.back-shadow').fadeIn();
+		$('.back-shadow').fadeIn();
+		UpdateCart();
     });
 
     /*#####################    Корзина  (Редактирование личных данных и адреса) ###############################*/

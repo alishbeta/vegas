@@ -141,7 +141,8 @@ namespace Nop.Web.Factories
                     PaymentStatus = _localizationService.GetLocalizedEnum(order.PaymentStatus),
                     ShippingStatus = _localizationService.GetLocalizedEnum(order.ShippingStatus),
                     IsReturnRequestAllowed = _orderProcessingService.IsReturnRequestAllowed(order),
-                    CustomOrderNumber = order.CustomOrderNumber
+                    CustomOrderNumber = order.CustomOrderNumber,
+					OrderItems = order.OrderItems
                 };
                 var orderTotalInCustomerCurrency = _currencyService.ConvertCurrency(order.OrderTotal, order.CurrencyRate);
                 orderModel.OrderTotal = _priceFormatter.FormatPrice(orderTotalInCustomerCurrency, true, order.CustomerCurrencyCode, false, _workContext.WorkingLanguage);

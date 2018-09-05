@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -63,6 +64,39 @@ namespace Nop.Web.Areas.Admin.Factories
         #endregion
 
         #region Methods
+
+        public virtual TopicCategoryModel PrepareTopicCategoryModel(TopicCategoryModel model, TopicCategory topic, bool excludeProperties = false)
+        {
+            Action<TopicCategoryLocalizedModel, int> localizedModelConfiguration = null;
+
+            if (topic != null)
+            {
+                //fill in model values from the entity
+                model = model ?? topic.ToModel<TopicCategoryModel>();
+
+                //define localized model configuration action
+                localizedModelConfiguration = (locale, languageId) =>
+                {
+                    locale.Name = _localizationService.GetLocalized(topic, entity => entity.Name, languageId, false, false);
+                    locale.MetaKeywords = _localizationService.GetLocalized(topic, entity => entity.MetaKeywords, languageId, false, false);
+                    locale.MetaDescription = _localizationService.GetLocalized(topic, entity => entity.MetaDescription, languageId, false, false);
+                    locale.MetaTitle = _localizationService.GetLocalized(topic, entity => entity.MetaTitle, languageId, false, false);
+                };
+            }
+
+            //prepare localized models
+            if (!excludeProperties)
+                model.Locales = _localizedModelFactory.PrepareLocalizedModels(localizedModelConfiguration);
+
+            model.TopicCategories.Add(new TopicCategory() { Id = 0, Name = "ROOT" });
+            _topicService
+                .GetAllTopicCategories()
+                .Where(x => x.Id != topic?.Id)
+                .ToList()
+                .ForEach(x => model.TopicCategories.Add(x));
+
+            return model;
+        }
 
         public virtual TopicCategoryListModel PrepareTopicCategoryListModel(TopicSearchModel searchModel)
         {
@@ -204,6 +238,11 @@ namespace Nop.Web.Areas.Admin.Factories
 
             //prepare model stores
             _storeMappingSupportedModelFactory.PrepareModelStores(model, topic, excludeProperties);
+
+            model.AvailableCategories = _topicService
+                .GetAllTopicCategories()
+                .Select(x => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem() { Value = x.Id.ToString(), Text = x.Name })
+                .ToList();
 
             return model;
         }

@@ -13,6 +13,7 @@ using Nop.Core.Domain.Gdpr;
 using Nop.Core.Domain.Localization;
 using Nop.Core.Domain.Media;
 using Nop.Core.Domain.Messages;
+using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Tax;
 using Nop.Services.Authentication;
@@ -40,6 +41,7 @@ using Nop.Web.Framework.Security;
 using Nop.Web.Framework.Security.Captcha;
 using Nop.Web.Framework.Validators;
 using Nop.Web.Models.Customer;
+using Nop.Web.Models.ShoppingCart;
 
 namespace Nop.Web.Controllers
 {
@@ -68,7 +70,8 @@ namespace Nop.Web.Controllers
         private readonly ICustomerService _customerService;
         private readonly IEventPublisher _eventPublisher;
         private readonly IExportManager _exportManager;
-        private readonly IExternalAuthenticationService _externalAuthenticationService;
+		private readonly IShoppingCartModelFactory _shoppingCartModelFactory;
+		private readonly IExternalAuthenticationService _externalAuthenticationService;
         private readonly IGdprService _gdprService;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly IGiftCardService _giftCardService;
@@ -110,7 +113,8 @@ namespace Nop.Web.Controllers
             ICustomerAttributeService customerAttributeService,
             ICustomerModelFactory customerModelFactory,
             ICustomerRegistrationService customerRegistrationService,
-            ICustomerService customerService,
+			IShoppingCartModelFactory shoppingCartModelFactory,
+			ICustomerService customerService,
             IEventPublisher eventPublisher,
             IExportManager exportManager,
             IExternalAuthenticationService externalAuthenticationService,
@@ -146,7 +150,8 @@ namespace Nop.Web.Controllers
             this._authenticationService = authenticationService;
             this._countryService = countryService;
             this._currencyService = currencyService;
-            this._customerActivityService = customerActivityService;
+			this._shoppingCartModelFactory = shoppingCartModelFactory;
+			this._customerActivityService = customerActivityService;
             this._customerAttributeParser = customerAttributeParser;
             this._customerAttributeService = customerAttributeService;
             this._customerModelFactory = customerModelFactory;
@@ -258,13 +263,30 @@ namespace Nop.Web.Controllers
             return attributesXml;
         }
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        #region Login / logout
+		[HttpsRequirement(SslRequirement.Yes)]
+		public virtual IActionResult Wishlist(Guid? customerGuid)
+		{
+			var customer = customerGuid.HasValue ?
+				_customerService.GetCustomerByGuid(customerGuid.Value)
+				: _workContext.CurrentCustomer;
+			if (customer == null)
+				return RedirectToRoute("HomePage");
+			var cart = customer.ShoppingCartItems
+				.Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
+				.LimitPerStore(_storeContext.CurrentStore.Id)
+				.ToList();
+			var model = new WishlistModel();
+			model = _shoppingCartModelFactory.PrepareWishlistModel(model, cart, !customerGuid.HasValue);
+			return View(model);
+		}
 
-        [HttpsRequirement(SslRequirement.Yes)]
+		#region Login / logout
+
+		[HttpsRequirement(SslRequirement.Yes)]
         //available even when a store is closed
         [CheckAccessClosedStore(true)]
         //available even when navigation is not allowed
@@ -817,9 +839,9 @@ namespace Nop.Web.Controllers
                                 //send customer welcome message
                                 _workflowMessageService.SendCustomerWelcomeMessage(customer, _workContext.WorkingLanguage.Id);
 
-                                var redirectUrl = Url.RouteUrl("RegisterResult", new { resultId = (int)UserRegistrationType.Standard }, _webHelper.CurrentRequestProtocol);
+								var redirectUrl = "/";
                                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                                    redirectUrl = _webHelper.ModifyQueryString(redirectUrl, "returnurl", returnUrl);
+                                    redirectUrl = returnUrl;
                                 return Redirect(redirectUrl);
                             }
                         default:

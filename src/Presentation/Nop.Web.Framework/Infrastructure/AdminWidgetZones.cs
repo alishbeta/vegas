@@ -389,6 +389,7 @@
         public static string TaxSettingsButtons => "admin_tax_settings_buttons";
         public static string TaxSettingsTop => "admin_tax_settings_top";
         public static string TopicDetailsButtons => "admin_topic_details_buttons";
+        public static string TopicCategoryDetailsButtons => "admin_topic_category_details_buttons";
         public static string TopicDetailsInfoBottom => "admin_topic_details_info_bottom";
         public static string TopicDetailsInfoTop => "admin_topic_details_info_top";
         public static string TopicDetailsSeoBottom => "admin_topic_details_seo_bottom";

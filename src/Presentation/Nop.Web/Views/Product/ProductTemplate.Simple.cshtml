@@ -200,9 +200,9 @@
 	{
 	@await Html.PartialAsync("_ProductBreadcrumb", Model.Breadcrumb)
 }
-<div class="container-fluid product-content-wrap">
-	<div class="row product">
-		<div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
+<div class="product">
+	<div class="container-fluid">
+		<div class="row product-content-wrap" itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
 			<div class="float-left left-wrap">
 				<div class="clearfix">
 					<div class="title float-left">
@@ -210,11 +210,17 @@
 							<b>@Model.Name</b>
 						</h3>
 						<p class="icons-wrap">
-							<i class="star"></i>
-							<i class="star"></i>
-							<i class="star"></i>
-							<i class="star"></i>
-							<i class="star"></i>
+							@for (int i = 0; i < 5; i++)
+							{
+								if (Model.ProductReviewOverview.RatingSum > i)
+								{
+									<i class="star"></i>
+								}
+								else
+								{
+									<i class="star grey"></i>
+								}
+							}
 							<small>@T("prod.rate")</small>
 						</p>
 					</div>
@@ -225,126 +231,123 @@
 				</div>
 				<!--product pictures-->
 				@await Html.PartialAsync("_ProductDetailsPictures", Model)
-				<div class="tabs-wraper">
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item">
-							<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-							   aria-controls="home" aria-selected="true">@T("prod.description")</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-							   aria-controls="profile" aria-selected="false">@T("prod.spec")</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-							   aria-controls="contact" aria-selected="false">@T("prod.reviews")</a>
-							<div class="bg">
-								<div>@Model.ProductReviewOverview.TotalReviews</div>
+				<div class="float-left right-wrap">
+					<div class="opt-wrap">
+						<div class="price-wrap">
+							@if (@Model.ProductPrice.Discount.ToString("#.##") != "")
+							{
+								<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
+							}
+							<div class="title">@T("prod.price")</div>
+							<div class="price mt-2">@Model.ProductPrice.PriceWithDiscount</div>
+							<div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.Price</s></div>
+							<div class="text-center mt-3 mb-2"><a href="#">Наличие в салонах</a></div>
+							<div class="btn-group-vertical btn-block">
+								@{
+									var dataDictAddToCart = new ViewDataDictionary(ViewData);
+							dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+									@await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
+								}
+								<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
 							</div>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" id="3-tab" data-toggle="tab" href="#contact" role="tab"
-							   aria-controls="contact" aria-selected="false">@T("prod.questions")</a>
-							<div class="bg">
-								<div>0</div>
-							</div>
-						</li>
-					</ul>
-					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade show active" id="home" role="tabpanel"
-							 aria-labelledby="home-tab">
-							<p>
-								@Html.Raw(Model.FullDescription)
-							</p>
+							<div class="icons-wrap d-block ml-3">
+								@{
+									var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
+							dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+									@await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
+								}
+								@await Html.PartialAsync("_CompareProductsButton", Model)
+								@*<button class="btn btn-blue mb-2 rounded" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">В корзину</button>
+							<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
 						</div>
-						<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+						<div class="icons-wrap d-block ml-3">
+							<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
+							<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
+							</div>
+						</div>
+						<div class="line"></div>
+						<div class="prop-wrap">
+							<div class="size-prop-wrap">
+								<div>Размер матраса</div>
+								<div class="drop-wrap">
+									<div class="w">Ширина</div>
+									<div class="h">Длина</div>
+									<div class="dropdown">
+										<button class="btn btn-light dropdown-toggle mt-4" type="button"
+												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">
+											160 см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;200 см
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="#">160 см х 200 см</a>
+											<a class="dropdown-item" href="#">180 см х 200 см</a>
+											<a class="dropdown-item" href="#">190 см х 200 см</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="color-title">
+								<span>Цвет</span>
+								<span><a href="#">Показать другие варианты</a></span>
+							</div>
+							<div class="color-select">
+								<div class="box-color mr-3"></div>
+								<span class="title">Trinity Cream</span>
+							</div>
+							<div class="mb-3 mt-3">Дополнительные опции</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+								<label class="form-check-label" for="defaultCheck1">
+									Подьемный механизм
+								</label>
+								<div class="over-price d-inline-block ml-2">+5 283</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<article class="tabbed-content">
+					<nav class="tabs">
+						<ul>
+							<li><a href="#tab1" class="active">@T("prod.description")</a></li>
+							<li><a href="#tab2">@T("prod.spec")</a></li>
+							<li>
+								<a href="#tab3">@T("prod.reviews")</a>
+								<div class="bg">
+									<div>@Model.ProductReviewOverview.TotalReviews</div>
+								</div>
+							</li>
+							<li>
+								<a href="#tab3">@T("prod.questions")</a>
+								<div class="bg">
+									<div>10</div>
+								</div>
+							</li>
+						</ul>
+					</nav>
+					<section id="tab1" class="item active" data-title="@T("prod.description")">
+						<div class="item-content">
+							@Html.Raw(Model.FullDescription)
+						</div>
+					</section>
+					<section id="tab2" class="item" data-title="@T("prod.spec")">
+						<div class="item-content">
 							@foreach (var specification in Model.ProductSpecifications)
 							{
 								<p>@specification.SpecificationAttributeName @Html.Raw(specification.ValueRaw)</p>
 							}
 						</div>
-						<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-							...
+					</section>
+					<section id="tab3" class="item" data-title="@T("prod.reviews")">
+						<div class="item-content">
+							Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
 						</div>
-						<div class="tab-pane fade" id="3" role="tabpanel" aria-labelledby="contact-tab">
-							...
+					</section>
+					<section id="tab4" class="item" data-title="@T("prod.questions")">
+						<div class="item-content">
+							Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
 						</div>
-					</div>
-				</div>
-			</div>
-			<div class="float-left right-wrap">
-				<div class="opt-wrap">
-					<div class="price-wrap">
-						@if (@Model.ProductPrice.Discount.ToString("#.##") != "")
-						{
-							<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
-						}
-						<div class="title">@T("prod.price")</div>
-						<div class="price mt-2">@Model.ProductPrice.PriceWithDiscount</div>
-						<div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.Price</s></div>
-						<div class="text-center mt-3 mb-2"><a href="#">Наличие в салонах</a></div>
-						<div class="btn-group-vertical btn-block">
-							@{
-								var dataDictAddToCart = new ViewDataDictionary(ViewData);
-								dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
-								@await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
-							}
-							<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
-						</div>
-						<div class="icons-wrap d-block ml-3">
-							@{
-								var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
-								dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
-								@await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
-							}
-							@await Html.PartialAsync("_CompareProductsButton", Model)
-							@*<button class="btn btn-blue mb-2 rounded" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">В корзину</button>
-				<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
-			</div>
-			<div class="icons-wrap d-block ml-3">
-				<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
-				<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
-						</div>
-					</div>
-					<div class="line"></div>
-					<div class="prop-wrap">
-						<div class="size-prop-wrap">
-							<div>Размер матраса</div>
-							<div class="drop-wrap">
-								<div class="w">Ширина</div>
-								<div class="h">Длина</div>
-								<div class="dropdown">
-									<button class="btn btn-light dropdown-toggle mt-4" type="button"
-											id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-											aria-expanded="false">
-										160 см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;200 см
-									</button>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a class="dropdown-item" href="#">160 см х 200 см</a>
-										<a class="dropdown-item" href="#">180 см х 200 см</a>
-										<a class="dropdown-item" href="#">190 см х 200 см</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="color-title mb-3">
-							<span>Цвет</span>
-							<span><a href="#">Показать другие варианты</a></span>
-						</div>
-						<div class="color-select">
-							<div class="box-color mr-3"></div>
-							<span class="title">Trinity Cream</span>
-						</div>
-						<div class="mb-3 mt-3">Дополнительные опции</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-							<label class="form-check-label" for="defaultCheck1">
-								Подьемный механизм
-							</label>
-							<div class="over-price d-inline-block ml-2">+5 283</div>
-						</div>
-					</div>
-				</div>
+					</section>
+				</article>
 			</div>
 		</div>
 	</div>
