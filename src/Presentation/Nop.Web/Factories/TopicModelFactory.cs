@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Nop.Core;
 using Nop.Core.Caching;
@@ -110,7 +111,21 @@ namespace Nop.Web.Factories
             });
 
             return cachedModel;
+        } 
+        public virtual Topic PrepareTopicById(int topicId)
+        {
+			return _topicService.GetTopicById(topicId);
         }
+
+		public virtual IList<Topic> PrepareTopicListModel(int storeId)
+		{
+			var topics = new List<int>() { 5 };	 //main topic id
+			foreach (var topicCategory in _topicService.GetAllTopicCategories().Where(x => x.ParentId == 5))
+			{
+				topics.Add(topicCategory.Id);
+			}
+			return _topicService.GetAllTopics(storeId).Where(x => topics.Contains(x.TopicCategoryId)).ToList(); 
+		}
 
         /// <summary>
         /// Get the topic model by topic system name

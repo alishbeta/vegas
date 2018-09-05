@@ -1,0 +1,62 @@
+﻿@using Nop.Core.Domain.Topics;
+@model IList<Topic>
+
+@{
+	Layout = "_ColumnsOne";
+}
+<nav class="breadcrumb-wrap" aria-label="breadcrumb"></nav>
+
+<div class="row news">
+	<div class="offset-xl-1 col-xl-11">
+		<h1 class="title">Статьи</h1>
+		<nav class="blue-menu">
+			<ul class="clearfix" id="links">
+				<li><a href="#" id="cat0" class="active" onclick="ShowOnly('#cat0')">Все статьи</a></li>
+				@foreach (var item in Model)
+				{
+				<li><a href="#" id="@(string.Format("cat{0}", item.TopicCategoryId))" onclick="ShowOnly(@(string.Format("'#cat{0}'", item.TopicCategoryId)))">@T(string.Format("topic.category{0}", item.TopicCategoryId))</a></li>
+				}
+			</ul>
+		</nav>
+		<div class="article-wrap" id="items">
+			@foreach (var item in Model)
+			{
+				<div class="item-wrap @(string.Format("cat{0}", item.TopicCategoryId))">
+					<div class="img-wrap">
+						<img src="/img/news.png" alt="news">
+						<div class="label">@T(string.Format("topic.category{0}", item.TopicCategoryId))</div>
+					</div>
+					<div class="text-wrap">
+						<div class="title"><a href='/topic/topicdetails?topicId=@item.Id'>@item.Title</a></div>
+						<div class="short-text">
+							@Html.Raw(item.Body)
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+<script>
+	function ShowOnly(id) {
+		//changing active button
+		$("#links a.active").each(function (element) {
+			$(this).removeClass("active");
+		});
+		console.log(this);
+		$(id).addClass("active");
+		//hiding elements
+		id = id.replace('#', '.');
+		if (id == ".cat0") {
+			$("#items div.item-wrap").each(function () {
+				$(this).css("display", "block");
+			});
+		}
+		else {
+			$("#items div.item-wrap").each(function () {
+				$(this).css("display", "none");
+			});
+			$(id).css("display", "block");
+		}
+	}
+</script>

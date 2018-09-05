@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Nop.Core;
 using Nop.Services.Localization;
 using Nop.Services.Security;
 using Nop.Services.Stores;
@@ -20,24 +21,27 @@ namespace Nop.Web.Controllers
         private readonly IStoreMappingService _storeMappingService;
         private readonly ITopicModelFactory _topicModelFactory;
         private readonly ITopicService _topicService;
+		private readonly IStoreContext _storeContext;
 
-        #endregion
+		#endregion
 
-        #region Ctor
+		#region Ctor
 
-        public TopicController(IAclService aclService,
+		public TopicController(IAclService aclService,
             ILocalizationService localizationService,
             IPermissionService permissionService,
             IStoreMappingService storeMappingService,
             ITopicModelFactory topicModelFactory,
-            ITopicService topicService)
+			IStoreContext storeContext,
+			ITopicService topicService)
         {
             this._aclService = aclService;
             this._localizationService = localizationService;
             this._permissionService = permissionService;
             this._storeMappingService = storeMappingService;
             this._topicModelFactory = topicModelFactory;
-            this._topicService = topicService;
+			this._storeContext = storeContext;
+			this._topicService = topicService;
         }
 
         #endregion
@@ -61,7 +65,33 @@ namespace Nop.Web.Controllers
             var templateViewPath = _topicModelFactory.PrepareTemplateViewPath(model.TopicTemplateId);
 			//ViewData["class"] = "wrap news";
 			return View(templateViewPath, model);
+        } 
+
+		[HttpsRequirement(SslRequirement.No)]
+        public virtual IActionResult CustomTopicDetails(int topicId)
+        {
+            var model = _topicModelFactory.PrepareTopicById(topicId);
+            var hasAdminAccess = _permissionService.Authorize(StandardPermissionProvider.AccessAdminPanel) && _permissionService.Authorize(StandardPermissionProvider.ManageTopics);
+            //access to Topics preview
+            if (model == null || (!model.Published && !hasAdminAccess))
+                return RedirectToRoute("HomePage");
+            
+            //display "edit" (manage) link
+            if (hasAdminAccess)
+                DisplayEditLink(Url.Action("Edit", "Topic", new { id = model.Id, area = AreaNames.Admin }));
+
+            //template
+            var templateViewPath = _topicModelFactory.PrepareTemplateViewPath(model.TopicTemplateId);
+			//ViewData["class"] = "wrap news";
+			return View(templateViewPath, model);
         }
+
+		public virtual IActionResult ArticlesList()
+		{
+			var storeId = _storeContext.CurrentStore.Id;
+			var model = _topicModelFactory.PrepareTopicListModel(storeId);
+			return View(model);
+		}
 
         public virtual IActionResult TopicDetailsPopup(string systemName)
         {

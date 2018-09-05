@@ -1,0 +1,34 @@
+﻿@using Nop.Core.Domain.Topics;
+@model Topic
+@using Nop.Core.Domain.Seo
+@inject Nop.Core.IWebHelper webHelper
+@inject SeoSettings seoSettings
+@{
+	var isPopup = ViewBag.IsPopup;
+	if (isPopup == null || isPopup == false)
+	{
+		Layout = "_ColumnsOne";
+	}
+
+	//page class
+	Html.AppendPageCssClassParts("html-topic-page");
+}
+<nav class="breadcrumb-wrap" aria-label="breadcrumb">
+</nav>
+<div class="row news">
+	<div class="col-md-12 col-lg-12 offset-xl-1 col-xl-9">
+		<div class="news-full-wrap">
+			<h1 class="title">@Model.Title <span class="date">@T(string.Format("topic.category{0}", Model.TopicCategoryId))</span></h1>
+			<div class="img-wrap">
+				<img src="https://via.placeholder.com/920x500" alt="">
+			</div>
+			<div class="text">
+				@Html.Raw(Model.Body)
+			</div>
+			<div class="btn-wrap">
+				<button class="btn btn-link">< Открытие нового салона в Киеве</button>
+				<button class="btn btn-link">Расширение ассортимента кроватей ></button>
+			</div>
+		</div>
+	</div>
+</div>
