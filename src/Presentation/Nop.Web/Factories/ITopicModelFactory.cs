@@ -1,4 +1,6 @@
-﻿using Nop.Web.Models.Topics;
+﻿using Nop.Core.Domain.Topics;
+using Nop.Web.Models.Topics;
+using System.Collections.Generic;
 
 namespace Nop.Web.Factories
 {
@@ -13,6 +15,7 @@ namespace Nop.Web.Factories
         /// <param name="topicId">Topic identifier</param>
         /// <returns>Topic model</returns>
         TopicModel PrepareTopicModelById(int topicId);
+        CustomTopicModel PrepareTopicById(int topicId);
 
         /// <summary>
         /// Get the topic model by topic system name
@@ -21,11 +24,13 @@ namespace Nop.Web.Factories
         /// <returns>Topic model</returns>
         TopicModel PrepareTopicModelBySystemName(string systemName);
 
-        /// <summary>
-        /// Get the topic template view path
-        /// </summary>
-        /// <param name="topicTemplateId">Topic template identifier</param>
-        /// <returns>View path</returns>
-        string PrepareTemplateViewPath(int topicTemplateId);
+		IList<Topic> PrepareTopicListModel(int storeId);
+
+		/// <summary>
+		/// Get the topic template view path
+		/// </summary>
+		/// <param name="topicTemplateId">Topic template identifier</param>
+		/// <returns>View path</returns>
+		string PrepareTemplateViewPath(int topicTemplateId);
     }
 }

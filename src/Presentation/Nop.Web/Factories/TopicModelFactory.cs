@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Nop.Core;
 using Nop.Core.Caching;
@@ -110,7 +111,27 @@ namespace Nop.Web.Factories
             });
 
             return cachedModel;
+        } 
+        public virtual CustomTopicModel PrepareTopicById(int topicId)
+		{
+			var storeId = _storeContext.CurrentStore.Id;
+			var model = new CustomTopicModel();
+			model.Topic = _topicService.GetTopicById(topicId);
+			var test = _topicService.GetAllTopics(storeId);
+			model.PreviousTopic = _topicService.GetAllTopics(storeId).FirstOrDefault(x => x.TopicCategoryId == model.Topic.TopicCategoryId && x.Id < topicId);
+			model.NextTopic = _topicService.GetAllTopics(storeId).FirstOrDefault(x => x.TopicCategoryId == model.Topic.TopicCategoryId && x.Id > topicId);
+			return model;
         }
+
+		public virtual IList<Topic> PrepareTopicListModel(int storeId)
+		{
+			var topics = new List<int>() { 5 };	 //main topic id
+			foreach (var topicCategory in _topicService.GetAllTopicCategories().Where(x => x.ParentId == 5))
+			{
+				topics.Add(topicCategory.Id);
+			}
+			return _topicService.GetAllTopics(storeId).Where(x => topics.Contains(x.TopicCategoryId)).ToList(); 
+		}
 
         /// <summary>
         /// Get the topic model by topic system name
