@@ -470,8 +470,8 @@ footer {
 .icons-wrap i {
   position: relative;
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   margin-right: 15px;
   font-size: 12px;
   font-style: normal;
@@ -532,7 +532,10 @@ footer {
   position: relative;
 }
 .icons-wrap .shopping_bag_icon span {
-  top: 9px;
+  top: 7px;
+}
+.icons-wrap .favorite_i span {
+  top: 3px;
 }
 
 .delivery {
@@ -780,7 +783,7 @@ nav.breadcrumb-wrap a:hover {
 }
 .all-menu-wrap .side-second-menu-wrap .title {
   float: left;
-  margin: 25px 29px 83px 15px;
+  margin: 24px 29px 83px 15px;
   font-size: 24px;
 }
 .all-menu-wrap .side-second-menu-wrap .sub-menu ul li:hover {
@@ -789,7 +792,7 @@ nav.breadcrumb-wrap a:hover {
 .all-menu-wrap .side-second-menu-wrap .sub-menu ul li a {
   font-weight: 600;
   display: block;
-  padding: 14px 14px 14px 60px;
+  padding: 15px 14px 14px 60px;
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
   -webkit-transition: 0.2s;
@@ -801,6 +804,7 @@ nav.breadcrumb-wrap a:hover {
 }
 .short-menu .side-menu-wrap, .short-menu .all-menu-wrap .side-second-menu-wrap, .all-menu-wrap .short-menu .side-second-menu-wrap {
   width: 65px;
+  overflow: hidden;
 }
 .short-menu .side-menu-wrap.open, .short-menu .all-menu-wrap .open.side-second-menu-wrap, .all-menu-wrap .short-menu .open.side-second-menu-wrap {
   width: 300px;
@@ -850,6 +854,11 @@ nav.breadcrumb-wrap a:hover {
 }
 .short-menu .side-second-menu-wrap ul li {
   width: 100% !important;
+}
+
+.col-form-label {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .cat .f1 {
@@ -922,7 +931,7 @@ nav.breadcrumb-wrap a:hover {
 .icons-wrap {
   float: right;
   width: 230px;
-  margin-top: 20px;
+  margin-top: 35px;
 }
 .icons-wrap img {
   height: 24px;
@@ -1950,6 +1959,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cart .order-wrapp .total-wrap span:last-child, .cart-popup-wrap .order-wrapp .total-wrap span:last-child {
   font-size: 20px;
+  float: right;
 }
 .cart .order-wrapp .btn-link, .cart-popup-wrap .order-wrapp .btn-link {
   font-size: 14px;
@@ -2004,7 +2014,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .compare .optc-wrap .show-wrap + .line {
   margin-bottom: 0;
-  margin-top: 111px;
+  margin-top: 96px;
 }
 .compare .optc-wrap .show-wrap div:first-child {
   color: #767c7e;
@@ -2229,8 +2239,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   margin: 7px 65px 0 0;
 }
 .cart-popup-wrap .order-wrapp .total-wrap {
-  margin: -20px -55px 0;
-  padding: 40px 100px;
+  margin: -22px -39px 0 -30px;
 }
 .cart-popup-wrap .similar-wrap {
   font-size: 16px;

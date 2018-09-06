@@ -84,15 +84,6 @@ $(document).ready(function () {
 
     /*#####################    Отображение подменю   ###############################*/
 
-    /*    var colors = ['#d6eaf1', '#71b1ce', '#c2e0ea', '#b8dbe7', '#aed6e3', '#a3d1df', '#99cbdc',
-            '#90c6d9', '#85c1d5', '#7bbcd1', '#71b1ce'];
-        var i = 0;
-        $('#main-menu>li').each(function () {
-            $(this).data('color', colors[i]);
-            console.log(i);
-            i++;
-        });*/
-
 	$('.header-wrap #non-authorized .user_icon').on('click', function () {
         $('.back-shadow, .login-form-wrap').fadeIn();
     });
@@ -113,7 +104,6 @@ $(document).ready(function () {
         $(this).addClass('active');
         /*var curent_color = $(this).next().data('color');*/
         
-
         var data = $(this);
         $('.side-second-menu-wrap .sub-menu').fadeOut(function () {
             $('.side-second-menu-wrap').css("background-color", color);
@@ -121,7 +111,8 @@ $(document).ready(function () {
 
         });
         $('.side-second-menu-wrap .title').fadeOut(function () {
-            $(this).html(data.find("a .hint").text()).fadeIn();
+            console.log(data.find('span').text());
+            $(this).html(data.find('span').text()).fadeIn();
         });
     });
 
@@ -194,7 +185,7 @@ $(document).ready(function () {
 
     /*#####################    Корзина   (Отображение popup)###############################*/
     $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived)').on('click', function () {
-        UpdateCart();
+        //UpdateCart();
         $('.cart-popup-wrap').addClass('open');
 		$('.back-shadow').fadeIn();
 		

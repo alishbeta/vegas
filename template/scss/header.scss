@@ -191,8 +191,8 @@ footer {
   i {
     position: relative;
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     margin-right: 15px;
     font-size: 12px;
     font-style: normal;
@@ -248,7 +248,10 @@ footer {
     }
   }
   .shopping_bag_icon span{
-    top: 9px;
+    top: 7px;
+  }
+  .favorite_i span{
+    top: 3px;
   }
 }
 .delivery {

@@ -125,7 +125,7 @@ $i: 0;
     }
     .title{
       float: left;
-      margin: 25px 29px 83px 15px;
+      margin: 24px 29px 83px 15px;
       font-size: 24px;
     }
     .sub-menu{
@@ -137,7 +137,7 @@ $i: 0;
           a{
             font-weight: 600;
             display: block;
-            padding: 14px 14px 14px 60px;
+            padding: 15px 14px 14px 60px;
             @include transition(0.2s);
           }
         }
@@ -152,6 +152,7 @@ $i: 0;
   }
   .side-menu-wrap {
     width: 65px;
+    overflow: hidden;
     &.open{
       width: 300px;
       ul li {
@@ -190,7 +191,6 @@ $i: 0;
       }
     }
   }
-
   .side-second-menu-wrap{
     padding-left: 0;
     width: 65px;
@@ -203,11 +203,11 @@ $i: 0;
     }
   }
 }
-
-
-@media (max-width: 1199px) {
-
+.col-form-label {
+  padding-top: 0;
+  padding-bottom: 0;
 }
+
 
 
 
