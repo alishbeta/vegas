@@ -15,7 +15,7 @@ namespace Nop.Web.Factories
         /// <param name="topicId">Topic identifier</param>
         /// <returns>Topic model</returns>
         TopicModel PrepareTopicModelById(int topicId);
-        Topic PrepareTopicById(int topicId);
+        CustomTopicModel PrepareTopicById(int topicId);
 
         /// <summary>
         /// Get the topic model by topic system name

@@ -112,9 +112,15 @@ namespace Nop.Web.Factories
 
             return cachedModel;
         } 
-        public virtual Topic PrepareTopicById(int topicId)
-        {
-			return _topicService.GetTopicById(topicId);
+        public virtual CustomTopicModel PrepareTopicById(int topicId)
+		{
+			var storeId = _storeContext.CurrentStore.Id;
+			var model = new CustomTopicModel();
+			model.Topic = _topicService.GetTopicById(topicId);
+			var test = _topicService.GetAllTopics(storeId);
+			model.PreviousTopic = _topicService.GetAllTopics(storeId).FirstOrDefault(x => x.TopicCategoryId == model.Topic.TopicCategoryId && x.Id < topicId);
+			model.NextTopic = _topicService.GetAllTopics(storeId).FirstOrDefault(x => x.TopicCategoryId == model.Topic.TopicCategoryId && x.Id > topicId);
+			return model;
         }
 
 		public virtual IList<Topic> PrepareTopicListModel(int storeId)

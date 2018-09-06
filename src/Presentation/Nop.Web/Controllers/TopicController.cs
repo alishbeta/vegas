@@ -71,19 +71,8 @@ namespace Nop.Web.Controllers
         public virtual IActionResult CustomTopicDetails(int topicId)
         {
             var model = _topicModelFactory.PrepareTopicById(topicId);
-            var hasAdminAccess = _permissionService.Authorize(StandardPermissionProvider.AccessAdminPanel) && _permissionService.Authorize(StandardPermissionProvider.ManageTopics);
-            //access to Topics preview
-            if (model == null || (!model.Published && !hasAdminAccess))
-                return RedirectToRoute("HomePage");
-            
-            //display "edit" (manage) link
-            if (hasAdminAccess)
-                DisplayEditLink(Url.Action("Edit", "Topic", new { id = model.Id, area = AreaNames.Admin }));
 
-            //template
-            var templateViewPath = _topicModelFactory.PrepareTemplateViewPath(model.TopicTemplateId);
-			//ViewData["class"] = "wrap news";
-			return View(templateViewPath, model);
+			return View(model);
         }
 
 		public virtual IActionResult ArticlesList()

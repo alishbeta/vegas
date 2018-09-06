@@ -12,10 +12,18 @@
 		<nav class="blue-menu">
 			<ul class="clearfix" id="links">
 				<li><a href="#" id="cat0" class="active" onclick="ShowOnly('#cat0')">Все статьи</a></li>
-				@foreach (var item in Model)
-				{
-				<li><a href="#" id="@(string.Format("cat{0}", item.TopicCategoryId))" onclick="ShowOnly(@(string.Format("'#cat{0}'", item.TopicCategoryId)))">@T(string.Format("topic.category{0}", item.TopicCategoryId))</a></li>
+				@{
+					var itemsList = new List<int>();
+
+					foreach (var item in Model)
+					{
+						itemsList.Add(item.TopicCategoryId);
+					}
 				}
+				@foreach (var item in itemsList.Distinct())
+				{
+				<li><a href="#" id="@(string.Format("cat{0}", item))" onclick="ShowOnly(@(string.Format("'#cat{0}'", item)))">@T(string.Format("topic.category{0}", item))</a></li>
+				}				
 			</ul>
 		</nav>
 		<div class="article-wrap" id="items">

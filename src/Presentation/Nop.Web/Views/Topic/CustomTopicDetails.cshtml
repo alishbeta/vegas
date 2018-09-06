@@ -1,5 +1,5 @@
 ﻿@using Nop.Core.Domain.Topics;
-@model Topic
+@model CustomTopicModel
 @using Nop.Core.Domain.Seo
 @inject Nop.Core.IWebHelper webHelper
 @inject SeoSettings seoSettings
@@ -18,16 +18,22 @@
 <div class="row news">
 	<div class="col-md-12 col-lg-12 offset-xl-1 col-xl-9">
 		<div class="news-full-wrap">
-			<h1 class="title">@Model.Title <span class="date">@T(string.Format("topic.category{0}", Model.TopicCategoryId))</span></h1>
+			<h1 class="title">@Model.Topic.Title <span class="date">@T(string.Format("topic.category{0}", Model.Topic.TopicCategoryId))</span></h1>
 			<div class="img-wrap">
 				<img src="https://via.placeholder.com/920x500" alt="">
 			</div>
 			<div class="text">
-				@Html.Raw(Model.Body)
+				@Html.Raw(Model.Topic.Body)
 			</div>
 			<div class="btn-wrap">
-				<button class="btn btn-link">< Открытие нового салона в Киеве</button>
-				<button class="btn btn-link">Расширение ассортимента кроватей ></button>
+				@if (Model.PreviousTopic != null)
+				{
+					<button class="btn btn-link" onclick="window.location.replace('/topic/topicdetails?topicId=@Model.PreviousTopic.Id')">< @Model.PreviousTopic.Title</button>
+				}
+				@if (Model.NextTopic != null)
+				{
+					<button class="btn btn-link" onclick="window.location.replace('/topic/topicdetails?topicId=@Model.NextTopic.Id')">@Model.NextTopic.Title ></button>
+				}
 			</div>
 		</div>
 	</div>
