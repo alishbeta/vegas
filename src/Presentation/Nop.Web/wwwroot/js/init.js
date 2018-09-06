@@ -102,7 +102,6 @@ $(document).ready(function () {
 
 
     $('.side-menu-wrap ul li').on('click', function () {
-
         $(this).parent().find('li').each(function () {
             if ($(this).hasClass('active')) {
                 $(this).removeClass('active');
@@ -113,23 +112,27 @@ $(document).ready(function () {
         $('.side-menu-wrap').addClass('open');
         $(this).addClass('active');
         /*var curent_color = $(this).next().data('color');*/
-        console.log($(this).next().data());
+        
 
         var data = $(this);
         $('.side-second-menu-wrap .sub-menu').fadeOut(function () {
             $('.side-second-menu-wrap').css("background-color", color);
-            $(this).html(data.find("div.sub-menu").html()).fadeIn(function () {
-
-                /*                $('.side-second-menu-wrap .sub-menu li').hover(function () {
-                                    $(this).css("background-color", curent_color);
-                                });*/
-            });
+            $(this).html(data.find("div.sub-menu").html()).fadeIn();
 
         });
         $('.side-second-menu-wrap .title').fadeOut(function () {
             $(this).html(data.find("a .hint").text()).fadeIn();
         });
     });
+
+    $('.search-wrap').on('click', function() {
+        $('.side-menu-wrap').addClass('open');
+    });
+
+    $('.content').on('click', function(){
+        $('.side-menu-wrap').removeClass('open');
+    });
+
 
     $('.side-second-menu-wrap .close-i').on('click', function () {
         $('.side-second-menu-wrap').removeClass('open');
@@ -191,9 +194,10 @@ $(document).ready(function () {
 
     /*#####################    Корзина   (Отображение popup)###############################*/
     $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived)').on('click', function () {
+        UpdateCart();
         $('.cart-popup-wrap').addClass('open');
 		$('.back-shadow').fadeIn();
-		UpdateCart();
+		
     });
 
     /*#####################    Корзина  (Редактирование личных данных и адреса) ###############################*/

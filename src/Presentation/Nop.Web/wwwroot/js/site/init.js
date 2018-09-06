@@ -10,30 +10,28 @@ $(document).ready(function () {
         $('html, body').animate({scrollTop: $('head').position().top}, 2000);
     });
 
-    if ($(window).width() >= 769) {
-        if ($('.container-fluid').hasClass('product')) {
-            var navbar = $('.opt-wrap');
-            var wrapper = $('.product-content-wrap');
-            $(window).on('scroll', function () {
-                var nsc = $(document).scrollTop();
-                var bp1 = wrapper.offset().top;
-                var bp2 = bp1 + wrapper.outerHeight() - navbar.height();
-                var navbPos = navbar.offset().top;
 
-                if (nsc > bp1) {
-                    navbar.addClass('fix-on');
-                }
-                else {
-                    navbar.removeClass('fix-on');
-                }
-                if (nsc > bp2) {
-                    navbar.removeClass('fix-on');
-                }
+    if ($('.wrap').hasClass('product')) {
+        var navbar = $('.opt-wrap');
+        var wrapper = $('.product-content-wrap');
+        $(window).on('scroll', function () {
+            var nsc = $(document).scrollTop();
+            var bp1 = wrapper.offset().top;
+            var bp2 = bp1 + wrapper.outerHeight() - navbar.height();
+            var navbPos = navbar.offset().top;
 
-            });
-        }
+            if (nsc > bp1) {
+                navbar.addClass('fix-on');
+            }
+            else {
+                navbar.removeClass('fix-on');
+            }
+            if (nsc > bp2) {
+                navbar.removeClass('fix-on');
+            }
+
+        });
     }
-
     /*#####################    Мобильно меню  ###############################*/
 
     $('.hanburger').on('click', function () {
@@ -61,6 +59,19 @@ $(document).ready(function () {
             $(".item-wrap-full").hide();
         });
     }
+    /*    $('.outer-wrapp.scroll .item-wrap').on('mouseover', function () {
+            $(this).next().fadeIn();
+
+
+            console.log($(this).position().left);
+
+        }).next().on('mousedown', function () {
+            var curentPosition = $(this).position().left;
+            console.log(scrollerOffset);
+        }).on('mouseup', function () {
+            var scrollerOffset = $(".scrollComtent").smoothDivScroll("getScrollerOffset");
+            var newPosition = curentPosition
+        });*/
 
     setTimeout(function () {
         if ($(window).width() >= 575) {
@@ -69,23 +80,7 @@ $(document).ready(function () {
                 touchScrolling: true
             });
         }
-
-        if ($(window).width() >= 769) {
-            $(".scrollM").smoothDivScroll({
-                hotSpotScrolling: false,
-                touchScrolling: true
-            });
-        }else{
-            $('.scrollM .scrollableArea').slick({
-                dots: false,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                variableWidth: true,
-                verticalSwiping:false,
-            });
-        }
-
-    }, 200);
+    }, 300);
 
     /*#####################    Отображение подменю   ###############################*/
 
@@ -98,7 +93,7 @@ $(document).ready(function () {
             i++;
         });*/
 
-    $('.header-wrap #non-authorized .user_icon').on('click', function () {
+	$('.header-wrap #non-authorized .user_icon').on('click', function () {
         $('.back-shadow, .login-form-wrap').fadeIn();
     });
     $('.login-form-wrap .close-i').on('click', function () {
@@ -107,7 +102,6 @@ $(document).ready(function () {
 
 
     $('.side-menu-wrap ul li').on('click', function () {
-
         $(this).parent().find('li').each(function () {
             if ($(this).hasClass('active')) {
                 $(this).removeClass('active');
@@ -118,23 +112,27 @@ $(document).ready(function () {
         $('.side-menu-wrap').addClass('open');
         $(this).addClass('active');
         /*var curent_color = $(this).next().data('color');*/
-        console.log($(this).next().data());
+        
 
         var data = $(this);
         $('.side-second-menu-wrap .sub-menu').fadeOut(function () {
             $('.side-second-menu-wrap').css("background-color", color);
-            $(this).html(data.find("div.sub-menu").html()).fadeIn(function () {
-
-                /*                $('.side-second-menu-wrap .sub-menu li').hover(function () {
-                                    $(this).css("background-color", curent_color);
-                                });*/
-            });
+            $(this).html(data.find("div.sub-menu").html()).fadeIn();
 
         });
         $('.side-second-menu-wrap .title').fadeOut(function () {
             $(this).html(data.find("a .hint").text()).fadeIn();
         });
     });
+
+    $('.search-wrap').on('click', function() {
+        $('.side-menu-wrap').addClass('open');
+    });
+
+    $('.content').on('click', function(){
+        $('.side-menu-wrap').removeClass('open');
+    });
+
 
     $('.side-second-menu-wrap .close-i').on('click', function () {
         $('.side-second-menu-wrap').removeClass('open');
@@ -161,25 +159,13 @@ $(document).ready(function () {
         $("#slider-" + data.filterNumber + "-a2").val($("#slider-" + data.filterNumber + "-r").slider("values", 1));
     });
 
-
-    $('.filters-wrap .btn-display').on('click', function () {
-        $('.filters-data, .f1').toggleClass('open');
+    $('.filters-wrap .vg-filter').on('click', function () {
+        $('.filters-data').toggleClass('open');
+        $('.f1').toggleClass('open');
         $('.prod-wrap').toggleClass('short');
+
     });
 
-    $('button.vg-filter').on('click', function () {
-        $(this).toggleClass('open').next().on('click', function () {
-            $(this).prev().removeClass('open');
-        });
-    });
-
-    $(document).on('click', '.dropdown-menu', function (e) {
-        $(this).hasClass('keep_open') && e.stopPropagation(); // This replace if conditional.
-    });
-
-    $('#clr-filters').on('click', function () {
-        $('.filters-data form')[0].reset();
-    });
     /*#####################    Личный кабинет   ###############################*/
     $('.cabinet .order-wrap a').on('click', function () {
         $(this).children().toggleClass('open');
@@ -207,48 +193,12 @@ $(document).ready(function () {
     });
 
     /*#####################    Корзина   (Отображение popup)###############################*/
-    $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived), .product .price-wrap .btn-blue').on('click', function () {
+    $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived)').on('click', function () {
+        UpdateCart();
         $('.cart-popup-wrap').addClass('open');
-        $('.back-shadow').fadeIn();
+		$('.back-shadow').fadeIn();
+		
     });
-
-    /*#####################    Табы   ###############################*/
-    tabControl();
-
-    var resizeTimer;
-    $(window).on('resize', function(e) {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            tabControl();
-        }, 250);
-    });
-
-    function tabControl() {
-        var tabs = $('.tabbed-content').find('.tabs');
-        if(tabs.is(':visible')) {
-            tabs.find('a').on('click', function(event) {
-                event.preventDefault();
-                var target = $(this).attr('href'),
-                    tabs = $(this).parents('.tabs'),
-                    buttons = tabs.find('a'),
-                    item = tabs.parents('.tabbed-content').find('.item');
-                buttons.removeClass('active');
-                item.removeClass('active');
-                $(this).addClass('active');
-                $(target).addClass('active');
-            });
-        } else {
-            $('.item').on('click', function() {
-                var container = $(this).parents('.tabbed-content'),
-                    currId = $(this).attr('id'),
-                    items = container.find('.item');
-                container.find('.tabs a').removeClass('active');
-                items.removeClass('active');
-                $(this).addClass('active');
-                container.find('.tabs a[href$="#'+ currId +'"]').addClass('active');
-            });
-        }
-    }
 
     /*#####################    Корзина  (Редактирование личных данных и адреса) ###############################*/
     $('#edit-name, #edit-addres, #edit-pass').on('click', function () {
