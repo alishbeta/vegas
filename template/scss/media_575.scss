@@ -20,12 +20,23 @@
       .see-wrap .title button {
         left: 33%!important;
       }
-      .news-wrap .title button{
-        bottom: -400px!important;
-
-      }
+        .new-wrap .title button{
+          bottom: -375px!important;
+        }
+    }
+    .logo-m{
+      width: 110px;
+      overflow: hidden;
+    }
+    .icons-wrap{
+      width: auto;
+      margin-right: 5px;
+      margin-top: 25px;
+      i {
+      margin-top: 0;
     }
   }
+}
 
 
   .subscription-wrap.row {

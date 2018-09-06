@@ -181,4 +181,9 @@ src/Presentation/Nop.Web/wwwroot/files/exportimport/*
 !src/Presentation/Nop.Web/wwwroot/files/exportimport/Index.htm
 src/packages/*
 .idea
-template/scss/sass-cache
+template/scss/.sass-cache
+node_modules/*
+package-lock.json
+package.json
+gulpfile.js
+template/js/init.js

@@ -18,7 +18,7 @@
 .main-baner-wrap {
   overflow: hidden;
   position: relative;
-  margin-left: -16px;
+  margin-left: -1px;
   a{
     display: block;
   }
@@ -33,6 +33,8 @@
 
 .icons-wrap {
   float: right;
+  width: 230px;
+  margin-top: 20px;
   img {
     height: 24px;
   }
@@ -309,6 +311,7 @@
 
 .some-info {
   margin-bottom: 85px;
+  margin-top: 50px;
   .text {
     color: $text_light;
     font-size: 14px;
@@ -444,7 +447,6 @@ footer a {
     line-height: 2.2;
   }
 }
-
 .filters-wrap {
   background-color: #bfdce6;
   .f1 {
@@ -790,9 +792,9 @@ html .ui-button.ui-state-disabled {
   margin-left: -2px;
 }
 
+
 .color-title span:nth-child(2) {
   display: inline-block;
-  float: right;
   a {
     font-size: 12px;
     color: $text_light;
@@ -947,6 +949,3 @@ html .ui-button.ui-state-disabled {
 @import "media_992";
 @import "media_765";
 @import "media_575";
-
-
-

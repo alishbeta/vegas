@@ -163,10 +163,8 @@ $i: 0;
     }
     .search-wrap{
       margin-top: -40px;
-
-      input{
-        display: none!important;
-      }
+      cursor: pointer;
+      width: 250px;
       > img{
         margin-left: 20px!important;
       }

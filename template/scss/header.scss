@@ -188,18 +188,6 @@ footer {
 
 .icons-wrap {
   margin-right: 30px;
-  .lang-swich-wrap {
-    margin-bottom: 6px;
-    text-align: right;
-    a {
-      font-size: 10px;
-      color: $text_light;
-      &.active {
-        text-decoration: underline;
-        color: $link_color;
-      }
-    }
-  }
   i {
     position: relative;
     display: inline-block;
@@ -209,6 +197,7 @@ footer {
     font-size: 12px;
     font-style: normal;
     cursor: pointer;
+    text-align: center;
     &:last-child {
       margin-right: 0;
     }
@@ -235,15 +224,31 @@ footer {
     background-color: $blue;
     @include transition(0.8s);
   }
-  .favorite_i span {
+  span {
+    display: block;
     position: absolute;
-    top: 5px;
-    left: 11px;
+    left: 0;
+    right: 0;
   }
-  .shopping_bag_icon span {
+  .lang-swich-wrap {
     position: absolute;
-    top: 10px;
-    left: 12px;
+    right: 30px;
+    top: 0;
+    a {
+      font-size: 10px;
+      color: $text_light;
+      &.active {
+        text-decoration: underline;
+        color: $link_color;
+      }
+    }
+    span{
+      display: inline;
+      position: relative;
+    }
+  }
+  .shopping_bag_icon span{
+    top: 9px;
   }
 }
 .delivery {
@@ -253,14 +258,22 @@ footer {
 }
 
 nav.breadcrumb-wrap {
-  padding-top: 100px;
+  padding-top: 80px;
   .breadcrumb {
     background-color: transparent;
     font-size: 12px;
     margin-left: 35px;
-    .breadcrumb-item + .breadcrumb-item::before {
-      content: ">";
+    .breadcrumb-item{
+      + .breadcrumb-item::before{
+          content: ">";
+      }
+      a{
+        color: #6c757d;
+      } 
+      &.active {
+        color: black;
     }
+    } 
   }
   a:hover{
     text-decoration: underline;

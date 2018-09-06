@@ -35,7 +35,15 @@
 
   }
 }
+
 .show-room{
+    &.row{
+      margin-right: 0;
+      margin-left: 0;
+    }
+  .title{
+    margin-bottom: 30px;
+  }
   .addres{
     font-size: 16px;
   }
@@ -81,6 +89,8 @@
       color: $bluish;
     }
   }
+
+
   .show-room-wrap{
     margin: 40px 0;
     .bl-1{
