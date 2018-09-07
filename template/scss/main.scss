@@ -288,7 +288,7 @@
   }
 }
 
-.sell-wrap, .new-wrap, .news-wrap, .product-content-wrap {
+.sell-wrap, .new-wrap, .news-wrap {
   border-bottom: 1px solid $border_color;
   padding-bottom: 41px;
 }
@@ -299,14 +299,13 @@
   }
 }
 
-
 .cat-content-wrap {
   border-bottom: 1px solid $border_color;
   margin-left: -15px;
 }
 
 .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .see-wrap .btn-blue-white, .cat-content-wrap .btn-blue-white, .see-wrap .btn-blue-white {
-  margin-right: 200px;
+  margin-right: 150px;
 }
 
 .some-info {

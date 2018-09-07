@@ -7,7 +7,9 @@ $(document).ready(function () {
             $('.top-wraper').fadeOut();
     });
     $('.top-wraper a').on('click', function () {
-        $('html, body').animate({scrollTop: $('head').position().top}, 2000);
+        $('html, body').animate({
+            scrollTop: $('head').position().top
+        }, 2000);
     });
 
 
@@ -22,8 +24,7 @@ $(document).ready(function () {
 
             if (nsc > bp1) {
                 navbar.addClass('fix-on');
-            }
-            else {
+            } else {
                 navbar.removeClass('fix-on');
             }
             if (nsc > bp2) {
@@ -34,9 +35,10 @@ $(document).ready(function () {
     }
     /*#####################    Мобильно меню  ###############################*/
 
-    $('.hanburger').on('click', function () {
+    $('.humburger-wrap').on('click', function () {
         $('.side-menu-wrap, html, .header-wrap, body').toggleClass('open');
         $('.back-shadow').fadeToggle();
+        $(this).toggleClass('op');
     });
 
     /*#####################    Карусель  ###############################*/
@@ -44,9 +46,9 @@ $(document).ready(function () {
     if ($(window).width() >= 575) {
         $('.outer-wrapp.scroll').hover(function () {
             if ($(this).find(".item-wrap-full").length) {
-                var b = $(this).find(".item-wrap-full")
-                    , c = $(this).position()
-                    , d = $(this).parents(".scrollWrapper");
+                var b = $(this).find(".item-wrap-full"),
+                    c = $(this).position(),
+                    d = $(this).parents(".scrollWrapper");
                 (c.left >= 0 && c.left + $(this).find(".item-wrap-full").width() - Math.abs($(this).width() - $(this).find(".item-wrap-full").width()) / 2 <= $(this).parents(".scrollWrapper").width() || 0 == $(this).parents(".scrollWrapper").length) && $(this).find(".item-wrap-full").css({
                     left: c.left,
                     top: c.top
@@ -84,7 +86,7 @@ $(document).ready(function () {
 
     /*#####################    Отображение подменю   ###############################*/
 
-	$('.header-wrap #non-authorized .user_icon').on('click', function () {
+    $('.header-wrap #non-authorized .user_icon').on('click', function () {
         $('.back-shadow, .login-form-wrap').fadeIn();
     });
     $('.login-form-wrap .close-i').on('click', function () {
@@ -103,7 +105,7 @@ $(document).ready(function () {
         $('.side-menu-wrap').addClass('open');
         $(this).addClass('active');
         /*var curent_color = $(this).next().data('color');*/
-        
+
         var data = $(this);
         $('.side-second-menu-wrap .sub-menu').fadeOut(function () {
             $('.side-second-menu-wrap').css("background-color", color);
@@ -116,14 +118,15 @@ $(document).ready(function () {
         });
     });
 
-    $('.search-wrap').on('click', function() {
+    $('.search-wrap').on('click', function () {
         $('.side-menu-wrap').addClass('open');
     });
 
-    $('.content').on('click', function(){
-        $('.side-menu-wrap').removeClass('open');
-    });
-
+    if ($(window).width() >= 768) {
+        $('.content').on('click', function () {
+            $('.side-menu-wrap').removeClass('open');
+        });
+    }
 
     $('.side-second-menu-wrap .close-i').on('click', function () {
         $('.side-second-menu-wrap').removeClass('open');
@@ -179,16 +182,17 @@ $(document).ready(function () {
 
     /*#####################    Корзина (Скрытие pop-up)   ###############################*/
     $('.cart-popup-wrap .close-i, #pop-up-close, .back-shadow').on('click', function () {
-        $('.cart-popup-wrap').removeClass('open');
+        $('.cart-popup-wrap, .side-menu-wrap, .header-wrap').removeClass('open');
         $('.back-shadow').fadeOut();
+        $('.humburger-wrap').removeClass('op');
     });
 
     /*#####################    Корзина   (Отображение popup)###############################*/
     $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived)').on('click', function () {
         //UpdateCart();
         $('.cart-popup-wrap').addClass('open');
-		$('.back-shadow').fadeIn();
-		
+        $('.back-shadow').fadeIn();
+
     });
 
     /*#####################    Корзина  (Редактирование личных данных и адреса) ###############################*/
@@ -238,8 +242,7 @@ $(document).ready(function () {
 
 });
 //Function to convert rgb color to hex format
-var hexDigits = new Array
-("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
+var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
 
 function rgb2hex(rgb) {
     rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
@@ -249,5 +252,3 @@ function rgb2hex(rgb) {
 function hex(x) {
     return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
 }
-
-

@@ -11,6 +11,7 @@
   .icons-wrap {
     margin-right: 15px;
     margin-top: 0px;
+    width: 150px;
     i {
       margin-right: 10px;
       margin-top: 22px;
@@ -52,18 +53,7 @@
   .slick-dots {
     bottom: -2px;
   }
-  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap {
-    position: relative;
-    .btn-blue-white {
-      margin: auto;
-      position: absolute;
-      left: 0;
-      right: 0;
-      width: 180px;
-      bottom: 16px;
-      z-index: 1;
-    }
-  }
+
   .news-wrap, .news .article-wrap, .map .article-wrap {
     padding-left: 0;
     width: 100%;
@@ -91,9 +81,6 @@
   .scrollComtent {
     div.scrollWrapper {
       max-height: 1120px;
-      .outer-wrapp {
-        width: 100%;
-      }
     }
   }
 

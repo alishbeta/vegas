@@ -230,5 +230,31 @@
     }
   }
 
+  .scrollComtent {
+    div.scrollWrapper {
+      .outer-wrapp {
+        width: 100%;
+      }
+    }
+  }
+  
+  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap {
+    position: relative;
+    .btn-blue-white {
+      margin: auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 180px;
+      bottom: 16px;
+      z-index: 1;
+    }
+  }
+
+  .news-wrap{
+    .title button{
+      bottom: -1215px;
+    }
+  }
 }
 

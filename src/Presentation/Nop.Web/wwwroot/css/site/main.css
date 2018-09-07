@@ -265,6 +265,42 @@ nav.blue-menu ul li a.active {
   box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.2);
 }
 
+.humburger-wrap {
+  position: relative;
+  margin: 30px 0 0 15px;
+  float: left;
+}
+.humburger-wrap div {
+  position: absolute;
+  display: block;
+  height: 2px;
+  width: 25px;
+  background-color: black;
+  transition: 0.3s;
+}
+.humburger-wrap div:first-child {
+  top: 0;
+}
+.humburger-wrap div:nth-child(2) {
+  top: 6px;
+}
+.humburger-wrap div:last-child {
+  top: 12px;
+}
+
+.humburger-wrap.op div:first-child {
+  top: 6px;
+  transform: rotate(45deg);
+}
+.humburger-wrap.op div:nth-child(2) {
+  top: 6px;
+  opacity: 0;
+}
+.humburger-wrap.op div:last-child {
+  top: 6px;
+  transform: rotate(-45deg);
+}
+
 html, body, .wrap, .r-wrap {
   height: 100%;
 }
@@ -1172,7 +1208,7 @@ nav.breadcrumb-wrap a:hover {
   margin: 50px 0px 0 -15px;
 }
 
-.sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap, .product-content-wrap {
+.sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap {
   border-bottom: 1px solid #cdd2d4;
   padding-bottom: 41px;
 }
@@ -1187,7 +1223,7 @@ nav.breadcrumb-wrap a:hover {
 }
 
 .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .see-wrap .btn-blue-white, .cat-content-wrap .btn-blue-white, .see-wrap .btn-blue-white {
-  margin-right: 200px;
+  margin-right: 150px;
 }
 
 .some-info {
@@ -2566,6 +2602,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   -webkit-box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.33);
   box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.33);
 }
+.product .line {
+  margin: 20px 0px;
+}
 
 .map nav ul li {
   width: 16.66%;
@@ -3204,6 +3243,7 @@ If you want to style everything yourself, you shouldn't need these
   .icons-wrap {
     margin-right: 15px;
     margin-top: 0px;
+    width: 150px;
   }
   .icons-wrap i {
     margin-right: 10px;
@@ -3247,19 +3287,6 @@ If you want to style everything yourself, you shouldn't need these
     bottom: -2px;
   }
 
-  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap, .news .article-wrap, .map .article-wrap, .map .article-wrap {
-    position: relative;
-  }
-  .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white {
-    margin: auto;
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 180px;
-    bottom: 16px;
-    z-index: 1;
-  }
-
   .news-wrap, .news .article-wrap, .map .article-wrap, .news .article-wrap, .map .article-wrap, .map .article-wrap {
     padding-left: 0;
     width: 100%;
@@ -3288,9 +3315,6 @@ If you want to style everything yourself, you shouldn't need these
 
   .scrollComtent div.scrollWrapper {
     max-height: 1120px;
-  }
-  .scrollComtent div.scrollWrapper .outer-wrapp {
-    width: 100%;
   }
 
   .some-info .text {
@@ -3687,6 +3711,10 @@ If you want to style everything yourself, you shouldn't need these
     -webkit-transition: 0.5s;
     transition: 0.5s;
   }
+
+  .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white {
+    margin-right: 15px;
+  }
 }
 @media (max-width: 575px) {
   .product .see-wrap {
@@ -3895,6 +3923,27 @@ If you want to style everything yourself, you shouldn't need these
   }
   .show-room .line {
     margin: 50px -15px 60px -40px;
+  }
+
+  .scrollComtent div.scrollWrapper .outer-wrapp {
+    width: 100%;
+  }
+
+  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap, .news .article-wrap, .map .article-wrap, .map .article-wrap {
+    position: relative;
+  }
+  .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 180px;
+    bottom: 16px;
+    z-index: 1;
+  }
+
+  .news-wrap .title button, .news .article-wrap .title button, .map .article-wrap .title button {
+    bottom: -1215px;
   }
 }
 

@@ -232,3 +232,41 @@ nav.blue-menu{
     }
   }
 }
+.humburger-wrap{
+  position: relative;
+  margin: 30px 0 0 15px;
+  float: left;
+  div{
+    position: absolute;
+    display: block;
+    height: 2px;
+    width: 25px;
+    background-color: black;
+    transition: 0.3s;
+    &:first-child{
+      top: 0;
+    }
+    &:nth-child(2){
+      top: 6px;
+    }
+    &:last-child{
+      top: 12px
+    }
+  }
+}
+.humburger-wrap.op{
+  div{
+    &:first-child{
+      top: 6px;
+      transform: rotate(45deg);
+    }
+    &:nth-child(2){
+      top: 6px;
+      opacity: 0;
+    }
+    &:last-child{
+      top: 6px;
+      transform: rotate(-45deg);
+    }
+  }
+}

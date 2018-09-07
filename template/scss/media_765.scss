@@ -123,4 +123,9 @@
   .side-menu-wrap {
     @include transition(0.5s)
   }
+  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap {
+    .btn-blue-white {
+      margin-right: 15px;
+    }
+  }
 }
