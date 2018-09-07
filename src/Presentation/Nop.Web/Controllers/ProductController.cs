@@ -256,8 +256,7 @@ namespace Nop.Web.Controllers
 			//load and cache report
 			var report = _cacheManager.Get(string.Format(ModelCacheEventConsumer.HOMEPAGE_BESTSELLERS_IDS_KEY, _storeContext.CurrentStore.Id),
 				() => _orderReportService.BestSellersReport(
-						storeId: _storeContext.CurrentStore.Id,
-						pageSize: _catalogSettings.NumberOfBestsellersOnHomepage)
+						storeId: _storeContext.CurrentStore.Id)
 					.ToList());
 
 			//load products
@@ -266,9 +265,46 @@ namespace Nop.Web.Controllers
 			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
 			//availability dates
 			products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+			//filters 
+
+			decimal from = decimal.Zero, 
+					to = decimal.Zero;
+			var filterRanges = _webHelper.QueryString<string>("price");
+			if (filterRanges.Contains("-"))
+			{
+				if (filterRanges.Split("-")?[0] != "")
+				{
+					from = decimal.Parse(filterRanges.Split("-")[0]);
+				}
+				if (filterRanges.Split("-")?[1] != "")
+				{
+					to = decimal.Parse(filterRanges.Split("-")?[1]);
+				}
+			}
+			if (from != decimal.Zero)
+			{
+				products = products.Where(x => x.Price >= from).ToList();
+			}
+			if (to != decimal.Zero)
+			{
+				products = products.Where(x => x.Price <= to).ToList();
+			}
 
 			if (!products.Any())
 				return Content("");
+
+			var filteredProds = new List<Product>();
+			var filterSpecs = _webHelper.QueryString<string>("specs").Split(",").ToList();
+			foreach (var prod in products)
+			{
+				if (prod.ProductSpecificationAttributes.Count(x => filterSpecs.Contains(x.SpecificationAttributeOptionId.ToString())) > 0)
+				{
+					filteredProds.Add(prod);
+				}
+			}
+			products = filteredProds;
+
+			var filterSpec = _webHelper.QueryString<string>("spec");
 
 			//prepare model
 			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true).ToList();

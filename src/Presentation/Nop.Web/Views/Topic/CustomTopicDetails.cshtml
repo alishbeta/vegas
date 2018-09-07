@@ -30,9 +30,17 @@
 				{
 					<button class="btn btn-link" onclick="window.location.replace('/topic/topicdetails?topicId=@Model.PreviousTopic.Id')">< @Model.PreviousTopic.Title</button>
 				}
+				else
+				{
+					<button class="invisible" disabled></button>
+				}
 				@if (Model.NextTopic != null)
 				{
 					<button class="btn btn-link" onclick="window.location.replace('/topic/topicdetails?topicId=@Model.NextTopic.Id')">@Model.NextTopic.Title ></button>
+				}
+				else
+				{
+					<button class="invisible" disabled></button>
 				}
 			</div>
 		</div>

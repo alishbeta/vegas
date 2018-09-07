@@ -39,40 +39,40 @@
 					var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = product.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
 					var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = product.Id });
 
-			<div class="item-wrap">
-				
-				<div class="product-img-wrap">
-					<div>
-						<i class="favorite_i float-left" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i>
-						<i class="compare_icon float-right" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
+					<div class="item-wrap">
+
+						<div class="product-img-wrap">
+							<div>
+								<i class="favorite_i float-left" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i>
+								<i class="compare_icon float-right" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
+							</div>
+							<a href="@Url.RouteUrl("Product", new { productId = product.Id, SeName = product.SeName })">
+								<img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
+							</a>
+							@if (@product.ProductPrice.Discount.ToString("#.##") != "")
+							{
+								<div class="discount">@product.ProductPrice.Discount.ToString("#.##")%</div>
+							}
+						</div>
+
+						<div class="main-prop-wrap text-left">
+							<a href="@Url.RouteUrl("Product", new { productId = product.Id, SeName = product.SeName })">
+								<div class="product-name text-light-c">@product.Name</div>
+							</a>
+							<div class="product-prop">@product.ShortDescription</div>
+							<div class="price-titile">@T("main.product.price")</div>
+							<div class="price-wrap clearfix">
+								@if (!string.IsNullOrEmpty(product.ProductPrice.OldPrice))
+								{
+									<div class="price-old">@product.ProductPrice.OldPrice</div>
+								}
+								<div class="price-new">@product.ProductPrice.Price</div>
+							</div>
+						</div>
+						<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
 					</div>
-					<a href="@Url.RouteUrl("Product", new { productId = product.Id, SeName = product.SeName })">
-						<img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
-					</a>
-						@if (@product.ProductPrice.Discount.ToString("#.##") != "")
-						{
-							<div class="discount">@product.ProductPrice.Discount.ToString("#.##")%</div>
-						}
-				</div>
-				
-				<div class="main-prop-wrap text-left">
-					<a href="@Url.RouteUrl("Product", new { productId = product.Id, SeName = product.SeName })">
-						<div class="product-name text-light-c">@product.Name</div>
-					</a>
-					<div class="product-prop">@product.ShortDescription</div>
-					<div class="price-titile">@T("main.product.price")</div>
-					<div class="price-wrap clearfix">
-						@if (!string.IsNullOrEmpty(product.ProductPrice.OldPrice))
-						{
-							<div class="price-old">@product.ProductPrice.OldPrice</div>
-						}
-						<div class="price-new">@product.ProductPrice.Price</div>
-					</div>
-				</div>
-				<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
-			</div>
-					}
 				}
+			}
 		</div>
 	</div>
 </div>
