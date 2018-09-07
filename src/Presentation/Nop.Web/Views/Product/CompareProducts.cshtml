@@ -43,7 +43,7 @@
 			</div>
 			<div class="optc-wrap rounded">
 				<div class="add-ct">Добавлено товаров <span>@Model.Products.Count</span></div>
-				<button class="btn btn-blue btn-block">Добавить еще товар</button>
+				<button class="btn btn-blue btn-block" onclick="window.location.replace('/recentlyviewedproducts')">Добавить еще товар</button>
 				<button onclick="setLocation('@Url.RouteUrl("ClearCompareList")')" class="btn btn-link btn-block"><span>+</span>@T("Products.Compare.Clear")</button>
 				<div class="line"></div>
 				<div class="show-wrap">

@@ -355,8 +355,7 @@ namespace Nop.Web.Factories
                     .Sum(item => item.Quantity);
                 model.WishlistItems = customer.ShoppingCartItems
                     .Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
-                    .LimitPerStore(_storeContext.CurrentStore.Id)
-                    .Sum(item => item.Quantity);
+                    .LimitPerStore(_storeContext.CurrentStore.Id).Count();
             }
 
             return model;
