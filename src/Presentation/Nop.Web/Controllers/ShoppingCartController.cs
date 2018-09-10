@@ -725,8 +725,17 @@ namespace Nop.Web.Controllers
                 .LimitPerStore(_storeContext.CurrentStore.Id)
                 .ToList();
             var shoppingCartItem = _shoppingCartService.FindShoppingCartItemInTheCart(cart, cartType, product);
-            //if we already have the same product in the cart, then use the total quantity to validate
-            var quantityToValidate = shoppingCartItem != null ? shoppingCartItem.Quantity + quantity : quantity;
+			if ((ShoppingCartType)shoppingCartTypeId == ShoppingCartType.Wishlist && shoppingCartItem != null)
+			{
+				_shoppingCartService.DeleteShoppingCartItem(shoppingCartItem);
+				return Json(new
+				{
+					success = true,
+					message = "Removed from wishlist"
+				});
+			}
+			//if we already have the same product in the cart, then use the total quantity to validate
+			var quantityToValidate = shoppingCartItem != null ? shoppingCartItem.Quantity + quantity : quantity;
             var addToCartWarnings = _shoppingCartService
                 .GetShoppingCartItemWarnings(_workContext.CurrentCustomer, cartType,
                 product, _storeContext.CurrentStore.Id, string.Empty,
@@ -861,7 +870,24 @@ namespace Nop.Web.Controllers
                     break;
                 }
             ShoppingCartItem updatecartitem = null;
-            if (_shoppingCartSettings.AllowCartItemEditing && updatecartitemid > 0)
+			if ((ShoppingCartType)shoppingCartTypeId == ShoppingCartType.Wishlist)
+			{
+				var cart = _workContext.CurrentCustomer.ShoppingCartItems
+								.Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
+								.LimitPerStore(_storeContext.CurrentStore.Id)
+								.ToList();
+				var shoppingCartItem = _shoppingCartService.FindShoppingCartItemInTheCart(cart, ShoppingCartType.Wishlist, product);
+				if (shoppingCartItem != null)
+				{
+					_shoppingCartService.DeleteShoppingCartItem(shoppingCartItem);
+					return Json(new
+					{
+						success = true,
+						message = "Removed from wishlist"
+					});
+				}
+			}
+			if (_shoppingCartSettings.AllowCartItemEditing && updatecartitemid > 0)
             {
                 //search with the same cart type as specified
                 var cart = _workContext.CurrentCustomer.ShoppingCartItems
@@ -1644,7 +1670,27 @@ namespace Nop.Web.Controllers
             return View(model);
         }
 
-        [HttpPost, ActionName("Wishlist")]
+		[HttpsRequirement(SslRequirement.Yes)]
+		public virtual IActionResult GetWishlistIds(Guid? customerGuid)
+		{
+			if (!_permissionService.Authorize(StandardPermissionProvider.EnableWishlist))
+				return RedirectToRoute("HomePage");
+
+			var customer = customerGuid.HasValue ?
+				_customerService.GetCustomerByGuid(customerGuid.Value)
+				: _workContext.CurrentCustomer;
+			if (customer == null)
+				return RedirectToRoute("HomePage");
+			var cart = customer.ShoppingCartItems
+				.Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
+				.LimitPerStore(_storeContext.CurrentStore.Id)
+				.ToList();
+			var model = new WishlistModel();
+			model = _shoppingCartModelFactory.PrepareWishlistModel(model, cart, !customerGuid.HasValue);
+			return Json(new { success = true, wishlist = model.Items});
+		}
+
+		[HttpPost, ActionName("Wishlist")]
         [FormValueRequired("updatecart")]
         public virtual IActionResult UpdateWishlist(IFormCollection form)
         {

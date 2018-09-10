@@ -271,6 +271,24 @@
 			@RenderBody()
 			<!-- END RENDER BODY -->
 			<script>
+				function UpdateWishlist() {
+					$.ajax({
+						url: "/ShoppingCart/GetWishlistIds",
+						type: "POST",
+						dataType: 'json',
+						traditional: true
+					}).done(function (responce) {
+						$(".favorite_i").each(function () {
+							$(this).removeClass("active");
+						});
+						responce.wishlist.forEach(function (elem) {
+							$("[data-id='" + elem.ProductId + "']").addClass("active");
+						});
+					});
+				};
+				$(document).ready(UpdateWishlist());
+			</script>
+			<script>
 				function UpdateCart() {
 					$(document).ready(function () {
 						$("#cartItems").empty();
