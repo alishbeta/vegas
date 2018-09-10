@@ -128,4 +128,13 @@
       margin-right: 15px;
     }
   }
+  .tabbed-content {
+    width: 100%;
+    section::before {
+      background: #bfbfbf;
+  }
+}
+.product .line{
+    margin: 0 0px;
+  }
 }

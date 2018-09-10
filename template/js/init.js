@@ -77,9 +77,14 @@ $(document).ready(function () {
 
     setTimeout(function () {
         if ($(window).width() >= 575) {
-            $(".scrollComtent").smoothDivScroll({
+            $(".scrollComtent, .scrollM").smoothDivScroll({
                 hotSpotScrolling: true,
                 touchScrolling: true
+            });
+        }else{
+            $(".scrollM .scrollableArea").slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
             });
         }
     }, 300);
@@ -240,6 +245,8 @@ $(document).ready(function () {
         $(el2[1]).fadeToggle()
     });
 
+    tabControl();
+
 });
 //Function to convert rgb color to hex format
 var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
@@ -251,4 +258,31 @@ function rgb2hex(rgb) {
 
 function hex(x) {
     return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+}
+
+function tabControl() {
+    var tabs = $('.tabbed-content').find('.tabs');
+    if(tabs.is(':visible')) {
+        tabs.find('a').on('click', function(event) {
+            event.preventDefault();
+            var target = $(this).attr('href'),
+                tabs = $(this).parents('.tabs'),
+                buttons = tabs.find('a'),
+                item = tabs.parents('.tabbed-content').find('.item');
+            buttons.removeClass('active');
+            item.removeClass('active');
+            $(this).addClass('active');
+            $(target).addClass('active');
+        });
+    } else {
+        $('.item').on('click', function() {
+            var container = $(this).parents('.tabbed-content'),
+                currId = $(this).attr('id'),
+                items = container.find('.item');
+            container.find('.tabs a').removeClass('active');
+            items.removeClass('active');
+            $(this).addClass('active');
+            container.find('.tabs a[href$="#'+ currId +'"]').addClass('active');
+        });
+    }
 }

@@ -275,7 +275,7 @@
       }
       .prop-wrap {
         background-color: white;
-        margin: -30px;
+        margin: 0px -30px -25px;
         padding: 30px;
         .color-title {
           span:nth-child(2) a {
@@ -307,7 +307,7 @@
     section {
       &::before {
         background: transparent;
-        border-bottom: 1px solid $border_color;
+        //border-bottom: 1px solid $border_color;
       }
     }
     .see-wrap {

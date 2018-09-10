@@ -301,6 +301,12 @@ nav.blue-menu ul li a.active {
   transform: rotate(-45deg);
 }
 
+.favorite_i.active {
+  -webkit-mask-image: url(/img/favorite_icon_fill.svg);
+  mask-image: url(/img/favorite_icon_fill.svg);
+  background-color: #4da2c1;
+}
+
 html, body, .wrap, .r-wrap {
   height: 100%;
 }
@@ -2605,6 +2611,29 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .product .line {
   margin: 20px 0px;
 }
+.product .question-wrap .title h5 {
+  float: left;
+}
+.product .question-wrap ul {
+  margin-left: 15px;
+}
+.product .question-wrap ul li {
+  margin-top: 15px;
+}
+.product .question-wrap .btn-link {
+  padding-left: 0;
+}
+.product .question-wrap .name {
+  font-weight: 800;
+}
+.product .question-wrap .info-wrap {
+  float: left;
+  margin-right: 30px;
+}
+.product .question-wrap .date {
+  font-size: 12px;
+  color: #767c7e;
+}
 
 .map nav ul li {
   width: 16.66%;
@@ -3083,9 +3112,6 @@ If you want to style everything yourself, you shouldn't need these
   padding: 1em;
   margin-left: 100px;
 }
-.tabbed-content .item {
-  display: none;
-}
 
 .tabs ul {
   margin: 0;
@@ -3209,7 +3235,7 @@ If you want to style everything yourself, you shouldn't need these
     width: 318px;
   }
   .all-menu-wrap .side-second-menu-wrap {
-    padding-left: 80px;
+    padding-left: 75px;
   }
 
   .content-main-wrap .header-wrap .side-logo-wrap {
@@ -3511,7 +3537,7 @@ If you want to style everything yourself, you shouldn't need these
   }
   .product .opt-wrap .prop-wrap {
     background-color: white;
-    margin: -30px;
+    margin: 0px -30px -25px;
     padding: 30px;
   }
   .product .opt-wrap .prop-wrap .color-title span:nth-child(2) a {
@@ -3538,7 +3564,6 @@ If you want to style everything yourself, you shouldn't need these
   }
   .product section::before {
     background: transparent;
-    border-bottom: 1px solid #cdd2d4;
   }
   .product .see-wrap .btn-blue-white {
     margin-right: 15px;
@@ -3715,6 +3740,17 @@ If you want to style everything yourself, you shouldn't need these
   .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white {
     margin-right: 15px;
   }
+
+  .tabbed-content {
+    width: 100%;
+  }
+  .tabbed-content section::before {
+    background: #bfbfbf;
+  }
+
+  .product .line {
+    margin: 0 0px;
+  }
 }
 @media (max-width: 575px) {
   .product .see-wrap {
@@ -3795,7 +3831,7 @@ If you want to style everything yourself, you shouldn't need these
     padding: 0;
   }
   .tabbed-content .item {
-    margin: 15px -15px;
+    margin: 1px -15px;
   }
 
   .compare .h1, .compare h1 {

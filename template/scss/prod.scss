@@ -90,4 +90,29 @@
     .line{
       margin: 20px 0px;
     }
+    .question-wrap{
+      .title h5{
+       float: left;
+      }
+      ul{
+        margin-left: 15px;
+        li{
+          margin-top: 15px;
+        }
+      }
+      .btn-link{
+        padding-left:0; 
+      }
+      .name{
+        font-weight: 800;
+      }
+      .info-wrap{
+        float: left;
+        margin-right: 30px;
+      }
+      .date{
+        font-size: 12px;
+        color: $text_light;
+      }
+    }
 }

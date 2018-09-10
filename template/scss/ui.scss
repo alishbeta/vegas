@@ -39,7 +39,6 @@
     }
   }
 }
-
 .check-fly{
   input{
     display: none;
@@ -76,7 +75,6 @@
     }
   }
 }
-
 i{
   position: relative;
   display: inline-block;
@@ -104,7 +102,6 @@ i{
     left: 11px;
   }
 }
-
 .discount {
   position: absolute;
   width: 50px;
@@ -115,7 +112,6 @@ i{
   color: white;
   text-align: center;
 }
-
 .back-shadow{
   display: none;
   position: fixed;
@@ -127,7 +123,6 @@ i{
   opacity: 0.5;
   z-index: 1054;
 }
-
 i.arrows {
   position: relative;
   &:after{
@@ -140,7 +135,6 @@ i.arrows {
     border-bottom: 2px solid $bluish ;
   }
 }
-
 .baner-prev-arrow{
   position: absolute;
   top: 15%;
@@ -177,7 +171,6 @@ i.arrows {
 .text-blue{
   color: $bluish;
 }
-
 .btn-grey{
     border-color: black;
   background-color: transparent;
@@ -269,4 +262,9 @@ nav.blue-menu{
       transform: rotate(-45deg);
     }
   }
+}
+.favorite_i.active{
+  -webkit-mask-image: url(/img/favorite_icon_fill.svg);
+    mask-image: url(/img/favorite_icon_fill.svg);
+    background-color: #4da2c1;
 }
