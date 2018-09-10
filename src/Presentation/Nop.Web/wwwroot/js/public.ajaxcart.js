@@ -30,14 +30,14 @@ var AjaxCart = {
         }
         this.setLoadWaiting(true);
 
-        $.ajax({
-            cache: false,
-            url: urladd,
-            type: 'post',
-            success: this.success_process,
-            complete: this.resetLoadWaiting,
-            error: this.ajaxFailure
-        });
+		$.ajax({
+			cache: false,
+			url: urladd,
+			type: 'post',
+			success: this.success_process,
+			complete: this.resetLoadWaiting,
+			error: this.ajaxFailure
+		});
     },
 
     //add a product to the cart/wishlist from the product details page
@@ -79,8 +79,9 @@ var AjaxCart = {
         if (response.updatetopcartsectionhtml) {
             $(AjaxCart.topcartselector).html(response.updatetopcartsectionhtml);
         }
-        if (response.updatetopwishlistsectionhtml) {
-            $(AjaxCart.topwishlistselector).html(response.updatetopwishlistsectionhtml);
+		if (response.updatetopwishlistsectionhtml) {
+			UpdateWishlist();
+			$(AjaxCart.topwishlistselector).html(response.updatetopwishlistsectionhtml);
         }
         if (response.updateflyoutcartsectionhtml) {
             $(AjaxCart.flyoutcartselector).replaceWith(response.updateflyoutcartsectionhtml);
