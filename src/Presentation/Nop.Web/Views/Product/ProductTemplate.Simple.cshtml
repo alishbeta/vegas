@@ -231,6 +231,7 @@
 				</div>
 				<!--product pictures-->
 				@await Html.PartialAsync("_ProductDetailsPictures", Model)
+			</div>
 				<div class="float-left right-wrap">
 					<div class="opt-wrap">
 						<div class="price-wrap">
@@ -245,7 +246,7 @@
 							<div class="btn-group-vertical btn-block">
 								@{
 									var dataDictAddToCart = new ViewDataDictionary(ViewData);
-							dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+									dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
 									@await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
 								}
 								<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
@@ -253,16 +254,16 @@
 							<div class="icons-wrap d-block ml-3">
 								@{
 									var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
-							dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+									dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
 									@await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
 								}
 								@await Html.PartialAsync("_CompareProductsButton", Model)
 								@*<button class="btn btn-blue mb-2 rounded" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">В корзину</button>
-							<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
-						</div>
-						<div class="icons-wrap d-block ml-3">
-							<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
-							<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
+								<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
+							</div>
+							<div class="icons-wrap d-block ml-3">
+								<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
+								<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
 							</div>
 						</div>
 						<div class="line"></div>
@@ -305,53 +306,53 @@
 						</div>
 					</div>
 				</div>
-				<article class="tabbed-content">
-					<nav class="tabs">
-						<ul>
-							<li><a href="#tab1" class="active">@T("prod.description")</a></li>
-							<li><a href="#tab2">@T("prod.spec")</a></li>
-							<li>
-								<a href="#tab3">@T("prod.reviews")</a>
-								<div class="bg">
-									<div>@Model.ProductReviewOverview.TotalReviews</div>
-								</div>
-							</li>
-							<li>
-								<a href="#tab3">@T("prod.questions")</a>
-								<div class="bg">
-									<div>10</div>
-								</div>
-							</li>
-						</ul>
-					</nav>
-					<section id="tab1" class="item active" data-title="@T("prod.description")">
-						<div class="item-content">
-							@Html.Raw(Model.FullDescription)
-						</div>
-					</section>
-					<section id="tab2" class="item" data-title="@T("prod.spec")">
-						<div class="item-content">
-							@foreach (var specification in Model.ProductSpecifications)
-							{
-								<p>@specification.SpecificationAttributeName @Html.Raw(specification.ValueRaw)</p>
-							}
-						</div>
-					</section>
-					<section id="tab3" class="item" data-title="@T("prod.reviews")">
-						<div class="item-content">
-							Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-						</div>
-					</section>
-					<section id="tab4" class="item" data-title="@T("prod.questions")">
-						<div class="item-content">
-							Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-						</div>
-					</section>
-				</article>
 			</div>
+			<article class="tabbed-content">
+				<nav class="tabs">
+					<ul>
+						<li><a href="#tab1" class="active">@T("prod.description")</a></li>
+						<li><a href="#tab2">@T("prod.spec")</a></li>
+						<li>
+							<a href="#tab3">@T("prod.reviews")</a>
+							<div class="bg">
+								<div>@Model.ProductReviewOverview.TotalReviews</div>
+							</div>
+						</li>
+						<li>
+							<a href="#tab3">@T("prod.questions")</a>
+							<div class="bg">
+								<div>10</div>
+							</div>
+						</li>
+					</ul>
+				</nav>
+				<section id="tab1" class="item active" data-title="@T("prod.description")">
+					<div class="item-content">
+						@Html.Raw(Model.FullDescription)
+					</div>
+				</section>
+				<section id="tab2" class="item" data-title="@T("prod.spec")">
+					<div class="item-content">
+						@foreach (var specification in Model.ProductSpecifications)
+						{
+							<p>@specification.SpecificationAttributeName @Html.Raw(specification.ValueRaw)</p>
+						}
+					</div>
+				</section>
+				<section id="tab3" class="item" data-title="@T("prod.reviews")">
+					<div class="item-content">
+						Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+					</div>
+				</section>
+				<section id="tab4" class="item" data-title="@T("prod.questions")">
+					<div class="item-content">
+						Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+					</div>
+				</section>
+			</article>
 		</div>
 	</div>
-</div>
+<div class="line"></div>
 @await Component.InvokeAsync("RecentlyViewedProductsBlock", new { productThumbPictureSize = 450, preparePriceModel = true })
 <!--ALSO PURCHASED-->
 @*@await Component.InvokeAsync("ProductsAlsoPurchased", new { productId = Model.Id })*@

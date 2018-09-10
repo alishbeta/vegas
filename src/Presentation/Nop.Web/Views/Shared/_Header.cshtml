@@ -28,6 +28,11 @@
 */
 }
 <div class="header-wrap">
+	<div class="humburger-wrap d-lg-none">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
 	<div class="side-logo-wrap d-none d-lg-inline-block">
 		<div class="logo">
 			@await Component.InvokeAsync("Logo")
@@ -49,7 +54,6 @@
 	<div class="icons-wrap">
 		@await Component.InvokeAsync("LanguageSelector")
 		<i class="favorit close"></i>
-		<i class="favorit hanburger d-lg-none"></i>
 		<div class="d-sm-none">
 			@await Component.InvokeAsync("Logo")
 		</div>

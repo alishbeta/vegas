@@ -75,10 +75,10 @@
 						</div>
 						<div class="line"></div>
 					}
-					<div class="total-wrap mb-3">
-						<span>Итого 2 товара на сумму</span>
-						<span>27 008 грн</span>
-					</div>
+						<div class="total-wrap mb-3">
+							<span>@T("cart.total") <span id="cart-count-full">0</span> @T("cart.total.text")</span>
+							<span><span id="cart-price-full">0</span> грн</span>
+						</div>
 					<button class="btn btn-link">Использовать промокод</button>
 					<button class="btn btn-link">Использовать скидочную карточку</button>
 					<small>Стоимость указана без учета доставки</small>
@@ -87,3 +87,26 @@
 		</div>
 	</div>
 </div>
+<script>
+	function UpdateCart() {
+		$(document).ready(function () {
+			$("#cartItems").empty();
+			$.ajax({
+				url: "/ShoppingCart/getcart",
+				type: "POST",
+				dataType: 'json',
+				traditional: true
+			}).done(function (responce) {
+				var sum = 0.0;
+				var count = 0;
+				responce.model.Items.forEach(function (product) {
+					sum += parseFloat(product.SubTotal) * product.Quantity;
+					count += product.Quantity;
+				});
+				$("#cart-price-full").text(sum);
+				$("#cart-count-full").text(count);
+			});
+		});
+	}
+	$(document).ready(UpdateCart());
+</script>

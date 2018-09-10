@@ -310,8 +310,8 @@
 									'</div>' +
 									'<div class="line"></div>';
 								$("#cartItems").append(element);
-								sum += parseFloat(product.SubTotal);
-								count++;
+								sum += parseFloat(product.SubTotal) * product.Quantity;
+								count += product.Quantity;
 							});
 							$("#cart-price").text(sum);
 							$("#cart-count").text(count);
