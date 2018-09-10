@@ -123,6 +123,22 @@ $(document).ready(function () {
         });
     });
 
+    if ($('.side-menu-wrap ul li').hasClass('active')){
+        var color_active = rgb2hex($('.side-menu-wrap ul li.active').css("background-color"));
+        $('.side-second-menu-wrap').css("background-color", color_active);
+    }
+
+    $('.side-second-menu-wrap').hover(function () {
+        $(this).animate({
+            paddingLeft: '90px'
+        }, 300);
+    }, function(){
+        $(this).animate({
+            paddingLeft: '80px'
+        }, 300);
+    });
+
+
     $('.search-wrap').on('click', function () {
         $('.side-menu-wrap').addClass('open');
     });

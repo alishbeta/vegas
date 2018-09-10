@@ -331,11 +331,11 @@ header, nav, section, article, aside, footer {
 }
 
 .r-wrap {
-  margin-left: 335px;
+  margin-left: 318px;
 }
 
 .short-menu .r-wrap {
-  margin-left: 80px;
+  margin-left: 105px;
 }
 
 input {
@@ -887,7 +887,7 @@ nav.breadcrumb-wrap a:hover {
   opacity: 1;
 }
 .short-menu .side-second-menu-wrap {
-  padding-left: 0;
+  padding-left: 80px;
   width: 65px;
 }
 .short-menu .side-second-menu-wrap.open {
