@@ -75,12 +75,12 @@ var AjaxCart = {
         });
     },
 
-    success_process: function (response) {
+	success_process: function (response) {
+		UpdateWishlist();
         if (response.updatetopcartsectionhtml) {
             $(AjaxCart.topcartselector).html(response.updatetopcartsectionhtml);
         }
 		if (response.updatetopwishlistsectionhtml) {
-			UpdateWishlist();
 			$(AjaxCart.topwishlistselector).html(response.updatetopwishlistsectionhtml);
         }
         if (response.updateflyoutcartsectionhtml) {

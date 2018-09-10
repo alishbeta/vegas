@@ -278,7 +278,7 @@
 						dataType: 'json',
 						traditional: true
 					}).done(function (responce) {
-						$(".favorite_i").each(function () {
+						$(".favorite_i:not(.favorit)").each(function () {
 							$(this).removeClass("active");
 						});
 						responce.wishlist.forEach(function (elem) {
