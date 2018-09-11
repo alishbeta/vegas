@@ -359,7 +359,7 @@
 	</nav>
 	<section id="tab1" class="item active" data-title="@T("Cart.NewClient")">
 		<div class="item-content">
-			<form action="">
+			<form asp-route="ShoppingCart" method="post" enctype="multipart/form-data" id="shopping-cart-form">
 				<div class="title"><span>1</span>@T("Cart.FillInfo")</div>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3" for="i1">@T("Cart.Name")</label>
@@ -446,7 +446,9 @@
 					<textarea class="form-control col-sm-8" rows="4"></textarea>
 				</div>
 				<div class="row">
-					<button class="btn btn-blue pl-5 pr-5">@T("Cart.Confirm")</button>
+					<button type="submit" id="checkout" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
+						@T("Cart.Confirm")
+					</button>
 				</div>
 
 			</form>
@@ -496,31 +498,29 @@
 					<div class="form-group row">
 						<label style="display: none" class="col-form-label col-sm-3"
 							   for="li1">
-							Имя и
-							фамилия
+							@T("cart.name")
 						</label>
 						<input style="display: none" id="li1" type="text"
 							   class="form-control col-sm-8">
-						<div class="col-sm-4">Имя и фамилия</div>
-						<div class="col-sm-8 text-light-c">Иван Иванов</div>
+						<div class="col-sm-4">@T("cart.name")</div>
+						<div class="col-sm-8 text-light-c">@Model.CustomerInfo.FirstName</div>
 					</div>
 					<div class="form-group row">
 						<label style="display: none" class="col-form-label col-sm-3"
 							   for="li2">
-							Номер
-							теелфона
+							@T("cart.phone")
 						</label>
 						<input style="display: none" id="li2" type="text"
 							   class="form-control col-sm-8">
-						<div class="col-sm-4">Номер телефона</div>
-						<div class="col-sm-8 text-light-c">+38 093 796-96-08</div>
+						<div class="col-sm-4">@T("cart.phone")</div>
+						<div class="col-sm-8 text-light-c">@Model.CustomerInfo.Phone</div>
 					</div>
 					<div class="form-group row">
 						<label class="d-none col-form-label col-sm-3"
 							   for="li1">E-mail</label>
 						<input id="li3" type="text" class="d-none form-control col-sm-8">
 						<div class="col-sm-4">E-mail</div>
-						<div class="col-sm-8 text-light-c">ivan.ivanov@gmail.com</div>
+						<div class="col-sm-8 text-light-c">@Model.CustomerInfo.Email</div>
 					</div>
 
 					<div class="line"></div>
@@ -554,7 +554,7 @@
 
 					<div class="line"></div>
 
-					<div class="title"><span>3</span>Адрес</div>
+					<div class="title"><span>3</span>@T("cart.delivery")</div>
 					<button type="button" id="edit-addres" class="btn btn-link">
 						@T("cart.changeaddr")
 					</button>
@@ -565,24 +565,40 @@
 					<div class="form-group row">
 						<label style="display: none" class="col-form-label col-sm-3"
 							   for="li1">
-							Имя и
-							фамилия
+							@T("cart.name")
 						</label>
 						<input style="display: none" id="ai1" type="text"
 							   class="form-control col-sm-8">
-						<div class="col-sm-4">Город доставки</div>
-						<div class="col-sm-8 text-light-c">Киев</div>
+						<div class="col-sm-4">@T("cart.city")</div>
+						<div class="col-sm-8 text-light-c">@Model.CustomerInfo.City</div>
 					</div>
 					<div class="form-group row">
 						<label style="display: none" class="col-form-label col-sm-3"
 							   for="li2">
-							Номер
-							теелфона
+							@T("cart.phone")
 						</label>
 						<input style="display: none" id="ai2" type="text"
 							   class="form-control col-sm-8">
-						<div class="col-sm-4">Адрес</div>
-						<div class="col-sm-8 text-light-c">Рижская, 25, кв. 17</div>
+						<div class="col-sm-4">@T("cart.street")</div>
+						<div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress</div>
+						@{
+							var attribute = Model.CustomerInfo.CustomerAttributes.FirstOrDefault(x => x.Id == 2);
+							var controlId = $"customer_attribute_{attribute.Id}";
+							var textPrompt = attribute.Name;
+							<label style="display: none" class="col-form-label col-sm-3" for="li2">@textPrompt</label>
+							<input style="display: none" id="ai2" type="text" class="form-control col-sm-8">
+							<div class="col-sm-3">@textPrompt</div>
+							<div class="col-sm-8 text-light-c">@attribute.DefaultValue</div>
+						}
+						@{
+							attribute = Model.CustomerInfo.CustomerAttributes.FirstOrDefault(x => x.Id == 3);
+							controlId = $"customer_attribute_{attribute.Id}";
+							textPrompt = attribute.Name;
+							<label style="display: none" class="col-form-label col-sm-3" for="li2">@textPrompt</label>
+							<input style="display: none" id="ai2" type="text" class="form-control col-sm-8">
+							<div class="col-sm-3">@textPrompt</div>
+							<div class="col-sm-8 text-light-c">@attribute.DefaultValue</div>
+						}
 					</div>
 
 					<div class="line"></div>
@@ -624,7 +640,9 @@
 						<textarea class="form-control col-sm-8" rows="4"></textarea>
 					</div>
 					<div class="row">
-						<button class="btn btn-blue pl-5 pr-5">@T("cart.continue")</button>
+						<button type="submit" id="checkout" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
+							@T("cart.continue")
+						</button>
 					</div>
 
 				</form>

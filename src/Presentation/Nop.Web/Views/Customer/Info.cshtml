@@ -502,20 +502,18 @@
 					</button>
 					<div class="form-group row">
 						<label style="display: none" class="col-form-label col-sm-3" for="li1">
-							Имя и
-							фамилия
+							@T("cart.name")
 						</label>
 						<input style="display: none" id="li1" type="text" class="form-control col-sm-8">
-						<div class="col-sm-3">Имя и фамилия</div>
+						<div class="col-sm-3">@T("cart.name")</div>
 						<div class="col-sm-8 text-light-c">@Model.FirstName</div>
 					</div>
 					<div class="form-group row">
 						<label style="display: none" class="col-form-label col-sm-3" for="li2">
-							Номер
-							теелфона
+							@T("cart.phone")
 						</label>
 						<input style="display: none" id="li2" type="text" class="form-control col-sm-8">
-						<div class="col-sm-3">Номер телефона</div>
+						<div class="col-sm-3">@T("cart.phone")</div>
 						<div class="col-sm-8 text-light-c">@Model.Phone</div>
 					</div>
 					<div class="form-group row">
@@ -527,17 +525,16 @@
 
 					<div class="line"></div>
 
-					<div class="title"><span>2</span>Адрес</div>
+					<div class="title"><span>2</span>@T("cart.delivery")</div>
 					<button type="button" id="edit-addres" class="btn btn-link">Изменить адрес</button>
 					<button type="button" id="edit-addres-close" style="display: none" class="btn btn-link">Отмена</button>
 					<div class="form-group row">
 						<label style="display: none" class="col-form-label col-sm-3" for="li1">
-							Имя и
-							фамилия
+							@T("cart.name")
 						</label>
 						<input style="display: none" id="ai1" type="text" class="form-control col-sm-8">
-						<div class="col-sm-3">Город доставки</div>
-						<div class="col-sm-8 text-light-c">Киев</div>
+						<div class="col-sm-3">@T("cart.city")</div>
+						<div class="col-sm-8 text-light-c">@Model.City</div>
 					</div>
 					<div class="form-group row">
 						@{
@@ -562,7 +559,7 @@
 
 					<div class="line"></div>
 
-					<div class="title"><span>3</span>Пароль</div>
+					<div class="title"><span>3</span>@T("cart.pass")</div>
 					<button type="button" id="edit-pass" class="btn btn-link">Изменить пароль</button>
 					<button type="button" id="edit-pass-close" style="display: none" class="btn btn-link">Отмена</button>
 					<div class="form-group row">

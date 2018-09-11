@@ -33,6 +33,7 @@ using Nop.Services.Tax;
 using Nop.Services.Vendors;
 using Nop.Web.Infrastructure.Cache;
 using Nop.Web.Models.Common;
+using Nop.Web.Models.Customer;
 using Nop.Web.Models.Media;
 using Nop.Web.Models.ShoppingCart;
 
@@ -51,7 +52,8 @@ namespace Nop.Web.Factories
         private readonly CommonSettings _commonSettings;
         private readonly CustomerSettings _customerSettings;
         private readonly IAddressModelFactory _addressModelFactory;
-        private readonly ICheckoutAttributeFormatter _checkoutAttributeFormatter;
+		private readonly ICustomerModelFactory _customerModelFactory;
+		private readonly ICheckoutAttributeFormatter _checkoutAttributeFormatter;
         private readonly ICheckoutAttributeParser _checkoutAttributeParser;
         private readonly ICheckoutAttributeService _checkoutAttributeService;
         private readonly ICountryService _countryService;
@@ -100,7 +102,8 @@ namespace Nop.Web.Factories
             CommonSettings commonSettings,
             CustomerSettings customerSettings,
             IAddressModelFactory addressModelFactory,
-            ICheckoutAttributeFormatter checkoutAttributeFormatter,
+			ICustomerModelFactory customerModelFactory,
+			ICheckoutAttributeFormatter checkoutAttributeFormatter,
             ICheckoutAttributeParser checkoutAttributeParser,
             ICheckoutAttributeService checkoutAttributeService,
             ICountryService countryService,
@@ -147,7 +150,8 @@ namespace Nop.Web.Factories
             this._addressModelFactory = addressModelFactory;
             this._checkoutAttributeFormatter = checkoutAttributeFormatter;
             this._checkoutAttributeParser = checkoutAttributeParser;
-            this._checkoutAttributeService = checkoutAttributeService;
+			this._customerModelFactory = customerModelFactory;
+			this._checkoutAttributeService = checkoutAttributeService;
             this._countryService = countryService;
             this._currencyService = currencyService;
             this._customerService = customerService;
@@ -805,8 +809,10 @@ namespace Nop.Web.Factories
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            //simple properties
-            model.OnePageCheckoutEnabled = _orderSettings.OnePageCheckoutEnabled;
+			var infoModel = new CustomerInfoModel();
+			model.CustomerInfo = _customerModelFactory.PrepareCustomerInfoModel(infoModel, _workContext.CurrentCustomer, false);
+			//simple properties
+			model.OnePageCheckoutEnabled = _orderSettings.OnePageCheckoutEnabled;
             if (!cart.Any())
                 return model;
             model.IsEditable = isEditable;

@@ -2,7 +2,7 @@
 @using System.Text.Encodings.Web
 
 <a href="#" onclick="$('.cart-popup-wrap').toggleClass('open')"><i class="favorit shopping_bag_icon"><span>@Model.ShoppingCartItems</span></i></a>
-<a href="/wishlist"><i class="favorit favorite_i active"><span>@Model.WishlistItems</span></i></a>
+<a href="/wishlist"><i class="favorit favorite_i @(Model.WishlistItems > 0 ? "active" : "")"><span>@Model.WishlistItems</span></i></a>
 <a href="/compareproducts"><i class="favorit compare_icon"></i></a>
 @if (Model.IsAuthenticated)
 {

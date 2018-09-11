@@ -58,15 +58,10 @@
 							<div class="title">@item.ProductName</div>
 							<div class="item-name">@item.ProductSeName</div>
 							<div class="count-wrap mt-2 mb-2">
-								<button class="minus"></button>
+								<button class="minus" onclick="ChangeProductQuantity(@item.ProductId, 1, -1)"></button>
 								<div class="count">@item.Quantity</div>
-								<input id="it-count@(item.Id)" type="hidden" value="@item.Quantity">
-								<button class="plus"></button>
-								<div class="closee" onclick="$('#subm').click()"></div>
-								<form asp-route="Cart" method="post">
-									<input type="hidden" checked="checked" name="removefromcart" value="@(item.Id)" />
-									<input type="submit" style="display: none;" class="close-i" id="subm" name="updatecart" value="@T("Wishlist.UpdateCart")" />
-								</form>
+								<button class="plus" onclick="ChangeProductQuantity(@item.ProductId, 1, 1)"></button>
+								<div class="closee" onclick="RemoveFromCart(@item.ProductId, 1)"></div>
 							</div>
 							<div class="price-wrap">
 								<div class="price-old">@item.SubTotal</div>

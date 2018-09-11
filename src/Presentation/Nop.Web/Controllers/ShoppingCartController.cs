@@ -837,6 +837,68 @@ namespace Nop.Web.Controllers
             }
         }
 
+
+		[HttpPost]
+		public dynamic RemoveFromCart(int productId, int shoppingCartTypeId)
+		{
+			var product = _productService.GetProductById(productId);
+			if (product == null)
+			{
+				return Json(new
+				{
+					redirect = Url.RouteUrl("HomePage")
+				});
+			}
+
+			var cart = _workContext.CurrentCustomer.ShoppingCartItems
+							.Where(sci => sci.ShoppingCartType == (ShoppingCartType)shoppingCartTypeId)
+							.LimitPerStore(_storeContext.CurrentStore.Id)
+							.ToList();
+			var shoppingCartItem = _shoppingCartService.FindShoppingCartItemInTheCart(cart, (ShoppingCartType)shoppingCartTypeId, product);
+			if (shoppingCartItem != null)
+			{
+				_shoppingCartService.DeleteShoppingCartItem(shoppingCartItem);
+				return Json(new
+				{
+					success = true
+				});
+			}
+			
+			return Json(new { success = false });
+		}
+
+		[HttpPost]
+		public dynamic ChangeProductQuantity(int productId, int shoppingCartTypeId, int quantity)
+		{
+			var product = _productService.GetProductById(productId);
+			if (product == null)
+			{
+				return Json(new
+				{
+					redirect = Url.RouteUrl("HomePage")
+				});
+			}
+
+			var cart = _workContext.CurrentCustomer.ShoppingCartItems
+							.Where(sci => sci.ShoppingCartType == (ShoppingCartType)shoppingCartTypeId)
+							.LimitPerStore(_storeContext.CurrentStore.Id)
+							.ToList();
+			var shoppingCartItem = _shoppingCartService.FindShoppingCartItemInTheCart(cart, (ShoppingCartType)shoppingCartTypeId, product);
+			if (shoppingCartItem != null)
+			{
+				var newQuantity = shoppingCartItem.Quantity + quantity; 
+				_shoppingCartService.UpdateShoppingCartItem(_workContext.CurrentCustomer,
+					shoppingCartItem.Id, shoppingCartItem.AttributesXml, shoppingCartItem.CustomerEnteredPrice,
+					shoppingCartItem.RentalStartDateUtc, shoppingCartItem.RentalEndDateUtc, newQuantity, true);
+				return Json(new
+				{
+					success = true
+				});
+			}
+			
+			return Json(new { success = false });
+		}
+
         //add product to cart using AJAX
         //currently we use this method on the product details pages
         [HttpPost]
