@@ -65,143 +65,7 @@
 	</div>
 	<div class="line"></div>
 	<div class="similar-wrap">
-		<div class="title">@T("cart.suggestions")</div>
-		<a href="">
-			<div class="item-wrap">
-				<div class="product-img-wrap">
-					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-					<div class="discount">-20%</div>
-				</div>
-				<div class="main-prop-wrap text-left">
-					<div class="product-name text-light-c">Матрас</div>
-					<div class="product-prop">M1 - 80*190</div>
-					<div class="price-titile">Цена</div>
-					<div class="price-wrap clearfix">
-						<div class="price-old">18 843</div>
-						<div class="price-new">110 306 грн</div>
-					</div>
-				</div>
-			</div>
-		</a>
-		<a href="">
-			<div class="item-wrap">
-				<div class="product-img-wrap">
-					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-					<div class="discount">-20%</div>
-				</div>
-				<div class="main-prop-wrap text-left">
-					<div class="product-name text-light-c">Матрас</div>
-					<div class="product-prop">M1 - 80*190</div>
-					<div class="price-titile">Цена</div>
-					<div class="price-wrap clearfix">
-						<div class="price-old">18 843</div>
-						<div class="price-new">110 306 грн</div>
-					</div>
-				</div>
-			</div>
-		</a>
-		<a href="">
-			<div class="item-wrap">
-				<div class="product-img-wrap">
-					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-					<div class="discount">-20%</div>
-				</div>
-				<div class="main-prop-wrap text-left">
-					<div class="product-name text-light-c">Матрас</div>
-					<div class="product-prop">M1 - 80*190</div>
-					<div class="price-titile">Цена</div>
-					<div class="price-wrap clearfix">
-						<div class="price-old">18 843</div>
-						<div class="price-new">110 306 грн</div>
-					</div>
-				</div>
-			</div>
-		</a>
-		<a href="">
-			<div class="item-wrap">
-				<div class="product-img-wrap">
-					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-					<div class="discount">-20%</div>
-				</div>
-				<div class="main-prop-wrap text-left">
-					<div class="product-name text-light-c">Матрас</div>
-					<div class="product-prop">M1 - 80*190</div>
-					<div class="price-titile">Цена</div>
-					<div class="price-wrap clearfix">
-						<div class="price-old">18 843</div>
-						<div class="price-new">110 306 грн</div>
-					</div>
-				</div>
-			</div>
-		</a>
-		<a href="">
-			<div class="item-wrap">
-				<div class="product-img-wrap">
-					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-					<div class="discount">-20%</div>
-				</div>
-				<div class="main-prop-wrap text-left">
-					<div class="product-name text-light-c">Матрас</div>
-					<div class="product-prop">M1 - 80*190</div>
-					<div class="price-titile">Цена</div>
-					<div class="price-wrap clearfix">
-						<div class="price-old">18 843</div>
-						<div class="price-new">110 306 грн</div>
-					</div>
-				</div>
-			</div>
-		</a>
-		<a href="">
-			<div class="item-wrap">
-				<div class="product-img-wrap">
-					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-					<div class="discount">-20%</div>
-				</div>
-				<div class="main-prop-wrap text-left">
-					<div class="product-name text-light-c">Матрас</div>
-					<div class="product-prop">M1 - 80*190</div>
-					<div class="price-titile">Цена</div>
-					<div class="price-wrap clearfix">
-						<div class="price-old">18 843</div>
-						<div class="price-new">110 306 грн</div>
-					</div>
-				</div>
-			</div>
-		</a>
-		<a href="">
-			<div class="item-wrap">
-				<div class="product-img-wrap">
-					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-					<div class="discount">-20%</div>
-				</div>
-				<div class="main-prop-wrap text-left">
-					<div class="product-name text-light-c">Матрас</div>
-					<div class="product-prop">M1 - 80*190</div>
-					<div class="price-titile">Цена</div>
-					<div class="price-wrap clearfix">
-						<div class="price-old">18 843</div>
-						<div class="price-new">110 306 грн</div>
-					</div>
-				</div>
-			</div>
-		</a>
-		<a href="">
-			<div class="item-wrap">
-				<div class="product-img-wrap">
-					<img class="product" src="/img/bs-mattress-rx-med.png" alt="bs-mattress-rx-med">
-					<div class="discount">-20%</div>
-				</div>
-				<div class="main-prop-wrap text-left">
-					<div class="product-name text-light-c">Матрас</div>
-					<div class="product-prop">M1 - 80*190</div>
-					<div class="price-titile">Цена</div>
-					<div class="price-wrap clearfix">
-						<div class="price-old">18 843</div>
-						<div class="price-new">110 306 грн</div>
-					</div>
-				</div>
-			</div>
-		</a>
+		@await Component.InvokeAsync("CrossSellProducts")
 	</div>
 </div>
 <div class="login-form-wrap rounded">
@@ -289,7 +153,7 @@
 				$(document).ready(UpdateWishlist());
 			</script>
 			<script>
-				function RemoveFromCart(id, cartType) {
+				function RemoveFromCart(id, cartType, refresh) {
 					$.ajax({
 						url: "/ShoppingCart/RemoveFromCart",
 						type: "POST",
@@ -297,7 +161,8 @@
 						traditional: true,
 						data: {
 							productId: id,
-							shoppingCartTypeId: cartType
+							shoppingCartTypeId: cartType,
+							refresh
 						}
 					}).done(function (responce) {
 						console.log(responce);
@@ -308,13 +173,15 @@
 							else {
 								UpdateWishlist();
 							}
-							window.location.reload();
+							if (responce.refresh) {
+								window.location.reload();
+							}
 						}
 					});
 				}
 			</script>
 			<script>
-				function ChangeProductQuantity(id, cartType, quantity) {
+				function ChangeProductQuantity(id, cartType, quantity, refresh) {
 					$.ajax({
 						url: "/ShoppingCart/ChangeProductQuantity",
 						type: "POST",
@@ -323,7 +190,8 @@
 						data: {
 							productId: id,
 							shoppingCartTypeId: cartType,
-							quantity
+							quantity,
+							refresh
 						}
 					}).done(function (responce) {
 						console.log(responce);
@@ -334,7 +202,9 @@
 							else {
 								UpdateWishlist();
 							}
-							window.location.reload();
+							if (responce.refresh) {
+								window.location.reload();
+							}
 						}
 					});
 				}
@@ -361,11 +231,11 @@
 								'<div class="title">' + product.ProductName + '</div>' +
 								'<div class="item-name">' + product.ProductSeName + '</div>' +
 								'<div class="count-wrap mt-2 mb-2">' +
-								'<button class="minus" onclick="ChangeProductQuantity(' + product.ProductId + ', 1, -1)"></button>' +
+								'<button class="minus" onclick="ChangeProductQuantity(' + product.ProductId + ', 1, -1, false)"></button>' +
 								'<div class="count">' + product.Quantity + '</div>' +
 								'<input id="it-count1" type="hidden" value="' + product.Quantity + '">' +
-								'<button class="plus" onclick="ChangeProductQuantity(' + product.ProductId + ', 1, 1)"></button>' +
-								'<div class="closee" onclick="RemoveFromCart(' + product.ProductId + ', 1)"></div>' +
+								'<button class="plus" onclick="ChangeProductQuantity(' + product.ProductId + ', 1, 1, false)"></button>' +
+								'<div class="closee" onclick="RemoveFromCart(' + product.ProductId + ', 1, false)"></div>' +
 								'</div>' +
 								'<div class="price-wrap">' +
 								oldPrice +

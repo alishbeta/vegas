@@ -1,17 +1,9 @@
 ﻿@model IList<ProductOverviewModel>
 @if (Model.Count > 0)
 {
-    <div class="product-grid cross-sells">
-        <div class="title">
-            <strong>@T("ShoppingCart.CrossSells")</strong>
-        </div>
-        <div class="item-grid">
-            @foreach (var product in Model)
-            {
-                <div class="item-box">
-                    @await Html.PartialAsync("_ProductBox", product)
-                </div>
-            }
-        </div>
-    </div>
+<div class="title">@T("cart.suggestions")</div>
+    @foreach (var product in Model)
+    {
+		@await Html.PartialAsync("_ProductBox", product)
+    }
 }

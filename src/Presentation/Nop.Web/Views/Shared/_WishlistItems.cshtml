@@ -19,7 +19,7 @@
 		<div class="product-img-wrap">
 			<div>
 				<i class="compare_icon" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
-				<i class="close-i" onclick="RemoveFromCart(@item.ProductId, 2)"></i>
+				<i class="close-i" onclick="RemoveFromCart(@item.ProductId, 2, true)"></i>
 			</div>
 			<img class="product" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
 			@if (item.Discount != "" && item.Discount != null)

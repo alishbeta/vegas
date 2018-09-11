@@ -839,7 +839,7 @@ namespace Nop.Web.Controllers
 
 
 		[HttpPost]
-		public dynamic RemoveFromCart(int productId, int shoppingCartTypeId)
+		public dynamic RemoveFromCart(int productId, int shoppingCartTypeId, bool refresh = false)
 		{
 			var product = _productService.GetProductById(productId);
 			if (product == null)
@@ -860,7 +860,8 @@ namespace Nop.Web.Controllers
 				_shoppingCartService.DeleteShoppingCartItem(shoppingCartItem);
 				return Json(new
 				{
-					success = true
+					success = true,
+					refresh
 				});
 			}
 			
@@ -868,7 +869,7 @@ namespace Nop.Web.Controllers
 		}
 
 		[HttpPost]
-		public dynamic ChangeProductQuantity(int productId, int shoppingCartTypeId, int quantity)
+		public dynamic ChangeProductQuantity(int productId, int shoppingCartTypeId, int quantity, bool refresh = false)
 		{
 			var product = _productService.GetProductById(productId);
 			if (product == null)
@@ -892,7 +893,8 @@ namespace Nop.Web.Controllers
 					shoppingCartItem.RentalStartDateUtc, shoppingCartItem.RentalEndDateUtc, newQuantity, true);
 				return Json(new
 				{
-					success = true
+					success = true,
+					refresh
 				});
 			}
 			
