@@ -148,6 +148,7 @@
 						responce.wishlist.forEach(function (elem) {
 							$("[data-id='" + elem.ProductId + "']").addClass("active");
 						});
+						$("#wishlistItemsCount").text(responce.wishlist.length);
 					});
 				};
 				$(document).ready(UpdateWishlist());
