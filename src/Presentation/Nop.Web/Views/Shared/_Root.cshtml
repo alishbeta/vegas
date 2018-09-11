@@ -258,6 +258,9 @@
 						traditional: true
 					}).done(function (responce) {
 						GetCrossSellProducts();
+						if ($("#mainCartItems").length > 0) {
+							$("#mainCartItems").empty();
+						}
 						$("#cartItems").empty();
 						var sum = 0.0;
 						var count = 0;
@@ -285,6 +288,9 @@
 								'</div>' +
 								'<div class="line"></div>';
 							$("#cartItems").append(element);
+							if ($("#mainCartItems").length > 0) {
+								$("#mainCartItems").append(element);
+							}
 							sum += parseFloat(product.SubTotal) * product.Quantity;
 							count += product.Quantity;
 						});
