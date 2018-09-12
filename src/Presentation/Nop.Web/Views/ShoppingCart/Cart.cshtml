@@ -51,30 +51,27 @@
 			<div class="order-1 col-md-12 order-lg-2 col-lg-3">
 				<div class="order-wrapp rounded">
 					<div class="title mb-4">@T("Cart.YourOrder")</div>
-					@foreach (var item in Model.Items)
-					{
-						<div class="item">
-							<img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
-							<div class="title">@item.ProductName</div>
-							<div class="item-name">@item.ProductSeName</div>
-							<div class="count-wrap mt-2 mb-2">
-								<button class="minus"></button>
-								<div class="count">@item.Quantity</div>
-								<input id="it-count@(item.Id)" type="hidden" value="@item.Quantity">
-								<button class="plus"></button>
-								<div class="closee" onclick="$('#subm').click()"></div>
-								<form asp-route="Cart" method="post">
-									<input type="hidden" checked="checked" name="removefromcart" value="@(item.Id)" />
-									<input type="submit" style="display: none;" class="close-i" id="subm" name="updatecart" value="@T("Wishlist.UpdateCart")" />
-								</form>
+					<div id="mainCartItems">
+						@foreach (var item in Model.Items)
+						{
+							<div class="item">
+								<img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+								<div class="title">@item.ProductName</div>
+								<div class="item-name">@item.ProductSeName</div>
+								<div class="count-wrap mt-2 mb-2">
+									<button class="minus" onclick="ChangeProductQuantity(@item.ProductId, 1, -1, false)"></button>
+									<div class="count">@item.Quantity</div>
+									<button class="plus" onclick="ChangeProductQuantity(@item.ProductId, 1, 1, false)"></button>
+									<div class="closee" onclick="RemoveFromCart(@item.ProductId, 1, false)"></div>
+								</div>
+								<div class="price-wrap">
+									<div class="price-old">@item.SubTotal</div>
+									<div class="price">@(item.MaximumDiscountedQty.HasValue ? T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value).ToString() : item.SubTotal)</div>
+								</div>
 							</div>
-							<div class="price-wrap">
-								<div class="price-old">@item.SubTotal</div>
-								<div class="price">@(item.MaximumDiscountedQty.HasValue ? T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value).ToString() : item.SubTotal)</div>
-							</div>
-						</div>
-						<div class="line"></div>
-					}
+							<div class="line"></div>
+						}
+					</div>
 						<div class="total-wrap mb-3">
 							<span>@T("cart.total") <span id="cart-count-full">0</span> @T("cart.total.text")</span>
 							<span><span id="cart-price-full">0</span> грн</span>

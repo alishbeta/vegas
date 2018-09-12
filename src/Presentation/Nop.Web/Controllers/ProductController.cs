@@ -209,7 +209,7 @@ namespace Nop.Web.Controllers
             return View(model);
         }
 
-        #endregion
+		#endregion
 
         #region New (recently added) products page
 

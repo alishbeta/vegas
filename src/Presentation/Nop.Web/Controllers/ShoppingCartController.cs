@@ -48,7 +48,8 @@ namespace Nop.Web.Controllers
         private readonly CustomerSettings _customerSettings;
         private readonly ICheckoutAttributeParser _checkoutAttributeParser;
         private readonly ICheckoutAttributeService _checkoutAttributeService;
-        private readonly ICurrencyService _currencyService;
+		private readonly IProductModelFactory _productModelFactory;
+		private readonly ICurrencyService _currencyService;
         private readonly ICustomerActivityService _customerActivityService;
         private readonly ICustomerService _customerService;
         private readonly IDiscountService _discountService;
@@ -83,7 +84,8 @@ namespace Nop.Web.Controllers
 
         public ShoppingCartController(CaptchaSettings captchaSettings,
             CustomerSettings customerSettings,
-            ICheckoutAttributeParser checkoutAttributeParser,
+			IProductModelFactory productModelFactory,
+			ICheckoutAttributeParser checkoutAttributeParser,
             ICheckoutAttributeService checkoutAttributeService,
             ICurrencyService currencyService,
             ICustomerActivityService customerActivityService,
@@ -120,7 +122,8 @@ namespace Nop.Web.Controllers
             this._checkoutAttributeService = checkoutAttributeService;
             this._currencyService = currencyService;
             this._customerActivityService = customerActivityService;
-            this._customerService = customerService;
+			this._productModelFactory = productModelFactory;
+			this._customerService = customerService;
             this._discountService = discountService;
             this._downloadService = downloadService;
             this._genericAttributeService = genericAttributeService;
@@ -836,6 +839,111 @@ namespace Nop.Web.Controllers
                     }
             }
         }
+
+
+		[HttpPost]
+		public dynamic RemoveFromCart(int productId, int shoppingCartTypeId, bool refresh = false)
+		{
+			var product = _productService.GetProductById(productId);
+			if (product == null)
+			{
+				return Json(new
+				{
+					redirect = Url.RouteUrl("HomePage")
+				});
+			}
+
+			var cart = _workContext.CurrentCustomer.ShoppingCartItems
+							.Where(sci => sci.ShoppingCartType == (ShoppingCartType)shoppingCartTypeId)
+							.LimitPerStore(_storeContext.CurrentStore.Id)
+							.ToList();
+			var shoppingCartItem = _shoppingCartService.FindShoppingCartItemInTheCart(cart, (ShoppingCartType)shoppingCartTypeId, product);
+			if (shoppingCartItem != null)
+			{
+				_shoppingCartService.DeleteShoppingCartItem(shoppingCartItem);
+				return Json(new
+				{
+					success = true,
+					refresh
+				});
+			}
+			
+			return Json(new { success = false });
+		}
+
+		[HttpsRequirement(SslRequirement.No)]
+		public virtual IActionResult CrossSellProducts()
+		{
+			var cart = _workContext.CurrentCustomer.ShoppingCartItems
+				   .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+				   .LimitPerStore(_storeContext.CurrentStore.Id)
+				   .ToList();
+
+			var products = _productService.GetCrosssellProductsByShoppingCart(cart, _shoppingCartSettings.CrossSellsNumber);
+			//availability dates
+			products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+			//visible individually
+			products = products.Where(p => p.VisibleIndividually).ToList();
+			var model = _productModelFactory.PrepareProductOverviewModels(products).ToList();
+
+			List<SimpleProductModel> productModels = new List<SimpleProductModel>();
+			foreach (var product in model)
+			{
+				productModels.Add(new SimpleProductModel()
+				{
+					Name = product.Name,
+					SeName = product.SeName,
+					AlternateText = product.DefaultPictureModel.AlternateText,
+					Title = product.DefaultPictureModel.Title,
+					ImageUrl = product.DefaultPictureModel.ImageUrl,
+					Discount = product.ProductPrice.Discount,
+					FullDescription = product.FullDescription,
+					ShortDescription = product.ShortDescription,
+					NewPrice = product.ProductPrice.Price,
+					OldPrice = product.ProductPrice.OldPrice,
+					ProductId = product.Id
+				});
+			}
+
+			return Json(new
+			{
+				success = true,
+				model = productModels
+			});
+		}
+
+		[HttpPost]
+		public dynamic ChangeProductQuantity(int productId, int shoppingCartTypeId, int quantity, bool refresh = false)
+		{
+			var product = _productService.GetProductById(productId);
+			if (product == null)
+			{
+				return Json(new
+				{
+					redirect = Url.RouteUrl("HomePage")
+				});
+			}
+
+			var cart = _workContext.CurrentCustomer.ShoppingCartItems
+							.Where(sci => sci.ShoppingCartType == (ShoppingCartType)shoppingCartTypeId)
+							.LimitPerStore(_storeContext.CurrentStore.Id)
+							.ToList();
+			var shoppingCartItem = _shoppingCartService.FindShoppingCartItemInTheCart(cart, (ShoppingCartType)shoppingCartTypeId, product);
+			if (shoppingCartItem != null)
+			{
+				var newQuantity = shoppingCartItem.Quantity + quantity; 
+				_shoppingCartService.UpdateShoppingCartItem(_workContext.CurrentCustomer,
+					shoppingCartItem.Id, shoppingCartItem.AttributesXml, shoppingCartItem.CustomerEnteredPrice,
+					shoppingCartItem.RentalStartDateUtc, shoppingCartItem.RentalEndDateUtc, newQuantity, true);
+				return Json(new
+				{
+					success = true,
+					refresh
+				});
+			}
+			
+			return Json(new { success = false });
+		}
 
         //add product to cart using AJAX
         //currently we use this method on the product details pages

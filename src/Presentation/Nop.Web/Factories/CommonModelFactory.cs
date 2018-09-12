@@ -54,7 +54,8 @@ namespace Nop.Web.Factories
         private readonly CustomerSettings _customerSettings;
         private readonly DisplayDefaultFooterItemSettings _displayDefaultFooterItemSettings;
         private readonly ForumSettings _forumSettings;
-        private readonly IActionContextAccessor _actionContextAccessor;
+		private readonly ICompareProductsService _compareProductsService;
+		private readonly IActionContextAccessor _actionContextAccessor;
         private readonly ICategoryService _categoryService;
         private readonly ICurrencyService _currencyService;
         private readonly ICustomerService _customerService;
@@ -97,7 +98,8 @@ namespace Nop.Web.Factories
             DisplayDefaultFooterItemSettings displayDefaultFooterItemSettings,
             ForumSettings forumSettings,
             IActionContextAccessor actionContextAccessor,
-            ICategoryService categoryService,
+			ICompareProductsService compareProductsService,
+			ICategoryService categoryService,
             ICurrencyService currencyService,
             ICustomerService customerService,
             IForumService forumService,
@@ -129,7 +131,8 @@ namespace Nop.Web.Factories
         {
             this._blogSettings = blogSettings;
             this._captchaSettings = captchaSettings;
-            this._catalogSettings = catalogSettings;
+			this._compareProductsService = compareProductsService;
+			this._catalogSettings = catalogSettings;
             this._commonSettings = commonSettings;
             this._customerSettings = customerSettings;
             this._displayDefaultFooterItemSettings = displayDefaultFooterItemSettings;
@@ -356,7 +359,8 @@ namespace Nop.Web.Factories
                 model.WishlistItems = customer.ShoppingCartItems
                     .Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
                     .LimitPerStore(_storeContext.CurrentStore.Id).Count();
-            }
+				model.CompareProductItems = _compareProductsService.GetComparedProducts().Count;
+			}
 
             return model;
         }

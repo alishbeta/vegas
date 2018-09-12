@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core.Domain.Catalog;
 using Nop.Web.Framework.Models;
 using Nop.Web.Models.Common;
+using Nop.Web.Models.Customer;
 using Nop.Web.Models.Media;
 
 namespace Nop.Web.Models.ShoppingCart
@@ -30,6 +31,7 @@ namespace Nop.Web.Models.ShoppingCart
         
         public IList<CheckoutAttributeModel> CheckoutAttributes { get; set; }
 
+		public CustomerInfoModel CustomerInfo { get; set; }
         public IList<string> Warnings { get; set; }
         public string MinOrderSubtotalWarning { get; set; }
         public bool DisplayTaxShippingInfo { get; set; }

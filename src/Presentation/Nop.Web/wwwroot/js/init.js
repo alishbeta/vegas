@@ -194,7 +194,7 @@ $(document).ready(function () {
 
     /*#####################    Корзина   (Отображение popup)###############################*/
     $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived)').on('click', function () {
-        UpdateCart();
+        //UpdateCart();
         $('.cart-popup-wrap').addClass('open');
 		$('.back-shadow').fadeIn();
 		

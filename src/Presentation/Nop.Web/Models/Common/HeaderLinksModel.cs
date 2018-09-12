@@ -13,6 +13,8 @@ namespace Nop.Web.Models.Common
         public bool WishlistEnabled { get; set; }
         public int WishlistItems { get; set; }
 
+		public int CompareProductItems { get; set; }
+
         public bool AllowPrivateMessages { get; set; }
         public string UnreadPrivateMessages { get; set; }
         public string AlertMessage { get; set; }
