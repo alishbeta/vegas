@@ -11,9 +11,11 @@
   width: 0;
   background-color: white;
   z-index: 1055;
+  width: 500px;
+  height: 0;
   @include transition(0.3s);
   &.open{
-    width: 500px;
+    height: 100%;
   }
   .order-wrapp{
     @include box-shadow(none);
@@ -21,7 +23,7 @@
     margin-top: 0;
     padding-top: 30px;
     padding-bottom: 15px;
-    width: max-content;
+    width: 100%;
     .item.active {
       border: none;
     }
@@ -33,12 +35,13 @@
       i{
         width: 20px;
         height: 20px;
-        float: right;
         &.close-i{
-           margin: 7px 0 0
+           margin: 7px 0 0;
+           float: right;
         }
         &.shopping_bag_icon{
-          margin: 7px 65px 0 0
+          margin: 7px 65px 0 0;
+          float: left;
         }
       }
     }

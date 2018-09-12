@@ -258,7 +258,7 @@
     border: 1px solid #d9dee0;
     border-radius: 5px;
     width: 288px;
-    height: 360px;
+    height: 355px;
     overflow: hidden;
     float: left;
     padding: 0;
@@ -688,13 +688,6 @@ html .ui-button.ui-state-disabled {
   small {
     vertical-align: -2px;
   }
-}
-
-
-.star {
-  -webkit-mask-image: url(/img/star_fill.svg);
-  mask-image: url(/img/star_fill.svg);
-  background-color: #ff9c32;
 }
 
 .product .slider {

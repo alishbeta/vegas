@@ -194,6 +194,9 @@ $i: 0;
   .side-second-menu-wrap{
     padding-left: 80px;
     width: 65px;
+    &.half-open{
+      padding-left: 90px;
+    }
     &.open{
       width: 700px!important;
       padding-left: 300px;

@@ -8,13 +8,10 @@
     height: 500px;
   }
   .img-wrap{
-    margin-top: 30px;
+    margin: 30px auto 0 auto;
     .img{
-      float: left;
       margin-bottom: 15px;
       position: relative;
-      width: 540px;
-      margin-left: 18px;
       img{
         margin-bottom: 0;
       }
@@ -84,7 +81,7 @@
     }
   }
   p{
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     span{
       color: $bluish;
     }

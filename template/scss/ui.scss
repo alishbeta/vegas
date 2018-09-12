@@ -268,3 +268,23 @@ nav.blue-menu{
     mask-image: url(/img/favorite_icon_fill.svg);
     background-color: #4da2c1;
 }
+.compare_icon.active{
+  -webkit-mask-image: url(/img/compare_icon.svg);
+  mask-image: url(/img/compare_icon.svg);
+  background-color: #4da2c1;
+}
+.shopping_bag_icon.active{
+  -webkit-mask-image: url(/img/shopping_bag_icon.svg);
+  mask-image: url(/img/shopping_bag_icon.svg);
+  background-color: #4da2c1;
+}
+.star {
+  -webkit-mask-image: url(/img/star_fill.svg);
+  mask-image: url(/img/star_fill.svg);
+  background-color: #ff9c32;
+}
+.star.grey {
+  -webkit-mask-image: url(/img/star_fill.svg);
+  mask-image: url(/img/star_fill.svg);
+  background-color: gray;
+}
