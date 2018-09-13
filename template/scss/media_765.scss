@@ -1,4 +1,4 @@
-@media (max-width: 769px) {
+@media (max-width: 765px) {
   body {
     min-width: 0;
   }
@@ -136,5 +136,10 @@
 }
 .product .line{
     margin: 0 0px;
+  }
+
+  .news .article-wrap .item-wrap{
+    margin: 0 auto 20px auto;
+    float: none;
   }
 }

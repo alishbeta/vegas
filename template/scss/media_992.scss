@@ -56,11 +56,7 @@
 
   .news-wrap, .news .article-wrap, .map .article-wrap {
     padding-left: 0;
-    width: 100%;
-    .item-wrap {
-      margin: 0 auto 25px;
-      float: none;
-    }
+    margin-left: calc((100% - 606px) / 2);
   }
   .item-wrap-full {
     display: none;
