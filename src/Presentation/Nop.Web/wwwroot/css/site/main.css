@@ -307,6 +307,224 @@ nav.blue-menu ul li a.active {
   background-color: #4da2c1;
 }
 
+.compare_icon.active {
+  -webkit-mask-image: url(/img/compare_icon.svg);
+  mask-image: url(/img/compare_icon.svg);
+  background-color: #4da2c1;
+}
+
+.shopping_bag_icon.active {
+  -webkit-mask-image: url(/img/shopping_bag_icon.svg);
+  mask-image: url(/img/shopping_bag_icon.svg);
+  background-color: #4da2c1;
+}
+
+.star {
+  -webkit-mask-image: url(/img/star_fill.svg);
+  mask-image: url(/img/star_fill.svg);
+  background-color: #ff9c32;
+}
+
+.star.grey {
+  -webkit-mask-image: url(/img/star_fill.svg);
+  mask-image: url(/img/star_fill.svg);
+  background-color: gray;
+}
+
+.container-reloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  animation-delay: 1s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+}
+
+.item-1 {
+  width: 20px;
+  height: 20px;
+  background: #f583a1;
+  border-radius: 50%;
+  background-color: #99cbdc;
+  margin: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50%,
+    75% {
+    transform: scale(2.5);
+  }
+  78%, 100% {
+    opacity: 0;
+  }
+}
+.item-1:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #99cbdc;
+  opacity: 0.7;
+  animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+  animation-delay: 200ms;
+  transition: 0.5s all ease;
+  transform: scale(1);
+}
+
+.item-2 {
+  width: 20px;
+  height: 20px;
+  background: #f583a1;
+  border-radius: 50%;
+  background-color: #99cbdc;
+  margin: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50%,
+    75% {
+    transform: scale(2.5);
+  }
+  78%, 100% {
+    opacity: 0;
+  }
+}
+.item-2:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #99cbdc;
+  opacity: 0.7;
+  animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+  animation-delay: 400ms;
+  transition: 0.5s all ease;
+  transform: scale(1);
+}
+
+.item-3 {
+  width: 20px;
+  height: 20px;
+  background: #f583a1;
+  border-radius: 50%;
+  background-color: #85c1d5;
+  margin: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50%,
+    75% {
+    transform: scale(2.5);
+  }
+  78%, 100% {
+    opacity: 0;
+  }
+}
+.item-3:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #85c1d5;
+  opacity: 0.7;
+  animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+  animation-delay: 600ms;
+  transition: 0.5s all ease;
+  transform: scale(1);
+}
+
+.item-4 {
+  width: 20px;
+  height: 20px;
+  background: #f583a1;
+  border-radius: 50%;
+  background-color: #7bbcd1;
+  margin: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50%,
+    75% {
+    transform: scale(2.5);
+  }
+  78%, 100% {
+    opacity: 0;
+  }
+}
+.item-4:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #7bbcd1;
+  opacity: 0.7;
+  animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+  animation-delay: 800ms;
+  transition: 0.5s all ease;
+  transform: scale(1);
+}
+
+.item-5 {
+  width: 20px;
+  height: 20px;
+  background: #f583a1;
+  border-radius: 50%;
+  background-color: #71b1ce;
+  margin: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50%,
+    75% {
+    transform: scale(2.5);
+  }
+  78%, 100% {
+    opacity: 0;
+  }
+}
+.item-5:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #71b1ce;
+  opacity: 0.7;
+  animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+  animation-delay: 1000ms;
+  transition: 0.5s all ease;
+  transform: scale(1);
+}
+
 html, body, .wrap, .r-wrap {
   height: 100%;
 }
@@ -335,7 +553,7 @@ header, nav, section, article, aside, footer {
 }
 
 .short-menu .r-wrap {
-  margin-left: 105px;
+  margin-left: 95px;
 }
 
 input {
@@ -592,7 +810,6 @@ nav.breadcrumb-wrap {
 nav.breadcrumb-wrap .breadcrumb {
   background-color: transparent;
   font-size: 12px;
-  margin-left: 35px;
 }
 nav.breadcrumb-wrap .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
   content: ">";
@@ -890,6 +1107,9 @@ nav.breadcrumb-wrap a:hover {
   padding-left: 80px;
   width: 65px;
 }
+.short-menu .side-second-menu-wrap.half-open {
+  padding-left: 90px;
+}
 .short-menu .side-second-menu-wrap.open {
   width: 700px !important;
   padding-left: 300px;
@@ -947,6 +1167,9 @@ nav.breadcrumb-wrap a:hover {
   font-size: 12px;
 }
 
+.content .full > [class*="col"] > .title {
+  margin-left: 15px;
+}
 .content .title {
   position: relative;
 }
@@ -1190,7 +1413,7 @@ nav.breadcrumb-wrap a:hover {
   border: 1px solid #d9dee0;
   border-radius: 5px;
   width: 288px;
-  height: 360px;
+  height: 355px;
   overflow: hidden;
   float: left;
   padding: 0;
@@ -1601,12 +1824,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .product .icons-wrap small {
   vertical-align: -2px;
-}
-
-.star {
-  -webkit-mask-image: url(/img/star_fill.svg);
-  mask-image: url(/img/star_fill.svg);
-  background-color: #ff9c32;
 }
 
 .product .slider {
@@ -2242,13 +2459,15 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   width: 0;
   background-color: white;
   z-index: 1055;
+  width: 500px;
+  height: 0;
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 .cart-popup-wrap.open {
-  width: 500px;
+  height: 100%;
 }
 .cart-popup-wrap .order-wrapp {
   -moz-box-shadow: none;
@@ -2258,7 +2477,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   margin-top: 0;
   padding-top: 30px;
   padding-bottom: 15px;
-  width: max-content;
+  width: 100%;
 }
 .cart-popup-wrap .order-wrapp .item.active {
   border: none;
@@ -2272,13 +2491,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .cart-popup-wrap .order-wrapp .title-wrap i {
   width: 20px;
   height: 20px;
-  float: right;
 }
 .cart-popup-wrap .order-wrapp .title-wrap i.close-i {
   margin: 7px 0 0;
+  float: right;
 }
 .cart-popup-wrap .order-wrapp .title-wrap i.shopping_bag_icon {
   margin: 7px 65px 0 0;
+  float: left;
 }
 .cart-popup-wrap .order-wrapp .total-wrap {
   margin: -22px -39px 0 -30px;
@@ -2348,7 +2568,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   border-radius: 5px;
 }
 .news .date, .map .date, .news .label, .map .label {
-  display: inline-block;
+  display: block;
   float: right;
   font-size: 10px;
   background-color: #bfdce6;
@@ -2363,7 +2583,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   text-decoration: underline;
 }
 .news .news-wrap, .map .news-wrap, .news .article-wrap, .map .article-wrap {
-  margin-left: -20px;
   border-bottom: none;
 }
 .news .news-wrap .title, .map .news-wrap .title, .news .article-wrap .title, .map .article-wrap .title {
@@ -2475,6 +2694,20 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .news .cert-full-wrap h1 img, .map .cert-full-wrap h1 img {
   width: 50px;
   margin-left: 30px;
+}
+.news .full, .map .full {
+  margin: 0 0px 0 -14px;
+  width: calc(100% + 14px);
+}
+.news .article-wrap .label, .map .article-wrap .label {
+  float: none;
+  position: absolute;
+  bottom: 0;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.news .article-wrap img, .map .article-wrap img {
+  margin-bottom: 0px;
 }
 .news .label.d, .map .label.d {
   font-size: 12px;
@@ -2643,14 +2876,11 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   height: 500px;
 }
 .map .img-wrap {
-  margin-top: 30px;
+  margin: 30px auto 0 auto;
 }
 .map .img-wrap .img {
-  float: left;
   margin-bottom: 15px;
   position: relative;
-  width: 540px;
-  margin-left: 18px;
 }
 .map .img-wrap .img img {
   margin-bottom: 0;
@@ -2716,7 +2946,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   border-bottom: 3px solid white;
 }
 .show-room p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 }
 .show-room p span {
   color: #2c96b9;
@@ -3227,15 +3457,8 @@ If you want to style everything yourself, you shouldn't need these
   .all-menu-wrap .search-wrap {
     margin-top: 20px;
   }
-  .all-menu-wrap .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
-    width: 60px;
-    overflow: hidden;
-  }
   .all-menu-wrap .side-menu-wrap li, .all-menu-wrap .side-second-menu-wrap li {
     width: 318px;
-  }
-  .all-menu-wrap .side-second-menu-wrap {
-    padding-left: 75px;
   }
 
   .content-main-wrap .header-wrap .side-logo-wrap {
@@ -3315,11 +3538,7 @@ If you want to style everything yourself, you shouldn't need these
 
   .news-wrap, .news .article-wrap, .map .article-wrap, .news .article-wrap, .map .article-wrap, .map .article-wrap {
     padding-left: 0;
-    width: 100%;
-  }
-  .news-wrap .item-wrap, .news .article-wrap .item-wrap, .map .article-wrap .item-wrap, .news .article-wrap .item-wrap, .map .article-wrap .item-wrap, .map .article-wrap .item-wrap {
-    margin: 0 auto 25px;
-    float: none;
+    margin-left: calc((100% - 606px) / 2);
   }
 
   .item-wrap-full {
@@ -3602,7 +3821,7 @@ If you want to style everything yourself, you shouldn't need these
     width: auto;
   }
 }
-@media (max-width: 769px) {
+@media (max-width: 765px) {
   body {
     min-width: 0;
   }
@@ -3750,6 +3969,11 @@ If you want to style everything yourself, you shouldn't need these
 
   .product .line {
     margin: 0 0px;
+  }
+
+  .news .article-wrap .item-wrap, .map .article-wrap .item-wrap {
+    margin: 0 auto 20px auto;
+    float: none;
   }
 }
 @media (max-width: 575px) {
@@ -3923,7 +4147,7 @@ If you want to style everything yourself, you shouldn't need these
   }
 
   nav.blue-menu {
-    margin: 0 -15px 30px;
+    margin: 0px 0px 30px;
   }
   nav.blue-menu ul li {
     float: none;
@@ -3980,6 +4204,10 @@ If you want to style everything yourself, you shouldn't need these
 
   .news-wrap .title button, .news .article-wrap .title button, .map .article-wrap .title button {
     bottom: -1215px;
+  }
+
+  .news-wrap, .news .article-wrap, .map .article-wrap, .news .article-wrap, .map .article-wrap, .map .article-wrap {
+    margin-left: 0;
   }
 }
 

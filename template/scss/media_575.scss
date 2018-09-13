@@ -182,7 +182,7 @@
   }
 
   nav.blue-menu{
-    margin: 0 -15px 30px;
+    margin: 0px 0px 30px;
     ul{
       li{
         float: none;
@@ -255,6 +255,9 @@
     .title button{
       bottom: -1215px;
     }
+  }
+  .news-wrap, .news .article-wrap, .map .article-wrap {
+    margin-left: 0;
   }
 }
 

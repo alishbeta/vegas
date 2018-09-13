@@ -6,14 +6,18 @@
 @import "aside";
 @import "cat";
 
-.content .title{
-  position: relative;
-  button{
-    position: absolute;
-    right: 0;
+.content{
+  .full > [class*="col"] > .title{
+    margin-left: 15px;
   }
-
-}
+  .title{
+    position: relative;
+    button{
+      position: absolute;
+      right: 0;
+    }
+  }
+} 
 
 .main-baner-wrap {
   overflow: hidden;

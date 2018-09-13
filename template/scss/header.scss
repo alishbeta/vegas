@@ -266,7 +266,6 @@ nav.breadcrumb-wrap {
   .breadcrumb {
     background-color: transparent;
     font-size: 12px;
-    margin-left: 35px;
     .breadcrumb-item{
       + .breadcrumb-item::before{
           content: ">";

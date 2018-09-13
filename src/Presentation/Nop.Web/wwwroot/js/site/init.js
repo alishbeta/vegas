@@ -128,14 +128,15 @@ $(document).ready(function () {
         $('.side-second-menu-wrap').css("background-color", color_active);
     }
 
-    $('.side-second-menu-wrap').hover(function () {
-        $(this).animate({
-            paddingLeft: '90px'
-        }, 300);
-    }, function(){
-        $(this).animate({
-            paddingLeft: '80px'
-        }, 300);
+
+    //Анимация подменю и открытие по клику
+    $('.side-second-menu-wrap').on('mouseover', function() {
+        $(this).addClass('half-open');
+    }).on('mouseleave', function(){
+        $(this).removeClass('half-open');
+    }).on('click', function(){
+        $(this).addClass('open');
+        $('.side-menu-wrap').addClass('open');
     });
 
 
@@ -145,7 +146,8 @@ $(document).ready(function () {
 
     if ($(window).width() >= 768) {
         $('.content').on('click', function () {
-            $('.side-menu-wrap').removeClass('open');
+            console.log(1);
+            $('.side-menu-wrap, .side-second-menu-wrap').removeClass('open');
         });
     }
 

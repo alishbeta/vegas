@@ -9,7 +9,7 @@
     @include border-radius(5px);
   }
   .date, .label{
-    display: inline-block;
+    display: block;
     float: right;
     font-size: 10px;
     background-color: $background-color;
@@ -132,8 +132,23 @@
       margin-left: 30px;
     }
   }
+
+  .full{
+    margin: 0 0px 0 -14px;
+    width: calc(100% + 14px);
+  }
   .article-wrap{
     @extend .news-wrap;
+    .label{
+      float: none;
+      position: absolute;
+      bottom: 0;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    img{
+      margin-bottom: 0px;
+    }
   }
 
   .label.d{
