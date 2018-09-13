@@ -497,53 +497,53 @@ namespace Nop.Services.Orders
             details.OrderSubTotalDiscountExclTax = orderSubTotalDiscountAmount;
 
             //shipping info
-            if (_shoppingCartService.ShoppingCartRequiresShipping(details.Cart))
-            {
-                var pickupPoint = _genericAttributeService.GetAttribute<PickupPoint>(details.Customer,
-                    NopCustomerDefaults.SelectedPickupPointAttribute, processPaymentRequest.StoreId);
-                if (_shippingSettings.AllowPickUpInStore && pickupPoint != null)
-                {
-                    var country = _countryService.GetCountryByTwoLetterIsoCode(pickupPoint.CountryCode);
-                    var state = _stateProvinceService.GetStateProvinceByAbbreviation(pickupPoint.StateAbbreviation, country?.Id);
+            //if (_shoppingCartService.ShoppingCartRequiresShipping(details.Cart))
+            //{
+            //    var pickupPoint = _genericAttributeService.GetAttribute<PickupPoint>(details.Customer,
+            //        NopCustomerDefaults.SelectedPickupPointAttribute, processPaymentRequest.StoreId);
+            //    if (_shippingSettings.AllowPickUpInStore && pickupPoint != null)
+            //    {
+            //        var country = _countryService.GetCountryByTwoLetterIsoCode(pickupPoint.CountryCode);
+            //        var state = _stateProvinceService.GetStateProvinceByAbbreviation(pickupPoint.StateAbbreviation, country?.Id);
 
-                    details.PickUpInStore = true;
-                    details.PickupAddress = new Address
-                    {
-                        Address1 = pickupPoint.Address,
-                        City = pickupPoint.City,
-                        County = pickupPoint.County,
-                        Country = country,
-                        StateProvince = state,
-                        ZipPostalCode = pickupPoint.ZipPostalCode,
-                        CreatedOnUtc = DateTime.UtcNow
-                    };
-                }
-                else
-                {
-                    if (details.Customer.ShippingAddress == null)
-                        throw new NopException("Shipping address is not provided");
+            //        details.PickUpInStore = true;
+            //        details.PickupAddress = new Address
+            //        {
+            //            Address1 = pickupPoint.Address,
+            //            City = pickupPoint.City,
+            //            County = pickupPoint.County,
+            //            Country = country,
+            //            StateProvince = state,
+            //            ZipPostalCode = pickupPoint.ZipPostalCode,
+            //            CreatedOnUtc = DateTime.UtcNow
+            //        };
+            //    }
+            //    else
+            //    {
+            //        if (details.Customer.ShippingAddress == null)
+            //            throw new NopException("Shipping address is not provided");
 
-                    if (!CommonHelper.IsValidEmail(details.Customer.ShippingAddress.Email))
-                        throw new NopException("Email is not valid");
+            //        if (!CommonHelper.IsValidEmail(details.Customer.ShippingAddress.Email))
+            //            throw new NopException("Email is not valid");
 
-                    //clone shipping address
-                    details.ShippingAddress = (Address)details.Customer.ShippingAddress.Clone();
-                    if (details.ShippingAddress.Country != null && !details.ShippingAddress.Country.AllowsShipping)
-                        throw new NopException($"Country '{details.ShippingAddress.Country.Name}' is not allowed for shipping");
-                }
+            //        //clone shipping address
+            //        details.ShippingAddress = (Address)details.Customer.ShippingAddress.Clone();
+            //        if (details.ShippingAddress.Country != null && !details.ShippingAddress.Country.AllowsShipping)
+            //            throw new NopException($"Country '{details.ShippingAddress.Country.Name}' is not allowed for shipping");
+            //    }
 
-                var shippingOption = _genericAttributeService.GetAttribute<ShippingOption>(details.Customer,
-                    NopCustomerDefaults.SelectedShippingOptionAttribute, processPaymentRequest.StoreId);
-                if (shippingOption != null)
-                {
-                    details.ShippingMethodName = shippingOption.Name;
-                    details.ShippingRateComputationMethodSystemName = shippingOption.ShippingRateComputationMethodSystemName;
-                }
+            //    var shippingOption = _genericAttributeService.GetAttribute<ShippingOption>(details.Customer,
+            //        NopCustomerDefaults.SelectedShippingOptionAttribute, processPaymentRequest.StoreId);
+            //    if (shippingOption != null)
+            //    {
+            //        details.ShippingMethodName = shippingOption.Name;
+            //        details.ShippingRateComputationMethodSystemName = shippingOption.ShippingRateComputationMethodSystemName;
+            //    }
 
                 details.ShippingStatus = ShippingStatus.NotYetShipped;
-            }
-            else
-                details.ShippingStatus = ShippingStatus.ShippingNotRequired;
+            //}
+            //else
+            //    details.ShippingStatus = ShippingStatus.ShippingNotRequired;
 
             //shipping total
             var orderShippingTotalInclTax = _orderTotalCalculationService.GetShoppingCartShippingTotal(details.Cart, true, out var _, out var shippingTotalDiscounts);

@@ -359,7 +359,7 @@
 	</nav>
 	<section id="tab1" class="item active" data-title="@T("Cart.NewClient")">
 		<div class="item-content">
-			<form asp-route="ShoppingCart" method="post" enctype="multipart/form-data" id="shopping-cart-form">
+			<form asp-route="CheckoutConfirm" method="post" id="confirm-order-form">
 				<div class="title"><span>1</span>@T("Cart.FillInfo")</div>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3" for="i1">@T("Cart.Name")</label>
@@ -640,9 +640,8 @@
 						<textarea class="form-control col-sm-8" rows="4"></textarea>
 					</div>
 					<div class="row">
-						<button type="submit" id="checkout" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
-							@T("cart.continue")
-						</button>
+						<input id="paymentmethod_0" style="display:none;" type="radio" name="paymentmethod" value="Payments.CheckMoneyOrder" checked="checked">
+						<input type="submit" name="nextstep" value="@T("cart.continue")" class="btn btn-blue pl-5 pr-5" />
 					</div>
 
 				</form>

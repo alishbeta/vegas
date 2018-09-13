@@ -1,109 +1,191 @@
-﻿@model CheckoutConfirmModel
-@{
-    Layout = "_ColumnsOne";
+﻿@*@model CheckoutConfirmModel
+	@{
+		Layout = "_ColumnsOne";
 
-    //title
-    Html.AddTitleParts(T("PageTitle.Checkout").Text);
-    //page class
-    Html.AppendPageCssClassParts("html-checkout-page");
-    Html.AppendPageCssClassParts("html-order-confirm-page");
+		//title
+		Html.AddTitleParts(T("PageTitle.Checkout").Text);
+		//page class
+		Html.AppendPageCssClassParts("html-checkout-page");
+		Html.AppendPageCssClassParts("html-order-confirm-page");
+	}
+	<div class="page checkout-page order-confirm-page">
+		@await Component.InvokeAsync("CheckoutProgress", new { step = CheckoutProgressStep.Confirm })
+		<div class="page-title">
+			<h1>@T("Checkout.ConfirmYourOrder")</h1>
+		</div>
+		<div class="page-body checkout-data">
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CheckoutConfirmTop })
+			<div class="section confirm-order">
+				<form asp-route="CheckoutConfirm" method="post" id="confirm-order-form">
+					<script asp-location="Footer">
+						$(document).ready(function () {
+							$('.confirm-order-next-step-button').on('click', function () {
+								//terms of service
+								var termOfServiceOk = true;
+								if ($('#termsofservice').length > 0) {
+									//terms of service element exists
+									if (!$('#termsofservice').is(':checked')) {
+										$("#terms-of-service-warning-box").dialog();
+										termOfServiceOk = false;
+									} else {
+										termOfServiceOk = true;
+									}
+								}
+								if (termOfServiceOk) {
+									//$('#confirm-order-form').submit();
+									//$('.confirm-order-next-step-button').prop('disabled', true);
+									return true;
+								} else {
+									return false;
+								}
+							});
+						});
+					</script>
+					@if (!string.IsNullOrEmpty(Model.MinOrderTotalWarning))
+					{
+						<span class="min-order-warning">@Model.MinOrderTotalWarning</span>
+					}
+					else
+					{
+						if (Model.TermsOfServiceOnOrderConfirmPage)
+						{
+							<div id="terms-of-service-warning-box" title="@T("Checkout.TermsOfService")" style="display: none;">
+								<p>@T("Checkout.TermsOfService.PleaseAccept")</p>
+							</div>
+							<div class="terms-of-service">
+								<input id="termsofservice" type="checkbox" name="termsofservice" />
+								<label for="termsofservice">@T("Checkout.TermsOfService.IAccept")</label>
+								@if (Model.TermsOfServicePopup)
+								{
+									<a class="read" id="read-terms">@T("Checkout.TermsOfService.Read")</a>
+									<script asp-location="Footer">
+										$(document).ready(function() {
+											$('#read-terms').on('click',
+												function(e) {
+													e.preventDefault();
+													displayPopupContentFromUrl('@Url.RouteUrl("TopicPopup", new {SystemName = "conditionsofuse"})', '@T("Checkout.TermsOfService")');
+												});
+										});
+									</script>
+								}
+								else
+								{
+									<a class="read" id="read-terms" href="@Url.RouteUrl("Topic", new {SeName = Html.GetTopicSeName("conditionsofuse") })">@T("Checkout.TermsOfService.Read")</a>
+								}
+							</div>
+						}
+						<div class="buttons">
+							<input type="submit" name="nextstep" value="@T("Checkout.ConfirmButton")" class="button-1 confirm-order-next-step-button" />
+						</div>
+						<script asp-location="Footer">
+							$('#confirm-order-form').on('submit',
+								function () {
+									var button = $(this).find('input[type="submit"][name="nextstep"]');
+									setTimeout(function () {
+										button.prop('disabled', true);
+									},
+									0);
+								});
+						</script>
+					}
+					@if (Model.Warnings.Count > 0)
+					{
+						<div class="message-error">
+							<ul>
+								@foreach (var warning in Model.Warnings)
+								{
+									<li>@warning</li>
+								}
+							</ul>
+						</div>
+					}
+				</form>
+			</div>
+			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CheckoutConfirmBottom })
+			<div class="section order-summary">
+				@await Component.InvokeAsync("OrderSummary", new { prepareAndDisplayOrderReviewData = true })
+			</div>
+		</div>
+	</div>*@
+@model ShoppingCartModel
+@using Nop.Core
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@inject IWebHelper webHelper
+@inject IWorkContext workContext
+@inject OrderSettings orderSettings
+@{
+	Layout = "_ColumnsOne";
+
+	//title
+	Html.AddTitleParts(T("PageTitle.ShoppingCart").Text);
+	//page class
+	Html.AppendPageCssClassParts("html-shopping-cart-page");
 }
-<div class="page checkout-page order-confirm-page">
-    @await Component.InvokeAsync("CheckoutProgress", new { step = CheckoutProgressStep.Confirm })
-    <div class="page-title">
-        <h1>@T("Checkout.ConfirmYourOrder")</h1>
-    </div>
-    <div class="page-body checkout-data">
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CheckoutConfirmTop })
-        <div class="section confirm-order">
-            <form asp-route="CheckoutConfirm" method="post" id="confirm-order-form">
-                <script asp-location="Footer">
-                    $(document).ready(function () {
-                        $('.confirm-order-next-step-button').on('click', function () {
-                            //terms of service
-                            var termOfServiceOk = true;
-                            if ($('#termsofservice').length > 0) {
-                                //terms of service element exists
-                                if (!$('#termsofservice').is(':checked')) {
-                                    $("#terms-of-service-warning-box").dialog();
-                                    termOfServiceOk = false;
-                                } else {
-                                    termOfServiceOk = true;
-                                }
-                            }
-                            if (termOfServiceOk) {
-                                //$('#confirm-order-form').submit();
-                                //$('.confirm-order-next-step-button').prop('disabled', true);
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        });
-                    });
-                </script>
-                @if (!string.IsNullOrEmpty(Model.MinOrderTotalWarning))
-                {
-                    <span class="min-order-warning">@Model.MinOrderTotalWarning</span>
-                }
-                else
-                {
-                    if (Model.TermsOfServiceOnOrderConfirmPage)
-                    {
-                        <div id="terms-of-service-warning-box" title="@T("Checkout.TermsOfService")" style="display: none;">
-                            <p>@T("Checkout.TermsOfService.PleaseAccept")</p>
-                        </div>
-                        <div class="terms-of-service">
-                            <input id="termsofservice" type="checkbox" name="termsofservice" />
-                            <label for="termsofservice">@T("Checkout.TermsOfService.IAccept")</label>
-                            @if (Model.TermsOfServicePopup)
-                            {
-                                <a class="read" id="read-terms">@T("Checkout.TermsOfService.Read")</a>
-                                <script asp-location="Footer">
-                                    $(document).ready(function() {
-                                        $('#read-terms').on('click',
-                                            function(e) {
-                                                e.preventDefault();
-                                                displayPopupContentFromUrl('@Url.RouteUrl("TopicPopup", new {SystemName = "conditionsofuse"})', '@T("Checkout.TermsOfService")');
-                                            });
-                                    });
-                                </script>
-                            }
-                            else
-                            {
-                                <a class="read" id="read-terms" href="@Url.RouteUrl("Topic", new {SeName = Html.GetTopicSeName("conditionsofuse") })">@T("Checkout.TermsOfService.Read")</a>
-                            }
-                        </div>
-                    }
-                    <div class="buttons">
-                        <input type="submit" name="nextstep" value="@T("Checkout.ConfirmButton")" class="button-1 confirm-order-next-step-button" />
-                    </div>
-                    <script asp-location="Footer">
-                        $('#confirm-order-form').on('submit',
-                            function () {
-                                var button = $(this).find('input[type="submit"][name="nextstep"]');
-                                setTimeout(function () {
-                                    button.prop('disabled', true);
-                                },
-                                0);
-                            });
-                    </script>
-                }
-                @if (Model.Warnings.Count > 0)
-                {
-                    <div class="message-error">
-                        <ul>
-                            @foreach (var warning in Model.Warnings)
-                            {
-                                <li>@warning</li>
-                            }
-                        </ul>
-                    </div>
-                }
-            </form>
-        </div>
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CheckoutConfirmBottom })
-        <div class="section order-summary">
-            @await Component.InvokeAsync("OrderSummary", new { prepareAndDisplayOrderReviewData = true })
-        </div>
-    </div>
+<nav class="breadcrumb-wrap"></nav>
+<div class="cart">
+	<div class="cart-wrap">
+		<div class="row">
+			<div class="col-sm-10 col-md-8 offset-md-1 offset-lg-1 col-lg-7 offset-xl-1 col-xl-6">
+				<h1 class="title d-none d-lg-block">@T("ShoppingCart")</h1>
+				@await Component.InvokeAsync("OrderSummary", new { overriddenModel = Model })
+			</div>
+			<div class="order-1 col-md-12 order-lg-2 col-lg-3">
+				<div class="order-wrapp rounded">
+					<div class="title mb-4">@T("Cart.YourOrder")</div>
+					<div id="mainCartItems">
+						@foreach (var item in Model.Items)
+						{
+							<div class="item">
+								<img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+								<div class="title">@item.ProductName</div>
+								<div class="item-name">@item.ProductSeName</div>
+								<div class="count-wrap mt-2 mb-2">
+									<button class="minus" onclick="ChangeProductQuantity(@item.ProductId, 1, -1, false)"></button>
+									<div class="count">@item.Quantity</div>
+									<button class="plus" onclick="ChangeProductQuantity(@item.ProductId, 1, 1, false)"></button>
+									<div class="closee" onclick="RemoveFromCart(@item.ProductId, 1, false)"></div>
+								</div>
+								<div class="price-wrap">
+									<div class="price-old">@item.SubTotal</div>
+									<div class="price">@(item.MaximumDiscountedQty.HasValue ? T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value).ToString() : item.SubTotal)</div>
+								</div>
+							</div>
+							<div class="line"></div>
+						}
+					</div>
+					<div class="total-wrap mb-3">
+						<span>@T("cart.total") <span id="cart-count-full">0</span> @T("cart.total.text")</span>
+						<span><span id="cart-price-full">0</span> грн</span>
+					</div>
+					<button class="btn btn-link">Использовать промокод</button>
+					<button class="btn btn-link">Использовать скидочную карточку</button>
+					<small>Стоимость указана без учета доставки</small>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+<script>
+	function UpdateCart() {
+		$(document).ready(function () {
+			$("#cartItems").empty();
+			$.ajax({
+				url: "/ShoppingCart/getcart",
+				type: "POST",
+				dataType: 'json',
+				traditional: true
+			}).done(function (responce) {
+				var sum = 0.0;
+				var count = 0;
+				responce.model.Items.forEach(function (product) {
+					sum += parseFloat(product.SubTotal) * product.Quantity;
+					count += product.Quantity;
+				});
+				$("#cart-price-full").text(sum);
+				$("#cart-count-full").text(count);
+			});
+		});
+	}
+	$(document).ready(UpdateCart());
+</script>

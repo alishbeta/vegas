@@ -1021,7 +1021,7 @@ namespace Nop.Services.Orders
             var customer = cart.FirstOrDefault(item => item.Customer != null)?.Customer;
 
             var isFreeShipping = IsFreeShipping(cart);
-            if (isFreeShipping)
+            //if (isFreeShipping)
                 return decimal.Zero;
 
             ShippingOption shippingOption = null;
@@ -1262,6 +1262,10 @@ namespace Nop.Services.Orders
 
             //shipping without tax
             var shoppingCartShipping = GetShoppingCartShippingTotal(cart, false);
+			if (shoppingCartShipping == null)
+			{
+				shoppingCartShipping = decimal.Zero;
+			}
 
             //payment method additional fee without tax
             var paymentMethodAdditionalFeeWithoutTax = decimal.Zero;
