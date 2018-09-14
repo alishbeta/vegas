@@ -965,7 +965,7 @@ namespace Nop.Web.Controllers
                     {
                         Order = placeOrderResult.PlacedOrder
                     };
-                    _paymentService.PostProcessPayment(postProcessPaymentRequest);
+                    //_paymentService.PostProcessPayment(postProcessPaymentRequest);
 
                     if (_webHelper.IsRequestBeingRedirected || _webHelper.IsPostBeingDone)
                     {
