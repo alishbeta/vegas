@@ -18,6 +18,7 @@ using Nop.Services.Logging;
 using Nop.Services.Orders;
 using Nop.Services.Payments;
 using Nop.Services.Plugins;
+using Nop.Services.Security;
 using Nop.Services.Shipping;
 using Nop.Web.Extensions;
 using Nop.Web.Factories;
@@ -25,6 +26,7 @@ using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc.Filters;
 using Nop.Web.Framework.Security;
 using Nop.Web.Models.Checkout;
+using Nop.Web.Models.ShoppingCart;
 
 namespace Nop.Web.Controllers
 {
@@ -42,7 +44,9 @@ namespace Nop.Web.Controllers
         private readonly ICustomerService _customerService;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly ILocalizationService _localizationService;
-        private readonly ILogger _logger;
+		private readonly IPermissionService _permissionService;
+		private readonly IShoppingCartModelFactory _shoppingCartModelFactory;
+		private readonly ILogger _logger;
         private readonly IOrderProcessingService _orderProcessingService;
         private readonly IOrderService _orderService;
         private readonly IPaymentService _paymentService;
@@ -73,8 +77,10 @@ namespace Nop.Web.Controllers
             ILocalizationService localizationService,
             ILogger logger,
             IOrderProcessingService orderProcessingService,
-            IOrderService orderService,
-            IPaymentService paymentService,
+			IShoppingCartModelFactory shoppingCartModelFactory,
+			IOrderService orderService,
+			IPermissionService permissionService,
+			IPaymentService paymentService,
             IPluginFinder pluginFinder,
             IShippingService shippingService,
             IShoppingCartService shoppingCartService,
@@ -103,7 +109,9 @@ namespace Nop.Web.Controllers
             this._pluginFinder = pluginFinder;
             this._shippingService = shippingService;
             this._shoppingCartService = shoppingCartService;
-            this._stateProvinceService = stateProvinceService;
+			this._permissionService = permissionService;
+			this._shoppingCartModelFactory = shoppingCartModelFactory;
+			this._stateProvinceService = stateProvinceService;
             this._storeContext = storeContext;
             this._webHelper = webHelper;
             this._workContext = workContext;
@@ -883,27 +891,37 @@ namespace Nop.Web.Controllers
 
         public virtual IActionResult Confirm()
         {
-            //validation
-            if (_orderSettings.CheckoutDisabled)
-                return RedirectToRoute("ShoppingCart");
+			////validation
+			//if (_orderSettings.CheckoutDisabled)
+			//    return RedirectToRoute("ShoppingCart");
 
-            var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                .LimitPerStore(_storeContext.CurrentStore.Id)
-                .ToList();
-            if (!cart.Any())
-                return RedirectToRoute("ShoppingCart");
+			//var cart = _workContext.CurrentCustomer.ShoppingCartItems
+			//    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+			//    .LimitPerStore(_storeContext.CurrentStore.Id)
+			//    .ToList();
+			//if (!cart.Any())
+			//    return RedirectToRoute("ShoppingCart");
 
-            if (_orderSettings.OnePageCheckoutEnabled)
-                return RedirectToRoute("CheckoutOnePage");
+			//if (_orderSettings.OnePageCheckoutEnabled)
+			//    return RedirectToRoute("CheckoutOnePage");
 
-            if (_workContext.CurrentCustomer.IsGuest() && !_orderSettings.AnonymousCheckoutAllowed)
-                return Challenge();
+			//if (_workContext.CurrentCustomer.IsGuest() && !_orderSettings.AnonymousCheckoutAllowed)
+			//    return Challenge();
 
-            //model
-            var model = _checkoutModelFactory.PrepareConfirmOrderModel(cart);
-            return View(model);
-        }
+			////model
+			//var model = _checkoutModelFactory.PrepareConfirmOrderModel(cart);
+			//return View(model);
+			if (!_permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart))
+				return RedirectToRoute("HomePage");
+
+			var cart = _workContext.CurrentCustomer.ShoppingCartItems
+				.Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+				.LimitPerStore(_storeContext.CurrentStore.Id)
+				.ToList();
+			var model = new ShoppingCartModel();
+			model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
+			return View(model);
+		}
 
         [HttpPost, ActionName("Confirm")]
         public virtual IActionResult ConfirmOrder()
@@ -929,15 +947,7 @@ namespace Nop.Web.Controllers
             var model = _checkoutModelFactory.PrepareConfirmOrderModel(cart);
             try
             {
-                var processPaymentRequest = HttpContext.Session.Get<ProcessPaymentRequest>("OrderPaymentInfo");
-                if (processPaymentRequest == null)
-                {
-                    //Check whether payment workflow is required
-                    if (_orderProcessingService.IsPaymentWorkflowRequired(cart))
-                        return RedirectToRoute("CheckoutPaymentInfo");
-
-                    processPaymentRequest = new ProcessPaymentRequest();
-                }
+				var processPaymentRequest = new ProcessPaymentRequest();
 
                 //prevent 2 orders being placed within an X seconds time frame
                 if (!IsMinimumOrderPlacementIntervalValid(_workContext.CurrentCustomer))
@@ -946,9 +956,8 @@ namespace Nop.Web.Controllers
                 //place order
                 processPaymentRequest.StoreId = _storeContext.CurrentStore.Id;
                 processPaymentRequest.CustomerId = _workContext.CurrentCustomer.Id;
-                processPaymentRequest.PaymentMethodSystemName = _genericAttributeService.GetAttribute<string>(_workContext.CurrentCustomer,
-                    NopCustomerDefaults.SelectedPaymentMethodAttribute, _storeContext.CurrentStore.Id);
-                var placeOrderResult = _orderProcessingService.PlaceOrder(processPaymentRequest);
+				processPaymentRequest.PaymentMethodSystemName = "Payments.CheckMoneyOrder";
+				var placeOrderResult = _orderProcessingService.PlaceOrder(processPaymentRequest);
                 if (placeOrderResult.Success)
                 {
                     HttpContext.Session.Set<ProcessPaymentRequest>("OrderPaymentInfo", null);

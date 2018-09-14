@@ -55,7 +55,7 @@
 			<span><span id="cart-price">0</span> грн</span>
 		</div>
 		<div class="text-center">
-			<button class="btn btn-blue pr-4 pl-4" onclick="window.location.replace('/cart')">@T("cart.continue")</button>
+			<button class="btn btn-blue pr-4 pl-4" onclick="window.location.replace('/checkout/confirm')">@T("cart.continue")</button>
 			<button class="btn btn-blue-white pr-4 pl-4">@T("cart.buynow")</button>
 		</div>
 		<div class="text-center">
@@ -296,6 +296,10 @@
 						});
 						$("#cart-price").text(sum);
 						$("#cart-count").text(count);
+						if ($("#mainCartItems").length > 0) {
+							$("#cart-price-full").text(sum);
+							$("#cart-count-full").text(count);
+						}
 					});
 				}
 				$(document).ready(UpdateCart());
