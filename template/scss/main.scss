@@ -19,6 +19,17 @@
   }
 } 
 
+.see-wrap{
+  .row.title{
+    margin: 15px 0 0;
+  }
+}
+
+.news .article-wrap, .map .article-wrap {
+  padding-left: 0;
+  margin-left: calc((100% - 606px) / 2);
+}
+
 .main-baner-wrap {
   overflow: hidden;
   position: relative;
@@ -299,7 +310,7 @@
 
 .news-wrap{
   .title{
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 }
 

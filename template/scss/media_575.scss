@@ -14,7 +14,8 @@
       right: 0;
       left: 0;
       width: 120px;
-      bottom: -400px;
+      bottom: -415px;
+      margin: auto;
     }
     .show-room{
       .see-wrap .title button {
@@ -24,6 +25,7 @@
           bottom: -375px!important;
         }
     }
+
     .logo-m{
       width: 110px;
       overflow: hidden;
@@ -38,6 +40,13 @@
   }
 }
 
+.news-wrap{
+  padding-bottom: 65px;
+  .item-wrap{
+    margin: 0 auto;
+    float: none;
+  }
+} 
 
   .subscription-wrap.row {
     margin: 0 0 0 -14px;

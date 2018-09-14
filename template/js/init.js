@@ -81,13 +81,13 @@ $(document).ready(function () {
                 hotSpotScrolling: true,
                 touchScrolling: true
             });
-        }else{
+        } else {
             $(".scrollM .scrollableArea").slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
             });
         }
-    }, 300);
+    }, 100);
 
     /*#####################    Отображение подменю   ###############################*/
 
@@ -123,18 +123,18 @@ $(document).ready(function () {
         });
     });
 
-    if ($('.side-menu-wrap ul li').hasClass('active')){
+    if ($('.side-menu-wrap ul li').hasClass('active')) {
         var color_active = rgb2hex($('.side-menu-wrap ul li.active').css("background-color"));
         $('.side-second-menu-wrap').css("background-color", color_active);
     }
 
 
     //Анимация подменю и открытие по клику
-    $('.side-second-menu-wrap').on('mouseover', function() {
+    $('.side-second-menu-wrap').on('mouseover', function () {
         $(this).addClass('half-open');
-    }).on('mouseleave', function(){
+    }).on('mouseleave', function () {
         $(this).removeClass('half-open');
-    }).on('click', function(){
+    }).on('click', function () {
         $(this).addClass('open');
         $('.side-menu-wrap').addClass('open');
     });
@@ -146,7 +146,6 @@ $(document).ready(function () {
 
     if ($(window).width() >= 768) {
         $('.content').on('click', function () {
-            console.log(1);
             $('.side-menu-wrap, .side-second-menu-wrap').removeClass('open');
         });
     }
@@ -220,11 +219,19 @@ $(document).ready(function () {
 
     /*#####################    Корзина  (Редактирование личных данных и адреса) ###############################*/
     $('#edit-name, #edit-addres, #edit-pass').on('click', function () {
-        var el = $(this).next().next().children();
-        var el2 = $(this).next().next().next().children();
+        var el = $(this).next().next().children(),
+            el2 = $(this).next().next().next().children(),
+            el3 = $(this).next().next().next().next().children();
         $(this).fadeOut(function () {
             $(this).next().fadeIn();
         });
+        if (!!el3[2]) {
+            $(el3[2]).fadeToggle(function () {
+                $(el3[0]).fadeToggle();
+                $(el3[1]).fadeToggle();
+            });
+            $(el3[3]).fadeToggle();
+        }
         if (!!el[2]) {
             console.log(1);
             $(el[2]).fadeToggle(function () {
@@ -245,11 +252,20 @@ $(document).ready(function () {
     });
 
     $('#edit-name-close, #edit-addres-close, #edit-pass-close').on('click', function () {
-        var el = $(this).next().children();
-        var el2 = $(this).next().next().children();
+        var el = $(this).next().children(),
+        el2 = $(this).next().next().children(),
+        el3 = $(this).next().next().next().children();
         $(this).fadeOut(function () {
             $(this).prev().fadeIn();
         });
+
+        if (!!el3[2]) {
+            $(el3[0]).fadeToggle(function () {
+                $(el3[2]).fadeToggle();
+                $(el3[3]).fadeToggle();
+            });
+            $(el3[1]).fadeToggle()
+        }
         $(el[0]).fadeToggle(function () {
             $(el[2]).fadeToggle();
             $(el[3]).fadeToggle();
@@ -280,8 +296,8 @@ function hex(x) {
 
 function tabControl() {
     var tabs = $('.tabbed-content').find('.tabs');
-    if(tabs.is(':visible')) {
-        tabs.find('a').on('click', function(event) {
+    if (tabs.is(':visible')) {
+        tabs.find('a').on('click', function (event) {
             event.preventDefault();
             var target = $(this).attr('href'),
                 tabs = $(this).parents('.tabs'),
@@ -293,14 +309,14 @@ function tabControl() {
             $(target).addClass('active');
         });
     } else {
-        $('.item').on('click', function() {
+        $('.item').on('click', function () {
             var container = $(this).parents('.tabbed-content'),
                 currId = $(this).attr('id'),
                 items = container.find('.item');
             container.find('.tabs a').removeClass('active');
             items.removeClass('active');
             $(this).addClass('active');
-            container.find('.tabs a[href$="#'+ currId +'"]').addClass('active');
+            container.find('.tabs a[href$="#' + currId + '"]').addClass('active');
         });
     }
 }
