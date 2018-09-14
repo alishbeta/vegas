@@ -1178,6 +1178,15 @@ nav.breadcrumb-wrap a:hover {
   right: 0;
 }
 
+.see-wrap .row.title {
+  margin: 15px 0 0;
+}
+
+.news .article-wrap, .map .article-wrap, .map .article-wrap {
+  padding-left: 0;
+  margin-left: calc((100% - 606px) / 2);
+}
+
 .main-baner-wrap {
   overflow: hidden;
   position: relative;
@@ -1443,7 +1452,7 @@ nav.breadcrumb-wrap a:hover {
 }
 
 .news-wrap .title, .news .article-wrap .title, .map .article-wrap .title {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .cat-content-wrap {
@@ -2212,13 +2221,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   padding: 40px 15px;
   font-weight: 600;
 }
-.cart .order-wrapp .total-wrap span:first-child, .cart-popup-wrap .order-wrapp .total-wrap span:first-child {
+.cart .order-wrapp .total-wrap > span:first-child, .cart-popup-wrap .order-wrapp .total-wrap > span:first-child {
   font-size: 16px;
-  margin-right: 15px;
+  margin-left: 15px;
 }
-.cart .order-wrapp .total-wrap span:last-child, .cart-popup-wrap .order-wrapp .total-wrap span:last-child {
-  font-size: 20px;
+.cart .order-wrapp .total-wrap > span:last-child, .cart-popup-wrap .order-wrapp .total-wrap > span:last-child {
   float: right;
+  font-size: 20px;
+  margin-right: 15px;
 }
 .cart .order-wrapp .btn-link, .cart-popup-wrap .order-wrapp .btn-link {
   font-size: 14px;
@@ -3046,10 +3056,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   padding: 30px 20px;
 }
 .cabinet .cabinet-info .title {
-  /*      font-weight: 600;
-        display: inline-block;
-        font-size: 16px;
-        margin-bottom: 20px;*/
+  font-weight: 600;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 .cabinet .cabinet-info .title span {
   display: inline-block;
@@ -3536,9 +3546,20 @@ If you want to style everything yourself, you shouldn't need these
     bottom: -2px;
   }
 
-  .news-wrap, .news .article-wrap, .map .article-wrap, .news .article-wrap, .map .article-wrap, .map .article-wrap {
+  .news-wrap, .news .article-wrap, .map .article-wrap,
+  .news .article-wrap,
+  .map .article-wrap,
+  .map .article-wrap {
     padding-left: 0;
-    margin-left: calc((100% - 606px) / 2);
+    margin-left: 15px;
+  }
+
+  .see-wrap .row.title {
+    margin-bottom: 15px;
+  }
+
+  .see-wrap .btn-blue-white {
+    margin-right: 0;
   }
 
   .item-wrap-full {
@@ -3558,8 +3579,8 @@ If you want to style everything yourself, you shouldn't need these
     width: 180px;
   }
 
-  .scrollComtent div.scrollWrapper {
-    max-height: 1120px;
+  .content .title button {
+    right: 15px;
   }
 
   .some-info .text {
@@ -3594,7 +3615,8 @@ If you want to style everything yourself, you shouldn't need these
     margin-bottom: 0;
   }
 
-  body.open, html.open {
+  body.open,
+  html.open {
     overflow: hidden;
     height: 100%;
     width: 100%;
@@ -3820,6 +3842,18 @@ If you want to style everything yourself, you shouldn't need these
   .cart form, .cart-popup-wrap form {
     width: auto;
   }
+
+  .scrollingHotSpotLeft {
+    height: auto;
+  }
+
+  div.scrollingHotSpotRight {
+    height: auto;
+  }
+
+  div.scrollWrapper {
+    height: auto;
+  }
 }
 @media (max-width: 765px) {
   body {
@@ -3841,13 +3875,16 @@ If you want to style everything yourself, you shouldn't need these
     height: auto;
   }
 
-  .slider-wrap .outer-wrapp, .slider-wrap .items .outer-wrapp {
+  .slider-wrap .outer-wrapp,
+  .slider-wrap .items .outer-wrapp {
     position: relative;
     width: 100%;
     margin-left: 0;
   }
 
-  .item-wrap, .slider-wrap .item-wrap-full, .items .item-wrap-full {
+  .item-wrap,
+  .slider-wrap .item-wrap-full,
+  .items .item-wrap-full {
     margin-right: auto;
     margin-left: auto;
   }
@@ -3956,7 +3993,14 @@ If you want to style everything yourself, you shouldn't need these
     transition: 0.5s;
   }
 
-  .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white {
+  .sell-wrap .btn-blue-white,
+  .new-wrap .btn-blue-white,
+  .news-wrap .btn-blue-white,
+  .news .article-wrap .btn-blue-white,
+  .map .article-wrap .btn-blue-white,
+  .news .article-wrap .btn-blue-white,
+  .map .article-wrap .btn-blue-white,
+  .map .article-wrap .btn-blue-white {
     margin-right: 15px;
   }
 
@@ -3971,9 +4015,17 @@ If you want to style everything yourself, you shouldn't need these
     margin: 0 0px;
   }
 
+  .content .title button {
+    right: 25px;
+  }
+
   .news .article-wrap .item-wrap, .map .article-wrap .item-wrap {
     margin: 0 auto 20px auto;
     float: none;
+  }
+
+  .see-wrap .btn-blue-white {
+    margin-right: 0;
   }
 }
 @media (max-width: 575px) {
@@ -3991,7 +4043,8 @@ If you want to style everything yourself, you shouldn't need these
     right: 0;
     left: 0;
     width: 120px;
-    bottom: -400px;
+    bottom: -415px;
+    margin: auto;
   }
   .content .show-room .see-wrap .title button {
     left: 33% !important;
@@ -4010,6 +4063,14 @@ If you want to style everything yourself, you shouldn't need these
   }
   .content .icons-wrap i {
     margin-top: 0;
+  }
+
+  .news-wrap, .news .article-wrap, .map .article-wrap {
+    padding-bottom: 65px;
+  }
+  .news-wrap .item-wrap, .news .article-wrap .item-wrap, .map .article-wrap .item-wrap {
+    margin: 0 auto;
+    float: none;
   }
 
   .subscription-wrap.row {
