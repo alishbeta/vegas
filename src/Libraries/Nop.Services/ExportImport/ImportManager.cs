@@ -1207,6 +1207,7 @@ namespace Nop.Services.ExportImport
                             {
                                 Name = itemWarehouse.WarehouseStatus
                             };
+                            _productService.InsertStatus(status);
                         }
 
                         productWarehouseStatuses.Add(new ProductWarehouseStatus()
@@ -1334,51 +1335,57 @@ namespace Nop.Services.ExportImport
                         updateCount++;
                     }
 
+                    //specification attribute
+                    //foreach (var itemAttribute in item.Attributes)
+                    //{
+                    //    _specificationAttributeService.Get
+                    //}
+
                     //attributes
-                    foreach (var itemAttribute in item.Attributes)
-                    {
-                        var attribute = _productAttributeService.GetProductAttributeByName(itemAttribute.Name);
-                        if (attribute == null)
-                        {
-                            attribute = new ProductAttribute()
-                            {
-                                Name = itemAttribute.Name,
-                            };
-                            _productAttributeService.InsertProductAttribute(attribute);
-                        }
+                    //foreach (var itemAttribute in item.Attributes)
+                    //{
+                    //    var attribute = _productAttributeService.GetProductAttributeByName(itemAttribute.Name);
+                    //    if (attribute == null)
+                    //    {
+                    //        attribute = new ProductAttribute()
+                    //        {
+                    //            Name = itemAttribute.Name,
+                    //        };
+                    //        _productAttributeService.InsertProductAttribute(attribute);
+                    //    }
 
-                        var productAttributeMapping = _productAttributeService.GetProductAttributeMappingByAttributeIdProductId(attribute.Id, product.Id);
-                        if (productAttributeMapping == null)
-                        {
-                            _productAttributeService.InsertProductAttributeMapping(new ProductAttributeMapping()
-                            {
-                                ProductAttributeId = attribute.Id,
-                                ProductId = product.Id,
-                                AttributeControlTypeId = itemAttribute.UiType == 0 ? 1 : itemAttribute.UiType
-                            });
-                        }
-                        else
-                        {
-                            productAttributeMapping.AttributeControlTypeId = itemAttribute.UiType == 0 ? 1 : itemAttribute.UiType;
-                            _productAttributeService.UpdateProductAttributeMapping(productAttributeMapping);
-                        }
+                    //    var productAttributeMapping = _productAttributeService.GetProductAttributeMappingByAttributeIdProductId(attribute.Id, product.Id);
+                    //    if (productAttributeMapping == null)
+                    //    {
+                    //        _productAttributeService.InsertProductAttributeMapping(new ProductAttributeMapping()
+                    //        {
+                    //            ProductAttributeId = attribute.Id,
+                    //            ProductId = product.Id,
+                    //            AttributeControlTypeId = itemAttribute.UiType == 0 ? 1 : itemAttribute.UiType
+                    //        });
+                    //    }
+                    //    else
+                    //    {
+                    //        productAttributeMapping.AttributeControlTypeId = itemAttribute.UiType == 0 ? 1 : itemAttribute.UiType;
+                    //        _productAttributeService.UpdateProductAttributeMapping(productAttributeMapping);
+                    //    }
 
-                        foreach (var itemAttributeValue in itemAttribute.AttributeValues)
-                        {
-                            var attributeValue = _productAttributeService.GetProductAttributeValueByName(productAttributeMapping.Id, itemAttributeValue.Name);
-                            if (attributeValue == null)
-                            {
-                                attributeValue = new ProductAttributeValue()
-                                {
-                                    Name = itemAttributeValue.Name,
-                                    Quantity = itemAttributeValue.Count,
-                                    AttributeValueTypeId = 0,
-                                    ProductAttributeMappingId = productAttributeMapping.Id
-                                };
-                                _productAttributeService.InsertProductAttributeValue(attributeValue);
-                            }
-                        }
-                    }
+                    //    foreach (var itemAttributeValue in itemAttribute.AttributeValues)
+                    //    {
+                    //        var attributeValue = _productAttributeService.GetProductAttributeValueByName(productAttributeMapping.Id, itemAttributeValue.Name);
+                    //        if (attributeValue == null)
+                    //        {
+                    //            attributeValue = new ProductAttributeValue()
+                    //            {
+                    //                Name = itemAttributeValue.Name,
+                    //                Quantity = itemAttributeValue.Count,
+                    //                AttributeValueTypeId = 0,
+                    //                ProductAttributeMappingId = productAttributeMapping.Id
+                    //            };
+                    //            _productAttributeService.InsertProductAttributeValue(attributeValue);
+                    //        }
+                    //    }
+                    //}
                 }
                 return new Tuple<bool, string>(true, String.Format("Products {0} added. Products {1} Updated. Manufactures {2} added.", newCount, updateCount, manufacturAddedCount));
             }

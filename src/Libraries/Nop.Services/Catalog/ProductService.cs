@@ -280,6 +280,18 @@ namespace Nop.Services.Catalog
 
         #region Products
 
+        public virtual void InsertStatus(Status status)
+        {
+            if (status == null)
+                throw new ArgumentNullException(nameof(status));
+
+            //insert
+            _statusRepository.Insert(status);
+
+            //event notification
+            _eventPublisher.EntityInserted(status);
+        }
+
         public virtual Product GetProductByName(string name)
         {
             if (string.IsNullOrEmpty(name))

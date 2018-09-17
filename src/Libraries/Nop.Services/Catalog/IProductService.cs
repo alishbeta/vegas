@@ -14,6 +14,7 @@ namespace Nop.Services.Catalog
     public partial interface IProductService
     {
         #region Products
+        void InsertStatus(Status status);
 
         Product GetProductByName(string name);
 
