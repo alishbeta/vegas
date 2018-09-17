@@ -41,104 +41,113 @@
 				<h1 class="title">@T("Products.Compare.Title")</h1>
 				<i class="favorit compare_icon"></i>
 			</div>
-			<div class="optc-wrap rounded">
-				<div class="add-ct">Добавлено товаров <span>@Model.Products.Count</span></div>
-				<button class="btn btn-blue btn-block" onclick="window.location.replace('/recentlyviewedproducts')">Добавить еще товар</button>
-				<button onclick="setLocation('@Url.RouteUrl("ClearCompareList")')" class="btn btn-link btn-block"><span>+</span>@T("Products.Compare.Clear")</button>
-				<div class="line"></div>
-				<div class="show-wrap">
-					<div>Показывать:</div>
-					<div class="form-group check-blue">
-						<input name="opt" type="radio" id="c1" checked>
-						<label for="c1"></label>
-						<label for="c1">Все характеристики</label>
+			@if (Model.Products.Count > 0)
+			{
+				<div class="optc-wrap rounded">
+					<div class="add-ct">Добавлено товаров <span>@Model.Products.Count</span></div>
+					<button class="btn btn-blue btn-block" onclick="window.location.replace('/recentlyviewedproducts')">Добавить еще товар</button>
+					<button onclick="setLocation('@Url.RouteUrl("ClearCompareList")')" class="btn btn-link btn-block"><span>+</span>@T("Products.Compare.Clear")</button>
+					<div class="line"></div>
+					<div class="show-wrap">
+						<div>Показывать:</div>
+						<div class="form-group check-blue">
+							<input name="opt" type="radio" id="c1" checked>
+							<label for="c1"></label>
+							<label for="c1">Все характеристики</label>
+						</div>
+						<div class="form-group check-blue">
+							<input name="opt" type="radio" id="c2">
+							<label for="c2"></label>
+							<label for="c2">Различия</label>
+						</div>
 					</div>
-					<div class="form-group check-blue">
-						<input name="opt" type="radio" id="c2">
-						<label for="c2"></label>
-						<label for="c2">Различия</label>
-					</div>
-				</div>
-				<div class="line"></div>
-				<div class="titles-wrap">
-					<ul>
-						@foreach (var spec in specificationAttributes)
-						{
-							<li>@spec.SpecificationAttributeName</li>
-						}
-					</ul>
-				</div>
-			</div>
-			<div class="compare-content">
-				<div class="scroll-wrap">
-					<div class="m-titles d-sm-none">
+					<div class="line"></div>
+					<div class="titles-wrap">
 						<ul>
 							@foreach (var spec in specificationAttributes)
 							{
 								<li>@spec.SpecificationAttributeName</li>
-								<li></li>
 							}
 						</ul>
 					</div>
-					@if (Model.Products.Count > 0)
-					{
-						@foreach (var product in Model.Products)
+				</div>
+				<div class="compare-content">
+					<div class="scroll-wrap">
+						<div class="m-titles d-sm-none">
+							<ul>
+								@foreach (var spec in specificationAttributes)
+								{
+									<li>@spec.SpecificationAttributeName</li>
+									<li></li>
+								}
+							</ul>
+						</div>
+						@if (Model.Products.Count > 0)
 						{
-							//prepare "Add to cart" AJAX link
-							var addtocartlink = "";
-							var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
-							var quantity = 1;
-							if (product.ProductPrice.ForceRedirectionAfterAddingToCart)
+							@foreach (var product in Model.Products)
 							{
-								addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity, forceredirection = product.ProductPrice.ForceRedirectionAfterAddingToCart });
-							}
-							else
-							{
-								addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
-							}
+								//prepare "Add to cart" AJAX link
+								var addtocartlink = "";
+								var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+								var quantity = 1;
+								if (product.ProductPrice.ForceRedirectionAfterAddingToCart)
+								{
+									addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity, forceredirection = product.ProductPrice.ForceRedirectionAfterAddingToCart });
+								}
+								else
+								{
+									addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
+								}
 
-							var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
-							var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
-							<div class="outer-wrapp rounded">
-								<div class="item-wrap">
-									<div class="product-img-wrap">
-										<div class="close-wrap"><i class="close-i" onclick="setLocation('@Url.RouteUrl("RemoveProductFromCompareList", new { productId = product.Id })')"></i></div>
-										<img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
-										@if (@product.ProductPrice.Discount.ToString("#.##") != "")
-										{
-											<div class="discount">@product.ProductPrice.Discount.ToString("#.##")%</div>
-										}
-									</div>
-									<div class="main-prop-wrap text-left">
-										<div class="product-name text-light-c">@product.Name</div>
-										<div class="product-prop">@product.ShortDescription</div>
-										<div class="price-titile">@T("prod.price")</div>
-										<div class="price-wrap clearfix">
-											<div class="price-old">@product.ProductPrice.OldPrice</div>
-											<div class="price-new">@product.ProductPrice.Price</div>
+								var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
+								var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
+								<div class="outer-wrapp rounded">
+									<div class="item-wrap">
+										<div class="product-img-wrap">
+											<div class="close-wrap"><i class="close-i" onclick="setLocation('@Url.RouteUrl("RemoveProductFromCompareList", new { productId = product.Id })')"></i></div>
+											<img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
+											@if (@product.ProductPrice.Discount.ToString("#.##") != "")
+											{
+												<div class="discount">@product.ProductPrice.Discount.ToString("#.##")%</div>
+											}
 										</div>
+										<div class="main-prop-wrap text-left">
+											<div class="product-name text-light-c">@product.Name</div>
+											<div class="product-prop">@product.ShortDescription</div>
+											<div class="price-titile">@T("prod.price")</div>
+											<div class="price-wrap clearfix">
+												<div class="price-old">@product.ProductPrice.OldPrice</div>
+												<div class="price-new">@product.ProductPrice.Price</div>
+											</div>
+										</div>
+										<button class="btn btn-blue btn-block" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
+										<div class="line"></div>
+										<ul>
+											@foreach (var spec in specificationAttributes)
+											{
+												<li class="d-sm-none"></li>
+												<li>@(product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId) != null ? product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId).ValueRaw : "—")</li>
+											}
+										</ul>
 									</div>
-									<button class="btn btn-blue btn-block" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
-									<div class="line"></div>
-									<ul>
-										@foreach (var spec in specificationAttributes)
-										{
-											<li class="d-sm-none"></li>
-											<li>@(product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId) != null ? product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId).ValueRaw : "—")</li>
-										}
-									</ul>
 								</div>
+							}
+						}
+						else
+						{
+							<div class="no-data">
+								@T("Products.Compare.NoItems")
 							</div>
 						}
-					}
-					else
-					{
-						<div class="no-data">
-							@T("Products.Compare.NoItems")
-						</div>
-					}
+					</div>
 				</div>
-			</div>
+			}
+			else
+			{
+				<div class="no-data">
+					@T("Products.Compare.NoItems")
+				</div>
+			}
 		</div>
 	</div>
 </div>
