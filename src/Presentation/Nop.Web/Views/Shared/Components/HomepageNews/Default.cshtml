@@ -1,26 +1,42 @@
 ﻿@model HomePageNewsItemsModel
 @if (Model.NewsItems.Count > 0)
 {
-    <div class="news-wrap pad-norm clearfix">
-		<div class="title text-center">
+<div class="news-wrap see-wrap pad-norm">
+	<div class="title row justify-content-center">
+		<div class="col-auto">
 			<h3 class="">@T("News")</h3>
-			<button class="btn btn-sm btn-blue-white float-right" id="news-view-all">@T("Bestsellers.ViewAll")</button>
 		</div>
-            @foreach (var item in Model.NewsItems)
-            {
-                <div class="item-wrap">
-					<img src="~/img/news.png" alt="@item.Title">
-					<div class="text-wrap">
-                        <div class="title">
-							<a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">@item.Title</a>
-						</div>
-						<div class="short-text">
-							@Html.Raw(item.Short)
-						</div>
-                    </div>
-                </div>
-            }
-    </div>
+		<button class="btn btn-sm btn-blue-white float-right" id="news-view-all">@T("Bestsellers.ViewAll")</button>
+	</div>
+	
+		<div class="scrollM clearfix">
+			<div class="scrollingHotSpotLeft" style="opacity: 0;">
+				<div class="arrow"></div>
+			</div><div class="scrollingHotSpotRight" style="opacity: 0;">
+				<div class="arrow"></div>
+			</div>
+			<div class="scrollWrapper kinetic-active" style="cursor: move;">
+				<div class="scrollableArea clearfix">
+					<div>
+						@foreach (var item in Model.NewsItems)
+						{
+							<div class="item-wrap">
+								<img src="~/img/news.png" alt="@item.Title">
+								<div class="text-wrap">
+									<div class="title">
+										<a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">@item.Title</a>
+									</div>
+									<div class="short-text">
+										@Html.Raw(item.Short)
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
 	<script>
 		$("#news-view-all").on("click", function () {
 			window.location.replace("@Url.RouteUrl("NewsArchive")");

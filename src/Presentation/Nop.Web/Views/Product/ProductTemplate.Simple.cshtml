@@ -205,7 +205,7 @@
 		<div class="row product-content-wrap" itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
 			<div class="float-left left-wrap">
 				<div class="clearfix">
-					<div class="title float-left">
+					<div class="title">
 						<h3 itemprop="name">
 							<b>@Model.Name</b>
 						</h3>
@@ -235,13 +235,13 @@
 				<div class="float-left right-wrap">
 					<div class="opt-wrap">
 						<div class="price-wrap">
+							<div class="title">@T("prod.price")</div>
+							<div class="price mt-2">@Model.ProductPrice.PriceWithDiscount</div>
+							<div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.Price</s></div>
 							@if (@Model.ProductPrice.Discount.ToString("#.##") != "")
 							{
 								<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
 							}
-							<div class="title">@T("prod.price")</div>
-							<div class="price mt-2">@Model.ProductPrice.PriceWithDiscount</div>
-							<div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.Price</s></div>
 							<div class="text-center mt-3 mb-2"><a href="#">Наличие в салонах</a></div>
 							<div class="btn-group-vertical btn-block">
 								@{
@@ -259,11 +259,11 @@
 								}
 								@await Html.PartialAsync("_CompareProductsButton", Model)
 								@*<button class="btn btn-blue mb-2 rounded" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">В корзину</button>
-								<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
-							</div>
-							<div class="icons-wrap d-block ml-3">
-								<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
-								<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
+				<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
+			</div>
+			<div class="icons-wrap d-block ml-3">
+				<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
+				<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
 							</div>
 						</div>
 						<div class="line"></div>

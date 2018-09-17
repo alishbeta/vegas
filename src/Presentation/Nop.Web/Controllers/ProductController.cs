@@ -224,7 +224,7 @@ namespace Nop.Web.Controllers
                 visibleIndividuallyOnly: true,
                 markedAsNewOnly: true,
                 orderBy: ProductSortingEnum.CreatedOn,
-                pageSize: _catalogSettings.NewProductsNumber);
+                pageSize: 32);
 
             var model = new List<ProductOverviewModel>();
             model.AddRange(_productModelFactory.PrepareProductOverviewModels(products));

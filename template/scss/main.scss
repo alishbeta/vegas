@@ -19,6 +19,21 @@
   }
 } 
 
+.see-wrap{
+  .row.title{
+    margin: 15px 0 0;
+  }
+}
+
+.map .article-wrap {
+  padding-left: 0;
+  margin-left: calc((100% - 606px) / 2);
+}
+
+.news .article-wrap{
+  margin-left: 15px;
+}
+
 .main-baner-wrap {
   overflow: hidden;
   position: relative;
@@ -187,14 +202,14 @@
 .item-wrap .main-prop-wrap .price-old, .item-wrap-full .main-prop-wrap .price-old {
   margin-top: 5px;
   color: $text_light;
-  font-size: 14px;
+  font-size: 12px;
   text-decoration: line-through;
   margin-right: 20px;
 }
 
 .item-wrap .main-prop-wrap .price-new, .item-wrap-full .main-prop-wrap .price-new {
   margin-top: 5px;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 0.9;
 }
 
@@ -299,7 +314,7 @@
 
 .news-wrap{
   .title{
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 }
 
@@ -667,7 +682,7 @@ html .ui-button.ui-state-disabled {
 
 .product {
   .left-wrap {
-    margin-left: 100px;
+    margin-left: 15px;
     width: 850px;
 
   }
@@ -721,7 +736,7 @@ html .ui-button.ui-state-disabled {
     color: #2c96b9;
   }
   .opt-wrap {
-    margin-left: 30px;
+    margin-left: 20px;
     width: 266px;
     -webkit-box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.53);
     -moz-box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.53);

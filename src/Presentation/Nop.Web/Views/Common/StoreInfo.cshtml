@@ -33,7 +33,7 @@
 					<p>ул. Николая Ушакова, 1Б, офис 134</p>
 					<p>тел. <span>(044) 599 22 89</span></p>
 					<p>пн-вс 10:00-20:00</p>
-					<button class="btn btn-blue pl-5 pr-5" data-toggle="modal" data-target="#writUs">Напишите нам</button>
+					<button class="btn btn-blue pl-5 pr-5" data-toggle="modal" data-target="#writUs" onclick="window.location.replace('/contactus')">Напишите нам</button>
 				</div>
 				<div class="i-bl-w2">
 					<div id="map"></div>
@@ -44,7 +44,7 @@
 			var map;
 			function initMap() {
 				map = new google.maps.Map(document.getElementById('map'), {
-					center: { lat: -34.397, lng: 150.644 },
+					center: { lat: 50.458995, lng: 30.337597 },
 					zoom: 8
 				});
 			}

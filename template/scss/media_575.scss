@@ -1,263 +1,267 @@
 @media (max-width: 575px) {
-  .product .see-wrap {
-    height: 500px;
-    .btn-blue-white {
-      margin: 0 auto;
-    }
-  }
-
-  .content{
-    .title button {
-      bottom: -1130px;
-    }
-    .see-wrap .title button {
-      right: 0;
-      left: 0;
-      width: 120px;
-      bottom: -400px;
-    }
-    .show-room{
-      .see-wrap .title button {
-        left: 33%!important;
-      }
-        .new-wrap .title button{
-          bottom: -375px!important;
+    .product .see-wrap {
+        height: 500px;
+        .btn-blue-white {
+            margin: 0 auto;
         }
     }
-    .logo-m{
-      width: 110px;
-      overflow: hidden;
+    .content {
+        .see-wrap,
+        .news-wrap {
+            .title button {
+                bottom: -1130px;
+            }
+        }
+        .see-wrap .title button {
+            right: 0;
+            left: 0;
+            width: 120px;
+            bottom: -415px;
+            margin: auto;
+        }
+        .show-room {
+            .see-wrap .title button {
+                left: 33% !important;
+            }
+            .new-wrap .title button {
+                bottom: -375px !important;
+            }
+        }
+        .logo-m {
+            width: 110px;
+            overflow: hidden;
+        }
+        .icons-wrap {
+            width: auto;
+            margin-right: 5px;
+            margin-top: 25px;
+            i {
+                margin-top: 0;
+            }
+        }
+        .question-wrap .title button {
+            right: 0px;
+            top: -9px;
+        }
     }
-    .icons-wrap{
-      width: auto;
-      margin-right: 5px;
-      margin-top: 25px;
-      i {
-      margin-top: 0;
+    .news-wrap {
+        padding-bottom: 65px;
+        .item-wrap {
+            margin: 0 auto;
+            float: none;
+        }
     }
-  }
+    .subscription-wrap.row {
+        margin: 0 0 0 -14px;
+    }
+    .cart-popup-wrap {
+        &.open {
+            width: 100%;
+        }
+        .order-wrapp {
+            width: 400px;
+            padding: 25px 5px;
+            h1 {
+                font-size: 18px;
+            }
+            .title-wrap i {
+                width: 15px;
+                height: 15px;
+                float: right;
+                &.close-i {
+                    margin: -14px 15px 0;
+                }
+                &.shopping_bag_icon {
+                    margin: 3px 50px 0 0;
+                }
+            }
+            .total-wrap {
+                padding: 40px 65px;
+                span:last-child {
+                    font-size: 16px;
+                }
+            }
+            .btn.btn-blue,
+            .btn-blue-white {
+                margin-bottom: 15px;
+            }
+        }
+    }
+    .cart form {
+        width: 95%;
+    }
+    .tabbed-content {
+        padding: 0;
+        .item {
+            margin: 1px -15px;
+        }
+    }
+    .compare {
+        .h1,
+        h1 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .row {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .optc-wrap {
+            position: static;
+            float: none;
+            width: 100%;
+            box-shadow: none;
+            padding: 0;
+            .btn-blue {
+                display: none;
+            }
+            .btn-link {
+                position: absolute;
+                top: 30px;
+                right: 10px;
+                width: 100px;
+            }
+            .line {
+                display: none;
+            }
+            .show-wrap {
+                margin-top: 15px;
+                >div:first-child {
+                    float: left;
+                    height: 50px;
+                }
+                div:first-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+        .titles-wrap {
+            display: none;
+        }
+        .item-wrap {
+            width: 160px;
+            height: 350px;
+            padding: 0 10px;
+            img.product {
+                width: 100%;
+                height: auto;
+            }
+            .close-wrap {
+                right: 0px;
+                top: 10px;
+            }
+        }
+        .compare-content {
+            margin: 0 -15px;
+            .m-titles {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                margin: -5px auto 0;
+                width: 185px;
+                text-align: center;
+                font-weight: 600;
+                ul {
+                    margin-top: 507px;
+                    li {
+                        height: 41px;
+                        padding: 10px 0;
+                    }
+                }
+            }
+            .outer-wrapp {
+                li {
+                    padding: 10px 10px;
+                    margin: 0 -10px;
+                    &:nth-child(2n + 1) {
+                        height: 41px;
+                        background-color: transparent;
+                    }
+                    &:nth-child(2n) {
+                        background-color: #efefef;
+                    }
+                }
+            }
+        }
+        i.close-i {
+            margin: 0;
+        }
+    }
+    nav.blue-menu {
+        margin: 0px 0px 30px;
+        ul {
+            li {
+                float: none;
+                width: 100%;
+                a {
+                    &.active {
+                        @include box-shadow(none);
+                    }
+                }
+            }
+        }
+    }
+    .map {
+        .map-wrap {
+            margin: 0 -15px 30px;
+            .img {
+                padding: 0 15px;
+            }
+        }
+        .img-wrap .img {
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+    #map {
+        margin-top: 15px !important;
+    }
+    .show-room {
+        &.row {
+            margin-right: 0;
+            margin-left: 0;
+        }
+        .show-room-wrap {
+            .bl-1 .i-bl-w2 {
+                width: 100%;
+            }
+        }
+        .line {
+            margin: 50px -15px 60px -40px;
+        }
+    }
+    .scrollComtent {
+        div.scrollWrapper {
+            .outer-wrapp {
+                width: 100%;
+            }
+        }
+    }
+    .sell-wrap,
+    .new-wrap,
+    .news-wrap,
+    .news .article-wrap,
+    .map .article-wrap {
+        position: relative;
+        .btn-blue-white {
+            margin: auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 180px;
+            bottom: 16px;
+            z-index: 1;
+        }
+    }
+    .news-wrap {
+        .title button {
+            bottom: -1215px;
+        }
+    }
+    .news-wrap,
+    .news .article-wrap,
+    .map .article-wrap {
+        margin-left: 0;
+    }
 }
-
-
-  .subscription-wrap.row {
-    margin: 0 0 0 -14px;
-  }
-
-  .cart-popup-wrap {
-    &.open {
-      width: 100%;
-    }
-    .order-wrapp {
-      width: 400px;
-      padding: 25px 5px;
-      h1 {
-        font-size: 18px;
-      }
-      .title-wrap i {
-        width: 15px;
-        height: 15px;
-        float: right;
-        &.close-i {
-          margin: -14px 15px 0;
-        }
-        &.shopping_bag_icon {
-          margin: 3px 50px 0 0;
-        }
-      }
-      .total-wrap {
-        padding: 40px 65px;
-        span:last-child {
-          font-size: 16px;
-        }
-      }
-      .btn.btn-blue, .btn-blue-white {
-        margin-bottom: 15px;
-      }
-    }
-  }
-
-  .cart form{
-    width: 95%;
-  }
-  .tabbed-content {
-    padding: 0;
-    .item {
-      margin: 1px -15px;
-    }
-  }
-
-  .compare{
-    .h1, h1 {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-    .row {
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-    .optc-wrap {
-      position: static;
-      float: none;
-      width: 100%;
-      box-shadow: none;
-      padding: 0;
-      .btn-blue{
-        display: none;
-      }
-      .btn-link {
-        position: absolute;
-        top: 30px;
-        right: 10px;
-        width: 100px;
-      }
-      .line{
-        display: none;
-      }
-      .show-wrap{
-        margin-top: 15px;
-        > div:first-child{
-          float: left;
-          height: 50px;
-        }
-         div:first-child{
-          margin-bottom: 0;
-        }
-      }
-    }
-    .titles-wrap{
-      display: none;
-    }
-    .item-wrap{
-        width: 160px;
-        height: 350px;
-      padding: 0 10px;
-      img.product {
-        width: 100%;
-        height: auto;
-      }
-      .close-wrap{
-        right: 0px;
-        top: 10px;
-      }
-    }
-
-    .compare-content {
-      margin: 0 -15px;
-      .m-titles{
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        margin: -5px auto 0;
-        width: 185px;
-        text-align: center;
-        font-weight: 600;
-        ul{
-          margin-top: 507px;
-
-          li{
-            height: 41px;
-            padding: 10px 0;
-          }
-        }
-      }
-      .outer-wrapp{
-        li {
-          padding: 10px 10px;
-          margin: 0 -10px;
-          &:nth-child(2n + 1) {
-            height: 41px;
-            background-color: transparent;
-          }
-          &:nth-child(2n) {
-            background-color: #efefef;
-          }
-
-        }
-      }
-    }
-    i.close-i {
-      margin: 0;
-    }
-  }
-
-  nav.blue-menu{
-    margin: 0px 0px 30px;
-    ul{
-      li{
-        float: none;
-        width: 100%;
-        a{
-          &.active{
-            @include box-shadow(none);
-          }
-        }
-      }
-    }
-  }
-
-  .map{
-    .map-wrap{
-      margin: 0 -15px 30px;
-      .img{
-        padding: 0 15px;
-
-      }
-    }
-    .img-wrap .img {
-      width: 100%;
-      margin-left: 0;
-    }
-  }
-
-  #map{
-    margin-top: 15px!important;
-  }
-
-  .show-room{
-    &.row{
-      margin-right: 0;
-      margin-left: 0;
-    }
-    .show-room-wrap{
-      .bl-1 .i-bl-w2 {
-        width: 100%;
-
-      }
-    }
-    .line {
-      margin: 50px -15px 60px -40px;
-    }
-  }
-
-  .scrollComtent {
-    div.scrollWrapper {
-      .outer-wrapp {
-        width: 100%;
-      }
-    }
-  }
-  
-  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap {
-    position: relative;
-    .btn-blue-white {
-      margin: auto;
-      position: absolute;
-      left: 0;
-      right: 0;
-      width: 180px;
-      bottom: 16px;
-      z-index: 1;
-    }
-  }
-
-  .news-wrap{
-    .title button{
-      bottom: -1215px;
-    }
-  }
-  .news-wrap, .news .article-wrap, .map .article-wrap {
-    margin-left: 0;
-  }
-}
-
