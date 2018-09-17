@@ -51,18 +51,18 @@
 				<div class="title"><span>1</span>@T("register.fillinfo")</div>
 				<div class="form-group row">
 					<label asp-for="FirstName" class="col-form-label col-sm-3" for="i1" asp-postfix=":">@T("register.name")</label>
-					<input id="i1" type="text" class="form-control col-sm-4" asp-for="FirstName" />
+					<input id="i1" type="text" class="form-control col-sm-5" asp-for="FirstName" />
 					<nop-required />
 					<span asp-validation-for="FirstName"></span>
 				</div>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3" for="i2" asp-for="Phone" asp-postfix=":">@T("register.phone")</label>
-					<input id="i2" type="text" class="form-control col-sm-4" asp-for="Phone" />
+					<input id="i2" type="text" class="form-control col-sm-5" asp-for="Phone" />
 					<span asp-validation-for="Phone"></span>
 				</div>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3" for="i3" asp-for="Email" asp-postfix=":">@T("register.email")</label>
-					<input asp-for="Email" id="i3" type="text" class="form-control col-sm-4" />
+					<input asp-for="Email" id="i3" type="text" class="form-control col-sm-5" />
 					<nop-required />
 					<span asp-validation-for="Email"></span>
 				</div>
@@ -72,7 +72,7 @@
 						var controlId = $"customer_attribute_{attribute.Id}";
 						var textPrompt = attribute.Name;
 						<label class="col-form-label col-sm-3">@textPrompt</label>
-						<input type="text" class="form-control col-sm-4" name="@(controlId)" id="@(controlId)" value="@attribute.DefaultValue" />
+						<input type="text" class="form-control col-sm-5" name="@(controlId)" id="@(controlId)" value="@attribute.DefaultValue" />
 					}
 				</div>
 
@@ -81,13 +81,13 @@
 				<div class="title"><span>2</span>Выберитеспособ доставки</div>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3" asp-for="City" asp-postfix=":">@T("register.city")</label>
-					<input type="text" class="form-control col-sm-4" asp-for="City" />
+					<input type="text" class="form-control col-sm-5" asp-for="City" />
 					<span asp-validation-for="City"></span>
 				</div>
 
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3" asp-for="StreetAddress" asp-postfix=":">@T("register.street")</label>
-					<input type="text" class="form-control col-sm-4" asp-for="StreetAddress" />
+					<input type="text" class="form-control col-sm-5" asp-for="StreetAddress" />
 					<span asp-validation-for="StreetAddress"></span>
 				</div>
 				<div class="form-group row">
@@ -113,19 +113,19 @@
 				<div class="title"><span>3</span>Пароль</div>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3" for="p1" asp-for="Password" asp-postfix=":"></label>
-					<input id="p1" type="text" class="form-control col-sm-4" asp-for="Password" />
+					<input id="p1" type="text" class="form-control col-sm-5" asp-for="Password" />
 					<nop-required />
 					<span asp-validation-for="Password"></span>
 				</div>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3" for="p2" asp-for="ConfirmPassword" asp-postfix=":"></label>
-					<input id="p2" type="text" class="form-control col-sm-4" asp-for="ConfirmPassword" />
+					<input id="p2" type="text" class="form-control col-sm-5" asp-for="ConfirmPassword" />
 					<nop-required />
 					<span asp-validation-for="ConfirmPassword"></span>
 				</div>
 				<div class="row">
 					<input type="submit" style="display:none;" id="register-button" class="button-1 register-next-step-button" value="@T("Account.Register.Button")" name="register-button" />
-					<button class="btn btn-blue pl-5 pr-5 offset-sm-3 col-sm-4" onclick="$('#register-button').click()">Зарегистрироваться</button>
+					<button class="btn btn-blue pl-5 pr-5 offset-sm-3 col-sm-5" onclick="$('#register-button').click()">Зарегистрироваться</button>
 				</div>
 			</form>
 		</div>

@@ -7,8 +7,10 @@
 <nav class="breadcrumb-wrap" aria-label="breadcrumb"></nav>
 
 <div class="row news">
-	<div class="offset-xl-1 col-xl-10">
-		<h1 class="title">Статьи</h1>
+	<div class="full">
+		<div class="col-xl-11">
+			<h1 class="title">Статьи</h1>
+		</div>
 		<nav class="blue-menu">
 			<ul class="clearfix" id="links">
 				<li><a href="#" id="cat0" class="active" onclick="ShowOnly('#cat0')">Все статьи</a></li>
@@ -22,8 +24,8 @@
 				}
 				@foreach (var item in itemsList.Distinct())
 				{
-				<li><a href="#" id="@(string.Format("cat{0}", item))" onclick="ShowOnly(@(string.Format("'#cat{0}'", item)))">@T(string.Format("topic.category{0}", item))</a></li>
-				}				
+					<li><a href="#" id="@(string.Format("cat{0}", item))" onclick="ShowOnly(@(string.Format("'#cat{0}'", item)))">@T(string.Format("topic.category{0}", item))</a></li>
+				}
 			</ul>
 		</nav>
 		<div class="article-wrap" id="items">
