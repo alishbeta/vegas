@@ -152,7 +152,7 @@ namespace Nop.Web.Controllers
 				storeId: _storeContext.CurrentStore.Id,
 				categoryIds: categories,
 				pageIndex: pageIndex,
-				pageSize: 6).ToList();
+				pageSize: 32).ToList();
 
 
 			//ACL and store mapping

@@ -2,18 +2,20 @@
 @if (Model.Count > 0)
 {
 	<div class="new-wrap pad-norm">
-		<div class="title text-center">
-			<h3 class="">@T("NewProducts")</h3>
+		<div class="title row justify-content-center">
+			<div class="col-auto">
+				<h3 class="">@T("NewProducts")</h3>
+			</div>
 			<button class="btn btn-sm btn-blue-white float-right" id="new-products-view-all">@T("NewProducts.ViewAll")</button>
 		</div>
-		<div class="scrollComtent clearfix">
+		<div class="scrollM clearfix">
 			<div class="scrollingHotSpotLeft" style="display: none;">
 				<div class="arrow"></div>
 			</div>
 			<div class="scrollingHotSpotRight" style="display: none;">
 				<div class="arrow"></div>
 			</div>
-			<div class="scrollWrapper">
+			<div class="scrollWrapper kinetic-active" style="cursor: move;">
 				<div class="scrollableArea clearfix">
 					@foreach (var item in Model)
 					{
