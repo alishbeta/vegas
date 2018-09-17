@@ -121,13 +121,11 @@
 								<div class="form-group">
 									<div class="form-row">
 										<div class="col">
-											<label asp-for="FullName" asp-postfix=":"></label>
 											<input asp-for="FullName" placeholder="@T("ContactUs.FullName.Hint")" class="form-control col form-inline" />
 											<nop-required />
 											<span asp-validation-for="FullName"></span>
 										</div>
 										<div class="col">
-											<label asp-for="Email" asp-postfix=":"></label>
 											<input asp-for="Email" placeholder="@T("ContactUs.Email.Hint")" class="form-control col form-inline" />
 											<nop-required />
 											<span asp-validation-for="Email"></span>
@@ -137,14 +135,12 @@
 								<div class="form-group">
 									<div class="form-row">
 										<div class="col">
-											<label asp-for="Phone" asp-postfix=":"></label>
 											<input asp-for="Phone" placeholder="@T("ContactUs.Phone.Hint")" class="form-control col form-inline" />
 											<nop-required />
 											<span asp-validation-for="Phone"></span>
 										</div>
 									</div>
 									<div class="form-group">
-											<label asp-for="Enquiry" asp-postfix=":"></label>
 											<textarea asp-for="Enquiry" placeholder="@T("ContactUs.Enquiry.Hint")" rows="5" class="form-control col form-inline"></textarea>
 											<nop-required />
 											<span asp-validation-for="Enquiry"></span>
