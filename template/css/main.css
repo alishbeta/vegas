@@ -1182,9 +1182,13 @@ nav.breadcrumb-wrap a:hover {
   margin: 15px 0 0;
 }
 
-.news .article-wrap, .map .article-wrap, .map .article-wrap {
+.map .article-wrap {
   padding-left: 0;
   margin-left: calc((100% - 606px) / 2);
+}
+
+.news .article-wrap, .map .article-wrap {
+  margin-left: 15px;
 }
 
 .main-baner-wrap {
@@ -1360,14 +1364,14 @@ nav.breadcrumb-wrap a:hover {
 .item-wrap .main-prop-wrap .price-old, .item-wrap-full .main-prop-wrap .price-old {
   margin-top: 5px;
   color: #767c7e;
-  font-size: 14px;
+  font-size: 12px;
   text-decoration: line-through;
   margin-right: 20px;
 }
 
 .item-wrap .main-prop-wrap .price-new, .item-wrap-full .main-prop-wrap .price-new {
   margin-top: 5px;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 0.9;
 }
 
@@ -1814,7 +1818,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 
 .product .left-wrap {
-  margin-left: 100px;
+  margin-left: 15px;
   width: 850px;
 }
 .product .icons-wrap .delivery, .product .icons-wrap .star {
@@ -1861,7 +1865,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   color: #2c96b9;
 }
 .product .opt-wrap {
-  margin-left: 30px;
+  margin-left: 20px;
   width: 266px;
   -webkit-box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.53);
   -moz-box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.53);
@@ -2410,6 +2414,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   float: left;
   border: 1px solid #cdd2d4;
   margin: 0 20px 30px;
+  height: 430px;
 }
 .favorite .product-img-wrap div:first-child {
   width: 100%;
@@ -3244,14 +3249,11 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 
 div.scrollWrapper {
   overflow: hidden;
-  width: 100%;
-  height: 100%;
 }
 
 div.scrollingHotSpotRight {
   min-width: 75px;
   width: 10%;
-  height: 100%;
   position: absolute;
   z-index: 200;
   right: 0;
@@ -3296,7 +3298,6 @@ div.scrollingHotSpotRight .arrow:after {
 .scrollingHotSpotLeft {
   min-width: 75px;
   width: 10%;
-  height: 100%;
   background-color: transparent;
   position: absolute;
   z-index: 200;
@@ -3350,7 +3351,6 @@ If you want to style everything yourself, you shouldn't need these
   background: #fff;
   width: 800px;
   padding: 1em;
-  margin-left: 100px;
 }
 
 .tabs ul {
@@ -3842,18 +3842,6 @@ If you want to style everything yourself, you shouldn't need these
   .cart form, .cart-popup-wrap form {
     width: auto;
   }
-
-  .scrollingHotSpotLeft {
-    height: auto;
-  }
-
-  div.scrollingHotSpotRight {
-    height: auto;
-  }
-
-  div.scrollWrapper {
-    height: auto;
-  }
 }
 @media (max-width: 765px) {
   body {
@@ -4036,7 +4024,12 @@ If you want to style everything yourself, you shouldn't need these
     margin: 0 auto;
   }
 
-  .content .title button {
+  .content .see-wrap .title button,
+  .content .news-wrap .title button,
+  .content .news .article-wrap .title button,
+  .news .content .article-wrap .title button,
+  .content .map .article-wrap .title button,
+  .map .content .article-wrap .title button {
     bottom: -1130px;
   }
   .content .see-wrap .title button {
@@ -4063,6 +4056,10 @@ If you want to style everything yourself, you shouldn't need these
   }
   .content .icons-wrap i {
     margin-top: 0;
+  }
+  .content .question-wrap .title button {
+    right: 0px;
+    top: -9px;
   }
 
   .news-wrap, .news .article-wrap, .map .article-wrap {
@@ -4104,7 +4101,8 @@ If you want to style everything yourself, you shouldn't need these
   .cart-popup-wrap .order-wrapp .total-wrap span:last-child {
     font-size: 16px;
   }
-  .cart-popup-wrap .order-wrapp .btn.btn-blue, .cart-popup-wrap .order-wrapp .btn-blue-white {
+  .cart-popup-wrap .order-wrapp .btn.btn-blue,
+  .cart-popup-wrap .order-wrapp .btn-blue-white {
     margin-bottom: 15px;
   }
 
@@ -4119,7 +4117,8 @@ If you want to style everything yourself, you shouldn't need these
     margin: 1px -15px;
   }
 
-  .compare .h1, .compare h1 {
+  .compare .h1,
+  .compare h1 {
     font-size: 20px;
     margin-bottom: 20px;
   }
@@ -4250,10 +4249,24 @@ If you want to style everything yourself, you shouldn't need these
     width: 100%;
   }
 
-  .sell-wrap, .new-wrap, .news-wrap, .news .article-wrap, .map .article-wrap, .news .article-wrap, .map .article-wrap, .map .article-wrap {
+  .sell-wrap,
+  .new-wrap,
+  .news-wrap,
+  .news .article-wrap,
+  .map .article-wrap,
+  .news .article-wrap,
+  .map .article-wrap,
+  .map .article-wrap {
     position: relative;
   }
-  .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white {
+  .sell-wrap .btn-blue-white,
+  .new-wrap .btn-blue-white,
+  .news-wrap .btn-blue-white,
+  .news .article-wrap .btn-blue-white,
+  .map .article-wrap .btn-blue-white,
+  .news .article-wrap .btn-blue-white,
+  .map .article-wrap .btn-blue-white,
+  .map .article-wrap .btn-blue-white {
     margin: auto;
     position: absolute;
     left: 0;
@@ -4267,7 +4280,10 @@ If you want to style everything yourself, you shouldn't need these
     bottom: -1215px;
   }
 
-  .news-wrap, .news .article-wrap, .map .article-wrap, .news .article-wrap, .map .article-wrap, .map .article-wrap {
+  .news-wrap, .news .article-wrap, .map .article-wrap,
+  .news .article-wrap,
+  .map .article-wrap,
+  .map .article-wrap {
     margin-left: 0;
   }
 }
