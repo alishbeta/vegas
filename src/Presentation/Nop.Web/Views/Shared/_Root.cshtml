@@ -49,22 +49,28 @@
 			<i class="close-i"></i>
 			<i class="shopping_bag_icon"></i>
 		</div>
-		<div id="cartItems">@*CART ITEMS FROM AJAX*@</div>
-		<div class="total-wrap mb-3">
-			<span>@T("cart.total") <span id="cart-count">0</span> @T("cart.total.text")</span>
-			<span><span id="cart-price">0</span> грн</span>
+		<div id="cartItems">
+			@*CART ITEMS FROM AJAX*@
 		</div>
-		<div class="text-center">
-			<button class="btn btn-blue pr-4 pl-4" onclick="window.location.replace('/checkout/confirm')" id="cartcontinue">@T("cart.continue")</button>
-			<button class="btn btn-blue-white pr-4 pl-4">@T("cart.buynow")</button>
+		<div id="carttotal">
+			<div class="total-wrap mb-3">
+				<span>@T("cart.total") <span id="cart-count">0</span> @T("cart.total.text")</span>
+				<span><span id="cart-price">0</span> грн</span>
+			</div>
+			<div class="text-center">
+				<button class="btn btn-blue pr-4 pl-4" onclick="window.location.replace('/checkout/confirm')" id="cartcontinue">@T("cart.continue")</button>
+				<button class="btn btn-blue-white pr-4 pl-4">@T("cart.buynow")</button>
+			</div>
+			<div class="text-center">
+				<button id="pop-up-close" class="btn btn-link ">@T("cart.close")</button>
+			</div>
 		</div>
-		<div class="text-center">
-			<button id="pop-up-close" class="btn btn-link ">@T("cart.close")</button>
-		</div>
-
 	</div>
 	<div class="line"></div>
 	<div class="similar-wrap" id="relatedItems">
+		<div id="recently">
+			@await Component.InvokeAsync("RecentlyViewedProductsBlock")
+		</div>
 	</div>
 </div>
 <div class="login-form-wrap rounded">
@@ -141,37 +147,42 @@
 						dataType: 'json',
 						traditional: true
 					}).done(function (responce) {
-						$("#relatedItems").empty();
-						console.log(responce);
-						responce.model.forEach(function (product) {
-							var discount = "";
-							if (product.Discount != 0 && product.OldPrice != null) {
-								discount = '<div class="discount">' + product.Discount + '%</div>';
-							}
-							var oldPrice = "";
-							if (product.OldPrice != "" && product.OldPrice != null) {
-								oldPrice = '<div class="price-old">' + product.OldPrice + '</div>';
-							}
-							var element =
-							'<a href="/' + product.SeName + '?productId=' + product.ProductId + '">' + 
-								'<div class="item-wrap">' + 
+						if (responce.model.length == 0) {
+							$("#recently").css("display", "unset");
+						}
+						else {
+							$("#recently").css("display", "none");
+							$("#relatedItems").empty();
+							responce.model.forEach(function (product) {
+								var discount = "";
+								if (product.Discount != 0 && product.OldPrice != null) {
+									discount = '<div class="discount">' + product.Discount + '%</div>';
+								}
+								var oldPrice = "";
+								if (product.OldPrice != "" && product.OldPrice != null) {
+									oldPrice = '<div class="price-old">' + product.OldPrice + '</div>';
+								}
+								var element =
+									'<a href="/' + product.SeName + '?productId=' + product.ProductId + '">' +
+									'<div class="item-wrap">' +
 									'<div class="product-img-wrap">' +
-										'<img class="product" src="' + product.ImageUrl + '" alt="' + product.AlternateText + '">' +
-										discount + 
-									'</div>' + 
-									'<div class="main-prop-wrap text-left">' + 
-										'<div class="product-name text-light-c">' + product.Name + '</div>' + 
-										'<div class="product-prop"></div>' + 
-										'<div class="price-titile">@T("main.product.price")</div>' + 
-										'<div class="price-wrap clearfix">' +
-											oldPrice +
-											'<div class="price-new">' + product.NewPrice + '</div>' +
-										'</div>' +
+									'<img class="product" src="' + product.ImageUrl + '" alt="' + product.AlternateText + '">' +
+									discount +
 									'</div>' +
-								'</div>' +
-							'</a>'; +
-							$("#relatedItems").append(element);
-						});
+									'<div class="main-prop-wrap text-left">' +
+									'<div class="product-name text-light-c">' + product.Name + '</div>' +
+									'<div class="product-prop"></div>' +
+									'<div class="price-titile">@T("main.product.price")</div>' +
+									'<div class="price-wrap clearfix">' +
+									oldPrice +
+									'<div class="price-new">' + product.NewPrice + '</div>' +
+									'</div>' +
+									'</div>' +
+									'</div>' +
+									'</a>';
+								$("#relatedItems").append(element);
+							});
+						}
 					});
 				}
 			</script>
@@ -301,14 +312,18 @@
 							$("#cart-count-full").text(count);
 						}
 						if (sum > 0 && count > 0) {
+							$("#carttotal").css("display", "block");
 							$("#cartcontinue").prop("disabled", false);
 						}
 						else {
 							$("#cartcontinue").prop("disabled", true);
+							$("#carttotal").css("display", "none");
+							$("#cartItems").append("<h3>@T("cart.empty")</h3>");
 						}
 					});
 				}
 				$(document).ready(UpdateCart());
+				$(document).ready(GetCrossSellProducts());
 			</script>
 		</div>
 		@await Component.InvokeAsync("Footer")
