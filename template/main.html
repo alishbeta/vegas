@@ -231,10 +231,16 @@
             <div class="form-group form-inline">
                 <label class="col-sm-3" for=""><b>E-mail</b></label>
                 <input class="col-sm-8 form-control" type="text">
+                <div class="offset-sm-3 invalid-feedback">
+                    Please provide a valid city.
+                  </div>
             </div>
             <div class="form-group form-inline">
                 <label class="col-sm-3" for=""><b>Пароль</b></label>
                 <input class="col-sm-8 form-control" type="text">
+                <div class="offset-sm-3 invalid-feedback">
+                    Please provide a valid city.
+                  </div>
             </div>
             <div>
                 <button class="btn btn-blue btn-block offset-sm-3 col-sm-8">Войти</button>
@@ -254,7 +260,7 @@
     <div class="wrap">
         <div class="r-wrap">
             <div class="top-wraper" style="display: none;">
-                <a onclick="return false;" href="#"><i class="top"></i></a>
+                <a onclick="return false;" href="#"><span>Наверх </span><i class="top"></i></a>
             </div>
             <div class="all-menu-wrap">
                 <nav class="side-menu-wrap">
@@ -396,7 +402,8 @@
                         <i class="favorit shopping_bag_icon"><span>0</span></i>
                         <i class="favorit favorite_i"><span>1</span></i>
                         <i class="favorit compare_icon"></i>
-                        <i class="favorit user_icon d-none d-md-inline-block"></i>
+                        <a id="non-authorized" href="#"><i class="favorit user_icon d-none d-md-inline-block"></i></a>
+                        
                     </div>
                 </div>
                 <div class="main-baner-wrap">

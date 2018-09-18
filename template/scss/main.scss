@@ -324,7 +324,7 @@
 }
 
 .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .see-wrap .btn-blue-white, .cat-content-wrap .btn-blue-white, .see-wrap .btn-blue-white {
-  margin-right: 150px;
+  margin-right: 60px;
 }
 
 .some-info {
@@ -427,6 +427,9 @@ footer a {
   z-index: 50;
   a {
     display: block;
+    span{
+      display: none;
+    }
   }
   i.top {
     position: relative;

@@ -10,7 +10,7 @@ $i: 0;
     background: white;
     padding-top: 65px;
     @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.2));
-    @include transition(0.1s);
+    @include transition(0.4s);
     z-index: 1050;
     img {
       width: 30px;
@@ -175,7 +175,7 @@ $i: 0;
         width: 65px;
         padding-left: 5px;
         overflow: hidden;
-        @include transition(0.4s);
+        @include transition(.5s);
         a{
           width: 300px;
           span{
@@ -203,6 +203,9 @@ $i: 0;
     }
     ul li{
       width: 100%!important;
+    }
+    &:hover{
+      cursor: pointer;
     }
   }
 }

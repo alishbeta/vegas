@@ -835,10 +835,10 @@ nav.breadcrumb-wrap a:hover {
   -moz-box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
-  -moz-transition: 0.1s;
-  -o-transition: 0.1s;
-  -webkit-transition: 0.1s;
-  transition: 0.1s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   z-index: 1050;
 }
 .all-menu-wrap .side-menu-wrap img, .all-menu-wrap .side-second-menu-wrap img {
@@ -1086,10 +1086,10 @@ nav.breadcrumb-wrap a:hover {
   width: 65px;
   padding-left: 5px;
   overflow: hidden;
-  -moz-transition: 0.4s;
-  -o-transition: 0.4s;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 .short-menu .side-menu-wrap ul li a, .short-menu .all-menu-wrap .side-second-menu-wrap ul li a, .all-menu-wrap .short-menu .side-second-menu-wrap ul li a {
   width: 300px;
@@ -1116,6 +1116,9 @@ nav.breadcrumb-wrap a:hover {
 }
 .short-menu .side-second-menu-wrap ul li {
   width: 100% !important;
+}
+.short-menu .side-second-menu-wrap:hover {
+  cursor: pointer;
 }
 
 .col-form-label {
@@ -1465,7 +1468,7 @@ nav.breadcrumb-wrap a:hover {
 }
 
 .sell-wrap .btn-blue-white, .new-wrap .btn-blue-white, .news-wrap .btn-blue-white, .news .article-wrap .btn-blue-white, .map .article-wrap .btn-blue-white, .see-wrap .btn-blue-white, .cat-content-wrap .btn-blue-white, .see-wrap .btn-blue-white {
-  margin-right: 150px;
+  margin-right: 60px;
 }
 
 .some-info {
@@ -1563,6 +1566,9 @@ footer a:hover {
 }
 .top-wraper a {
   display: block;
+}
+.top-wraper a span {
+  display: none;
 }
 .top-wraper i.top {
   position: relative;
@@ -2287,7 +2293,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .compare .optc-wrap .show-wrap + .line {
   margin-bottom: 0;
-  margin-top: 96px;
+  margin-top: 89px;
 }
 .compare .optc-wrap .show-wrap div:first-child {
   color: #767c7e;
@@ -2882,6 +2888,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   font-size: 12px;
   color: #767c7e;
 }
+.product .icons-wrap {
+  margin-top: 0;
+}
+.product .icons-wrap span {
+  display: inline-block;
+  position: static;
+}
 
 .map nav ul li {
   width: 16.66%;
@@ -3058,7 +3071,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   margin-top: -32px;
   font-size: 16px;
   border: 1px solid #cdd2d4;
-  padding: 30px 20px;
+  padding: 30px 45px;
 }
 .cabinet .cabinet-info .title {
   font-weight: 600;
@@ -3075,6 +3088,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   border-radius: 18px;
   font-size: 14px;
   margin-right: 15px;
+}
+.cabinet .cabinet-info .compare_icon + form {
+  float: right;
 }
 .cabinet .favorite-wrap .item-wrap {
   float: left;
@@ -3517,7 +3533,7 @@ If you want to style everything yourself, you shouldn't need these
   }
   .icons-wrap img {
     margin-left: 0;
-    width: 110px;
+    width: 140px;
     height: auto;
     position: absolute;
     left: 50px;
@@ -4046,7 +4062,7 @@ If you want to style everything yourself, you shouldn't need these
     bottom: -375px !important;
   }
   .content .logo-m {
-    width: 110px;
+    width: 113px;
     overflow: hidden;
   }
   .content .icons-wrap {
@@ -4285,6 +4301,31 @@ If you want to style everything yourself, you shouldn't need these
   .map .article-wrap,
   .map .article-wrap {
     margin-left: 0;
+  }
+
+  .top-wraper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+    border: 1px solid #bfdce6;
+    background: #bfdce6;
+    text-align: center;
+    padding: 9px;
+  }
+  .top-wraper i.top:after {
+    top: 8px;
+  }
+  .top-wraper a {
+    color: #2c96b9;
+  }
+  .top-wraper a span {
+    display: inline;
+  }
+
+  .footer-wrap .phone-footer-wrap .phone {
+    font-size: 17px;
   }
 }
 

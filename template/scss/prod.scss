@@ -115,4 +115,11 @@
         color: $text_light;
       }
     }
+    .icons-wrap {
+      margin-top: 0;
+      span {
+        display: inline-block;
+        position: static;
+    }
+  }
 }
