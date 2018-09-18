@@ -7,8 +7,9 @@ $background__active: #eee;
 $width__tabs-side: 150px;
 $breakpoint: 800px;
 @mixin tab-active() {
-  background: #808080;
-  color: $background__active;
+  background: #bfbfbf;
+  color: #fffcfc;
+
 }
 
 /*

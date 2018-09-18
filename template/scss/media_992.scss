@@ -292,14 +292,14 @@
         .item.active {
             border: none;
         }
-        nav+section::after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            border-top: 1px solid $border_color;
-        }
+        // nav+section::after {
+        //     content: '';
+        //     display: block;
+        //     position: absolute;
+        //     top: 0;
+        //     width: 100%;
+        //     border-top: 1px solid $border_color;
+        // }
         section {
             &::before {
                 background: transparent; //border-bottom: 1px solid $border_color;

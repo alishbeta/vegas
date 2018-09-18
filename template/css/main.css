@@ -3332,8 +3332,8 @@ If you want to style everything yourself, you shouldn't need these
   padding: .5em 30px;
 }
 .tabs ul li a:hover, .tabs ul li a.active {
-  background: #808080;
-  color: #eee;
+  background: #bfbfbf;
+  color: #fffcfc;
 }
 
 .item {
@@ -3355,8 +3355,8 @@ If you want to style everything yourself, you shouldn't need these
   display: block;
 }
 .item.active::before {
-  background: #808080;
-  color: #eee;
+  background: #bfbfbf;
+  color: #fffcfc;
 }
 .item.active .item-content {
   padding: 1em;
@@ -3760,14 +3760,6 @@ If you want to style everything yourself, you shouldn't need these
   .product .item.active {
     border: none;
   }
-  .product nav + section::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    border-top: 1px solid #cdd2d4;
-  }
   .product section::before {
     background: transparent;
   }
@@ -3961,7 +3953,23 @@ If you want to style everything yourself, you shouldn't need these
     width: 100%;
   }
   .tabbed-content section::before {
-    background: #bfbfbf;
+    border-top: 1px solid #bfbfbf;
+  }
+
+  section.item:not(.active)::after {
+    display: block;
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    right: -335px;
+    top: -18px;
+    position: relative;
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
   }
 
   .product .line {
