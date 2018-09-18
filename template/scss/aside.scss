@@ -48,9 +48,6 @@ $i: 0;
             &:nth-child(#{$i}) {
               &:hover {
                 background-color: $color;
-                .hint {
-                  background-color: $color;
-                }
               }
               &.active{
                 background-color: $color;
@@ -65,38 +62,19 @@ $i: 0;
             &:hover {
               text-decoration: none;
               color: $link_color;
-              /*background-color: #bfdce6;*/
-              .hint {
-                width: 250px;
-                @include transition(0.5s);
-              }
             }
           }
-          .hint {
-            display: inline-block;
-            position: absolute;
-            top: 0;
-            left: 65px;
-            width: 0;
-            padding: 11px 0;
-            overflow: hidden;
-            span {
-              display: inline-block;
-              margin-left: 20px;
-              width: 300px;
-            }
-            &:after {
-              display: block;
-              content: "";
-              width: 7px;
-              height: 7px;
-              border-right: 2px solid black;
-              border-bottom: 2px solid black;
-              right: -217px;
-              top: -12px;
-              position: relative;
-              @include transform(rotate(-45deg));
-            }
+          &:hover:after {
+            display: block;
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-right: 2px solid black;
+            border-bottom: 2px solid black;
+            right: -285px;
+            top: -29px;
+            position: relative;
+            @include transform(rotate(-45deg));
           }
         }
       }
