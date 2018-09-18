@@ -132,6 +132,11 @@ namespace Nop.Web.Factories
             model.CreatedOn = _dateTimeHelper.ConvertToUserTime(newsItem.StartDateUtc ?? newsItem.CreatedOnUtc, DateTimeKind.Utc);
             model.AddNewComment.DisplayCaptcha = _captchaSettings.Enabled && _captchaSettings.ShowOnNewsCommentPage;
 
+            if (newsItem.PictureId > 0)
+            {
+                model.Image = _pictureService.GetPictureUrl(newsItem.PictureId);
+            }
+            
             //number of news comments
             var storeId = _newsSettings.ShowNewsCommentsPerStore ? _storeContext.CurrentStore.Id : 0;
             var cacheKey = string.Format(ModelCacheEventConsumer.NEWS_COMMENTS_NUMBER_KEY, newsItem.Id, storeId, true);

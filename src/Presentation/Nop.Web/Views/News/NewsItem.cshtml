@@ -16,7 +16,7 @@
 		<div class="news-full-wrap">
 			<h1 class="title">@Model.Title <span class="date">@Model.CreatedOn.ToString("D")</span></h1>
 			<div class="img-wrap">
-				<img src="https://via.placeholder.com/920x500" alt="">
+                <img src="@Model.Image" >
 			</div>
 			<div class="text">
 				@Html.Raw(Model.Full)

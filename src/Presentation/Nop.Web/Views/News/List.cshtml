@@ -65,11 +65,19 @@
 			@foreach (var item in Model.NewsItems)
 			{
 				<div class="item-wrap">
-					<div class="img-wrap">
-						<a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })"><img src="/img/news.png" alt=""></a>
+                    <div class="img-wrap">
+                        @if (string.IsNullOrEmpty(item.Image))
+                        {
+                            <a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })"><img src="/img/news.png" alt=""></a>
+                        }
+                        else
+                        {
+                            <a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })"><img src="@item.Image" width="250" alt="@item.Title"></a>
+                        }
+                        
 
-						<div class="date">@item.CreatedOn.ToString("d MMMM yyyy", CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.EnglishName == "Russian (Russia)" ? "ru-RU" : "uk-UA"))</div>
-					</div>
+                        <div class="date">@item.CreatedOn.ToString("d MMMM yyyy", CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.EnglishName == "Russian (Russia)" ? "ru-RU" : "uk-UA"))</div>
+                    </div>
 					<div class="text-wrap">
 						<div class="title"><a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">@item.Title</a></div>
 						<div class="short-text">
