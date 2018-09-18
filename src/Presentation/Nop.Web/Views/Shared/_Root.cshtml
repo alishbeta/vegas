@@ -75,7 +75,7 @@
 </div>
 <div class="login-form-wrap rounded">
 	<div class="form-wrap">
-		<form asp-route="Login" asp-route-returnurl="/customer/info" method="post">
+		<form asp-route="Login" asp-route-returnurl="/customer/info" id="testform" method="post">
 			<div asp-validation-summary="ModelOnly" class="message-error">@T("Account.Login.Unsuccessful")</div>
 			<h5>
 				@T("login.title") <i class="favorit user_icon"></i>
@@ -83,19 +83,48 @@
 			</h5>
 			<div class="form-group form-inline">
 				<label class="col-sm-3" for="Email" asp-postfix=":"><b>@T("login.email")</b></label>
-				<input class="col-sm-8 form-control" type="text" name="Email" autofocus="autofocus" />
+				<input class="col-sm-8 form-control" id="mail" type="text" name="Email" autofocus="autofocus" />
 				<span for="name"></span>
 			</div>
 			<div class="form-group form-inline">
 				<label class="col-sm-3" for="Password" asp-postfix=":"><b>@T("login.pass")</b></label>
-				<input class="col-sm-8 form-control" type="password" name="Password" />
+				<input class="col-sm-8 form-control" id="pass" type="password" name="Password" />
+				<div id="errorMessage" class="offset-sm-3 invalid-feedback">
+					@T("login.error")
+				</div>
 				<span for="Password"></span>
 			</div>
-			<div class="offset-sm-3 invalid-feedback">
-				@T("login.error")
-			</div>
 			<div>
-				<input type="submit" class="btn btn-blue-white btn-block offset-sm-3 col-sm-8" value="@T("login.continue")" />
+				<input type="submit" class="btn btn-blue-white btn-block offset-sm-3 col-sm-8" id="test" value="@T("login.continue")" />
+				<script>
+					$("#test").on("click", function (e) {
+						if ($("#mail").val().length == 0) {
+							$("#mail").addClass("is-invalid");
+						}
+						else {
+							$("#mail").removeClass("is-invalid");
+						}
+						if ($("#pass").val().length == 0) {
+							$("#pass").addClass("is-invalid");
+						}
+						else {
+							$("#pass").removeClass("is-invalid");
+						}
+						e.preventDefault();
+						if ($("#pass").val().length != 0 && $("#mail").val().length != 0) {
+							$.post('/customer/login', $('#testform').serialize()).done(function (responce) {
+								console.log(responce);
+								if (!responce.success) {
+									$("#mail").addClass("is-invalid");
+									$("#pass").addClass("is-invalid");
+								}
+								else {
+									window.location.replace(responce.returnUrl);
+								}
+							});
+						}
+					});
+				</script>
 				<a class="btn btn-link btn-block offset-sm-3 col-sm-8" asp-route="PasswordRecovery">@T("login.forgotpass")</a>
 				<a class="btn btn-blue btn-block offset-sm-3 col-sm-8" href="/register">@T("login.signup")</a>
 			</div>
