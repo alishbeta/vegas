@@ -551,8 +551,10 @@ namespace Nop.Web.Factories
             {
                 var shoppingCartUnitPriceWithDiscountBase = _taxService.GetProductPrice(sci.Product, _priceCalculationService.GetUnitPrice(sci), out decimal _);
                 var shoppingCartUnitPriceWithDiscount = _currencyService.ConvertFromPrimaryStoreCurrency(shoppingCartUnitPriceWithDiscountBase, _workContext.WorkingCurrency);
-                cartItemModel.UnitPrice = _priceFormatter.FormatPrice(shoppingCartUnitPriceWithDiscount);
-            }
+				cartItemModel.OldPrice = (sci.Product.Price == shoppingCartUnitPriceWithDiscount ? "" : _priceFormatter.FormatPrice(sci.Product.Price));
+				cartItemModel.Price = _priceFormatter.FormatPrice(shoppingCartUnitPriceWithDiscount);
+				cartItemModel.UnitPrice = _priceFormatter.FormatPrice(shoppingCartUnitPriceWithDiscount);
+			}
             //subtotal, discount
             if (sci.Product.CallForPrice &&
                 //also check whether the current user is impersonated
@@ -574,8 +576,9 @@ namespace Nop.Web.Factories
                     shoppingCartItemDiscountBase = _taxService.GetProductPrice(sci.Product, shoppingCartItemDiscountBase, out taxRate);
                     if (shoppingCartItemDiscountBase > decimal.Zero)
                     {
-                        var shoppingCartItemDiscount = _currencyService.ConvertFromPrimaryStoreCurrency(shoppingCartItemDiscountBase, _workContext.WorkingCurrency);
-                        cartItemModel.Discount = _priceFormatter.FormatPrice(shoppingCartItemDiscount);
+						//var shoppingCartItemDiscount = _currencyService.ConvertFromPrimaryStoreCurrency(shoppingCartItemDiscountBase, _workContext.WorkingCurrency);
+						//cartItemModel.Discount = _priceFormatter.FormatPrice(shoppingCartItemDiscount);
+						cartItemModel.DiscountPercentage = sci.Product.AppliedDiscounts[0] == null ? decimal.Zero : sci.Product.AppliedDiscounts[0].DiscountPercentage;
                     }
                 }
             }

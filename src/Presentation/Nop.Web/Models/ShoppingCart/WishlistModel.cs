@@ -57,8 +57,11 @@ namespace Nop.Web.Models.ShoppingCart
             public string UnitPrice { get; set; }
 
             public string SubTotal { get; set; }
+			public string Price { get; set; }
+			public string OldPrice { get; set; }
 
             public string Discount { get; set; }
+            public decimal DiscountPercentage { get; set; }
             public int? MaximumDiscountedQty { get; set; }
 
             public int Quantity { get; set; }
