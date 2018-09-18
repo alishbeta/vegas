@@ -2478,7 +2478,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cart-popup-wrap .item-wrap {
   width: 148px;
-  height: auto;
+  height: 225px;
   float: left;
   padding: 5px 5px 15px 5px;
   margin: 5px 5px 0 5px;
@@ -2505,10 +2505,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   font-size: 12px !important;
 }
 .cart-popup-wrap .price-old {
-  font-size: 12px !important;
+  font-size: 11px !important;
 }
 .cart-popup-wrap .price-new {
-  font-size: 16px !important;
+  font-size: 13px !important;
 }
 .cart-popup-wrap a {
   display: block;
@@ -2523,7 +2523,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cart-popup-wrap .title {
   font-weight: 600;
-  margin-left: 20px;
+  margin: 0 0 30px 20px;
 }
 
 .news.row, .row.map {
@@ -2812,7 +2812,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.33);
 }
 .product .line {
-  margin: 20px 0px;
+  margin: 18px 0px 0 -50px;
 }
 .product .question-wrap .title h5 {
   float: left;
@@ -3232,7 +3232,7 @@ div.scrollingHotSpotRight {
 }
 div.scrollingHotSpotRight .arrow {
   position: absolute;
-  top: 50%;
+  top: 175px;
   right: 30px;
   width: 30px;
   height: 30px;
@@ -3277,7 +3277,7 @@ div.scrollingHotSpotRight .arrow:after {
 }
 .scrollingHotSpotLeft .arrow {
   position: absolute;
-  top: 50%;
+  top: 175px;
   left: 30px;
   width: 30px;
   height: 30px;
@@ -3332,8 +3332,8 @@ If you want to style everything yourself, you shouldn't need these
   padding: .5em 30px;
 }
 .tabs ul li a:hover, .tabs ul li a.active {
-  background: #808080;
-  color: #eee;
+  background: #bfbfbf;
+  color: #fffcfc;
 }
 
 .item {
@@ -3355,8 +3355,8 @@ If you want to style everything yourself, you shouldn't need these
   display: block;
 }
 .item.active::before {
-  background: #808080;
-  color: #eee;
+  background: #bfbfbf;
+  color: #fffcfc;
 }
 .item.active .item-content {
   padding: 1em;
@@ -3484,6 +3484,11 @@ If you want to style everything yourself, you shouldn't need these
     margin-left: 0;
     width: 140px;
     height: auto;
+  }
+
+  .logo-m {
+    width: 118px;
+    overflow: hidden;
     position: absolute;
     left: 50px;
     top: 25px;
@@ -3760,14 +3765,6 @@ If you want to style everything yourself, you shouldn't need these
   .product .item.active {
     border: none;
   }
-  .product nav + section::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    border-top: 1px solid #cdd2d4;
-  }
   .product section::before {
     background: transparent;
   }
@@ -3961,7 +3958,23 @@ If you want to style everything yourself, you shouldn't need these
     width: 100%;
   }
   .tabbed-content section::before {
-    background: #bfbfbf;
+    border-top: 1px solid #bfbfbf;
+  }
+
+  section.item:not(.active)::after {
+    display: block;
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    right: -335px;
+    top: -18px;
+    position: relative;
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
   }
 
   .product .line {
@@ -4011,8 +4024,7 @@ If you want to style everything yourself, you shouldn't need these
     bottom: -375px !important;
   }
   .content .logo-m {
-    width: 113px;
-    overflow: hidden;
+    width: 114px;
   }
   .content .icons-wrap {
     width: auto;

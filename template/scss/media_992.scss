@@ -27,11 +27,16 @@
             margin-left: 0;
             width: 140px;
             height: auto;
-            position: absolute;
-            left: 50px;
-            top: 25px;
         }
     }
+    .logo-m {
+        width: 118px;
+        overflow: hidden;
+        position: absolute;
+        left: 50px;
+        top: 25px;
+    }
+
     .content-main-wrap .header-wrap {
         width: 100%;
         margin-left: 0;
