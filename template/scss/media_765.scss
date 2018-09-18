@@ -132,8 +132,20 @@
     .tabbed-content {
         width: 100%;
         section::before {
-            background: #bfbfbf;
+            border-top: 1px solid #bfbfbf;
         }
+    }
+    section.item:not(.active)::after{
+            display: block;
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
+            right: -335px;
+            top: -18px;
+            position: relative;
+            @include transform(rotate(45deg));
     }
     .product .line {
         margin: 0 0px;

@@ -49,27 +49,33 @@
 			<i class="close-i"></i>
 			<i class="shopping_bag_icon"></i>
 		</div>
-		<div id="cartItems">@*CART ITEMS FROM AJAX*@</div>
-		<div class="total-wrap mb-3">
-			<span>@T("cart.total") <span id="cart-count">0</span> @T("cart.total.text")</span>
-			<span><span id="cart-price">0</span> грн</span>
+		<div id="cartItems">
+			@*CART ITEMS FROM AJAX*@
 		</div>
-		<div class="text-center">
-			<button class="btn btn-blue pr-4 pl-4" onclick="window.location.replace('/checkout/confirm')" id="cartcontinue">@T("cart.continue")</button>
-			<button class="btn btn-blue-white pr-4 pl-4">@T("cart.buynow")</button>
+		<div id="carttotal">
+			<div class="total-wrap mb-3">
+				<span>@T("cart.total") <span id="cart-count">0</span> @T("cart.total.text")</span>
+				<span><span id="cart-price">0</span> грн</span>
+			</div>
+			<div class="text-center">
+				<button class="btn btn-blue pr-4 pl-4" onclick="window.location.replace('/checkout/confirm')" id="cartcontinue">@T("cart.continue")</button>
+				<button class="btn btn-blue-white pr-4 pl-4">@T("cart.buynow")</button>
+			</div>
+			<div class="text-center">
+				<button id="pop-up-close" class="btn btn-link ">@T("cart.close")</button>
+			</div>
 		</div>
-		<div class="text-center">
-			<button id="pop-up-close" class="btn btn-link ">@T("cart.close")</button>
-		</div>
-
 	</div>
 	<div class="line"></div>
 	<div class="similar-wrap" id="relatedItems">
+		<div id="recently">
+			@await Component.InvokeAsync("RecentlyViewedProductsBlock")
+		</div>
 	</div>
 </div>
 <div class="login-form-wrap rounded">
 	<div class="form-wrap">
-		<form asp-route="Login" asp-route-returnurl="/customer/info" method="post">
+		<form asp-route="Login" asp-route-returnurl="/customer/info" id="testform" method="post">
 			<div asp-validation-summary="ModelOnly" class="message-error">@T("Account.Login.Unsuccessful")</div>
 			<h5>
 				@T("login.title") <i class="favorit user_icon"></i>
@@ -77,16 +83,48 @@
 			</h5>
 			<div class="form-group form-inline">
 				<label class="col-sm-3" for="Email" asp-postfix=":"><b>@T("login.email")</b></label>
-				<input class="col-sm-8 form-control" type="text" name="Email" autofocus="autofocus" />
+				<input class="col-sm-8 form-control" id="mail" type="text" name="Email" autofocus="autofocus" />
 				<span for="name"></span>
 			</div>
 			<div class="form-group form-inline">
 				<label class="col-sm-3" for="Password" asp-postfix=":"><b>@T("login.pass")</b></label>
-				<input class="col-sm-8 form-control" name="Password" />
+				<input class="col-sm-8 form-control" id="pass" type="password" name="Password" />
+				<div id="errorMessage" class="offset-sm-3 invalid-feedback">
+					@T("login.error")
+				</div>
 				<span for="Password"></span>
 			</div>
 			<div>
-				<input type="submit" class="btn btn-blue-white btn-block offset-sm-3 col-sm-8" value="@T("login.continue")" />
+				<input type="submit" class="btn btn-blue-white btn-block offset-sm-3 col-sm-8" id="test" value="@T("login.continue")" />
+				<script>
+					$("#test").on("click", function (e) {
+						if ($("#mail").val().length == 0) {
+							$("#mail").addClass("is-invalid");
+						}
+						else {
+							$("#mail").removeClass("is-invalid");
+						}
+						if ($("#pass").val().length == 0) {
+							$("#pass").addClass("is-invalid");
+						}
+						else {
+							$("#pass").removeClass("is-invalid");
+						}
+						e.preventDefault();
+						if ($("#pass").val().length != 0 && $("#mail").val().length != 0) {
+							$.post('/customer/login', $('#testform').serialize()).done(function (responce) {
+								console.log(responce);
+								if (!responce.success) {
+									$("#mail").addClass("is-invalid");
+									$("#pass").addClass("is-invalid");
+								}
+								else {
+									window.location.replace(responce.returnUrl);
+								}
+							});
+						}
+					});
+				</script>
 				<a class="btn btn-link btn-block offset-sm-3 col-sm-8" asp-route="PasswordRecovery">@T("login.forgotpass")</a>
 				<a class="btn btn-blue btn-block offset-sm-3 col-sm-8" href="/register">@T("login.signup")</a>
 			</div>
@@ -141,37 +179,42 @@
 						dataType: 'json',
 						traditional: true
 					}).done(function (responce) {
-						$("#relatedItems").empty();
-						console.log(responce);
-						responce.model.forEach(function (product) {
-							var discount = "";
-							if (product.Discount != 0 && product.OldPrice != null) {
-								discount = '<div class="discount">' + product.Discount + '%</div>';
-							}
-							var oldPrice = "";
-							if (product.OldPrice != "" && product.OldPrice != null) {
-								oldPrice = '<div class="price-old">' + product.OldPrice + '</div>';
-							}
-							var element =
-							'<a href="/' + product.SeName + '?productId=' + product.ProductId + '">' + 
-								'<div class="item-wrap">' + 
+						if (responce.model.length == 0) {
+							$("#recently").css("display", "unset");
+						}
+						else {
+							$("#recently").css("display", "none");
+							$("#relatedItems").empty();
+							responce.model.forEach(function (product) {
+								var discount = "";
+								if (product.Discount != 0 && product.OldPrice != null) {
+									discount = '<div class="discount">' + product.Discount + '%</div>';
+								}
+								var oldPrice = "";
+								if (product.OldPrice != "" && product.OldPrice != null) {
+									oldPrice = '<div class="price-old">' + product.OldPrice + '</div>';
+								}
+								var element =
+									'<a href="/' + product.SeName + '?productId=' + product.ProductId + '">' +
+									'<div class="item-wrap">' +
 									'<div class="product-img-wrap">' +
-										'<img class="product" src="' + product.ImageUrl + '" alt="' + product.AlternateText + '">' +
-										discount + 
-									'</div>' + 
-									'<div class="main-prop-wrap text-left">' + 
-										'<div class="product-name text-light-c">' + product.Name + '</div>' + 
-										'<div class="product-prop"></div>' + 
-										'<div class="price-titile">@T("main.product.price")</div>' + 
-										'<div class="price-wrap clearfix">' +
-											oldPrice +
-											'<div class="price-new">' + product.NewPrice + '</div>' +
-										'</div>' +
+									'<img class="product" src="' + product.ImageUrl + '" alt="' + product.AlternateText + '">' +
+									discount +
 									'</div>' +
-								'</div>' +
-							'</a>'; +
-							$("#relatedItems").append(element);
-						});
+									'<div class="main-prop-wrap text-left">' +
+									'<div class="product-name text-light-c">' + product.Name + '</div>' +
+									'<div class="product-prop"></div>' +
+									'<div class="price-titile">@T("main.product.price")</div>' +
+									'<div class="price-wrap clearfix">' +
+									oldPrice +
+									'<div class="price-new">' + product.NewPrice + '</div>' +
+									'</div>' +
+									'</div>' +
+									'</div>' +
+									'</a>';
+								$("#relatedItems").append(element);
+							});
+						}
 					});
 				}
 			</script>
@@ -301,14 +344,18 @@
 							$("#cart-count-full").text(count);
 						}
 						if (sum > 0 && count > 0) {
+							$("#carttotal").css("display", "block");
 							$("#cartcontinue").prop("disabled", false);
 						}
 						else {
 							$("#cartcontinue").prop("disabled", true);
+							$("#carttotal").css("display", "none");
+							$("#cartItems").append("<h3>@T("cart.empty")</h3>");
 						}
 					});
 				}
 				$(document).ready(UpdateCart());
+				$(document).ready(GetCrossSellProducts());
 			</script>
 		</div>
 		@await Component.InvokeAsync("Footer")

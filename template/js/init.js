@@ -6,7 +6,7 @@ $(document).ready(function () {
         if (top < 400)
             $('.top-wraper').fadeOut();
     });
-    $('.top-wraper a').on('click', function () {
+    $('.top-wraper').on('click', function () {
         $('html, body').animate({
             scrollTop: $('head').position().top
         }, 2000);
@@ -118,7 +118,6 @@ $(document).ready(function () {
 
         });
         $('.side-second-menu-wrap .title').fadeOut(function () {
-            console.log(data.find('span').text());
             $(this).html(data.find('span').text()).fadeIn();
         });
     });
@@ -131,12 +130,25 @@ $(document).ready(function () {
 
     //Анимация подменю и открытие по клику
     $('.side-second-menu-wrap').on('mouseover', function () {
-        $(this).addClass('half-open');
+            $(this).addClass('half-open');
     }).on('mouseleave', function () {
         $(this).removeClass('half-open');
-    }).on('click', function () {
-        $(this).addClass('open');
-        $('.side-menu-wrap').addClass('open');
+    }).on('click', function (event) {
+        if (!!!$(event.target).hasClass('close-i')){
+            var data = $(this);
+            $('.side-menu-wrap ul li').each(function(){
+                if ($(this).hasClass('active')) {
+                   var curentItem = $(this);
+                    data.addClass('open').find('.sub-menu').fadeOut(function(){
+                        $(this).html(curentItem.find('div.sub-menu').html()).fadeIn();
+                    });
+                    data.find('.title').fadeOut(function(){
+                        $(this).html(curentItem.find('span').text()).fadeIn();
+                    });  
+                }
+            });
+            $('.side-menu-wrap').addClass('open');
+        }
     });
 
 
@@ -150,6 +162,7 @@ $(document).ready(function () {
         });
     }
 
+    //Закрываем водменю при клике на крестик.
     $('.side-second-menu-wrap .close-i').on('click', function () {
         $('.side-second-menu-wrap').removeClass('open');
         $('.side-menu-wrap').removeClass('open');

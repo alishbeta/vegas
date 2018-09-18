@@ -12,9 +12,9 @@
 	var addtocartlink = "";
 	var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
 	var quantity = 1;
-	addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
-	var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
-	var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = item.Id });
+	addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.ProductId, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
+	var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.ProductId, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
+	var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = item.ProductId });
 	<div class="item-wrap">
 		<div class="product-img-wrap">
 			<div>
@@ -22,9 +22,9 @@
 				<i class="close-i" onclick="RemoveFromCart(@item.ProductId, 2, true)"></i>
 			</div>
 			<img class="product" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
-			@if (item.Discount != "" && item.Discount != null)
+			@if (item.DiscountPercentage != decimal.Zero)
 			{
-				<div class="discount">@item.Discount%</div>
+				<div class="discount">-@item.DiscountPercentage.ToString("#.##")%</div>
 			}
 		</div>
 		<div class="main-prop-wrap text-left">
@@ -32,11 +32,11 @@
 			<div class="product-prop">@item.ProductSeName</div>
 			<div class="price-titile">Цена</div>
 			<div class="price-wrap clearfix">
-				@if (!string.IsNullOrEmpty(item.SubTotal))
+				@if (item.OldPrice != string.Empty)
 				{
-					<div class="price-old">@item.SubTotal</div>
+					<div class="price-old">@item.OldPrice</div>
 				}
-				<div class="price-new">@item.SubTotal</div>
+				<div class="price-new">@item.Price</div>
 			</div>
 		</div>
 		<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>

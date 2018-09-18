@@ -25,13 +25,18 @@
         }
         img {
             margin-left: 0;
-            width: 110px;
+            width: 140px;
             height: auto;
-            position: absolute;
-            left: 50px;
-            top: 25px;
         }
     }
+    .logo-m {
+        width: 118px;
+        overflow: hidden;
+        position: absolute;
+        left: 50px;
+        top: 25px;
+    }
+
     .content-main-wrap .header-wrap {
         width: 100%;
         margin-left: 0;
@@ -292,14 +297,14 @@
         .item.active {
             border: none;
         }
-        nav+section::after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            border-top: 1px solid $border_color;
-        }
+        // nav+section::after {
+        //     content: '';
+        //     display: block;
+        //     position: absolute;
+        //     top: 0;
+        //     width: 100%;
+        //     border-top: 1px solid $border_color;
+        // }
         section {
             &::before {
                 background: transparent; //border-bottom: 1px solid $border_color;

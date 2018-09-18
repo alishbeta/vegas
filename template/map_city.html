@@ -464,18 +464,6 @@
                             </div>
                         </div>
                     </div>
-                    <script>
-                        var map;
-                        function initMap() {
-                            map = new google.maps.Map(document.getElementById('map'), {
-                                center: {lat: -34.397, lng: 150.644},
-                                zoom: 8
-                            });
-                        }
-                    </script>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbEYKU92y_bwmjNE_HOjPxoaNFbnpnD9I&callback=initMap"
-                            async defer></script>
-
                 </div>
             </div>
 
@@ -577,12 +565,14 @@
         </div>
     </div>
 </div>
-<script src="/js/init.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/slick.min.js"></script>
 <script src="js/jquery-ui-1.8.23.custom.min.js" crossorigin="anonymous"></script>
 <script src="js/jquery.mousewheel.min.js" crossorigin="anonymous"></script>
 <script src="js/jquery.kinetic.min.js" crossorigin="anonymous"></script>
 <script src="js/jquery.smoothdivscroll-1.3-min.js" crossorigin="anonymous"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbEYKU92y_bwmjNE_HOjPxoaNFbnpnD9I&callback=initMap" async defer></script>
+<script src="/js/init.js" crossorigin="anonymous"></script>
+<script src="/js/maps.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
     $('.main-baner-wrap').slick({
         dots: true,

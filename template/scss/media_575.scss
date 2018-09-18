@@ -28,8 +28,8 @@
             }
         }
         .logo-m {
-            width: 110px;
-            overflow: hidden;
+            width: 114px;
+
         }
         .icons-wrap {
             width: auto;
@@ -263,5 +263,28 @@
     .news .article-wrap,
     .map .article-wrap {
         margin-left: 0;
+    }
+    .top-wraper{
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 0;
+        border: 1px solid #bfdce6;
+        background: #bfdce6;
+        text-align: center;
+        padding: 9px;
+        i.top:after{
+            top: 8px; 
+        }
+        a{
+            color: #2c96b9;
+            span{
+                display: inline;
+              }
+        }
+    }
+    .footer-wrap .phone-footer-wrap .phone {
+        font-size: 17px;
     }
 }

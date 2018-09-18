@@ -304,7 +304,7 @@ namespace Nop.Web.Controllers
         //available even when navigation is not allowed
         [CheckAccessPublicStore(true)]
         [PublicAntiForgery]
-        public virtual IActionResult Login(LoginModel model, string returnUrl, bool captchaValid)
+        public virtual dynamic Login(LoginModel model, string returnUrl, bool captchaValid)
         {
             //validate CAPTCHA
             if (_captchaSettings.Enabled && _captchaSettings.ShowOnLoginPage && !captchaValid)
@@ -341,9 +341,9 @@ namespace Nop.Web.Controllers
                                 _localizationService.GetResource("ActivityLog.PublicStore.Login"), customer);
 
                             if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
-                                return RedirectToRoute("HomePage");
+                                return new { success = true, returnUrl = "/customer/info" };
 
-                            return Redirect(returnUrl);
+                            return new { success = true, returnUrl };
                         }
                     case CustomerLoginResults.CustomerNotExist:
                         ModelState.AddModelError("", _localizationService.GetResource("Account.Login.WrongCredentials.CustomerNotExist"));
@@ -369,7 +369,7 @@ namespace Nop.Web.Controllers
 
             //If we got this far, something failed, redisplay form
             model = _customerModelFactory.PrepareLoginModel(model.CheckoutAsGuest);
-            return View(model);
+            return new { sucсess = false, errors = ModelState.ErrorCount };
         }
 
         //available even when a store is closed

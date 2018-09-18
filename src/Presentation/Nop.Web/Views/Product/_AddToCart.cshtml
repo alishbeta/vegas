@@ -25,6 +25,6 @@
 		}
 		@if (!Model.DisableBuyButton)
 		{
-			<button class="btn btn-blue mb-2 rounded" id="add-to-cart-button-@Model.ProductId" data-productid="@Model.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.ProductId, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })', '#product-details-form');return false;">В корзину</button>
+			<button class="btn btn-blue mb-2 rounded" id="add-to-cart-button-@Model.ProductId" data-productid="@Model.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.ProductId, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })', '#product-details-form');return false;">@T("prod.addtocart")</button>
 		}
 }

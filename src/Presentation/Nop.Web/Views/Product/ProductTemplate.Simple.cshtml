@@ -223,137 +223,138 @@
 							}
 							<small>@T("prod.rate")</small>
 						</p>
-					</div>
-					<div class="icons-wrap float-right">
-						<i class="delivery"></i>
-						<span><b><a href="#">@T("prod.delivery")</a></b></span>
+						<div class="icons-wrap float-right">
+							<i class="delivery"></i>
+							<span><b><a href="#">@T("prod.delivery")</a></b></span>
+						</div>
 					</div>
 				</div>
 				<!--product pictures-->
 				@await Html.PartialAsync("_ProductDetailsPictures", Model)
 			</div>
-				<div class="float-left right-wrap">
-					<div class="opt-wrap">
-						<div class="price-wrap">
-							<div class="title">@T("prod.price")</div>
-							<div class="price mt-2">@Model.ProductPrice.PriceWithDiscount</div>
-							<div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.Price</s></div>
-							@if (@Model.ProductPrice.Discount.ToString("#.##") != "")
-							{
-								<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
+			<div class="float-left right-wrap">
+				<div class="opt-wrap">
+					<div class="price-wrap">
+						<div class="title">@T("prod.price")</div>
+						<div class="price mt-2">@Model.ProductPrice.PriceWithDiscount</div>
+						<div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.Price</s></div>
+						@if (@Model.ProductPrice.Discount.ToString("#.##") != "")
+						{
+							<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
+						}
+						<div class="text-center mt-3 mb-2"><a href="#">Наличие в салонах</a></div>
+						<div class="btn-group-vertical btn-block">
+							@{
+								var dataDictAddToCart = new ViewDataDictionary(ViewData);
+								dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+								@await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
 							}
-							<div class="text-center mt-3 mb-2"><a href="#">Наличие в салонах</a></div>
-							<div class="btn-group-vertical btn-block">
-								@{
-									var dataDictAddToCart = new ViewDataDictionary(ViewData);
-									dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
-									@await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
-								}
-								<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
-							</div>
-							<div class="icons-wrap d-block ml-3">
-								@{
-									var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
-									dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
-									@await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
-								}
-								@await Html.PartialAsync("_CompareProductsButton", Model)
-								@*<button class="btn btn-blue mb-2 rounded" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">В корзину</button>
-				<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
-			</div>
-			<div class="icons-wrap d-block ml-3">
-				<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
-				<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
-							</div>
+							<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
 						</div>
-						<div class="line"></div>
-						<div class="prop-wrap">
-							<div class="size-prop-wrap">
-								<div>Размер матраса</div>
-								<div class="drop-wrap">
-									<div class="w">Ширина</div>
-									<div class="h">Длина</div>
-									<div class="dropdown">
-										<button class="btn btn-light dropdown-toggle mt-4" type="button"
-												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false">
-											160 см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;200 см
-										</button>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="#">160 см х 200 см</a>
-											<a class="dropdown-item" href="#">180 см х 200 см</a>
-											<a class="dropdown-item" href="#">190 см х 200 см</a>
-										</div>
+						<div class="icons-wrap d-block ml-3">
+							@{
+								var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
+								dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+								@await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
+							}
+							@await Html.PartialAsync("_CompareProductsButton", Model)
+							@*<button class="btn btn-blue mb-2 rounded" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">В корзину</button>
+									<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
+								</div>
+								<div class="icons-wrap d-block ml-3">
+									<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
+									<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
+						</div>
+					</div>
+					<div class="line"></div>
+					<div class="prop-wrap">
+						<div class="size-prop-wrap">
+							<div>Размер матраса</div>
+							<div class="drop-wrap">
+								<div class="w">Ширина</div>
+								<div class="h">Длина</div>
+								<div class="dropdown">
+									<button class="btn btn-light dropdown-toggle mt-4" type="button"
+											id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+										160 см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;200 см
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" href="#">160 см х 200 см</a>
+										<a class="dropdown-item" href="#">180 см х 200 см</a>
+										<a class="dropdown-item" href="#">190 см х 200 см</a>
 									</div>
 								</div>
 							</div>
-							<div class="color-title">
-								<span>Цвет</span>
-								<span><a href="#">Показать другие варианты</a></span>
-							</div>
-							<div class="color-select">
-								<div class="box-color mr-3"></div>
-								<span class="title">Trinity Cream</span>
-							</div>
-							<div class="mb-3 mt-3">Дополнительные опции</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-								<label class="form-check-label" for="defaultCheck1">
-									Подьемный механизм
-								</label>
-								<div class="over-price d-inline-block ml-2">+5 283</div>
-							</div>
+						</div>
+						<div class="color-title">
+							<span>Цвет</span>
+							<span><a href="#">Показать другие варианты</a></span>
+						</div>
+						<div class="color-select">
+							<div class="box-color mr-3"></div>
+							<span class="title">Trinity Cream</span>
+						</div>
+						<div class="mb-3 mt-3">Дополнительные опции</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+							<label class="form-check-label" for="defaultCheck1">
+								Подьемный механизм
+							</label>
+							<div class="over-price d-inline-block ml-2">+5 283</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<article class="tabbed-content">
-				<nav class="tabs">
-					<ul>
-						<li><a href="#tab1" class="active">@T("prod.description")</a></li>
-						<li><a href="#tab2">@T("prod.spec")</a></li>
-						<li>
-							<a href="#tab3">@T("prod.reviews")</a>
-							<div class="bg">
-								<div>@Model.ProductReviewOverview.TotalReviews</div>
-							</div>
-						</li>
-						<li>
-							<a href="#tab4">@T("prod.questions")</a>
-							<div class="bg">
-								<div>10</div>
-							</div>
-						</li>
-					</ul>
-				</nav>
-				<section id="tab1" class="item active" data-title="@T("prod.description")">
-					<div class="item-content">
-						@Html.Raw(Model.FullDescription)
-					</div>
-				</section>
-				<section id="tab2" class="item" data-title="@T("prod.spec")">
-					<div class="item-content">
-						@foreach (var specification in Model.ProductSpecifications)
-						{
-							<p>@specification.SpecificationAttributeName @Html.Raw(specification.ValueRaw)</p>
-						}
-					</div>
-				</section>
-				<section id="tab3" class="item" data-title="@T("prod.reviews")">
-					<div class="item-content">
-						Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-					</div>
-				</section>
-				<section id="tab4" class="item" data-title="@T("prod.questions")">
-					<div class="item-content">
-						Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-					</div>
-				</section>
-			</article>
 		</div>
+		<article class="tabbed-content">
+			<nav class="tabs">
+				<ul>
+					<li><a href="#tab1" class="active">@T("prod.description")</a></li>
+					<li><a href="#tab2">@T("prod.spec")</a></li>
+					<li>
+						<a href="#tab3">@T("prod.reviews")</a>
+						<div class="bg">
+							<div>@Model.ProductReviewOverview.TotalReviews</div>
+						</div>
+					</li>
+					<li>
+						<a href="#tab4">@T("prod.questions")</a>
+						<div class="bg">
+							<div>10</div>
+						</div>
+					</li>
+				</ul>
+			</nav>
+			<section id="tab1" class="item active" data-title="@T("prod.description")">
+				<div class="item-content">
+					@Html.Raw(Model.FullDescription)
+				</div>
+			</section>
+			<section id="tab2" class="item" data-title="@T("prod.spec")">
+				<div class="item-content">
+					@foreach (var specification in Model.ProductSpecifications)
+					{
+						<p>@specification.SpecificationAttributeName @Html.Raw(specification.ValueRaw)</p>
+					}
+				</div>
+			</section>
+			<section id="tab3" class="item" data-title="@T("prod.reviews")">
+				<div class="item-content">
+					Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+				</div>
+			</section>
+			<section id="tab4" class="item" data-title="@T("prod.questions")">
+				<div class="item-content">
+					Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+				</div>
+			</section>
+		</article>
 	</div>
-<div class="line"></div>
-@await Component.InvokeAsync("RecentlyViewedProductsBlock", new { productThumbPictureSize = 450, preparePriceModel = true })
+	<div class="line"></div>
+	@await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 450, preparePriceModel = true })
+</div>
+
 <!--ALSO PURCHASED-->
 @*@await Component.InvokeAsync("ProductsAlsoPurchased", new { productId = Model.Id })*@
 <script type="text/javascript" src="~/js/site/slick.min.js"></script>

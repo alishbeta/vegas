@@ -35,7 +35,7 @@ namespace Nop.Web.Components
             this._storeMappingService = storeMappingService;
         }
 
-        public IViewComponentResult Invoke(int? productThumbPictureSize, bool? preparePriceModel)
+        public IViewComponentResult Invoke(int? productThumbPictureSize, bool? preparePriceModel = true)
         {
             if (!_catalogSettings.RecentlyViewedProductsEnabled)
                 return Content("");
@@ -55,7 +55,7 @@ namespace Nop.Web.Components
             var model = new List<ProductOverviewModel>();
             model.AddRange(_productModelFactory.PrepareProductOverviewModels(products,
                 preparePriceModel.GetValueOrDefault(),
-                preparePictureModel,
+                true,
                 productThumbPictureSize));
 
             return View(model);

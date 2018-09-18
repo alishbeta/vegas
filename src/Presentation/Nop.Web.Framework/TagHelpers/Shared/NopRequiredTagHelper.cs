@@ -32,7 +32,7 @@ namespace Nop.Web.Framework.TagHelpers.Shared
             output.TagName = "span";
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.SetAttribute("class", "required");
-            output.Content.SetContent("*");
+            output.Content.SetContent("");
         }
     }
 }

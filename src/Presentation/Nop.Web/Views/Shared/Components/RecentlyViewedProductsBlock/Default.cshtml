@@ -29,26 +29,34 @@
 @model IList<ProductOverviewModel>
 @if (Model.Count > 0)
 {
-	<div class="see-wrap pad-norm">
-		<div class="title text-center">
-			<h3 class="">@T("Products.RecentlyViewedProducts")</h3>
+	<div class="similar-wrap">
+		<div class="title">
+			@T("Products.RecentlyViewedProducts")
 			<button class="btn btn-sm btn-blue-white float-right d-none d-md-block" onclick="window.location.replace('/recentlyviewedproducts')">@T("Bestsellers.ViewAll")</button>
 		</div>
-		<div class="slider-wrap clearfix">
+		
 			@foreach (var product in Model)
 			{
-				@await Html.PartialAsync("_ProductBox", product)
+		<a href="@Url.RouteUrl("Product", new { productId = product.Id, SeName = product.SeName })">
+			<div class="item-wrap">
+				<div class="product-img-wrap">
+					<img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
+					@if (product.ProductPrice.Discount != decimal.Zero)
+					{
+						<div class="discount">-@product.ProductPrice.Discount.ToString("#.##")%</div>
+					}
+				</div>
+				<div class="main-prop-wrap text-left">
+					<div class="product-name text-light-c">@product.Name</div>
+					<div class="product-prop"></div>
+					<div class="price-titile">Цена</div>
+					<div class="price-wrap clearfix">
+						<div class="price-old">@product.ProductPrice.OldPrice</div>
+						<div class="price-new">@product.ProductPrice.Price</div>
+					</div>
+				</div>
+			</div>
+		</a>
 			}
-		</div>
 	</div>
 }
-<div class="line"></div>
-<div class="some-info d-none d-md-block">
-	<div class="row text-center">
-		<div class="col">
-			<div class="text">
-				@T("products.text")
-			</div>
-		</div>
-	</div>
-</div>

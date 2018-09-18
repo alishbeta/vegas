@@ -54,7 +54,7 @@
   }
   .item-wrap{
     width: 148px;
-    height: auto;
+    height: 225px;
     float: left;
     padding: 5px 5px 15px 5px;
     margin: 5px 5px 0 5px;
@@ -67,7 +67,6 @@
     .product-name{
       font-size: 12px;
     }
-    .product-prop{}
     font-size: 14px;
     &:hover{
       @include box-shadow( 0 0 15px 1px rgba(0, 0, 0, 0.2));
@@ -77,11 +76,11 @@
     font-size: 12px!important;
   }
   .price-old{
-    font-size: 12px!important;
+    font-size: 11px!important;
     
   }
   .price-new{
-    font-size: 16px!important;
+    font-size: 13px!important;
   }
   a{
     display: block;
@@ -97,6 +96,6 @@
   }
   .title{
     font-weight: 600;
-    margin-left: 20px;
+    margin: 0 0 30px 20px;
   }
 }
