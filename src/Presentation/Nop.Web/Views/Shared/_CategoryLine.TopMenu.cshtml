@@ -44,7 +44,7 @@
 
 @model TopMenuModel.CategoryLineModel
 <li>
-    <a onclick="return false;" href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })">
+    <a onclick="return false;" class="@(ViewBag.ActiveCategory == Model.Category.Id ? "active" : "")" href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })">
         @if (Model.Category.Id == 17)
         {
             <img class="side-icons" src="/img/on-mattress_icon.svg" alt="@Model.Category.Name">
