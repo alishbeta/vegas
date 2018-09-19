@@ -3306,29 +3306,32 @@ If you want to style everything yourself, you shouldn't need these
 }
 
 section .item {
-  position: relative;
-  margin-bottom: 2px;
   display: none;
 }
-section .item::before {
+
+.item {
+  position: relative;
+  margin-bottom: 2px;
+}
+.item::before {
   cursor: pointer;
   font-weight: bold;
   background: #eee;
   padding: .5em;
   display: block;
 }
-section .item.active {
+.item.active {
   border: 1px solid #cdd2d4;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   display: block;
 }
-section .item.active::before {
+.item.active::before {
   background: #bfbfbf;
   color: #fffcfc;
 }
-section .item.active .item-content {
+.item.active .item-content {
   padding: 1em;
   -webkit-transition: opacity 0.3s ease-in-out;
   -moz-transition: opacity 0.3s ease-in-out;
@@ -3950,7 +3953,7 @@ section .item.active .item-content {
   }
 
   .product .line {
-    margin: 0 0px;
+    margin: 50px 0 0 -31px;
   }
 
   .content .title button {
