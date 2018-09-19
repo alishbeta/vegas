@@ -4027,7 +4027,6 @@ If you want to style everything yourself, you shouldn't need these
     width: 100%;
   }
   .cart-popup-wrap .order-wrapp {
-    width: 400px;
     padding: 25px 5px;
   }
   .cart-popup-wrap .order-wrapp h1 {
@@ -4046,6 +4045,10 @@ If you want to style everything yourself, you shouldn't need these
   }
   .cart-popup-wrap .order-wrapp .total-wrap {
     padding: 40px 65px;
+  }
+  .cart-popup-wrap .order-wrapp .total-wrap span:first-child {
+    font-size: 14px;
+    margin-left: 0;
   }
   .cart-popup-wrap .order-wrapp .total-wrap span:last-child {
     font-size: 16px;
