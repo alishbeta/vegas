@@ -474,13 +474,18 @@
 	</script>
 }
 <nav class="breadcrumb-wrap" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="#">Bed4you</a></li>
+		<li class="breadcrumb-item"><a href="#">@T("account.cabinet")</a></li>
+		<li class="breadcrumb-item active">@T("account.info")</li>
+	</ol>
 </nav>
 
 <div class="row cabinet">
 	<div class="offset-xl-1 col-xl-8">
 		<div class="title-wrap clearfix">
-			<h1 class="title float-left">Личный кабинет</h1>
-			<button class="btn btn-blue float-right" onclick="window.location.replace('/logout')">Выход</button>
+			<h1 class="title float-left">@T("account.cabinet")</h1>
+			<button class="btn btn-blue float-right" onclick="window.location.replace('/logout')">@T("account.exit")</button>
 		</div>
 		<nav class="blue-menu clearfix">
 			<ul>
