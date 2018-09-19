@@ -931,21 +931,6 @@ nav.breadcrumb-wrap a:hover {
   text-decoration: none;
   color: black;
 }
-.all-menu-wrap .side-menu-wrap .inner-menu-wrap ul li:hover:after, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap ul li:hover:after {
-  display: block;
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
-  right: -285px;
-  top: -29px;
-  position: relative;
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
 .all-menu-wrap .side-menu-wrap .inner-menu-wrap .sub-menu, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap .sub-menu {
   display: none;
 }
@@ -1963,10 +1948,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   color: white;
   width: 19px;
   height: 19px;
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
   top: 9px;
-  right: 12px;
+  right: 7px;
+}
+.bg div {
+  padding-top: 2px;
 }
 
 .login-form-wrap {
@@ -3320,6 +3308,7 @@ If you want to style everything yourself, you shouldn't need these
 .item {
   position: relative;
   margin-bottom: 2px;
+  display: none;
 }
 .item::before {
   cursor: pointer;
@@ -3384,6 +3373,7 @@ If you want to style everything yourself, you shouldn't need these
   }
   .tabbed-content .tabs li {
     display: inline-block;
+    position: relative;
   }
   .tabbed-content .tabs li a {
     display: block;
@@ -3739,11 +3729,15 @@ If you want to style everything yourself, you shouldn't need these
     margin: 0;
     padding: 0;
     box-shadow: none;
+    width: 100%;
   }
   .product .tabbed-content .tabs {
     display: none;
   }
-  .product .item.active {
+  .product .tabbed-content .item {
+    display: block;
+  }
+  .product .tabbed-content .item.active {
     border: none;
   }
   .product section::before {
@@ -3935,9 +3929,6 @@ If you want to style everything yourself, you shouldn't need these
     margin-right: 15px;
   }
 
-  .tabbed-content {
-    width: 100%;
-  }
   .tabbed-content section::before {
     border-top: 1px solid #bfbfbf;
   }
@@ -3949,7 +3940,7 @@ If you want to style everything yourself, you shouldn't need these
     height: 7px;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
-    right: -335px;
+    right: -90%;
     top: -18px;
     position: relative;
     -moz-transform: rotate(45deg);

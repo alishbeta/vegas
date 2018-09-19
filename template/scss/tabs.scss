@@ -45,6 +45,7 @@ If you want to style everything yourself, you shouldn't need these
 .item {
   position: relative;
   margin-bottom: 2px;
+  display: none;
   &::before {
     cursor: pointer;
     font-weight: bold;
@@ -120,6 +121,7 @@ If you want to style everything yourself, you shouldn't need these
       display: block;
       li {
         display: inline-block;
+        position: relative;
         a {
           display: block;
         }

@@ -900,10 +900,14 @@ html .ui-button.ui-state-disabled {
   color: white;
   width: 19px;
   height: 19px;
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
   top: 9px;
-  right: 12px; }
+  right: 7px;
+  div{
+    padding-top: 2px;
+  } 
+}
 .login-form-wrap{
   display: none;
   position: absolute;

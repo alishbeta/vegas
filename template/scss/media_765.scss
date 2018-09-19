@@ -130,7 +130,6 @@
         }
     }
     .tabbed-content {
-        width: 100%;
         section::before {
             border-top: 1px solid #bfbfbf;
         }
@@ -142,7 +141,7 @@
             height: 7px;
             border-right: 1px solid black;
             border-bottom: 1px solid black;
-            right: -335px;
+            right: -90%;
             top: -18px;
             position: relative;
             @include transform(rotate(45deg));

@@ -64,18 +64,18 @@ $i: 0;
               color: $link_color;
             }
           }
-          &:hover:after {
-            display: block;
-            content: "";
-            width: 7px;
-            height: 7px;
-            border-right: 2px solid black;
-            border-bottom: 2px solid black;
-            right: -285px;
-            top: -29px;
-            position: relative;
-            @include transform(rotate(-45deg));
-          }
+          // &:hover:after {
+          //   display: block;
+          //   content: "";
+          //   width: 7px;
+          //   height: 7px;
+          //   border-right: 2px solid black;
+          //   border-bottom: 2px solid black;
+          //   right: -285px;
+          //   top: -29px;
+          //   position: relative;
+          //   @include transform(rotate(-45deg));
+          // }
         }
       }
       .sub-menu{
