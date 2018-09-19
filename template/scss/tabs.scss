@@ -45,9 +45,13 @@ If you want to style everything yourself, you shouldn't need these
 
 section{
   .item {
+  display: none;
+  }
+}
+  .item {
     position: relative;
     margin-bottom: 2px;
-    display: none;
+
     &::before {
       cursor: pointer;
       font-weight: bold;
@@ -72,7 +76,7 @@ section{
       }
     }
   }
-}
+
 
 
 @media all and (min-width: $breakpoint ) {
