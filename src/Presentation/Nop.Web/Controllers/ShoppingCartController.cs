@@ -1406,7 +1406,7 @@ namespace Nop.Web.Controllers
         [HttpsRequirement(SslRequirement.Yes)]
         public virtual IActionResult Cart()
         {
-            if (!_permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart))
+			if (!_permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart))
                 return RedirectToRoute("HomePage");
 
             var cart = _workContext.CurrentCustomer.ShoppingCartItems

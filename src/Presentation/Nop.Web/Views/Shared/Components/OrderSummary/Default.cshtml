@@ -352,12 +352,12 @@
 	<nav class="tabs">
 		<ul>
 			<li>
-				<a href="#tab1" class="active">@T("Cart.NewClient")</a>
+				<a href="#tab1" class="@(!string.IsNullOrEmpty(ViewBag.IsAuthenticated) ? "" : "active")">@T("Cart.NewClient")</a>
 			</li>
-			<li><a href="#tab2">@T("cart.oldclient")</a></li>
+			<li><a href="#tab2" class="@(string.IsNullOrEmpty(ViewBag.IsAuthenticated) ? "" : "active")">@T("cart.oldclient")</a></li>
 		</ul>
 	</nav>
-	<section id="tab1" class="item active" data-title="@T("Cart.NewClient")">
+	<section id="tab1" class="item @(!string.IsNullOrEmpty(ViewBag.IsAuthenticated) ? "" : "active")" data-title="@T("Cart.NewClient")">
 		<div class="item-content">
 			<form asp-route="CheckoutConfirm" method="post" id="confirm-order-form">
 				<div class="title"><span>1</span>@T("Cart.FillInfo")</div>
@@ -454,7 +454,7 @@
 			</form>
 		</div>
 	</section>
-	<section id="tab2" class="item" data-title="@T("cart.oldclient")">
+	<section id="tab2" class="item @(string.IsNullOrEmpty(ViewBag.IsAuthenticated) ? "" : "active")" data-title="@T("cart.oldclient")">
 		<div class="item-content">
 			<div class="d-none row sign-up-wrap">
 				<div class="col-xl-10">
