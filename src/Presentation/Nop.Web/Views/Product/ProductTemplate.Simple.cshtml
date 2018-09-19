@@ -245,9 +245,16 @@
 						<div class="text-center mt-3 mb-2"><a href="#">Наличие в салонах</a></div>
 						<div class="btn-group-vertical btn-block">
 							@{
-								var dataDictAddToCart = new ViewDataDictionary(ViewData);
-								dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
-								@await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
+								if (Model.InStock)
+								{
+									var dataDictAddToCart = new ViewDataDictionary(ViewData);
+									dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+									@await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
+								}
+								else
+								{
+									<button type="button" class="btn btn-sm btn-blue btn-block" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+								}
 							}
 							<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
 						</div>
