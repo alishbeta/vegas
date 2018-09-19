@@ -51,7 +51,10 @@
 					<div class="product-prop"></div>
 					<div class="price-titile">Цена</div>
 					<div class="price-wrap clearfix">
-						<div class="price-old">@product.ProductPrice.OldPrice</div>
+						@if (!string.IsNullOrEmpty(product.ProductPrice.OldPrice))
+						{
+							<div class="price-old">@product.ProductPrice.OldPrice</div>
+						}
 						<div class="price-new">@product.ProductPrice.Price</div>
 					</div>
 				</div>
