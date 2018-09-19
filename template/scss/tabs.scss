@@ -42,34 +42,39 @@ If you want to style everything yourself, you shouldn't need these
     }
   }
 }
-.item {
-  position: relative;
-  margin-bottom: 2px;
-  display: none;
-  &::before {
-    cursor: pointer;
-    font-weight: bold;
-    background: $background__active;
-    padding: .5em;
-    display: block;
-  }
-  &.active {
-    border: 1px solid $border_color;
-    @include border-radius(5px);
-    display: block;
+
+section{
+  .item {
+    position: relative;
+    margin-bottom: 2px;
+    display: none;
     &::before {
-      @include tab-active();
+      cursor: pointer;
+      font-weight: bold;
+      background: $background__active;
+      padding: .5em;
+      display: block;
     }
-    .item-content {
-      padding: 1em;
-      -webkit-transition: opacity 0.3s ease-in-out;
-      -moz-transition: opacity 0.3s ease-in-out;
-      -o-transition: opacity 0.3s ease-in-out;
-      -ms-transition: opacity 0.3s ease-in-out;
-      transition: opacity 0.3s ease-in-out;
+    &.active {
+      border: 1px solid $border_color;
+      @include border-radius(5px);
+      display: block;
+      &::before {
+        @include tab-active();
+      }
+      .item-content {
+        padding: 1em;
+        -webkit-transition: opacity 0.3s ease-in-out;
+        -moz-transition: opacity 0.3s ease-in-out;
+        -o-transition: opacity 0.3s ease-in-out;
+        -ms-transition: opacity 0.3s ease-in-out;
+        transition: opacity 0.3s ease-in-out;
+      }
     }
   }
 }
+
+
 @media all and (min-width: $breakpoint ) {
   .item {
     &.active {
