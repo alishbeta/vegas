@@ -495,10 +495,10 @@
 				<form class="col-sm-12" action="">
 					<div class="title"><span>1</span>Личные данные</div>
 					<button type="button" id="edit-name" class="btn btn-link">
-						Изменить контактную информацию
+						@T("cart.changeinfo")
 					</button>
 					<button style="display: none;" type="button" id="edit-name-close" class="btn btn-link">
-						Отмена
+						@T("cart.cancel")
 					</button>
 					<div class="form-group row">
 						<label style="display: none" class="col-form-label col-sm-3" for="li1">
@@ -526,11 +526,11 @@
 					<div class="line"></div>
 
 					<div class="title"><span>2</span>@T("cart.address")</div>
-					<button type="button" id="edit-addres" class="btn btn-link">Изменить адрес</button>
-					<button type="button" id="edit-addres-close" style="display: none" class="btn btn-link">Отмена</button>
+					<button type="button" id="edit-addres" class="btn btn-link">@T("cart.changeaddress")</button>
+					<button type="button" id="edit-addres-close" style="display: none" class="btn btn-link">@T("cart.cancel")</button>
 					<div class="form-group row">
 						<label style="display: none" class="col-form-label col-sm-3" for="li1">
-							@T("cart.name")
+							@T("cart.address")
 						</label>
 						<input style="display: none" id="ai1" type="text" class="form-control col-sm-8">
 						<div class="col-sm-3">@T("cart.city")</div>
@@ -560,10 +560,10 @@
 					<div class="line"></div>
 
 					<div class="title"><span>3</span>@T("cart.pass")</div>
-					<button type="button" id="edit-pass" class="btn btn-link">Изменить пароль</button>
-					<button type="button" id="edit-pass-close" style="display: none" class="btn btn-link">Отмена</button>
+					<button type="button" id="edit-pass" class="btn btn-link">@T("cart.changepass")</button>
+					<button type="button" id="edit-pass-close" style="display: none" class="btn btn-link">@T("cart.cancel")</button>
 					<div class="form-group row">
-						<label style="display: none" class="col-form-label col-sm-3" for="p">Новый пароль</label>
+						<label style="display: none" class="col-form-label col-sm-3" for="p">@T("cart.newpass")</label>
 						<input style="display: none" id="p" type="password" class="form-control col-sm-8">
 					</div>
 				</form>
