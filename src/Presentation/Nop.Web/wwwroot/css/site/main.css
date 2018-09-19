@@ -106,6 +106,13 @@ i.close-i {
 }
 i.compare_icon {
   background: url("/img/compare_icon.svg") no-repeat center;
+  -moz-transition: 1s;
+  -o-transition: 1s;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+i.compare_icon.active, i.compare_icon:hover {
+  background: url("/img/compare_icon_fill.svg") no-repeat center;
 }
 i.user_icon {
   background: url("/img/user_icon.svg") no-repeat center;
@@ -113,10 +120,34 @@ i.user_icon {
 i.tick_icon {
   background: url("/img/tick_icon.svg") no-repeat center;
 }
-i span {
-  position: absolute;
-  top: 5px;
-  left: 11px;
+i.shopping_bag_icon {
+  background: url("/img/shopping_bag_icon.svg") no-repeat center;
+  -moz-transition: 1s;
+  -o-transition: 1s;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+i.shopping_bag_icon.active, i.shopping_bag_icon:hover {
+  background: url("/img/shopping_bag_icon_fill.svg") no-repeat center;
+}
+i.shopping_bag_icon span {
+  margin-top: 7px;
+}
+i.favorite_i {
+  background-image: url("/img/favorite_icon.svg");
+}
+i.favorite_i span {
+  margin-top: 4px;
+  margin-right: 1px;
+}
+i.favorite_i:hover {
+  -webkit-mask-image: url(/img/favorite_icon_fill.svg);
+  mask-image: url(/img/favorite_icon_fill.svg);
+  background-color: #4da2c1;
+  -moz-transition: 0.8s;
+  -o-transition: 0.8s;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
 }
 
 .discount {
@@ -307,18 +338,6 @@ nav.blue-menu ul li a.active {
   background-color: #4da2c1;
 }
 
-.compare_icon.active {
-  -webkit-mask-image: url(/img/compare_icon.svg);
-  mask-image: url(/img/compare_icon.svg);
-  background-color: #4da2c1;
-}
-
-.shopping_bag_icon.active {
-  -webkit-mask-image: url(/img/shopping_bag_icon.svg);
-  mask-image: url(/img/shopping_bag_icon.svg);
-  background-color: #4da2c1;
-}
-
 .star {
   -webkit-mask-image: url(/img/star_fill.svg);
   mask-image: url(/img/star_fill.svg);
@@ -361,10 +380,11 @@ nav.blue-menu ul li a.active {
     transform: scale(1);
   }
   50%,
-    75% {
+        75% {
     transform: scale(2.5);
   }
-  78%, 100% {
+  78%,
+        100% {
     opacity: 0;
   }
 }
@@ -397,10 +417,11 @@ nav.blue-menu ul li a.active {
     transform: scale(1);
   }
   50%,
-    75% {
+        75% {
     transform: scale(2.5);
   }
-  78%, 100% {
+  78%,
+        100% {
     opacity: 0;
   }
 }
@@ -433,10 +454,11 @@ nav.blue-menu ul li a.active {
     transform: scale(1);
   }
   50%,
-    75% {
+        75% {
     transform: scale(2.5);
   }
-  78%, 100% {
+  78%,
+        100% {
     opacity: 0;
   }
 }
@@ -469,10 +491,11 @@ nav.blue-menu ul li a.active {
     transform: scale(1);
   }
   50%,
-    75% {
+        75% {
     transform: scale(2.5);
   }
-  78%, 100% {
+  78%,
+        100% {
     opacity: 0;
   }
 }
@@ -505,10 +528,11 @@ nav.blue-menu ul li a.active {
     transform: scale(1);
   }
   50%,
-    75% {
+        75% {
     transform: scale(2.5);
   }
-  78%, 100% {
+  78%,
+        100% {
     opacity: 0;
   }
 }
@@ -724,55 +748,18 @@ footer {
   margin: 13px 0 0 51px;
 }
 
-.icons-wrap {
-  margin-right: 30px;
-}
 .icons-wrap i {
-  position: relative;
-  display: inline-block;
+  display: block;
+  float: left;
   width: 25px;
   height: 25px;
-  margin-right: 15px;
-  font-size: 12px;
-  font-style: normal;
-  cursor: pointer;
+  font-size: 10px;
   text-align: center;
-}
-.icons-wrap i:last-child {
-  margin-right: 0;
-}
-
-.shopping_bag_icon {
-  background: url("/img/shopping_bag_icon.svg") no-repeat center;
-}
-
-.favorite_i {
-  background-image: url("/img/favorite_icon.svg");
-}
-.favorite_i:hover {
-  -webkit-mask-image: url(/img/favorite_icon_fill.svg);
-  mask-image: url(/img/favorite_icon_fill.svg);
-  background-color: #4da2c1;
-  -moz-transition: 0.8s;
-  -o-transition: 0.8s;
-  -webkit-transition: 0.8s;
-  transition: 0.8s;
-}
-
-.icons-wrap .favorite.active {
-  -webkit-mask-image: url(/img/favorite_icon_fill.svg);
-  mask-image: url(/img/favorite_icon_fill.svg);
-  background-color: #4da2c1;
-  -moz-transition: 0.8s;
-  -o-transition: 0.8s;
-  -webkit-transition: 0.8s;
-  transition: 0.8s;
+  margin-right: 4px;
+  font-style: normal;
 }
 .icons-wrap span {
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
+  display: inline-block;
 }
 .icons-wrap .lang-swich-wrap {
   position: absolute;
@@ -790,12 +777,6 @@ footer {
 .icons-wrap .lang-swich-wrap span {
   display: inline;
   position: relative;
-}
-.icons-wrap .shopping_bag_icon span {
-  top: 7px;
-}
-.icons-wrap .favorite_i span {
-  top: 3px;
 }
 
 .delivery {
@@ -949,21 +930,6 @@ nav.breadcrumb-wrap a:hover {
 .all-menu-wrap .side-menu-wrap .inner-menu-wrap ul li a:hover, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap ul li a:hover {
   text-decoration: none;
   color: black;
-}
-.all-menu-wrap .side-menu-wrap .inner-menu-wrap ul li:hover:after, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap ul li:hover:after {
-  display: block;
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
-  right: -285px;
-  top: -29px;
-  position: relative;
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
 }
 .all-menu-wrap .side-menu-wrap .inner-menu-wrap .sub-menu, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap .sub-menu {
   display: none;
@@ -1369,7 +1335,7 @@ nav.breadcrumb-wrap a:hover {
 }
 
 .news-wrap, .news .article-wrap, .map .article-wrap {
-  margin-bottom: 50px;
+  margin: 0 0 50px 20px;
   padding-left: 20px;
 }
 .news-wrap .item-wrap, .news .article-wrap .item-wrap, .map .article-wrap .item-wrap {
@@ -1982,10 +1948,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   color: white;
   width: 19px;
   height: 19px;
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
   top: 9px;
-  right: 12px;
+  right: 7px;
+}
+.bg div {
+  padding-top: 2px;
 }
 
 .login-form-wrap {
@@ -3339,6 +3308,7 @@ If you want to style everything yourself, you shouldn't need these
 .item {
   position: relative;
   margin-bottom: 2px;
+  display: none;
 }
 .item::before {
   cursor: pointer;
@@ -3403,6 +3373,7 @@ If you want to style everything yourself, you shouldn't need these
   }
   .tabbed-content .tabs li {
     display: inline-block;
+    position: relative;
   }
   .tabbed-content .tabs li a {
     display: block;
@@ -3574,10 +3545,10 @@ If you want to style everything yourself, you shouldn't need these
     overflow-y: auto;
     overflow-x: hidden;
     height: auto;
+    z-index: 1055;
   }
   .all-menu-wrap .side-menu-wrap.open, .all-menu-wrap .open.side-second-menu-wrap {
     width: 300px;
-    z-index: 1055;
   }
   .all-menu-wrap .side-menu-wrap .search-wrap, .all-menu-wrap .side-second-menu-wrap .search-wrap {
     border-bottom: none;
@@ -3758,11 +3729,15 @@ If you want to style everything yourself, you shouldn't need these
     margin: 0;
     padding: 0;
     box-shadow: none;
+    width: 100%;
   }
   .product .tabbed-content .tabs {
     display: none;
   }
-  .product .item.active {
+  .product .tabbed-content .item {
+    display: block;
+  }
+  .product .tabbed-content .item.active {
     border: none;
   }
   .product section::before {
@@ -3954,9 +3929,6 @@ If you want to style everything yourself, you shouldn't need these
     margin-right: 15px;
   }
 
-  .tabbed-content {
-    width: 100%;
-  }
   .tabbed-content section::before {
     border-top: 1px solid #bfbfbf;
   }
@@ -3968,7 +3940,7 @@ If you want to style everything yourself, you shouldn't need these
     height: 7px;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
-    right: -335px;
+    right: -90%;
     top: -18px;
     position: relative;
     -moz-transform: rotate(45deg);
@@ -4183,12 +4155,16 @@ If you want to style everything yourself, you shouldn't need these
     margin: 0;
   }
 
+  .cabinet .title-wrap {
+    padding: 0 15px;
+  }
+
   nav.blue-menu {
     margin: 0px 0px 30px;
   }
   nav.blue-menu ul li {
     float: none;
-    width: 100%;
+    width: 100% !important;
   }
   nav.blue-menu ul li a.active {
     -moz-box-shadow: none;
