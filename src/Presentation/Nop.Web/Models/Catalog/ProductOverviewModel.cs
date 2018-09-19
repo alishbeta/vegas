@@ -24,6 +24,7 @@ namespace Nop.Web.Models.Catalog
 		public string SeName { get; set; }
 		public decimal Length { get; set; }
 		public decimal Width { get; set; }
+		public bool InStock { get; set; }
 		public decimal Height { get; set; }
 		public string Sku { get; set; }
 

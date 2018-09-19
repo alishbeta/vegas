@@ -214,6 +214,13 @@
 				</div>
 			</div>
 			<div class="text-center"></div>
-			<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');UpdateCart();return false;" class="btn btn-sm btn-blue btn-block">Купить</button>
+			@if (Model.InStock)
+			{
+				<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');UpdateCart();return false;" class="btn btn-sm btn-blue btn-block">Купить</button>
+			}
+			else
+			{
+				<button type="button" class="btn btn-sm btn-blue btn-block" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+			}
 		</div>
 	</div>

@@ -1144,7 +1144,7 @@ namespace Nop.Web.Factories
 				model.Height = product.Height;
 				model.Width = product.Width;
 				model.Length = product.Length;
-
+				model.InStock = (product.StockQuantity > 0 && product.StatusId != 4);	  //StatusId 4 - not in stock
                 //price
                 if (preparePriceModel)
                 {
@@ -1298,7 +1298,7 @@ namespace Nop.Web.Factories
             //price
             model.ProductPrice = PrepareProductPriceModel(product);
 			model.ProductPrice.Discount = product.DiscountProductMappings.ToList().Count > 0 ? product.DiscountProductMappings.ToList()[0].Discount.DiscountPercentage : (decimal)0;
-
+			model.InStock = (product.StockQuantity > 0 && product.StatusId != 4);
 			//'Add to cart' model
 			model.AddToCart = PrepareProductAddToCartModel(product, updatecartitem);
 
