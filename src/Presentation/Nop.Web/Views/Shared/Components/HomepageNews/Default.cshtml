@@ -20,17 +20,25 @@
 					<div>
 						@foreach (var item in Model.NewsItems)
 						{
-							<div class="item-wrap">
-								<img src="~/img/news.png" alt="@item.Title">
-								<div class="text-wrap">
-									<div class="title">
-										<a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">@item.Title</a>
-									</div>
-									<div class="short-text">
-										@Html.Raw(item.Short)
-									</div>
-								</div>
-							</div>
+                        <div class="item-wrap">
+                            @if (string.IsNullOrEmpty(item.Image))
+                            {
+                                <img src="~/img/news.png" alt="@item.Title">
+                            }
+                            else
+                            {
+                                <img src="@item.Image" width="250" alt="@item.Title">
+                            }
+
+                            <div class="text-wrap">
+                                <div class="title">
+                                    <a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">@item.Title</a>
+                                </div>
+                                <div class="short-text">
+                                    @Html.Raw(item.Short)
+                                </div>
+                            </div>
+                        </div>
 						}
 					</div>
 				</div>

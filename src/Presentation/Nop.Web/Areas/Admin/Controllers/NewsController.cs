@@ -6,6 +6,7 @@ using Nop.Core.Domain.News;
 using Nop.Services.Events;
 using Nop.Services.Localization;
 using Nop.Services.Logging;
+using Nop.Services.Media;
 using Nop.Services.News;
 using Nop.Services.Security;
 using Nop.Services.Seo;
@@ -31,6 +32,7 @@ namespace Nop.Web.Areas.Admin.Controllers
         private readonly IStoreMappingService _storeMappingService;
         private readonly IStoreService _storeService;
         private readonly IUrlRecordService _urlRecordService;
+        private readonly IPictureService _pictureService;
 
         #endregion
 
@@ -44,7 +46,8 @@ namespace Nop.Web.Areas.Admin.Controllers
             IPermissionService permissionService,
             IStoreMappingService storeMappingService,
             IStoreService storeService,
-            IUrlRecordService urlRecordService)
+            IUrlRecordService urlRecordService,
+            IPictureService pictureService)
         {
             this._customerActivityService = customerActivityService;
             this._eventPublisher = eventPublisher;
@@ -55,7 +58,8 @@ namespace Nop.Web.Areas.Admin.Controllers
             this._storeMappingService = storeMappingService;
             this._storeService = storeService;
             this._urlRecordService = urlRecordService;
-        }
+            this._pictureService = pictureService;
+    }
 
         #endregion
 
@@ -138,10 +142,22 @@ namespace Nop.Web.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                //if (model.PictureId > 0)
+                //{
+                //    var picture = _pictureService.GetPictureById(model.PictureId);
+                //    _pictureService.UpdatePicture(picture.Id,
+                //        _pictureService.LoadPictureBinary(picture),
+                //        picture.MimeType,
+                //        picture.SeoFilename
+                //    );
+                //    _pictureService.SetSeoFilename(picture.Id, _pictureService.GetPictureSeName(model.SeName));
+                //}
+
                 var newsItem = model.ToEntity<NewsItem>();
                 newsItem.StartDateUtc = model.StartDate;
                 newsItem.EndDateUtc = model.EndDate;
                 newsItem.CreatedOnUtc = DateTime.UtcNow;
+
                 _newsService.InsertNews(newsItem);
 
                 //activity log
@@ -202,6 +218,17 @@ namespace Nop.Web.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                //if (model.PictureId > 0)
+                //{
+                //    var picture = _pictureService.GetPictureById(model.PictureId);
+                //    _pictureService.UpdatePicture(picture.Id,
+                //        _pictureService.LoadPictureBinary(picture),
+                //        picture.MimeType,
+                //        picture.SeoFilename
+                //    );
+                //    _pictureService.SetSeoFilename(picture.Id, _pictureService.GetPictureSeName(model.SeName));
+                //}
+
                 newsItem = model.ToEntity(newsItem);
                 newsItem.StartDateUtc = model.StartDate;
                 newsItem.EndDateUtc = model.EndDate;

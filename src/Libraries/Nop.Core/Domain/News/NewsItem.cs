@@ -13,6 +13,8 @@ namespace Nop.Core.Domain.News
     {
         private ICollection<NewsComment> _newsComments;
 
+        public int PictureId { get; set; }
+
         /// <summary>
         /// Gets or sets the language identifier
         /// </summary>

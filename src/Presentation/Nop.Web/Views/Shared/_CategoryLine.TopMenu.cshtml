@@ -43,7 +43,7 @@
 }
 
 @model TopMenuModel.CategoryLineModel
-<li>
+<li class="@(ViewBag.ActiveCategory == Model.Category.Id ? "active" : "")">
     <a onclick="return false;" href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })">
         @if (Model.Category.Id == 17)
         {
