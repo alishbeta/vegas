@@ -188,12 +188,15 @@
             margin: 0;
         }
     }
+    .cabinet .title-wrap{
+        padding: 0 15px;
+    }
     nav.blue-menu {
         margin: 0px 0px 30px;
         ul {
             li {
                 float: none;
-                width: 100%;
+                width: 100%!important;
                 a {
                     &.active {
                         @include box-shadow(none);

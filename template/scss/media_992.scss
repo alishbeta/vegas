@@ -106,9 +106,9 @@
         overflow-y: auto;
         overflow-x: hidden;
         height: auto;
+        z-index: 1055;
         &.open {
             width: 300px;
-            z-index: 1055;
         }
         .search-wrap {
             border-bottom: none;

@@ -186,50 +186,20 @@ footer {
     }
   }
 }
-
 .icons-wrap {
-  margin-right: 30px;
-  i {
-    position: relative;
-    display: inline-block;
+  i{
+    display: block;
+    float: left;
     width: 25px;
     height: 25px;
-    margin-right: 15px;
-    font-size: 12px;
-    font-style: normal;
-    cursor: pointer;
+    font-size: 10px;
     text-align: center;
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-}
-
-.shopping_bag_icon {
-  background: url("/img/shopping_bag_icon.svg") no-repeat center;
-}
-
-.favorite_i {
-  background-image: url("/img/favorite_icon.svg");
-  &:hover {
-    -webkit-mask-image: url(/img/favorite_icon_fill.svg);
-    mask-image: url(/img/favorite_icon_fill.svg);
-    background-color: $blue;
-    @include transition(0.8s);
-  }
-}
-.icons-wrap {
-  .favorite.active {
-    -webkit-mask-image: url(/img/favorite_icon_fill.svg);
-    mask-image: url(/img/favorite_icon_fill.svg);
-    background-color: $blue;
-    @include transition(0.8s);
+    margin-right: 4px;
+    font-style: normal;
+  
   }
   span {
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
+    display: inline-block;
   }
   .lang-swich-wrap {
     position: absolute;
@@ -247,12 +217,6 @@ footer {
       display: inline;
       position: relative;
     }
-  }
-  .shopping_bag_icon span{
-    top: 7px;
-  }
-  .favorite_i span{
-    top: 3px;
   }
 }
 .delivery {
