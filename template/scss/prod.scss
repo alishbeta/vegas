@@ -122,4 +122,17 @@
         position: static;
     }
   }
+  .add-fav, .add-compare{
+    cursor: pointer;
+    &:hover{
+      .compare_icon{
+        background: url("/img/compare_icon_fill.svg") no-repeat center;
+        @include transition(1s);
+      }
+      .favorite_i{
+        background: url("/img/favorite_icon_fill.svg") no-repeat center;
+        @include transition(1s);
+      }
+    }
+  }
 }

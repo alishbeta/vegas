@@ -88,11 +88,11 @@ i {
         left: 0;
         height: 100%;
         background-size: 100%;
+
     }
     &.close-i {
         -webkit-mask-image: url(/img/close.svg);
         mask-image: url(/img/close.svg);
-        background-color: black;
         margin: 24px 0px 10px 5px;
     }
     &.compare_icon {
@@ -105,6 +105,9 @@ i {
     }
     &.user_icon {
         background: url("/img/user_icon.svg") no-repeat center;
+        &.active{
+            background: url("/img/user_icon_fill.svg") no-repeat center; 
+        }
     }
     &.tick_icon {
         background: url("/img/tick_icon.svg") no-repeat center;
@@ -127,9 +130,7 @@ i {
             margin-right: 1px;
         }
         &:hover {
-            -webkit-mask-image: url("/img/favorite_icon_fill.svg");
-            mask-image: url("/img/favorite_icon_fill.svg");
-            background-color: $blue;
+            background: url("/img/favorite_icon_fill.svg") no-repeat center;
             @include transition(0.8s);
         }
     }
@@ -141,9 +142,9 @@ i {
 }
 
 .load{
-    -webkit-mask-image: none;
-    mask-image: none;
-    background: transparent!important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    background: transparent !important;
     z-index: 1050;
     & *{
         opacity: 0;
