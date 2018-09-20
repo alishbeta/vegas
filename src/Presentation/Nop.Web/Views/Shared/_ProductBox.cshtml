@@ -171,7 +171,7 @@
 			</div>
 		</div>
 		<div class="item-wrap-full" style="display: none;">
-			<i class="favorite_i float-left" data-id="@Model.Id" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');UpdateWishlist();return false;"></i>
+			<i class="favorite_i float-left" data-id="@Model.Id" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');$(this).addClass('load');UpdateWishlist();return false;"></i>
 			<i class="compare_icon float-right" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');UpdateCart();return false;"></i>
 			<div class="product-img-wrap">
 				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
@@ -216,7 +216,7 @@
 			<div class="text-center"></div>
 			@if (Model.InStock)
 			{
-				<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');UpdateCart();return false;" class="btn btn-sm btn-blue btn-block">Купить</button>
+				<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block">Купить</button>
 			}
 			else
 			{
