@@ -143,10 +143,13 @@ i.shopping_bag_icon span {
 }
 i.favorite_i {
   background: url("/img/favorite_icon.svg");
+  text-align: center;
 }
 i.favorite_i span {
+  display: inline-block;
   margin-top: 4px;
   margin-right: 1px;
+  vertical-align: 3px;
 }
 i.favorite_i:hover {
   background: url("/img/favorite_icon_fill.svg") no-repeat center;
@@ -172,7 +175,7 @@ i.favorite_i:hover {
   width: 100%;
   height: 100vh;
   background: url(/img/loader.gif) no-repeat center;
-  background-size: 40%;
+  background-size: 15%;
 }
 
 .discount {
@@ -603,6 +606,11 @@ header, nav, section, article, aside, footer {
 
 .short-menu .r-wrap {
   margin-left: 95px;
+}
+
+.row.favorite {
+  margin-right: 0;
+  margin-left: 0;
 }
 
 input {
@@ -4028,6 +4036,11 @@ section .item {
     position: relative;
     left: 0;
     top: 25px;
+  }
+
+  .favorite .item-wrap {
+    float: none;
+    margin: 0;
   }
 }
 @media (max-width: 575px) {

@@ -28,6 +28,10 @@ margin-left: 318px;
     
   }
 }
+.row.favorite{
+  margin-right: 0;
+    margin-left: 0;
+}
 input {
   &::-webkit-input-placeholder, &::-moz-placeholder, &:-moz-placeholder, &:-ms-input-placeholder {
     @include opacity(1);

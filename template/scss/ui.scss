@@ -125,9 +125,12 @@ i {
     }
     &.favorite_i {
         background: url("/img/favorite_icon.svg");
+        text-align: center;
         span {
+            display: inline-block;
             margin-top: 4px;
             margin-right: 1px;
+            vertical-align: 3px;
         }
         &:hover {
             background: url("/img/favorite_icon_fill.svg") no-repeat center;
@@ -156,7 +159,7 @@ i {
         width: 100%;
         height: 100vh;
         background: url(/img/loader.gif) no-repeat center;
-        background-size: 40%;
+        background-size: 15%;
     }
 }
 .discount {
