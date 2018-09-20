@@ -264,6 +264,9 @@
 							$("[data-id='" + elem.ProductId + "']").addClass("active");
 						});
 						$("#wishlistItemsCount").text(responce.wishlist.length);
+						$(".favorite_i:not(.favorit)").each(function () {
+							$(this).removeClass("load");
+						});
 					});
 				};
 				$(document).ready(UpdateWishlist());
@@ -324,7 +327,13 @@
 				}
 			</script>
 			<script>
+				function StartLoadingCart() {
+					$("#cartItems").addClass("load");
+				}
+			</script>
+			<script>
 				function UpdateCart() {
+					$("#cartItems").addClass("load");
 					$.ajax({
 						url: "/ShoppingCart/getcart",
 						type: "POST",
@@ -335,9 +344,11 @@
 						if ($("#mainCartItems").length > 0) {
 							$("#mainCartItems").empty();
 						}
-						$("#cartItems").empty();
+						
 						var sum = 0.0;
 						var count = 0;
+						var data = "";
+						$("#cartItems").empty();
 						responce.model.Items.forEach(function (product) {
 							var oldPrice = "";
 							if (false) {
@@ -361,7 +372,7 @@
 								'</div>' +
 								'</div>' +
 								'<div class="line"></div>';
-							$("#cartItems").append(element);
+							data = data + element;
 							if ($("#mainCartItems").length > 0) {
 								$("#mainCartItems").append(element);
 							}
@@ -383,9 +394,10 @@
 							$("#carttotal").css("display", "none");
 							$("#cartItems").append("<h3>@T("cart.empty")</h3>");
 						}
+						$("#cartItems").append(data);
+						$("#cartItems").removeClass("load");
 					});
 				}
-				$(document).ready(UpdateCart());
 				$(document).ready(GetCrossSellProducts());
 			</script>
 		</div>
