@@ -99,6 +99,7 @@ i {
   cursor: pointer;
 }
 i.load:before {
+  position: absolute;
   left: 0;
   height: 100%;
   background-size: 100%;
@@ -106,7 +107,6 @@ i.load:before {
 i.close-i {
   -webkit-mask-image: url(/img/close.svg);
   mask-image: url(/img/close.svg);
-  background-color: black;
   margin: 24px 0px 10px 5px;
 }
 i.compare_icon {
@@ -121,6 +121,9 @@ i.compare_icon.active, i.compare_icon:hover {
 }
 i.user_icon {
   background: url("/img/user_icon.svg") no-repeat center;
+}
+i.user_icon.active {
+  background: url("/img/user_icon_fill.svg") no-repeat center;
 }
 i.tick_icon {
   background: url("/img/tick_icon.svg") no-repeat center;
@@ -146,9 +149,7 @@ i.favorite_i span {
   margin-right: 1px;
 }
 i.favorite_i:hover {
-  -webkit-mask-image: url("/img/favorite_icon_fill.svg");
-  mask-image: url("/img/favorite_icon_fill.svg");
-  background-color: #4da2c1;
+  background: url("/img/favorite_icon_fill.svg") no-repeat center;
   -moz-transition: 0.8s;
   -o-transition: 0.8s;
   -webkit-transition: 0.8s;
@@ -156,8 +157,8 @@ i.favorite_i:hover {
 }
 
 .load {
-  -webkit-mask-image: none;
-  mask-image: none;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
   background: transparent !important;
   z-index: 1050;
 }
@@ -2841,6 +2842,23 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   display: inline-block;
   position: static;
 }
+.product .add-fav, .product .add-compare {
+  cursor: pointer;
+}
+.product .add-fav:hover .compare_icon, .product .add-compare:hover .compare_icon {
+  background: url("/img/compare_icon_fill.svg") no-repeat center;
+  -moz-transition: 1s;
+  -o-transition: 1s;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+.product .add-fav:hover .favorite_i, .product .add-compare:hover .favorite_i {
+  background: url("/img/favorite_icon_fill.svg") no-repeat center;
+  -moz-transition: 1s;
+  -o-transition: 1s;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
 
 .map nav ul li {
   width: 16.66%;
@@ -4002,6 +4020,14 @@ section .item {
 
   .see-wrap .btn-blue-white {
     margin-right: 0;
+  }
+
+  footer .logo-m {
+    width: 116px;
+    overflow: hidden;
+    position: relative;
+    left: 0;
+    top: 25px;
   }
 }
 @media (max-width: 575px) {
