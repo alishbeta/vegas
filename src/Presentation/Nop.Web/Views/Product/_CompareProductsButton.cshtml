@@ -4,5 +4,5 @@
 }
 @if (Model.CompareProductsEnabled)
 {
-<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>
+<div onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"><i class="compare_icon mr-1" style="cursor:pointer;"></i> Добавить в сравнение</div>
 }

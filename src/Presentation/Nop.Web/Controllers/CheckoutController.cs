@@ -911,6 +911,10 @@ namespace Nop.Web.Controllers
 			////model
 			//var model = _checkoutModelFactory.PrepareConfirmOrderModel(cart);
 			//return View(model);
+			if (_workContext.CurrentCustomer.IsRegistered())
+			{
+				ViewBag.IsAuthenticated = "active";
+			}
 			if (!_permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart))
 				return RedirectToRoute("HomePage");
 
