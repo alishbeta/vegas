@@ -98,6 +98,10 @@ i {
   height: 15px;
   cursor: pointer;
 }
+i.load:after {
+  height: 100%;
+  background-size: 100%;
+}
 i.close-i {
   -webkit-mask-image: url(/img/close.svg);
   mask-image: url(/img/close.svg);
@@ -134,20 +138,41 @@ i.shopping_bag_icon span {
   margin-top: 7px;
 }
 i.favorite_i {
-  background-image: url("/img/favorite_icon.svg");
+  background: url("/img/favorite_icon.svg");
 }
 i.favorite_i span {
   margin-top: 4px;
   margin-right: 1px;
 }
 i.favorite_i:hover {
-  -webkit-mask-image: url(/img/favorite_icon_fill.svg);
-  mask-image: url(/img/favorite_icon_fill.svg);
+  -webkit-mask-image: url("/img/favorite_icon_fill.svg");
+  mask-image: url("/img/favorite_icon_fill.svg");
   background-color: #4da2c1;
   -moz-transition: 0.8s;
   -o-transition: 0.8s;
   -webkit-transition: 0.8s;
   transition: 0.8s;
+}
+
+.load {
+  -webkit-mask-image: none;
+  mask-image: none;
+  background: transparent !important;
+  z-index: 1050;
+}
+.load * {
+  opacity: 0;
+}
+.load:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  content: '';
+  width: 100%;
+  height: 100px;
+  background: url(/img/loader.gif) no-repeat center;
+  background-size: 50px;
 }
 
 .discount {
