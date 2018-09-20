@@ -551,16 +551,19 @@
 							<div class="col-sm-3">@textPrompt</div>
 							<div class="col-sm-8 text-light-c">@attribute.DefaultValue</div>
 						}
+					</div>
+					<div class="form-group row">
+						
 						@{
 							attribute = Model.CustomerAttributes.FirstOrDefault(x => x.Id == 3);
 							controlId = $"customer_attribute_{attribute.Id}";
 							textPrompt = attribute.Name;
-							<label style="display: none" class="col-form-label col-sm-3" for="li2">@textPrompt</label>
-							<input style="display: none" id="ai2" type="text" class="form-control col-sm-8">
+							<label style="display: none" class="col-form-label col-sm-3" for="li3">@textPrompt</label>
+							<input style="display: none" id="ai3" type="text" class="form-control col-sm-8">
 							<div class="col-sm-3">@textPrompt</div>
 							<div class="col-sm-8 text-light-c">@attribute.DefaultValue</div>
 						}
-					</div>
+						</div>
 
 					<div class="line"></div>
 
