@@ -105,8 +105,7 @@ i.load:before {
   background-size: 100%;
 }
 i.close-i {
-  -webkit-mask-image: url(/img/close.svg);
-  mask-image: url(/img/close.svg);
+  background: url("/img/close.svg") no-repeat center;
   margin: 24px 0px 10px 5px;
 }
 i.compare_icon {
@@ -3043,6 +3042,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   padding: 8px 15px;
 }
 
+.cabinet.row, .cabinet .row {
+  margin-left: 0;
+  margin-right: 0;
+}
 .cabinet nav.blue-menu ul li {
   width: 25%;
 }
@@ -3050,7 +3053,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   margin-top: -32px;
   font-size: 16px;
   border: 1px solid #cdd2d4;
-  padding: 30px 45px;
+  padding: 30px 90px;
 }
 .cabinet .cabinet-info .title {
   font-weight: 600;
@@ -3067,9 +3070,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   border-radius: 18px;
   font-size: 14px;
   margin-right: 15px;
+  margin-left: -45px;
 }
 .cabinet .cabinet-info .compare_icon + form {
   float: right;
+}
+.cabinet .line {
+  margin: 20px -90px;
 }
 .cabinet .favorite-wrap .item-wrap {
   float: left;
@@ -4097,7 +4104,7 @@ section .item {
   }
 
   .subscription-wrap.row {
-    margin: 0 0 0 -14px;
+    margin: 30px 0 0 -14px;
   }
 
   .cart-popup-wrap.open {

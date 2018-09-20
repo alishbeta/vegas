@@ -91,8 +91,7 @@ i {
 
     }
     &.close-i {
-        -webkit-mask-image: url(/img/close.svg);
-        mask-image: url(/img/close.svg);
+        background: url('/img/close.svg') no-repeat center;
         margin: 24px 0px 10px 5px;
     }
     &.compare_icon {
