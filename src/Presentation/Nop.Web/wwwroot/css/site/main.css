@@ -98,7 +98,8 @@ i {
   height: 15px;
   cursor: pointer;
 }
-i.load:after {
+i.load:before {
+  left: 0;
   height: 100%;
   background-size: 100%;
 }
@@ -163,14 +164,12 @@ i.favorite_i:hover {
 .load * {
   opacity: 0;
 }
-.load:after {
-  position: absolute;
-  top: 10%;
-  left: 0;
+.load:before {
+  position: relative;
   display: inline-block;
   content: '';
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: url(/img/loader.gif) no-repeat center;
   background-size: 40%;
 }

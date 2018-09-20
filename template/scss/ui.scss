@@ -83,7 +83,9 @@ i {
     width: 15px;
     height: 15px;
     cursor: pointer;
-    &.load:after{
+    &.load:before{
+        position: absolute;
+        left: 0;
         height: 100%;
         background-size: 100%;
     }
@@ -146,14 +148,12 @@ i {
     & *{
         opacity: 0;
     }
-    &:after{
-        position: absolute;
-        top: 10%;
-        left: 0;
+    &:before{
+        position: relative;
         display: inline-block;
         content: '';
         width: 100%;
-        height: 100%;
+        height: 100vh;
         background: url(/img/loader.gif) no-repeat center;
         background-size: 40%;
     }
