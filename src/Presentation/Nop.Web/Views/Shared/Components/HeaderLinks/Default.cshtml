@@ -3,7 +3,7 @@
 
 <a href="#" onclick="$('.cart-popup-wrap').toggleClass('open'); UpdateCart();"><i class="favorit shopping_bag_icon @(Model.ShoppingCartItems > 0 ? "active" : "")"><span>@Model.ShoppingCartItems</span></i></a>
 <a href="/wishlist"><i class="favorit favorite_i @(Model.WishlistItems > 0 ? "active" : "")"><span id="wishlistItemsCount">@Model.WishlistItems</span></i></a>
-<a href="@(Model.CompareProductItems > 0 ? "/compareproducts" : "#")"><i class="favorit compare_icon @(Model.CompareProductItems > 0 ? "active" : "")"></i></a>
+<a href="@(Model.CompareProductItems > 0 ? "/compareproducts" : "#")"><i class="favorit compare_icon @(Model.CompareProductItems > 0 ? "active" : "")" id="compareItems"></i></a>
 @if (Model.IsAuthenticated)
 {
 <a href="/customer/info"><i class="favorit user_icon d-none d-md-inline-block"></i></a>

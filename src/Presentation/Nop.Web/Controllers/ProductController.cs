@@ -645,9 +645,14 @@ namespace Nop.Web.Controllers
                     success = false,
                     message = "Product comparison is disabled"
                 });
-
-            _compareProductsService.AddProductToCompareList(productId);
-
+			if (_compareProductsService.GetComparedProducts().Contains(product))
+			{
+				_compareProductsService.RemoveProductFromCompareList(productId);
+			}
+			else
+			{
+				_compareProductsService.AddProductToCompareList(productId);
+			}
             //activity log
             _customerActivityService.InsertActivity("PublicStore.AddToCompareList",
                 string.Format(_localizationService.GetResource("ActivityLog.PublicStore.AddToCompareList"), product.Name), product);
