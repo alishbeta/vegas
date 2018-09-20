@@ -78,6 +78,7 @@ var AjaxCart = {
 	success_process: function (response) {
 		UpdateWishlist();
 		UpdateCart();
+		UpdateCompareItems();
         if (response.updatetopcartsectionhtml) {
             $(AjaxCart.topcartselector).html(response.updatetopcartsectionhtml);
         }

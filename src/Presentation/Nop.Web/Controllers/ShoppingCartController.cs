@@ -51,7 +51,8 @@ namespace Nop.Web.Controllers
 		private readonly IProductModelFactory _productModelFactory;
 		private readonly ICurrencyService _currencyService;
         private readonly ICustomerActivityService _customerActivityService;
-        private readonly ICustomerService _customerService;
+		private readonly ICompareProductsService _compareProductsService;
+		private readonly ICustomerService _customerService;
         private readonly IDiscountService _discountService;
         private readonly IDownloadService _downloadService;
         private readonly IGenericAttributeService _genericAttributeService;
@@ -91,7 +92,8 @@ namespace Nop.Web.Controllers
             ICustomerActivityService customerActivityService,
             ICustomerService customerService,
             IDiscountService discountService,
-            IDownloadService downloadService,
+			ICompareProductsService compareProductsService,
+			IDownloadService downloadService,
             IGenericAttributeService genericAttributeService,
             IGiftCardService giftCardService,
             ILocalizationService localizationService,
@@ -119,7 +121,8 @@ namespace Nop.Web.Controllers
             this._captchaSettings = captchaSettings;
             this._customerSettings = customerSettings;
             this._checkoutAttributeParser = checkoutAttributeParser;
-            this._checkoutAttributeService = checkoutAttributeService;
+			this._compareProductsService = compareProductsService;
+			this._checkoutAttributeService = checkoutAttributeService;
             this._currencyService = currencyService;
             this._customerActivityService = customerActivityService;
 			this._productModelFactory = productModelFactory;
@@ -1796,6 +1799,23 @@ namespace Nop.Web.Controllers
 			var model = new WishlistModel();
 			model = _shoppingCartModelFactory.PrepareWishlistModel(model, cart, !customerGuid.HasValue);
 			return Json(new { success = true, wishlist = model.Items});
+		}
+
+		[HttpsRequirement(SslRequirement.Yes)]
+		public virtual IActionResult GetCompareIds(Guid? customerGuid)
+		{
+			var customer = customerGuid.HasValue ?
+				_customerService.GetCustomerByGuid(customerGuid.Value)
+				: _workContext.CurrentCustomer;
+			if (customer == null)
+				return RedirectToRoute("HomePage");
+			var productsToCompare = _compareProductsService.GetComparedProducts();
+			List<int> compareIds = new List<int>();
+			foreach (var product in productsToCompare)
+			{
+				compareIds.Add(product.Id);
+			}
+			return Json(new { success = true, compareItems = compareIds });
 		}
 
 		[HttpPost, ActionName("Wishlist")]

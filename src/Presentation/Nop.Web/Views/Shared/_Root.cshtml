@@ -272,6 +272,33 @@
 				$(document).ready(UpdateWishlist());
 			</script>
 			<script>
+				function UpdateCompareItems() {
+					$.ajax({
+						url: "/ShoppingCart/GetCompareIds",
+						type: "POST",
+						dataType: 'json',
+						traditional: true
+					}).done(function (responce) {
+						$(".compare_icon:not(.favorit)").each(function () {
+							$(this).removeClass("active");
+						});
+						responce.compareItems.forEach(function (elem) {
+							$("[data-ids='" + elem + "']").addClass("active");
+						});
+						if (responce.compareItems.length > 0) {
+							$("#compareItems").addClass('active');
+						}
+						else {
+							$("#compareItems").removeClass('active');
+						}
+						$(".compare_icon:not(.favorit)").each(function () {
+							$(this).removeClass("load");
+						});
+					});
+				};
+				$(document).ready(UpdateCompareItems());
+			</script>
+			<script>
 				function RemoveFromCart(id, cartType, refresh) {
 					$.ajax({
 						url: "/ShoppingCart/RemoveFromCart",
