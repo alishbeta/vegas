@@ -293,4 +293,14 @@
     .footer-wrap .phone-footer-wrap .phone {
         font-size: 17px;
     }
+
+    .cabinet .cabinet-info {
+        padding: 30px 15px;
+        .title span {
+            margin-left: 0px;
+        }
+        .line {
+            margin: 20px -30px;
+        }
+    }
 }
