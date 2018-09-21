@@ -134,16 +134,16 @@ $(document).ready(function () {
     }).on('mouseleave', function () {
         $(this).removeClass('half-open');
     }).on('click', function (event) {
-        if (!!!$(event.target).hasClass('close-i')){
+        if (!!!$(event.target).hasClass('close-i') && $(event.target).hasClass('side-second-menu-wrap')){
             var data = $(this);
             $('.side-menu-wrap ul li').each(function(){
                 if ($(this).hasClass('active')) {
                    var curentItem = $(this);
-                    data.addClass('open').find('.sub-menu').fadeOut(function(){
-                        $(this).html(curentItem.find('div.sub-menu').html()).fadeIn();
+                    data.addClass('open').find('.sub-menu').fadeOut('fast', function(){
+                        $(this).html(curentItem.find('div.sub-menu').html()).fadeIn('fast');
                     });
-                    data.find('.title').fadeOut(function(){
-                        $(this).html(curentItem.find('span').text()).fadeIn();
+                    data.find('.title').fadeOut('fast', function(){
+                        $(this).html(curentItem.find('span').text()).fadeIn('fast');
                     });  
                 }
             });
