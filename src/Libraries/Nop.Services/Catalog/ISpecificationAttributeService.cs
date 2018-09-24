@@ -11,6 +11,10 @@ namespace Nop.Services.Catalog
     {
         #region Specification attribute
 
+        ProductSpecificationAttribute GetProductSpecificationAttributeByProductIdProductSpecificationAttributeId(int productId, int productSpecificationAttributeId);
+        SpecificationAttributeOption GetSpecificationAttributeOptionByName(string name, int specificationAttributeId);
+        SpecificationAttribute GetSpecificationAttributeByName(string name);
+
         /// <summary>
         /// Gets a specification attribute
         /// </summary>

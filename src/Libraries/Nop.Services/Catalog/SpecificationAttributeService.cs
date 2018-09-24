@@ -45,6 +45,49 @@ namespace Nop.Services.Catalog
 
         #region Specification attribute
 
+        public virtual ProductSpecificationAttribute GetProductSpecificationAttributeByProductIdProductSpecificationAttributeId(int productId, int productSpecificationAttributeId)
+        {
+            if (productId == 0 && productSpecificationAttributeId == 0)
+                return null;
+
+            var query = from s in _productSpecificationAttributeRepository.Table
+                        orderby s.Id
+                        where s.ProductId == productId && s.SpecificationAttributeOptionId == productSpecificationAttributeId
+                        select s;
+
+            return query.FirstOrDefault();
+        }
+
+        public virtual SpecificationAttributeOption GetSpecificationAttributeOptionByName(string name, int specificationAttributeId)
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
+
+            name = name.Trim();
+
+            var query = from s in _specificationAttributeOptionRepository.Table
+                        orderby s.Id
+                        where s.Name.ToLower() == name.ToLower() && s.SpecificationAttributeId == specificationAttributeId
+                        select s;
+
+            return query.FirstOrDefault();
+        }
+
+        public virtual SpecificationAttribute GetSpecificationAttributeByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
+
+            name = name.Trim();
+
+            var query = from s in _specificationAttributeRepository.Table
+                        orderby s.Id
+                        where s.Name.ToLower() == name.ToLower()
+                        select s;
+
+            return query.FirstOrDefault();
+        }
+
         /// <summary>
         /// Gets a specification attribute
         /// </summary>

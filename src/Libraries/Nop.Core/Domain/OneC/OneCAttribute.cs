@@ -9,7 +9,6 @@ namespace Nop.Core.Domain.OneC
     public class OneCAttribute
     {
         public string Name { get; set; }
-        public int UiType { get; set; }
-        public List<OneCAttributeValue> AttributeValues { get; set; }
+        public string Value { get; set; }
     }
 }
