@@ -343,7 +343,7 @@ namespace Nop.Web.Controllers
                             if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
                                 return new { success = true, returnUrl = "/customer/info" };
 
-                            return new { success = true, returnUrl };
+                            return Redirect(returnUrl);
                         }
                     case CustomerLoginResults.CustomerNotExist:
                         ModelState.AddModelError("", _localizationService.GetResource("Account.Login.WrongCredentials.CustomerNotExist"));
