@@ -426,7 +426,195 @@
 			</form>
 		</div>
 	</div>*@
+@*////////////*@
+@*@using System.Text.Encodings.Web
+	@using Nop.Core
+	@model CustomerInfoModel
+	@inject Nop.Core.IWebHelper webHelper
+	@{
+		Layout = "_ColumnsOne";
 
+		//title
+		Html.AddTitleParts(T("PageTitle.Account").Text);
+		//page class
+		Html.AppendPageCssClassParts("html-account-page");
+		Html.AppendPageCssClassParts("html-customer-info-page");
+	}
+
+
+
+	@if (Model.CountryEnabled && Model.StateProvinceEnabled)
+	{
+		<script asp-location="Footer">
+			$(document).ready(function () {
+				$("#@Html.IdFor(model => model.CountryId)").on('change', function () {
+					var selectedItem = $(this).val();
+					var ddlStates = $("#@Html.IdFor(model => model.StateProvinceId)");
+					var statesProgress = $("#states-loading-progress");
+					statesProgress.show();
+					$.ajax({
+						cache: false,
+						type: "GET",
+						url: "@(Url.RouteUrl("GetStatesByCountryId"))",
+						data: { "countryId": selectedItem, "addSelectStateItem": "true" },
+						success: function (data) {
+							ddlStates.html('');
+							$.each(data, function (id, option) {
+								ddlStates.append($('<option></option>').val(option.id).html(option.name));
+							});
+							statesProgress.hide();
+						},
+						error: function (xhr, ajaxOptions, thrownError) {
+							alert('Failed to retrieve states.');
+							statesProgress.hide();
+						}
+					});
+				});
+			});
+		</script>
+	}
+	<nav class="breadcrumb-wrap" aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Bed4you</a></li>
+			<li class="breadcrumb-item"><a href="#">@T("account.cabinet")</a></li>
+			<li class="breadcrumb-item active">@T("account.info")</li>
+		</ol>
+	</nav>
+
+	<div class="row cabinet">
+		<div class="offset-xl-1 col-xl-8">
+			<div class="title-wrap clearfix">
+				<h1 class="title float-left">@T("account.cabinet")</h1>
+				<button class="btn btn-blue float-right" onclick="window.location.replace('/logout')">@T("account.exit")</button>
+			</div>
+			<nav class="blue-menu clearfix">
+				<ul>
+					<li><a class="active" href="/customer/info">Контактная информация</a></li>
+					<li><a href="/customer/wishlist">Избранное  <span id="wishlistCount"></span></a></li>
+					<li><a href="/order/history">История заказов</a></li>
+					<li><a href="/rewardpoints/history">Мои бонусы</a></li>
+				</ul>
+			</nav>
+			<div class="cabinet-info rounded">
+				<div class="row login-wrap">
+					<form class="col-sm-12" asp-route="CustomerInfo" method="post">
+						<div class="title"><span>1</span>Личные данные</div>
+						<button type="button" id="edit-name" class="btn btn-link">
+							@T("cart.changeinfo")
+						</button>
+						<button style="display: none;" type="button" id="edit-name-close" class="btn btn-link">
+							@T("cart.cancel")
+						</button>
+						<div class="form-group row">
+							<label style="display: none" class="col-form-label col-sm-3" for="FirstName">
+								@T("cart.name")
+							</label>
+							<input style="display: none" id="FirstName" type="text" name="FirstName" class="form-control col-sm-8">
+							<div class="col-sm-3">@T("cart.name")</div>
+							<div class="col-sm-8 text-light-c">@Model.FirstName</div>
+						</div>
+						<div class="form-group row">
+							<label style="display: none" class="col-form-label col-sm-3" for="Phone">
+								@T("cart.phone")
+							</label>
+							<input style="display: none" id="Phone" name="Phone" type="text" class="form-control col-sm-8">
+							<div class="col-sm-3">@T("cart.phone")</div>
+							<div class="col-sm-8 text-light-c">@Model.Phone</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-3">E-mail</div>
+							<div class="col-sm-8 text-light-c">@Model.Email</div>
+						</div>
+
+						<div class="line"></div>
+
+						<div class="title"><span>2</span>@T("cart.address")</div>
+						<button type="button" id="edit-addres" class="btn btn-link">@T("cart.changeaddress")</button>
+						<button type="button" id="edit-addres-close" style="display: none" class="btn btn-link">@T("cart.cancel")</button>
+						<div class="form-group row">
+							<label style="display: none" class="col-form-label col-sm-3" for="li1">
+								@T("cart.address")
+							</label>
+							<input style="display: none" id="ai1" type="text" class="form-control col-sm-8">
+							<div class="col-sm-3">@T("cart.city")</div>
+							<div class="col-sm-8 text-light-c">@Model.City</div>
+						</div>
+						<div class="form-group row">
+							@{
+								var attribute = Model.CustomerAttributes.FirstOrDefault(x => x.Id == 2);
+								var controlId = $"customer_attribute_{attribute.Id}";
+								var textPrompt = attribute.Name;
+								<label style="display: none" class="col-form-label col-sm-3" for="li2">@textPrompt</label>
+								<input style="display: none" id="ai2" type="text" class="form-control col-sm-8">
+								<div class="col-sm-3">@textPrompt</div>
+								<div class="col-sm-8 text-light-c">@attribute.DefaultValue</div>
+							}
+						</div>
+						<div class="form-group row">
+
+							@{
+								attribute = Model.CustomerAttributes.FirstOrDefault(x => x.Id == 3);
+								controlId = $"customer_attribute_{attribute.Id}";
+								textPrompt = attribute.Name;
+								<label style="display: none" class="col-form-label col-sm-3" for="li3">@textPrompt</label>
+								<input style="display: none" id="ai3" type="text" class="form-control col-sm-8">
+								<div class="col-sm-3">@textPrompt</div>
+								<div class="col-sm-8 text-light-c">@attribute.DefaultValue</div>
+							}
+						</div>
+
+						<div class="line"></div>
+
+						<div class="title"><span>3</span>@T("cart.pass")</div>
+						<button type="button" id="edit-pass" class="btn btn-link">@T("cart.changepass")</button>
+						<button type="button" id="edit-pass-close" style="display: none" class="btn btn-link">@T("cart.cancel")</button>
+						<div class="form-group row">
+							<label style="display: none" class="col-form-label col-sm-3" for="p">@T("cart.newpass")</label>
+							<input style="display: none" id="p" type="password" class="form-control col-sm-8">
+						</div>
+						<input type="submit" id="save-info-button" value="@T("Common.Save")" name="save-info-button" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script asp-location="Footer">
+		function removeexternalassociation(itemId) {
+			if (confirm('@T("Common.AreYouSure")')) {
+				var postData = {
+					id: itemId
+				};
+				addAntiForgeryToken(postData);
+				$.ajax({
+					cache: false,
+					type: 'POST',
+					url: '@Url.Action("RemoveExternalAssociation", "Customer")',
+					data: postData,
+					dataType: 'json',
+					success: function (data) {
+						location.href = data.redirect;
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						alert('Failed to delete');
+					}
+				});
+			}
+			return false;
+		}
+	</script>
+	<script>
+		$(document).ready(function () {
+			$.ajax({
+				url: "/Common/GetWishlistCount",
+				type: "POST",
+				dataType: 'text',
+				traditional: true
+			}).done(function (responce) {
+				$("#wishlistCount").text("(" + responce + ")");
+			});
+		});
+	</script>*@
 @using System.Text.Encodings.Web
 @using Nop.Core
 @model CustomerInfoModel
@@ -440,8 +628,6 @@
 	Html.AppendPageCssClassParts("html-account-page");
 	Html.AppendPageCssClassParts("html-customer-info-page");
 }
-
-
 
 @if (Model.CountryEnabled && Model.StateProvinceEnabled)
 {
@@ -473,112 +659,136 @@
         });
 	</script>
 }
-<nav class="breadcrumb-wrap" aria-label="breadcrumb">
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="#">Bed4you</a></li>
-		<li class="breadcrumb-item"><a href="#">@T("account.cabinet")</a></li>
-		<li class="breadcrumb-item active">@T("account.info")</li>
-	</ol>
-</nav>
+	<nav class="breadcrumb-wrap" aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#">Bed4you</a></li>
+			<li class="breadcrumb-item"><a href="#">@T("account.cabinet")</a></li>
+			<li class="breadcrumb-item active">@T("account.info")</li>
+		</ol>
+	</nav>
+	<div class="row cabinet">
+		<div class="offset-xl-1 col-xl-8">
+			<div class="title-wrap clearfix">
+				<h1 class="title float-left">@T("account.cabinet")</h1>
+				<button class="btn btn-blue float-right" onclick="window.location.replace('/logout')">@T("account.exit")</button>
+			</div>
+			<nav class="blue-menu clearfix">
+				<ul>
+					<li><a class="active" href="/customer/info">Контактная информация</a></li>
+					<li><a href="/customer/wishlist">Избранное  <span id="wishlistCount"></span></a></li>
+					<li><a href="/order/history">История заказов</a></li>
+					<li><a href="/rewardpoints/history">Мои бонусы</a></li>
+				</ul>
+			</nav>
+			<div class="cabinet-info rounded">
+				<div class="row login-wrap">
+					<form asp-route="CustomerInfo" class="col-sm-12" method="post">
+						<div asp-validation-summary="ModelOnly" class="message-error"></div>
+						<div id="firstZone">
+							<div class="title"><span>1</span>Личные данные</div>
+							<button type="button" id="edit-name" class="btn btn-link"> @*onclick="$('#firstZone').addClass('')">*@
+								@T("cart.changeinfo")
+							</button>
+							<button style="display: none;" type="button" id="edit-name-close" class="btn btn-link">
+								@T("cart.cancel")
+							</button>
+							<div class="form-group row">
+								<label asp-for="FirstName" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.name")</label>
+								<input asp-for="FirstName" style="display: none" class="form-control col-sm-8" />
+								<nop-required />
+								<span asp-validation-for="FirstName"></span>
+								<div class="col-sm-3">@T("cart.name")</div>
+								<div class="col-sm-8 text-light-c">@Model.FirstName</div>
+							</div>
+							@if (Model.PhoneEnabled)
+							{
+								@if (Model.PhoneEnabled)
+								{
+									<div class="form-group row">
+										<label asp-for="Phone" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.phone")</label>
+										<input asp-for="Phone" style="display: none" class="form-control col-sm-8" />
+										@if (Model.PhoneRequired)
+										{
+											<nop-required />
+										}
+										<span asp-validation-for="Phone"></span>
+										<div class="col-sm-3">@T("cart.phone")</div>
+										<div class="col-sm-8 text-light-c">@Model.Phone</div>
+									</div>
+								}
 
-<div class="row cabinet">
-	<div class="offset-xl-1 col-xl-8">
-		<div class="title-wrap clearfix">
-			<h1 class="title float-left">@T("account.cabinet")</h1>
-			<button class="btn btn-blue float-right" onclick="window.location.replace('/logout')">@T("account.exit")</button>
-		</div>
-		<nav class="blue-menu clearfix">
-			<ul>
-				<li><a class="active" href="/customer/info">Контактная информация</a></li>
-				<li><a href="/customer/wishlist">Избранное  <span id="wishlistCount"></span></a></li>
-				<li><a href="/order/history">История заказов</a></li>
-				<li><a href="/rewardpoints/history">Мои бонусы</a></li>
-			</ul>
-		</nav>
-		<div class="cabinet-info rounded">
-			<div class="row login-wrap">
-				<form class="col-sm-12" action="">
-					<div class="title"><span>1</span>Личные данные</div>
-					<button type="button" id="edit-name" class="btn btn-link">
-						@T("cart.changeinfo")
-					</button>
-					<button style="display: none;" type="button" id="edit-name-close" class="btn btn-link">
-						@T("cart.cancel")
-					</button>
-					<div class="form-group row">
-						<label style="display: none" class="col-form-label col-sm-3" for="li1">
-							@T("cart.name")
-						</label>
-						<input style="display: none" id="li1" type="text" class="form-control col-sm-8">
-						<div class="col-sm-3">@T("cart.name")</div>
-						<div class="col-sm-8 text-light-c">@Model.FirstName</div>
-					</div>
-					<div class="form-group row">
-						<label style="display: none" class="col-form-label col-sm-3" for="li2">
-							@T("cart.phone")
-						</label>
-						<input style="display: none" id="li2" type="text" class="form-control col-sm-8">
-						<div class="col-sm-3">@T("cart.phone")</div>
-						<div class="col-sm-8 text-light-c">@Model.Phone</div>
-					</div>
-					<div class="form-group row">
-						<label class="d-none col-form-label col-sm-3" for="li1">E-mail</label>
-						<input id="li3" type="text" class="d-none form-control col-sm-8">
-						<div class="col-sm-3">E-mail</div>
-						<div class="col-sm-8 text-light-c">@Model.Email</div>
-					</div>
-
-					<div class="line"></div>
-
-					<div class="title"><span>2</span>@T("cart.address")</div>
-					<button type="button" id="edit-addres" class="btn btn-link">@T("cart.changeaddress")</button>
-					<button type="button" id="edit-addres-close" style="display: none" class="btn btn-link">@T("cart.cancel")</button>
-					<div class="form-group row">
-						<label style="display: none" class="col-form-label col-sm-3" for="li1">
-							@T("cart.address")
-						</label>
-						<input style="display: none" id="ai1" type="text" class="form-control col-sm-8">
-						<div class="col-sm-3">@T("cart.city")</div>
-						<div class="col-sm-8 text-light-c">@Model.City</div>
-					</div>
-					<div class="form-group row">
-						@{
-							var attribute = Model.CustomerAttributes.FirstOrDefault(x => x.Id == 2);
-							var controlId = $"customer_attribute_{attribute.Id}";
-							var textPrompt = attribute.Name;
-							<label style="display: none" class="col-form-label col-sm-3" for="li2">@textPrompt</label>
-							<input style="display: none" id="ai2" type="text" class="form-control col-sm-8">
-							<div class="col-sm-3">@textPrompt</div>
-							<div class="col-sm-8 text-light-c">@attribute.DefaultValue</div>
-						}
-					</div>
-					<div class="form-group row">
-						
-						@{
-							attribute = Model.CustomerAttributes.FirstOrDefault(x => x.Id == 3);
-							controlId = $"customer_attribute_{attribute.Id}";
-							textPrompt = attribute.Name;
-							<label style="display: none" class="col-form-label col-sm-3" for="li3">@textPrompt</label>
-							<input style="display: none" id="ai3" type="text" class="form-control col-sm-8">
-							<div class="col-sm-3">@textPrompt</div>
-							<div class="col-sm-8 text-light-c">@attribute.DefaultValue</div>
-						}
+							}
+							<div class="form-group row">
+								<label asp-for="Email" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">E-mail</label>
+								<input asp-for="Email" style="display: none" class="form-control col-sm-8" />
+								<nop-required />
+								<span asp-validation-for="Email"></span>
+								<div class="col-sm-3">E-mail</div>
+								<div class="col-sm-8 text-light-c">@Model.Email</div>
+							</div>
+							<div class="line"></div>
 						</div>
-
-					<div class="line"></div>
-
-					<div class="title"><span>3</span>@T("cart.pass")</div>
-					<button type="button" id="edit-pass" class="btn btn-link">@T("cart.changepass")</button>
-					<button type="button" id="edit-pass-close" style="display: none" class="btn btn-link">@T("cart.cancel")</button>
-					<div class="form-group row">
-						<label style="display: none" class="col-form-label col-sm-3" for="p">@T("cart.newpass")</label>
-						<input style="display: none" id="p" type="password" class="form-control col-sm-8">
-					</div>
-				</form>
+						@if (Model.StreetAddressEnabled ||
+Model.StreetAddress2Enabled ||
+Model.ZipPostalCodeEnabled ||
+Model.CityEnabled ||
+Model.CountyEnabled ||
+Model.CountryEnabled)
+						{
+							<div class="title"><span>2</span>Адрес</div>
+							<button type="button" id="edit-addres" class="btn btn-link">Изменить адрес</button>
+							<button type="button" id="edit-addres-close" style="display: none" class="btn btn-link">Отмена</button>
+							@if (Model.CityEnabled)
+							{
+								<div class="form-group row">
+									<label asp-for="City" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.city")</label>
+									<input asp-for="City" style="display: none" class="form-control col-sm-8" />
+									@if (Model.CityRequired)
+									{
+										<nop-required />
+									}
+									<span asp-validation-for="City"></span>
+									<div class="col-sm-3">@T("cart.city")</div>
+									<div class="col-sm-8 text-light-c">@Model.City</div>
+								</div>
+							}
+							@if (Model.StreetAddressEnabled)
+							{
+								<div class="form-group row">
+									<label asp-for="StreetAddress" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.address")</label>
+									<input asp-for="StreetAddress" style="display: none" class="form-control col-sm-8" />
+									@if (Model.StreetAddressRequired)
+									{
+										<nop-required />
+									}
+									<span asp-validation-for="StreetAddress"></span>
+									<div class="col-sm-3">@T("cart.address")</div>
+									<div class="col-sm-8 text-light-c">@Model.StreetAddress</div>
+								</div>
+							}
+							@if (Model.StreetAddress2Enabled)
+							{
+								<div class="form-group row">
+									<label asp-for="StreetAddress2" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.flat")</label>
+									<input asp-for="StreetAddress2" style="display: none" class="form-control col-sm-8" />
+									@if (Model.StreetAddress2Required)
+									{
+										<nop-required />
+									}
+									<span asp-validation-for="StreetAddress2"></span>
+									<div class="col-sm-3">@T("cart.flat")</div>
+									<div class="col-sm-8 text-light-c">@Model.StreetAddress2</div>
+								</div>
+							}
+						}
+						<div class="buttons">
+							<input type="submit" id="save-info-button" value="@T("Common.Save")" name="save-info-button" class="button-1 save-customer-info-button" />
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 <script asp-location="Footer">
     function removeexternalassociation(itemId) {

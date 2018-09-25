@@ -963,7 +963,27 @@ namespace Nop.Web.Controllers
             model = _customerModelFactory.PrepareCustomerInfoModel(model, _workContext.CurrentCustomer, false);
 
             return View(model);
-        }
+        } 
+
+		//[HttpsRequirement(SslRequirement.Yes)]
+  //      public virtual IActionResult InfoChange(CustomerEditModel customerModel)
+  //      {
+  //          if (!_workContext.CurrentCustomer.IsRegistered())
+  //              return Challenge();
+
+		//	var customer = _workContext.CurrentCustomer;
+		//	_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.PhoneAttribute, customerModel.Phone);
+		//	_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, customerModel.Address);
+		//	_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, customerModel.Name);
+		//	//var customerAttributesXml = ParseCustomCustomerAttributes(model.Form);
+		//	//var customerAttributeWarnings = _customerAttributeParser.GetAttributeWarnings(customerAttributesXml);
+		//	//foreach (var error in customerAttributeWarnings)
+		//	//{
+		//	//	ModelState.AddModelError("", error);
+		//	//}
+		//	//_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CustomCustomerAttributes, customerAttributesXml);
+		//	return View();
+  //      }
 
         [HttpPost]
         [PublicAntiForgery]
