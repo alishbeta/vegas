@@ -240,7 +240,8 @@ namespace Nop.Web.Controllers
         [CheckAccessPublicStore(true)]
         public virtual JsonResult Test()
         {
-            return Json(new OneCProductsImport() { Products = new System.Collections.Generic.List<OneCProduct>() { new OneCProduct() { Attributes = new System.Collections.Generic.List<OneCAttribute>() { new OneCAttribute() { } } } } });
+            //return Json(new OneCProductsImport() { Products = new System.Collections.Generic.List<OneCProduct>() { new OneCProduct() { Attributes = new System.Collections.Generic.List<OneCAttribute>() { new OneCAttribute() { } } } } });
+            return Json(_exportManager.ExportUsersToOneC());
         }
     }
 }

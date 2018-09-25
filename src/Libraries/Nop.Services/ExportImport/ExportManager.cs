@@ -676,7 +676,7 @@ namespace Nop.Services.ExportImport
                     Price = o.OrderTotal,
                     OrderNumber = o.Id,
                     Discount = o.OrderDiscount,
-                    BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o.PaymentMethodSystemName).PaymentMethodDescription,
+                    BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o?.PaymentMethodSystemName)?.PaymentMethodDescription,
                     DeliveryMethod = o.ShippingMethod,
                     CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
                     DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
@@ -714,7 +714,7 @@ namespace Nop.Services.ExportImport
 
         public virtual IEnumerable<OneCUser> ExportUsersToOneC()
         {
-            var customers = _customerService.GetAllCustomers();
+            var customers = _customerService.GetNotSyncCustomers();
             foreach (var customer in customers)
             {
                 customer.IsSync = true;
