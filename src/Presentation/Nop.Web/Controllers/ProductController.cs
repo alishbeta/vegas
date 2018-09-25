@@ -270,40 +270,49 @@ namespace Nop.Web.Controllers
 			decimal from = decimal.Zero, 
 					to = decimal.Zero;
 			var filterRanges = _webHelper.QueryString<string>("price");
-			if (filterRanges.Contains("-"))
+			if (filterRanges != null)
 			{
-				if (filterRanges.Split("-")?[0] != "")
+				if (filterRanges.Contains("-"))
 				{
-					from = decimal.Parse(filterRanges.Split("-")[0]);
+					if (filterRanges.Split("-")?[0] != "")
+					{
+						from = decimal.Parse(filterRanges.Split("-")[0]);
+					}
+					if (filterRanges.Split("-")?[1] != "")
+					{
+						to = decimal.Parse(filterRanges.Split("-")?[1]);
+					}
 				}
-				if (filterRanges.Split("-")?[1] != "")
+				if (from != decimal.Zero)
 				{
-					to = decimal.Parse(filterRanges.Split("-")?[1]);
+					products = products.Where(x => x.Price >= from).ToList();
 				}
-			}
-			if (from != decimal.Zero)
-			{
-				products = products.Where(x => x.Price >= from).ToList();
-			}
-			if (to != decimal.Zero)
-			{
-				products = products.Where(x => x.Price <= to).ToList();
-			}
+				if (to != decimal.Zero)
+				{
+					products = products.Where(x => x.Price <= to).ToList();
+				}
 
+			}
 			if (!products.Any())
 				return Content("");
 
 			var filteredProds = new List<Product>();
-			var filterSpecs = _webHelper.QueryString<string>("specs").Split(",").ToList();
-			foreach (var prod in products)
+			var filters = _webHelper.QueryString<string>("specs");
+			if (filters != null)
 			{
-				if (prod.ProductSpecificationAttributes.Count(x => filterSpecs.Contains(x.SpecificationAttributeOptionId.ToString())) > 0)
+				var filterSpecs = filters.Split(",").ToList();
+				if (filterSpecs != null)
 				{
-					filteredProds.Add(prod);
+					foreach (var prod in products)
+					{
+						if (prod.ProductSpecificationAttributes.Count(x => filterSpecs.Contains(x.SpecificationAttributeOptionId.ToString())) > 0)
+						{
+							filteredProds.Add(prod);
+						}
+					}
+					products = filteredProds;
 				}
 			}
-			products = filteredProds;
-
 			var filterSpec = _webHelper.QueryString<string>("spec");
 
 			//prepare model

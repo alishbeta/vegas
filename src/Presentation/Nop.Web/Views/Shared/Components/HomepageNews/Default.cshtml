@@ -37,7 +37,14 @@
 										@item.Title
 									</div>
 									<div class="short-text">
-										@Html.Raw(item.Short)
+										@if (item.Short.Length > 100)
+										{
+											@Html.Raw(item.Short + "...")
+										}
+										else
+										{
+											@Html.Raw(item.Short);
+										}
 									</div>
 								</div>
 							</a>
