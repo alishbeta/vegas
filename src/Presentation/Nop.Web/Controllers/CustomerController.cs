@@ -562,11 +562,21 @@ namespace Nop.Web.Controllers
             return View(model);
         }
 
-        #endregion     
+		#endregion
+		[HttpPost]
+		[CheckAccessPublicStore(true)]
+		public virtual dynamic ChangeCustomerPassword(string password)
+		{
+			var email = _workContext.CurrentCustomer.Email;
+			var response = _customerRegistrationService.ChangePassword(new ChangePasswordRequest(email,
+					false, _customerSettings.DefaultPasswordFormat, password));
+			
+			return Newtonsoft.Json.JsonConvert.SerializeObject(response);
+		}
 
-        #region Register
+		#region Register
 
-        [HttpsRequirement(SslRequirement.Yes)]
+		[HttpsRequirement(SslRequirement.Yes)]
         //available even when navigation is not allowed
         [CheckAccessPublicStore(true)]
         public virtual IActionResult Register()

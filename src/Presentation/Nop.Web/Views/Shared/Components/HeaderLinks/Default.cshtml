@@ -6,7 +6,7 @@
 <a href="@(Model.CompareProductItems > 0 ? "/compareproducts" : "#")"><i class="favorit compare_icon @(Model.CompareProductItems > 0 ? "active" : "")" id="compareItems"></i></a>
 @if (Model.IsAuthenticated)
 {
-<a href="/customer/info"><i class="favorit user_icon"></i></a>
+<a href="/customer/info"><i class="favorit active user_icon"></i></a>
 }
 else
 {
