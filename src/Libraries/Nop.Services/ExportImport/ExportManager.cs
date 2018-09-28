@@ -660,9 +660,11 @@ namespace Nop.Services.ExportImport
 
         #region Methods
 
-        public virtual IEnumerable<OneCOrder> ExportOrdersToOneC()
+        public virtual Tuple<int, IEnumerable<OneCOrder>> ExportOrdersToOneC()
         {
-            var orders = _orderService.GetNotSyncOrders();
+            var totalOrders = _orderService.GetNotSyncOrders();
+            int total = totalOrders.Count;
+            var orders = totalOrders.Take(100);
 
             foreach (var order in orders)
             {
@@ -670,7 +672,7 @@ namespace Nop.Services.ExportImport
                 _orderService.UpdateOrder(order);
             }
 
-            return orders
+            return Tuple.Create(total, orders
                 .Select(o => new OneCOrder()
                 {
                     Price = o.OrderTotal,
@@ -681,12 +683,14 @@ namespace Nop.Services.ExportImport
                     CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
                     DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
                     Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProductId = oi.ProductId, ProduxtSku = oi.Product.Sku })
-                });
+                }));
         }
 
-        public virtual IEnumerable<OneCDiscount> ExportDiscountsToOneC()
+        public virtual Tuple<int, IEnumerable<OneCDiscount>> ExportDiscountsToOneC()
         {
-            var discounts = _discountService.GetNotSyncDiscounts();
+            var totalDiscounts = _discountService.GetNotSyncDiscounts();
+            int total = totalDiscounts.Count;
+            var discounts = totalDiscounts.Take(100);
 
             foreach (var discount in discounts)
             {
@@ -694,7 +698,7 @@ namespace Nop.Services.ExportImport
                 _discountService.UpdateDiscount(discount);
             }
 
-            return discounts
+            return Tuple.Create(total, discounts
                 .Select(d => new OneCDiscount()
                 {
                     Name = d.Name,
@@ -709,26 +713,29 @@ namespace Nop.Services.ExportImport
                     EndDateUtc = d.EndDateUtc,
                     IsCumulative = d.IsCumulative,
                     DiscountLimitation = d.DiscountLimitation.ToString()
-                });
+                }));
         }
 
-        public virtual IEnumerable<OneCUser> ExportUsersToOneC()
+        public virtual Tuple<int, IEnumerable<OneCUser>> ExportUsersToOneC()
         {
-            var customers = _customerService.GetNotSyncCustomers();
+            var totalCustomers = _customerService.GetNotSyncCustomers();
+            int total = totalCustomers.Count;
+            var customers = totalCustomers.Take(100);
+
             foreach (var customer in customers)
             {
                 customer.IsSync = true;
                 _customerService.UpdateCustomer(customer);
             }
 
-            return customers
+            return Tuple.Create(total, customers
                 .Select(d => new OneCUser()
                 {
                     Id = d.Id,
                     Username = d.Username,
                     Email = d.Email,
                     Addresses = d.Addresses
-                });
+                }));
         }
 
         /// <summary>

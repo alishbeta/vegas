@@ -1346,7 +1346,7 @@ namespace Nop.Services.ExportImport
                             {
                                 attribute = new SpecificationAttribute()
                                 {
-                                    Name = attribute.Name,
+                                    Name = itemAttribute.Name,
                                     DisplayOrder = 0
                                 };
                                 _specificationAttributeService.InsertSpecificationAttribute(attribute);
@@ -1379,6 +1379,7 @@ namespace Nop.Services.ExportImport
                                     AllowFiltering = true,
                                     CustomValue = null
                                 };
+                                _specificationAttributeService.InsertProductSpecificationAttribute(productOption);
                             }
                         }
                     }

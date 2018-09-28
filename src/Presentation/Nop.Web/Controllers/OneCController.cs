@@ -147,9 +147,10 @@ namespace Nop.Web.Controllers
 
                 var orders = _exportManager.ExportOrdersToOneC();
 
-                if (orders.Count() > 0)
+                response.Total = orders.Item1;
+                if (orders.Item2.Count() > 0)
                 {
-                    response.Data = orders;
+                    response.Data = orders.Item2;
                 }
                 else
                 {
@@ -181,10 +182,11 @@ namespace Nop.Web.Controllers
                 _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportDiscounts.Login", "1C Exporting discount begin.");
 
                 var discounts = _exportManager.ExportDiscountsToOneC();
+                response.Total = discounts.Item1;
 
-                if (discounts.Count() > 0)
+                if (discounts.Item2.Count() > 0)
                 {
-                    response.Data = discounts;
+                    response.Data = discounts.Item2;
                 }
                 else
                 {
@@ -216,10 +218,11 @@ namespace Nop.Web.Controllers
                 _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportCustomers.Login", "1C Exporting customers begin.");
 
                 var customers = _exportManager.ExportUsersToOneC();
+                response.Total = customers.Item1;
 
-                if (customers.Count() > 0)
+                if (customers.Item2.Count() > 0)
                 {
-                    response.Data = customers;
+                    response.Data = customers.Item2;
                 }
                 else
                 {
@@ -240,8 +243,8 @@ namespace Nop.Web.Controllers
         [CheckAccessPublicStore(true)]
         public virtual JsonResult Test()
         {
-            //return Json(new OneCProductsImport() { Products = new System.Collections.Generic.List<OneCProduct>() { new OneCProduct() { Attributes = new System.Collections.Generic.List<OneCAttribute>() { new OneCAttribute() { } } } } });
-            return Json(_exportManager.ExportUsersToOneC());
+            return Json(new OneCProductsImport() { Products = new System.Collections.Generic.List<OneCProduct>() { new OneCProduct() { Attributes = new System.Collections.Generic.List<OneCAttribute>() { new OneCAttribute() { } } } } });
+            //return Json(_exportManager.ExportUsersToOneC());
         }
     }
 }
