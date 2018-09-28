@@ -1,15 +1,16 @@
 ﻿@{
 	Layout = "_ColumnsOne";
 }
-
+@using Nop.Core.Domain.Common;
+@model StoreInfoModel
 <nav class="breadcrumb-wrap" aria-label="breadcrumb">
 </nav>
 <div class="row show-room">
 	<div class="offset-xl-2 col-xl-8">
 		<h1 class="title text-center">Матрасы Vegas</h1>
 		<div class="addres text-center">
-			<p>ул. Николая Ушакова, 1Б, офис 134</p>
-			<p>тел. <span>(044) 599 22 89</span></p>
+			<p>@Model.Address.Address1</p>
+			<p>тел. <span>@Model.Address.PhoneNumber</span></p>
 			<p>пн-вс 10:00-20:00</p>
 		</div>
 		<div class="show-room-wrap">
@@ -29,11 +30,11 @@
 			</div>
 			<div class="bl-1 rounded clearfix">
 				<div class="i-bl-w1">
-					<div class="title"><h4>Как нас найти</h4></div>
-					<p>ул. Николая Ушакова, 1Б, офис 134</p>
-					<p>тел. <span>(044) 599 22 89</span></p>
+					<div class="title"><h4>@T("store.contact")</h4></div>
+					<p>@Model.Address.Address1</p>
+					<p>тел. <span>@Model.Address.PhoneNumber</span></p>
 					<p>пн-вс 10:00-20:00</p>
-					<button class="btn btn-blue pl-5 pr-5" data-toggle="modal" data-target="#writUs" onclick="window.location.replace('/contactus')">Напишите нам</button>
+					<button class="btn btn-blue pl-5 pr-5" data-toggle="modal" data-target="#writUs" onclick="window.location.replace('/contactus')">@T("store.contactus")</button>
 				</div>
 				<div class="i-bl-w2">
 					<div id="map"></div>
@@ -55,43 +56,27 @@
 	<div class="offset-xl-2 col-xl-8">
 		<div class="new-wrap">
 			<div class="salon-slider-wrap clearfix">
-				<div class="img">
-					<img src="https://via.placeholder.com/540x320" alt="">
-					<div class="text-wrap">
-						<div><b>"Матрасы Vegas"</b></div>
-						<div>ул. Николая Ушаков, 1Б, офис 134</div>
-						<div>пн-вс 10:00-20:00</div>
+				@foreach (var address in Model.OtherStores)
+				{
+				<a href="/storeinfo?addressId=@address.Id">
+					<div class="img">
+						<img src="https://via.placeholder.com/540x320" alt="">
+						<div class="text-wrap">
+							<div><b>"Матрасы Vegas"</b></div>
+							<div>@address.Address1</div>
+							<div>пн-вс 10:00-20:00</div>
+						</div>
 					</div>
-				</div>
-				<div class="img">
-					<img src="https://via.placeholder.com/540x320" alt="">
-					<div class="text-wrap">
-						<div><b>"Матрасы Vegas"</b></div>
-						<div>ул. Николая Ушаков, 1Б, офис 134</div>
-						<div>пн-вс 10:00-20:00</div>
-					</div>
-				</div>
-				<div class="img">
-					<img src="https://via.placeholder.com/540x320" alt="">
-					<div class="text-wrap">
-						<div><b>"Матрасы Vegas"</b></div>
-						<div>ул. Николая Ушаков, 1Б, офис 134</div>
-						<div>пн-вс 10:00-20:00</div>
-					</div>
-				</div>
-				<div class="img">
-					<img src="https://via.placeholder.com/540x320" alt="">
-					<div class="text-wrap">
-						<div><b>"Матрасы Vegas"</b></div>
-						<div>ул. Николая Ушаков, 1Б, офис 134</div>
-						<div>пн-вс 10:00-20:00</div>
-					</div>
-				</div>
+				</a>
+				}
 			</div>
 		</div>
 	</div>
 
 </div>
+<script asp-location="Head">
+	var adress = "@Model.Address.Address1";
+</script>
 <script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript">
 	$('.slider').slick({

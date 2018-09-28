@@ -1,23 +1,15 @@
 ﻿@{
 	Layout = "_ColumnsOne";
 }
-
+@using Nop.Web.Areas.Admin.Models.Shipping;
+@model WarehouseInfoModel
 <nav class="breadcrumb-wrap" aria-label="breadcrumb">
 </nav>
 
 <div class="row map">
 	<div class="offset-xl-2 col-xl-8">
 		<h1 class="title">Наши салоны</h1>
-		<nav class="blue-menu">
-			<ul class="clearfix">
-				<li><a class="active" href="#">Карта салонов</a></li>
-				<li><a href="/CityMap">Киев</a></li>
-				<li><a href="/CityMap">Харьков</a></li>
-				<li><a href="/CityMap">Львов</a></li>
-				<li><a href="/CityMap">Днепр</a></li>
-				<li><a href="/CityMap">Одесса</a></li>
-			</ul>
-		</nav>
+		@await Component.InvokeAsync("OurStoresMenu")
 		<div class="map-wrap">
 			<div id="map"></div>
 		</div>
