@@ -363,7 +363,13 @@ namespace Nop.Services.Orders
             public decimal OrderTotal { get; set; }
         }
 
-        #endregion
+		#endregion
+
+		public virtual void SaveComment(Order order, string comment)
+		{
+			comment = string.Format("Комментарий к заказу: {0}", comment);
+			AddOrderNote(order, comment);
+		}
 
         #region Utilities
 
@@ -1539,8 +1545,8 @@ namespace Nop.Services.Orders
                     var order = SaveOrderDetails(processPaymentRequest, processPaymentResult, details);
                     result.PlacedOrder = order;
 
-                    //move shopping cart items to order items
-                    MoveShoppingCartItemsToOrderItems(details, order);
+					//move shopping cart items to order items
+					MoveShoppingCartItemsToOrderItems(details, order);
 
                     //discount usage history
                     SaveDiscountUsageHistory(details, order);

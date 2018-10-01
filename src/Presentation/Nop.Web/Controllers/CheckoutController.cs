@@ -986,7 +986,6 @@ namespace Nop.Web.Controllers
 			_workContext.CurrentCustomer.ShippingAddress = address;
 			_customerService.UpdateCustomer(_workContext.CurrentCustomer);
 
-
 			//model
 			var model = _checkoutModelFactory.PrepareConfirmOrderModel(cart);
             try
@@ -1009,9 +1008,10 @@ namespace Nop.Web.Controllers
                     {
                         Order = placeOrderResult.PlacedOrder
                     };
-                    //_paymentService.PostProcessPayment(postProcessPaymentRequest);
+					_orderProcessingService.SaveComment(placeOrderResult.PlacedOrder, orderModel.Comment);
+					//_paymentService.PostProcessPayment(postProcessPaymentRequest);
 
-                    if (_webHelper.IsRequestBeingRedirected || _webHelper.IsPostBeingDone)
+					if (_webHelper.IsRequestBeingRedirected || _webHelper.IsPostBeingDone)
                     {
                         //redirection or POST has been done in PostProcessPayment
                         return Content("Redirected");

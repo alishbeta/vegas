@@ -11,6 +11,7 @@ namespace Nop.Services.Orders
     /// </summary>
     public partial interface IOrderProcessingService
     {
+		void SaveComment(Order order, string comment);
         /// <summary>
         /// Checks order status
         /// </summary>

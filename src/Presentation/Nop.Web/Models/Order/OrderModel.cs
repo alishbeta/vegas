@@ -10,6 +10,7 @@ namespace Nop.Web.Models.Order
 	{
 		public string Name { get; set; }
 		public string Phone { get; set; }
+		public string Comment { get; set; }
 		public string Email { get; set; }
 		public string DeliveryType { get; set; }
 		public string StreetAddress1 { get; set; }
