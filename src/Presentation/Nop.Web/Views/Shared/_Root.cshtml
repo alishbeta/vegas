@@ -143,7 +143,7 @@
 						}
 						e.preventDefault();
 						if ($("#pass").val().length != 0 && $("#mail").val().length != 0) {
-							$.post('/customer/login', $('#testform').serialize()).done(function (responce) {
+							$.post('/customer/login?returnUrl=/customer/info', $('#testform').serialize()).done(function (responce) {
 								console.log(responce);
 								if (!responce.success) {
 									$("#mail").addClass("is-invalid");

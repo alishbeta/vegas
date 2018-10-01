@@ -340,11 +340,11 @@ namespace Nop.Web.Controllers
                             _customerActivityService.InsertActivity(customer, "PublicStore.Login",
                                 _localizationService.GetResource("ActivityLog.PublicStore.Login"), customer);
 
-                            if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
-                                return new { success = true, returnUrl = "/customer/info" };
+							if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
+								return new { success = true, returnUrl = "/customer/info" };
 
-                            return Redirect(returnUrl);
-                        }
+                            return new { success = true, returnUrl };
+						}
                     case CustomerLoginResults.CustomerNotExist:
                         ModelState.AddModelError("", _localizationService.GetResource("Account.Login.WrongCredentials.CustomerNotExist"));
                         break;

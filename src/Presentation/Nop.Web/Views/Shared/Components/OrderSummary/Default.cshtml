@@ -359,7 +359,7 @@
 	</nav>
 	<section id="tab1" class="item @(!string.IsNullOrEmpty(ViewBag.IsAuthenticated) ? "" : "active")" data-title="@T("Cart.NewClient")">
 		<div class="item-content">
-			<form asp-route="CheckoutConfirm" method="post" id="confirm-order-form">
+			<form asp-route="CheckoutConfirm" method="post">
 				<div class="title"><span>1</span>@T("Cart.FillInfo")</div>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3" for="i1">@T("Cart.Name")</label>
@@ -402,11 +402,11 @@
 					<input type="text" name="City" class="form-control col-sm-8">
 				</div>
 				<div class="form-group row">
-					<label class="col-form-label col-sm-3">@T("Cart.Street")</label>
+					<label class="col-form-label col-sm-3">@T("admin.orders.address.address1")</label>
 					<input type="text" name="StreetAddress1" class="form-control col-sm-8">
 				</div>
 				<div class="form-group row">
-					<label class="col-form-label col-sm-3">@T("Cart.Flat")</label>
+					<label class="col-form-label col-sm-3">@T("admin.orders.address.address2")</label>
 					<input type="text" name="StreetAddress2" class="form-control col-sm-2">
 				</div>
 
@@ -448,43 +448,75 @@
 						@T("Cart.Confirm")
 					</button>
 				</div>
-
 			</form>
 		</div>
 	</section>
 	<section id="tab2" class="item @(string.IsNullOrEmpty(ViewBag.IsAuthenticated) ? "" : "active")" data-title="@T("cart.oldclient")">
 		<div class="item-content">
-			<div class="d-none row sign-up-wrap">
+			@if (string.IsNullOrEmpty(ViewBag.IsAuthenticated))
+			{
+			<div class="row sign-up-wrap">
 				<div class="col-xl-10">
 					<div class="text">
 						@T("cart.text.part1") <b>
 							"@T("cart.NewClient")"
 						</b>@T("cart.text.part2")
 					</div>
-					<form class="mt-4" action="">
+
+					<form asp-route="Login" asp-route-returnurl="/checkout/confirm" id="loginform" class="mt-4" method="post">
+						<div asp-validation-summary="ModelOnly" class="message-error">@T("Account.Login.Unsuccessful")</div>
 						<div class="form-group row">
-							<label class="col-sm-3">E-mail</label>
-							<input class="col-sm-6 form-control" type="text">
+							<label class="col-sm-3" for="Email" asp-postfix=":"><b>@T("login.email")</b></label>
+							<input class="col-sm-8 form-control" id="loginEmail" type="text" name="Email" autofocus="autofocus" />
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3">@T("cart.pass")</label>
-							<input class="col-sm-6 form-control" type="password">
-						</div>
-						<div class="row">
-							<div class="offset-sm-3 col-sm-6 text-center">
-								<button class="btn btn-blue btn-block" type="submit">
-									@T("cart.login")
-								</button>
-								<button class="btn btn-link">@T("cart.forgotpass")</button>
+							<label class="col-sm-3" for="Password" asp-postfix=":"><b>@T("login.pass")</b></label>
+							<input class="col-sm-8 form-control" id="loginPass" type="password" name="Password" />
+							<div id="errorMessage" class="offset-sm-3 invalid-feedback">
+								@T("login.error")
 							</div>
 						</div>
+						<div class="row">
+							<input type="submit" class="offset-sm-3 col-sm-6 text-center" id="loginSubmit" value="@T("login.continue")" />
+							<script>
+								$("#loginSubmit").on("click", function (e) {
+									if ($("#loginEmail").val().length == 0) {
+										$("#loginEmail").addClass("is-invalid");
+									}
+									else {
+										$("#loginEmail").removeClass("is-invalid");
+									}
+									if ($("#loginPass").val().length == 0) {
+										$("#loginPass").addClass("is-invalid");
+									}
+									else {
+										$("#loginPass").removeClass("is-invalid");
+									}
+									e.preventDefault();
+									if ($("#loginPass").val().length != 0 && $("#loginEmail").val().length != 0) {
+										$.post('/customer/login?returnUrl=/checkout/confirm', $('#loginform').serialize()).done(function (responce) {
+											console.log(responce);
+											if (!responce.success) {
+												$("#loginEmail").addClass("is-invalid");
+												$("#loginPass").addClass("is-invalid");
+											}
+											else {
+												window.location.replace(responce.returnUrl);
+											}
+										});
+									}
+								});
+							</script>
+							<a class="btn btn-link" asp-route="PasswordRecovery">@T("login.forgotpass")</a>
+						</div>
 					</form>
-
 				</div>
-
 			</div>
+			}
+			else
+			{
 			<div class="row login-wrap">
-				<form action="">
+				<form asp-route="CheckoutConfirm" method="post">
 					<div class="title"><span>1</span>@T("cart.personalinfo")</div>
 					<button type="button" id="edit-name" class="btn btn-link">
 						@T("cart.changeinfo")
@@ -630,12 +662,14 @@
 						<textarea class="form-control col-sm-8" rows="4"></textarea>
 					</div>
 					<div class="row">
-						<input id="paymentmethod_0" style="display:none;" type="radio" name="paymentmethod" value="Payments.CheckMoneyOrder" checked="checked">
-						<input type="submit" name="nextstep" value="@T("cart.continue")" class="btn btn-blue pl-5 pr-5" />
+						<button type="submit" id="checkout" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
+							@T("Cart.Confirm")
+						</button>
 					</div>
 
 				</form>
 			</div>
+			}
 		</div>
 	</section>
 </article>
