@@ -395,7 +395,7 @@
 								'</div>' +
 								'<div class="price-wrap">' +
 								oldPrice +
-								'<div class="price">' + product.SubTotal + '</div>' +
+								'<div class="price">' + product.UnitPrice + '</div>' +
 								'</div>' +
 								'</div>' +
 								'<div class="line"></div>';
@@ -403,7 +403,7 @@
 							if ($("#mainCartItems").length > 0) {
 								$("#mainCartItems").append(element);
 							}
-							sum += parseFloat(product.SubTotal) * product.Quantity;
+							sum += parseFloat(product.UnitPrice) * product.Quantity;
 							count += product.Quantity;
 						});
 						$("#cart-price").text(sum);
