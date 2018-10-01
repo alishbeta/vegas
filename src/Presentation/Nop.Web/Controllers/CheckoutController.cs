@@ -1008,7 +1008,10 @@ namespace Nop.Web.Controllers
                     {
                         Order = placeOrderResult.PlacedOrder
                     };
-					_orderProcessingService.SaveComment(placeOrderResult.PlacedOrder, orderModel.Comment);
+					if (!string.IsNullOrEmpty(orderModel.Comment))
+					{
+						_orderProcessingService.SaveComment(placeOrderResult.PlacedOrder, orderModel.Comment);
+					}
 					//_paymentService.PostProcessPayment(postProcessPaymentRequest);
 
 					if (_webHelper.IsRequestBeingRedirected || _webHelper.IsPostBeingDone)

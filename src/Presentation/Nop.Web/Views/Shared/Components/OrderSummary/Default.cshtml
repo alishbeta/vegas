@@ -440,7 +440,7 @@
 					<textarea class="form-control col-sm-8" name="Comment" rows="4"></textarea>
 				</div>
 				<div class="row">
-					<button type="submit" id="checkout" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
+					<button type="submit" id="checkout-new" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
 						@T("Cart.Confirm")
 					</button>
 				</div>
@@ -668,7 +668,7 @@
 						<textarea class="form-control col-sm-8" name="Comment" rows="4"></textarea>
 					</div>
 					<div class="row">
-						<button type="submit" id="checkout" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
+						<button type="submit" id="checkout-old" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
 							@T("Cart.Confirm")
 						</button>
 					</div>
@@ -691,4 +691,52 @@
 			});
 		}
 	}
+	$("#checkout-old").on("click", function (e) {
+		if ($("#li1").val().length == 0) {
+			$("#li1").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#li1").removeClass("is-invalid");
+		}
+		if ($("#li2").val().length == 0) {
+			$("#li2").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#li2").removeClass("is-invalid");
+		}
+		e.pr
+		if ($("#li3").val().length == 0) {
+			$("#li3").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#li3").removeClass("is-invalid");
+		}
+	});
+	$("#checkout-new").on("click", function (e) {
+		if ($("#i1").val().length == 0) {
+			$("#i1").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#i1").removeClass("is-invalid");
+		}
+		if ($("#i2").val().length == 0) {
+			$("#i2").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#i2").removeClass("is-invalid");
+		}
+		e.pr
+		if ($("#i3").val().length == 0) {
+			$("#i3").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#i3").removeClass("is-invalid");
+		}
+	});
 </script>

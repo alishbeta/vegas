@@ -19,16 +19,16 @@
 			<div class="row img-wrap clearfix text-center">
 				@foreach (var address in Model.Addresses)
 				{
+				<div class="img col-lg-6">
 					<a href="/storeinfo?addressId=@address.Id">
-						<div class="img col-lg-6">
-							<img src="https://via.placeholder.com/540x320" alt="">
-							<div class="text-wrap">
-								<div><b>"Матрасы Vegas"</b></div>
-								<div>@address.Address1</div>
-								<div>пн-вс 10:00-20:00</div>
-							</div>
+						<img src="https://via.placeholder.com/540x320" alt="">
+						<div class="text-wrap">
+							<div><b>"Матрасы Vegas"</b></div>
+							<div>@address.Address1</div>
+							<div>пн-вс 10:00-20:00</div>
 						</div>
 					</a>
+				</div>
 				}
 			</div>
 		</div>
