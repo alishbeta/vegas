@@ -4,6 +4,11 @@
 @using Nop.Core.Domain.Common;
 @model StoreInfoModel
 <nav class="breadcrumb-wrap" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
+		<li class="breadcrumb-item"><a href="/ourstores">@T("map.ourstores")</a></li>
+		<li class="breadcrumb-item active">@T("store.info")</li>
+	</ol>
 </nav>
 <div class="row show-room">
 	<div class="offset-xl-2 col-xl-8">
