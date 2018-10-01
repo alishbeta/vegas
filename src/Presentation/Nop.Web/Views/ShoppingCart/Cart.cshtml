@@ -70,7 +70,7 @@
 									<div class="closee" onclick="RemoveFromCart(@item.ProductId, 1, false)"></div>
 								</div>
 								<div class="price-wrap">
-									<div class="price-old">@item.SubTotal</div>
+									<div class="price-old">@item.UnitPrice</div>
 									<div class="price">@(item.MaximumDiscountedQty.HasValue ? T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value).ToString() : item.SubTotal)</div>
 								</div>
 							</div>
@@ -102,7 +102,7 @@
 				var sum = 0.0;
 				var count = 0;
 				responce.model.Items.forEach(function (product) {
-					sum += parseFloat(product.SubTotal) * product.Quantity;
+					sum += parseFloat(product.UnitPrice) * product.Quantity;
 					count += product.Quantity;
 				});
 				$("#cart-price-full").text(sum);
