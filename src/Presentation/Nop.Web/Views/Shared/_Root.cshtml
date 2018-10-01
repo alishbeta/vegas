@@ -377,9 +377,10 @@
 						var data = "";
 						$("#cartItems").empty();
 						responce.model.Items.forEach(function (product) {
+							console.log(product);
 							var oldPrice = "";
-							if (false) {
-								oldPrice = '<div class="price-old">' + '</div>';
+							if (product.OldPrice != null && product.OldPrice != product.UnitPrice && product.OldPrice != "") {
+								oldPrice = '<div class="price-old">' + product.OldPrice + '</div>';
 							}
 							var element =
 								'<div class="item">' +
