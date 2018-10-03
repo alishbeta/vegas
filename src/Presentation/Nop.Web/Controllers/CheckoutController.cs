@@ -26,6 +26,8 @@ using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc.Filters;
 using Nop.Web.Framework.Security;
 using Nop.Web.Models.Checkout;
+using Nop.Web.Models.Common;
+using Nop.Web.Models.Order;
 using Nop.Web.Models.ShoppingCart;
 
 namespace Nop.Web.Controllers
@@ -928,7 +930,7 @@ namespace Nop.Web.Controllers
 		}
 
         [HttpPost, ActionName("Confirm")]
-        public virtual IActionResult ConfirmOrder()
+        public virtual IActionResult ConfirmOrder(OrderModel orderModel)
         {
             //validation
             if (_orderSettings.CheckoutDisabled)
@@ -947,8 +949,45 @@ namespace Nop.Web.Controllers
             if (_workContext.CurrentCustomer.IsGuest() && !_orderSettings.AnonymousCheckoutAllowed)
                 return Challenge();
 
-            //model
-            var model = _checkoutModelFactory.PrepareConfirmOrderModel(cart);
+			var billingNewAddress = new AddressModel()
+			{
+				Address1 = orderModel.StreetAddress1,
+				Address2 = orderModel.StreetAddress2,
+				City = orderModel.City,
+				Email = orderModel.Email,
+				FirstName = orderModel.Name,
+				PhoneNumber = orderModel.Phone				 
+			};
+			var newAddress = billingNewAddress;
+
+			
+			//try to find an address with the same values (don't duplicate records)
+			var address = _addressService.FindAddress(_workContext.CurrentCustomer.Addresses.ToList(),
+				newAddress.FirstName, newAddress.LastName, newAddress.PhoneNumber,
+				newAddress.Email, newAddress.FaxNumber, newAddress.Company,
+				newAddress.Address1, newAddress.Address2, newAddress.City,
+				newAddress.County, newAddress.StateProvinceId, newAddress.ZipPostalCode,
+				newAddress.CountryId, null);
+			if (address == null)
+			{
+				//address is not found. let's create a new one
+				address = newAddress.ToEntity();
+				address.CustomAttributes = null;
+				address.CreatedOnUtc = DateTime.UtcNow;
+				//some validation
+				if (address.CountryId == 0)
+					address.CountryId = null;
+				if (address.StateProvinceId == 0)
+					address.StateProvinceId = null;
+				//_workContext.CurrentCustomer.Addresses.Add(address);
+				_workContext.CurrentCustomer.CustomerAddressMappings.Add(new CustomerAddressMapping { Address = address });
+			}
+			_workContext.CurrentCustomer.BillingAddress = address;
+			_workContext.CurrentCustomer.ShippingAddress = address;
+			_customerService.UpdateCustomer(_workContext.CurrentCustomer);
+
+			//model
+			var model = _checkoutModelFactory.PrepareConfirmOrderModel(cart);
             try
             {
 				var processPaymentRequest = new ProcessPaymentRequest();
@@ -969,9 +1008,13 @@ namespace Nop.Web.Controllers
                     {
                         Order = placeOrderResult.PlacedOrder
                     };
-                    //_paymentService.PostProcessPayment(postProcessPaymentRequest);
+					if (!string.IsNullOrEmpty(orderModel.Comment))
+					{
+						_orderProcessingService.SaveComment(placeOrderResult.PlacedOrder, orderModel.Comment);
+					}
+					//_paymentService.PostProcessPayment(postProcessPaymentRequest);
 
-                    if (_webHelper.IsRequestBeingRedirected || _webHelper.IsPostBeingDone)
+					if (_webHelper.IsRequestBeingRedirected || _webHelper.IsPostBeingDone)
                     {
                         //redirection or POST has been done in PostProcessPayment
                         return Content("Redirected");

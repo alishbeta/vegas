@@ -8,7 +8,13 @@
     Html.AppendPageCssClassParts("html-account-page");
     Html.AppendPageCssClassParts("html-order-list-page");
 }
-<nav class="breadcrumb-wrap"></nav>
+<nav class="breadcrumb-wrap">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
+		<li class="breadcrumb-item"><a href="/customer/info">@T("account.info")</a></li>
+		<li class="breadcrumb-item active"><a href="#">@T("account.orders")</a></li>
+	</ol>
+</nav>
 <div class="row cabinet">
 	<div class="offset-xl-1 col-xl-8">
 		<div class="title-wrap clearfix">

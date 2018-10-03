@@ -143,7 +143,7 @@
 						}
 						e.preventDefault();
 						if ($("#pass").val().length != 0 && $("#mail").val().length != 0) {
-							$.post('/customer/login', $('#testform').serialize()).done(function (responce) {
+							$.post('/customer/login?returnUrl=/customer/info', $('#testform').serialize()).done(function (responce) {
 								console.log(responce);
 								if (!responce.success) {
 									$("#mail").addClass("is-invalid");
@@ -377,9 +377,10 @@
 						var data = "";
 						$("#cartItems").empty();
 						responce.model.Items.forEach(function (product) {
+							console.log(product);
 							var oldPrice = "";
-							if (false) {
-								oldPrice = '<div class="price-old">' + '</div>';
+							if (product.OldPrice != null && product.OldPrice != product.UnitPrice && product.OldPrice != "") {
+								oldPrice = '<div class="price-old">' + product.OldPrice + '</div>';
 							}
 							var element =
 								'<div class="item">' +
@@ -395,7 +396,7 @@
 								'</div>' +
 								'<div class="price-wrap">' +
 								oldPrice +
-								'<div class="price">' + product.SubTotal + '</div>' +
+								'<div class="price">' + product.UnitPrice + '</div>' +
 								'</div>' +
 								'</div>' +
 								'<div class="line"></div>';
@@ -403,7 +404,7 @@
 							if ($("#mainCartItems").length > 0) {
 								$("#mainCartItems").append(element);
 							}
-							sum += parseFloat(product.SubTotal) * product.Quantity;
+							sum += parseFloat(product.UnitPrice) * product.Quantity;
 							count += product.Quantity;
 						});
 						$("#cart-price").text(sum);

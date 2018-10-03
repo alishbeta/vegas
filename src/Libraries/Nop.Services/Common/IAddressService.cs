@@ -33,7 +33,7 @@ namespace Nop.Services.Common
         /// </summary>
         /// <param name="addressId">Address identifier</param>
         /// <returns>Address</returns>
-        Address GetAddressById(int addressId);
+        Address GetAddressById(int addressId);	
 
         /// <summary>
         /// Inserts an address

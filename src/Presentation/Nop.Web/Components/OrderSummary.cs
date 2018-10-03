@@ -36,7 +36,7 @@ namespace Nop.Web.Components
                 .LimitPerStore(_storeContext.CurrentStore.Id)
                 .ToList();
 
-            var model = new ShoppingCartModel();
+			var model = new ShoppingCartModel();
             model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart,
                 isEditable: false,
                 prepareAndDisplayOrderReviewData: prepareAndDisplayOrderReviewData.GetValueOrDefault());

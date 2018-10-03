@@ -1,60 +1,35 @@
 ﻿@{
 	Layout = "_ColumnsOne";
 }
+@model CityMapModel
 
 <nav class="breadcrumb-wrap" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
+		<li class="breadcrumb-item active"><a href="#">@Model.Name</a></li>
+	</ol>
 </nav>
 
 <div class="row map">
 	<div class="offset-xl-2 col-xl-8">
 		<h1 class="title">Наши салоны</h1>
-		<nav class="blue-menu">
-			<ul class="clearfix">
-				<li><a href="/OurStores">Карта салонов</a></li>
-				<li><a class="active" href="#">Киев</a></li>
-				<li><a href="">Харьков</a></li>
-				<li><a href="">Львов</a></li>
-				<li><a href="">Днепр</a></li>
-				<li><a href="">Одесса</a></li>
-			</ul>
-		</nav>
+		@await Component.InvokeAsync("OurStoresMenu", new { active = Model.Name })
 		<div class="map-wrap">
 			<div id="map"></div>
 			<div class="row img-wrap clearfix text-center">
-				<a href="/storeinfo">
-					<div class="img col-lg-6">
+				@foreach (var address in Model.Addresses)
+				{
+				<div class="img col-lg-6">
+					<a href="/storeinfo?addressId=@address.Id">
 						<img src="https://via.placeholder.com/540x320" alt="">
 						<div class="text-wrap">
 							<div><b>"Матрасы Vegas"</b></div>
-							<div>ул. Николая Ушаков, 1Б, офис 134</div>
+							<div>@address.Address1</div>
 							<div>пн-вс 10:00-20:00</div>
 						</div>
-					</div>
-				</a>
-				<div class="img col-lg-6">
-					<img src="https://via.placeholder.com/540x320" alt="">
-					<div class="text-wrap">
-						<div><b>"Матрасы Vegas"</b></div>
-						<div>ул. Николая Ушаков, 1Б, офис 134</div>
-						<div>пн-вс 10:00-20:00</div>
-					</div>
+					</a>
 				</div>
-				<div class="img col-lg-6">
-					<img src="https://via.placeholder.com/540x320" alt="">
-					<div class="text-wrap">
-						<div><b>"Матрасы Vegas"</b></div>
-						<div>ул. Николая Ушаков, 1Б, офис 134</div>
-						<div>пн-вс 10:00-20:00</div>
-					</div>
-				</div>
-				<div class="img col-lg-6">
-					<img src="https://via.placeholder.com/540x320" alt="">
-					<div class="text-wrap">
-						<div><b>"Матрасы Vegas"</b></div>
-						<div>ул. Николая Ушаков, 1Б, офис 134</div>
-						<div>пн-вс 10:00-20:00</div>
-					</div>
-				</div>
+				}
 			</div>
 		</div>
 	</div>
