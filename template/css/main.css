@@ -1425,7 +1425,7 @@ nav.breadcrumb-wrap a:hover {
 }
 
 .see-wrap .line {
-  margin: 50px 0px 0 -15px;
+  margin: 50px 1px 0 -45px;
 }
 
 .sell-wrap,
@@ -3578,6 +3578,9 @@ section .item {
   font-weight: 600;
   font-size: 24px;
 }
+.order-complete .line {
+  margin: 50px -15px 0 -35px;
+}
 
 @media (max-width: 1199px) {
   .r-wrap {
@@ -3968,6 +3971,9 @@ section .item {
     margin-left: 0;
     margin-top: 60px;
   }
+  .order-complete .order-info .total {
+    font-size: 20px;
+  }
   .order-complete .items-wrap {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
@@ -4299,7 +4305,7 @@ section .item {
     position: absolute;
     top: 30px;
     right: 10px;
-    width: 100px;
+    width: 120px;
   }
   .compare .optc-wrap .line {
     display: none;
@@ -4499,6 +4505,10 @@ section .item {
 
   .order-complete .items-wrap .item .item-info {
     margin-left: 0;
+  }
+  .order-complete .items-wrap .item .item-img {
+    display: inline-block;
+    width: 100px;
   }
 }
 

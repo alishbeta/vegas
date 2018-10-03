@@ -121,7 +121,7 @@
                 position: absolute;
                 top: 30px;
                 right: 10px;
-                width: 100px;
+                width: 120px;
             }
             .line {
                 display: none;
@@ -308,14 +308,20 @@
         .title-btn {
             margin-right: 0;
             float: none;
-            a{
+            a {
                 margin-top: 15px;
             }
         }
     }
     .order-complete .items-wrap {
-        .item .item-info {
-            margin-left: 0;
+        .item {
+            .item-info {
+                margin-left: 0;
+            }
+            .item-img {
+                display: inline-block;
+                width: 100px;
+            }
         }
     }
 }
