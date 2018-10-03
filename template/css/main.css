@@ -1273,7 +1273,7 @@ nav.breadcrumb-wrap a:hover {
 
 .item-wrap {
   width: 268px;
-  height: 350px;
+  height: 330px;
   padding: 0 20px;
 }
 .item-wrap span img {
@@ -4109,6 +4109,7 @@ section .item {
 
   .pad-norm {
     padding-top: 24px;
+    padding-bottom: 35px;
   }
 
   .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
@@ -4199,7 +4200,7 @@ section .item {
     right: 0;
     left: 0;
     width: 120px;
-    bottom: -415px;
+    bottom: -410px;
     margin: auto;
   }
   .content .show-room .see-wrap .title button {
@@ -4509,6 +4510,10 @@ section .item {
   .order-complete .items-wrap .item .item-img {
     display: inline-block;
     width: 100px;
+  }
+
+  .see-wrap {
+    padding-left: 0;
   }
 }
 
