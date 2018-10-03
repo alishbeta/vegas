@@ -9,6 +9,7 @@ using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Localization;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Security;
+using Nop.Core.Domain.Shipping;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Vendors;
 using Nop.Services.Common;
@@ -17,7 +18,9 @@ using Nop.Services.Localization;
 using Nop.Services.Logging;
 using Nop.Services.Messages;
 using Nop.Services.Orders;
+using Nop.Services.Shipping;
 using Nop.Services.Vendors;
+using Nop.Web.Areas.Admin.Models.Shipping;
 using Nop.Web.Factories;
 using Nop.Web.Framework.Localization;
 using Nop.Web.Framework.Mvc.Filters;
@@ -35,8 +38,10 @@ namespace Nop.Web.Controllers
         private readonly CaptchaSettings _captchaSettings;
         private readonly CommonSettings _commonSettings;
         private readonly ICommonModelFactory _commonModelFactory;
-        private readonly ICurrencyService _currencyService;
-        private readonly ICustomerActivityService _customerActivityService;
+		private readonly IAddressService _addressService;
+		private readonly ICurrencyService _currencyService;
+		private readonly IShippingService _shippingService;
+		private readonly ICustomerActivityService _customerActivityService;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly ILanguageService _languageService;
         private readonly ILocalizationService _localizationService;
@@ -58,7 +63,8 @@ namespace Nop.Web.Controllers
             CommonSettings commonSettings,
             ICommonModelFactory commonModelFactory,
             ICurrencyService currencyService,
-            ICustomerActivityService customerActivityService,
+			IAddressService addressService,
+			ICustomerActivityService customerActivityService,
             IGenericAttributeService genericAttributeService,
             ILanguageService languageService,
             ILocalizationService localizationService,
@@ -70,7 +76,8 @@ namespace Nop.Web.Controllers
             IWorkflowMessageService workflowMessageService,
             LocalizationSettings localizationSettings,
             StoreInformationSettings storeInformationSettings,
-            VendorSettings vendorSettings)
+            VendorSettings vendorSettings,
+			IShippingService shippingService)
         {
             this._captchaSettings = captchaSettings;
             this._commonSettings = commonSettings;
@@ -82,14 +89,16 @@ namespace Nop.Web.Controllers
             this._localizationService = localizationService;
             this._logger = logger;
             this._storeContext = storeContext;
-            this._themeContext = themeContext;
+			this._addressService = addressService;
+			this._themeContext = themeContext;
             this._vendorService = vendorService;
             this._workContext = workContext;
             this._workflowMessageService = workflowMessageService;
             this._localizationSettings = localizationSettings;
             this._storeInformationSettings = storeInformationSettings;
             this._vendorSettings = vendorSettings;
-        }
+			this._shippingService = shippingService;
+		}
 
 		#endregion
 
@@ -408,21 +417,71 @@ namespace Nop.Web.Controllers
 		[HttpsRequirement(SslRequirement.Yes)]
 		public virtual IActionResult OurStores()
 		{
-			return View();
+			var warehouses = _shippingService.GetAllWarehouses();
+			WarehouseInfoModel model = new WarehouseInfoModel
+			{
+				Cities = new System.Collections.Generic.List<string>(),
+				Warehouses = warehouses
+			};
+			foreach (var warehouse in warehouses)
+			{
+				var address = _addressService.GetAddressById(warehouse?.AddressId ?? 0);
+				if (address != null && !model.Cities.Contains(address.City))
+				{
+					model.Cities.Add(address.City);
+				}
+			}
+			
+			return View(model);
 		}	
 
 		//our stores page
 		[HttpsRequirement(SslRequirement.Yes)]
-		public virtual IActionResult CityMap()
+		public virtual IActionResult CityMap(string city)
 		{
-			return View();
+			var warehouses = _shippingService.GetAllWarehouses();
+			var addresses = new System.Collections.Generic.List<Address>();
+			foreach (var warehouse in warehouses)
+			{
+				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
+			}
+
+			var cityAdresses = addresses.Where(x => x?.City.ToLower() == city.ToLower()).ToList();
+			var warehousesInCity = new System.Collections.Generic.List<Warehouse>();
+			foreach (var cityAddress in cityAdresses)
+			{
+				warehousesInCity.AddRange(warehouses.Where(x => x.AddressId == cityAddress.Id));
+			}
+			var model = new CityMapModel
+			{
+				Warehouses = warehousesInCity,
+				Addresses = cityAdresses,
+				Name = city
+			};
+			return View(model);
 		}	  	
 
 		//store info page
 		[HttpsRequirement(SslRequirement.Yes)]
-		public virtual IActionResult StoreInfo()
+		public virtual IActionResult StoreInfo(int addressId)
 		{
-			return View();
+			var address = _addressService.GetAddressById(addressId);
+
+			var city = address.City;
+			var warehouses = _shippingService.GetAllWarehouses();
+			var addresses = new System.Collections.Generic.List<Address>();
+			foreach (var warehouse in warehouses)
+			{
+				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
+			}
+
+			var cityAdresses = addresses.Where(x => x?.City.ToLower() == city.ToLower()).Take(3).ToList();
+			var model = new StoreInfoModel
+			{
+				Address = address,
+				OtherStores = cityAdresses
+			};
+			return View(model);
 		}
 
 		#endregion

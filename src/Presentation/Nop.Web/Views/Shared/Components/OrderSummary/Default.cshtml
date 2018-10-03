@@ -359,7 +359,7 @@
 	</nav>
 	<section id="tab1" class="item @(!string.IsNullOrEmpty(ViewBag.IsAuthenticated) ? "" : "active")" data-title="@T("Cart.NewClient")">
 		<div class="item-content">
-			<form asp-route="CheckoutConfirm" method="post" id="confirm-order-form">
+			<form asp-route="CheckoutConfirm" method="post">
 				<div class="title"><span>1</span>@T("Cart.FillInfo")</div>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3" for="i1">@T("Cart.Name")</label>
@@ -379,20 +379,17 @@
 				<div class="title"><span>2</span>@T("Cart.DeliveryType")</div>
 				<div class="form-inline form-group row">
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" value="1" name="DeliveryType" type="radio"
-							   id="r1" checked>
+						<input class="form-check-input" value="1" name="DeliveryType" type="radio" id="r1" checked>
 						<label for="r1"></label>
 						<label class="col-form-label" for="r1">@T("cart.delivery.store")</label>
 					</div>
 					<div class="form-check  form-check-inline">
-						<input class="form-check-input" value="2" name="DeliveryType" type="radio"
-							   id="r2">
+						<input class="form-check-input" value="2" name="DeliveryType" type="radio" id="r2">
 						<label for="r2"></label>
 						<label class="col-form-label" for="r2">@T("cart.delivery.default")</label>
 					</div>
 					<div class="form-check  form-check-inline">
-						<input class="form-check-input" value="3" name="DeliveryType" type="radio"
-							   id="r3">
+						<input class="form-check-input" value="3" name="DeliveryType" type="radio" id="r3">
 						<label for="r3"></label>
 						<label class="col-form-label" for="r3">@T("cart.delivery.novaposhta")</label>
 					</div>
@@ -402,14 +399,12 @@
 					<input type="text" name="City" class="form-control col-sm-8">
 				</div>
 				<div class="form-group row">
-					<label class="col-form-label col-sm-3">@T("Cart.Street")</label>
-					<input type="text" name="Address1" class="form-control col-sm-8">
+					<label class="col-form-label col-sm-3">@T("admin.orders.address.address1")</label>
+					<input type="text" name="StreetAddress1" class="form-control col-sm-8">
 				</div>
 				<div class="form-group row">
-					<label class="col-form-label col-sm-3">@T("Cart.Building")</label>
-					<input type="text" name="Building" class="form-control col-sm-2">
-					<label class="col-form-label col-sm-3">@T("Cart.Flat")</label>
-					<input type="text" name="Apartment" class="form-control col-sm-2">
+					<label class="col-form-label col-sm-3">@T("admin.orders.address.address2")</label>
+					<input type="text" name="StreetAddress2" class="form-control col-sm-2">
 				</div>
 
 				<div class="line"></div>
@@ -417,18 +412,17 @@
 				<div class="title"><span>3</span>@T("Cart.Payment")</div>
 				<div class="form-inline row">
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" name="PaymentType" type="radio" id="r4"
-							   checked>
+						<input class="form-check-input" value="1" name="PaymentType" type="radio" id="r4" checked>
 						<label for="r4"></label>
 						<label class="col-form-label" for="r4">@T("cart.payment.cash")</label>
 					</div>
 					<div class="form-check  form-check-inline">
-						<input class="form-check-input" name="PaymentType" type="radio" id="r5">
+						<input class="form-check-input" value="2" name="PaymentType" type="radio" id="r5">
 						<label for="r5"></label>
 						<label class="col-form-label" for="r5">Visa/MasterCard</label>
 					</div>
 					<div class="form-check  form-check-inline">
-						<input class="form-check-input" name="PaymentType" type="radio" id="r6">
+						<input class="form-check-input" value="3" name="PaymentType" type="radio" id="r6">
 						<label for="r6"></label>
 						<label class="col-form-label" for="r6">@T("cart.payment.privat24")</label>
 					</div>
@@ -443,84 +437,113 @@
 
 				<div class="title">@T("Cart.Comment")</div>
 				<div class="form-group row text-left">
-					<textarea class="form-control col-sm-8" rows="4"></textarea>
+					<textarea class="form-control col-sm-8" name="Comment" rows="4"></textarea>
 				</div>
 				<div class="row">
-					<button type="submit" id="checkout" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
+					<button type="submit" id="checkout-new" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
 						@T("Cart.Confirm")
 					</button>
 				</div>
-
 			</form>
 		</div>
 	</section>
 	<section id="tab2" class="item @(string.IsNullOrEmpty(ViewBag.IsAuthenticated) ? "" : "active")" data-title="@T("cart.oldclient")">
 		<div class="item-content">
-			<div class="d-none row sign-up-wrap">
+			@if (string.IsNullOrEmpty(ViewBag.IsAuthenticated))
+			{
+			<div class="row sign-up-wrap">
 				<div class="col-xl-10">
 					<div class="text">
 						@T("cart.text.part1") <b>
 							"@T("cart.NewClient")"
 						</b>@T("cart.text.part2")
 					</div>
-					<form class="mt-4" action="">
+
+					<form asp-route="Login" asp-route-returnurl="/checkout/confirm" id="loginform" class="mt-4" method="post">
+						<div asp-validation-summary="ModelOnly" class="message-error">@T("Account.Login.Unsuccessful")</div>
 						<div class="form-group row">
-							<label class="col-sm-3">E-mail</label>
-							<input class="col-sm-6 form-control" type="text">
+							<label class="col-sm-3" for="Email" asp-postfix=":"><b>@T("login.email")</b></label>
+							<input class="col-sm-8 form-control" id="loginEmail" type="text" name="Email" autofocus="autofocus" />
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-3">@T("cart.pass")</label>
-							<input class="col-sm-6 form-control" type="password">
-						</div>
-						<div class="row">
-							<div class="offset-sm-3 col-sm-6 text-center">
-								<button class="btn btn-blue btn-block" type="submit">
-									@T("cart.login")
-								</button>
-								<button class="btn btn-link">@T("cart.forgotpass")</button>
+							<label class="col-sm-3" for="Password" asp-postfix=":"><b>@T("login.pass")</b></label>
+							<input class="col-sm-8 form-control" id="loginPass" type="password" name="Password" />
+							<div id="errorMessage" class="offset-sm-3 invalid-feedback">
+								@T("login.error")
 							</div>
 						</div>
+						<div class="row">
+							<input type="submit" class="offset-sm-3 col-sm-6 text-center" id="loginSubmit" value="@T("login.continue")" />
+							<script>
+								$("#loginSubmit").on("click", function (e) {
+									if ($("#loginEmail").val().length == 0) {
+										$("#loginEmail").addClass("is-invalid");
+									}
+									else {
+										$("#loginEmail").removeClass("is-invalid");
+									}
+									if ($("#loginPass").val().length == 0) {
+										$("#loginPass").addClass("is-invalid");
+									}
+									else {
+										$("#loginPass").removeClass("is-invalid");
+									}
+									e.preventDefault();
+									if ($("#loginPass").val().length != 0 && $("#loginEmail").val().length != 0) {
+										$.post('/customer/login?returnUrl=/checkout/confirm', $('#loginform').serialize()).done(function (responce) {
+											console.log(responce);
+											if (!responce.success) {
+												$("#loginEmail").addClass("is-invalid");
+												$("#loginPass").addClass("is-invalid");
+											}
+											else {
+												window.location.replace(responce.returnUrl);
+											}
+										});
+									}
+								});
+							</script>
+							<a class="btn btn-link" asp-route="PasswordRecovery">@T("login.forgotpass")</a>
+						</div>
 					</form>
-
 				</div>
-
 			</div>
+			}
+			else
+			{
 			<div class="row login-wrap">
-				<form action="">
-					<div class="title"><span>1</span>@T("cart.personalinfo")</div>
-					<button type="button" id="edit-name" class="btn btn-link">
-						@T("cart.changeinfo")
-					</button>
-					<button style="display: none;" type="button" id="edit-name-close"
-							class="btn btn-link">
-						@T("cart.cancel")
-					</button>
-					<div class="form-group row">
-						<label style="display: none" class="col-form-label col-sm-3"
-							   for="li1">
-							@T("cart.name")
-						</label>
-						<input style="display: none" id="li1" type="text"
-							   class="form-control col-sm-8">
-						<div class="col-sm-4">@T("cart.name")</div>
-						<div class="col-sm-8 text-light-c">@Model.CustomerInfo.FirstName</div>
-					</div>
-					<div class="form-group row">
-						<label style="display: none" class="col-form-label col-sm-3"
-							   for="li2">
-							@T("cart.phone")
-						</label>
-						<input style="display: none" id="li2" type="text"
-							   class="form-control col-sm-8">
-						<div class="col-sm-4">@T("cart.phone")</div>
-						<div class="col-sm-8 text-light-c">@Model.CustomerInfo.Phone</div>
-					</div>
-					<div class="form-group row">
-						<label class="d-none col-form-label col-sm-3"
-							   for="li1">E-mail</label>
-						<input id="li3" type="text" class="d-none form-control col-sm-8">
-						<div class="col-sm-4">E-mail</div>
-						<div class="col-sm-8 text-light-c">@Model.CustomerInfo.Email</div>
+				<form asp-route="CheckoutConfirm" method="post">
+					<div id="firstZone">
+						<div class="title"><span>1</span>@T("cart.personalinfo")</div>
+						<button type="button" id="edit-name" class="btn btn-link">
+							@T("cart.changeinfo")
+						</button>
+						<button style="display: none;" onclick="CancelChangesInZone(1)" type="button" id="edit-name-close" class="btn btn-link">
+							@T("cart.cancel")
+						</button>
+
+						<div class="form-group row">
+							<label style="display: none" class="col-form-label col-sm-3" for="li1">
+								@T("cart.name")
+							</label>
+							<input id="li1" style="display: none" type="text" name="Name" class="form-control col-sm-8" value="@Model.CustomerInfo.FirstName">
+							<div class="col-sm-4">@T("cart.name")</div>
+							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.FirstName</div>
+						</div>
+						<div class="form-group row">
+							<label style="display: none" class="col-form-label col-sm-3" for="li2">
+								@T("cart.phone")
+							</label>
+							<input style="display: none" id="li2" type="text" name="Phone" class="form-control col-sm-8" value="@Model.CustomerInfo.Phone">
+							<div class="col-sm-4">@T("cart.phone")</div>
+							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.Phone</div>
+						</div>
+						<div class="form-group row">
+							<label style="display: none" class="col-form-label col-sm-3" for="li1">E-mail</label>
+							<input id="li3" type="text" style="display: none" name="Email" class="form-control col-sm-8" value="@Model.CustomerInfo.Email">
+							<div class="col-sm-4">E-mail</div>
+							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.Email</div>
+						</div>
 					</div>
 
 					<div class="line"></div>
@@ -528,14 +551,18 @@
 					<div class="title"><span>2</span>@T("cart.delivery")</div>
 					<div class="form-inline row">
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" value="1" name="radio"
+							<input class="form-check-input"
+								   value="1"
+								   name="DeliveryType"
 								   type="radio"
 								   id="lr1" checked>
 							<label for="lr1"></label>
 							<label class="col-form-label" for="lr1">@T("cart.delivery.store")</label>
 						</div>
 						<div class="form-check  form-check-inline">
-							<input class="form-check-input" value="2" name="radio"
+							<input class="form-check-input"
+								   value="2"
+								   name="DeliveryType"
 								   type="radio"
 								   id="lr2">
 							<label for="lr2"></label>
@@ -544,7 +571,9 @@
 							</label>
 						</div>
 						<div class="form-check  form-check-inline">
-							<input class="form-check-input" value="3" name="radio"
+							<input class="form-check-input"
+								   value="3"
+								   name="DeliveryType"
 								   type="radio"
 								   id="lr3">
 							<label for="lr3"></label>
@@ -554,51 +583,54 @@
 
 					<div class="line"></div>
 
-					<div class="title"><span>3</span>@T("cart.delivery")</div>
-					<button type="button" id="edit-addres" class="btn btn-link">
-						@T("cart.changeaddr")
-					</button>
-					<button type="button" id="edit-addres-close" style="display: none"
-							class="btn btn-link">
-						@T("cart.cancel")
-					</button>
-					<div class="form-group row">
-						<label style="display: none" class="col-form-label col-sm-3"
-							   for="li1">
-							@T("cart.name")
-						</label>
-						<input style="display: none" id="ai1" type="text"
-							   class="form-control col-sm-8">
-						<div class="col-sm-4">@T("cart.city")</div>
-						<div class="col-sm-8 text-light-c">@Model.CustomerInfo.City</div>
-					</div>
-					<div class="form-group row">
-						<label style="display: none" class="col-form-label col-sm-3"
-							   for="li2">
-							@T("cart.phone")
-						</label>
-						<input style="display: none" id="ai2" type="text"
-							   class="form-control col-sm-8">
-						<div class="col-sm-4">@T("cart.street")</div>
-						<div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress</div>
-						@{
-							var attribute = Model.CustomerInfo.CustomerAttributes.FirstOrDefault(x => x.Id == 2);
-							var controlId = $"customer_attribute_{attribute.Id}";
-							var textPrompt = attribute.Name;
-							<label style="display: none" class="col-form-label col-sm-3" for="li2">@textPrompt</label>
-							<input style="display: none" id="ai2" type="text" class="form-control col-sm-8">
-							<div class="col-sm-3">@textPrompt</div>
-							<div class="col-sm-8 text-light-c">@attribute.DefaultValue</div>
-						}
-						@{
-							attribute = Model.CustomerInfo.CustomerAttributes.FirstOrDefault(x => x.Id == 3);
-							controlId = $"customer_attribute_{attribute.Id}";
-							textPrompt = attribute.Name;
-							<label style="display: none" class="col-form-label col-sm-3" for="li2">@textPrompt</label>
-							<input style="display: none" id="ai2" type="text" class="form-control col-sm-8">
-							<div class="col-sm-3">@textPrompt</div>
-							<div class="col-sm-8 text-light-c">@attribute.DefaultValue</div>
-						}
+					<div id="secondZone">
+						<div class="title"><span>3</span>@T("cart.delivery")</div>
+						<button type="button" id="edit-addres" class="btn btn-link">
+							@T("cart.changeaddr")
+						</button>
+						<button type="button" id="edit-addres-close" onclick="CancelChangesInZone(2)" style="display: none" class="btn btn-link">
+							@T("cart.cancel")
+						</button>
+
+						<div class="form-group row">
+							<label style="display: none" class="col-form-label col-sm-3" for="li1">
+								@T("cart.city")
+							</label>
+							<input type="text"
+								   style="display: none"
+								   id="ai1"
+								   name="City"
+								   class="form-control col-sm-8"
+								   @Model.CustomerInfo.City>
+							<div class="col-sm-4">@T("cart.city")</div>
+							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.City</div>
+						</div>
+						<div class="form-group row">
+							<label style="display: none" class="col-form-label col-sm-3" for="li2">
+								@T("cart.address")
+							</label>
+							<input style="display: none"
+								   id="ai2"
+								   type="text"
+								   name="StreetAddress1"
+								   class="form-control col-sm-8"
+								   value="@Model.CustomerInfo.StreetAddress">
+							<div class="col-sm-4">@T("cart.address")</div>
+							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress</div>
+						</div>
+						<div class="form-group row">
+							<label style="display: none" class="col-form-label col-sm-3" for="li2">
+								@T("cart.flat")
+							</label>
+							<input style="display: none"
+								   id="ai2"
+								   type="text"
+								   name="StreetAddress2"
+								   class="form-control col-sm-8"
+								   value="@Model.CustomerInfo.StreetAddress2">
+							<div class="col-sm-4">@T("cart.flat")</div>
+							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress2</div>
+						</div>
 					</div>
 
 					<div class="line"></div>
@@ -606,29 +638,25 @@
 					<div class="title"><span>4</span>@T("cart.payment")</div>
 					<div class="form-inline row">
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" name="moneyl" type="radio"
-								   id="lr4"
-								   checked>
+							<input class="form-check-input" value="1" name="PaymentType" type="radio" id="lr4" checked>
 							<label for="lr4"></label>
 							<label class="col-form-label" for="lr4">
 								@T("cart.payment.cash")
 							</label>
 						</div>
 						<div class="form-check  form-check-inline">
-							<input class="form-check-input" name="moneyl" type="radio"
-								   id="lr5">
+							<input class="form-check-input" value="2" name="PaymentType" type="radio" id="lr5">
 							<label for="lr5"></label>
 							<label class="col-form-label" for="lr5">Visa/MasterCard</label>
 						</div>
 						<div class="form-check  form-check-inline">
-							<input class="form-check-input" name="moneyl" type="radio"
-								   id="lr6">
+							<input class="form-check-input" value="3" name="PaymentType" type="radio" id="lr6">
 							<label for="lr6"></label>
 							<label class="col-form-label" for="lr6">@T("cart.payment.privat24")</label>
 						</div>
 					</div>
 					<div class="form-inline row">
-						<input class="form-check-inline bonus" type="checkbox">
+						<input class="form-check-inline bonus" name="PayByBonuses" type="checkbox">
 						<label class="col-form-label" for="r6">@T("cart.paybybonus")</label>
 						<button class="btn btn-link">@T("cart.moreinfo")</button>
 					</div>
@@ -637,15 +665,78 @@
 
 					<div class="title">@T("cart.comment")</div>
 					<div class="form-group row text-left">
-						<textarea class="form-control col-sm-8" rows="4"></textarea>
+						<textarea class="form-control col-sm-8" name="Comment" rows="4"></textarea>
 					</div>
 					<div class="row">
-						<input id="paymentmethod_0" style="display:none;" type="radio" name="paymentmethod" value="Payments.CheckMoneyOrder" checked="checked">
-						<input type="submit" name="nextstep" value="@T("cart.continue")" class="btn btn-blue pl-5 pr-5" />
+						<button type="submit" id="checkout-old" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
+							@T("Cart.Confirm")
+						</button>
 					</div>
-
 				</form>
 			</div>
+			}
 		</div>
 	</section>
 </article>
+<script>
+	function CancelChangesInZone(index) {
+		if (index == 1) {
+			$("#firstZone .row").each(function () {
+				$(this).find('input').val($(this).find('.text-light-c').text());
+			});
+		}
+		if (index == 2) {
+			$("#secondZone .row").each(function () {
+				$(this).find('input').val($(this).find('.text-light-c').text());
+			});
+		}
+	}
+	$("#checkout-old").on("click", function (e) {
+		if ($("#li1").val().length == 0) {
+			$("#li1").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#li1").removeClass("is-invalid");
+		}
+		if ($("#li2").val().length == 0) {
+			$("#li2").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#li2").removeClass("is-invalid");
+		}
+		e.pr
+		if ($("#li3").val().length == 0) {
+			$("#li3").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#li3").removeClass("is-invalid");
+		}
+	});
+	$("#checkout-new").on("click", function (e) {
+		if ($("#i1").val().length == 0) {
+			$("#i1").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#i1").removeClass("is-invalid");
+		}
+		if ($("#i2").val().length == 0) {
+			$("#i2").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#i2").removeClass("is-invalid");
+		}
+		e.pr
+		if ($("#i3").val().length == 0) {
+			$("#i3").addClass("is-invalid");
+			e.preventDefault();
+		}
+		else {
+			$("#i3").removeClass("is-invalid");
+		}
+	});
+</script>

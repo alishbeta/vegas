@@ -1,0 +1,32 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Nop.Web.Areas.Admin.Models.Shipping;
+@model WarehouseInfoModel
+<nav class="blue-menu">
+	<ul class="clearfix">
+		@if (ViewBag.Active == "main")
+		{
+			<li><a class="active" href="/OurStores">@T("menu.map")</a></li>
+		}
+		else
+		{
+			<li><a href="/OurStores">@T("menu.map")</a></li>
+		}
+
+		@foreach (var city in Model.Cities)
+		{
+			if (city.ToLower() == ViewBag.Active.ToLower())
+			{
+				<li><a class="active" href="/CityMap?city=@city">@city</a></li>
+			}
+			else
+			{
+				<li><a href="/CityMap?city=@city">@city</a></li>
+			}
+
+		}
+	</ul>
+</nav>

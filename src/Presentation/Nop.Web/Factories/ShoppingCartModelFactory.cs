@@ -434,6 +434,8 @@ namespace Nop.Web.Factories
                 var shoppingCartItemSubTotalWithDiscount = _currencyService.ConvertFromPrimaryStoreCurrency(shoppingCartItemSubTotalWithDiscountBase, _workContext.WorkingCurrency);
                 cartItemModel.SubTotal = _priceFormatter.FormatPrice(shoppingCartItemSubTotalWithDiscount);
                 cartItemModel.MaximumDiscountedQty = maximumDiscountQty;
+				//cartItemModel.Discount = product.DiscountProductMappings.ToList().Count > 0 ? product.DiscountProductMappings.ToList()[0].Discount.DiscountPercentage : (decimal)0;
+				cartItemModel.OldPrice = _priceFormatter.FormatPrice(sci.Product.Price);
 
                 //display an applied discount amount
                 if (shoppingCartItemDiscountBase > decimal.Zero)

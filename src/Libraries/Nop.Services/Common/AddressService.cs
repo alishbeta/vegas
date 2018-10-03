@@ -81,7 +81,7 @@ namespace Nop.Services.Common
                         where a.CountryId == countryId
                         select a;
             return query.Count();
-        }
+        } 
 
         /// <summary>
         /// Gets total number of addresses by state/province identifier

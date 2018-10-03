@@ -1336,10 +1336,53 @@ namespace Nop.Services.ExportImport
                     }
 
                     //specification attribute
-                    //foreach (var itemAttribute in item.Attributes)
-                    //{
-                    //    _specificationAttributeService.Get
-                    //}
+                    if (item.Attributes != null)
+                    {
+                        foreach (var itemAttribute in item.Attributes)
+                        {
+                            var attribute = _specificationAttributeService.GetSpecificationAttributeByName(itemAttribute.Name);
+
+                            if (attribute == null)
+                            {
+                                attribute = new SpecificationAttribute()
+                                {
+                                    Name = itemAttribute.Name,
+                                    DisplayOrder = 0
+                                };
+                                _specificationAttributeService.InsertSpecificationAttribute(attribute);
+                            }
+
+                            var option = _specificationAttributeService.GetSpecificationAttributeOptionByName(itemAttribute.Value, attribute.Id);
+
+                            if (option == null)
+                            {
+                                option = new SpecificationAttributeOption()
+                                {
+                                    DisplayOrder = 0,
+                                    Name = itemAttribute.Value,
+                                    SpecificationAttributeId = attribute.Id
+                                };
+                                _specificationAttributeService.InsertSpecificationAttributeOption(option);
+                            }
+
+                            var productOption = _specificationAttributeService.GetProductSpecificationAttributeByProductIdProductSpecificationAttributeId(product.Id, option.Id);
+
+                            if (productOption == null)
+                            {
+                                productOption = new ProductSpecificationAttribute()
+                                {
+                                    ProductId = product.Id,
+                                    SpecificationAttributeOptionId = option.Id,
+                                    DisplayOrder = 0,
+                                    AttributeTypeId = 0,
+                                    ShowOnProductPage = true,
+                                    AllowFiltering = true,
+                                    CustomValue = null
+                                };
+                                _specificationAttributeService.InsertProductSpecificationAttribute(productOption);
+                            }
+                        }
+                    }
 
                     //attributes
                     //foreach (var itemAttribute in item.Attributes)

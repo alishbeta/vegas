@@ -280,7 +280,12 @@
 	//page class
 	Html.AppendPageCssClassParts("html-wishlist-page");
 }
-<nav class="breadcrumb-wrap"></nav>
+<nav class="breadcrumb-wrap">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
+		<li class="breadcrumb-item active"><a href="#">@T("product.wishlist")</a></li>
+	</ol>
+</nav>
 <div class="row favorite">
 	<div class="offset-xl-1 col-xl-11">
 		<h1 class="title">@T("Wishlist") <i class="favorite_i"><span>@Model.Items.Count</span></i></h1>

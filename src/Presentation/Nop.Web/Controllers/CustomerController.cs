@@ -340,11 +340,11 @@ namespace Nop.Web.Controllers
                             _customerActivityService.InsertActivity(customer, "PublicStore.Login",
                                 _localizationService.GetResource("ActivityLog.PublicStore.Login"), customer);
 
-                            if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
-                                return new { success = true, returnUrl = "/customer/info" };
+							if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
+								return new { success = true, returnUrl = "/customer/info" };
 
                             return new { success = true, returnUrl };
-                        }
+						}
                     case CustomerLoginResults.CustomerNotExist:
                         ModelState.AddModelError("", _localizationService.GetResource("Account.Login.WrongCredentials.CustomerNotExist"));
                         break;
@@ -562,11 +562,21 @@ namespace Nop.Web.Controllers
             return View(model);
         }
 
-        #endregion     
+		#endregion
+		[HttpPost]
+		[CheckAccessPublicStore(true)]
+		public virtual dynamic ChangeCustomerPassword(string password)
+		{
+			var email = _workContext.CurrentCustomer.Email;
+			var response = _customerRegistrationService.ChangePassword(new ChangePasswordRequest(email,
+					false, _customerSettings.DefaultPasswordFormat, password));
+			
+			return Newtonsoft.Json.JsonConvert.SerializeObject(response);
+		}
 
-        #region Register
+		#region Register
 
-        [HttpsRequirement(SslRequirement.Yes)]
+		[HttpsRequirement(SslRequirement.Yes)]
         //available even when navigation is not allowed
         [CheckAccessPublicStore(true)]
         public virtual IActionResult Register()
@@ -963,7 +973,27 @@ namespace Nop.Web.Controllers
             model = _customerModelFactory.PrepareCustomerInfoModel(model, _workContext.CurrentCustomer, false);
 
             return View(model);
-        }
+        } 
+
+		//[HttpsRequirement(SslRequirement.Yes)]
+  //      public virtual IActionResult InfoChange(CustomerEditModel customerModel)
+  //      {
+  //          if (!_workContext.CurrentCustomer.IsRegistered())
+  //              return Challenge();
+
+		//	var customer = _workContext.CurrentCustomer;
+		//	_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.PhoneAttribute, customerModel.Phone);
+		//	_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, customerModel.Address);
+		//	_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, customerModel.Name);
+		//	//var customerAttributesXml = ParseCustomCustomerAttributes(model.Form);
+		//	//var customerAttributeWarnings = _customerAttributeParser.GetAttributeWarnings(customerAttributesXml);
+		//	//foreach (var error in customerAttributeWarnings)
+		//	//{
+		//	//	ModelState.AddModelError("", error);
+		//	//}
+		//	//_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CustomCustomerAttributes, customerAttributesXml);
+		//	return View();
+  //      }
 
         [HttpPost]
         [PublicAntiForgery]

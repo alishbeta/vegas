@@ -23,7 +23,12 @@
 		}
 	}
 }
-<nav class="breadcrumb-wrap"></nav>
+<nav class="breadcrumb-wrap">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
+		<li class="breadcrumb-item active"><a href="#">@T("products.new")</a></li>
+	</ol>
+</nav>
 <div class="cat-content-wrap">
 	<div class="title text-center">
 		<h3><b>@ViewData["PageTitle"]</b></h3>
@@ -223,7 +228,7 @@
 		@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBottom, additionalData = Model })
 	</div>
 </div>
-@await Component.InvokeAsync("RecentlyViewedProductsBlock", new { productThumbPictureSize = 450, preparePriceModel = true })
+@await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 450, preparePriceModel = true })
 
 <script>
 	function submitFilters() {

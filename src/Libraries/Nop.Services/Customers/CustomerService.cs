@@ -255,7 +255,7 @@ namespace Nop.Services.Customers
         public virtual IList<Customer> GetNotSyncCustomers()
         {
             var query = from c in _customerRepository.Table
-                        where !c.Deleted && !c.IsSync
+                        where !c.Deleted && !c.IsSync && c.RegisteredInStoreId > 0
                         select c;
             return query.OrderBy(x => x.CreatedOnUtc).ToList();
         }

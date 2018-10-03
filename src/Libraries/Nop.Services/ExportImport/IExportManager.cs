@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Directory;
@@ -13,9 +14,9 @@ namespace Nop.Services.ExportImport
     /// </summary>
     public partial interface IExportManager
     {
-        IEnumerable<OneCOrder> ExportOrdersToOneC();
-        IEnumerable<OneCDiscount> ExportDiscountsToOneC();
-        IEnumerable<OneCUser> ExportUsersToOneC();
+        Tuple<int, IEnumerable<OneCOrder>> ExportOrdersToOneC();
+        Tuple<int, IEnumerable<OneCDiscount>> ExportDiscountsToOneC();
+        Tuple<int, IEnumerable<OneCUser>> ExportUsersToOneC();
 
         /// <summary>
         /// Export manufacturer list to XML
