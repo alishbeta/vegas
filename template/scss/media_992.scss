@@ -348,4 +348,13 @@
             width: auto;
         }
     }
+    .order-complete {
+        .order-info {
+            margin-left: 0;
+            margin-top: 60px;
+        }
+        .items-wrap {
+            @include box-shadow(none);
+        }
+    }
 }

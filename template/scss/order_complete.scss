@@ -1,0 +1,68 @@
+.order-complete {
+    .title-wrap {
+        margin-bottom: 30px;
+        .title {
+            float: left;
+        }
+        .title-btn {
+            float: right;
+        }
+        .title-btn {
+            margin-right: 45px;
+        }
+        i {
+            width: 30px;
+            height: 28px;
+            &.check {
+                background: url(/img/check.png);
+            }
+        }
+    }
+    .items-wrap {
+        padding: 0 5px;
+        border-radius: 5px;
+        @include box-shadow(0 3px 16px 1px rgba(0, 0, 0, 0.5));
+        .item {
+            &.active {
+                border: none;
+            }
+            .item-img {
+                display: inline-block;
+                width: 150px;
+            }
+            .item-info {
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 30px;
+                .title {
+                    color: $text_light;
+                }
+                .item-name {
+                    font-weight: 600;
+                }
+                .price {
+                    font-size: 22px;
+                    font-weight: 600;
+                }
+                .price-old {
+                    color: $text_light;
+                    font-size: 14px;
+                    text-decoration: line-through;
+                }
+            }
+        }
+        .line {
+            margin: 0;
+        }
+    }
+    .order-info {
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 30px;
+        .total {
+            margin-top: 60px;
+            font-weight: 600;
+            font-size: 24px;
+        }
+    }
+}

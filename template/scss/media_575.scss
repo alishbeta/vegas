@@ -29,7 +29,6 @@
         }
         .logo-m {
             width: 114px;
-
         }
         .icons-wrap {
             width: auto;
@@ -58,7 +57,7 @@
         &.open {
             width: 100%;
         }
-        .order-wrapp { 
+        .order-wrapp {
             padding: 25px 5px;
             h1 {
                 font-size: 18px;
@@ -191,7 +190,7 @@
             margin: 0;
         }
     }
-    .cabinet .title-wrap{
+    .cabinet .title-wrap {
         padding: 0 15px;
     }
     nav.blue-menu {
@@ -199,7 +198,7 @@
         ul {
             li {
                 float: none;
-                width: 100%!important;
+                width: 100% !important;
                 a {
                     &.active {
                         @include box-shadow(none);
@@ -270,7 +269,7 @@
     .map .article-wrap {
         margin-left: 0;
     }
-    .top-wraper{
+    .top-wraper {
         position: fixed;
         bottom: 0;
         right: 0;
@@ -280,20 +279,19 @@
         background: #bfdce6;
         text-align: center;
         padding: 9px;
-        i.top:after{
-            top: 8px; 
+        i.top:after {
+            top: 8px;
         }
-        a{
+        a {
             color: #2c96b9;
-            span{
+            span {
                 display: inline;
-              }
+            }
         }
     }
     .footer-wrap .phone-footer-wrap .phone {
         font-size: 17px;
     }
-
     .cabinet .cabinet-info {
         padding: 30px 15px;
         .title span {
@@ -301,6 +299,23 @@
         }
         .line {
             margin: 20px -30px;
+        }
+    }
+    .title-wrap {
+        text-align: center;
+    }
+    .order-complete .title-wrap {
+        .title-btn {
+            margin-right: 0;
+            float: none;
+            a{
+                margin-top: 15px;
+            }
+        }
+    }
+    .order-complete .items-wrap {
+        .item .item-info {
+            margin-left: 0;
         }
     }
 }

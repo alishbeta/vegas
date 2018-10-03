@@ -339,9 +339,7 @@ nav.blue-menu {
 }
 
 .favorite_i.active {
-    -webkit-mask-image: url(/img/favorite_icon_fill.svg);
-    mask-image: url(/img/favorite_icon_fill.svg);
-    background-color: #4da2c1;
+    background: url(/img/favorite_icon_fill.svg);
 }
 
 .star {
