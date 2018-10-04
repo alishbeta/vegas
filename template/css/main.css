@@ -141,7 +141,7 @@ i.shopping_bag_icon span {
   margin-top: 7px;
 }
 i.favorite_i {
-  background: url("/img/favorite_icon.svg");
+  background: url("/img/favorite_icon.svg") no-repeat;
   text-align: center;
 }
 i.favorite_i span {
@@ -2918,6 +2918,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .product .add-fav:hover .compare_icon, .product .add-compare:hover .compare_icon {
   background: url("/img/compare_icon_fill.svg") no-repeat center;
+  background-size: 100%;
   -moz-transition: 1s;
   -o-transition: 1s;
   -webkit-transition: 1s;
