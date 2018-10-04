@@ -99,8 +99,27 @@
         }
       }
     }
+    .icons-wrap{
+      float: left;
+      width: auto;
+      margin-top: 25px;
+      i {
+        width: 15px;
+        height: 14px;
+      }
+      small{
+        vertical-align: top;
+      }
+    } 
+    .top-wrap{
+      width: 100%;
+    }
+    .close-wrap{
+      float: right;
+    }
   }
   .compare-wrap{
     margin-bottom: 100px;
   }
-}
+
+} 
