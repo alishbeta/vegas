@@ -128,11 +128,9 @@
       .compare_icon{
         background: url("/img/compare_icon_fill.svg") no-repeat center;
         background-size: 100%;
-        @include transition(1s);
       }
       .favorite_i{
         background: url("/img/favorite_icon_fill.svg") no-repeat center;
-        @include transition(1s);
       }
     }
   }

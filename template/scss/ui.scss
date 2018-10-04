@@ -96,10 +96,12 @@ i {
     }
     &.compare_icon {
         background: url("/img/compare_icon.svg") no-repeat center;
-        @include transition(1s);
         &.active,
         &:hover {
             background: url("/img/compare_icon_fill.svg") no-repeat center;
+        }
+        &.active:hover{
+            opacity: .8;
         }
     }
     &.user_icon {
@@ -107,13 +109,15 @@ i {
         &.active{
             background: url("/img/user_icon_fill.svg") no-repeat center; 
         }
+        &.active:hover{
+            opacity: .8;
+        }
     }
     &.tick_icon {
         background: url("/img/tick_icon.svg") no-repeat center;
     }
     &.shopping_bag_icon {
         background: url("/img/shopping_bag_icon.svg") no-repeat center;
-        @include transition(1s);
         &.active,
         &:hover {
             background: url("/img/shopping_bag_icon_fill.svg") no-repeat center;
@@ -133,7 +137,6 @@ i {
         }
         &:hover {
             background: url("/img/favorite_icon_fill.svg") no-repeat center;
-            @include transition(0.8s);
         }
     }
  //  span {
@@ -338,9 +341,13 @@ nav.blue-menu {
     }
 }
 
-.favorite_i.active {
+i.favorite_i.active {
     background: url(/img/favorite_icon_fill.svg);
+    &:hover{
+        opacity: .8;
+    }
 }
+
 
 .star {
     -webkit-mask-image: url(/img/star_fill.svg);
