@@ -1,0 +1,11 @@
+﻿{
+	"Group": "Payment methods",
+	"FriendlyName": "LiqPay",
+	"SystemName": "Payments.LiqPay",
+	"Version": "1.0",
+	"SupportedVersions": [ "4.10" ],
+	"Author": "Mo-apps team",
+	"DisplayOrder": 1,
+	"FileName": "Nop.Plugin.Payments.LiqPay.dll",
+	"Description": "This plugin allows paying with LiqPay"
+}

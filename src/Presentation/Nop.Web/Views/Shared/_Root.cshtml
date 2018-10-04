@@ -46,7 +46,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="header">
-				<h5 class="modal-title" id="exampleModalLabel">Сообщить о появлении:</h5>
+				<h5 class="modal-title" id="exampleModalLabel">@T("writeus.remind"):</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -55,17 +55,53 @@
 				<form action="">
 					<div class="form-group">
 						<div class="col">
-							<input type="text" placeholder="Имя" class="form-control col form-inline">
+							<input type="text" placeholder="@T("writeus.name")" class="form-control col form-inline">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col">
-							<input type="text" placeholder="Телефон" class="form-control col form-inline">
+							<input type="text" placeholder="@T("writeus.phone")" class="form-control col form-inline">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col">
-							<button class="btn btn-blue float-right">Сообщить о появлении</button>
+							<button class="btn btn-blue float-right">@T("writeus.remind")</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="oneclickbuy" tabindex="-1" role="dialog" aria-labelledby="buyInOneClick" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="header">
+				<h5 class="modal-title" id="exampleModalLabel">@T("oneclick.title"):</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="body">
+				<form action="">
+					<div class="form-group">
+						<div class="col">
+							<input type="text" placeholder="@T("oneclick.name")" class="form-control col form-inline">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col">
+							<input type="text" placeholder="@T("oneclick.phone")" class="form-control col form-inline">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col">
+							<input type="text" placeholder="@T("oneclick.email")" class="form-control col form-inline">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col">
+							<button class="btn btn-blue float-right">@T("oneclick.title")</button>
 						</div>
 					</div>
 				</form>
@@ -90,7 +126,7 @@
 			</div>
 			<div class="text-center">
 				<button class="btn btn-blue pr-4 pl-4" onclick="window.location.replace('/checkout/confirm')" id="cartcontinue">@T("cart.continue")</button>
-				<button class="btn btn-blue-white pr-4 pl-4">@T("cart.buynow")</button>
+				<button class="btn btn-blue-white pr-4 pl-4" data-toggle="modal" data-target="#oneclickbuy">@T("cart.buynow")</button>
 			</div>
 			<div class="text-center">
 				<button id="pop-up-close" class="btn btn-link ">@T("cart.close")</button>
@@ -377,7 +413,6 @@
 						var data = "";
 						$("#cartItems").empty();
 						responce.model.Items.forEach(function (product) {
-							console.log(product);
 							var oldPrice = "";
 							if (product.OldPrice != null && product.OldPrice != product.UnitPrice && product.OldPrice != "") {
 								oldPrice = '<div class="price-old">' + product.OldPrice + '</div>';
