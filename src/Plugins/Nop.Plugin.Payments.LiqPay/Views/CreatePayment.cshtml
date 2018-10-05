@@ -1,0 +1,18 @@
+﻿@model Nop.Plugin.Payments.LiqPay.Models.PaymentLiqpayVM
+
+<div class="content">
+	<div class="content-main-h">
+		<div class="content-w">
+			<div class="content-w-l"></div>
+			<form method="POST" accept-charset="utf-8" id="liqpay-form" action="https://www.liqpay.com/api/3/checkout">
+				<input type="hidden" name="data" value="@Model.data" />
+				<input type="hidden" name="signature" value="@Model.signature" />
+			</form>
+		</div>
+	</div>
+	<div class="content-main">
+	</div>
+</div>
+<script>
+	document.getElementById('liqpay-form').submit();
+</script>

@@ -100,39 +100,40 @@ namespace Nop.Plugin.Payments.LiqPay
         /// <param name="postProcessPaymentRequest">Payment info required for an order processing</param>
         public void PostProcessPayment(PostProcessPaymentRequest postProcessPaymentRequest)
         {
-            ////create common query parameters for the request
-            //var queryParameters = CreateQueryParameters(postProcessPaymentRequest);
+			_httpContextAccessor.HttpContext.Response.Redirect("liqpay?orderId=" + postProcessPaymentRequest.Order.Id);
+			////create common query parameters for the request
+			//var queryParameters = CreateQueryParameters(postProcessPaymentRequest);
 
-            ////whether to include order items in a transaction
-            //if (_paypalStandardPaymentSettings.PassProductNamesAndTotals)
-            //{
-            //    //add order items query parameters to the request
-            //    var parameters = new Dictionary<string, string>(queryParameters);
-            //    AddItemsParameters(parameters, postProcessPaymentRequest);
+			////whether to include order items in a transaction
+			//if (_paypalStandardPaymentSettings.PassProductNamesAndTotals)
+			//{
+			//    //add order items query parameters to the request
+			//    var parameters = new Dictionary<string, string>(queryParameters);
+			//    AddItemsParameters(parameters, postProcessPaymentRequest);
 
-            //    //remove null values from parameters
-            //    parameters = parameters.Where(parameter => !string.IsNullOrEmpty(parameter.Value))
-            //        .ToDictionary(parameter => parameter.Key, parameter => parameter.Value);
+			//    //remove null values from parameters
+			//    parameters = parameters.Where(parameter => !string.IsNullOrEmpty(parameter.Value))
+			//        .ToDictionary(parameter => parameter.Key, parameter => parameter.Value);
 
-            //    //ensure redirect URL doesn't exceed 2K chars to avoid "too long URL" exception
-            //    var redirectUrl = QueryHelpers.AddQueryString(GetPaypalUrl(), parameters);
-            //    if (redirectUrl.Length <= 2048)
-            //    {
-            //        _httpContextAccessor.HttpContext.Response.Redirect(redirectUrl);
-            //        return;
-            //    }
-            //}
+			//    //ensure redirect URL doesn't exceed 2K chars to avoid "too long URL" exception
+			//    var redirectUrl = QueryHelpers.AddQueryString(GetPaypalUrl(), parameters);
+			//    if (redirectUrl.Length <= 2048)
+			//    {
+			//        _httpContextAccessor.HttpContext.Response.Redirect(redirectUrl);
+			//        return;
+			//    }
+			//}
 
-            ////or add only an order total query parameters to the request
-            //AddOrderTotalParameters(queryParameters, postProcessPaymentRequest);
+			////or add only an order total query parameters to the request
+			//AddOrderTotalParameters(queryParameters, postProcessPaymentRequest);
 
-            ////remove null values from parameters
-            //queryParameters = queryParameters.Where(parameter => !string.IsNullOrEmpty(parameter.Value))
-            //    .ToDictionary(parameter => parameter.Key, parameter => parameter.Value);
+			////remove null values from parameters
+			//queryParameters = queryParameters.Where(parameter => !string.IsNullOrEmpty(parameter.Value))
+			//    .ToDictionary(parameter => parameter.Key, parameter => parameter.Value);
 
-            //var url = QueryHelpers.AddQueryString(GetPaypalUrl(), queryParameters);
-            //_httpContextAccessor.HttpContext.Response.Redirect(url);
-        }
+			//var url = QueryHelpers.AddQueryString(GetPaypalUrl(), queryParameters);
+			//_httpContextAccessor.HttpContext.Response.Redirect(url);
+		}
 
         /// <summary>
         /// Returns a value indicating whether payment method should be hidden during checkout

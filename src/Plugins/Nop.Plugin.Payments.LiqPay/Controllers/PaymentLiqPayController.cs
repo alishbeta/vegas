@@ -4,7 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Nop.Core;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Payments;
@@ -38,12 +40,13 @@ namespace Nop.Plugin.Payments.LiqPay.Controllers
         private readonly ILogger _logger;
         private readonly IWebHelper _webHelper;
         private readonly ShoppingCartSettings _shoppingCartSettings;
+		private readonly LiqPayPaymentSettings _liqPayPaymentSettings;
 
-        #endregion
+		#endregion
 
-        #region Ctor
+		#region Ctor
 
-        public PaymentLiqPayController(IWorkContext workContext,
+		public PaymentLiqPayController(IWorkContext workContext,
             ISettingService settingService,
             IPaymentService paymentService,
             IOrderService orderService,
@@ -54,7 +57,8 @@ namespace Nop.Plugin.Payments.LiqPay.Controllers
             IStoreContext storeContext,
             ILogger logger,
             IWebHelper webHelper,
-            ShoppingCartSettings shoppingCartSettings)
+            ShoppingCartSettings shoppingCartSettings,
+			LiqPayPaymentSettings liqPayPaymentSettings)
         {
             this._workContext = workContext;
             this._settingService = settingService;
@@ -68,11 +72,90 @@ namespace Nop.Plugin.Payments.LiqPay.Controllers
             this._logger = logger;
             this._webHelper = webHelper;
             this._shoppingCartSettings = shoppingCartSettings;
-        }
+			this._liqPayPaymentSettings = liqPayPaymentSettings;
+		}
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
+
+		[Authorize]
+		public IActionResult CreatePayment(int orderId)
+		{
+			PaymentLiqpayVM model = new PaymentLiqpayVM();
+			LiqPaySignatureGenerator liqpaysignature = new LiqPaySignatureGenerator();
+			var order = _orderService.GetOrderById(orderId);
+			model.pay_way = "card,liqpay,privat24";
+			model.amount = order.OrderTotal.ToString("0.00", CultureInfo.InvariantCulture);
+			model.currency = "UAH";
+			model.action = "pay";
+			model.private_key = _liqPayPaymentSettings.PrivateKey;
+			model.public_key = _liqPayPaymentSettings.PublicKey;
+			model.recurringbytoken = "0";
+			model.result_url = string.Format("https://vegas.mo-apps.com/ru/checkout/completed/{0}", order.Id);
+			model.server_url = "https://vegas.mo-apps.com/liqpay/callback";
+			model.version = "3";
+			if (_liqPayPaymentSettings.UseSandbox)
+			{
+				model.sandbox = "1";
+			}
+			else
+			{
+				model.sandbox = "0";
+			}
+			model.description = String.Format("Заказ #{0}. Имя: {1}, тел. {2}, email: {3}", order.Id, order.Customer.BillingAddress.FirstName, order.Customer.BillingAddress.PhoneNumber, order.Customer.Email);
+
+			model.order_id = order.Id.ToString();
+			liqpaysignature.GenerateSignature(model);
+
+			return View("~/Plugins/Payments.LiqPay/Views/CreatePayment.cshtml", model);
+		}
+
+		[HttpPost]
+		public string ServerUrl(string signature, string data)
+		{
+			try
+			{
+				if (signature == null || data == null) return "ERROR_EMPTY_DATA";
+
+				byte[] dataVal = Convert.FromBase64String(data);
+				string decodedString = Encoding.UTF8.GetString(dataVal);
+
+				PaymentLiqpayResponse model = JsonConvert.DeserializeObject<PaymentLiqpayResponse>(decodedString);
+
+				LiqPaySignatureGenerator liqpaySignature = new LiqPaySignatureGenerator();
+				if (!String.Equals(signature, liqpaySignature.GenerateSignature(data, _liqPayPaymentSettings.PrivateKey)))
+				{
+					return "SENDER_ERROR";
+				}
+				var order = _orderService.GetOrderById(int.Parse(model.order_id));
+				if (order == null)
+				{
+					return "ERROR_ORDER_NOT_FOUND";
+				}
+				if (model.status == "success" || model.status == "sandbox")
+				{
+					order.OrderStatus = OrderStatus.Complete;
+					return "OK";
+				}
+				if (model.status == "failure")
+				{
+					order.OrderStatus = OrderStatus.Cancelled;
+					return "OK";
+				}  
+				if (model.status == "processing")
+				{
+					order.OrderStatus = OrderStatus.Processing;
+					return "OK";
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.InsertLog(Core.Domain.Logging.LogLevel.Error, ex.Message, JsonConvert.SerializeObject(ex));   
+			}
+			return "UNKNOWN_ERROR";
+		}
+
 
         [AuthorizeAdmin]
         [Area(AreaNames.Admin)]
