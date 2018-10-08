@@ -28,6 +28,7 @@ namespace Nop.Plugin.Payments.LiqPay.Controllers
     {
         #region Fields
 
+		private string _baseUrl = "https://vegas.mo-apps.com/";
         private readonly IWorkContext _workContext;
         private readonly ISettingService _settingService;
         private readonly IPaymentService _paymentService;
@@ -79,12 +80,19 @@ namespace Nop.Plugin.Payments.LiqPay.Controllers
 
 		#region Methods
 
-		[Authorize]
 		public IActionResult CreatePayment(int orderId)
 		{
 			PaymentLiqpayVM model = new PaymentLiqpayVM();
 			LiqPaySignatureGenerator liqpaysignature = new LiqPaySignatureGenerator();
-			var order = _orderService.GetOrderById(orderId);
+			var order = _orderService.GetOrderById(orderId); 
+			if (order == null)
+			{
+				return Redirect(_baseUrl);
+			}
+			if (order.PaymentStatus == PaymentStatus.Paid)
+			{
+				return Redirect(string.Format("{0}ru/checkout/completed/{1}", _baseUrl, order.Id));
+			}
 			model.pay_way = "card,liqpay,privat24";
 			model.amount = order.OrderTotal.ToString("0.00", CultureInfo.InvariantCulture);
 			model.currency = "UAH";
@@ -92,8 +100,8 @@ namespace Nop.Plugin.Payments.LiqPay.Controllers
 			model.private_key = _liqPayPaymentSettings.PrivateKey;
 			model.public_key = _liqPayPaymentSettings.PublicKey;
 			model.recurringbytoken = "0";
-			model.result_url = string.Format("https://vegas.mo-apps.com/ru/checkout/completed/{0}", order.Id);
-			model.server_url = "https://vegas.mo-apps.com/liqpay/callback";
+			model.result_url = string.Format("{0}ru/checkout/completed/{1}", _baseUrl, order.Id); ;
+			model.server_url = string.Format("{0}liqpay/callback", _baseUrl);
 			model.version = "3";
 			if (_liqPayPaymentSettings.UseSandbox)
 			{
@@ -116,7 +124,7 @@ namespace Nop.Plugin.Payments.LiqPay.Controllers
 		{
 			try
 			{
-				if (signature == null || data == null) return "ERROR_EMPTY_DATA";
+				if (signature == null || data == null) throw new Exception("ERROR_EMPTY_DATA");
 
 				byte[] dataVal = Convert.FromBase64String(data);
 				string decodedString = Encoding.UTF8.GetString(dataVal);
@@ -126,34 +134,33 @@ namespace Nop.Plugin.Payments.LiqPay.Controllers
 				LiqPaySignatureGenerator liqpaySignature = new LiqPaySignatureGenerator();
 				if (!String.Equals(signature, liqpaySignature.GenerateSignature(data, _liqPayPaymentSettings.PrivateKey)))
 				{
-					return "SENDER_ERROR";
+					throw new Exception("SENDER_ERROR");
 				}
 				var order = _orderService.GetOrderById(int.Parse(model.order_id));
 				if (order == null)
 				{
-					return "ERROR_ORDER_NOT_FOUND";
+					throw new Exception("ORDER_NOT_FOUND");
 				}
 				if (model.status == "success" || model.status == "sandbox")
 				{
-					order.OrderStatus = OrderStatus.Complete;
-					return "OK";
+					order.PaymentStatus = PaymentStatus.Paid;
 				}
 				if (model.status == "failure")
 				{
-					order.OrderStatus = OrderStatus.Cancelled;
-					return "OK";
+					order.PaymentStatus = PaymentStatus.Voided;
 				}  
 				if (model.status == "processing")
 				{
-					order.OrderStatus = OrderStatus.Processing;
-					return "OK";
+					order.PaymentStatus = PaymentStatus.Pending;
 				}
+				_orderService.UpdateOrder(order);
+				return "OK";
 			}
 			catch (Exception ex)
 			{
-				_logger.InsertLog(Core.Domain.Logging.LogLevel.Error, ex.Message, JsonConvert.SerializeObject(ex));   
+				_logger.InsertLog(Core.Domain.Logging.LogLevel.Error, ex.Message, JsonConvert.SerializeObject(ex));
+				throw ex;  
 			}
-			return "UNKNOWN_ERROR";
 		}
 
 

@@ -34,7 +34,8 @@ namespace Nop.Web.Factories
         private readonly AddressSettings _addressSettings;
         private readonly CatalogSettings _catalogSettings;
         private readonly IAddressModelFactory _addressModelFactory;
-        private readonly ICountryService _countryService;
+		private readonly IProductModelFactory _productModelFactory;
+		private readonly ICountryService _countryService;
         private readonly ICurrencyService _currencyService;
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly IDownloadService _downloadService;
@@ -65,7 +66,8 @@ namespace Nop.Web.Factories
         public OrderModelFactory(AddressSettings addressSettings,
             CatalogSettings catalogSettings,
             IAddressModelFactory addressModelFactory,
-            ICountryService countryService,
+			IProductModelFactory productModelFactory,
+			ICountryService countryService,
             ICurrencyService currencyService,
             IDateTimeHelper dateTimeHelper,
             IDownloadService downloadService,
@@ -92,7 +94,8 @@ namespace Nop.Web.Factories
             this._addressSettings = addressSettings;
             this._catalogSettings = catalogSettings;
             this._addressModelFactory = addressModelFactory;
-            this._countryService = countryService;
+			this._productModelFactory = productModelFactory;
+			this._countryService = countryService;
             this._currencyService = currencyService;
             this._dateTimeHelper = dateTimeHelper;
             this._downloadService = downloadService;
@@ -149,7 +152,7 @@ namespace Nop.Web.Factories
 
                 model.Orders.Add(orderModel);
             }
-
+			 // PrepareProductDetailsModel
             var recurringPayments = _orderService.SearchRecurringPayments(_storeContext.CurrentStore.Id,
                 _workContext.CurrentCustomer.Id);
             foreach (var recurringPayment in recurringPayments)
