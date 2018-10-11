@@ -123,7 +123,7 @@ i {
         }
     }
     &.favorite_i {
-        background: url("/img/favorite_icon.svg");
+        background: url("/img/favorite_icon.svg") no-repeat;
         text-align: center;
         span {
             display: inline-block;

@@ -444,7 +444,14 @@ namespace Nop.Web.Factories
                     if (shoppingCartItemDiscountBase > decimal.Zero)
                     {
                         var shoppingCartItemDiscount = _currencyService.ConvertFromPrimaryStoreCurrency(shoppingCartItemDiscountBase, _workContext.WorkingCurrency);
-                        cartItemModel.Discount = _priceFormatter.FormatPrice(shoppingCartItemDiscount);
+						try
+						{
+							cartItemModel.Discount = sci.Product.AppliedDiscounts.FirstOrDefault().DiscountPercentage.ToString("#.##");//_priceFormatter.FormatPrice(shoppingCartItemDiscount);
+						}
+						catch 
+						{
+							cartItemModel.Discount = null;
+						}
                     }
                 }
             }

@@ -999,7 +999,15 @@ namespace Nop.Web.Controllers
                 //place order
                 processPaymentRequest.StoreId = _storeContext.CurrentStore.Id;
                 processPaymentRequest.CustomerId = _workContext.CurrentCustomer.Id;
-				processPaymentRequest.PaymentMethodSystemName = "Payments.CheckMoneyOrder";
+				if (orderModel.PaymentType == "1")
+				{
+					processPaymentRequest.PaymentMethodSystemName = "Payments.CheckMoneyOrder";
+				} 
+				if (orderModel.PaymentType == "2")
+				{
+					processPaymentRequest.PaymentMethodSystemName = "Payments.LiqPay";
+				}
+
 				var placeOrderResult = _orderProcessingService.PlaceOrder(processPaymentRequest);
                 if (placeOrderResult.Success)
                 {
@@ -1012,7 +1020,7 @@ namespace Nop.Web.Controllers
 					{
 						_orderProcessingService.SaveComment(placeOrderResult.PlacedOrder, orderModel.Comment);
 					}
-					//_paymentService.PostProcessPayment(postProcessPaymentRequest);
+					_paymentService.PostProcessPayment(postProcessPaymentRequest);
 
 					if (_webHelper.IsRequestBeingRedirected || _webHelper.IsPostBeingDone)
                     {

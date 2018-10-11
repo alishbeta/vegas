@@ -109,7 +109,25 @@
 								<div class="outer-wrapp rounded">
 									<div class="item-wrap">
 										<div class="product-img-wrap">
-											<div class="close-wrap"><i class="close-i" onclick="setLocation('@Url.RouteUrl("RemoveProductFromCompareList", new { productId = product.Id })')"></i></div>
+											<div class="top-wrap">
+												<div class="icons-wrap">
+													@for (int i = 1; i < 6; i++)
+													{
+														if (i < product.ReviewOverviewModel.RatingSum)
+														{
+															<i class="star"></i>
+														}
+														else
+														{
+															<i class="star grey"></i>
+														}
+													}
+													<small>@product.ReviewOverviewModel.TotalReviews отзыва</small>
+												</div>
+												<div class="close-wrap">
+													<i class="close-i" onclick="setLocation('@Url.RouteUrl("RemoveProductFromCompareList", new { productId = product.Id })')"></i>
+												</div>
+											</div>
 											<img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
 											@if (@product.ProductPrice.Discount.ToString("#.##") != "")
 											{

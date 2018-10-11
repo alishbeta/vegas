@@ -352,6 +352,9 @@
         .order-info {
             margin-left: 0;
             margin-top: 60px;
+            .total {
+                font-size: 20px;
+            }
         }
         .items-wrap {
             @include box-shadow(none);

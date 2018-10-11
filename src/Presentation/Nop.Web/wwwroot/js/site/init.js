@@ -44,6 +44,7 @@ $(document).ready(function () {
     /*#####################    Карусель  ###############################*/
 
     if ($(window).width() >= 575) {
+        $('ul li.d-sm-none').remove();
         $('.outer-wrapp.scroll').hover(function () {
             if ($(this).find(".item-wrap-full").length) {
                 var b = $(this).find(".item-wrap-full"),
