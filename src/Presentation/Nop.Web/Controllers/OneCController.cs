@@ -99,6 +99,11 @@ namespace Nop.Web.Controllers
         [CheckAccessPublicStore(true)]
         public virtual JsonResult ImportProducts([FromBody]OneCProductsImport model)
         {
+            if(model == null)
+            {
+                return Json(new OneCResponse() { Success = false, Message = "JSON format is incorrect." });
+            }
+
             var response = IsLogin(model?.Username, model?.Email, model?.Password);
             if (response.Success)
             {
@@ -135,6 +140,11 @@ namespace Nop.Web.Controllers
         [CheckAccessPublicStore(true)]
         public virtual JsonResult ExportOrders([FromBody]OneCAuth model)
         {
+            if (model == null)
+            {
+                return Json(new OneCResponse() { Success = false, Message = "JSON format is incorrect." });
+            }
+
             var response = IsLogin(model?.Username, model?.Email, model?.Password);
             if (response.Success)
             {
@@ -171,6 +181,11 @@ namespace Nop.Web.Controllers
         [CheckAccessPublicStore(true)]
         public virtual JsonResult ExportDiscounts([FromBody]OneCAuth model)
         {
+            if (model == null)
+            {
+                return Json(new OneCResponse() { Success = false, Message = "JSON format is incorrect." });
+            }
+
             var response = IsLogin(model?.Username, model?.Email, model?.Password);
             if (response.Success)
             {
@@ -207,6 +222,11 @@ namespace Nop.Web.Controllers
         [CheckAccessPublicStore(true)]
         public virtual JsonResult ExportCustomers([FromBody]OneCAuth model)
         {
+            if (model == null)
+            {
+                return Json(new OneCResponse() { Success = false, Message = "JSON format is incorrect." });
+            }
+
             var response = IsLogin(model?.Username, model?.Email, model?.Password);
             if (response.Success)
             {
