@@ -1,4 +1,5 @@
-﻿@model CustomerOrderListModel
+﻿@using Nop.Web.Factories;
+@model CustomerOrderListModel
 @{
     Layout = "_ColumnsOne";
 
@@ -39,7 +40,7 @@
 							<div class="title-wrap clearfix">
 								<div><a data-toggle="collapse" href="#collapseExample"><i class="arrows"></i>№@order.CustomOrderNumber</a></div>
 								<div>@order.CreatedOn</div>
-								<div><b>@order.OrderItems.Count() товар на @order.OrderTotal грн </b></div>
+								<div><b>@order.OrderItems.Count() товар на @order.OrderTotal</b></div>
 								<div>@order.OrderStatus</div>
 							</div>
 
@@ -47,7 +48,7 @@
 								@foreach (var product in order.OrderItems)
 								{
 								<div class="item">
-									<div><img src="prod_img/bad1.jpg" alt=""></div>
+									<div><img src="@product.Product.ProductPictures.FirstOrDefault()?.Picture.PictureBinary" alt="@product.Product.ProductPictures.FirstOrDefault()?.Picture.AltAttribute" title="@product.Product.ProductPictures.FirstOrDefault()?.Picture.TitleAttribute"></div>
 									<div class="name">
 										<div class="title">@(string.Format("", product.Product.ProductCategories))</div>
 										<div>@product.Product.Name</div>
@@ -56,13 +57,13 @@
 										@product.Quantity шт
 									</div>
 									<div class="price">
-										@product.Product.Price грн
+										@product.Product.Price
 									</div>
 								</div>
 								}
 								<div class="total">
 									<div class="title">Итого к оплате</div>
-									<div><b>@order.OrderTotal грн</b></div>
+									<div><b>@order.OrderTotal</b></div>
 								</div>
 							</div>
 							<div class="line"></div>

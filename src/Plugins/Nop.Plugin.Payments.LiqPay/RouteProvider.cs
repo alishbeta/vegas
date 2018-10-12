@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
+using Nop.Web.Framework.Localization;
 using Nop.Web.Framework.Mvc.Routing;
 
 namespace Nop.Plugin.Payments.LiqPay
@@ -13,12 +14,12 @@ namespace Nop.Plugin.Payments.LiqPay
         public void RegisterRoutes(IRouteBuilder routeBuilder)
         {
             //PDT
-            routeBuilder.MapRoute("Plugin.Payments.PaymentLiqPay.PDTHandler", "Plugins/PaymentLiqPay/PDTHandler",
-                 new { controller = "PaymentLiqPay", action = "PDTHandler" });
+            routeBuilder.MapLocalizedRoute("Plugin.Payments.PaymentLiqPay.Checkout", "/checkout/liqpay",
+                 new { controller = "PaymentLiqPay", action = "CreatePayment" });
 
             //IPN
-            routeBuilder.MapRoute("Plugin.Payments.PaymentLiqPay.IPNHandler", "Plugins/PaymentLiqPay/IPNHandler",
-                 new { controller = "PaymentLiqPay", action = "IPNHandler" });
+            routeBuilder.MapRoute("Plugin.Payments.PaymentLiqPay.Callback", "/liqpay/callback",
+                 new { controller = "PaymentLiqPay", action = "ServerUrl" });
 
             //Cancel
             routeBuilder.MapRoute("Plugin.Payments.PaymentLiqPay.CancelOrder", "Plugins/PaymentLiqPay/CancelOrder",
