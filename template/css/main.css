@@ -1399,7 +1399,6 @@ nav.breadcrumb-wrap a:hover {
   width: 100%;
 }
 .news-wrap .item-wrap a, .news .article-wrap .item-wrap a, .map .article-wrap .item-wrap a {
-  position: absolute;
   top: 0;
   display: block;
   width: 100%;
@@ -3130,6 +3129,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cabinet .cabinet-info .compare_icon + form {
   float: right;
+}
+.cabinet .cabinet-info-main {
+  padding: 30px 75px;
 }
 .cabinet .line {
   margin: 20px -90px;
