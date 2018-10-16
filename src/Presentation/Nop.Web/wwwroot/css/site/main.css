@@ -774,6 +774,9 @@ footer {
 .short-menu .content-main-wrap .phone-wrap {
   margin: 13px 0 0 51px;
 }
+.short-menu .content-main-wrap .line {
+  margin: 20px 0px 20px -15px;
+}
 
 .icons-wrap i {
   display: block;
@@ -1270,7 +1273,7 @@ nav.breadcrumb-wrap a:hover {
 
 .item-wrap {
   width: 268px;
-  height: 340px;
+  height: 370px;
   padding: 0 20px;
 }
 .item-wrap span img {
