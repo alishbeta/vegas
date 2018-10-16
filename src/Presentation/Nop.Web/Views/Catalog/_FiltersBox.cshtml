@@ -3,7 +3,7 @@
 	var OptionFilters = new List<Nop.Core.Domain.Catalog.SpecificationAttribute>();
 	var CustomTextFilters = new List<Nop.Core.Domain.Catalog.SpecificationAttribute>();
 }
-@foreach (var product in Model.AllProducts)
+@*@foreach (var product in Model.AllProducts)
 {
 	foreach (var spec in product.ProductSpecificationAttributes)
 	{
@@ -22,7 +22,7 @@
 			}
 		}
 	}
-}
+}*@
 <div class="title text-center">
 	<h3><b>@Model.Name</b></h3>
 	<p>
@@ -163,7 +163,7 @@
 			</div>
 			<div id="slider-1-r" class="slider-range"></div>
 		</div>
-		@{
+		@*@{
 			int filterNum = 2;
 		}
 		<div id="CustomFilters">
@@ -200,7 +200,7 @@
 					</div>
 				}
 			</div>
-		}
+		}*@
 		<div class="inner-wrap text-center">
 			<div class="btn-group-vertical">
 				<button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">Применить</button>
