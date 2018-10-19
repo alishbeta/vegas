@@ -16,12 +16,7 @@
     <MSBuild Projects="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="NopClear" />
   </Target>
   <ItemGroup>
-    <None Remove="Views\Configure.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Configure.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
@@ -36,5 +31,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
+  </ItemGroup>
+  <ItemGroup>
+  <Content Include="Views\Configure.cshtml">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  <Content Include="Views\_ViewImports.cshtml">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
   </ItemGroup>
 </Project>

@@ -47,7 +47,31 @@ namespace Nop.Plugin.Shipping.NewPost.Controller
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageShippingSettings))
                 return AccessDeniedView();
 
-            return View("~/Plugins/Shipping.NewPost/Views/Configure.cshtml", new NewPostModel());
+            var model = new NewPostModel()
+            {
+                ApiKey = _newPostSettings.ApiKey,
+                Url = _newPostSettings.Url
+            };
+
+            return View("~/Plugins/Shipping.NewPost/Views/Configure.cshtml", model);
+        }
+
+        [HttpPost]
+        [AdminAntiForgery]
+        public IActionResult Configure(NewPostModel model)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageShippingSettings))
+                return AccessDeniedView();
+
+            if (!ModelState.IsValid)
+                return Configure();
+
+            _newPostSettings.ApiKey = model.ApiKey;
+            _newPostSettings.Url = model.Url;
+            _settingService.SaveSetting(_newPostSettings);
+
+            SuccessNotification(_localizationService.GetResource("Admin.Plugins.Saved"));
+            return Configure();
         }
 
         #endregion

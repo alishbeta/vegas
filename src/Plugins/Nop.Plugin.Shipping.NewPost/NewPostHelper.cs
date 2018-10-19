@@ -40,7 +40,7 @@ namespace Nop.Plugin.Shipping.NewPost
 
         public override string GetConfigurationPageUrl()
         {
-            return $"{_webHelper.GetStoreLocation()}Admin/ShippingNewPost/Configure";
+            return $"{_webHelper.GetStoreLocation()}Admin/NewPost/Configure";
         }
 
         /// <summary>
@@ -51,13 +51,14 @@ namespace Nop.Plugin.Shipping.NewPost
             //settings
             var settings = new NewPostSettings
             {
-                Url = "https://www.ups.com/ups.app/xml/Rate",
-                ApiKey = string.Empty
+                Url = "http://testapi.novaposhta.ua/v2.0/en/",
+                ApiKey = "45f32a18b7f954ee48e88d17544ceaaa"
             };
             _settingService.SaveSetting(settings);
 
             //locales
-            //_localizationService.AddOrUpdatePluginLocaleResource("Plugins.ExchangeRate.EcbExchange.Error", "You can use ECB (European central bank) exchange rate provider only when the primary exchange rate currency is supported by ECB");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Shipping.NewPost.Fields.ApiKey", "Ключ к API новой почты");
+            _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Shipping.NewPost.Fields.Url", "Базовый URL к API новой почты");
 
             base.Install();
         }
@@ -70,7 +71,8 @@ namespace Nop.Plugin.Shipping.NewPost
             _settingService.DeleteSetting<NewPostSettings>();
 
             //locales
-            //_localizationService.DeletePluginLocaleResource("Plugins.ExchangeRate.EcbExchange.Error");
+            _localizationService.DeletePluginLocaleResource("Plugins.Shipping.NewPost.Fields.ApiKey");
+            _localizationService.DeletePluginLocaleResource("Plugins.Shipping.NewPost.Fields.Url");
 
             base.Uninstall();
         }
