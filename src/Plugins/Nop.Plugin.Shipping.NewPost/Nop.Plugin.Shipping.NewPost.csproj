@@ -30,9 +30,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Domain\" />
-  </ItemGroup>
-  <ItemGroup>
   <Content Include="Views\Configure.cshtml">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
