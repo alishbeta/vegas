@@ -77,6 +77,20 @@ namespace Nop.Plugin.Shipping.NewPost
             base.Uninstall();
         }
 
+        public string GetCityId(string cityName)
+        {
+            var settings = _settingService.LoadSetting<NewPostSettings>();
+
+            return string.Empty;
+        }
+
+        public string GetCost(string cityIdFrom, string cityIdTo)
+        {
+            var settings = _settingService.LoadSetting<NewPostSettings>();
+
+            return string.Empty;
+        }
+
         #endregion
     }
 }
