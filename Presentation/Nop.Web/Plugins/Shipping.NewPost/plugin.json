@@ -1,0 +1,11 @@
+{
+  "Group": "Shipping rate computation",
+  "FriendlyName": "NewPost",
+  "SystemName": "Shipping.NewPost",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.10" ],
+  "Author": "MO-APPS team",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Shipping.NewPost.dll",
+  "Description": "This plugin offers shipping rates by NewPost"
+}

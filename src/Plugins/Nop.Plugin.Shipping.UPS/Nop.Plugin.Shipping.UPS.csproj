@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <Content Include="logo.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="plugin.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -49,6 +49,10 @@
 
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   
   <!-- This target execute after "Build" target -->
