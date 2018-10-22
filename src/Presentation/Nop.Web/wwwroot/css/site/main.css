@@ -2929,6 +2929,12 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   width: 100%;
   height: 500px;
 }
+.map #map section {
+  margin-bottom: 10px;
+}
+.map #map span, .map #map h3 {
+  color: #2c96b9;
+}
 .map .img-wrap {
   margin: 30px auto 0 auto;
 }
