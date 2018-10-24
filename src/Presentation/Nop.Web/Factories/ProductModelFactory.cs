@@ -438,7 +438,7 @@ namespace Nop.Web.Factories
         /// <param name="product">Product</param>
         /// <param name="productThumbPictureSize">Product thumb picture size (longest side); pass null to use the default value of media settings</param>
         /// <returns>Picture model</returns>
-        protected virtual PictureModel PrepareProductOverviewPictureModel(Product product, int? productThumbPictureSize = null)
+        public virtual PictureModel PrepareProductOverviewPictureModel(Product product, int? productThumbPictureSize = null)
         {
             if (product == null)
                 throw new ArgumentNullException(nameof(product));

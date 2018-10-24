@@ -423,15 +423,18 @@ namespace Nop.Web.Controllers
 				Cities = new System.Collections.Generic.List<string>(),
 				Warehouses = warehouses
 			};
+			var addresses = new System.Collections.Generic.List<Address>();
 			foreach (var warehouse in warehouses)
 			{
+				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
 				var address = _addressService.GetAddressById(warehouse?.AddressId ?? 0);
 				if (address != null && !model.Cities.Contains(address.City))
 				{
 					model.Cities.Add(address.City);
 				}
 			}
-			
+			model.Addresses = addresses.Where(x => x != null).ToList();
+
 			return View(model);
 		}	
 
@@ -479,7 +482,8 @@ namespace Nop.Web.Controllers
 			var model = new StoreInfoModel
 			{
 				Address = address,
-				OtherStores = cityAdresses
+				OtherStores = cityAdresses,
+				Warehouses = warehouses
 			};
 			return View(model);
 		}

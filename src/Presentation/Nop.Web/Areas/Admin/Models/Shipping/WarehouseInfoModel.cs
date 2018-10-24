@@ -11,5 +11,6 @@ namespace Nop.Web.Areas.Admin.Models.Shipping
     {
 		public IList<Warehouse> Warehouses { get; set; }
 		public List<string> Cities { get; set; }
+		public List<Address> Addresses { get; set; }
 	}
 }
