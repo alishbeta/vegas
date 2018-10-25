@@ -3196,6 +3196,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .cabinet .buy-history-wrap {
   padding: 15px 0;
 }
+.cabinet .buy-history-wrap .orders {
+  width: 100%;
+}
 .cabinet .buy-history-wrap .order-wrap {
   width: 100%;
 }
@@ -3249,7 +3252,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cabinet .buy-history-wrap .order-items .item div {
   display: inline-block;
-  width: 31%;
+  width: 34%;
   vertical-align: middle;
 }
 .cabinet .buy-history-wrap .order-items .item div:first-child {

@@ -93,6 +93,9 @@
     }
   }
   .buy-history-wrap{
+    .orders{
+      width: 100%;
+    }
     padding: 15px 0;
     .order-wrap{
       .line{
@@ -146,7 +149,7 @@
       .item{
         div{
           display: inline-block;
-          width: 31%;
+          width: 34%;
           vertical-align: middle;
           &:first-child{
             min-width: 110px;
