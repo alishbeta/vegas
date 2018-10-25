@@ -133,6 +133,7 @@ namespace Nop.Web.Factories
             var model = new CustomerOrderListModel();
             var orders = _orderService.SearchOrders(storeId: _storeContext.CurrentStore.Id,
                 customerId: _workContext.CurrentCustomer.Id);
+			
             foreach (var order in orders)
             {
                 var orderModel = new CustomerOrderListModel.OrderDetailsModel
