@@ -1,6 +1,10 @@
-var icomsBase = 'img/';
+var icomsBase = 'https://' + location.host + '/images/';
 var map;
 var adresses = $('#address').data('address');
+var zoom = 11;
+if (adresses[0].zoom) {
+	zoom = adresses[0].zoom;
+}
 function initMap() {
     geocoder = new google.maps.Geocoder();
     map = new google.maps.Map(document.getElementById('map'), {
@@ -8,7 +12,7 @@ function initMap() {
             lat: 50.458961,
             lng: 30.337648
         },
-        zoom: 11
+        zoom: zoom
     });
 
     adresses.forEach(addPoint);
@@ -16,8 +20,6 @@ function initMap() {
     function addPoint(data, index) {
         geocoder.geocode({ 'address': data.addr }, function (results, status) {
             if (status == 'OK') {
-                console.log(data.addr);
-                console.log(results[0]);
 
                 var marker = new google.maps.Marker({
                     map: map,
@@ -25,6 +27,8 @@ function initMap() {
                     position: results[0].geometry.location,
                     title: 'Bed4you'
                 });
+
+				map.setCenter(results[0].geometry.location);
 
                 var contentString = '<div id="content">' +
                     '<div id="siteNotice">' +

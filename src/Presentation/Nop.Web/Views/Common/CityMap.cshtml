@@ -22,16 +22,16 @@
 				}
 				@foreach (var address in Model.Addresses)
 				{
-				<div class="img col-lg-6">
-					<a href="/storeinfo?addressId=@address.Id">
-						<img src="https://via.placeholder.com/540x320" alt="">
-						<div class="text-wrap">
-							<div><b>"Матрасы Vegas"</b></div>
-							<div class="address" data-addr="@address.Address1">@address.Address1</div>
-							<div>пн-вс 10:00-20:00</div>
-						</div>
-					</a>
-				</div>
+					<div class="img col-lg-6">
+						<a href="/storeinfo?addressId=@address.Id">
+							<img src="https://via.placeholder.com/540x320" alt="">
+							<div class="text-wrap">
+								<div><b>"Матрасы Vegas"</b></div>
+								<div class="address" data-addr="@address.Address1">@address.Address1</div>
+								<div>пн-вс 10:00-20:00</div>
+							</div>
+						</a>
+					</div>
 					var description = Model.Warehouses.FirstOrDefault(x => x.AddressId == address.Id).AdminComment?.Replace("\n", "").Replace("\r", "");
 					var addr = address.Address1?.Replace("\n", "").Replace("\r", "");
 

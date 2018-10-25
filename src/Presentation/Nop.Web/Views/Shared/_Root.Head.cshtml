@@ -124,8 +124,6 @@
 	<script src="~/js/public.common.js"></script>
 	<script type="text/javascript" src="/js/site/slick.min.js"></script>
 	<script src="/js/site/init.js" crossorigin="anonymous"></script>
-	<script src="/js/site/maps.js" crossorigin="anonymous"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbEYKU92y_bwmjNE_HOjPxoaNFbnpnD9I&callback=initMap" async defer></script>
 	<script src="/js/site/jquery-ui-1.8.23.custom.min.js" crossorigin="anonymous"></script>
 	<script src="/js/site/jquery.mousewheel.min.js" crossorigin="anonymous"></script>
 	<script src="/js/site/jquery.kinetic.min.js" crossorigin="anonymous"></script>
@@ -173,5 +171,7 @@
 </head>
 <body>
 	@RenderBody()
+	<script src="/js/site/maps.js" crossorigin="anonymous"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbEYKU92y_bwmjNE_HOjPxoaNFbnpnD9I&callback=initMap" async defer></script>
 </body>
 </html>
