@@ -37,40 +37,41 @@
 					{
 						@foreach (var order in Model.Orders)
 						{
-							<a data-toggle="collapse" href="#collapseExample">
-								<div class="title-wrap clearfix">
-									<div>
-										<i class="arrows"></i>№@order.CustomOrderNumber
-									</div>
-									<div>@order.CreatedOn</div>
-									<div><b>@order.OrderItems.Count() товар на @order.OrderTotal</b></div>
-									<div>@order.OrderStatus</div>
+					<div class="orders clearfix">
+						<a data-toggle="collapse" href="@string.Format("#collapseExample{0}", order.Id)" onclick="loadImg(@order.Id)">
+							<div class="title-wrap clearfix">
+								<div>
+									<i class="arrows"></i>№@order.CustomOrderNumber
 								</div>
-							</a>
-							<div id="collapseExample" class="collapse order-items clearfix">
-								@foreach (var product in order.OrderItems)
-								{
-									<div class="item">
-										<div><img src="@ViewBag.PictureService.GetPictureUrl(product.Product.ProductPictures.FirstOrDefault()?.Picture)" alt="@product.Product.ProductPictures.FirstOrDefault()?.Picture.AltAttribute" title="@product.Product.ProductPictures.FirstOrDefault()?.Picture.TitleAttribute"></div>
-										<div class="name">
-											<div class="title">@(string.Format("", product.Product.ProductCategories))</div>
-											<div>@product.Product.Name</div>
-										</div>
-										<div class="count">
-											@product.Quantity шт
-										</div>
-										<div class="price">
-											@product.Product.Price.ToString("#.##")
-										</div>
-									</div>
-								}
-								<div class="line"></div>
+								<div>@order.CreatedOn</div>
+								<div><b>@order.OrderItems.Count() товар на @order.OrderTotal</b></div>
+								<div>@order.OrderStatus</div>
 							</div>
+						</a>
+						<div id="@string.Format("collapseExample{0}", order.Id)" class="collapse order-items clearfix">
+							@foreach (var product in order.OrderItems)
+							{
+								<div class="item">
+									<div class="item-img-wrap"><img id="@string.Format("image{0}_{1}", order.Id, product.ProductId)" src="" alt="@product.Product.ProductPictures.FirstOrDefault()?.Picture.AltAttribute" title="@product.Product.ProductPictures.FirstOrDefault()?.Picture.TitleAttribute"></div>
+									<div class="name">
+										<div class="title">@(string.Format("", product.Product.ProductCategories))</div>
+										<div>@product.Product.Name</div>
+									</div>
+									<div class="count">
+										@product.Quantity шт
+									</div>
+									<div class="price">
+										@product.Product.Price.ToString("#.##")
+									</div>
+								</div>
+							}
 							<div class="total">
 								<div class="title">Итого к оплате</div>
 								<div><b>@order.OrderTotal</b></div>
 							</div>
-							
+						</div>
+						<div class="line"></div>
+					</div>
 						}
 					}
 					else
@@ -84,6 +85,31 @@
 		</div>
 	</div>
 </div>
+<script>
+	function loadImg(id) {
+		if (!$("#collapseExample" + id).hasClass('show')) {
+			$("#collapseExample" + id + " .item-img-wrap").each(function () {
+				$(this).addClass('load');
+			});
+			$.ajax({
+				url: "/order/getorderimages",
+				type: "POST",
+				dataType: 'text',
+				traditional: true,
+				data: {
+					orderId: id
+				}
+			}).done(function (data) {
+				JSON.parse(data).forEach(function (elem) {
+					$("#image" + id + "_" + elem.productId).attr("src", elem.url);
+				});
+				$("#collapseExample" + id + " .item-img-wrap").each(function () {
+					$(this).removeClass('load');
+				});
+			});
+		}
+	}
+</script>
 <script>
 	$(document).ready(function () {
 		$.ajax({

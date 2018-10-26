@@ -248,7 +248,7 @@
 						{
 							<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
 						}
-						<div class="text-center mt-3 mb-2"><a href="#">@T("prod.availablity")</a></div>
+						<div class="available text-center mt-3 mb-2"><a href="#">@T("prod.availablity")</a></div>
 						<div class="btn-group-vertical btn-block">
 							@{
 								if (Model.InStock)
@@ -259,7 +259,7 @@
 								}
 								else
 								{
-									<button type="button" class="btn btn-sm btn-blue btn-block" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+									<button type="button" class="btn btn-sm btn-blue btn-block arived" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
 								}
 							}
 							<button class="btn btn-blue-white mb-3 rounded">@T("prod.buynow")</button>

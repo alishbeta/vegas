@@ -304,7 +304,7 @@ namespace Nop.Web.Controllers
         //available even when navigation is not allowed
         [CheckAccessPublicStore(true)]
         [PublicAntiForgery]
-        public virtual dynamic Login(LoginModel model, string returnUrl, bool captchaValid)
+        public virtual dynamic Login(LoginModel model, string returnUrl, bool captchaValid, bool redirect = true)
         {
             //validate CAPTCHA
             if (_captchaSettings.Enabled && _captchaSettings.ShowOnLoginPage && !captchaValid)
@@ -339,10 +339,13 @@ namespace Nop.Web.Controllers
                             //activity log
                             _customerActivityService.InsertActivity(customer, "PublicStore.Login",
                                 _localizationService.GetResource("ActivityLog.PublicStore.Login"), customer);
+							if (redirect)
+							{
+								return Redirect(returnUrl);
+							}
 
 							if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
 								return new { success = true, returnUrl = "/customer/info" };
-
                             return new { success = true, returnUrl };
 						}
                     case CustomerLoginResults.CustomerNotExist:

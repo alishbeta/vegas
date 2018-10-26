@@ -103,6 +103,11 @@ namespace Nop.Web.Infrastructure
 			//new products
 			routeBuilder.MapLocalizedRoute("NewProducts", "newproducts/",
 				new { controller = "Product", action = "NewProducts" });
+				 
+
+			//new products
+			routeBuilder.MapLocalizedRoute("GetOrderImages", "order/getorderimages",
+				new { controller = "Order", action = "GetOrderImages" });
 
 			//new products
 			routeBuilder.MapLocalizedRoute("ArticlesList", "/topic/articleslist",

@@ -78,8 +78,23 @@ namespace Nop.Web.Controllers
 			return View(model);
         }
 
-        //My account / Orders / Cancel recurring order
-        [HttpPost, ActionName("CustomerOrders")]
+		[HttpPost]
+		public dynamic GetOrderImages(int orderId)
+		{
+			var order = _orderService.GetOrderById(orderId);
+			List<dynamic> productImageUrls = new List<dynamic>();
+			foreach (var orderItem in order.OrderItems)
+			{
+				productImageUrls.Add(new {
+					url = _pictureService.GetPictureUrl(orderItem.Product.ProductPictures.FirstOrDefault()?.Picture),
+					productId = orderItem.ProductId
+				});
+			}
+			return productImageUrls;
+		}
+
+		//My account / Orders / Cancel recurring order
+		[HttpPost, ActionName("CustomerOrders")]
         [PublicAntiForgery]
         [FormValueRequired(FormValueRequirement.StartsWith, "cancelRecurringPayment")]
         public virtual IActionResult CancelRecurringPayment(IFormCollection form)

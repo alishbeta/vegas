@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Nop.Core.Domain.Orders;
 using Nop.Web.Framework.Models;
+using Nop.Web.Models.Catalog;
 
 namespace Nop.Web.Models.Order
 {
