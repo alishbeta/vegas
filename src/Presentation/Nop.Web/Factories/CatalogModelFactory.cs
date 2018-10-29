@@ -456,18 +456,6 @@ namespace Nop.Web.Factories
                 //include subcategories
                 categoryIds.AddRange(_categoryService.GetChildCategoryIds(category.Id, _storeContext.CurrentStore.Id));
             }
-
-			var order = _webHelper.QueryString<int>("orderby");
-			bool onlyNew = false;
-
-			if (order == (int)ProductSortingEnum.NewProducts) 
-			{
-				onlyNew = true;
-				command.OrderBy = (int)ProductSortingEnum.Position;
-			}
-
-			var filterRanges = _webHelper.QueryString<string>("spec");
-
 			//products
 			IList<int> alreadyFilteredSpecOptionIds = model.PagingFilteringContext.SpecificationFilter.GetAlreadyFilteredSpecOptionIds(_webHelper);
             var products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
@@ -478,8 +466,6 @@ namespace Nop.Web.Factories
                 featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
                 priceMin: minPriceConverted,
                 priceMax: maxPriceConverted,
-				specificationFilters: filterRanges,
-				markedAsNewOnly: onlyNew,
                 filteredSpecs: alreadyFilteredSpecOptionIds,
                 orderBy: (ProductSortingEnum)command.OrderBy,
                 pageIndex: command.PageNumber - 1,

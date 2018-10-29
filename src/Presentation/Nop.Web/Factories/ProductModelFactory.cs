@@ -1135,15 +1135,11 @@ namespace Nop.Web.Factories
                     SeName = _urlRecordService.GetSeName(product),
                     Sku = product.Sku,
                     ProductType = product.ProductType,
-					ProductSpecificationAttributes = product.ProductSpecificationAttributes.ToList(),
                     MarkAsNew = product.MarkAsNew &&
                         (!product.MarkAsNewStartDateTimeUtc.HasValue || product.MarkAsNewStartDateTimeUtc.Value < DateTime.UtcNow) &&
                         (!product.MarkAsNewEndDateTimeUtc.HasValue || product.MarkAsNewEndDateTimeUtc.Value > DateTime.UtcNow)
                 };
-
-				model.Height = product.Height;
-				model.Width = product.Width;
-				model.Length = product.Length;
+				 
 				model.InStock = (product.StockQuantity > 0 && product.StatusId != 4);	  //StatusId 4 - not in stock
                 //price
                 if (preparePriceModel)

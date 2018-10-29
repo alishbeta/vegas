@@ -220,7 +220,14 @@
 			}
 			else
 			{
-				<button type="button" class="btn btn-sm btn-blue btn-block arived" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+				<button class="btn btn-sm btn-blue btn-block arived" id="back-in-stock-subscribe-@Model.Id" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+				<script>
+						$(document).ready(function () {
+							$("#back-in-stock-subscribe-@Model.Id").on('click', function() {
+								displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
+							});
+						});
+				</script>
 			}
 		</div>
 	</div>

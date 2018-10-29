@@ -1,48 +1,60 @@
 ﻿@model BackInStockSubscribeModel
 <div class="page back-in-stock-subscription-page">
-    <div class="page-title">
-        <h1>
-            @if (Model.AlreadySubscribed)
-            {
-                @T("BackInStockSubscriptions.AlreadySubscribed")
-            }
-            else
-            {
-                @T("BackInStockSubscriptions.PopupTitle")
-            }
-        </h1>
-    </div>
-    <div class="page-body">
-        @if (!Model.SubscriptionAllowed)
-            {
-            <div>
-                @T("BackInStockSubscriptions.NotAllowed")
-            </div>
-        }
-        else if (!Model.IsCurrentCustomerRegistered)
-        {
-            <div>
-                @T("BackInStockSubscriptions.OnlyRegistered")
-            </div>
-        }
-        else if (!Model.AlreadySubscribed && Model.CurrentNumberOfBackInStockSubscriptions >= Model.MaximumBackInStockSubscriptions)
-        {
-            <div>
-                @string.Format(T("BackInStockSubscriptions.MaxSubscriptions").Text, Model.MaximumBackInStockSubscriptions)
-            </div>
-        }
-        else
-        {
-            if (!Model.AlreadySubscribed)
-            {
-                <div class="tooltip">@T("BackInStockSubscriptions.Tooltip")</div>
-            }
-            <button type="submit" id="back-in-stock-notify-me" class="button-1 notify-me-button">
-                @(Model.AlreadySubscribed ? @T("BackInStockSubscriptions.Unsubscribe").Text : @T("BackInStockSubscriptions.NotifyMe").Text)
-            </button>
-            <script>
+	<div class="page-title">
+		<h1 class="header" style="text-align: center; color: #2c96b9; margin: 20px 0 0 0">
+			@if (Model.AlreadySubscribed)
+			{
+				@T("BackInStockSubscriptions.AlreadySubscribed")
+			}
+			else
+			{
+				@T("writeus.remind")
+			}
+		</h1>
+	</div>
+	<div class="modal-content" style="border:none;padding: 20px;">
+		@if (!Model.SubscriptionAllowed)
+		{
+			<div>
+				@T("BackInStockSubscriptions.NotAllowed")
+			</div>
+		}
+		else if (!Model.IsCurrentCustomerRegistered)
+		{
+			<div>
+				@T("BackInStockSubscriptions.OnlyRegistered")
+			</div>
+		}
+		else if (!Model.AlreadySubscribed && Model.CurrentNumberOfBackInStockSubscriptions >= Model.MaximumBackInStockSubscriptions)
+		{
+			<div>
+				@string.Format(T("BackInStockSubscriptions.MaxSubscriptions").Text, Model.MaximumBackInStockSubscriptions)
+			</div>
+		}
+		else
+		{
+			if (!Model.AlreadySubscribed)
+			{
+				<div>@T("BackInStockSubscriptions.Tooltip")</div>
+			}
+			<div class="body">
+				<div class="item">
+					<img style="float: left; width:110px;" src="@Model.ImageUrl" alt="">
+					<div style="float: left; margin: 20px 0 0 40px;">
+						<div class="title">@Model.ProductCategoryName</div>
+						<div class="item-name">@Model.ProductName</div>
+						<div class="price">@Model.ProductPrice</div>
+					</div>
+				</div>
+				<div class="form-group" style="clear:both;">
+					<div class="col">
+						<button type="submit" id="in-stock-notify-me-@Model.ProductId" class="btn btn-blue" style="margin: auto; display: block">@(Model.AlreadySubscribed ? @T("BackInStockSubscriptions.Unsubscribe").Text : @T("BackInStockSubscriptions.NotifyMe").Text)</button>
+					</div>
+				</div>
+			</div>
+			<script>
                 $(document).ready(function () {
-                    $("#back-in-stock-notify-me").on('click', function () {
+                    $("#in-stock-notify-me-@Model.ProductId").on('click', function () {
                         var subscribeButton = this;
                         $.ajax({
                             cache: false,
@@ -56,10 +68,9 @@
                                 alert('Failed to change subscription.');
                             }
                         });
-
                     });
                 });
-            </script>
-        }
-    </div>
+			</script>
+		}
+	</div>
 </div>

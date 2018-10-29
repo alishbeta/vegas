@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
@@ -6,6 +7,7 @@ using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Services.Catalog;
 using Nop.Services.Localization;
+using Nop.Services.Media;
 using Nop.Services.Seo;
 using Nop.Web.Models.Catalog;
 using Nop.Web.Models.Common;
@@ -22,8 +24,11 @@ namespace Nop.Web.Controllers
         private readonly ILocalizationService _localizationService;
         private readonly IProductService _productService;
         private readonly IStoreContext _storeContext;
+        private readonly IPriceFormatter _priceFormatter;
         private readonly IUrlRecordService _urlRecordService;
+        private readonly IPictureService _pictureService;
         private readonly IWorkContext _workContext;
+		private readonly ICategoryService _categoryService;
 
         #endregion
 
@@ -35,14 +40,20 @@ namespace Nop.Web.Controllers
             ILocalizationService localizationService,
             IProductService productService,
             IStoreContext storeContext,
+			IPriceFormatter priceFormatter,
+			IPictureService pictureService,
             IUrlRecordService urlRecordService,
+			ICategoryService categoryService,
             IWorkContext workContext)
         {
+			this._categoryService = categoryService;
             this._catalogSettings = catalogSettings;
             this._customerSettings = customerSettings;
             this._backInStockSubscriptionService = backInStockSubscriptionService;
             this._localizationService = localizationService;
             this._productService = productService;
+			this._pictureService = pictureService;
+			this._priceFormatter = priceFormatter;
             this._storeContext = storeContext;
             this._urlRecordService = urlRecordService;
             this._workContext = workContext;
@@ -61,7 +72,10 @@ namespace Nop.Web.Controllers
 
             var model = new BackInStockSubscribeModel
             {
-                ProductId = product.Id,
+                ProductId = product.Id,	
+				ImageUrl = _pictureService.GetPictureUrl(product.ProductPictures.FirstOrDefault()?.Picture),
+				ProductCategoryName = product.ProductCategories.FirstOrDefault()?.Category.ParentCategoryId == null ? product.ProductCategories.FirstOrDefault()?.Category.Name : _categoryService.GetCategoryById(product.ProductCategories.FirstOrDefault()?.Category.ParentCategoryId ?? 0).Name,
+				ProductPrice = _priceFormatter.FormatPrice(product.Price),
                 ProductName = _localizationService.GetLocalized(product, x => x.Name),
                 ProductSeName = _urlRecordService.GetSeName(product),
                 IsCurrentCustomerRegistered = _workContext.CurrentCustomer.IsRegistered(),
@@ -72,7 +86,6 @@ namespace Nop.Web.Controllers
             };
             if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStock &&
                 product.BackorderMode == BackorderMode.NoBackorders &&
-                product.AllowBackInStockSubscriptions &&
                 _productService.GetTotalStockQuantity(product) <= 0)
             {
                 //out of stock
