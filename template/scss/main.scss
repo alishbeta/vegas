@@ -1000,6 +1000,14 @@ html .ui-button.ui-state-disabled {
     z-index: 1055!important;
 }
 
+.ui-draggable .ui-dialog-titlebar {
+    display: none;
+    }
+
+.ui-widget.ui-widget-content{ 
+    border: unset;
+}
+
 @import "cart";
 @import "compare";
 @import "sales";
