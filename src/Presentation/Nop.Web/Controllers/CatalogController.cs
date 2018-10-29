@@ -139,6 +139,7 @@ namespace Nop.Web.Controllers
 			//	categoryIds: categories);
 			//model.ProductsCount = model.AllProducts.Count;
 			ViewBag.ActiveCategory = (category.ParentCategoryId != 0 ? category.ParentCategoryId : categoryId);
+			ViewBag.ActiveSubCategory = categoryId;
 			//template
 			var templateViewPath = _catalogModelFactory.PrepareCategoryTemplateViewPath(category.CategoryTemplateId);
             return View(templateViewPath, model);
