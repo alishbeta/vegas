@@ -290,7 +290,14 @@
 	<div class="offset-xl-1 col-xl-11">
 		<h1 class="title">@T("Wishlist") <i class="favorite_i"><span>@Model.Items.Count</span></i></h1>
 		<div class="favorite-wrap clearfix">
-			@await Html.PartialAsync("_WishlistItems", Model)
+			@if (Model.Items.Count > 0)
+			{
+				@await Html.PartialAsync("_WishlistItems", Model)
+			}
+			else
+			{
+				<h6><b>@T("wishlist.empty")</b></h6>
+			}
 		</div>
 	</div>
 </div>
