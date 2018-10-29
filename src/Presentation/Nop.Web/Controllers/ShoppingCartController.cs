@@ -1777,6 +1777,7 @@ namespace Nop.Web.Controllers
                 .LimitPerStore(_storeContext.CurrentStore.Id)
                 .ToList();
             var model = new WishlistModel();
+			ViewBag.productService = _productService;
             model = _shoppingCartModelFactory.PrepareWishlistModel(model, cart, !customerGuid.HasValue);
             return View(model);
         }

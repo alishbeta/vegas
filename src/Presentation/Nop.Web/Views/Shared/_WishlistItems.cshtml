@@ -5,7 +5,6 @@
 @using Nop.Core.Domain.Tax
 @inject CatalogSettings catalogSettings
 @inject IWorkContext workContext
-
 @foreach (var item in Model.Items)
 {
 	//prepare "Add to cart" AJAX link
@@ -30,7 +29,7 @@
 		<div class="main-prop-wrap text-left">
 			<div class="product-name text-light-c">@item.ProductName</div>
 			<div class="product-prop">@item.ProductSeName</div>
-			<div class="price-titile">Цена</div>
+			<div class="price-titile">@T("prod.price")</div>
 			<div class="price-wrap clearfix">
 				@if (item.OldPrice != string.Empty)
 				{
@@ -39,6 +38,23 @@
 				<div class="price-new">@item.Price</div>
 			</div>
 		</div>
-		<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
+		@{
+			var product = ViewBag.productService.GetProductById(item.ProductId);
+		}
+		@if (product.StockQuantity > 0 && product.StatusId != 4)
+		{
+			<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">@T("prod.buy")</button>
+		}
+		else
+		{
+			<button class="btn btn-sm btn-blue btn-block arived" id="back-in-stock-subscribe-@item.ProductId" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+			<script>
+				$(document).ready(function () {
+					$("#back-in-stock-subscribe-@item.ProductId").on('click', function() {
+						displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = item.ProductId })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
+					});
+				});
+			</script>
+		}
 	</div>
 }
