@@ -1001,17 +1001,12 @@ html .ui-button.ui-state-disabled {
 }
 
 
-
-
-
-
-
 .ui-draggable .ui-dialog-titlebar {
     display: none;
     }
 
 .ui-widget.ui-widget-content{ 
-    border: unset;
+    border: unset!important;
 }
 
 @import "cart";

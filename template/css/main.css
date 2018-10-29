@@ -2081,7 +2081,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 
 .ui-widget.ui-widget-content {
-  border: unset;
+  border: unset !important;
 }
 
 .cart .row, .cart-popup-wrap .row {
