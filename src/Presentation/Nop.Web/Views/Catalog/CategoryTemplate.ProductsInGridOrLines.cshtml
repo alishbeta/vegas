@@ -206,44 +206,6 @@
 				</div>
 				<div id="slider-1-r" class="slider-range"></div>
 			</div>
-			@*@{
-			int filterNum = 2;
-		}
-		<div id="CustomFilters">
-			@foreach (var filter in CustomTextFilters)
-			{
-				<div class="inner-wrap f-slider" data-filter-number="@filterNum" data-min="0" data-max="200">
-					<div class="title">@filter.Name</div>
-					<div class="form-inline">
-						<div class="form-group">
-							<input type="hidden" name="filterId" value="@filter.Id" />
-							<span>от: </span><input class="form-control" type="text" id="slider-@filterNum-a1">
-							<span>до: </span><input class="form-control" type="text" id="slider-@filterNum-a2">
-						</div>
-					</div>
-					<div id="slider-@filterNum-r" class="slider-range"></div>
-				</div>
-				{
-					filterNum++;
-				}
-			}
-		</div>
-		@foreach (var filter in OptionFilters)
-		{
-			<div class="inner-wrap">
-				<div class="title">@filter.Name</div>
-				@foreach (var specValue in filter.SpecificationAttributeOptions)
-				{
-					<div class="form-check">
-						<input class="form-check-input" name="@filter.Id" type="checkbox" value="@specValue.Id">
-						<label class="form-check-label">
-							@specValue.Name
-							<small>@Model.AllProducts.Count(x => x.ProductSpecificationAttributes.Count(u => u.SpecificationAttributeOption.Name == specValue.Name) > 0)</small>
-						</label>
-					</div>
-				}
-			</div>
-		}*@
 			<div class="inner-wrap text-center">
 				<div class="btn-group-vertical">
 					<button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">Применить</button>
