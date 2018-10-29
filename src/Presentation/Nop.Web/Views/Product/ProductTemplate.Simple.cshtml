@@ -259,7 +259,15 @@
 								}
 								else
 								{
-									<button type="button" class="btn btn-sm btn-blue btn-block arived" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+									<button class="btn btn-sm btn-blue btn-block arived" id="back-in-stock-subscribe-@Model.Id" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+									<script>
+						$(document).ready(function () {
+							$("#back-in-stock-subscribe-@Model.Id").on('click', function() {
+								displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
+							});
+						});
+									</script>
+									
 								}
 							}
 							<button class="btn btn-blue-white mb-3 rounded">@T("prod.buynow")</button>
@@ -271,12 +279,6 @@
 								@await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
 							}
 							@await Html.PartialAsync("_CompareProductsButton", Model)
-							@*<button class="btn btn-blue mb-2 rounded" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">В корзину</button>
-				<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
-			</div>
-			<div class="icons-wrap d-block ml-3">
-				<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
-				<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
 						</div>
 					</div>
 					<div class="line"></div>

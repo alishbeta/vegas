@@ -1,5 +1,8 @@
 ﻿@model BackInStockSubscribeModel
 <div class="page back-in-stock-subscription-page">
+	<button type="button" class="close" onclick="ClosePopup()">
+		<span style="font-size: 22px;">×</span>
+	</button>
 	<div class="page-title">
 		<h1 class="header" style="text-align: center; color: #2c96b9; margin: 20px 0 0 0">
 			@if (Model.AlreadySubscribed)
@@ -48,29 +51,36 @@
 				</div>
 				<div class="form-group" style="clear:both;">
 					<div class="col">
-						<button type="submit" id="in-stock-notify-me-@Model.ProductId" class="btn btn-blue" style="margin: auto; display: block">@(Model.AlreadySubscribed ? @T("BackInStockSubscriptions.Unsubscribe").Text : @T("BackInStockSubscriptions.NotifyMe").Text)</button>
+						<button type="submit" id="in-stock-notify-me" onclick="NotifyMe(@Model.ProductId)" class="btn btn-blue notify-btn" style="margin: auto; display: block">@(Model.AlreadySubscribed ? @T("BackInStockSubscriptions.Unsubscribe").Text : @T("BackInStockSubscriptions.NotifyMe").Text)</button>
 					</div>
 				</div>
 			</div>
 			<script>
-                $(document).ready(function () {
-                    $("#in-stock-notify-me-@Model.ProductId").on('click', function () {
-                        var subscribeButton = this;
+				function NotifyMe(id) {
+					var subscribeButtons = $(".notify-btn");
                         $.ajax({
                             cache: false,
                             type: "POST",
                             url: "@(Url.RouteUrl("BackInStockSubscribeSend"))",
-                            data: { "productId": '@Model.ProductId' },
+                            data: { "productId": id },
                             success: function (data) {
-                                $(subscribeButton).closest('.ui-dialog-content').dialog('destroy').remove();
+								subscribeButtons.each(function () {
+									$(this).closest('.ui-dialog-content').dialog('destroy').remove();
+								});
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
                                 alert('Failed to change subscription.');
                             }
                         });
-                    });
-                });
+				};
+				function ClosePopup() {
+					var subscribeButtons = $(".notify-btn");
+					subscribeButtons.each(function () {
+						$(this).closest('.ui-dialog-content').dialog('destroy').remove();
+					});
+				};
 			</script>
 		}
+
 	</div>
 </div>
