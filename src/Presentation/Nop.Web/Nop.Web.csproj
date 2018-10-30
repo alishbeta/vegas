@@ -73,6 +73,9 @@
     <Content Update="Views\Product\_BackInStockSubscription.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\Components\AccountMenu\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
   <!-- This target execute after "Build" target.
