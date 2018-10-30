@@ -59,42 +59,44 @@ namespace Nop.Web.Controllers
             this._workContext = workContext;
         }
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        // Product details page > back in stock subscribe
-        public virtual IActionResult SubscribePopup(int productId)
-        {
-            var product = _productService.GetProductById(productId);
-            if (product == null || product.Deleted)
-                throw new ArgumentException("No product found with the specified id");
+		// Product details page > back in stock subscribe
+		public virtual IActionResult SubscribePopup(int productId)
+		{
+			var product = _productService.GetProductById(productId);
+			if (product == null || product.Deleted)
+				throw new ArgumentException("No product found with the specified id");
 
-            var model = new BackInStockSubscribeModel
-            {
-                ProductId = product.Id,	
+			BackInStockSubscribeModel model = new BackInStockSubscribeModel();
+
+			model = new BackInStockSubscribeModel
+			{
+				ProductId = product.Id,
 				ImageUrl = _pictureService.GetPictureUrl(product.ProductPictures.FirstOrDefault()?.Picture),
-				ProductCategoryName = product.ProductCategories.FirstOrDefault()?.Category.ParentCategoryId == null ? product.ProductCategories.FirstOrDefault()?.Category.Name : _categoryService.GetCategoryById(product.ProductCategories.FirstOrDefault()?.Category.ParentCategoryId ?? 0).Name,
+				//ProductCategoryName = product.ProductCategories.FirstOrDefault()?.Category.ParentCategoryId == null ? product.ProductCategories.FirstOrDefault()?.Category.Name : _categoryService.GetCategoryById(product.ProductCategories.FirstOrDefault()?.Category.ParentCategoryId ?? 0).Name,
 				ProductPrice = _priceFormatter.FormatPrice(product.Price),
-                ProductName = _localizationService.GetLocalized(product, x => x.Name),
-                ProductSeName = _urlRecordService.GetSeName(product),
-                IsCurrentCustomerRegistered = _workContext.CurrentCustomer.IsRegistered(),
-                MaximumBackInStockSubscriptions = _catalogSettings.MaximumBackInStockSubscriptions,
-                CurrentNumberOfBackInStockSubscriptions = _backInStockSubscriptionService
-                .GetAllSubscriptionsByCustomerId(_workContext.CurrentCustomer.Id, _storeContext.CurrentStore.Id, 0, 1)
-                .TotalCount
-            };
-            if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStock &&
-                product.BackorderMode == BackorderMode.NoBackorders &&
-                _productService.GetTotalStockQuantity(product) <= 0)
-            {
-                //out of stock
-                model.SubscriptionAllowed = true;
-                model.AlreadySubscribed = _backInStockSubscriptionService
-                    .FindSubscription(_workContext.CurrentCustomer.Id, product.Id, _storeContext.CurrentStore.Id) != null;
-            }
-            return PartialView(model);
-        }
+				ProductName = _localizationService.GetLocalized(product, x => x.Name),
+				ProductSeName = _urlRecordService.GetSeName(product),
+				IsCurrentCustomerRegistered = _workContext.CurrentCustomer.IsRegistered(),
+				MaximumBackInStockSubscriptions = _catalogSettings.MaximumBackInStockSubscriptions,
+				CurrentNumberOfBackInStockSubscriptions = _backInStockSubscriptionService
+				.GetAllSubscriptionsByCustomerId(_workContext.CurrentCustomer.Id, _storeContext.CurrentStore.Id, 0, 1)
+				.TotalCount
+			};
+			if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStock &&
+				product.BackorderMode == BackorderMode.NoBackorders &&
+				_productService.GetTotalStockQuantity(product) <= 0)
+			{
+				//out of stock
+				model.SubscriptionAllowed = true;
+				model.AlreadySubscribed = _backInStockSubscriptionService
+					.FindSubscription(_workContext.CurrentCustomer.Id, product.Id, _storeContext.CurrentStore.Id) != null;
+			}
+			return PartialView(model);
+		}
 
         [HttpPost]
         public virtual IActionResult SubscribePopupPOST(int productId)

@@ -16,13 +16,7 @@
 		</h1>
 	</div>
 	<div class="modal-content" style="border:none;padding: 20px;">
-		@if (!Model.SubscriptionAllowed)
-		{
-			<div>
-				@T("BackInStockSubscriptions.NotAllowed")
-			</div>
-		}
-		else if (!Model.IsCurrentCustomerRegistered)
+		@if (!Model.IsCurrentCustomerRegistered)
 		{
 			<div>
 				@T("BackInStockSubscriptions.OnlyRegistered")
