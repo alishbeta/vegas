@@ -1139,7 +1139,11 @@ namespace Nop.Web.Factories
                         (!product.MarkAsNewStartDateTimeUtc.HasValue || product.MarkAsNewStartDateTimeUtc.Value < DateTime.UtcNow) &&
                         (!product.MarkAsNewEndDateTimeUtc.HasValue || product.MarkAsNewEndDateTimeUtc.Value > DateTime.UtcNow)
                 };
-				 
+
+				model.Height = product.Height;
+				model.Width = product.Width;
+				model.Length = product.Length;
+				
 				model.InStock = (product.StockQuantity > 0 && product.StatusId != 4);	  //StatusId 4 - not in stock
                 //price
                 if (preparePriceModel)
@@ -1202,6 +1206,9 @@ namespace Nop.Web.Factories
                 Gtin = product.Gtin,
                 ManageInventoryMethod = product.ManageInventoryMethod,
                 StockAvailability = _productService.FormatStockMessage(product, ""),
+				Width = product.Width,
+				Height = product.Height,
+				Lendth = product.Length,
                 HasSampleDownload = product.IsDownload && product.HasSampleDownload,
                 DisplayDiscontinuedMessage = !product.Published && _catalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts
             };

@@ -287,36 +287,27 @@
 							<div>Размер матраса</div>
 							<div class="drop-wrap">
 								<div class="w">Ширина</div>
-								<div class="h">Длина</div>
+								<div class="h">Высота</div>
+								<div class="l">Длина</div>
 								<div class="dropdown">
 									<button class="btn btn-light dropdown-toggle mt-4" type="button"
 											id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 											aria-expanded="false">
-										160 см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;200 см
+										@Model.Height см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Width см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a class="dropdown-item" href="#">160 см х 200 см</a>
-										<a class="dropdown-item" href="#">180 см х 200 см</a>
-										<a class="dropdown-item" href="#">190 см х 200 см</a>
+										<a class="dropdown-item" href="#">@Model.Height см х @Model.Width см x @Model.Lendth</a>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="color-title">
-							<span>Цвет</span>
-							<span><a href="#">Показать другие варианты</a></span>
+							<span>@("product.color")</span>
+							<span><a href="#">@T("product.showsimilar")</a></span>
 						</div>
 						<div class="color-select">
 							<div class="box-color mr-3"></div>
 							<span class="title">Trinity Cream</span>
-						</div>
-						<div class="mb-3 mt-3">Дополнительные опции</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-							<label class="form-check-label" for="defaultCheck1">
-								Подьемный механизм
-							</label>
-							<div class="over-price d-inline-block ml-2">+5 283</div>
 						</div>
 					</div>
 				</div>
