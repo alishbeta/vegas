@@ -20,16 +20,9 @@
 	<div class="offset-xl-1 col-xl-8">
 		<div class="title-wrap clearfix">
 			<h1 class="title float-left">@T("Account.MyAccount")</h1>
-			<button class="btn btn-blue float-right">@T("Account.Exit")</button>
+			<button class="btn btn-blue float-right btn-sm" onclick="window.location.replace('/logout')">@T("Account.Exit")</button>
 		</div>
-		<nav class="blue-menu clearfix">
-			<ul>
-				<li><a href="/customer/info">Контактная информация</a></li>
-				<li><a href="/customer/wishlist">Избранное  <span id="wishlistCount"></span></a></li>
-				<li><a class="active" href="/order/history">История заказов</a></li>
-				<li><a href="/rewardpoints/history">Мои бонусы</a></li>
-			</ul>
-		</nav>
+		@await Component.InvokeAsync("AccountMenu", new { active = "/order/history" })
 		<div class="cabinet-info rounded">
 			<div class="row buy-history-wrap">
 				<div class="order-wrap">
@@ -37,36 +30,41 @@
 					{
 						@foreach (var order in Model.Orders)
 						{
-							<div class="title-wrap clearfix">
-								<div><a data-toggle="collapse" href="#collapseExample"><i class="arrows"></i>№@order.CustomOrderNumber</a></div>
-								<div>@order.CreatedOn</div>
-								<div><b>@order.OrderItems.Count() товар на @order.OrderTotal</b></div>
-								<div>@order.OrderStatus</div>
-							</div>
-
-							<div id="collapseExample" class="collapse order-items clearfix">
-								@foreach (var product in order.OrderItems)
-								{
-								<div class="item">
-									<div><img src="@product.Product.ProductPictures.FirstOrDefault()?.Picture.PictureBinary" alt="@product.Product.ProductPictures.FirstOrDefault()?.Picture.AltAttribute" title="@product.Product.ProductPictures.FirstOrDefault()?.Picture.TitleAttribute"></div>
-									<div class="name">
-										<div class="title">@(string.Format("", product.Product.ProductCategories))</div>
-										<div>@product.Product.Name</div>
+							<div class="orders clearfix">
+								<a data-toggle="collapse" href="@string.Format("#collapseExample{0}", order.Id)" onclick="loadImg(@order.Id)">
+									<div class="title-wrap clearfix">
+										<div>
+											<i class="arrows"></i>№@order.CustomOrderNumber
+										</div>
+										<div>@order.CreatedOn</div>
+										<div><b>@order.OrderItems.Count() товар на @order.OrderTotal</b></div>
+										<div>@order.OrderStatus</div>
 									</div>
-									<div class="count">
-										@product.Quantity шт
-									</div>
-									<div class="price">
-										@product.Product.Price
+								</a>
+								<div id="@string.Format("collapseExample{0}", order.Id)" class="collapse order-items clearfix">
+									@foreach (var product in order.OrderItems)
+									{
+										<div class="item">
+											<div class="item-img-wrap"><img id="@string.Format("image{0}_{1}", order.Id, product.ProductId)" src="" alt="@product.Product.ProductPictures.FirstOrDefault()?.Picture.AltAttribute" title="@product.Product.ProductPictures.FirstOrDefault()?.Picture.TitleAttribute"></div>
+											<div class="name">
+												<div class="title">@(string.Format("", product.Product.ProductCategories))</div>
+												<div>@product.Product.Name</div>
+											</div>
+											<div class="count">
+												@product.Quantity шт
+											</div>
+											<div class="price">
+												@product.Product.Price.ToString("#.##")
+											</div>
+										</div>
+									}
+									<div class="total">
+										<div class="title">Итого к оплате</div>
+										<div><b>@order.OrderTotal</b></div>
 									</div>
 								</div>
-								}
-								<div class="total">
-									<div class="title">Итого к оплате</div>
-									<div><b>@order.OrderTotal</b></div>
-								</div>
+								<div class="line"></div>
 							</div>
-							<div class="line"></div>
 						}
 					}
 					else
@@ -80,6 +78,31 @@
 		</div>
 	</div>
 </div>
+<script>
+	function loadImg(id) {
+		if (!$("#collapseExample" + id).hasClass('show')) {
+			$("#collapseExample" + id + " .item-img-wrap").each(function () {
+				$(this).addClass('load');
+			});
+			$.ajax({
+				url: "/order/getorderimages",
+				type: "POST",
+				dataType: 'text',
+				traditional: true,
+				data: {
+					orderId: id
+				}
+			}).done(function (data) {
+				JSON.parse(data).forEach(function (elem) {
+					$("#image" + id + "_" + elem.productId).attr("src", elem.url);
+				});
+				$("#collapseExample" + id + " .item-img-wrap").each(function () {
+					$(this).removeClass('load');
+				});
+			});
+		}
+	}
+</script>
 <script>
 	$(document).ready(function () {
 		$.ajax({

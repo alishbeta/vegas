@@ -63,25 +63,30 @@
 			<div class="salon-slider-wrap clearfix">
 				@foreach (var address in Model.OtherStores)
 				{
-				<a href="/storeinfo?addressId=@address.Id">
-					<div class="img">
-						<img src="https://via.placeholder.com/540x320" alt="">
-						<div class="text-wrap">
-							<div><b>"Матрасы Vegas"</b></div>
-							<div>@address.Address1</div>
-							<div>пн-вс 10:00-20:00</div>
+					<a href="/storeinfo?addressId=@address.Id">
+						<div class="img">
+							<img src="https://via.placeholder.com/540x320" alt="">
+							<div class="text-wrap">
+								<div><b>"Матрасы Vegas"</b></div>
+								<div>@address.Address1</div>
+								<div>пн-вс 10:00-20:00</div>
+							</div>
 						</div>
-					</div>
-				</a>
+					</a>
 				}
 			</div>
 		</div>
 	</div>
-
 </div>
-<script asp-location="Head">
-	var adress = "@Model.Address.Address1";
-</script>
+@{
+	var addresses = new List<dynamic>();
+	addresses.Add(new
+	{
+		addr = Model.Address.Address1?.Replace("\n", "").Replace("\r", ""),
+		description = Model.Warehouses.FirstOrDefault(x => x.AddressId == Model.Address.Id).AdminComment?.Replace("\n", "").Replace("\r", "")
+	});
+}
+<span id="address" style="display:none!important;" data-address="@Newtonsoft.Json.JsonConvert.SerializeObject(addresses)"></span>
 <script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript">
 	$('.slider').slick({

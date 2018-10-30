@@ -84,7 +84,7 @@
 				<ul>
 					@foreach (var subCategory in subCategories)
 					{
-					<li><a href="@Url.RouteUrl("Category", new { SeName = subCategory.SeName })">@subCategory.Name</a></li>
+					<li class="@(ViewBag.ActiveSubCategory == subCategory.Id ? "active" : "")"><a href="@Url.RouteUrl("Category", new { SeName = subCategory.SeName })">@subCategory.Name</a></li>
 					}
 				</ul>
 				<div class="text-center mt-3">

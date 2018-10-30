@@ -99,6 +99,7 @@ namespace Nop.Web.Models.Order
 
             //downloadable product properties
             public int DownloadId { get; set; }
+            public string ImageUrl { get; set; }
             public int LicenseId { get; set; }
         }
 

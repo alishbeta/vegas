@@ -670,17 +670,10 @@
 		<div class="offset-xl-1 col-xl-8">
 			<div class="title-wrap clearfix">
 				<h1 class="title float-left">@T("account.cabinet")</h1>
-				<button class="btn btn-blue float-right" onclick="window.location.replace('/logout')">@T("account.exit")</button>
+				<button class="btn btn-blue float-right btn-sm" onclick="window.location.replace('/logout')">@T("account.exit")</button>
 			</div>
-			<nav class="blue-menu clearfix">
-				<ul>
-					<li><a class="active" href="/customer/info">Контактная информация</a></li>
-					<li><a href="/customer/wishlist">Избранное  <span id="wishlistCount"></span></a></li>
-					<li><a href="/order/history">История заказов</a></li>
-					<li><a href="/rewardpoints/history">Мои бонусы</a></li>
-				</ul>
-			</nav>
-			<div class="cabinet-info rounded">
+			@await Component.InvokeAsync("AccountMenu", new { active = "/customer/info"})
+			<div class="cabinet-info cabinet-info-main rounded">
 				<div class="row login-wrap">
 					<form asp-route="CustomerInfo" class="col-sm-12" method="post" id="infoForm">
 						<div asp-validation-summary="ModelOnly" class="message-error"></div>
@@ -741,81 +734,81 @@ Model.CityEnabled ||
 Model.CountyEnabled ||
 Model.CountryEnabled)
 						{
-						<div id="secondZone">
-							<div class="title"><span>2</span>Адрес</div>
-							<button type="button"
-									id="edit-addres"
-									class="btn btn-link">
-								@T("cabinet.changeaddr")
-							</button>
-							<button type="button"
-									id="edit-addres-close"
-									style="display: none"
-									onclick="CancelChangesInZone(2)"
-									class="btn btn-link">
-								@T("cart.cancel")
-							</button>
-							@if (Model.CityEnabled)
-							{
-								<div class="form-group row">
-									<label asp-for="City" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.city")</label>
-									<input asp-for="City" style="display: none" class="form-control col-sm-8" />
-									<div class="col-sm-3">@T("cart.city")</div>
-									<div class="col-sm-8 text-light-c">@Model.City</div>
-									@if (Model.CityRequired)
-									{
-										<nop-required />
-									}
-									<span asp-validation-for="City"></span>
-								</div>
-							}
-							@if (Model.StreetAddressEnabled)
-							{
-								<div class="form-group row">
-									<label asp-for="StreetAddress" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.address")</label>
-									<input asp-for="StreetAddress" style="display: none" class="form-control col-sm-8" />
-									<div class="col-sm-3">@T("cart.address")</div>
-									<div class="col-sm-8 text-light-c">@Model.StreetAddress</div>
-									@if (Model.StreetAddressRequired)
-									{
-										<nop-required />
-									}
-									<span asp-validation-for="StreetAddress"></span>
-								</div>
-							}
-							@if (Model.StreetAddress2Enabled)
-							{
-								<div class="form-group row">
-									<label asp-for="StreetAddress2" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.flat")</label>
-									<input asp-for="StreetAddress2" style="display: none" class="form-control col-sm-8" />
-									<div class="col-sm-3">@T("cart.flat")</div>
-									<div class="col-sm-8 text-light-c">@Model.StreetAddress2</div>
-									@if (Model.StreetAddress2Required)
-									{
-										<nop-required />
-									}
-									<span asp-validation-for="StreetAddress2"></span>
-								</div>
-							}
-						</div>
-						<div id="thirdZone">
-							<div class="title"><span>3</span>Пароль</div>
-							<button type="button" id="edit-pass" class="btn btn-link">@T("cabinet.changepass")</button>
-							<button type="button" 
-									id="edit-pass-close" 
-									style="display: none"
-									onclick="CancelChangesInZone(3)"
-									class="btn btn-link">
-								@T("cabinet.cancel")
-							</button>
-							<div class="form-group row">
-								<label style="display: none" class="col-form-label col-sm-3" for="p">
-									@T("cabinet.newpass")
-								</label>
-								<input style="display: none" id="p" type="password" class="form-control col-sm-8">
-							</div>
-						</div>
+							<div id="secondZone">
+								<div class="title"><span>2</span>Адрес</div>
+								<button type="button"
+										id="edit-addres"
+										class="btn btn-link">
+									@T("cabinet.changeaddr")
+								</button>
+								<button type="button"
+										id="edit-addres-close"
+										style="display: none"
+										onclick="CancelChangesInZone(2)"
+										class="btn btn-link">
+									@T("cart.cancel")
+								</button>
+								@if (Model.CityEnabled)
+								{
+									<div class="form-group row">
+										<label asp-for="City" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.city")</label>
+										<input asp-for="City" style="display: none" class="form-control col-sm-8" />
+										<div class="col-sm-3">@T("cart.city")</div>
+										<div class="col-sm-8 text-light-c">@Model.City</div>
+										@if (Model.CityRequired)
+										{
+											<nop-required />
+										}
+										<span asp-validation-for="City"></span>
+									</div>
 								}
+								@if (Model.StreetAddressEnabled)
+								{
+									<div class="form-group row">
+										<label asp-for="StreetAddress" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.address")</label>
+										<input asp-for="StreetAddress" style="display: none" class="form-control col-sm-8" />
+										<div class="col-sm-3">@T("cart.address")</div>
+										<div class="col-sm-8 text-light-c">@Model.StreetAddress</div>
+										@if (Model.StreetAddressRequired)
+										{
+											<nop-required />
+										}
+										<span asp-validation-for="StreetAddress"></span>
+									</div>
+								}
+								@if (Model.StreetAddress2Enabled)
+								{
+									<div class="form-group row">
+										<label asp-for="StreetAddress2" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.flat")</label>
+										<input asp-for="StreetAddress2" style="display: none" class="form-control col-sm-8" />
+										<div class="col-sm-3">@T("cart.flat")</div>
+										<div class="col-sm-8 text-light-c">@Model.StreetAddress2</div>
+										@if (Model.StreetAddress2Required)
+										{
+											<nop-required />
+										}
+										<span asp-validation-for="StreetAddress2"></span>
+									</div>
+								}
+							</div>
+							<div id="thirdZone">
+								<div class="title"><span>3</span>Пароль</div>
+								<button type="button" id="edit-pass" class="btn btn-link">@T("cabinet.changepass")</button>
+								<button type="button"
+										id="edit-pass-close"
+										style="display: none"
+										onclick="CancelChangesInZone(3)"
+										class="btn btn-link">
+									@T("cabinet.cancel")
+								</button>
+								<div class="form-group row">
+									<label style="display: none" class="col-form-label col-sm-3" for="p">
+										@T("cabinet.newpass")
+									</label>
+									<input style="display: none" id="p" type="password" class="form-control col-sm-8" value="">
+								</div>
+							</div>
+						}
 						<div class="buttons">
 							<input type="submit"
 								   id="save-info-button"

@@ -53,6 +53,7 @@ namespace Nop.Web.Controllers
         private readonly CaptchaSettings _captchaSettings;
         private readonly CustomerSettings _customerSettings;
         private readonly DateTimeSettings _dateTimeSettings;
+		private readonly IProductService _productService;
         private readonly IDownloadService _downloadService;
         private readonly ForumSettings _forumSettings;
         private readonly GdprSettings _gdprSettings;
@@ -99,6 +100,7 @@ namespace Nop.Web.Controllers
             CaptchaSettings captchaSettings,
             CustomerSettings customerSettings,
             DateTimeSettings dateTimeSettings,
+			IProductService productService,
             IDownloadService downloadService,
             ForumSettings forumSettings,
             GdprSettings gdprSettings,
@@ -137,6 +139,7 @@ namespace Nop.Web.Controllers
             StoreInformationSettings storeInformationSettings,
             TaxSettings taxSettings)
         {
+			this._productService = productService;
             this._addressSettings = addressSettings;
             this._captchaSettings = captchaSettings;
             this._customerSettings = customerSettings;
@@ -280,6 +283,7 @@ namespace Nop.Web.Controllers
 				.LimitPerStore(_storeContext.CurrentStore.Id)
 				.ToList();
 			var model = new WishlistModel();
+			ViewBag.productService = _productService;
 			model = _shoppingCartModelFactory.PrepareWishlistModel(model, cart, !customerGuid.HasValue);
 			return View(model);
 		}
@@ -304,7 +308,7 @@ namespace Nop.Web.Controllers
         //available even when navigation is not allowed
         [CheckAccessPublicStore(true)]
         [PublicAntiForgery]
-        public virtual dynamic Login(LoginModel model, string returnUrl, bool captchaValid)
+        public virtual dynamic Login(LoginModel model, string returnUrl, bool captchaValid, bool redirect = true)
         {
             //validate CAPTCHA
             if (_captchaSettings.Enabled && _captchaSettings.ShowOnLoginPage && !captchaValid)
@@ -339,10 +343,13 @@ namespace Nop.Web.Controllers
                             //activity log
                             _customerActivityService.InsertActivity(customer, "PublicStore.Login",
                                 _localizationService.GetResource("ActivityLog.PublicStore.Login"), customer);
+							if (redirect)
+							{
+								return Redirect(returnUrl);
+							}
 
 							if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
 								return new { success = true, returnUrl = "/customer/info" };
-
                             return new { success = true, returnUrl };
 						}
                     case CustomerLoginResults.CustomerNotExist:

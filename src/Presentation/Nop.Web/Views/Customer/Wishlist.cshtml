@@ -25,24 +25,24 @@
 	<div class="offset-xl-1 col-xl-8">
 		<div class="title-wrap clearfix">
 			<h1 class="title float-left">Личный кабинет</h1>
-			<button class="btn btn-blue float-right" onclick="window.location.replace('/logout')">Выход</button>
+			<button class="btn btn-blue float-right btn-sm" onclick="window.location.replace('/logout')">Выход</button>
 		</div>
-		<nav class="blue-menu clearfix">
-			<ul>
-				<li><a href="/customer/info">Контактная информация</a></li>
-				<li><a class="active" href="/customer/wishlist">Избранное <span id="wishlistCount"></span></a></li>
-				<li><a href="/order/history">История заказов</a></li>
-				<li><a href="/rewardpoints/history">Мои бонусы</a></li>
-			</ul>
-		</nav>
+		@await Component.InvokeAsync("AccountMenu", new { active = "/customer/wishlist" })
 		<div class="cabinet-info rounded">
 			<div class="row favorite-wrap">
 				<div class="title-wrap">
-					<h6><b>Избранное</b></h6>
-					<div class="close-wrap">
-						<i class="close-i"></i>
-						<button class="btn btn-link">Очистить список</button>
-					</div>
+					@if (Model.Items.Count > 0)
+					{
+						<h6><b>@T("wishlist")</b></h6>
+						<div class="close-wrap">
+							<i class="close-i"></i>
+							<button class="btn btn-link">@T("wishlist.clear")</button>
+						</div>
+					}
+					else
+					{
+						<h6><b>@T("wishlist.empty")</b></h6>
+					}
 				</div>
 				<div class="items">
 					@foreach (var item in Model.Items)
@@ -78,7 +78,24 @@
 									<div class="price-new">@item.Price</div>
 								</div>
 							</div>
-							<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
+							@{
+								var product = ViewBag.productService.GetProductById(item.ProductId);
+							}
+							@if (product.StockQuantity > 0 && product.StatusId != 4)
+							{
+								<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
+							}
+							else
+							{
+								<button class="btn btn-sm btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-@item.ProductId" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+								<script>
+							$(document).ready(function () {
+								$("#back-in-stock-subscribe-@item.ProductId").on('click', function() {
+									displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = item.ProductId })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
+								});
+							});
+								</script>
+							}
 						</div>
 					}
 				</div>

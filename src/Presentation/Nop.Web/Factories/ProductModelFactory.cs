@@ -438,7 +438,7 @@ namespace Nop.Web.Factories
         /// <param name="product">Product</param>
         /// <param name="productThumbPictureSize">Product thumb picture size (longest side); pass null to use the default value of media settings</param>
         /// <returns>Picture model</returns>
-        protected virtual PictureModel PrepareProductOverviewPictureModel(Product product, int? productThumbPictureSize = null)
+        public virtual PictureModel PrepareProductOverviewPictureModel(Product product, int? productThumbPictureSize = null)
         {
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
@@ -1135,7 +1135,6 @@ namespace Nop.Web.Factories
                     SeName = _urlRecordService.GetSeName(product),
                     Sku = product.Sku,
                     ProductType = product.ProductType,
-					ProductSpecificationAttributes = product.ProductSpecificationAttributes.ToList(),
                     MarkAsNew = product.MarkAsNew &&
                         (!product.MarkAsNewStartDateTimeUtc.HasValue || product.MarkAsNewStartDateTimeUtc.Value < DateTime.UtcNow) &&
                         (!product.MarkAsNewEndDateTimeUtc.HasValue || product.MarkAsNewEndDateTimeUtc.Value > DateTime.UtcNow)
@@ -1144,6 +1143,7 @@ namespace Nop.Web.Factories
 				model.Height = product.Height;
 				model.Width = product.Width;
 				model.Length = product.Length;
+				
 				model.InStock = (product.StockQuantity > 0 && product.StatusId != 4);	  //StatusId 4 - not in stock
                 //price
                 if (preparePriceModel)
@@ -1206,6 +1206,9 @@ namespace Nop.Web.Factories
                 Gtin = product.Gtin,
                 ManageInventoryMethod = product.ManageInventoryMethod,
                 StockAvailability = _productService.FormatStockMessage(product, ""),
+				Width = product.Width,
+				Height = product.Height,
+				Lendth = product.Length,
                 HasSampleDownload = product.IsDownload && product.HasSampleDownload,
                 DisplayDiscontinuedMessage = !product.Published && _catalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts
             };

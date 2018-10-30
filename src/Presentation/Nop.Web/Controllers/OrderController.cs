@@ -8,6 +8,7 @@ using Nop.Core;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Orders;
 using Nop.Services.Common;
+using Nop.Services.Media;
 using Nop.Services.Orders;
 using Nop.Services.Payments;
 using Nop.Services.Shipping;
@@ -26,6 +27,7 @@ namespace Nop.Web.Controllers
         private readonly IOrderProcessingService _orderProcessingService;
         private readonly IOrderService _orderService;
         private readonly IPaymentService _paymentService;
+        private readonly IPictureService _pictureService;
         private readonly IPdfService _pdfService;
         private readonly IShipmentService _shipmentService;
         private readonly IWebHelper _webHelper;
@@ -38,8 +40,9 @@ namespace Nop.Web.Controllers
 
         public OrderController(IOrderModelFactory orderModelFactory,
             IOrderProcessingService orderProcessingService, 
-            IOrderService orderService, 
-            IPaymentService paymentService, 
+            IOrderService orderService,
+			IPictureService pictureService,
+			IPaymentService paymentService, 
             IPdfService pdfService,
             IShipmentService shipmentService, 
             IWebHelper webHelper,
@@ -51,6 +54,7 @@ namespace Nop.Web.Controllers
             this._orderService = orderService;
             this._paymentService = paymentService;
             this._pdfService = pdfService;
+            this._pictureService = pictureService;
             this._shipmentService = shipmentService;
             this._webHelper = webHelper;
             this._workContext = workContext;
@@ -69,11 +73,28 @@ namespace Nop.Web.Controllers
                 return Challenge();
 
             var model = _orderModelFactory.PrepareCustomerOrderListModel();
-            return View(model);
+			ViewBag.PictureService = _pictureService;
+
+			return View(model);
         }
 
-        //My account / Orders / Cancel recurring order
-        [HttpPost, ActionName("CustomerOrders")]
+		[HttpPost]
+		public dynamic GetOrderImages(int orderId)
+		{
+			var order = _orderService.GetOrderById(orderId);
+			List<dynamic> productImageUrls = new List<dynamic>();
+			foreach (var orderItem in order.OrderItems)
+			{
+				productImageUrls.Add(new {
+					url = _pictureService.GetPictureUrl(orderItem.Product.ProductPictures.FirstOrDefault()?.Picture),
+					productId = orderItem.ProductId
+				});
+			}
+			return productImageUrls;
+		}
+
+		//My account / Orders / Cancel recurring order
+		[HttpPost, ActionName("CustomerOrders")]
         [PublicAntiForgery]
         [FormValueRequired(FormValueRequirement.StartsWith, "cancelRecurringPayment")]
         public virtual IActionResult CancelRecurringPayment(IFormCollection form)
