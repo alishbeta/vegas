@@ -48,7 +48,6 @@
     <Folder Include="Plugins\" />
     <Folder Include="wwwroot\css\site\" />
     <Folder Include="wwwroot\js\site\" />
-    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
   <ItemGroup>
