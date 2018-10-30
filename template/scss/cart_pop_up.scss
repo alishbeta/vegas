@@ -1,101 +1,108 @@
-.cart-popup-wrap{
-  overflow-y: scroll;
-  overflow-x: hidden;
-  border-left: 1px solid $bc_light;
-  @extend .cart;
-  //display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 0;
-  background-color: white;
-  z-index: 1055;
-  width: 500px;
-  height: 0;
-  @include transition(0.3s);
-  &.open{
-    height: 100%;
-  }
-  .order-wrapp{
-    @include box-shadow(none);
-    width: inherit;
-    margin-top: 0;
-    padding-top: 30px;
-    padding-bottom: 15px;
-    width: 100%;
-    .item.active {
-      border: none;
+.cart-popup-wrap {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-left: 1px solid $bc_light;
+    @extend .cart; //display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    background-color: white;
+    z-index: 1055;
+    width: 500px;
+    height: 0;
+    @include transition(0.3s);
+    &.open {
+        height: 100%;
     }
-    .title-wrap{
-      margin-left: 20px;
-      h1{
+    .order-wrapp {
+        @include box-shadow(none);
+        width: inherit;
+        margin-top: 0;
+        padding-top: 30px;
+        padding-bottom: 15px;
+        width: 100%;
+        .item.active {
+            border: none;
+        }
+        .title-wrap {
+            margin-left: 20px;
+            h1 {
+                float: left;
+            }
+            i {
+                width: 20px;
+                height: 20px;
+                &.close-i {
+                    margin: 7px 0 0;
+                    float: right;
+                }
+                &.shopping_bag_icon {
+                    margin: 7px 65px 0 0;
+                    float: left;
+                }
+            }
+        }
+        .total-wrap {
+            margin: -22px -39px 0 -30px;
+        }
+    }
+    .similar-wrap {
+        font-size: 16px;
+    }
+    .item-wrap {
+        width: 148px;
+        height: 225px;
         float: left;
-      }
-      i{
-        width: 20px;
-        height: 20px;
-        &.close-i{
-           margin: 7px 0 0;
-           float: right;
+        padding: 5px 5px 15px 5px;
+        margin: 5px 5px 0 5px;
+        @include transition(0.5);
+        img {
+            width: 100%;
+            margin-top: 0;
+            height: auto;
         }
-        &.shopping_bag_icon{
-          margin: 7px 65px 0 0;
-          float: left;
+        .product-name {
+            font-size: 12px;
         }
-      }
+        font-size: 14px;
+        &:hover {
+            @include box-shadow( 0 0 15px 1px rgba(0, 0, 0, 0.2));
+        }
     }
-    .total-wrap{
-      margin: -22px -39px 0 -30px;
+    .price-titile {
+        font-size: 12px !important;
     }
-  }
-  .similar-wrap{
-    font-size: 16px;
-  }
-  .item-wrap{
-    width: 148px;
-    height: 225px;
-    float: left;
-    padding: 5px 5px 15px 5px;
-    margin: 5px 5px 0 5px;
-    @include transition(0.5);
-    img{
-      width: 100%;
-      margin-top: 0;
-      height: auto;
+    .price-old {
+        font-size: 11px !important;
     }
-    .product-name{
-      font-size: 12px;
+    .price-new {
+        font-size: 13px !important;
     }
-    font-size: 14px;
-    &:hover{
-      @include box-shadow( 0 0 15px 1px rgba(0, 0, 0, 0.2));
+    a {
+        display: block;
     }
-  }
-  .price-titile{
-    font-size: 12px!important;
-  }
-  .price-old{
-    font-size: 11px!important;
-    
-  }
-  .price-new{
-    font-size: 13px!important;
-  }
-  a{
-    display: block;
-  }
-  .item-wrap .product-img-wrap .discount{
-    bottom: 3px;
-    right: 5px;
-    width: 40px;
-    height: 40px;
-    line-height: 3.3;
-    font-size: 12px;
-
-  }
-  .title{
-    font-weight: 600;
-    margin: 0 0 10px 20px;
+    .item-wrap .product-img-wrap .discount {
+        bottom: 3px;
+        right: 5px;
+        width: 40px;
+        height: 40px;
+        line-height: 3.3;
+        font-size: 12px;
+    }
+    .title {
+        font-weight: 600;
+        margin: 0 0 10px 20px;
+    }
+    .img-wrapp {
+        min-height: 120px;
+        float: left;
+    }
+    .price-wrap .discount {
+      width: 50px;
+      height: 50px;
+      font-size: 14px;
+      line-height: 3.7;
   }
 }
