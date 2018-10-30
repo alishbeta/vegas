@@ -195,7 +195,7 @@
 .item-wrap-full .product-img-wrap .discount {
     bottom: 15px;
     right: 15px;
-    top: 175px;
+    top: 112px;
     right: 35px;
 }
 
@@ -1004,6 +1004,9 @@ html .ui-button.ui-state-disabled {
     }
 .ui-widget.ui-widget-content{ 
     border: 1px solid #c5c5c5!important;
+}
+.topic-page .text{
+    margin-bottom: 0;
 }
 
 @import "cart";
