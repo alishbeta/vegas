@@ -171,6 +171,13 @@ i.favorite_i:hover {
   background-size: 15%;
 }
 
+.buy-history-wrap .load:before {
+  width: 110px;
+  height: 110px;
+  background-size: 59%;
+  vertical-align: text-top;
+}
+
 .discount {
   position: absolute;
   width: 50px;
@@ -4237,6 +4244,7 @@ section .item {
     width: 120px;
     bottom: -410px;
     margin: auto;
+    z-index: 1055;
   }
   .content .show-room .see-wrap .title button {
     left: 33% !important;
