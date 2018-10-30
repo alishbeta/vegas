@@ -7,6 +7,9 @@ namespace Nop.Web.Models.Catalog
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductSeName { get; set; }
+        public string ProductPrice { get; set; }
+        public string ProductCategoryName { get; set; }
+        public string ImageUrl { get; set; }
 
         public bool IsCurrentCustomerRegistered { get; set; }
         public bool SubscriptionAllowed { get; set; }

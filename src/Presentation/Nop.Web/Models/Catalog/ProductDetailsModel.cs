@@ -43,6 +43,9 @@ namespace Nop.Web.Models.Catalog
         public string MetaTitle { get; set; }
         public string SeName { get; set; }
 		public bool InStock { get; set; }
+		public decimal Width { get; set; }
+		public decimal Height { get; set; }
+		public decimal Lendth { get; set; }
 
         public ProductType ProductType { get; set; }
 

@@ -100,7 +100,7 @@ namespace Nop.Web.Framework.UI.Paging
         /// <summary>
 		/// Main ul css class name
 		/// </summary>
-        protected string mainUlCssClass = "pagination";
+        protected string mainUlCssClass = "pagination justify-content-center";
 
 
         /// <summary>

@@ -259,7 +259,15 @@
 								}
 								else
 								{
-									<button type="button" class="btn btn-sm btn-blue btn-block arived" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+									<button class="btn btn-sm btn-blue btn-block arived" id="back-in-stock-subscribe-prod-@Model.Id" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+									<script>
+						$(document).ready(function () {
+							$("#back-in-stock-subscribe-prod-@Model.Id").on('click', function() {
+								displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
+							});
+						});
+									</script>
+									
 								}
 							}
 							<button class="btn btn-blue-white mb-3 rounded">@T("prod.buynow")</button>
@@ -271,12 +279,6 @@
 								@await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
 							}
 							@await Html.PartialAsync("_CompareProductsButton", Model)
-							@*<button class="btn btn-blue mb-2 rounded" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">В корзину</button>
-				<button class="btn btn-blue-white mb-3 rounded">Купить в 1 клик</button>
-			</div>
-			<div class="icons-wrap d-block ml-3">
-				<div class="mb-2"><i class="favorite_i mr-1" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i> Добавить в избраное</div>
-				<div><i class="compare_icon mr-1" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i> Добавить в сравнение</div>*@
 						</div>
 					</div>
 					<div class="line"></div>
@@ -285,36 +287,27 @@
 							<div>Размер матраса</div>
 							<div class="drop-wrap">
 								<div class="w">Ширина</div>
-								<div class="h">Длина</div>
+								<div class="h">Высота</div>
+								<div class="l">Длина</div>
 								<div class="dropdown">
 									<button class="btn btn-light dropdown-toggle mt-4" type="button"
 											id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 											aria-expanded="false">
-										160 см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;200 см
+										@Model.Height см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Width см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a class="dropdown-item" href="#">160 см х 200 см</a>
-										<a class="dropdown-item" href="#">180 см х 200 см</a>
-										<a class="dropdown-item" href="#">190 см х 200 см</a>
+										<a class="dropdown-item" href="#">@Model.Height см х @Model.Width см x @Model.Lendth</a>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="color-title">
-							<span>Цвет</span>
-							<span><a href="#">Показать другие варианты</a></span>
+							<span>@("product.color")</span>
+							<span><a href="#">@T("product.showsimilar")</a></span>
 						</div>
 						<div class="color-select">
 							<div class="box-color mr-3"></div>
 							<span class="title">Trinity Cream</span>
-						</div>
-						<div class="mb-3 mt-3">Дополнительные опции</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-							<label class="form-check-label" for="defaultCheck1">
-								Подьемный механизм
-							</label>
-							<div class="over-price d-inline-block ml-2">+5 283</div>
 						</div>
 					</div>
 				</div>
