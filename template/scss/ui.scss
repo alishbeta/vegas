@@ -164,6 +164,14 @@ i {
         background-size: 15%;
     }
 }
+.buy-history-wrap{
+    .load:before {
+        width: 110px;
+        height: 110px;
+        background-size: 59%;
+        vertical-align: text-top;
+    }
+}
 .discount {
     position: absolute;
     width: 50px;
