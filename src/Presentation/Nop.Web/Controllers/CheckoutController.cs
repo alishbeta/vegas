@@ -941,9 +941,9 @@ namespace Nop.Web.Controllers
                 .LimitPerStore(_storeContext.CurrentStore.Id)
                 .ToList();
             if (!cart.Any())
-                return RedirectToRoute("ShoppingCart");
+				return RedirectToRoute("HomePage");
 
-            if (_orderSettings.OnePageCheckoutEnabled)
+			if (_orderSettings.OnePageCheckoutEnabled)
                 return RedirectToRoute("CheckoutOnePage");
 
             if (_workContext.CurrentCustomer.IsGuest() && !_orderSettings.AnonymousCheckoutAllowed)
