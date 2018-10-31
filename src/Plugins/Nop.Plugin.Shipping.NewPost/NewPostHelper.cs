@@ -54,7 +54,7 @@ namespace Nop.Plugin.Shipping.NewPost
             //settings
             var settings = new NewPostSettings
             {
-                Url = "http://testapi.novaposhta.ua/v2.0/json/",
+                Url = "http://testapi.novaposhta.ua/v2.0/",
                 ApiKey = "45f32a18b7f954ee48e88d17544ceaaa"
             };
             _settingService.SaveSetting(settings);
@@ -100,7 +100,7 @@ namespace Nop.Plugin.Shipping.NewPost
             {
                 var client = new HttpClient();
                 client.BaseAddress = new Uri(settings.Url);
-                var response = client.PostAsync("Address/searchSettlements", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json")).Result;
+                var response = client.PostAsync("json/Address/searchSettlements", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json")).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -114,48 +114,54 @@ namespace Nop.Plugin.Shipping.NewPost
             }
             catch (Exception ex)
             {
-                _logger.Error("New post has been exception when does the GetCityId", ex);
+                _logger.Error("New post has been throw exception when does the GetCityId", ex);
             }
 
             return cityId;
         }
 
-        public string GetCost(string cityIdFrom, string cityIdTo)
+        public int GetCost(string cityIdFrom, string cityIdTo, string weight, string assessedCost)
         {
+            int cost = -1;
             var settings = _settingService.LoadSetting<NewPostSettings>();
-            //var request = new NewPostApiRequest<NewPostAddressSearchSettlements>()
-            //{
-            //    apiKey = settings.ApiKey,
-            //    modelName = "Address",
-            //    calledMethod = "searchSettlements",
-            //    methodProperties = new NewPostAddressSearchSettlements()
-            //    {
-
-            //    }
-            //};
+            var request = new NewPostApiRequest<NewPostInternetDocumentGetDocumentPrice>()
+            {
+                apiKey = settings.ApiKey,
+                modelName = "Address",
+                calledMethod = "searchSettlements",
+                methodProperties = new NewPostInternetDocumentGetDocumentPrice()
+                {
+                    CargoType = "Cargo",
+                    ServiceType = "DoorsDoors",
+                    CitySender = cityIdFrom,
+                    CityRecipient = cityIdTo,
+                    Weight = weight,
+                    Cost = assessedCost
+                }
+            };
 
             try
             {
-                //var client = new HttpClient();
-                //client.BaseAddress = new Uri(settings.Url);
-                //var response = client.PostAsync("Address/searchSettlements", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json")).Result;
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(settings.Url);
+                var response = client.PostAsync("en/getDocumentPrice/json/", new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json")).Result;
 
-                //if (response.IsSuccessStatusCode)
-                //{
-                //    string result = response.Content.ReadAsStringAsync().Result;
-                //    var responce = JsonConvert.DeserializeObject<NewPostApiResponse<List<NewPostAddressList>>>(result);
-                //    if (responce.success && responce.data.Count > 0 && responce.data[0].Addresses.Count > 0)
-                //    {
-                //        cityId = responce.data[0].Addresses[0].DeliveryCity;
-                //    }
-                //}
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    var responce = JsonConvert.DeserializeObject<NewPostApiResponse<List<NewPostCost>>>(result);
+                    if (responce.success && responce.data.Count > 0)
+                    {
+                        cost = responce.data[0].Cost;
+                    }
+                }
             }
             catch (Exception ex)
             {
-                _logger.Error("New post has been exception when does the GetCost", ex);
+                _logger.Error("New post has been throw exception when does the GetCost", ex);
             }
 
-            return string.Empty;
+            return cost;
         }
 
         #endregion
