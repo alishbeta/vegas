@@ -1007,7 +1007,20 @@ namespace Nop.Web.Controllers
 				{
 					processPaymentRequest.PaymentMethodSystemName = "Payments.LiqPay";
 				}
-
+				var shippingOption = new ShippingOption();
+				if (orderModel.DeliveryType == "1")
+				{
+					shippingOption.Name = "Pick up in store";
+				}	
+				if (orderModel.DeliveryType == "2")
+				{
+					shippingOption.Name = "Default";
+				} 	
+				if (orderModel.DeliveryType == "3")
+				{
+					shippingOption.Name = "NovaPoshta";
+				}
+				_genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, NopCustomerDefaults.SelectedShippingOptionAttribute, shippingOption, _storeContext.CurrentStore.Id);
 				var placeOrderResult = _orderProcessingService.PlaceOrder(processPaymentRequest);
                 if (placeOrderResult.Success)
                 {
