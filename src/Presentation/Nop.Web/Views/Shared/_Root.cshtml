@@ -52,25 +52,25 @@
 				</button>
 			</div>
 			<div class="body">
-				<form action="">
+				<form asp-controller="Checkout" asp-action="Confirm" method="post">
 					<div class="form-group">
 						<div class="col">
-							<input type="text" placeholder="@T("oneclick.name")" class="form-control col form-inline">
+							<input type="text" name="Name" placeholder="@T("oneclick.name")" class="form-control col form-inline">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col">
-							<input type="text" placeholder="@T("oneclick.phone")" class="form-control col form-inline">
+							<input type="text" name="Phone" placeholder="@T("oneclick.phone")" id="oneclick-phone" class="form-control col form-inline">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col">
-							<input type="text" placeholder="@T("oneclick.email")" class="form-control col form-inline">
+							<input type="text" name="Email" placeholder="@T("oneclick.email")" class="form-control col form-inline">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col">
-							<button class="btn btn-blue float-right">@T("oneclick.title")</button>
+							<button type="submit" class="btn btn-blue float-right">@T("oneclick.title")</button>
 						</div>
 					</div>
 				</form>
@@ -376,7 +376,7 @@
 						if ($("#mainCartItems").length > 0) {
 							$("#mainCartItems").empty();
 						}
-						
+
 						var sum = 0.0;
 						var count = 0;
 						var data = "";
@@ -441,3 +441,7 @@
 		@await Component.InvokeAsync("Footer")
 	</div>
 </div>
+<script src="~/js/site/jquery.mask.js"></script>
+<script>
+	$("#oneclick-phone").mask("(000)0000000");
+</script>
