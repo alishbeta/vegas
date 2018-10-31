@@ -84,9 +84,7 @@
 			@if (!Model.PrintMode)
 			{
 			<div class="form-group row">
-				<div class="col-sm-5 text-light-c">
-					<a href="@Url.RouteUrl("PrintOrderDetails", new { orderId = Model.Id })" target="_blank" class="button-2 print-order-button">@T("Order.Print")</a>
-				</div>
+				<div class="col-sm-5 text-light-c">@T("order.download"):</div>
 				@if (!Model.PdfInvoiceDisabled)
 				{
 					<div class="col-sm-7">
@@ -101,6 +99,14 @@
 		</div>
 	</div>
 	<div class="line"></div>
+	@{
+		List<int> productIds = new List<int>();
+		foreach (var item in Model.Items)
+		{
+			productIds.Add(item.ProductId);
+		}
+	}
+	@await Component.InvokeAsync("CrossSellProducts", new { productIds = productIds.ToArray() })
 </div>
 
 @*<div class="page order-details-page">

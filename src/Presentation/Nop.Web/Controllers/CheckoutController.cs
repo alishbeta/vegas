@@ -941,9 +941,9 @@ namespace Nop.Web.Controllers
                 .LimitPerStore(_storeContext.CurrentStore.Id)
                 .ToList();
             if (!cart.Any())
-                return RedirectToRoute("ShoppingCart");
+				return RedirectToRoute("HomePage");
 
-            if (_orderSettings.OnePageCheckoutEnabled)
+			if (_orderSettings.OnePageCheckoutEnabled)
                 return RedirectToRoute("CheckoutOnePage");
 
             if (_workContext.CurrentCustomer.IsGuest() && !_orderSettings.AnonymousCheckoutAllowed)
@@ -1007,7 +1007,12 @@ namespace Nop.Web.Controllers
 				{
 					processPaymentRequest.PaymentMethodSystemName = "Payments.LiqPay";
 				}
-
+				var shippingOption = new ShippingOption()
+				{
+					Name = orderModel.DeliveryType
+				};
+				
+				_genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, NopCustomerDefaults.SelectedShippingOptionAttribute, shippingOption, _storeContext.CurrentStore.Id);
 				var placeOrderResult = _orderProcessingService.PlaceOrder(processPaymentRequest);
                 if (placeOrderResult.Success)
                 {
