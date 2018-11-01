@@ -90,8 +90,8 @@ namespace Nop.Web.Components
             var model = _productModelFactory.PrepareProductOverviewModels(products,
                     productThumbPictureSize: productThumbPictureSize, forceRedirectionAfterAddingToCart: true)
                 .ToList();
-
-            return View(model);
+			ViewBag.Prefix = "cross";//prefix for backinstock button
+			return View(model);
         }
     }
 }

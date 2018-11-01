@@ -145,14 +145,13 @@
 }
 	<div class="outer-wrapp scroll">
 		<div class="item-wrap">
-			
 			<div class="product-img-wrap">
 				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
 					<img class="product" src="@Model.DefaultPictureModel.ImageUrl" alt="@Model.DefaultPictureModel.AlternateText">
 				</a>
 				@if (Model.ProductPrice.Discount.ToString("#.##") != "")
 				{
-					<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
+					<div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
 				}
 			</div>
 			<div class="main-prop-wrap text-left">
@@ -187,7 +186,7 @@
 					<div class="product-name text-light-c">@Model.Name</div>
 				</a>
 				<div class="product-prop">@Model.ShortDescription</div>
-				<div class="price-titile">Цена</div>
+				<div class="price-titile">@T("product.price")</div>
 				<div class="price-wrap clearfix">
 					@if (!string.IsNullOrEmpty(Model.ProductPrice.OldPrice))
 					{
@@ -197,18 +196,18 @@
 				</div>
 			</div>
 			<div class="sizes-wrap clearfix">
-				<div class="title">Размеры</div>
+				<div class="title">@T("product.sizes")</div>
 				<div class="inner-wrap">
 					<div class="block float-left">
-						<div class="title">Ширина</div>
+						<div class="title">@T("product.width")</div>
 						<div class="value">@Model.Width.ToString("#.##") см</div>
 					</div>
 					<div class="block float-left">
-						<div class="title">Длина</div>
+						<div class="title">@T("product.length")</div>
 						<div class="value">@Model.Length.ToString("#.##") см</div>
 					</div>
 					<div class="block float-left">
-						<div class="title">Высота</div>
+						<div class="title">@T("product.height")</div>
 						<div class="value">@Model.Height.ToString("#.##") см</div>
 					</div>
 				</div>
@@ -216,18 +215,11 @@
 			<div class="text-center"></div>
 			@if (Model.InStock)
 			{
-				<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block">Купить</button>
+				<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block">@T("product.buy")</button>
 			}
 			else
 			{
-				<button class="btn btn-sm btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-@Model.Id" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
-				<script>
-						$(document).ready(function () {
-							$("#back-in-stock-subscribe-@Model.Id").on('click', function() {
-								displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
-							});
-						});
-				</script>
+				@await Component.InvokeAsync("BackInStockButton", new { productId = Model.Id, prefix = string.IsNullOrEmpty(ViewBag.Prefix) ? "prod" : ViewBag.Prefix });
 			}
 		</div>
 	</div>

@@ -128,18 +128,19 @@ namespace Nop.Web.Controllers
 
             //model
             var model = _catalogModelFactory.PrepareCategoryModel(category, command);
-			//System.Collections.Generic.List<int> categories = new System.Collections.Generic.List<int>() { categoryId };
-			//if (_catalogSettings.ShowProductsFromSubcategories)
-			//{
-			//	//include subcategories
-			//	categories.AddRange(_categoryService.GetChildCategoryIds(category.Id, _storeContext.CurrentStore.Id));
-			//}
-			//model.AllProducts = _productService.SearchProducts(
-			//	storeId: _storeContext.CurrentStore.Id,
-			//	categoryIds: categories);
-			//model.ProductsCount = model.AllProducts.Count;
+			System.Collections.Generic.List<int> categories = new System.Collections.Generic.List<int>() { categoryId };
+			if (_catalogSettings.ShowProductsFromSubcategories)
+			{
+				//include subcategories
+				categories.AddRange(_categoryService.GetChildCategoryIds(category.Id, _storeContext.CurrentStore.Id));
+			}
+			model.AllProducts = _productService.SearchProducts(
+				storeId: _storeContext.CurrentStore.Id,
+				categoryIds: categories);
+			model.ProductsCount = model.AllProducts.Count;
 			ViewBag.ActiveCategory = (category.ParentCategoryId != 0 ? category.ParentCategoryId : categoryId);
 			ViewBag.ActiveSubCategory = categoryId;
+			ViewBag.Prefix = "cat"; //prefix for backinstock button
 			//template
 			var templateViewPath = _catalogModelFactory.PrepareCategoryTemplateViewPath(category.CategoryTemplateId);
             return View(templateViewPath, model);

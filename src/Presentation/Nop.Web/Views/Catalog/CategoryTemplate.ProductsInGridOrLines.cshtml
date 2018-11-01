@@ -69,7 +69,7 @@
 	<div class="title text-center">
 		<h3><b>@Model.Name</b></h3>
 		<p>
-			<small>@Model.ProductsCount товаров</small>
+			<small>@Model.ProductsCount @T("prod.products")</small>
 		</p>
 	</div>
 	<div class="filters-wrap clearfix">
@@ -271,7 +271,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="~/js/site/tp.js"></script>
 <script>
-	var prodsOnPageCount = 6;
+	var prodsOnPageCount = 32;
 	$(document).ready(function () {
 		if ($("ul.pagination li").last().hasClass("active")) {
 			$("#loadMore").addClass("invisible");
@@ -282,7 +282,7 @@
 		var currentPageIndex = parseInt($(".active a.page-link").text());
 		var pageIndex = pagesLoaded + currentPageIndex - 1;
 		$.ajax({
-			url: "/ru/Catalog/GetProducts",
+			url: "@Url.Action("GetProducts", "Catalog")",///ru/Catalog/GetProducts",
 			type: "POST",
 			dataType: 'json',
 			traditional: true,
@@ -290,11 +290,12 @@
 				categoryId: @Model.Id,
 				pageIndex: pageIndex
 			},
-		}).done(function (responce) {
-			responce.model.forEach(function (product) {
+		}).done(function (response) {
+			console.log(response);
+			response.model.forEach(function (product) {
 				var discount = "";
 				if (product.ProductPrice.Discount != 0) {
-					discount = '<div class="discount">' + + product.ProductPrice.Discount + '%</div>';
+					discount = '<div class="discount">-' + + product.ProductPrice.Discount + '%</div>';
 				}
 				var oldPrice = "";
 				if (product.ProductPrice.OldPrice != null && product.ProductPrice.OldPrice != "" ) {
@@ -304,15 +305,29 @@
 				if (product.ShortDescription != null) {
 					shortDesc = product.ShortDescription;
 				}
+				var buyButton = "";
+				if (product.InStock) {
+					buyButton = '<button type="button" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/1/1\');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block">@T("product.buy")</button>';
+				}
+				else {
+					buyButton = '<button class="btn btn-sm btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-cat-' + product.Id + '" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>' + 
+								'<script>' +
+									'$(document).ready(function () {' + 
+										'$("#back-in-stock-subscribe-cat-' + product.Id + '").on(\'click\', function() {' +
+											'displayPopupContentFromUrl(\'/ru/backinstocksubscribe/' + product.Id + '\', \'@T("BackInStockSubscriptions.NotifyMeWhenAvailable")\');' +
+										'});' +
+									'});' +
+								'<' + '/script>';
+				}
 				var element =
-	'<div class="outer-wrapp">' +
+	'<div class="outer-wrapp scroll">' +
 		'<div class="item-wrap">' +
-			'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
-				'<div class="product-img-wrap">' +
-				'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
-					discount +
-				'</div>' +
-			'</a>' +
+			'<div class="product-img-wrap">' +
+				'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+					'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
+				'</a>' +
+				discount +
+			'</div>' +
 			'<div class="main-prop-wrap text-left">' +
 				'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
 					'<div class="product-name text-light-c">' + product.Name + '</div>' +
@@ -325,15 +340,15 @@
 				'</div>' +
 			'</div>' +
 		'</div>' +
-		'<div class="item-wrap-full">' +
-			'<i class="favorite_i float-left"></i>' +
-			'<i class="compare_icon float-right"></i>' +
-			'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
-				'<div class="product-img-wrap">' +
+		'<div class="item-wrap-full" style="display: none;">' +
+			'<i class="favorite_i float-left" data-id="' + product.Id + '" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/2/1\');$(this).addClass(\'load\');return false;"></i>' +
+			'<i class="compare_icon float-right" data-ids="' + product.Id + '" onclick="AjaxCart.addproducttocomparelist(\'/ru/compareproducts/add/' + product.Id + '\');$(this).addClass(\'load\');return false;"></i>' +	
+			'<div class="product-img-wrap">' +
+				'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
 					'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
-					discount +
-				'</div>' +
-			'</a>' +
+				'</a>' +
+				discount +
+			'</div>' +
 			'<div class="main-prop-wrap text-left">' +
 				'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
 				'<div class="product-name text-light-c">' + product.Name + '</div>' +
@@ -346,22 +361,26 @@
 				'</div>' +
 			'</div>' +
 			'<div class="sizes-wrap clearfix">' +
-				'<div class="title">Размеры</div>' +
+				'<div class="title">@T("prod.sizes")</div>' +
 				'<div class="inner-wrap">' +
 					'<div class="block float-left">' +
-						'<div class="title">Ширина</div>' +
+						'<div class="title">@T("prod.width")</div>' +
 						'<div class="value">' + product.Width + ' см</div>' +
 					'</div>' +
 					'<div class="block float-left">' +
-						'<div class="title">Длина</div>' +
+						'<div class="title">@T("prod.length")</div>' +
 						'<div class="value">' + product.Length + ' см</div>' +
 					'</div>' +
 					'<div class="block float-left">' +
-						'<div class="title">Высота</div>' +
+						'<div class="title">@T("prod.height")</div>' +
 						'<div class="value">' + product.Height + ' см</div>' +
 					'</div>' +
 				'</div>' +
-			'</div>';
+			'</div>' + 
+			'<div class="text-center"></div>' +
+			buyButton + 
+		'</div>' +
+	'</div>';
 				$("#prods").append(element);
 				if ((currentPageIndex + pagesLoaded) * prodsOnPageCount >= parseInt("@Model.ProductsCount")) {
 					$("#loadMore").addClass("invisible");

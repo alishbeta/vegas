@@ -1,0 +1,11 @@
+﻿@using Nop.Web.Models.Catalog;
+@model BackInStockButtonModel
+
+<button class="btn btn-sm btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-@Model.Prefix-@Model.ProductId" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+<script>
+	$(document).ready(function () {
+		$("#back-in-stock-subscribe-@Model.Prefix-@Model.ProductId").on('click', function() {
+			displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.ProductId })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
+		});
+	});
+</script>
