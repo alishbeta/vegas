@@ -3788,7 +3788,7 @@ section .item {
     overflow-y: auto;
     overflow-x: hidden;
     height: auto;
-    z-index: 1055;
+    z-index: 1060;
   }
   .all-menu-wrap .side-menu-wrap.open, .all-menu-wrap .open.side-second-menu-wrap {
     width: 300px;
@@ -4070,7 +4070,7 @@ section .item {
     margin-left: auto;
   }
 
-  .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
+  .all-menu-wrap .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
     z-index: 1;
     width: 0;
     background: white;
@@ -4079,6 +4079,17 @@ section .item {
     padding-top: 74px;
     position: absolute;
     height: 100vh;
+    z-index: 1060;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  .all-menu-wrap .side-menu-wrap .inner-menu-wrap .sub-menu div, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap .sub-menu div {
+    display: none;
+  }
+  .all-menu-wrap .side-menu-wrap .inner-menu-wrap .sub-menu a, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap .sub-menu a {
+    padding-left: 110px;
   }
 
   .closed {
@@ -4166,13 +4177,6 @@ section .item {
   .pad-norm {
     padding-top: 24px;
     padding-bottom: 35px;
-  }
-
-  .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
-    -moz-transition: 0.5s;
-    -o-transition: 0.5s;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
   }
 
   .sell-wrap .btn-blue-white,

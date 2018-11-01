@@ -41,6 +41,10 @@ $(document).ready(function () {
         $(this).toggleClass('op');
     });
 
+    $('#main-menu li').on('click', function () {
+        $(this).find('.sub-menu').slideToggle();
+    });
+
     /*#####################    Карусель  ###############################*/
 
     if ($(window).width() >= 575) {
