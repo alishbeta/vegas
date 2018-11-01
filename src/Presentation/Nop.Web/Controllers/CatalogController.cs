@@ -151,6 +151,11 @@ namespace Nop.Web.Controllers
 		public dynamic GetProducts(int categoryId, int pageIndex)
 		{
 			System.Collections.Generic.List<int> categories = new System.Collections.Generic.List<int>() { categoryId };
+			if (_catalogSettings.ShowProductsFromSubcategories)
+			{
+				//include subcategories
+				categories.AddRange(_categoryService.GetChildCategoryIds(categoryId, _storeContext.CurrentStore.Id));
+			}
 			var products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				categoryIds: categories,
