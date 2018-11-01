@@ -320,71 +320,73 @@
 								'<' + '/script>';
 				}
 				var element =
-	'<div class="outer-wrapp scroll">' +
-		'<div class="item-wrap">' +
-			'<div class="product-img-wrap">' +
-				'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
-					'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
-				'</a>' +
-				discount +
-			'</div>' +
-			'<div class="main-prop-wrap text-left">' +
-				'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
-					'<div class="product-name text-light-c">' + product.Name + '</div>' +
-				'</a>' +
-				'<div class="product-prop">' + shortDesc + '</div>' +
-				'<div class="price-titile">' + '@T("main.product.price")' + '</div>' +
-				'<div class="price-wrap clearfix">' +
-					oldPrice +
-					'<div class="price-new">' + product.ProductPrice.Price + '</div>' +
-				'</div>' +
-			'</div>' +
-		'</div>' +
-		'<div class="item-wrap-full" style="display: none;">' +
-			'<i class="favorite_i float-left" data-id="' + product.Id + '" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/2/1\');$(this).addClass(\'load\');return false;"></i>' +
-			'<i class="compare_icon float-right" data-ids="' + product.Id + '" onclick="AjaxCart.addproducttocomparelist(\'/ru/compareproducts/add/' + product.Id + '\');$(this).addClass(\'load\');return false;"></i>' +	
-			'<div class="product-img-wrap">' +
-				'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
-					'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
-				'</a>' +
-				discount +
-			'</div>' +
-			'<div class="main-prop-wrap text-left">' +
-				'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
-				'<div class="product-name text-light-c">' + product.Name + '</div>' +
-				'</a>' +
-				'<div class="product-prop">' + shortDesc + '</div>' +
-				'<div class="price-titile">' + '@T("main.product.price")' + '</div>' +
-				'<div class="price-wrap clearfix">' +
-					oldPrice +
-					'<div class="price-new">' + product.ProductPrice.Price + '</div>' +
-				'</div>' +
-			'</div>' +
-			'<div class="sizes-wrap clearfix">' +
-				'<div class="title">@T("prod.sizes")</div>' +
-				'<div class="inner-wrap">' +
-					'<div class="block float-left">' +
-						'<div class="title">@T("prod.width")</div>' +
-						'<div class="value">' + product.Width + ' см</div>' +
-					'</div>' +
-					'<div class="block float-left">' +
-						'<div class="title">@T("prod.length")</div>' +
-						'<div class="value">' + product.Length + ' см</div>' +
-					'</div>' +
-					'<div class="block float-left">' +
-						'<div class="title">@T("prod.height")</div>' +
-						'<div class="value">' + product.Height + ' см</div>' +
-					'</div>' +
-				'</div>' +
-			'</div>' + 
-			'<div class="text-center"></div>' +
-			buyButton + 
-		'</div>' +
-	'</div>';
+					'<div class="outer-wrapp scroll">' +
+						'<div class="item-wrap">' +
+							'<div class="product-img-wrap">' +
+								'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+									'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
+								'</a>' +
+								discount +
+							'</div>' +
+							'<div class="main-prop-wrap text-left">' +
+								'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+									'<div class="product-name text-light-c">' + product.Name + '</div>' +
+								'</a>' +
+								'<div class="product-prop">' + shortDesc + '</div>' +
+								'<div class="price-titile">' + '@T("main.product.price")' + '</div>' +
+								'<div class="price-wrap clearfix">' +
+									oldPrice +
+									'<div class="price-new">' + product.ProductPrice.Price + '</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+						'<div class="item-wrap-full" style="display: none;">' +
+							'<i class="favorite_i float-left" data-id="' + product.Id + '" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/2/1\');$(this).addClass(\'load\');return false;"></i>' +
+							'<i class="compare_icon float-right" data-ids="' + product.Id + '" onclick="AjaxCart.addproducttocomparelist(\'/ru/compareproducts/add/' + product.Id + '\');$(this).addClass(\'load\');return false;"></i>' +	
+							'<div class="product-img-wrap">' +
+								'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+									'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
+								'</a>' +
+								discount +
+							'</div>' +
+							'<div class="main-prop-wrap text-left">' +
+								'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+								'<div class="product-name text-light-c">' + product.Name + '</div>' +
+								'</a>' +
+								'<div class="product-prop">' + shortDesc + '</div>' +
+								'<div class="price-titile">' + '@T("main.product.price")' + '</div>' +
+								'<div class="price-wrap clearfix">' +
+									oldPrice +
+									'<div class="price-new">' + product.ProductPrice.Price + '</div>' +
+								'</div>' +
+							'</div>' +
+							'<div class="sizes-wrap clearfix">' +
+								'<div class="title">@T("prod.sizes")</div>' +
+								'<div class="inner-wrap">' +
+									'<div class="block float-left">' +
+										'<div class="title">@T("prod.width")</div>' +
+										'<div class="value">' + product.Width + ' см</div>' +
+									'</div>' +
+									'<div class="block float-left">' +
+										'<div class="title">@T("prod.length")</div>' +
+										'<div class="value">' + product.Length + ' см</div>' +
+									'</div>' +
+									'<div class="block float-left">' +
+										'<div class="title">@T("prod.height")</div>' +
+										'<div class="value">' + product.Height + ' см</div>' +
+									'</div>' +
+								'</div>' +
+							'</div>' + 
+							'<div class="text-center"></div>' +
+							buyButton + 
+						'</div>' +
+					'</div>';
 				$("#prods").append(element);
 				if ((currentPageIndex + pagesLoaded) * prodsOnPageCount >= parseInt("@Model.ProductsCount")) {
 					$("#loadMore").addClass("invisible");
 				}
+				UpdateWishlist();
+				UpdateCompareItems();
 			});
 		});
 	});
