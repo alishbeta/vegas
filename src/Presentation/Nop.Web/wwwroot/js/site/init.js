@@ -41,6 +41,10 @@ $(document).ready(function () {
         $(this).toggleClass('op');
     });
 
+    $('#main-menu li').on('click', function () {
+        $(this).find('.sub-menu').slideToggle();
+    });
+
     /*#####################    Карусель  ###############################*/
 
     if ($(window).width() >= 575) {
@@ -224,7 +228,7 @@ $(document).ready(function () {
     });
 
     /*#####################    Корзина   (Отображение popup)###############################*/
-    $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived), .product .btn-blue:not(.arived), .favorit.shopping_bag_icon').on('click', function () {
+    $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived), .product .btn-blue, .favorit.shopping_bag_icon').on('click', function () {
         //UpdateCart();
         $('.cart-popup-wrap').addClass('open');
         $('.back-shadow').fadeIn();
