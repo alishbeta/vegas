@@ -171,6 +171,13 @@ i.favorite_i:hover {
   background-size: 15%;
 }
 
+.buy-history-wrap .load:before {
+  width: 110px;
+  height: 110px;
+  background-size: 59%;
+  vertical-align: text-top;
+}
+
 .discount {
   position: absolute;
   width: 50px;
@@ -1301,7 +1308,7 @@ nav.breadcrumb-wrap a:hover {
 .item-wrap-full .product-img-wrap .discount {
   bottom: 15px;
   right: 15px;
-  top: 175px;
+  top: 112px;
   right: 35px;
 }
 
@@ -2084,6 +2091,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   border: 1px solid #c5c5c5 !important;
 }
 
+.topic-page .text {
+  margin-bottom: 0;
+}
+
 .cart .row, .cart-popup-wrap .row {
   margin-right: 0;
   margin-left: 0;
@@ -2597,6 +2608,16 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .cart-popup-wrap .title {
   font-weight: 600;
   margin: 0 0 10px 20px;
+}
+.cart-popup-wrap .img-wrapp {
+  min-height: 120px;
+  float: left;
+}
+.cart-popup-wrap .price-wrap .discount {
+  width: 50px;
+  height: 50px;
+  font-size: 14px;
+  line-height: 3.7;
 }
 
 .news.row, .row.map {
@@ -3767,7 +3788,7 @@ section .item {
     overflow-y: auto;
     overflow-x: hidden;
     height: auto;
-    z-index: 1055;
+    z-index: 1060;
   }
   .all-menu-wrap .side-menu-wrap.open, .all-menu-wrap .open.side-second-menu-wrap {
     width: 300px;
@@ -4049,7 +4070,7 @@ section .item {
     margin-left: auto;
   }
 
-  .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
+  .all-menu-wrap .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
     z-index: 1;
     width: 0;
     background: white;
@@ -4058,6 +4079,17 @@ section .item {
     padding-top: 74px;
     position: absolute;
     height: 100vh;
+    z-index: 1060;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  .all-menu-wrap .side-menu-wrap .inner-menu-wrap .sub-menu div, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap .sub-menu div {
+    display: none;
+  }
+  .all-menu-wrap .side-menu-wrap .inner-menu-wrap .sub-menu a, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap .sub-menu a {
+    padding-left: 110px;
   }
 
   .closed {
@@ -4147,13 +4179,6 @@ section .item {
     padding-bottom: 35px;
   }
 
-  .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
-    -moz-transition: 0.5s;
-    -o-transition: 0.5s;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-  }
-
   .sell-wrap .btn-blue-white,
   .new-wrap .btn-blue-white,
   .news-wrap .btn-blue-white,
@@ -4237,6 +4262,7 @@ section .item {
     width: 120px;
     bottom: -410px;
     margin: auto;
+    z-index: 1055;
   }
   .content .show-room .see-wrap .title button {
     left: 33% !important;

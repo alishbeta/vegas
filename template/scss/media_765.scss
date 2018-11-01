@@ -31,7 +31,7 @@
         margin-right: auto;
         margin-left: auto;
     }
-    .side-menu-wrap {
+    .all-menu-wrap .side-menu-wrap {
         z-index: 1;
         width: 0;
         background: white;
@@ -40,6 +40,16 @@
         padding-top: 74px;
         position: absolute;
         height: 100vh;
+        z-index: 1060;
+        @include transition(0.5s);
+        .inner-menu-wrap .sub-menu{
+            div{
+                display: none;
+            }
+            a{
+                padding-left: 110px;
+            }
+        }
     }
     .closed {
         width: 0;
@@ -117,9 +127,6 @@
     .pad-norm {
         padding-top: 24px;
         padding-bottom: 35px;
-    }
-    .side-menu-wrap {
-        @include transition(0.5s)
     }
     .sell-wrap,
     .new-wrap,
