@@ -67,7 +67,8 @@ namespace Nop.Web.Components
 
             //prepare model
             var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, productThumbPictureSize).ToList();
-            return View(model);
+			ViewBag.Prefix = "best";//prefix for backinstock button
+			return View(model);
         }
     }
 }

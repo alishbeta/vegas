@@ -48,7 +48,6 @@
     <Folder Include="Plugins\" />
     <Folder Include="wwwroot\css\site\" />
     <Folder Include="wwwroot\js\site\" />
-    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,6 +73,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\Components\AccountMenu\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\BackInStockButton\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

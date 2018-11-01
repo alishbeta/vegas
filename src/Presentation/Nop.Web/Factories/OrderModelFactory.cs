@@ -34,6 +34,7 @@ namespace Nop.Web.Factories
         private readonly AddressSettings _addressSettings;
         private readonly CatalogSettings _catalogSettings;
         private readonly IAddressModelFactory _addressModelFactory;
+		private readonly IPictureService _pictureService;
 		private readonly IProductModelFactory _productModelFactory;
 		private readonly ICountryService _countryService;
         private readonly ICurrencyService _currencyService;
@@ -66,6 +67,7 @@ namespace Nop.Web.Factories
         public OrderModelFactory(AddressSettings addressSettings,
             CatalogSettings catalogSettings,
             IAddressModelFactory addressModelFactory,
+			IPictureService pictureService,
 			IProductModelFactory productModelFactory,
 			ICountryService countryService,
             ICurrencyService currencyService,
@@ -91,6 +93,7 @@ namespace Nop.Web.Factories
             TaxSettings taxSettings,
             VendorSettings vendorSettings)
         {
+			this._pictureService = pictureService;
             this._addressSettings = addressSettings;
             this._catalogSettings = catalogSettings;
             this._addressModelFactory = addressModelFactory;
@@ -414,6 +417,7 @@ namespace Nop.Web.Factories
                     ProductSeName = _urlRecordService.GetSeName(orderItem.Product),
                     Quantity = orderItem.Quantity,
                     AttributeInfo = orderItem.AttributeDescription,
+					ImageUrl = _pictureService.GetPictureUrl(orderItem.Product.ProductPictures.FirstOrDefault()?.Picture)
                 };
                 //rental info
                 if (orderItem.Product.IsRental)

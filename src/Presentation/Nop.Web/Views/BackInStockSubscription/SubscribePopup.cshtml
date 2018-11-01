@@ -52,29 +52,31 @@
 			<script>
 				function NotifyMe(id) {
 					var subscribeButtons = $(".notify-btn");
-                        $.ajax({
-                            cache: false,
-                            type: "POST",
-                            url: "@(Url.RouteUrl("BackInStockSubscribeSend"))",
-                            data: { "productId": id },
-                            success: function (data) {
+						$.ajax({
+							cache: false,
+							type: "POST",
+							url: "@(Url.RouteUrl("BackInStockSubscribeSend"))",
+							data: { "productId": id },
+							success: function (data) {
 								subscribeButtons.each(function () {
 									$(this).closest('.ui-dialog-content').dialog('destroy').remove();
 								});
-                            },
-                            error: function (xhr, ajaxOptions, thrownError) {
-                                alert('Failed to change subscription.');
-                            }
-                        });
-				};
-				function ClosePopup() {
-					var subscribeButtons = $(".notify-btn");
-					subscribeButtons.each(function () {
-						$(this).closest('.ui-dialog-content').dialog('destroy').remove();
-					});
+							},
+							error: function (xhr, ajaxOptions, thrownError) {
+								alert('Failed to change subscription.');
+							}
+						});
 				};
 			</script>
 		}
-
 	</div>
 </div>
+<script>
+	function ClosePopup() {
+
+		var subscribePopups = $(".back-in-stock-subscription-page");
+		subscribePopups.each(function () {
+			$(this).closest('.ui-dialog-content').dialog('destroy').remove();
+		});
+	};
+</script>

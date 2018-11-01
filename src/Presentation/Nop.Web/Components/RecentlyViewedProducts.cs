@@ -39,7 +39,7 @@ namespace Nop.Web.Components
 		{
 			if (!_catalogSettings.RecentlyViewedProductsEnabled)
 				return Content("");
-
+			
 			var preparePictureModel = productThumbPictureSize.HasValue;
 			var products = _recentlyViewedProductsService.GetRecentlyViewedProducts(_catalogSettings.RecentlyViewedProductsNumber);
 
@@ -57,7 +57,7 @@ namespace Nop.Web.Components
 				preparePriceModel.GetValueOrDefault(),
 				true,
 				productThumbPictureSize));
-
+			ViewBag.Prefix = "rec";//prefix for backinstock button
 			return View(model);
 		}
 	}
