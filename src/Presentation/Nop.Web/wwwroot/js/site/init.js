@@ -41,9 +41,11 @@ $(document).ready(function () {
         $(this).toggleClass('op');
     });
 
-    $('#main-menu li').on('click', function () {
-        $(this).find('.sub-menu').slideToggle();
-    });
+    if ($(window).width() >= 575) {
+        $('#main-menu li').on('click', function () {
+            $(this).find('.sub-menu').slideToggle();
+        });
+    }
 
     /*#####################    Карусель  ###############################*/
 
@@ -135,21 +137,21 @@ $(document).ready(function () {
 
     //Анимация подменю и открытие по клику
     $('.side-second-menu-wrap').on('mouseover', function () {
-            $(this).addClass('half-open');
+        $(this).addClass('half-open');
     }).on('mouseleave', function () {
         $(this).removeClass('half-open');
     }).on('click', function (event) {
-        if (!!!$(event.target).hasClass('close-i') && $(event.target).hasClass('side-second-menu-wrap')){
+        if (!!!$(event.target).hasClass('close-i') && $(event.target).hasClass('side-second-menu-wrap')) {
             var data = $(this);
-            $('.side-menu-wrap ul li').each(function(){
+            $('.side-menu-wrap ul li').each(function () {
                 if ($(this).hasClass('active')) {
-                   var curentItem = $(this);
-                    data.addClass('open').find('.sub-menu').fadeOut('fast', function(){
+                    var curentItem = $(this);
+                    data.addClass('open').find('.sub-menu').fadeOut('fast', function () {
                         $(this).html(curentItem.find('div.sub-menu').html()).fadeIn('fast');
                     });
-                    data.find('.title').fadeOut('fast', function(){
+                    data.find('.title').fadeOut('fast', function () {
                         $(this).html(curentItem.find('span').text()).fadeIn('fast');
-                    });  
+                    });
                 }
             });
             $('.side-menu-wrap').addClass('open');
@@ -271,8 +273,8 @@ $(document).ready(function () {
 
     $('#edit-name-close, #edit-addres-close, #edit-pass-close').on('click', function () {
         var el = $(this).next().children(),
-        el2 = $(this).next().next().children(),
-        el3 = $(this).next().next().next().children();
+            el2 = $(this).next().next().children(),
+            el3 = $(this).next().next().next().children();
         $(this).fadeOut(function () {
             $(this).prev().fadeIn();
         });
