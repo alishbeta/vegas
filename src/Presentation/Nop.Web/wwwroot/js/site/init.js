@@ -41,7 +41,7 @@ $(document).ready(function () {
         $(this).toggleClass('op');
     });
 
-    if ($(window).width() >= 575) {
+    if ($(window).width() <= 800) {
         $('#main-menu li').on('click', function () {
             $(this).find('.sub-menu').slideToggle();
         });
