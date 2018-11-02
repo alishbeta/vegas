@@ -115,7 +115,7 @@
 @{
     var rootCategories = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
 }
-<ul>
+<ul id="main-menu">
     @foreach (var category in rootCategories)
     {
         var categoryLineModel = new TopMenuModel.CategoryLineModel

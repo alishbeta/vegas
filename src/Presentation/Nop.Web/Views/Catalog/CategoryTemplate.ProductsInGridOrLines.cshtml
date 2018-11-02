@@ -387,12 +387,14 @@
 			if (indexOfLastActive + 1 != $("li.page-item").last().index()) {
 				$("li.page-item").eq(indexOfLastActive + 1).addClass("active");
 			}
-			if (indexOfLastActive + 1 != $("li.page-item").last().index()) {
+			activeEl = $("li.page-item.active")[$("li.page-item.active").length - 1];
+			indexOfLastActive = $("li.page-item").index(activeEl);
+			if (indexOfLastActive + 1 == $("li.page-item").last().index()) {
 				$("#loadMore").addClass("invisible");
 			}
-			$("#loadMore").removeClass("load");
 			UpdateWishlist();
 			UpdateCompareItems();
 		});
+		$("#loadMore").removeClass("load");
 	});
 </script>
