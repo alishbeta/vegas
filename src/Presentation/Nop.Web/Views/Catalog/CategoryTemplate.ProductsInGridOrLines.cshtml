@@ -278,9 +278,9 @@
 		}
 	});
 	$("#loadMore").on("click", function () {
-		var pagesLoaded = parseInt($("#prods div.outer-wrapp").length / prodsOnPageCount);
-		var currentPageIndex = parseInt($(".active a.page-link").text());
-		var pageIndex = pagesLoaded + currentPageIndex - 1;
+		$("#loadMore").addClass("load");
+		var activeEl = $("li.page-item.active")[$("li.page-item.active").length - 1];
+		var indexOfLastActive = $("li.page-item").index(activeEl);
 		$.ajax({
 			url: "@Url.Action("GetProducts", "Catalog")",///ru/Catalog/GetProducts",
 			type: "POST",
@@ -288,10 +288,9 @@
 			traditional: true,
 			data: {
 				categoryId: @Model.Id,
-				pageIndex: pageIndex
+				pageIndex: indexOfLastActive + 1
 			},
 		}).done(function (response) {
-			console.log(response);
 			response.model.forEach(function (product) {
 				var discount = "";
 				if (product.ProductPrice.Discount != 0) {
@@ -382,12 +381,18 @@
 						'</div>' +
 					'</div>';
 				$("#prods").append(element);
-				if ((currentPageIndex + pagesLoaded) * prodsOnPageCount >= parseInt("@Model.ProductsCount")) {
-					$("#loadMore").addClass("invisible");
-				}
-				UpdateWishlist();
-				UpdateCompareItems();
 			});
+			activeEl = $("li.page-item.active")[$("li.page-item.active").length - 1];
+			indexOfLastActive = $("li.page-item").index(activeEl);
+			if (indexOfLastActive + 1 != $("li.page-item").last().index()) {
+				$("li.page-item").eq(indexOfLastActive + 1).addClass("active");
+			}
+			if (indexOfLastActive + 1 != $("li.page-item").last().index()) {
+				$("#loadMore").addClass("invisible");
+			}
+			$("#loadMore").removeClass("load");
+			UpdateWishlist();
+			UpdateCompareItems();
 		});
 	});
 </script>

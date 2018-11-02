@@ -159,7 +159,7 @@ namespace Nop.Web.Controllers
 			var products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				categoryIds: categories,
-				pageIndex: pageIndex,
+				pageIndex: pageIndex - 1,
 				pageSize: 32).ToList();
 
 
