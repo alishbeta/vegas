@@ -153,7 +153,6 @@ $i: 0;
         width: 65px;
         padding-left: 5px;
         overflow: hidden;
-        @include transition(.5s);
         a{
           width: 300px;
           span{

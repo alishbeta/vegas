@@ -55,12 +55,12 @@
       height: 17px;
     }
     .item-wrap {
-      height: 400px;
+      height: 440px;
       border: 1px solid $border_color;
       margin:  0 30px 15px 0;
       .product-img-wrap{
         div:nth-child(2){
-          max-height: 250px;
+          max-height: 200px;
           overflow: hidden;
         }
       }
