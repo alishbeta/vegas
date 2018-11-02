@@ -3185,9 +3185,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   height: 17px;
 }
 .cabinet .favorite-wrap .item-wrap {
-  height: 490px;
+  height: 400px;
   border: 1px solid #cdd2d4;
   margin: 0 30px 15px 0;
+}
+.cabinet .favorite-wrap .item-wrap .product-img-wrap div:nth-child(2) {
+  max-height: 250px;
+  overflow: hidden;
 }
 .cabinet .favorite-wrap .price-wrap {
   margin-bottom: 15px;
