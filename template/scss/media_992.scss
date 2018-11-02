@@ -33,14 +33,14 @@
         width: 118px;
         overflow: hidden;
         position: absolute;
-        left: 50px;
+        left: 70px;
         top: 25px;
     }
     .content-main-wrap .header-wrap {
         width: 100%;
         margin-left: 0;
         &.open {
-            z-index: 1055;
+            z-index: 1060;
             background-color: white;
             position: fixed;
         }

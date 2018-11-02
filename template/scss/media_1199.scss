@@ -7,8 +7,33 @@
       margin-top: 20px;
     }
     .side-menu-wrap{
-      li{
-        width: 318px;
+      width: 65px;
+      overflow: hidden;
+      &.open{
+        width: 300px;
+        ul li {
+          width: 300px;
+          span{
+            opacity: 1;
+          }
+        }
+      }
+    }
+    .side-second-menu-wrap{
+      padding-left: 80px;
+      width: 65px;
+      &.half-open{
+        padding-left: 90px;
+      }
+      &.open{
+        width: 700px!important;
+        padding-left: 300px;
+      }
+      ul li{
+        width: 100%!important;
+      }
+      &:hover{
+        cursor: pointer;
       }
     }
   }
