@@ -213,7 +213,7 @@
 				</div>
 			</div>
 		</div>
-		@if (Model.Products.Count > 0)
+		@if (Model.Products.Count() > 0)
 		{
 			<div class="prod-wrap float-right" id="prods">
 				@foreach (var product in Model.Products)

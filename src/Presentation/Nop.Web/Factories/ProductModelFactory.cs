@@ -1150,7 +1150,7 @@ namespace Nop.Web.Factories
                 {
                     model.ProductPrice = PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
                 }
-				model.ProductPrice.Discount = product.DiscountProductMappings.ToList().Count > 0 ? product.DiscountProductMappings.ToList()[0].Discount.DiscountPercentage : (decimal)0;
+				model.ProductPrice.Discount = product.DiscountProductMappings.Count > 0 ? product.DiscountProductMappings.FirstOrDefault().Discount.DiscountPercentage : (decimal)0;
 
 				//picture
 				if (preparePictureModel)
