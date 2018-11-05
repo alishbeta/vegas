@@ -238,12 +238,6 @@ $(document).ready(function () {
 
     });
 
-        /*#####################    Галерея ###############################*/
-    $(".slider a").fancybox({
-        'hideOnContentClick': true
-    });
-    
-
     /*#####################    Кабинет  (Редактирование личных данных и адреса) ###############################*/
     $('#edit-name, #edit-addres, #edit-pass').on('click', function () {
         var el = $(this).next().next().children(),
@@ -260,6 +254,7 @@ $(document).ready(function () {
             $(el3[3]).fadeToggle();
         }
         if (!!el[2]) {
+            console.log(1);
             $(el[2]).fadeToggle(function () {
                 $(el[0]).fadeToggle();
                 $(el[1]).fadeToggle();

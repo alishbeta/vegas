@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/slick.css" />
     <link rel="stylesheet" type="text/css" href="css/slick-theme.css" />
-    <link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="/css/main.css" crossorigin="anonymous">
     <title></title>
     <!-- Optional JavaScript -->
@@ -1114,7 +1113,6 @@
     <script src="js/jquery.mousewheel.min.js" crossorigin="anonymous"></script>
     <script src="js/jquery.kinetic.min.js" crossorigin="anonymous"></script>
     <script src="js/jquery.smoothdivscroll-1.3-min.js" crossorigin="anonymous"></script>
-    <script src="js/fancybox/jquery.fancybox.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $('.main-baner-wrap').slick({
             dots: true,
@@ -1128,6 +1126,9 @@
                         nextArrow: '',
                     }
                 }
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
             ]
         });
     </script>
