@@ -200,6 +200,43 @@
 	{
 	@await Html.PartialAsync("_ProductBreadcrumb", Model.Breadcrumb)
 }
+<div class="modal fade" id="catoneclickbuy" tabindex="-1" role="dialog" aria-labelledby="catalogBuyInOneClick" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="header">
+				<h5 class="modal-title" id="exampleModalLabel">@T("oneclick.title"):</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="body">
+				<form asp-controller="Checkout" asp-action="Confirm" method="post">
+					<div class="form-group">
+						<div class="col">
+							<input type="text" name="Name" placeholder="@T("oneclick.name")" class="form-control col form-inline" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col">
+							<input type="text" name="Phone" placeholder="@T("oneclick.phone")" id="cat-oneclick-phone" class="form-control col form-inline" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col">
+							<input type="text" name="Email" placeholder="@T("oneclick.email")" class="form-control col form-inline" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col">
+							<input type="hidden" name="productId" value="@Model.Id" />
+							<button type="submit" class="btn btn-blue float-right">@T("oneclick.title")</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="product">
 	<div class="container-fluid">
 		<div class="row product-content-wrap" itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
@@ -246,7 +283,7 @@
 						}
 						@if (@Model.ProductPrice.Discount.ToString("#.##") != "")
 						{
-							<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
+							<div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
 						}
 						<div class="available text-center mt-3 mb-2"><a href="#">@T("prod.availablity")</a></div>
 						<div class="btn-group-vertical btn-block">
@@ -267,10 +304,10 @@
 							});
 						});
 									</script>
-									
+
 								}
 							}
-							<button class="btn btn-blue-white mb-3 rounded">@T("prod.buynow")</button>
+							<button class="btn btn-blue-white mb-3 rounded" data-target="#catoneclickbuy" data-toggle="modal">@T("prod.buynow")</button>
 						</div>
 						<div class="icons-wrap d-block ml-3">
 							@{
@@ -293,16 +330,16 @@
 									<button class="btn btn-light dropdown-toggle mt-4" type="button"
 											id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 											aria-expanded="false">
-										@Model.Height см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Width см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth
+										@Model.Height.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Width.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth.ToString("#.##") см
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a class="dropdown-item" href="#">@Model.Height см х @Model.Width см x @Model.Lendth</a>
+										<a class="dropdown-item" href="#">@Model.Height.ToString("#.##") см х @Model.Width.ToString("#.##") см x @Model.Lendth.ToString("#.##") см</a>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="color-title">
-							<span>@("product.color")</span>
+							<span>@T("product.color")</span>
 							<span><a href="#">@T("product.showsimilar")</a></span>
 						</div>
 						<div class="color-select">
@@ -384,4 +421,8 @@
 		prevArrow: '<div class="prev-arrow"></div>',
 		nextArrow: '<div class="next-arrow"></div>',
 	});
+</script>
+<script src="~/js/site/jquery.mask.js"></script>
+<script>
+	$("#cat-oneclick-phone").mask("(000)0000000");
 </script>

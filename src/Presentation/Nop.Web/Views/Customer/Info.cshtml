@@ -659,168 +659,168 @@
         });
 	</script>
 }
-	<nav class="breadcrumb-wrap" aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
-			<li class="breadcrumb-item"><a href="/customer/info">@T("account.cabinet")</a></li>
-			<li class="breadcrumb-item active"><a href="#">@T("account.info")</a></li>
-		</ol>
-	</nav>
-	<div class="row cabinet">
-		<div class="offset-xl-1 col-xl-8">
-			<div class="title-wrap clearfix">
-				<h1 class="title float-left">@T("account.cabinet")</h1>
-				<button class="btn btn-blue float-right btn-sm" onclick="window.location.replace('/logout')">@T("account.exit")</button>
-			</div>
-			@await Component.InvokeAsync("AccountMenu", new { active = "/customer/info"})
-			<div class="cabinet-info cabinet-info-main rounded">
-				<div class="row login-wrap">
-					<form asp-route="CustomerInfo" class="col-sm-12" method="post" id="infoForm">
-						<div asp-validation-summary="ModelOnly" class="message-error"></div>
-						<div id="firstZone">
-							<div class="title"><span>1</span>@T("cabinet.info")</div>
-							<button type="button"
-									id="edit-name"
-									class="btn btn-link">
-								@T("cart.changeinfo")
-							</button>
-							<button style="display: none;"
-									type="button"
-									onclick="CancelChangesInZone(1)"
-									id="edit-name-close"
-									class="btn btn-link">
-								@T("cart.cancel")
-							</button>
-							<div class="form-group row">
-								<label asp-for="FirstName" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.name")</label>
-								<input asp-for="FirstName" style="display: none" class="form-control col-sm-8" />
-								<div class="col-sm-3">@T("cart.name")</div>
-								<div class="col-sm-8 text-light-c">@Model.FirstName</div>
-								<nop-required />
-								<span asp-validation-for="FirstName"></span>
-							</div>
+<nav class="breadcrumb-wrap" aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">T@("bed4you")</a></li>
+		<li class="breadcrumb-item"><a href="/customer/info">@T("account.cabinet")</a></li>
+		<li class="breadcrumb-item active"><a href="#">@T("account.info")</a></li>
+	</ol>
+</nav>
+<div class="row cabinet">
+	<div class="offset-xl-1 col-xl-8">
+		<div class="title-wrap clearfix">
+			<h1 class="title float-left">@T("account.cabinet")</h1>
+			<button class="btn btn-blue float-right btn-sm" onclick="window.location.replace('/logout')">@T("account.exit")</button>
+		</div>
+		@await Component.InvokeAsync("AccountMenu", new { active = "/customer/info" })
+		<div class="cabinet-info cabinet-info-main rounded">
+			<div class="row login-wrap">
+				<form asp-route="CustomerInfo" class="col-sm-12" method="post" id="infoForm">
+					<div asp-validation-summary="ModelOnly" class="message-error"></div>
+					<div id="firstZone">
+						<div class="title"><span>1</span>@T("cabinet.info")</div>
+						<button type="button"
+								id="edit-name"
+								class="btn btn-link">
+							@T("cart.changeinfo")
+						</button>
+						<button style="display: none;"
+								type="button"
+								onclick="CancelChangesInZone(1)"
+								id="edit-name-close"
+								class="btn btn-link">
+							@T("cart.cancel")
+						</button>
+						<div class="form-group row">
+							<label asp-for="FirstName" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.name")</label>
+							<input asp-for="FirstName" style="display: none" class="form-control col-sm-8" />
+							<div class="col-sm-3">@T("cart.name")</div>
+							<div class="col-sm-8 text-light-c">@Model.FirstName</div>
+							<nop-required />
+							<span asp-validation-for="FirstName"></span>
+						</div>
+						@if (Model.PhoneEnabled)
+						{
 							@if (Model.PhoneEnabled)
 							{
-								@if (Model.PhoneEnabled)
-								{
-									<div class="form-group row">
-										<label asp-for="Phone" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.phone")</label>
-										<input asp-for="Phone" style="display: none" class="form-control col-sm-8" />
-										<div class="col-sm-3">@T("cart.phone")</div>
-										<div class="col-sm-8 text-light-c">@Model.Phone</div>
-										@if (Model.PhoneRequired)
-										{
-											<nop-required />
-										}
-										<span asp-validation-for="Phone"></span>
-									</div>
-								}
-
+								<div class="form-group row">
+									<label asp-for="Phone" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.phone")</label>
+									<input asp-for="Phone" style="display: none" id="cab-phone" class="form-control col-sm-8" />
+									<div class="col-sm-3">@T("cart.phone")</div>
+									<div class="col-sm-8 text-light-c">@Model.Phone</div>
+									@if (Model.PhoneRequired)
+									{
+										<nop-required />
+									}
+									<span asp-validation-for="Phone"></span>
+								</div>
 							}
-							<div class="form-group row">
-								<label asp-for="Email" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">E-mail</label>
-								<input asp-for="Email" style="display: none" class="form-control col-sm-8" />
-								<div class="col-sm-3">E-mail</div>
-								<div class="col-sm-8 text-light-c">@Model.Email</div>
-								<nop-required />
-								<span asp-validation-for="Email"></span>
-							</div>
-							<div class="line"></div>
+
+						}
+						<div class="form-group row">
+							<label asp-for="Email" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">E-mail</label>
+							<input asp-for="Email" style="display: none" class="form-control col-sm-8" />
+							<div class="col-sm-3">E-mail</div>
+							<div class="col-sm-8 text-light-c">@Model.Email</div>
+							<nop-required />
+							<span asp-validation-for="Email"></span>
 						</div>
-						@if (Model.StreetAddressEnabled ||
+						<div class="line"></div>
+					</div>
+					@if (Model.StreetAddressEnabled ||
 Model.StreetAddress2Enabled ||
 Model.ZipPostalCodeEnabled ||
 Model.CityEnabled ||
 Model.CountyEnabled ||
 Model.CountryEnabled)
-						{
-							<div id="secondZone">
-								<div class="title"><span>2</span>Адрес</div>
-								<button type="button"
-										id="edit-addres"
-										class="btn btn-link">
-									@T("cabinet.changeaddr")
-								</button>
-								<button type="button"
-										id="edit-addres-close"
-										style="display: none"
-										onclick="CancelChangesInZone(2)"
-										class="btn btn-link">
-									@T("cart.cancel")
-								</button>
-								@if (Model.CityEnabled)
-								{
-									<div class="form-group row">
-										<label asp-for="City" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.city")</label>
-										<input asp-for="City" style="display: none" class="form-control col-sm-8" />
-										<div class="col-sm-3">@T("cart.city")</div>
-										<div class="col-sm-8 text-light-c">@Model.City</div>
-										@if (Model.CityRequired)
-										{
-											<nop-required />
-										}
-										<span asp-validation-for="City"></span>
-									</div>
-								}
-								@if (Model.StreetAddressEnabled)
-								{
-									<div class="form-group row">
-										<label asp-for="StreetAddress" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.address")</label>
-										<input asp-for="StreetAddress" style="display: none" class="form-control col-sm-8" />
-										<div class="col-sm-3">@T("cart.address")</div>
-										<div class="col-sm-8 text-light-c">@Model.StreetAddress</div>
-										@if (Model.StreetAddressRequired)
-										{
-											<nop-required />
-										}
-										<span asp-validation-for="StreetAddress"></span>
-									</div>
-								}
-								@if (Model.StreetAddress2Enabled)
-								{
-									<div class="form-group row">
-										<label asp-for="StreetAddress2" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.flat")</label>
-										<input asp-for="StreetAddress2" style="display: none" class="form-control col-sm-8" />
-										<div class="col-sm-3">@T("cart.flat")</div>
-										<div class="col-sm-8 text-light-c">@Model.StreetAddress2</div>
-										@if (Model.StreetAddress2Required)
-										{
-											<nop-required />
-										}
-										<span asp-validation-for="StreetAddress2"></span>
-									</div>
-								}
-							</div>
-							<div id="thirdZone">
-								<div class="title"><span>3</span>Пароль</div>
-								<button type="button" id="edit-pass" class="btn btn-link">@T("cabinet.changepass")</button>
-								<button type="button"
-										id="edit-pass-close"
-										style="display: none"
-										onclick="CancelChangesInZone(3)"
-										class="btn btn-link">
-									@T("cabinet.cancel")
-								</button>
+					{
+						<div id="secondZone">
+							<div class="title"><span>2</span>Адрес</div>
+							<button type="button"
+									id="edit-addres"
+									class="btn btn-link">
+								@T("cabinet.changeaddr")
+							</button>
+							<button type="button"
+									id="edit-addres-close"
+									style="display: none"
+									onclick="CancelChangesInZone(2)"
+									class="btn btn-link">
+								@T("cart.cancel")
+							</button>
+							@if (Model.CityEnabled)
+							{
 								<div class="form-group row">
-									<label style="display: none" class="col-form-label col-sm-3" for="p">
-										@T("cabinet.newpass")
-									</label>
-									<input style="display: none" id="p" type="password" class="form-control col-sm-8" value="">
+									<label asp-for="City" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.city")</label>
+									<input asp-for="City" style="display: none" class="form-control col-sm-8" />
+									<div class="col-sm-3">@T("cart.city")</div>
+									<div class="col-sm-8 text-light-c">@Model.City</div>
+									@if (Model.CityRequired)
+									{
+										<nop-required />
+									}
+									<span asp-validation-for="City"></span>
 								</div>
-							</div>
-						}
-						<div class="buttons">
-							<input type="submit"
-								   id="save-info-button"
-								   value="@T("Common.Save")"
-								   name="save-info-button"
-								   class="button-1 save-customer-info-button" />
+							}
+							@if (Model.StreetAddressEnabled)
+							{
+								<div class="form-group row">
+									<label asp-for="StreetAddress" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.address")</label>
+									<input asp-for="StreetAddress" style="display: none" class="form-control col-sm-8" />
+									<div class="col-sm-3">@T("cart.address")</div>
+									<div class="col-sm-8 text-light-c">@Model.StreetAddress</div>
+									@if (Model.StreetAddressRequired)
+									{
+										<nop-required />
+									}
+									<span asp-validation-for="StreetAddress"></span>
+								</div>
+							}
+							@if (Model.StreetAddress2Enabled)
+							{
+								<div class="form-group row">
+									<label asp-for="StreetAddress2" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.flat")</label>
+									<input asp-for="StreetAddress2" style="display: none" class="form-control col-sm-8" />
+									<div class="col-sm-3">@T("cart.flat")</div>
+									<div class="col-sm-8 text-light-c">@Model.StreetAddress2</div>
+									@if (Model.StreetAddress2Required)
+									{
+										<nop-required />
+									}
+									<span asp-validation-for="StreetAddress2"></span>
+								</div>
+							}
 						</div>
-					</form>
-				</div>
+						<div id="thirdZone">
+							<div class="title"><span>3</span>Пароль</div>
+							<button type="button" id="edit-pass" class="btn btn-link">@T("cabinet.changepass")</button>
+							<button type="button"
+									id="edit-pass-close"
+									style="display: none"
+									onclick="CancelChangesInZone(3)"
+									class="btn btn-link">
+								@T("cabinet.cancel")
+							</button>
+							<div class="form-group row">
+								<label style="display: none" class="col-form-label col-sm-3" for="p">
+									@T("cabinet.newpass")
+								</label>
+								<input style="display: none" id="p" type="password" class="form-control col-sm-8" value="">
+							</div>
+						</div>
+					}
+					<div class="buttons">
+						<input type="submit"
+							   id="save-info-button"
+							   value="@T("Common.Save")"
+							   name="save-info-button"
+							   class="button-1 save-customer-info-button" />
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
+</div>
 <script>
 	function CancelChangesInZone(index) {
 		if (index == 1) {
@@ -934,3 +934,7 @@ Model.CountryEnabled)
 		</div>
 	</div>
 </div>
+<script src="~/js/site/jquery.mask.js"></script>
+<script>
+	$("#cab-phone").mask("(000)0000000");
+</script>
