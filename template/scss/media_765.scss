@@ -55,6 +55,9 @@
             border-bottom: unset;
 
         }
+        &.open{
+            overflow: scroll;
+        }
     }
     .closed {
         width: 0;
@@ -107,7 +110,7 @@
         }
     }
     .inner-menu-wrap ul {
-        width: 500px;
+        width: 100%;
     }
     .baner-info-wrap {
         position: relative;
