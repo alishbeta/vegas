@@ -360,4 +360,16 @@
             @include box-shadow(none);
         }
     }
+    .cabinet{
+       .cabinet-info {
+            padding: 30px 0;
+            border: 1px solid transparent;
+            .items{
+                width: 100%;
+            }
+        }
+        .favorite-wrap .item-wrap{
+            margin: 0 8px 15px;
+        }
+    } 
 }
