@@ -31,7 +31,6 @@
         .logo-m {
             width: 114px;
             left: 50px;
-            
         }
         .icons-wrap {
             width: auto;
@@ -295,15 +294,6 @@
     .footer-wrap .phone-footer-wrap .phone {
         font-size: 17px;
     }
-    .cabinet .cabinet-info {
-        padding: 30px 15px;
-        .title span {
-            margin-left: 0px;
-        }
-        .line {
-            margin: 20px -30px;
-        }
-    }
     .title-wrap {
         text-align: center;
     }
@@ -330,10 +320,21 @@
     .see-wrap {
         padding-left: 0;
     }
-    .cabinet .favorite-wrap .close-wrap {
-        margin-right: 0;
-    }
-    .cabinet .buy-history-wrap .total {
-        width: 100%;
+    .cabinet {
+        .cabinet-info {
+            padding: 30px 15px;
+            .title span {
+                margin-left: 0px;
+            }
+            .line {
+                margin: 20px -30px;
+            }
+        }
+        .favorite-wrap .close-wrap {
+            margin-right: 0;
+        }
+        .buy-history-wrap .total {
+            width: 100%;
+        }
     }
 }
