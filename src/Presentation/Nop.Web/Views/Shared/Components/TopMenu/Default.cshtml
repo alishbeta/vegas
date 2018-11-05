@@ -115,13 +115,33 @@
 @{
     var rootCategories = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
 }
-<ul>
-    @foreach (var category in rootCategories)
-    {
-        var categoryLineModel = new TopMenuModel.CategoryLineModel
-        {
-            Category = category
-        };
-        @await Html.PartialAsync("_CategoryLine.TopMenu", categoryLineModel)
-    }
+<ul id="main-menu">
+	@foreach (var category in rootCategories)
+	{
+		var categoryLineModel = new TopMenuModel.CategoryLineModel
+		{
+			Category = category
+		};
+		@await Html.PartialAsync("_CategoryLine.TopMenu", categoryLineModel)
+	}
+	<li>
+		<a onclick="return false;" href="/delivery">
+			<span class="d-inline d-xl-none">@T("topmenu.delivery")</span>
+		</a>
+	</li>
+	<li>
+		<a onclick="return false;" href="/ourstores">
+			<span class="d-inline d-xl-none">@T("main.ourstores")</span>
+		</a>
+	</li>
+	<li>
+		<a onclick="return false;" href="/customer/info">
+			<span class="d-inline d-xl-none">@T("account.cabinet")</span>
+		</a>
+	</li>
+	<li>
+		<a onclick="return false;" href="/about-us">
+			<span class="d-inline d-xl-none">@T("footer.about")</span>
+		</a>
+	</li>
 </ul>

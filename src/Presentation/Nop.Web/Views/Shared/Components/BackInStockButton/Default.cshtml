@@ -1,7 +1,7 @@
 ﻿@using Nop.Web.Models.Catalog;
 @model BackInStockButtonModel
 
-<button class="btn btn-sm btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-@Model.Prefix-@Model.ProductId" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+<button class="btn btn-blue btn-block mt-4 mb-4 arived" id="back-in-stock-subscribe-@Model.Prefix-@Model.ProductId" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
 <script>
 	$(document).ready(function () {
 		$("#back-in-stock-subscribe-@Model.Prefix-@Model.ProductId").on('click', function() {

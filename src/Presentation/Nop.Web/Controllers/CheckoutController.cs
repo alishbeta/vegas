@@ -10,6 +10,7 @@ using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Payments;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Http.Extensions;
+using Nop.Services.Catalog;
 using Nop.Services.Common;
 using Nop.Services.Customers;
 using Nop.Services.Directory;
@@ -38,6 +39,7 @@ namespace Nop.Web.Controllers
         #region Fields
 
         private readonly AddressSettings _addressSettings;
+		private readonly IProductService _productService;
         private readonly CustomerSettings _customerSettings;
         private readonly IAddressAttributeParser _addressAttributeParser;
         private readonly IAddressService _addressService;
@@ -70,6 +72,7 @@ namespace Nop.Web.Controllers
 
         public CheckoutController(AddressSettings addressSettings,
             CustomerSettings customerSettings,
+			IProductService productService,
             IAddressAttributeParser addressAttributeParser,
             IAddressService addressService,
             ICheckoutModelFactory checkoutModelFactory,
@@ -96,6 +99,7 @@ namespace Nop.Web.Controllers
             ShippingSettings shippingSettings)
         {
             this._addressSettings = addressSettings;
+			this._productService = productService;
             this._customerSettings = customerSettings;
             this._addressAttributeParser = addressAttributeParser;
             this._addressService = addressService;
@@ -930,21 +934,34 @@ namespace Nop.Web.Controllers
 		}
 
         [HttpPost, ActionName("Confirm")]
-        public virtual IActionResult ConfirmOrder(OrderModel orderModel)
+        public virtual IActionResult ConfirmOrder(OrderModel orderModel, int? productId = null)
         {
-            //validation
-            if (_orderSettings.CheckoutDisabled)
-                return RedirectToRoute("ShoppingCart");
+			//validation
+			if (_orderSettings.CheckoutDisabled)
+				return RedirectToRoute("ShoppingCart");
 
-            var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                .LimitPerStore(_storeContext.CurrentStore.Id)
-                .ToList();
-            if (!cart.Any())
-				return RedirectToRoute("HomePage");
+			var cart = _workContext.CurrentCustomer.ShoppingCartItems
+				.Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+				.LimitPerStore(_storeContext.CurrentStore.Id)
+				.ToList();
+			var cartItemsBackup = cart;
 
-			if (_orderSettings.OnePageCheckoutEnabled)
-                return RedirectToRoute("CheckoutOnePage");
+			if (productId != null) //if not null - one page checkout with one product
+			{
+				var productToBuy = _productService.GetProductById(productId ?? 0);
+				if (cart.Any())
+				{
+					cart.ForEach(sci => _shoppingCartService.DeleteShoppingCartItem(sci, false));
+				}
+				_shoppingCartService.AddToCart(customer: _workContext.CurrentCustomer,
+					product: productToBuy,
+					shoppingCartType: ShoppingCartType.ShoppingCart,
+					storeId: _storeContext.CurrentStore.Id,
+					quantity: 1);
+			}
+           
+            if (!cart.Any() && productId == null)
+				return RedirectToRoute("HomePage");		   
 
             if (_workContext.CurrentCustomer.IsGuest() && !_orderSettings.AnonymousCheckoutAllowed)
                 return Challenge();
@@ -1014,28 +1031,47 @@ namespace Nop.Web.Controllers
 				
 				_genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, NopCustomerDefaults.SelectedShippingOptionAttribute, shippingOption, _storeContext.CurrentStore.Id);
 				var placeOrderResult = _orderProcessingService.PlaceOrder(processPaymentRequest);
-                if (placeOrderResult.Success)
-                {
-                    HttpContext.Session.Set<ProcessPaymentRequest>("OrderPaymentInfo", null);
-                    var postProcessPaymentRequest = new PostProcessPaymentRequest
-                    {
-                        Order = placeOrderResult.PlacedOrder
-                    };
+				if (placeOrderResult.Success)
+				{
+					HttpContext.Session.Set<ProcessPaymentRequest>("OrderPaymentInfo", null);
+					var postProcessPaymentRequest = new PostProcessPaymentRequest
+					{
+						Order = placeOrderResult.PlacedOrder
+					};
 					if (!string.IsNullOrEmpty(orderModel.Comment))
 					{
 						_orderProcessingService.SaveComment(placeOrderResult.PlacedOrder, orderModel.Comment);
 					}
-					_paymentService.PostProcessPayment(postProcessPaymentRequest);
-
-					if (_webHelper.IsRequestBeingRedirected || _webHelper.IsPostBeingDone)
-                    {
-                        //redirection or POST has been done in PostProcessPayment
-                        return Content("Redirected");
-                    }
-
-                    return RedirectToRoute("CheckoutCompleted", new { orderId = placeOrderResult.PlacedOrder.Id });
-                }
-
+					if (productId != null)	  //only if one click checkout
+					{
+						cartItemsBackup.ForEach(sci => _shoppingCartService.AddToCart(_workContext.CurrentCustomer,
+							_productService.GetProductById(sci.ProductId),
+							ShoppingCartType.ShoppingCart,
+							_storeContext.CurrentStore.Id,
+							sci.AttributesXml,
+							sci.CustomerEnteredPrice,
+							sci.RentalStartDateUtc,
+							sci.RentalEndDateUtc,
+							sci.Quantity,
+							true));
+						cartItemsBackup.Clear();
+					}
+					try
+					{
+						_paymentService.PostProcessPayment(postProcessPaymentRequest);
+						if (_webHelper.IsRequestBeingRedirected || _webHelper.IsPostBeingDone)
+						{
+							//redirection or POST has been done in PostProcessPayment
+							return Content("Redirected");
+						}
+					}
+					catch (Exception ex)//if Payment method couldn't be loaded or didn't set, skip this step (e.g. Buy in one click)
+					{
+						_logger.Warning(ex.Message, ex);
+						model.Warnings.Add(ex.Message);
+					}
+					return RedirectToRoute("CheckoutCompleted", new { orderId = placeOrderResult.PlacedOrder.Id });					
+				}
                 foreach (var error in placeOrderResult.Errors)
                     model.Warnings.Add(error);
             }
@@ -1044,9 +1080,21 @@ namespace Nop.Web.Controllers
                 _logger.Warning(exc.Message, exc);
                 model.Warnings.Add(exc.Message);
             }
-
-            //If we got this far, something failed, redisplay form
-            return View(model);
+			if (productId != null)
+			{
+				cartItemsBackup.ForEach(sci => _shoppingCartService.AddToCart(_workContext.CurrentCustomer,
+					   _productService.GetProductById(sci.ProductId),
+					   ShoppingCartType.ShoppingCart,
+					   _storeContext.CurrentStore.Id,
+					   sci.AttributesXml,
+					   sci.CustomerEnteredPrice,
+					   sci.RentalStartDateUtc,
+					   sci.RentalEndDateUtc,
+					   sci.Quantity,
+					   true));
+			}
+			//If we got this far, something failed, redisplay form
+			return View(model);
         }
 
         #endregion

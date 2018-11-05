@@ -213,7 +213,7 @@
 				</div>
 			</div>
 		</div>
-		@if (Model.Products.Count > 0)
+		@if (Model.Products.Count() > 0)
 		{
 			<div class="prod-wrap float-right" id="prods">
 				@foreach (var product in Model.Products)
@@ -360,18 +360,18 @@
 								'</div>' +
 							'</div>' +
 							'<div class="sizes-wrap clearfix">' +
-								'<div class="title">@T("prod.sizes")</div>' +
+								'<div class="title">@T("product.sizes")</div>' +
 								'<div class="inner-wrap">' +
 									'<div class="block float-left">' +
-										'<div class="title">@T("prod.width")</div>' +
+										'<div class="title">@T("product.width")</div>' +
 										'<div class="value">' + product.Width + ' см</div>' +
 									'</div>' +
 									'<div class="block float-left">' +
-										'<div class="title">@T("prod.length")</div>' +
+										'<div class="title">@T("product.length")</div>' +
 										'<div class="value">' + product.Length + ' см</div>' +
 									'</div>' +
 									'<div class="block float-left">' +
-										'<div class="title">@T("prod.height")</div>' +
+										'<div class="title">@T("product.height")</div>' +
 										'<div class="value">' + product.Height + ' см</div>' +
 									'</div>' +
 								'</div>' +
@@ -387,12 +387,14 @@
 			if (indexOfLastActive + 1 != $("li.page-item").last().index()) {
 				$("li.page-item").eq(indexOfLastActive + 1).addClass("active");
 			}
-			if (indexOfLastActive + 1 != $("li.page-item").last().index()) {
+			activeEl = $("li.page-item.active")[$("li.page-item.active").length - 1];
+			indexOfLastActive = $("li.page-item").index(activeEl);
+			if (indexOfLastActive + 1 == $("li.page-item").last().index()) {
 				$("#loadMore").addClass("invisible");
 			}
-			$("#loadMore").removeClass("load");
 			UpdateWishlist();
 			UpdateCompareItems();
 		});
+		$("#loadMore").removeClass("load");
 	});
 </script>
