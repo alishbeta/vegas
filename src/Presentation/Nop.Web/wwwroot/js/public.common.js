@@ -69,6 +69,9 @@ function displayPopupContentFromUrl(url, title, modal, width) {
     var targetWidth = (width ? width : 550);
     var maxHeight = $(window).height() - 20;
 
+	$(".back-shadow").fadeIn().on("click", function () {
+		ClosePopup();
+	});
     $('<div></div>').load(url)
         .dialog({
             modal: isModal,
@@ -76,7 +79,8 @@ function displayPopupContentFromUrl(url, title, modal, width) {
             maxHeight: maxHeight,
             title: title,
             close: function(event, ui) {
-                $(this).dialog('destroy').remove();
+				$(this).dialog('destroy').remove();
+				$(".back-shadow").fadeOut();
             }
         });
 }
