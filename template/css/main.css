@@ -3284,7 +3284,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   min-width: 105px;
   text-align: right;
   color: #4da2c1;
-  text-transform: uppercase;
 }
 .cabinet .buy-history-wrap .order-items img {
   width: 110px;
