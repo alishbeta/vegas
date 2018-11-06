@@ -47,7 +47,7 @@
 										<div class="item">
 											<div class="item-img-wrap"><img id="@string.Format("image{0}_{1}", order.Id, product.ProductId)" src="" alt="@product.Product.ProductPictures.FirstOrDefault()?.Picture.AltAttribute" title="@product.Product.ProductPictures.FirstOrDefault()?.Picture.TitleAttribute"></div>
 											<div class="name">
-												<div class="title">@(string.Format("", product.Product.ProductCategories))</div>
+												<div class="title" id="@string.Format("title{0}_{1}", order.Id, product.ProductId)"></div>
 												<div>@product.Product.Name</div>
 											</div>
 											<div class="count">
@@ -95,6 +95,7 @@
 			}).done(function (data) {
 				JSON.parse(data).forEach(function (elem) {
 					$("#image" + id + "_" + elem.productId).attr("src", elem.url);
+					//$("#title" + id + "_" + elem.productId).text(elem.categoryName);
 				});
 				$("#collapseExample" + id + " .item-img-wrap").each(function () {
 					$(this).removeClass('load');

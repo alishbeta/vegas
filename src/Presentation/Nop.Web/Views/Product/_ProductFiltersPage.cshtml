@@ -3,26 +3,6 @@
 	var OptionFilters = new List<Nop.Core.Domain.Catalog.SpecificationAttribute>();
 	var CustomTextFilters = new List<Nop.Core.Domain.Catalog.SpecificationAttribute>();
 }
-@foreach (var product in Model)
-{
-	foreach (var spec in product.ProductSpecificationAttributes)
-	{
-		if (spec.AttributeType == Nop.Core.Domain.Catalog.SpecificationAttributeType.Option)
-		{
-			if (OptionFilters.Count(x => x.Name == spec.SpecificationAttributeOption.SpecificationAttribute.Name) == 0)
-			{
-				OptionFilters.Add(spec.SpecificationAttributeOption.SpecificationAttribute);
-			}
-		}
-		else
-		{
-			if (CustomTextFilters.Count(x => x.Name == spec.SpecificationAttributeOption.SpecificationAttribute.Name) == 0)
-			{
-				CustomTextFilters.Add(spec.SpecificationAttributeOption.SpecificationAttribute);
-			}
-		}
-	}
-}
 <nav class="breadcrumb-wrap">
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="/">Bed4you</a></li>

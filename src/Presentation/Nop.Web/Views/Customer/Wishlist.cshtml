@@ -36,7 +36,7 @@
 						<h6><b>@T("wishlist")</b></h6>
 						<div class="close-wrap">
 							<i class="close-i"></i>
-							<button class="btn btn-link">@T("wishlist.clear")</button>
+							<button class="btn btn-link" onclick="ClearWishlist()">@T("wishlist.clear")</button>
 						</div>
 					}
 					else
@@ -116,4 +116,16 @@
 			$("#wishlistCount").text("(" + responce + ")");
 		});
 	});
+</script>
+<script>
+	function ClearWishlist() {
+		$.ajax({
+			url: "@Url.Action("ClearWishlist", "ShoppingCart")",
+			type: "POST",
+			dataType: 'text',
+			traditional: true
+		}).done(function (response) {
+			window.location.reload();
+		});
+	}
 </script>

@@ -49,21 +49,21 @@
 			@if (Model.Products.Count > 0)
 			{
 				<div class="optc-wrap rounded">
-					<div class="add-ct">Добавлено товаров <span>@Model.Products.Count</span></div>
-					<button class="btn btn-blue btn-block" onclick="window.location.replace('/recentlyviewedproducts')">Добавить еще товар</button>
+					<div class="add-ct">@T("compare.products.count") <span>@Model.Products.Count</span></div>
+					<button class="btn btn-blue btn-block" onclick="window.location.replace('/recentlyviewedproducts')">@T("compare.add")</button>
 					<button onclick="setLocation('@Url.RouteUrl("ClearCompareList")')" class="btn btn-link btn-block"><span>+</span>@T("Products.Compare.Clear")</button>
 					<div class="line"></div>
 					<div class="show-wrap">
-						<div>Показывать:</div>
+						<div>@T("compare.show"):</div>
 						<div class="form-group check-blue">
 							<input name="opt" type="radio" id="c1" checked>
 							<label for="c1"></label>
-							<label for="c1">Все характеристики</label>
+							<label for="c1">@T("compare.allattributes")</label>
 						</div>
 						<div class="form-group check-blue">
 							<input name="opt" type="radio" id="c2">
 							<label for="c2"></label>
-							<label for="c2">Различия</label>
+							<label for="c2">@T("compare.differences")</label>
 						</div>
 					</div>
 					<div class="line"></div>
@@ -122,16 +122,16 @@
 															<i class="star grey"></i>
 														}
 													}
-													<small>@product.ReviewOverviewModel.TotalReviews отзыва</small>
+													<small>@product.ReviewOverviewModel.TotalReviews @T("compare.reviews")</small>
 												</div>
 												<div class="close-wrap">
 													<i class="close-i" onclick="setLocation('@Url.RouteUrl("RemoveProductFromCompareList", new { productId = product.Id })')"></i>
 												</div>
 											</div>
 											<img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
-											@if (@product.ProductPrice.Discount.ToString("#.##") != "")
+											@if (product.ProductPrice.Discount.ToString("#.##") != "")
 											{
-												<div class="discount">@product.ProductPrice.Discount.ToString("#.##")%</div>
+												<div class="discount">-@product.ProductPrice.Discount.ToString("#.##")%</div>
 											}
 										</div>
 										<div class="main-prop-wrap text-left">
@@ -143,7 +143,14 @@
 												<div class="price-new">@product.ProductPrice.Price</div>
 											</div>
 										</div>
-										<button class="btn btn-blue btn-block" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
+										@if (product.InStock)
+										{
+											<button class="btn btn-blue btn-block" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">@T("product.buy")</button>
+										}
+										else
+										{
+											@await Component.InvokeAsync("BackInStockButton", new { productId = product.Id, prefix = "compare" });
+										}
 										<div class="line"></div>
 										<ul>
 											@foreach (var spec in specificationAttributes)

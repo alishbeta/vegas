@@ -872,6 +872,17 @@ namespace Nop.Web.Controllers
 			}
 			
 			return Json(new { success = false });
+		} 
+
+		[HttpPost]
+		public dynamic ClearWishlist()
+		{
+			var cart = _workContext.CurrentCustomer.ShoppingCartItems
+							.Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
+							.LimitPerStore(_storeContext.CurrentStore.Id)
+							.ToList();
+			cart.ForEach(sci => _shoppingCartService.DeleteShoppingCartItem(sci));			
+			return new { success = true };
 		}
 
 		[HttpsRequirement(SslRequirement.No)]
