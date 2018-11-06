@@ -1760,8 +1760,19 @@ small {
 }
 
 .ui-widget-header {
-  background: #bfdce6;
-  color: black;
+  background: transparent;
+  color: #2c96b9;
+  font-size: 24px;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
+  border: 7px solid transparent;
+  background: transparent;
+  font-weight: normal;
+  color: #454545;
+  border-radius: 10px;
 }
 
 .ui-slider-horizontal {
