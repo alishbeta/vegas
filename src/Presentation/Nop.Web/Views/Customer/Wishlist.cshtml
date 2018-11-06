@@ -22,10 +22,10 @@
 </nav>
 
 <div class="row cabinet">
-	<div class="offset-xl-1 col-xl-8">
+	<div class="offset-xl-1 col-xl-11">
 		<div class="title-wrap clearfix">
-			<h1 class="title float-left">Личный кабинет</h1>
-			<button class="btn btn-blue float-right btn-sm" onclick="window.location.replace('/logout')">Выход</button>
+			<h1 class="title float-left">@T("account.cabinet")</h1>
+			<button class="btn btn-blue float-right btn-sm" onclick="window.location.replace('/logout')">@T("account.exit")</button>
 		</div>
 		@await Component.InvokeAsync("AccountMenu", new { active = "/customer/wishlist" })
 		<div class="cabinet-info rounded">
@@ -61,7 +61,9 @@
 									<i class="close-i" onclick="RemoveFromCart(@item.ProductId, 2, true)"></i>
 								</div>
 								<div>
-									<img class="product" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+									<a href="@Url.RouteUrl("Product", new { productId = item.ProductId, SeName = item.ProductSeName })">
+										<img class="product" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+									</a>
 								</div>
 								@if (item.DiscountPercentage != decimal.Zero)
 								{
@@ -69,9 +71,11 @@
 								}
 							</div>
 							<div class="main-prop-wrap text-left">
-								<div class="product-name text-light-c">@item.ProductName</div>
+								<a href="@Url.RouteUrl("Product", new { productId = item.ProductId, SeName = item.ProductSeName })">
+									<div class="product-name text-light-c">@item.ProductName</div>
+								</a>
 								<div class="product-prop">@item.ProductSeName</div>
-								<div class="price-titile">Цена</div>
+								<div class="price-titile">@T("product.price")</div>
 								<div class="price-wrap clearfix">
 									@if (item.OldPrice != string.Empty)
 									{
@@ -85,17 +89,17 @@
 							}
 							@if (product.StockQuantity > 0 && product.StatusId != 4)
 							{
-								<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
+								<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">@T("product.buy")</button>
 							}
 							else
 							{
 								<button class="btn btn-blue btn-block mt-4 mb-4 arived" id="back-in-stock-subscribe-@item.ProductId" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
 								<script>
-							$(document).ready(function () {
-								$("#back-in-stock-subscribe-@item.ProductId").on('click', function() {
-									displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = item.ProductId })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
-								});
-							});
+									$(document).ready(function () {
+										$("#back-in-stock-subscribe-@item.ProductId").on('click', function() {
+											displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = item.ProductId })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
+										});
+									});
 								</script>
 							}
 						</div>
