@@ -292,9 +292,11 @@
 						});
 						if (responce.compareItems.length > 0) {
 							$("#compareItems").addClass('active');
+							$("#compareItems").parent().attr("href", "/compareproducts");
 						}
 						else {
 							$("#compareItems").removeClass('active');
+							$("#compareItems").parent().attr("href", "#");
 						}
 						$(".compare_icon:not(.favorit)").each(function () {
 							$(this).removeClass("load");
@@ -445,4 +447,3 @@
 <script>
 	$("#oneclick-phone").mask("(000)0000000");
 </script>
-<script src="~/js/site/fancybox/jquery.fancybox.min.js"></script>
