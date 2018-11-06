@@ -1248,7 +1248,12 @@ namespace Nop.Services.ExportImport
                             OrderMinimumQuantity = 1,
                             StockQuantity = 10000,
                             CreatedOnUtc = DateTime.UtcNow,
-                            UpdatedOnUtc = DateTime.UtcNow
+                            UpdatedOnUtc = DateTime.UtcNow,
+                            Model = item.Model,
+                            SleepHeight = item.SleepHeight,
+                            SleepLength = item.SleepLength,
+                            SleepWeight = item.SleepWeight,
+                            SleepWidth = item.SleepWidth,
                         };
 
                         if (statusId > 0)
@@ -1289,6 +1294,11 @@ namespace Nop.Services.ExportImport
                         product.OrderMaximumQuantity = 10000;
                         product.OrderMinimumQuantity = 1;
                         product.StockQuantity = 10000;
+                        product.Model = item.Model;
+                        product.SleepHeight = item.SleepHeight;
+                        product.SleepLength = item.SleepLength;
+                        product.SleepWeight = item.SleepWeight;
+                        product.SleepWidth = item.SleepWidth;
 
                         if (statusId > 0)
                         {

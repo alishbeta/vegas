@@ -378,6 +378,21 @@ namespace Nop.Web.Areas.Admin.Models.Catalog
         [NopResourceDisplayName("Admin.Catalog.Products.Fields.Height")]
         public decimal Height { get; set; }
 
+        [NopResourceDisplayName("Admin.Catalog.Products.Fields.Model")]
+        public string Model { get; set; }
+
+        [NopResourceDisplayName("Admin.Catalog.Products.Fields.SleepWeight")]
+        public int SleepWeight { get; set; }
+
+        [NopResourceDisplayName("Admin.Catalog.Products.Fields.SleepLength")]
+        public int SleepLength { get; set; }
+
+        [NopResourceDisplayName("Admin.Catalog.Products.Fields.SleepWidth")]
+        public int SleepWidth { get; set; }
+
+        [NopResourceDisplayName("Admin.Catalog.Products.Fields.SleepHeight")]
+        public int SleepHeight { get; set; }
+
         [NopResourceDisplayName("Admin.Catalog.Products.Fields.AvailableStartDateTime")]
         [UIHint("DateTimeNullable")]
         public DateTime? AvailableStartDateTimeUtc { get; set; }
