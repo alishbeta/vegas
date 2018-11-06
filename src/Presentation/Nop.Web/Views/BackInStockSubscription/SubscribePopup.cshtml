@@ -11,7 +11,7 @@
 			}
 			else
 			{
-				@T("writeus.remind")
+				
 			}
 		</h1>
 	</div>
@@ -60,6 +60,7 @@
 							success: function (data) {
 								subscribeButtons.each(function () {
 									$(this).closest('.ui-dialog-content').dialog('destroy').remove();
+									$(".back-shadow").fadeOut();
 								});
 							},
 							error: function (xhr, ajaxOptions, thrownError) {
@@ -73,7 +74,7 @@
 </div>
 <script>
 	function ClosePopup() {
-
+		$(".back-shadow").fadeOut();
 		var subscribePopups = $(".back-in-stock-subscription-page");
 		subscribePopups.each(function () {
 			$(this).closest('.ui-dialog-content').dialog('destroy').remove();

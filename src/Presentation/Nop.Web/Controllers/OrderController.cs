@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Orders;
+using Nop.Services.Catalog;
 using Nop.Services.Common;
 using Nop.Services.Media;
 using Nop.Services.Orders;
@@ -26,6 +27,7 @@ namespace Nop.Web.Controllers
         private readonly IOrderModelFactory _orderModelFactory;
         private readonly IOrderProcessingService _orderProcessingService;
         private readonly IOrderService _orderService;
+		private readonly ICategoryService _categoryService;
         private readonly IPaymentService _paymentService;
         private readonly IPictureService _pictureService;
         private readonly IPdfService _pdfService;
@@ -40,6 +42,7 @@ namespace Nop.Web.Controllers
 
         public OrderController(IOrderModelFactory orderModelFactory,
             IOrderProcessingService orderProcessingService, 
+			ICategoryService categoryService,
             IOrderService orderService,
 			IPictureService pictureService,
 			IPaymentService paymentService, 
@@ -49,6 +52,7 @@ namespace Nop.Web.Controllers
             IWorkContext workContext,
             RewardPointsSettings rewardPointsSettings)
         {
+			this._categoryService = categoryService;
             this._orderModelFactory = orderModelFactory;
             this._orderProcessingService = orderProcessingService;
             this._orderService = orderService;
@@ -87,7 +91,8 @@ namespace Nop.Web.Controllers
 			{
 				productImageUrls.Add(new {
 					url = _pictureService.GetPictureUrl(orderItem.Product.ProductPictures.FirstOrDefault()?.Picture),
-					productId = orderItem.ProductId
+					productId = orderItem.ProductId//,
+					//categoryName = orderItem.Product.ProductCategories.FirstOrDefault(x => x.Category.ParentCategoryId != 0) == null ? orderItem.Product.ProductCategories.FirstOrDefault(x => x.Category.ParentCategoryId != 0).Category.Name : _categoryService.GetCategoryById(orderItem.Product.ProductCategories.FirstOrDefault().Category.ParentCategoryId).Name
 				});
 			}
 			return productImageUrls;

@@ -151,6 +151,7 @@
                 height: auto;
             }
             .close-wrap {
+                position: absolute;
                 right: 0px;
                 top: 10px;
             }
@@ -187,6 +188,14 @@
                     }
                 }
             }
+            .icons-wrap{
+                margin-top: 10px;
+                i {
+                    width: 11px;
+                    height: 11px;
+                    margin-right: 2px;
+                }
+            } 
         }
         i.close-i {
             margin: 0;
