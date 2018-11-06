@@ -1005,6 +1005,9 @@ nav.breadcrumb-wrap a:hover {
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
+.all-menu-wrap .side-second-menu-wrap .sub-menu ul li.active {
+  background-color: white;
+}
 
 .short-menu .side-logo-wrap {
   display: none;
@@ -2076,11 +2079,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 
 .modal {
-  z-index: 1055 !important;
-}
-
-.ui-draggable .ui-dialog-titlebar {
-  display: none;
+  z-index: 1060 !important;
 }
 
 .ui-widget.ui-widget-content {
@@ -2937,6 +2936,15 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .product .icons-wrap span {
   display: inline-block;
   position: static;
+}
+.product .icons-wrap:nth-child(1), .product .icons-wrap:nth-child(2) {
+  cursor: pointer;
+}
+.product .icons-wrap:nth-child(1):hover {
+  background: url(/img/favorite_icon_fill.svg) no-repeat center;
+}
+.product .icons-wrap:nth-child(2):hover {
+  background: url(/img/compare_icon_fill.svg) no-repeat center;
 }
 .product .add-fav, .product .add-compare {
   cursor: pointer;
@@ -4158,7 +4166,7 @@ section .item {
   .search-wrap {
     border-bottom: 1px solid #767c7e;
     overflow: hidden;
-    width: 400px;
+    width: 300px;
   }
   .search-wrap img {
     margin-top: 6px;
@@ -4447,6 +4455,7 @@ section .item {
     height: auto;
   }
   .compare .item-wrap .close-wrap {
+    position: absolute;
     right: 0px;
     top: 10px;
   }
@@ -4480,6 +4489,14 @@ section .item {
   }
   .compare .compare-content .outer-wrapp li:nth-child(2n) {
     background-color: #efefef;
+  }
+  .compare .compare-content .icons-wrap {
+    margin-top: 10px;
+  }
+  .compare .compare-content .icons-wrap i {
+    width: 11px;
+    height: 11px;
+    margin-right: 2px;
   }
   .compare i.close-i {
     margin: 0;

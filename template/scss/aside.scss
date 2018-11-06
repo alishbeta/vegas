@@ -118,6 +118,9 @@ $i: 0;
             padding: 15px 14px 14px 60px;
             @include transition(0.2s);
           }
+          &.active{
+            background-color: white;
+          }
         }
       }
     }

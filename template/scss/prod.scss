@@ -121,6 +121,15 @@
         display: inline-block;
         position: static;
     }
+    &:nth-child(1), &:nth-child(2){
+      cursor: pointer;
+    }
+    &:nth-child(1):hover{
+      background: url(/img/favorite_icon_fill.svg) no-repeat center;
+    }
+    &:nth-child(2):hover{
+      background: url(/img/compare_icon_fill.svg) no-repeat center;
+    }
   }
   .add-fav, .add-compare{
     cursor: pointer;
