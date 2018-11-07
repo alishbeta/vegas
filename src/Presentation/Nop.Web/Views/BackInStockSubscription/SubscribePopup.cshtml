@@ -1,10 +1,7 @@
 ﻿@model BackInStockSubscribeModel
 <div class="page back-in-stock-subscription-page">
-	<button type="button" class="close" onclick="ClosePopup()">
-		<span style="font-size: 22px;">×</span>
-	</button>
 	<div class="page-title">
-		<h1 class="header" style="text-align: center; color: #2c96b9; margin: 20px 0 0 0">
+		<h6 class="header" style="text-align: center; color: #2c96b9; margin: 20px 0 0 0; font-size: 17px">
 			@if (Model.AlreadySubscribed)
 			{
 				@T("BackInStockSubscriptions.AlreadySubscribed")
@@ -13,7 +10,7 @@
 			{
 				
 			}
-		</h1>
+		</h6>
 	</div>
 	<div class="modal-content" style="border:none;padding: 20px;">
 		@if (!Model.IsCurrentCustomerRegistered)
