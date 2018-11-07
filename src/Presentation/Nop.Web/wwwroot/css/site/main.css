@@ -1770,9 +1770,6 @@ small {
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
   border: 7px solid transparent;
   background: transparent;
-  font-weight: normal;
-  color: #454545;
-  border-radius: 10px;
 }
 
 .ui-slider-horizontal {
@@ -1932,6 +1929,12 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   position: absolute;
   top: 5px;
   left: 78px;
+  z-index: 5;
+}
+.product .opt-wrap .drop-wrap .l {
+  position: absolute;
+  top: 5px;
+  left: 150px;
   z-index: 5;
 }
 
@@ -2103,6 +2106,16 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 
 .ui-dialog {
   z-index: 2000;
+}
+.ui-dialog .ui-dialog-title {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
+  border: 7px solid transparent;
+  background: transparent;
 }
 
 .cart .row, .cart-popup-wrap .row {
@@ -3789,6 +3802,7 @@ section .item {
 
   .see-wrap .row.title {
     margin-bottom: 15px;
+    text-align: center;
   }
 
   .see-wrap .btn-blue-white {

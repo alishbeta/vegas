@@ -1024,7 +1024,17 @@ html .ui-button.ui-state-disabled {
 }
 .ui-dialog{
     z-index: 2000;
+    .ui-dialog-title {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+    }
 }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
+    border: 7px solid transparent;
+    background: transparent;
+}
+
 
 @import "cart";
 @import "compare";
