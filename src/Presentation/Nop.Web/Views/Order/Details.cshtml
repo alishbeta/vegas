@@ -44,25 +44,27 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="items-wrap col-md-12 col-lg-5">
-			@foreach (var item in Model.Items)
-			{
-				<div class="item">
-					<div class="item-img"><img class="img-fluid" src="@item.ImageUrl" alt=""></div>
-					<div class="item-info">
-						<div class="title"></div>
-						<div class="item-name">@item.ProductName</div>
-						<div class="price-wrap">
-							<div class="price-old"></div>
-							<div class="price">@item.UnitPrice</div>
+		<div class="col-md-12 col-lg-5">
+			<div class="items-wrap">
+				@foreach (var item in Model.Items)
+				{
+					<div class="item">
+						<div class="item-img"><img class="img-fluid" src="@item.ImageUrl" alt=""></div>
+						<div class="item-info">
+							<div class="title"></div>
+							<div class="item-name">@item.ProductName</div>
+							<div class="price-wrap">
+								<div class="price-old"></div>
+								<div class="price">@item.UnitPrice</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				if (item != Model.Items.LastOrDefault())
-				{
-					<div class="line"></div>
+					if (item != Model.Items.LastOrDefault())
+					{
+						<div class="line"></div>
+					}
 				}
-			}
+			</div>
 		</div>
 		<div class="order-info col-md-12 col-lg-5">
 			@if (!string.IsNullOrEmpty(Model.ShippingMethod)) {
