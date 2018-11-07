@@ -1209,6 +1209,10 @@ namespace Nop.Web.Factories
 				Width = product.Width,
 				Height = product.Height,
 				Lendth = product.Length,
+				SleepWidth = product.SleepWidth,
+				SleepWeight = product.SleepWeight,
+				SleepHeight = product.SleepHeight,
+				SleepLength = product.SleepLength,
                 HasSampleDownload = product.IsDownload && product.HasSampleDownload,
                 DisplayDiscontinuedMessage = !product.Published && _catalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts
             };

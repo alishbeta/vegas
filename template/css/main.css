@@ -1289,6 +1289,9 @@ nav.breadcrumb-wrap a:hover {
   width: 228px;
   margin-top: 25px;
 }
+.item-wrap button {
+  margin: 10px 0;
+}
 
 .item-wrap-full img.product {
   width: 228px;
@@ -1770,9 +1773,6 @@ small {
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
   border: 7px solid transparent;
   background: transparent;
-  font-weight: normal;
-  color: #454545;
-  border-radius: 10px;
 }
 
 .ui-slider-horizontal {
@@ -1932,6 +1932,12 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   position: absolute;
   top: 5px;
   left: 78px;
+  z-index: 5;
+}
+.product .opt-wrap .drop-wrap .l {
+  position: absolute;
+  top: 5px;
+  left: 150px;
   z-index: 5;
 }
 
@@ -2098,11 +2104,22 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 
 .topic-page .text {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 
 .ui-dialog {
   z-index: 2000;
+}
+.ui-dialog .ui-dialog-title {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  float: none;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
+  border: 7px solid transparent;
+  background: transparent;
 }
 
 .cart .row, .cart-popup-wrap .row {
@@ -2948,15 +2965,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   display: inline-block;
   position: static;
 }
-.product .icons-wrap:nth-child(1), .product .icons-wrap:nth-child(2) {
-  cursor: pointer;
-}
-.product .icons-wrap:nth-child(1):hover {
-  background: url(/img/favorite_icon_fill.svg) no-repeat center;
-}
-.product .icons-wrap:nth-child(2):hover {
-  background: url(/img/compare_icon_fill.svg) no-repeat center;
-}
 .product .add-fav, .product .add-compare {
   cursor: pointer;
 }
@@ -3616,6 +3624,9 @@ section .item {
   -webkit-box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5);
   box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5);
 }
+.order-complete .items-wrap .item {
+  padding: 20px;
+}
 .order-complete .items-wrap .item.active {
   border: none;
 }
@@ -3789,6 +3800,7 @@ section .item {
 
   .see-wrap .row.title {
     margin-bottom: 15px;
+    text-align: center;
   }
 
   .see-wrap .btn-blue-white {
@@ -4488,6 +4500,9 @@ section .item {
   .compare .compare-content .m-titles ul li {
     height: 41px;
     padding: 10px 0;
+  }
+  .compare .compare-content .outer-wrapp {
+    float: none;
   }
   .compare .compare-content .outer-wrapp li {
     padding: 10px 10px;

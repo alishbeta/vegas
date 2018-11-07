@@ -36,8 +36,13 @@
         CreatedOn = 15,
 
 		/// <summary>
-		/// New products only
+		/// New products first
 		/// </summary>
 		NewProducts = 16,
+
+		/// <summary>
+		/// Order by discount
+		/// </summary>
+		Discounts = 17
     }
 }

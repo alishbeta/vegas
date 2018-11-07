@@ -2,5 +2,5 @@
 @using Nop.Core.Domain.Orders
 @if (!Model.DisableWishlistButton)
 {
-	<div onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new {productId = Model.ProductId, shoppingCartTypeId = (int) ShoppingCartType.Wishlist})', '#product-details-form');return false;"><i data-id="@Model.ProductId" class="favorite_i mr-1" style="cursor:pointer;"></i>@T("prod.addtowishlist")</div>
+	<div class="add-fav" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new {productId = Model.ProductId, shoppingCartTypeId = (int) ShoppingCartType.Wishlist})', '#product-details-form');return false;"><i data-id="@Model.ProductId" class="favorite_i mr-1" style="cursor:pointer;"></i>@T("prod.addtowishlist")</div>
 }

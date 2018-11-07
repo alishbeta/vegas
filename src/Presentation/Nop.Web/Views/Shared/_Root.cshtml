@@ -234,7 +234,7 @@
 									'<a href="/' + product.SeName + '?productId=' + product.ProductId + '">' +
 									'<div class="item-wrap">' +
 									'<div class="product-img-wrap">' +
-									'<div class="img-wrapp"><img class="product" src="' + product.ImageUrl + '" alt="' + product.AlternateText + '"></div>' +
+									'<img class="product" src="' + product.ImageUrl + '" alt="' + product.AlternateText + '">' +
 									discount +
 									'</div>' +
 									'<div class="main-prop-wrap text-left">' +
@@ -394,7 +394,7 @@
 							}
 							var element =
 								'<div class="item">' +
-								'<img src="' + product.Picture.ImageUrl + '" alt="' + product.Picture.AlternateText + '">' +
+								'<div class="img-wrapp"><img src="' + product.Picture.ImageUrl + '" alt="' + product.Picture.AlternateText + '"></div>' +
 								'<div class="title">' + product.ProductName + '</div>' +
 								'<div class="item-name">' + product.ProductSeName + '</div>' +
 								'<div class="count-wrap mt-2 mb-2">' +
