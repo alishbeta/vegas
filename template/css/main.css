@@ -2104,7 +2104,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 
 .topic-page .text {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 
 .ui-dialog {
