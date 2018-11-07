@@ -4,4 +4,30 @@
 	ViewData["class"] = "wrap short-menu cat";
 	ViewData["PageTitle"] = T("NewProducts");
 }
-@await Html.PartialAsync("_ProductFiltersPage", Model);
+<nav class="breadcrumb-wrap">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
+		<li class="breadcrumb-item active"><a href="#">@ViewData["PageTitle"]</a></li>
+	</ol>
+</nav>
+<div class="cat-content-wrap">
+	<div class="title text-center">
+		<h3><b>@ViewData["PageTitle"]</b></h3>
+		<p>
+			<small>@Model.Count @T("product.products")</small>
+		</p>
+	</div>
+	<div class="clearfix">
+		@if (Model.Count > 0)
+		{
+			<div class="prod-wrap float-right" id="prods">
+				@foreach (var product in Model)
+				{
+					@await Html.PartialAsync("_ProductBox", product)
+				}
+			</div>
+		}
+		@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBottom, additionalData = Model })
+	</div>
+</div>
+@await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 450, preparePriceModel = true })

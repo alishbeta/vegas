@@ -858,6 +858,12 @@ namespace Nop.Web.Areas.Admin.Factories
             model.StatusId = product?.StatusId ?? 1;
             model.AvailableStatuses = _productService.GetAllStatuses().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
 
+            model.Model = product.Model;
+            model.SleepHeight = product.SleepHeight;
+            model.SleepLength = product.SleepLength;
+            model.SleepWeight = product.SleepWeight;
+            model.SleepWidth = product.SleepWidth;
+
             //prepare localized models
             if (!excludeProperties)
                 model.Locales = _localizedModelFactory.PrepareLocalizedModels(localizedModelConfiguration);

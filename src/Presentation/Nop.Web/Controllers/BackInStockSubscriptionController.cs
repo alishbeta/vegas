@@ -86,8 +86,7 @@ namespace Nop.Web.Controllers
 				.GetAllSubscriptionsByCustomerId(_workContext.CurrentCustomer.Id, _storeContext.CurrentStore.Id, 0, 1)
 				.TotalCount
 			};
-			if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStock &&
-				product.BackorderMode == BackorderMode.NoBackorders &&
+			if (product.BackorderMode == BackorderMode.NoBackorders &&
 				_productService.GetTotalStockQuantity(product) <= 0)
 			{
 				//out of stock
@@ -108,9 +107,7 @@ namespace Nop.Web.Controllers
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return Content(_localizationService.GetResource("BackInStockSubscriptions.OnlyRegistered"));
 
-            if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStock &&
-                product.BackorderMode == BackorderMode.NoBackorders &&
-                product.AllowBackInStockSubscriptions &&
+            if (product.BackorderMode == BackorderMode.NoBackorders &&	
                 _productService.GetTotalStockQuantity(product) <= 0)
             {
                 //out of stock
