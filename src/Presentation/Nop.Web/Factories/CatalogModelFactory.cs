@@ -486,11 +486,11 @@ namespace Nop.Web.Factories
 			}
 			if (command.OrderBy == (int)ProductSortingEnum.PriceAsc)
 			{
-				model.Products = model.Products.OrderBy(x => x.ProductPrice.Price);
+				model.Products = model.Products.OrderBy(x => x.ProductPrice.PriceValue);
 			} 
 			if (command.OrderBy == (int)ProductSortingEnum.PriceDesc)
 			{
-				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.Price);
+				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.PriceValue);
 			}
             model.PagingFilteringContext.LoadPagedList(products);
 
