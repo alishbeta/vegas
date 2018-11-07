@@ -109,7 +109,9 @@ $(document).ready(function () {
         $('.side-menu-wrap ul li').on('click', function () {
             $(this).parent().find('li').each(function () {
                 if ($(this).hasClass('active')) {
-                    $(this).removeClass('active');
+                    if ($(this).parent().parent().hasClass('sub-menu') == false){
+                        $(this).removeClass('active');
+                    }
                 }
             });
             var color = rgb2hex($(this).css("background-color"));

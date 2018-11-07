@@ -1028,6 +1028,7 @@ html .ui-button.ui-state-disabled {
         white-space: normal;
         overflow: visible;
         text-overflow: unset;
+        float: none;
     }
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
