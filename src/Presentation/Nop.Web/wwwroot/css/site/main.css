@@ -2111,6 +2111,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   white-space: normal;
   overflow: visible;
   text-overflow: unset;
+  float: none;
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
@@ -2961,15 +2962,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   display: inline-block;
   position: static;
 }
-.product .icons-wrap:nth-child(1), .product .icons-wrap:nth-child(2) {
-  cursor: pointer;
-}
-.product .icons-wrap:nth-child(1):hover {
-  background: url(/img/favorite_icon_fill.svg) no-repeat center;
-}
-.product .icons-wrap:nth-child(2):hover {
-  background: url(/img/compare_icon_fill.svg) no-repeat center;
-}
 .product .add-fav, .product .add-compare {
   cursor: pointer;
 }
@@ -3628,6 +3620,9 @@ section .item {
   -moz-box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5);
   box-shadow: 0 3px 16px 1px rgba(0, 0, 0, 0.5);
+}
+.order-complete .items-wrap .item {
+  padding: 20px;
 }
 .order-complete .items-wrap .item.active {
   border: none;
