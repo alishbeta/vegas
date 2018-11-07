@@ -858,7 +858,7 @@ namespace Nop.Web.Areas.Admin.Factories
             model.StatusId = product?.StatusId ?? 1;
             model.AvailableStatuses = _productService.GetAllStatuses().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
 
-            model.Model = product.Model;
+            model.MakeCode = product.MakeCode;
             model.SleepHeight = product.SleepHeight;
             model.SleepLength = product.SleepLength;
             model.SleepWeight = product.SleepWeight;
