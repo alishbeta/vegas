@@ -1289,6 +1289,9 @@ nav.breadcrumb-wrap a:hover {
   width: 228px;
   margin-top: 25px;
 }
+.item-wrap button {
+  margin: 10px 0;
+}
 
 .item-wrap-full img.product {
   width: 228px;
@@ -4497,6 +4500,9 @@ section .item {
   .compare .compare-content .m-titles ul li {
     height: 41px;
     padding: 10px 0;
+  }
+  .compare .compare-content .outer-wrapp {
+    float: none;
   }
   .compare .compare-content .outer-wrapp li {
     padding: 10px 10px;
