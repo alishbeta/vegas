@@ -319,6 +319,22 @@
 						</div>
 					</div>
 					<div class="line"></div>
+					@if (Model.SleepLength != 0 || Model.SleepHeight != 0 || Model.SleepWidth != 0)
+					{
+					<div class="prop-wrap">
+						<div class="size-prop-wrap">
+							<div>@T("product.attributes.sleepsizes")</div>
+							<div class="drop-wrap">
+								<div class="w">@T("product.width")</div>
+								<div class="h">@T("product.height")</div>
+								<div class="l">@T("product.length")</div>
+								<button class="btn btn-light mt-4 btn-sm" type="button">
+									@Model.SleepHeight.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.SleepWidth.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.SleepLength.ToString("#.##") см
+								</button>
+							</div>
+						</div>
+					</div>	
+					}
 					<div class="prop-wrap">
 						<div class="size-prop-wrap">
 							<div>@T("product.attributes.sizes")</div>
@@ -327,7 +343,7 @@
 								<div class="h">@T("product.height")</div>
 								<div class="l">@T("product.length")</div>
 								<div class="dropdown">
-									<button class="btn btn-light dropdown-toggle mt-4" type="button"
+									<button class="btn btn-light dropdown-toggle mt-4 btn-sm" type="button"
 											id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 											aria-expanded="false">
 										@Model.Height.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Width.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth.ToString("#.##") см

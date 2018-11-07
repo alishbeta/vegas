@@ -46,6 +46,10 @@ namespace Nop.Web.Models.Catalog
 		public decimal Width { get; set; }
 		public decimal Height { get; set; }
 		public decimal Lendth { get; set; }
+		public int SleepWidth { get; set; }
+		public int SleepWeight { get; set; }
+		public int SleepHeight { get; set; }
+		public int SleepLength { get; set; }
 
         public ProductType ProductType { get; set; }
 
