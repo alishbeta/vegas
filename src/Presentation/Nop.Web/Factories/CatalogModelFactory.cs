@@ -458,7 +458,12 @@ namespace Nop.Web.Factories
             }
 			//products
 			IList<int> alreadyFilteredSpecOptionIds = model.PagingFilteringContext.SpecificationFilter.GetAlreadyFilteredSpecOptionIds(_webHelper);
-            var products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
+			var orderBy = (ProductSortingEnum)command.OrderBy;
+			if (command.OrderBy == (int)ProductSortingEnum.NewProducts || command.OrderBy == (int)ProductSortingEnum.Discounts)
+			{
+				orderBy = ProductSortingEnum.Position;
+			}
+			var products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
                 true,
                 categoryIds: categoryIds,
                 storeId: _storeContext.CurrentStore.Id,
@@ -467,11 +472,26 @@ namespace Nop.Web.Factories
                 priceMin: minPriceConverted,
                 priceMax: maxPriceConverted,
                 filteredSpecs: alreadyFilteredSpecOptionIds,
-                orderBy: (ProductSortingEnum)command.OrderBy,
+                orderBy: orderBy,
                 pageIndex: command.PageNumber - 1,
                 pageSize: 32);
             model.Products = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true);
-
+			if (command.OrderBy == (int)ProductSortingEnum.NewProducts)
+			{
+				model.Products = model.Products.OrderBy(x => x.MarkAsNew ? 0 : 1);
+			}			  
+			if (command.OrderBy == (int)ProductSortingEnum.Discounts)
+			{
+				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.Discount);
+			}
+			if (command.OrderBy == (int)ProductSortingEnum.PriceAsc)
+			{
+				model.Products = model.Products.OrderBy(x => x.ProductPrice.Price);
+			} 
+			if (command.OrderBy == (int)ProductSortingEnum.PriceDesc)
+			{
+				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.Price);
+			}
             model.PagingFilteringContext.LoadPagedList(products);
 
             //specs
