@@ -11,18 +11,18 @@ namespace Nop.Core.Domain.OneC
         public string Name { get; set; }
         public List<OneCWarehouse> Warehouses { get; set; }
         public string Manufacturer { get; set; }
-        public decimal Price { get; set; }
+        public string Price { get; set; }
         public string Sku { get; set; }
         public string Status { get; set; }
-        public decimal Weight { get; set; }
-        public decimal Length { get; set; }
-        public decimal Width { get; set; }
-        public decimal Height { get; set; }
+        public string Weight { get; set; }
+        public string Length { get; set; }
+        public string Width { get; set; }
+        public string Height { get; set; }
         public string Model { get; set; }
-        public int SleepWeight { get; set; }
-        public int SleepLength { get; set; }
-        public int SleepWidth { get; set; }
-        public int SleepHeight { get; set; }
+        public string SleepWeight { get; set; }
+        public string SleepLength { get; set; }
+        public string SleepWidth { get; set; }
+        public string SleepHeight { get; set; }
         public List<OneCAttribute> Attributes { get; set; }
     }
 }
