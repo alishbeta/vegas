@@ -1213,6 +1213,7 @@ namespace Nop.Web.Factories
 				SleepWeight = product.SleepWeight,
 				SleepHeight = product.SleepHeight,
 				SleepLength = product.SleepLength,
+				MakeCode = product.MakeCode,
                 HasSampleDownload = product.IsDownload && product.HasSampleDownload,
                 DisplayDiscontinuedMessage = !product.Published && _catalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts
             };

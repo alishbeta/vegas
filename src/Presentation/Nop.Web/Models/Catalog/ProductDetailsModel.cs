@@ -50,6 +50,7 @@ namespace Nop.Web.Models.Catalog
 		public int SleepWeight { get; set; }
 		public int SleepHeight { get; set; }
 		public int SleepLength { get; set; }
+		public string MakeCode { get; set; }
 
         public ProductType ProductType { get; set; }
 
