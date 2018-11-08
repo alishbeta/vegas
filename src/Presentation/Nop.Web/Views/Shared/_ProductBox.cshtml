@@ -168,7 +168,7 @@
 					<div class="price-new">@Model.ProductPrice.Price</div>
 				</div>
 			</div>
-			<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block">@T("product.buy")</button>
+			<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="d-lg-none btn btn-sm btn-blue btn-block">@T("product.buy")</button>
 		</div>
 		<div class="item-wrap-full" style="display: none;">
 			<i class="favorite_i float-left" data-id="@Model.Id" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');$(this).addClass('load');return false;"></i>
@@ -179,7 +179,7 @@
 				</a>
 				@if (Model.ProductPrice.Discount.ToString("#.##") != "")
 				{
-					<div class="discount">@Model.ProductPrice.Discount.ToString("#.##")%</div>
+					<div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
 				}
 			</div>
 			<div class="main-prop-wrap text-left">

@@ -325,11 +325,10 @@
 						<div class="size-prop-wrap">
 							<div>@T("product.attributes.sleepsizes")</div>
 							<div class="drop-wrap">
-								<div class="w">@T("product.width")</div>
-								<div class="h">@T("product.height")</div>
-								<div class="l">@T("product.length")</div>
+								<div class="w">@T("product.length")</div>
+								<div class="l">@T("product.width")</div>
 								<button class="btn btn-light mt-4 btn-sm" type="button">
-									@Model.SleepHeight.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.SleepWidth.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.SleepLength.ToString("#.##") см
+									@Model.SleepLength.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.SleepWidth.ToString("#.##") см
 								</button>
 							</div>
 						</div>
@@ -354,14 +353,17 @@
 								</div>
 							</div>
 						</div>
-						<div class="color-title">
-							<span>@T("product.color")</span>
-							<span><a href="#">@T("product.showsimilar")</a></span>
-						</div>
-						<div class="color-select">
-							<div class="box-color mr-3"></div>
-							<span class="title">Trinity Cream</span>
-						</div>
+						@{
+							var productColor = Model.ProductSpecifications.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "Цвет".ToLower());
+						}
+						@if (productColor != null)
+						{
+							<div class="color-title">
+								<span>@T("product.color")</span>
+								<span>@Html.Raw(productColor.ValueRaw)</span>
+							</div>
+						}
+						<span><a href="#" id="similar-button">@T("product.showsimilar")</a></span>
 					</div>
 				</div>
 			</div>
@@ -411,6 +413,7 @@
 		</article>
 	</div>
 	<div class="line"></div>
+	@await Component.InvokeAsync("SimilarProductsBlock", new { makeCode = Model.MakeCode, productId = Model.Id })
 	@await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 450, preparePriceModel = true })
 </div>
 

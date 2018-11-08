@@ -138,9 +138,13 @@ namespace Nop.Web.Controllers
 				storeId: _storeContext.CurrentStore.Id,
 				categoryIds: categories);
 			model.ProductsCount = model.AllProducts.Count;
-			ViewBag.ActiveCategory = (category.ParentCategoryId != 0 ? category.ParentCategoryId : categoryId);
-			ViewBag.ActiveSubCategory = categoryId;
+			var activeCategory = (category.ParentCategoryId != 0 ? category.ParentCategoryId : categoryId);
+            ViewBag.ActiveCategory = activeCategory;
+            ViewBag.ActiveSubCategory = categoryId;
 			ViewBag.Prefix = "cat"; //prefix for backinstock button
+            //check if products in category has sleep sizes (for CatalogFiltersSelector)
+            ViewBag.HasSleepSizes = activeCategory == 19; //id of category "Кровати", wich has sleep sizes
+            //ViewBag.HasSleepSizes = model.AllProducts.Count(x => x.SleepWidth != 0 || x.SleepLength != 0) > 0; //works, but slower
 			//template
 			var templateViewPath = _catalogModelFactory.PrepareCategoryTemplateViewPath(category.CategoryTemplateId);
             return View(templateViewPath, model);
