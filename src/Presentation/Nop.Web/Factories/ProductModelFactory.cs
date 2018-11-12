@@ -21,6 +21,7 @@ using Nop.Services.Localization;
 using Nop.Services.Media;
 using Nop.Services.Security;
 using Nop.Services.Seo;
+using Nop.Services.Shipping;
 using Nop.Services.Shipping.Date;
 using Nop.Services.Tax;
 using Nop.Services.Vendors;
@@ -39,6 +40,7 @@ namespace Nop.Web.Factories
         #region Fields
 
         private readonly CaptchaSettings _captchaSettings;
+        private readonly IShippingService _shippingService;
         private readonly CatalogSettings _catalogSettings;
         private readonly CustomerSettings _customerSettings;
         private readonly ICategoryService _categoryService;
@@ -78,6 +80,7 @@ namespace Nop.Web.Factories
 
         public ProductModelFactory(CaptchaSettings captchaSettings,
             CatalogSettings catalogSettings,
+            IShippingService shippingService,
             CustomerSettings customerSettings,
             ICategoryService categoryService,
             ICurrencyService currencyService,
@@ -110,6 +113,7 @@ namespace Nop.Web.Factories
             SeoSettings seoSettings,
             VendorSettings vendorSettings)
         {
+            this._shippingService = shippingService;
             this._captchaSettings = captchaSettings;
             this._catalogSettings = catalogSettings;
             this._customerSettings = customerSettings;
@@ -1143,6 +1147,11 @@ namespace Nop.Web.Factories
 				model.Height = product.Height;
 				model.Width = product.Width;
 				model.Length = product.Length;
+				model.SleepLength = product.SleepLength;
+				model.SleepWidth = product.SleepWidth;
+				model.SleepHeight = product.SleepHeight;
+				model.SleepWeight = product.SleepWeight;
+				model.Weight = product.Weight;
 				
 				model.InStock = (product.StockQuantity > 0 && product.StatusId != 4);	  //StatusId 4 - not in stock
                 //price
@@ -1213,9 +1222,33 @@ namespace Nop.Web.Factories
 				SleepWeight = product.SleepWeight,
 				SleepHeight = product.SleepHeight,
 				SleepLength = product.SleepLength,
+				MakeCode = product.MakeCode,
                 HasSampleDownload = product.IsDownload && product.HasSampleDownload,
                 DisplayDiscontinuedMessage = !product.Published && _catalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts
             };
+
+            //product warehouses
+            if (product.UseMultipleWarehouses)
+            {
+                foreach (var warehouse in product.ProductWarehouseInventory)
+                {
+                    model.ProductWarehouses.Add(new ProductWarehouse()
+                    {
+                        StockQuantity = warehouse.StockQuantity,
+                        WarehouseId = warehouse.WarehouseId,
+                        Name = warehouse.Warehouse.Name
+                    });
+                }
+            }
+            else
+            {
+                model.ProductWarehouses.Add(new ProductWarehouse()
+                {
+                    WarehouseId = product.WarehouseId,
+                    Name = _shippingService.GetWarehouseById(product.WarehouseId)?.Name,
+                    StockQuantity = product.StockQuantity
+                });
+            }
 
             //automatically generate product description?
             if (_seoSettings.GenerateProductMetaDescription && string.IsNullOrEmpty(model.MetaDescription))

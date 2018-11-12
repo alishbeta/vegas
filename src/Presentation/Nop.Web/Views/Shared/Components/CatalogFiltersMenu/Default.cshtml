@@ -1,0 +1,75 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Nop.Web.Models.Catalog;
+@model CatalogFiltersModel
+<div class="filters-wrap clearfix">
+	<div class="f1">
+		<button class="btn btn-outline-secondary btn-sm vg-filter btn-display" type="button">
+			@T("filters.show")
+		</button>
+		<button style="display: none;" class="btn btn-outline-secondary btn-sm vg-filter btn-close" type="button">
+			@T("filters.hide")
+		</button>
+	</div>
+	<div class="f2 d-none d-lg-block float-right">
+		<div class="btn-group">
+			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="popular" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
+				@T("filters.popular")
+			</button>
+			<div class="dropdown-menu keep_open" aria-labelledby="popular">
+				<div class="form-group">
+					<div class="form-check form-check-inline check-fly">
+						<input class="form-check-input" onclick="submitFilters()" value="1" name="orderby" type="radio" id="lr1" @(Model.orderby == "1" ? "checked" : "")>
+						<label for="lr1"></label>
+						<label class="col-form-label" for="lr1">@T("filters.popular")</label>
+					</div>
+					<div class="form-check  form-check-inline check-fly">
+						<input class="form-check-input" onclick="submitFilters()" value="10" name="orderby" type="radio" id="lr2" @(Model.orderby == "10" ? "checked" : "")>
+						<label for="lr2"></label>
+						<label class="col-form-label" for="lr2">@T("filters.priceAsc")</label>
+					</div>
+					<div class="form-check  form-check-inline check-fly">
+						<input class="form-check-input" onclick="submitFilters()" value="11" name="orderby" type="radio" id="lr3" @(Model.orderby == "11" ? "checked" : "")>
+						<label for="lr3"></label>
+						<label class="col-form-label" for="lr3">@T("filters.priceDesc")</label>
+					</div>
+					<div class="form-check  form-check-inline check-fly">
+						<input class="form-check-input" onclick="submitFilters()" value="16" name="orderby" type="radio" id="lr4" @(Model.orderby == "16" ? "checked" : "")>
+						<label for="lr4"></label>
+						<label class="col-form-label" for="lr4">@T("filters.new")</label>
+					</div>
+					<div class="form-check  form-check-inline check-fly">
+						<input class="form-check-input" onclick="submitFilters()" value="17" name="orderby" type="radio" id="lr5" @(Model.orderby == "17" ? "checked" : "")>
+						<label for="lr5"></label>
+						<label class="col-form-label" for="lr5">@T("filters.discounts")</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="btn-group">
+			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
+				@T("filters.byGroups")
+			</button>
+			<div class="dropdown-menu keep_open" aria-labelledby="group">
+				<div class="form-group">
+					<div class="form-check form-check-inline check-fly">
+						<input class="form-check-input" value="1" name="groupby" type="radio" id="lr10" checked="">
+						<label for="lr10"></label>
+						<label class="col-form-label" for="lr10">@T("filters.popular")</label>
+					</div>
+					<div class="form-check  form-check-inline check-fly">
+						<input class="form-check-input" value="2" name="groupby" type="radio" id="lr11">
+						<label for="lr11"></label>
+						<label class="col-form-label" for="lr11">@T("filters.priceAsc")</label>
+					</div>
+					<div class="form-check  form-check-inline check-fly">
+						<input class="form-check-input" value="3" name="groupby" type="radio" id="lr12">
+						<label for="lr12"></label>
+						<label class="col-form-label" for="lr12">@T("filters.priceDesc")</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

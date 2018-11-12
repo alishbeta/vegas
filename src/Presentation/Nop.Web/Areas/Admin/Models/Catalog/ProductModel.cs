@@ -379,7 +379,7 @@ namespace Nop.Web.Areas.Admin.Models.Catalog
         public decimal Height { get; set; }
 
         [NopResourceDisplayName("Admin.Catalog.Products.Fields.Model")]
-        public string Model { get; set; }
+        public string MakeCode { get; set; }
 
         [NopResourceDisplayName("Admin.Catalog.Products.Fields.SleepWeight")]
         public int SleepWeight { get; set; }

@@ -519,7 +519,7 @@ namespace Nop.Core.Domain.Catalog
         /// </summary>
         public decimal Height { get; set; }
 
-        public string Model { get; set; }
+        public string MakeCode { get; set; }
         public int SleepWeight { get; set; }
         public int SleepLength { get; set; }
         public int SleepWidth { get; set; }

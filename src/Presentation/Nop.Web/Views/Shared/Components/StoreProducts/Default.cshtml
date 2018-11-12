@@ -1,0 +1,32 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IList<ProductOverviewModel>
+@if (Model.Count > 0)
+{
+	<div class="see-wrap pad-norm">
+		<div class="title row justify-content-center">
+			<div class="col-auto">
+				<h3 class="">@T("ourstores.product")</h3>
+			</div>
+		</div>
+		<div class="scrollM clearfix">
+			<div class="scrollingHotSpotLeft" style="display: none;">
+				<div class="arrow"></div>
+			</div>
+			<div class="scrollingHotSpotRight" style="display: none;">
+				<div class="arrow"></div>
+			</div>
+			<div class="scrollWrapper kinetic-active" style="cursor: move;">
+				<div class="scrollableArea clearfix">
+					@foreach (var item in Model)
+					{
+						@await Html.PartialAsync("_ProductBox", item)
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+}

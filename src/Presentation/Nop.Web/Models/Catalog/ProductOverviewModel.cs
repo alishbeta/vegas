@@ -22,8 +22,13 @@ namespace Nop.Web.Models.Catalog
 		public string SeName { get; set; }
 		public decimal Length { get; set; }
 		public decimal Width { get; set; }
+		public decimal Weight { get; set; }
 		public bool InStock { get; set; }
 		public decimal Height { get; set; }
+		public int SleepLength { get; set; }
+		public int SleepWidth { get; set; }
+		public int SleepHeight { get; set; }
+		public int SleepWeight { get; set; }
 		public string Sku { get; set; }
 
 		public ProductType ProductType { get; set; }

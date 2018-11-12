@@ -1231,7 +1231,7 @@ namespace Nop.Services.ExportImport
                         product = new Product()
                         {
                             Name = item.Name,
-                            Price = item.Price,
+                            Price = decimal.Parse(item.Price.Replace('.', ',')),
                             Sku = item.Sku,
                             Published = false,
                             ProductTypeId = 5,
@@ -1249,11 +1249,15 @@ namespace Nop.Services.ExportImport
                             StockQuantity = 10000,
                             CreatedOnUtc = DateTime.UtcNow,
                             UpdatedOnUtc = DateTime.UtcNow,
-                            Model = item.Model,
-                            SleepHeight = item.SleepHeight,
-                            SleepLength = item.SleepLength,
-                            SleepWeight = item.SleepWeight,
-                            SleepWidth = item.SleepWidth,
+                            MakeCode = item.Model,
+                            SleepHeight = (int)decimal.Parse(item.SleepHeight.Replace('.', ',')),
+                            SleepLength = (int)decimal.Parse(item.SleepLength.Replace('.', ',')),
+                            SleepWeight = (int)decimal.Parse(item.SleepWeight.Replace('.', ',')),
+                            SleepWidth = (int)decimal.Parse(item.SleepWidth.Replace('.', ',')),
+                            Height = decimal.Parse(item.Height.Replace('.', ',')),
+                            Weight = decimal.Parse(item.Weight.Replace('.', ',')),
+                            Length = decimal.Parse(item.Length.Replace('.', ',')),
+                            Width = decimal.Parse(item.Width.Replace('.', ','))
                         };
 
                         if (statusId > 0)
@@ -1290,15 +1294,19 @@ namespace Nop.Services.ExportImport
                     {
                         product.Name = item.Name;
                         product.Sku = item.Sku;
-                        product.Price = item.Price;
+                        product.Price = decimal.Parse(item.Price);
                         product.OrderMaximumQuantity = 10000;
                         product.OrderMinimumQuantity = 1;
                         product.StockQuantity = 10000;
-                        product.Model = item.Model;
-                        product.SleepHeight = item.SleepHeight;
-                        product.SleepLength = item.SleepLength;
-                        product.SleepWeight = item.SleepWeight;
-                        product.SleepWidth = item.SleepWidth;
+                        product.MakeCode = item.Model;
+                        product.SleepHeight = (int)decimal.Parse(item.SleepHeight.Replace('.', ','));
+                        product.SleepLength = (int)decimal.Parse(item.SleepLength.Replace('.', ','));
+                        product.SleepWeight = (int)decimal.Parse(item.SleepWeight.Replace('.', ','));
+                        product.SleepWidth = (int)decimal.Parse(item.SleepWidth.Replace('.', ','));
+                        product.Height = decimal.Parse(item.Height.Replace('.', ','));
+                        product.Weight = decimal.Parse(item.Weight.Replace('.', ','));
+                        product.Length = decimal.Parse(item.Length.Replace('.', ','));
+                        product.Width = decimal.Parse(item.Width.Replace('.', ','));
 
                         if (statusId > 0)
                         {
