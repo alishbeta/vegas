@@ -270,65 +270,68 @@
 			</div>
 			<div class="float-left right-wrap">
 				<div class="opt-wrap">
-					<div class="price-wrap">
-						<div class="title">@T("prod.price")</div>
-						@if (string.IsNullOrEmpty(Model.ProductPrice.PriceWithDiscount))
-						{
-							<div class="price mt-2">@Model.ProductPrice.Price</div>
-						}
-						else
-						{
-							<div class="price mt-2">@Model.ProductPrice.PriceWithDiscount</div>
-							<div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.Price</s></div>
-						}
-						@if (Model.ProductPrice.Discount.ToString("#.##") != "")
-						{
-							<div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
-						}
-						<div class="available text-center mt-3 mb-2"><a href="#">@T("prod.availablity")</a></div>
+                    <div class="price-wrap">
+                        <div class="title">@T("prod.price")</div>
+                        @if (string.IsNullOrEmpty(Model.ProductPrice.PriceWithDiscount))
+                        {
+                            <div class="price mt-2">@Model.ProductPrice.Price</div>
+                        }
+                        else
+                        {
+                            <div class="price mt-2">@Model.ProductPrice.PriceWithDiscount</div>
+                            <div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.Price</s></div>
+                        }
+                        @if (Model.ProductPrice.Discount.ToString("#.##") != "")
+                        {
+                            <div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
+                        }
+                        <div class="available text-center mt-3 mb-2"><a href="#">@T("prod.availablity")</a></div>
                         @foreach (var warehouse in Model.ProductWarehouses)
                         {
-                            <span class="row">@warehouse.Name</span>
+                            @if (!string.IsNullOrEmpty(warehouse.Name))
+                            {
+                                <span class="row">@warehouse.Name</span>
+                            }
                         }
-						<div class="btn-group-vertical btn-block">
-							@{
-								if (Model.InStock)
-								{
-									var dataDictAddToCart = new ViewDataDictionary(ViewData);
-									dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
-									@await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
-								}
-								else
-								{
-									<button class="btn btn-sm btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-prod-@Model.Id" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
-									<script>
+                        <div class="btn-group-vertical btn-block">
+                            @{
+                                if (Model.InStock)
+                                {
+                                    var dataDictAddToCart = new ViewDataDictionary(ViewData);
+                                    dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+                                    @await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
+                                }
+                                else
+                                {
+                                    <button class="btn btn-sm btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-prod-@Model.Id" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
+                                    <script>
 						$(document).ready(function () {
 							$("#back-in-stock-subscribe-prod-@Model.Id").on('click', function() {
 								displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
 							});
 						});
-									</script>
+                                    </script>
 
-								}
-							}
-							<button class="btn btn-blue-white mb-3 rounded" data-target="#catoneclickbuy" data-toggle="modal">@T("prod.buynow")</button>
-						</div>
-						<div class="icons-wrap d-block ml-3">
-							@{
-								var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
-								dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
-								@await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
-							}
-							@await Html.PartialAsync("_CompareProductsButton", Model)
-						</div>
-					</div>
+                                }
+                            }
+                            <button class="btn btn-blue-white mb-3 rounded" data-target="#catoneclickbuy" data-toggle="modal">@T("prod.buynow")</button>
+                        </div>
+                        <div class="icons-wrap d-block ml-3">
+                            @{
+                                var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
+                                dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+                                @await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
+                            }
+                            @await Html.PartialAsync("_CompareProductsButton", Model)
+                        </div>
+                    </div>
 					<div class="line"></div>
 					@if (Model.SleepLength != 0 || Model.SleepHeight != 0 || Model.SleepWidth != 0)
 					{
 					<div class="prop-wrap">
 						<div class="size-prop-wrap">
 							<div>@T("product.attributes.sleepsizes")</div>
-							<div class="drop-wrap">
+							<div class="drop-wrap sleep-place">
 								<div class="w">@T("product.length")</div>
 								<div class="l">@T("product.width")</div>
 								<button class="btn btn-light mt-4 btn-sm" type="button">
@@ -405,9 +408,9 @@
 				</div>
 			</section>
 			<section id="tab3" class="item" data-title="@T("prod.reviews")">
-				<div class="item-content">
-					Tab 3 content. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-				</div>
+                <div class="item-content">
+                    @await Html.PartialAsync("_ProductReviewOverview", Model)
+                </div>
 			</section>
 			<section id="tab4" class="item" data-title="@T("prod.questions")">
 				<div class="item-content">
