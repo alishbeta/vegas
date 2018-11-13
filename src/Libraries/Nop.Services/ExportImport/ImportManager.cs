@@ -1225,7 +1225,8 @@ namespace Nop.Services.ExportImport
                     }
 
                     //product
-                    var product = _productService.GetProductBySku(item.Sku) ?? _productService.GetProductByName(item.Name);
+                    //var product = _productService.GetProductBySku(item.Sku) ?? _productService.GetProductByName(item.Name);
+                    var product = _productService.GetProductBySku(item.Sku);
                     if (product == null)
                     {
                         product = new Product()
