@@ -308,7 +308,7 @@ namespace Nop.Web.Controllers
         //available even when navigation is not allowed
         [CheckAccessPublicStore(true)]
         [PublicAntiForgery]
-        public virtual dynamic Login(LoginModel model, string returnUrl, bool captchaValid, bool redirect = true)
+        public virtual dynamic Login(LoginModel model, bool captchaValid, string returnUrl = "/customer/info", bool redirect = true)
         {
             //validate CAPTCHA
             if (_captchaSettings.Enabled && _captchaSettings.ShowOnLoginPage && !captchaValid)

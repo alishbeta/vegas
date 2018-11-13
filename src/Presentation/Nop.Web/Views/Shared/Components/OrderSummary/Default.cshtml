@@ -486,7 +486,7 @@
 									}
 									e.preventDefault();
 									if ($("#loginPass").val().length != 0 && $("#loginEmail").val().length != 0) {
-										$.post('/customer/login?returnUrl=/checkout/confirm', $('#loginform').serialize()).done(function (responce) {
+										$.post('/customer/login?returnUrl=/checkout/confirm&redirect=false', $('#loginform').serialize()).done(function (responce) {
 											console.log(responce);
 											if (!responce.success) {
 												$("#loginEmail").addClass("is-invalid");

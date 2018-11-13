@@ -154,8 +154,9 @@
 									$("#mail").addClass("is-invalid");
 									$("#pass").addClass("is-invalid");
 								}
-								else {
-									window.location.replace(responce.returnUrl);
+                                else {
+                                    window.location.reload();
+                                    //window.location.replace(responce.returnUrl);
 								}
 							});
 						}
