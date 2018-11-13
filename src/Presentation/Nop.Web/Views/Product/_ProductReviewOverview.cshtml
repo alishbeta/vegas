@@ -1,38 +1,124 @@
-﻿@model ProductReviewOverviewModel
+﻿@model ProductDetailsModel
 @using System.Globalization
 @{
     var ratingPercent = 0;
-    if (Model.TotalReviews != 0)
+    if (Model.ProductReviewOverview.TotalReviews != 0)
     {
-        ratingPercent = ((Model.RatingSum * 100) / Model.TotalReviews) / 5;
+        ratingPercent = ((Model.ProductReviewOverview.RatingSum * 100) / Model.ProductReviewOverview.TotalReviews) / 5;
     }
+    var ratingValue = ratingPercent / (decimal)20;
 }
-@if (Model.AllowCustomerReviews)
+@if (Model.ProductReviewOverview.AllowCustomerReviews)
 {
-    <div class="product-reviews-overview" @if (Model.TotalReviews > 0) { <text>itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"</text>}>
-        <div class="product-review-box">
-            <div class="rating">
-                <div style="width: @(ratingPercent)%">
+<div class="question-wrap clearfix">
+    <div class="title clearfix">
+        <h5>@T("reviews.title")</h5>
+        <p class="icons-wrap">
+            @if (Model.ProductReviewOverview.TotalReviews > 0)
+            {
+                @for (int i = 0; i < 5; i++)
+                {
+                    if ((int)(Model.ProductReviewOverview.RatingSum / Model.ProductReviewOverview.TotalReviews) > i)
+                    {
+                        <i class="star"></i>
+                    }
+                    else
+                    {
+                        <i class="star grey"></i>
+                    }
+                }
+            }
+        </p>
+    </div>
+    <div class="title">
+        <strong>@T("Reviews.Write")</strong>
+    </div>
+    <form asp-route="ProductReviews" method="post" id="add-review-form">
+        <div asp-validation-summary="ModelOnly" class="message-error" id="message-error"></div>
+        <div class="fieldset">
+            <div class="form-fields">
+                <div class="inputs">
+                    <label for="AddProductReview.Title">@T("review.title"):</label>
+                    <input name="AddProductReview.Title" class="review-title" required />
+                </div>
+                <div class="inputs">
+                    <label for="AddProductReview.ReviewText">@T("review.text"):</label>
+                    <textarea name="AddProductReview.ReviewText" class="review-text" required></textarea>
+                </div>
+                <div class="review-rating">
+                    <div class="name-description">
+                        <label for="AddProductReview.Rating">@T("review.rating"):</label>
+                    </div>
+                    <div class="rating-wrapper">
+                        <div class="label first">@T("Reviews.Fields.Rating.Bad")</div>
+                        <div class="rating-options">
+                            <input name="AddProductReview.Rating" value="1" type="radio" id="addproductrating_1" />
+                            <input name="AddProductReview.Rating" value="2" type="radio" id="addproductrating_2" />
+                            <input name="AddProductReview.Rating" value="3" type="radio" id="addproductrating_3" checked />
+                            <input name="AddProductReview.Rating" value="4" type="radio" id="addproductrating_4" />
+                            <input name="AddProductReview.Rating" value="5" type="radio" id="addproductrating_5" />
+                        </div>
+                        <div class="label last">@T("Reviews.Fields.Rating.Excellent")</div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="buttons">
+            <button type="submit" id="add-review-btn" name="add-review" class="btn btn-blue btn-sm pl-4 pr-4">@T("Reviews.SubmitButton")</button>
+        </div>
+    </form>
+    <script>
+        $('#add-review-form').submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).closest('form').attr('action'),
+                type: 'post',
+                data: $('#add-review-form').serialize()
+            }).done(function (data) {
+                if (data.success) {
+                    window.location.reload();
+                }
+                else {
+                    console.log(data.message);
+                }
+            });
+        });
+    </script>
 
-        @if (Model.TotalReviews > 0)
+    @if (Model.Reviews.Items.Count > 0)
+    {
+        @foreach (var review in Model.Reviews.Items)
         {
-            <div class="product-review-links">
-                <a href="@Url.RouteUrl("ProductReviews", new { productId = Model.ProductId })">@Model.TotalReviews
-                    @T("Reviews.Overview.Reviews")</a> <span class="separator">|</span> <a href="@Url.RouteUrl("ProductReviews", new { productId = Model.ProductId })">@T("Reviews.Overview.AddNew")</a>
-            </div>
-            @*hidden microdata info*@
-            var ratingValue = ratingPercent / (decimal)20;
-            <span itemprop="ratingValue" style="display: none;">@ratingValue.ToString("0.0", new CultureInfo("en-US"))</span>
-            <span itemprop="reviewCount" style="display: none;">@Model.TotalReviews</span>
+            <ul class="comment clearfix">
+                <li class="list">
+                    <div class="info-wrap">
+                        <div class="name">@review.CustomerName</div>
+                        <div class="date">@review.WrittenOnStr</div>
+                        <div class="rate">
+                            <p class="icons-wrap">
+                                @for (int i = 0; i < 5; i++)
+                                {
+                                    if (review.Rating > i)
+                                    {
+                                        <i class="star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="star grey"></i>
+                                    }
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-wrap">
+                        @review.Title
+                        @review.ReviewText
+                    </div>
+                </li>
+            </ul>
+            <div class="line"></div>
         }
-        else
-        {
-            <div class="product-no-reviews">
-                <a href="@Url.RouteUrl("ProductReviews", new { productId = Model.ProductId })">@T("Reviews.Overview.First")</a>
-            </div>
+    }
+
+</div>
         }
-    </div>
-}

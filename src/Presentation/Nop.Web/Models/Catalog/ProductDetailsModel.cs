@@ -28,6 +28,8 @@ namespace Nop.Web.Models.Catalog
             ProductManufacturers = new List<ManufacturerBriefInfoModel>();
             ProductReviewOverview = new ProductReviewOverviewModel();
             TierPrices = new List<TierPriceModel>();
+            ProductWarehouses = new List<ProductWarehouse>();
+            Reviews = new ProductReviewsModel();
         }
 
         //picture(s)
@@ -51,6 +53,8 @@ namespace Nop.Web.Models.Catalog
 		public int SleepHeight { get; set; }
 		public int SleepLength { get; set; }
 		public string MakeCode { get; set; }
+        public List<ProductWarehouse> ProductWarehouses { get; set; }
+        public ProductReviewsModel Reviews { get; set; }
 
         public ProductType ProductType { get; set; }
 

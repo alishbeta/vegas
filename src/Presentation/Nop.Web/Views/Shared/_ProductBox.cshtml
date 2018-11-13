@@ -144,32 +144,31 @@
 	var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
 }
 	<div class="outer-wrapp scroll">
-		<div class="item-wrap">
-			<div class="product-img-wrap">
-				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
-					<img class="product" src="@Model.DefaultPictureModel.ImageUrl" alt="@Model.DefaultPictureModel.AlternateText">
-				</a>
-				@if (Model.ProductPrice.Discount.ToString("#.##") != "")
-				{
-					<div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
-				}
-			</div>
-			<div class="main-prop-wrap text-left">
-				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
-					<div class="product-name text-light-c">@Model.Name</div>
-				</a>
-				<div class="product-prop">@Model.ShortDescription</div>
-				<div class="price-titile">@T("main.product.price")</div>
-				<div class="price-wrap clearfix">
-					@if (!string.IsNullOrEmpty(Model.ProductPrice.OldPrice))
-					{
-						<div class="price-old">@Model.ProductPrice.OldPrice</div>
-					}
-					<div class="price-new">@Model.ProductPrice.Price</div>
-				</div>
-			</div>
-			<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="d-lg-none btn btn-sm btn-blue btn-block">@T("product.buy")</button>
-		</div>
+        <div class="item-wrap">
+            <div class="product-img-wrap">
+                <a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
+                    <img class="product" src="@Model.DefaultPictureModel.ImageUrl" alt="@Model.DefaultPictureModel.AlternateText">
+                </a>
+                @if (Model.ProductPrice.Discount.ToString("#.##") != "")
+                {
+                    <div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
+                }
+            </div>
+            <div class="main-prop-wrap text-left">
+                <a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
+                    <div class="product-name text-light-c">@Model.Name</div>
+                </a>
+                <div class="product-prop">@Model.ShortDescription</div>
+                <div class="price-titile">@T("main.product.price")</div>
+                <div class="price-wrap clearfix">
+                    @if (!string.IsNullOrEmpty(Model.ProductPrice.OldPrice))
+                    {
+                        <div class="price-old">@Model.ProductPrice.OldPrice</div>
+                    }
+                    <div class="price-new">@Model.ProductPrice.Price</div>
+                </div>
+            </div>
+        </div>
 		<div class="item-wrap-full" style="display: none;">
 			<i class="favorite_i float-left" data-id="@Model.Id" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');$(this).addClass('load');return false;"></i>
 			<i class="compare_icon float-right" data-ids="@Model.Id" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');$(this).addClass('load');return false;"></i>
@@ -216,7 +215,7 @@
 			<div class="text-center"></div>
 			@if (Model.InStock)
 			{
-				<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block">@T("product.buy")</button>
+				<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="btn btn-sm buy-btn btn-blue btn-block">@T("product.buy")</button>
 			}
 			else
 			{

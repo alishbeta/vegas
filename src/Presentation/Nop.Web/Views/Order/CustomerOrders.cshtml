@@ -12,7 +12,7 @@
 <nav class="breadcrumb-wrap">
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
-		<li class="breadcrumb-item"><a href="/customer/info">@T("account.info")</a></li>
+		<li class="breadcrumb-item"><a href="/customer/info">@T("account.cabinet")</a></li>
 		<li class="breadcrumb-item active"><a href="#">@T("account.orders")</a></li>
 	</ol>
 </nav>
@@ -37,7 +37,7 @@
 											<i class="arrows"></i>№@order.CustomOrderNumber
 										</div>
 										<div>@order.CreatedOn</div>
-										<div><b>@order.OrderItems.Count() товар на @order.OrderTotal</b></div>
+										<div><b>@order.OrderItems.Count() @T("order.totaltip") @order.OrderTotal</b></div>
 										<div>@order.OrderStatus</div>
 									</div>
 								</a>
@@ -59,7 +59,7 @@
 										</div>
 									}
 									<div class="total">
-										<div class="title">Итого к оплате</div>
+										<div class="title">@T("order.totalcost")</div>
 										<div><b>@order.OrderTotal</b></div>
 									</div>
 								</div>
@@ -103,16 +103,4 @@
 			});
 		}
 	}
-</script>
-<script>
-	$(document).ready(function () {
-		$.ajax({
-			url: "/Common/GetWishlistCount",
-			type: "POST",
-			dataType: 'text',
-			traditional: true
-		}).done(function (responce) {
-			$("#wishlistCount").text("(" + responce + ")");
-		});
-	});
 </script>

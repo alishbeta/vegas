@@ -181,6 +181,13 @@ $(document).ready(function () {
         $(this).removeClass('active');
     });
 
+    //Скролинг в полной новости.
+    $('#similar-button').on('click', function(){
+        let pos = $('#similar-destination').offset().top;
+        $('html').animate({ scrollTop: pos }, 1000);
+          }
+        )
+
     /*#####################    Слайдер для фильтров   ###############################*/
     $('.f-slider').each(function () {
         var data = $(this).data()

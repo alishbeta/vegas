@@ -1940,6 +1940,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   left: 150px;
   z-index: 5;
 }
+.product .opt-wrap .drop-wrap.sleep-place .l {
+  left: 85px;
+}
 
 .size-prop-wrap .dropdown .btn {
   padding-left: 0;

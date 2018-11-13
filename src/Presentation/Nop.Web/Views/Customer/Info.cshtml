@@ -907,18 +907,6 @@ Model.CountryEnabled)
         return false;
     }
 </script>
-<script>
-	$(document).ready(function () {
-		$.ajax({
-			url: "/Common/GetWishlistCount",
-			type: "POST",
-			dataType: 'text',
-			traditional: true
-		}).done(function (responce) {
-			$("#wishlistCount").text("(" + responce + ")");
-		});
-	});
-</script>
 <div class="modal fade" id="popup-success" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">

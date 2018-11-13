@@ -185,6 +185,31 @@ namespace Nop.Web.Controllers
 
             //model
             var model = _productModelFactory.PrepareProductDetailsModel(product, updatecartitem, false);
+
+            //reviews
+            model.Reviews = new ProductReviewsModel();
+            model.Reviews = _productModelFactory.PrepareProductReviewsModel(model.Reviews, product);
+
+            if (_catalogSettings.ProductReviewPossibleOnlyAfterPurchasing)
+            {
+                var hasCompletedOrders = _orderService.SearchOrders(customerId: _workContext.CurrentCustomer.Id,
+                    productId: productId,
+                    osIds: new List<int> { (int)OrderStatus.Complete },
+                    pageSize: 1).Any();
+                if (!hasCompletedOrders)
+                    ModelState.AddModelError(string.Empty, _localizationService.GetResource("Reviews.ProductReviewPossibleOnlyAfterPurchasing"));
+            }
+
+            //default value
+            model.Reviews.AddProductReview.Rating = _catalogSettings.DefaultProductRatingValue;
+
+            //default value for all additional review types
+            if (model.Reviews.ReviewTypeList.Count > 0)
+                foreach (var additionalProductReview in model.Reviews.AddAdditionalProductReviewList)
+                {
+                    additionalProductReview.Rating = additionalProductReview.IsRequired ? _catalogSettings.DefaultProductRatingValue : 0;
+                }
+
             //template
             var productTemplateViewPath = _productModelFactory.PrepareProductTemplateViewPath(product);
 
@@ -401,9 +426,8 @@ namespace Nop.Web.Controllers
 
         [HttpPost, ActionName("ProductReviews")]
         [PublicAntiForgery]
-        [FormValueRequired("add-review")]
         [ValidateCaptcha]
-        public virtual IActionResult ProductReviewsAdd(int productId, ProductReviewsModel model, bool captchaValid)
+        public virtual dynamic ProductReviewsAdd(int productId, ProductReviewsModel model, bool captchaValid)
         {
             var product = _productService.GetProductById(productId);
             if (product == null || product.Deleted || !product.Published || !product.AllowCustomerReviews)
@@ -491,12 +515,13 @@ namespace Nop.Web.Controllers
                 else
                     model.AddProductReview.Result = _localizationService.GetResource("Reviews.SuccessfullyAdded");
 
-                return View(model);
+                return new { success = model.AddProductReview.SuccessfullyAdded };
+            }
+            else
+            {
+                return new { error = true, message = ModelState };
             }
 
-            //If we got this far, something failed, redisplay form
-            model = _productModelFactory.PrepareProductReviewsModel(model, product);
-            return View(model);
         }
 
         [HttpPost]
