@@ -6,78 +6,104 @@
 @inject CatalogSettings catalogSettings
 @inject IWorkContext workContext
 @{
-	Layout = "_ColumnsOne";
-
-	//title
-	Html.AddTitleParts(T("PageTitle.RecentlyViewedProducts").Text);
-	//page class
-	Html.AppendPageCssClassParts("html-recently-viewed-products-page");
+    Layout = "_ColumnsOne";
+    ViewData["PageTitle"] = T("product.recently");
+    //title
+    Html.AddTitleParts(T("PageTitle.RecentlyViewedProducts").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-recently-viewed-products-page");
 }
 <nav class="breadcrumb-wrap">
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
-		<li class="breadcrumb-item active"><a href="#">@T("product.recently")</a></li>
-	</ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Bed4you</a></li>
+        <li class="breadcrumb-item active"><a href="#">@T("product.recently")</a></li>
+    </ol>
 </nav>
-<div class="row short-menu favorite">
-	<div class="offset-xl-1 col-xl-11">
-		<h1 class="title">@T("Products.RecentlyViewedProducts")</h1>
-		<div class="seen-wrap clearfix">
-			@if (Model.Count > 0)
-			{
-				@foreach (var product in Model)
-				{
-
-					//prepare "Add to cart" AJAX link
-					var addtocartlink = "";
-					var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
-					var quantity = 1;
-					if (product.ProductPrice.ForceRedirectionAfterAddingToCart)
-					{
-						addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = product.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity, forceredirection = product.ProductPrice.ForceRedirectionAfterAddingToCart });
-					}
-					else
-					{
-						addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = product.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
-					}
-
-					var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = product.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
-					var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = product.Id });
-
-					<div class="item-wrap">
-
-						<div class="product-img-wrap">
-							<div>
-								<i class="favorite_i float-left" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i>
-								<i class="compare_icon float-right" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
-							</div>
-							<a href="@Url.RouteUrl("Product", new { productId = product.Id, SeName = product.SeName })">
-								<img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
-							</a>
-							@if (@product.ProductPrice.Discount.ToString("#.##") != "")
-							{
-								<div class="discount">@product.ProductPrice.Discount.ToString("#.##")%</div>
-							}
-						</div>
-
-						<div class="main-prop-wrap text-left">
-							<a href="@Url.RouteUrl("Product", new { productId = product.Id, SeName = product.SeName })">
-								<div class="product-name text-light-c">@product.Name</div>
-							</a>
-							<div class="product-prop">@product.ShortDescription</div>
-							<div class="price-titile">@T("main.product.price")</div>
-							<div class="price-wrap clearfix">
-								@if (!string.IsNullOrEmpty(product.ProductPrice.OldPrice))
-								{
-									<div class="price-old">@product.ProductPrice.OldPrice</div>
-								}
-								<div class="price-new">@product.ProductPrice.Price</div>
-							</div>
-						</div>
-						<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">Купить</button>
-					</div>
-				}
-			}
-		</div>
-	</div>
+<div class="cat-content-wrap">
+    <div class="title text-center">
+        <h3><b>@ViewData["PageTitle"]</b></h3>
+        <p>
+            <small>@Model.Count @T("product.products")</small>
+        </p>
+    </div>
+    <div class="clearfix">
+        @if (Model.Count > 0)
+        {
+            <div class="prod-wrap float-right" id="prods">
+                @foreach (var product in Model)
+                {
+                    @await Html.PartialAsync("_ProductBox", product)
+                }
+            </div>
+        }
+    </div>
 </div>
+@*<div class="row short-menu favorite">
+        <div class="offset-xl-1 col-xl-11">
+            <h1 class="title">@T("Products.RecentlyViewedProducts")</h1>
+            <div class="seen-wrap clearfix">
+                @if (Model.Count > 0)
+                {
+                    @foreach (var product in Model)
+                    {
+
+                        //prepare "Add to cart" AJAX link
+                        var addtocartlink = "";
+                        var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+                        var quantity = 1;
+                        if (product.ProductPrice.ForceRedirectionAfterAddingToCart)
+                        {
+                            addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = product.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity, forceredirection = product.ProductPrice.ForceRedirectionAfterAddingToCart });
+                        }
+                        else
+                        {
+                            addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = product.Id, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
+                        }
+
+                        var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = product.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
+                        var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = product.Id });
+
+                <div class="item-wrap">
+
+                    <div class="product-img-wrap">
+                        <div>
+                            <i class="favorite_i float-left" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');return false;"></i>
+                            <i class="compare_icon float-right" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
+                        </div>
+                        <a href="@Url.RouteUrl("Product", new { productId = product.Id, SeName = product.SeName })">
+                            <img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
+                        </a>
+                        @if (@product.ProductPrice.Discount.ToString("#.##") != "")
+                        {
+                            <div class="discount">-@product.ProductPrice.Discount.ToString("#.##")%</div>
+                        }
+                    </div>
+
+                    <div class="main-prop-wrap text-left">
+                        <a href="@Url.RouteUrl("Product", new { productId = product.Id, SeName = product.SeName })">
+                            <div class="product-name text-light-c">@product.Name</div>
+                        </a>
+                        <div class="product-prop">@product.ShortDescription</div>
+                        <div class="price-titile">@T("main.product.price")</div>
+                        <div class="price-wrap clearfix">
+                            @if (!string.IsNullOrEmpty(product.ProductPrice.OldPrice))
+                            {
+                                <div class="price-old">@product.ProductPrice.OldPrice</div>
+                            }
+                            <div class="price-new">@product.ProductPrice.Price</div>
+                        </div>
+                    </div>
+                    @if (product.InStock)
+                    {
+                        <button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="btn btn-sm buy-btn btn-blue btn-block">@T("product.buy")</button>
+                    }
+                    else
+                    {
+                        @await Component.InvokeAsync("BackInStockButton", new { productId = product.Id, prefix = string.IsNullOrEmpty(ViewBag.Prefix) ? "recently" : ViewBag.Prefix });
+                    }
+                </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>*@

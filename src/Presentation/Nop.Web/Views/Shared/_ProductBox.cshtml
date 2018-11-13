@@ -168,15 +168,6 @@
                     <div class="price-new">@Model.ProductPrice.Price</div>
                 </div>
             </div>
-            @if (Model.InStock)
-            {
-                <button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="d-lg-none btn btn-sm buy-btn btn-blue btn-block">@T("product.buy")</button>
-
-            }
-            else
-            {
-                @await Component.InvokeAsync("BackInStockButton", new { productId = Model.Id, prefix = string.IsNullOrEmpty(ViewBag.Prefix) ? "prod" : ViewBag.Prefix });
-            }
         </div>
 		<div class="item-wrap-full" style="display: none;">
 			<i class="favorite_i float-left" data-id="@Model.Id" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');$(this).addClass('load');return false;"></i>

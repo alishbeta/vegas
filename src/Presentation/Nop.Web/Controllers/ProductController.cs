@@ -189,9 +189,6 @@ namespace Nop.Web.Controllers
             //reviews
             model.Reviews = new ProductReviewsModel();
             model.Reviews = _productModelFactory.PrepareProductReviewsModel(model.Reviews, product);
-            //only registered users can leave reviews
-            if (_workContext.CurrentCustomer.IsGuest() && !_catalogSettings.AllowAnonymousUsersToReviewProduct)
-                ModelState.AddModelError("", _localizationService.GetResource("Reviews.OnlyRegisteredUsersCanWriteReviews"));
 
             if (_catalogSettings.ProductReviewPossibleOnlyAfterPurchasing)
             {

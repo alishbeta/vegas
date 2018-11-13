@@ -14,7 +14,7 @@
 	addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.ProductId, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
 	var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.ProductId, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
 	var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = item.ProductId });
-	<div class="item-wrap">
+    <div class="item-wrap">
 		<div class="product-img-wrap">
 			<div>
 				<i class="compare_icon" data-ids="@item.ProductId" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
@@ -32,7 +32,7 @@
 			<a href="@Url.RouteUrl("Product", new { productId = item.ProductId, SeName = item.ProductSeName })">
 				<div class="product-name text-light-c">@item.ProductName</div>
 			</a>
-			<div class="product-prop">@item.ProductSeName</div>
+			<div class="product-prop"></div>
 			<div class="price-titile">@T("prod.price")</div>
 			<div class="price-wrap clearfix">
 				@if (item.OldPrice != string.Empty)

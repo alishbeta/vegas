@@ -1,9 +1,21 @@
 ﻿@model MenuItem
 <nav class="blue-menu clearfix">
-	<ul>
-		<li><a class="@(Model.href == "/customer/info" ? "active" : "")" href="/customer/info">@T("account.info")</a></li>
-		<li><a class="@(Model.href == "/customer/wishlist" ? "active" : "")" href="/customer/wishlist">@T("wishlist")  <span id="wishlistCount"></span></a></li>
-		<li><a class="@(Model.href == "/order/history" ? "active" : "")" href="/order/history">@T("account.orderhistory")</a></li>
-		<li><a class="@(Model.href == "/rewardpoints/history" ? "active" : "")" href="/rewardpoints/history">@T("account.bonuses")</a></li>
-	</ul>
+    <ul>
+        <li><a class="@(Model.href == "/customer/info" ? "active" : "")" href="/customer/info">@T("account.info")</a></li>
+        <li><a class="@(Model.href == "/customer/wishlist" ? "active" : "")" href="/customer/wishlist">@T("wishlist")  <span id="wishlistCount"></span></a></li>
+        <li><a class="@(Model.href == "/order/history" ? "active" : "")" href="/order/history">@T("account.orderhistory")</a></li>
+        <li><a class="@(Model.href == "/rewardpoints/history" ? "active" : "")" href="/rewardpoints/history">@T("account.bonuses")</a></li>
+    </ul>
 </nav>
+<script>
+	$(document).ready(function () {
+        $.ajax({
+            url: "/ShoppingCart/GetWishlistIds",
+            type: "POST",
+            dataType: 'json',
+            traditional: true
+        }).done(function (response) {
+            $("#wishlistCount").text("(" + response.wishlist.length + ")");
+		});
+	});
+</script>

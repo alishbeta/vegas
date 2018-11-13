@@ -104,15 +104,3 @@
 		}
 	}
 </script>
-<script>
-	$(document).ready(function () {
-		$.ajax({
-			url: "/Common/GetWishlistCount",
-			type: "POST",
-			dataType: 'text',
-			traditional: true
-		}).done(function (responce) {
-			$("#wishlistCount").text("(" + responce + ")");
-		});
-	});
-</script>
