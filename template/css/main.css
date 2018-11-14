@@ -1943,6 +1943,11 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .product .opt-wrap .drop-wrap.sleep-place .l {
   left: 85px;
 }
+.product .opt-wrap .drop-wrap .size-opt {
+  font-size: 14px;
+  color: #212529;
+  padding: 25px 0 10px;
+}
 
 .size-prop-wrap .dropdown .btn {
   padding-left: 0;
