@@ -614,15 +614,7 @@
                             <span asp-validation-for="MakeCode"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            <nop-label asp-for="SleepWeight" />
-                        </div>
-                        <div class="col-md-9">
-                            <nop-editor asp-for="SleepWeight" />
-                            <span asp-validation-for="SleepWeight"></span>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <div class="col-md-3">
                             <nop-label asp-for="SleepLength" />
@@ -639,15 +631,6 @@
                         <div class="col-md-9">
                             <nop-editor asp-for="SleepWidth" />
                             <span asp-validation-for="SleepWidth"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            <nop-label asp-for="SleepHeight" />
-                        </div>
-                        <div class="col-md-9">
-                            <nop-editor asp-for="SleepHeight" />
-                            <span asp-validation-for="SleepHeight"></span>
                         </div>
                     </div>
                     <div class="form-group @(Model.ProductEditorSettingsModel.Published ? null : "advanced-setting")">

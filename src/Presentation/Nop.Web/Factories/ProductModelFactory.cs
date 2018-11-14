@@ -1149,8 +1149,6 @@ namespace Nop.Web.Factories
 				model.Length = product.Length;
 				model.SleepLength = product.SleepLength;
 				model.SleepWidth = product.SleepWidth;
-				model.SleepHeight = product.SleepHeight;
-				model.SleepWeight = product.SleepWeight;
 				model.Weight = product.Weight;
 				
 				model.InStock = (product.StockQuantity > 0 && product.StatusId != 4);	  //StatusId 4 - not in stock
@@ -1219,8 +1217,6 @@ namespace Nop.Web.Factories
 				Height = product.Height,
 				Lendth = product.Length,
 				SleepWidth = product.SleepWidth,
-				SleepWeight = product.SleepWeight,
-				SleepHeight = product.SleepHeight,
 				SleepLength = product.SleepLength,
 				MakeCode = product.MakeCode,
                 HasSampleDownload = product.IsDownload && product.HasSampleDownload,

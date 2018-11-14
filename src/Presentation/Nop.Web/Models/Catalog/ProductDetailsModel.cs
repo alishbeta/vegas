@@ -49,8 +49,6 @@ namespace Nop.Web.Models.Catalog
 		public decimal Height { get; set; }
 		public decimal Lendth { get; set; }
 		public int SleepWidth { get; set; }
-		public int SleepWeight { get; set; }
-		public int SleepHeight { get; set; }
 		public int SleepLength { get; set; }
 		public string MakeCode { get; set; }
         public List<ProductWarehouse> ProductWarehouses { get; set; }
