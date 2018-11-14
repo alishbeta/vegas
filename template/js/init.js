@@ -240,7 +240,8 @@ $(document).ready(function () {
     });
 
     /*#####################    Корзина   (Отображение popup)###############################*/
-    $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived), .product .btn-blue:not(.arived), .favorit.shopping_bag_icon').on('click', function () {
+    // $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived), .product .btn-blue:not(.arived), .favorit.shopping_bag_icon').on('click', function () {
+    $('.buy-btn').on('click', function () {
         //UpdateCart();
         $('.cart-popup-wrap').addClass('open');
         $('.back-shadow').fadeIn();
@@ -251,6 +252,11 @@ $(document).ready(function () {
     $(".slider a").fancybox({
         'hideOnContentClick': true
     });
+
+        /*#####################     ###############################*/
+    $('#comment-activate').on('click', function(){
+        $(this).parent().next().slideToggle();
+    })
     
 
     /*#####################    Кабинет  (Редактирование личных данных и адреса) ###############################*/
