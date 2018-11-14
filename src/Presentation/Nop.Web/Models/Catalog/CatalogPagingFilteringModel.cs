@@ -415,6 +415,14 @@ namespace Nop.Web.Models.Catalog
                 var removeFilterUrl = webHelper.RemoveQueryString(webHelper.GetThisPageUrl(true), QUERYSTRINGPARAM);
                 RemoveFilterUrl = ExcludeQueryStringParams(removeFilterUrl, webHelper);
 
+                FilterItems = allFilters.Select(x => 
+                    new SpecificationFilterItem
+                    {
+                        SpecificationAttributeName = x.SpecificationAttributeName,
+                        SpecificationAttributeOptionId = x.SpecificationAttributeOptionId,
+                        SpecificationAttributeOptionName = x.SpecificationAttributeOptionName
+                    }).ToList();
+
                 //get already filtered specification options
                 var alreadyFilteredOptions = allFilters.Where(x => alreadyFilteredSpecOptionIds.Contains(x.SpecificationAttributeOptionId));
                 AlreadyFilteredItems = alreadyFilteredOptions.Select(x =>
@@ -422,23 +430,25 @@ namespace Nop.Web.Models.Catalog
                     {
                         SpecificationAttributeName = x.SpecificationAttributeName,
                         SpecificationAttributeOptionName = x.SpecificationAttributeOptionName,
-                        SpecificationAttributeOptionColorRgb = x.SpecificationAttributeOptionColorRgb
+                        SpecificationAttributeOptionId = x.SpecificationAttributeOptionId
+                        //SpecificationAttributeOptionColorRgb = x.SpecificationAttributeOptionColorRgb
                     }).ToList();
 
                 //get not filtered specification options
                 NotFilteredItems = allFilters.Except(alreadyFilteredOptions).Select(x =>
                 {
                     //filter URL
-                    var alreadyFiltered = alreadyFilteredSpecOptionIds.Concat(new List<int> { x.SpecificationAttributeOptionId });
-                    var filterUrl = webHelper.ModifyQueryString(webHelper.GetThisPageUrl(true), QUERYSTRINGPARAM, 
-                        alreadyFiltered.OrderBy(id => id).Select(id => id.ToString()).ToArray());
+                    //var alreadyFiltered = alreadyFilteredSpecOptionIds.Concat(new List<int> { x.SpecificationAttributeOptionId });
+                    //var filterUrl = webHelper.ModifyQueryString(webHelper.GetThisPageUrl(true), QUERYSTRINGPARAM, 
+                    //    alreadyFiltered.OrderBy(id => id).Select(id => id.ToString()).ToArray());
 
                     return new SpecificationFilterItem()
                     {
                         SpecificationAttributeName = x.SpecificationAttributeName,
                         SpecificationAttributeOptionName = x.SpecificationAttributeOptionName,
-                        SpecificationAttributeOptionColorRgb = x.SpecificationAttributeOptionColorRgb,
-                        FilterUrl = ExcludeQueryStringParams(filterUrl, webHelper)
+                        //SpecificationAttributeOptionColorRgb = x.SpecificationAttributeOptionColorRgb,
+                        //FilterUrl = ExcludeQueryStringParams(filterUrl, webHelper),
+                        SpecificationAttributeOptionId = x.SpecificationAttributeOptionId
                     };
                 }).ToList();
             }
@@ -451,6 +461,10 @@ namespace Nop.Web.Models.Catalog
             /// Gets or sets a value indicating whether filtering is enabled
             /// </summary>
             public bool Enabled { get; set; }
+            /// <summary>
+            /// All filter items
+            /// </summary>
+            public IList<SpecificationFilterItem> FilterItems { get; set; }
             /// <summary>
             /// Already filtered items
             /// </summary>
@@ -488,6 +502,10 @@ namespace Nop.Web.Models.Catalog
             /// Filter URL
             /// </summary>
             public string FilterUrl { get; set; }
+            /// <summary>
+            /// Specification attribute option identifier
+            /// </summary>
+            public int SpecificationAttributeOptionId { get; set; }
         }
 
         #endregion

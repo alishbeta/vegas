@@ -18,5 +18,6 @@ namespace Nop.Web.Models.Catalog
             public double from { get; set; }
             public double to { get; set; }
         }
+        public CatalogPagingFilteringModel.SpecificationFilterModel SpecificationFilter { get; set; }
     }
 }
