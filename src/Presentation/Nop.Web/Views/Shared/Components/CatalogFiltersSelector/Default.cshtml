@@ -1,86 +1,87 @@
 ﻿@model FilterRangesModel
 <div class="filters-data">
-    <div class="inner-wrap f-slider" data-filter-number="price" data-min="0" data-max="15000">
-        <div class="title">@T("filters.price")</div>
-        <div class="form-inline">
-            <div class="form-group">
-                <span>@T("filters.from"): </span>
-                <input class="form-control" name="MinPrice" type="text" id="slider-price-a1">
-                <span>@T("filters.to"): </span>
-                <input class="form-control" name="MaxPrice" type="text" id="slider-price-a2">
+        <div class="inner-wrap f-slider" data-filter-number="price" data-min="0" data-max="15000">
+            <div class="title">@T("filters.price")</div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <span>@T("filters.from"): </span>
+                    <input class="form-control" name="MinPrice" type="text" id="slider-price-a1">
+                    <span>@T("filters.to"): </span>
+                    <input class="form-control" name="MaxPrice" type="text" id="slider-price-a2">
+                </div>
+            </div>
+            <div id="slider-price-r" class="slider-range"></div>
+        </div>
+        <div class="inner-wrap f-slider" data-filter-number="height" data-min="0" data-max="15000">
+            <div class="title">@T("filters.height")</div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <span>@T("filters.from"): </span>
+                    <input class="form-control" name="MinHeight" type="text" id="slider-height-a1">
+                    <span>@T("filters.to"): </span>
+                    <input class="form-control" name="MaxHeight" type="text" id="slider-height-a2">
+                </div>
+            </div>
+            <div id="slider-height-r" class="slider-range"></div>
+        </div>
+        <div class="inner-wrap f-slider" data-filter-number="width" data-min="0" data-max="15000">
+            <div class="title">@T("filters.width")</div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <span>@T("filters.from"): </span>
+                    <input class="form-control" name="MinWidth" type="text" id="slider-width-a1">
+                    <span>@T("filters.to"): </span>
+                    <input class="form-control" name="MaxWidth" type="text" id="slider-width-a2">
+                </div>
+            </div>
+            <div id="slider-width-r" class="slider-range"></div>
+        </div>
+        <div class="inner-wrap f-slider" data-filter-number="length" data-min="0" data-max="15000">
+            <div class="title">@T("filters.length")</div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <span>@T("filters.from"): </span>
+                    <input class="form-control" name="MinLength" type="text" id="slider-length-a1">
+                    <span>@T("filters.to"): </span>
+                    <input class="form-control" name="MaxLength" type="text" id="slider-length-a2">
+                </div>
+            </div>
+            <div id="slider-length-r" class="slider-range"></div>
+        </div>
+        @if ((bool)ViewBag.HasSleepSizes)
+        {
+            <div class="inner-wrap f-slider" data-filter-number="sleeplength" data-min="0" data-max="15000">
+                <div class="title">@T("filters.sleeplength")</div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <span>@T("filters.from"): </span>
+                        <input class="form-control" name="MinSleeplength" type="text" id="slider-sleeplength-a1">
+                        <span>@T("filters.to"): </span>
+                        <input class="form-control" name="MaxSleeplength" type="text" id="slider-sleeplength-a2">
+                    </div>
+                </div>
+                <div id="slider-sleeplength-r" class="slider-range"></div>
+            </div>
+            <div class="inner-wrap f-slider" data-filter-number="sleepwidth" data-min="0" data-max="15000">
+                <div class="title">@T("filters.sleepwidth")</div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <span>@T("filters.from"): </span>
+                        <input class="form-control" name="MinSleepwidth" type="text" id="slider-sleepwidth-a1">
+                        <span>@T("filters.to"): </span>
+                        <input class="form-control" name="MaxSleepwidth" type="text" id="slider-sleepwidth-a2">
+                    </div>
+                </div>
+                <div id="slider-sleepwidth-r" class="slider-range"></div>
+            </div>
+        }
+        @await Html.PartialAsync("_FilterSpecsBox", Model.SpecificationFilter)
+        <div class="inner-wrap text-center">
+            <div class="btn-group-vertical">
+                <button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">@T("filters.submit")</button>
+                <button type="button" id="clr-filters" class="btn btn-link" onclick="window.location.replace([location.protocol, '//', location.host, location.pathname].join(''));">@T("filters.clear")</button>
             </div>
         </div>
-        <div id="slider-price-r" class="slider-range"></div>
-    </div>
-    <div class="inner-wrap f-slider" data-filter-number="height" data-min="0" data-max="15000">
-        <div class="title">@T("filters.height")</div>
-        <div class="form-inline">
-            <div class="form-group">
-                <span>@T("filters.from"): </span>
-                <input class="form-control" name="MinHeight" type="text" id="slider-height-a1">
-                <span>@T("filters.to"): </span>
-                <input class="form-control" name="MaxHeight" type="text" id="slider-height-a2">
-            </div>
-        </div>
-        <div id="slider-height-r" class="slider-range"></div>
-    </div>
-    <div class="inner-wrap f-slider" data-filter-number="width" data-min="0" data-max="15000">
-        <div class="title">@T("filters.width")</div>
-        <div class="form-inline">
-            <div class="form-group">
-                <span>@T("filters.from"): </span>
-                <input class="form-control" name="MinWidth" type="text" id="slider-width-a1">
-                <span>@T("filters.to"): </span>
-                <input class="form-control" name="MaxWidth" type="text" id="slider-width-a2">
-            </div>
-        </div>
-        <div id="slider-width-r" class="slider-range"></div>
-    </div>
-    <div class="inner-wrap f-slider" data-filter-number="length" data-min="0" data-max="15000">
-        <div class="title">@T("filters.length")</div>
-        <div class="form-inline">
-            <div class="form-group">
-                <span>@T("filters.from"): </span>
-                <input class="form-control" name="MinLength" type="text" id="slider-length-a1">
-                <span>@T("filters.to"): </span>
-                <input class="form-control" name="MaxLength" type="text" id="slider-length-a2">
-            </div>
-        </div>
-        <div id="slider-length-r" class="slider-range"></div>
-    </div>
-    @if ((bool)ViewBag.HasSleepSizes)
-    {
-    <div class="inner-wrap f-slider" data-filter-number="sleeplength" data-min="0" data-max="15000">
-        <div class="title">@T("filters.sleeplength")</div>
-        <div class="form-inline">
-            <div class="form-group">
-                <span>@T("filters.from"): </span>
-                <input class="form-control" name="MinSleeplength" type="text" id="slider-sleeplength-a1">
-                <span>@T("filters.to"): </span>
-                <input class="form-control" name="MaxSleeplength" type="text" id="slider-sleeplength-a2">
-            </div>
-        </div>
-        <div id="slider-sleeplength-r" class="slider-range"></div>
-    </div>
-    <div class="inner-wrap f-slider" data-filter-number="sleepwidth" data-min="0" data-max="15000">
-        <div class="title">@T("filters.sleepwidth")</div>
-        <div class="form-inline">
-            <div class="form-group">
-                <span>@T("filters.from"): </span>
-                <input class="form-control" name="MinSleepwidth" type="text" id="slider-sleepwidth-a1">
-                <span>@T("filters.to"): </span>
-                <input class="form-control" name="MaxSleepwidth" type="text" id="slider-sleepwidth-a2">
-            </div>
-        </div>
-        <div id="slider-sleepwidth-r" class="slider-range"></div>
-    </div>
-    }
-    <div class="inner-wrap text-center">
-        <div class="btn-group-vertical">
-            <button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">@T("filters.submit")</button>
-            <button type="button" id="clr-filters" class="btn btn-link">@T("filters.clear")</button>
-        </div>
-    </div>
 </div>
 <script>
     $(document).ready(function () {
@@ -88,10 +89,10 @@
         $("[name=MaxPrice]").val(@Model.Price?.to);
         $("[name=MinLength]").val(@Model.Length?.from);
         $("[name=MaxLength]").val(@Model.Length?.to);
-        $("[name=MaxWidth]").val(@Model.Width?.from);
-        $("[name=MinWidth]").val(@Model.Width?.to);
-        $("[name=MaxHeight]").val(@Model.Height?.from);
-        $("[name=MinHeight]").val(@Model.Height?.to);
+        $("[name=MinWidth]").val(@Model.Width?.from);
+        $("[name=MaxWidth]").val(@Model.Width?.to);
+        $("[name=MinHeight]").val(@Model.Height?.from);
+        $("[name=MaxHeight]").val(@Model.Height?.to);
         $("[name=MinSleeplength]").val(@Model.SleepLength?.from);
         $("[name=MaxSleeplength]").val(@Model.SleepLength?.to);
         $("[name=MinSleepwidth]").val(@Model.SleepWidth?.from);
@@ -107,6 +108,13 @@
         {
             query += "&sleeplength=" + $("[name=MinSleeplength]").val() + "-" + $("[name=MaxSleeplength]").val();
             query += "&sleepwidth=" + $("[name=MinSleepwidth]").val() + "-" + $("[name=MaxSleepwidth]").val();
+        }
+        var specsArr = [];
+        $(".filters-data input.form-check-input:checked").each(function () {
+            specsArr.push(this.value);
+        });
+        if (specsArr.length > 0) {
+            query += "&specs=" + specsArr.sort().toString();
         }
         query += "&orderby=" + $("[name=orderby]:checked").val();
         window.location.replace(query);

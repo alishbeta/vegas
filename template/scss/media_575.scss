@@ -40,10 +40,19 @@
                 margin-top: 0;
             }
         }
-        .question-wrap .title button {
-            right: 0px;
-            top: -9px;
-        }
+        .product .tabbed-content .question-wrap{
+            p.icons-wrap {
+                padding: 4px 0 0 0;
+            }
+            .title button {
+                right: 0px;
+                top: 35px;
+                margin-top: 15px;
+            }
+            .stars {
+                margin-bottom: 25px;
+            }
+        } 
     }
     .news-wrap {
         padding-bottom: 65px;

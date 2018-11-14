@@ -53,7 +53,7 @@
     }
 }
 
-.icons-wrap {
+.header-wrap .icons-wrap {
     float: right;
     width: 230px;
     margin-top: 35px;
@@ -756,7 +756,8 @@ html .ui-button.ui-state-disabled {
         margin-right: 2px;
     }
     small {
-        vertical-align: -2px;
+        vertical-align: 4px;
+        padding-left: 5px;
     }
 }
 

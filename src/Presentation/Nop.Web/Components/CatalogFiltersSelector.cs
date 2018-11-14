@@ -18,7 +18,7 @@ namespace Nop.Web.Components
             this._webHelper = webHelper;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(CatalogPagingFilteringModel.SpecificationFilterModel specificationFilter)
         {
             FilterRangesModel model = new FilterRangesModel();
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("price")))
@@ -69,6 +69,7 @@ namespace Nop.Web.Components
                     to = double.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[1])
                 };
             }
+            model.SpecificationFilter = specificationFilter;
             return View(model);
         }
     }
