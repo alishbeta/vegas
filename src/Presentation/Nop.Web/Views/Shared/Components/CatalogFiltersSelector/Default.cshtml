@@ -1,18 +1,18 @@
 ﻿@model FilterRangesModel
 <div class="filters-data">
-        <div class="inner-wrap f-slider" data-filter-number="price" data-min="0" data-max="15000">
-            <div class="title">@T("filters.price")</div>
-            <div class="form-inline">
-                <div class="form-group">
-                    <span>@T("filters.from"): </span>
-                    <input class="form-control" name="MinPrice" type="text" id="slider-price-a1">
-                    <span>@T("filters.to"): </span>
-                    <input class="form-control" name="MaxPrice" type="text" id="slider-price-a2">
-                </div>
+    <div class="inner-wrap f-slider" data-filter-number="price" data-min="0" data-max="@Model.Price?.max">
+        <div class="title">@T("filters.price")</div>
+        <div class="form-inline">
+            <div class="form-group">
+                <span>@T("filters.from"): </span>
+                <input class="form-control" name="MinPrice" type="text" id="slider-price-a1">
+                <span>@T("filters.to"): </span>
+                <input class="form-control" name="MaxPrice" type="text" id="slider-price-a2">
             </div>
-            <div id="slider-price-r" class="slider-range"></div>
         </div>
-        <div class="inner-wrap f-slider" data-filter-number="height" data-min="0" data-max="15000">
+        <div id="slider-price-r" class="slider-range"></div>
+    </div>
+    @*<div class="inner-wrap f-slider" data-filter-number="height" data-min="0" data-max="@Model.Height?.max">
             <div class="title">@T("filters.height")</div>
             <div class="form-inline">
                 <div class="form-group">
@@ -23,85 +23,94 @@
                 </div>
             </div>
             <div id="slider-height-r" class="slider-range"></div>
+        </div>*@
+    <div class="main-title">
+        @T("filter.sizes")
+    </div>
+    <div class="inner-wrap f-slider" data-filter-number="width" data-min="0" data-max="@Model.Width?.max">
+        <div class="title">@T("filters.width")</div>
+        <div class="form-inline">
+            <div class="form-group">
+                <span>@T("filters.from"): </span>
+                <input class="form-control" name="MinWidth" type="text" id="slider-width-a1">
+                <span>@T("filters.to"): </span>
+                <input class="form-control" name="MaxWidth" type="text" id="slider-width-a2">
+            </div>
         </div>
-        <div class="inner-wrap f-slider" data-filter-number="width" data-min="0" data-max="15000">
-            <div class="title">@T("filters.width")</div>
+        <div id="slider-width-r" class="slider-range"></div>
+    </div>
+    <div class="inner-wrap f-slider" data-filter-number="length" data-min="0" data-max="@Model.Length?.max">
+        <div class="title">@T("filters.length")</div>
+        <div class="form-inline">
+            <div class="form-group">
+                <span>@T("filters.from"): </span>
+                <input class="form-control" name="MinLength" type="text" id="slider-length-a1">
+                <span>@T("filters.to"): </span>
+                <input class="form-control" name="MaxLength" type="text" id="slider-length-a2">
+            </div>
+        </div>
+        <div id="slider-length-r" class="slider-range"></div>
+    </div>
+    @if ((bool)ViewBag.HasSleepSizes)
+    {
+        <div class="main-title">
+            @T("filter.sleepsizes")
+        </div>
+        <div class="inner-wrap f-slider" data-filter-number="sleeplength" data-min="0" data-max="@Model.SleepLength?.max">
+            <div class="title">@T("filters.sleeplength")</div>
             <div class="form-inline">
                 <div class="form-group">
                     <span>@T("filters.from"): </span>
-                    <input class="form-control" name="MinWidth" type="text" id="slider-width-a1">
+                    <input class="form-control" name="MinSleeplength" type="text" id="slider-sleeplength-a1">
                     <span>@T("filters.to"): </span>
-                    <input class="form-control" name="MaxWidth" type="text" id="slider-width-a2">
+                    <input class="form-control" name="MaxSleeplength" type="text" id="slider-sleeplength-a2">
                 </div>
             </div>
-            <div id="slider-width-r" class="slider-range"></div>
+            <div id="slider-sleeplength-r" class="slider-range"></div>
         </div>
-        <div class="inner-wrap f-slider" data-filter-number="length" data-min="0" data-max="15000">
-            <div class="title">@T("filters.length")</div>
+        <div class="inner-wrap f-slider" data-filter-number="sleepwidth" data-min="0" data-max="@Model.SleepWidth?.max">
+            <div class="title">@T("filters.sleepwidth")</div>
             <div class="form-inline">
                 <div class="form-group">
                     <span>@T("filters.from"): </span>
-                    <input class="form-control" name="MinLength" type="text" id="slider-length-a1">
+                    <input class="form-control" name="MinSleepwidth" type="text" id="slider-sleepwidth-a1">
                     <span>@T("filters.to"): </span>
-                    <input class="form-control" name="MaxLength" type="text" id="slider-length-a2">
+                    <input class="form-control" name="MaxSleepwidth" type="text" id="slider-sleepwidth-a2">
                 </div>
             </div>
-            <div id="slider-length-r" class="slider-range"></div>
+            <div id="slider-sleepwidth-r" class="slider-range"></div>
         </div>
-        @if ((bool)ViewBag.HasSleepSizes)
-        {
-            <div class="inner-wrap f-slider" data-filter-number="sleeplength" data-min="0" data-max="15000">
-                <div class="title">@T("filters.sleeplength")</div>
-                <div class="form-inline">
-                    <div class="form-group">
-                        <span>@T("filters.from"): </span>
-                        <input class="form-control" name="MinSleeplength" type="text" id="slider-sleeplength-a1">
-                        <span>@T("filters.to"): </span>
-                        <input class="form-control" name="MaxSleeplength" type="text" id="slider-sleeplength-a2">
-                    </div>
-                </div>
-                <div id="slider-sleeplength-r" class="slider-range"></div>
-            </div>
-            <div class="inner-wrap f-slider" data-filter-number="sleepwidth" data-min="0" data-max="15000">
-                <div class="title">@T("filters.sleepwidth")</div>
-                <div class="form-inline">
-                    <div class="form-group">
-                        <span>@T("filters.from"): </span>
-                        <input class="form-control" name="MinSleepwidth" type="text" id="slider-sleepwidth-a1">
-                        <span>@T("filters.to"): </span>
-                        <input class="form-control" name="MaxSleepwidth" type="text" id="slider-sleepwidth-a2">
-                    </div>
-                </div>
-                <div id="slider-sleepwidth-r" class="slider-range"></div>
-            </div>
-        }
-        @await Html.PartialAsync("_FilterSpecsBox", Model.SpecificationFilter)
-        <div class="inner-wrap text-center">
-            <div class="btn-group-vertical">
-                <button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">@T("filters.submit")</button>
-                <button type="button" id="clr-filters" class="btn btn-link" onclick="window.location.replace([location.protocol, '//', location.host, location.pathname].join(''));">@T("filters.clear")</button>
-            </div>
+    }
+    @await Html.PartialAsync("_FilterSpecsBox", Model.SpecificationFilter)
+    <div class="inner-wrap text-center">
+        <div class="btn-group-vertical">
+            <button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">@T("filters.submit")</button>
+            <button type="button" id="clr-filters" class="btn btn-link" onclick="window.location.replace([location.protocol, '//', location.host, location.pathname].join(''));">@T("filters.clear")</button>
         </div>
+    </div>
 </div>
 <script>
-    $(document).ready(function () {
-        $("[name=MinPrice]").val(@Model.Price?.from);
-        $("[name=MaxPrice]").val(@Model.Price?.to);
-        $("[name=MinLength]").val(@Model.Length?.from);
-        $("[name=MaxLength]").val(@Model.Length?.to);
-        $("[name=MinWidth]").val(@Model.Width?.from);
-        $("[name=MaxWidth]").val(@Model.Width?.to);
-        $("[name=MinHeight]").val(@Model.Height?.from);
-        $("[name=MaxHeight]").val(@Model.Height?.to);
-        $("[name=MinSleeplength]").val(@Model.SleepLength?.from);
-        $("[name=MaxSleeplength]").val(@Model.SleepLength?.to);
-        $("[name=MinSleepwidth]").val(@Model.SleepWidth?.from);
-        $("[name=MaxSleepwidth]").val(@Model.SleepWidth?.to);
-    });
+    $("[name=MinPrice]").val(@Model.Price?.from);
+    $("[name=MaxPrice]").val(@Model.Price?.to);
+    $("[name=MinLength]").val(@Model.Length?.from);
+    $("[name=MaxLength]").val(@Model.Length?.to);
+    $("[name=MinWidth]").val(@Model.Width?.from);
+    $("[name=MaxWidth]").val(@Model.Width?.to);
+    @*$("[name=MinHeight]").val(@Model.Height?.from);
+    $("[name=MaxHeight]").val(@Model.Height?.to);*@
+    $("[name=MinSleeplength]").val(@Model.SleepLength?.from);
+    $("[name=MaxSleeplength]").val(@Model.SleepLength?.to);
+    $("[name=MinSleepwidth]").val(@Model.SleepWidth?.from);
+    $("[name=MaxSleepwidth]").val(@Model.SleepWidth?.to);
     function submitFilters() {
+        $(".filters-data .form-group input").each(function () {
+            if ($(this).val().trim().length == 0) {
+                $(this).val(0);
+            }
+        });
         var query = "";
         query += "?price=" + $("[name=MinPrice]").val() + "-" + $("[name=MaxPrice]").val();
-        query += "&height=" + $("[name=MinHeight]").val() + "-" + $("[name=MaxHeight]").val();
+        //query += "&height=" + $("[name=MinHeight]").val() + "-" + $("[name=MaxHeight]").val();
         query += "&length=" + $("[name=MinLength]").val() + "-" + $("[name=MaxLength]").val();
         query += "&width=" + $("[name=MinWidth]").val() + "-" + $("[name=MaxWidth]").val();
         if ('@((bool)ViewBag.HasSleepSizes)'.toLowerCase() == 'true')
