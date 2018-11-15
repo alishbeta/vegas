@@ -141,7 +141,7 @@
 				}
 				var buyButton = "";
 				if (product.InStock) {
-					buyButton = '<button type="button" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/1/1\');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block">@T("product.buy")</button>';
+					buyButton = '<button type="button" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/1/1\');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block buy-btn">@T("product.buy")</button>';
 				}
 				else {
 					buyButton = '<button class="btn btn-sm btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-cat-' + product.Id + '" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>' + 
