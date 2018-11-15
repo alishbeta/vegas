@@ -159,7 +159,7 @@
 											@foreach (var spec in specificationAttributes)
 											{
 												<li class="d-sm-none"></li>
-												<li>@(product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId) != null ? product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId).ValueRaw : "—")</li>
+												<li>@(!string.IsNullOrWhiteSpace(product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId)?.ValueRaw) ? product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId).ValueRaw : "—")</li>
 											}
 										</ul>
 									</div>

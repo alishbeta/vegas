@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
+using Nop.Core.Domain.Catalog;
 using Nop.Web.Factories;
 using Nop.Web.Framework.Components;
 using Nop.Web.Models.Catalog;
@@ -20,7 +21,7 @@ namespace Nop.Web.Components
             this._webHelper = webHelper;
         }
 
-        public IViewComponentResult Invoke(CatalogPagingFilteringModel.SpecificationFilterModel specificationFilter, IEnumerable<ProductOverviewModel> products)
+        public IViewComponentResult Invoke(CatalogPagingFilteringModel.SpecificationFilterModel specificationFilter, IEnumerable<Product> products)
         {
             FilterRangesModel model = new FilterRangesModel();
             
@@ -74,7 +75,7 @@ namespace Nop.Web.Components
             }
             try
             {
-                model.Price.max = (double)(products.OrderByDescending(x => x.ProductPrice?.PriceValue).FirstOrDefault()?.ProductPrice?.PriceValue ?? 0);
+                model.Price.max = (double)(products.OrderByDescending(x => x.Price).FirstOrDefault()?.Price ?? 0);
                 //model.Height.max = (double)(products.OrderByDescending(x => x.Height).FirstOrDefault()?.Height);
                 model.Length.max = (double)(products.OrderByDescending(x => x.Length).FirstOrDefault()?.Length ?? 0);
                 model.Width.max = (double)(products.OrderByDescending(x => x.Width).FirstOrDefault()?.Width ?? 0);

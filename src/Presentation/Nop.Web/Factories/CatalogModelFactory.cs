@@ -521,6 +521,15 @@ namespace Nop.Web.Factories
 			}
             model.PagingFilteringContext.LoadPagedList(products);
 
+            model.AllProducts = _productService.SearchProducts(out filterableSpecificationAttributeOptionIds,  //recall to update filterableSpecificationAttributeOptionIds
+                true,                                                                           //needs to include already selected options in filters
+                categoryIds: categoryIds,
+                storeId: _storeContext.CurrentStore.Id,
+                visibleIndividuallyOnly: true,
+                featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
+                orderBy: orderBy
+                );
+
             //specs
             model.PagingFilteringContext.SpecificationFilter.PrepareSpecsFilters(alreadyFilteredSpecOptionIds,
                 filterableSpecificationAttributeOptionIds?.ToArray(),
