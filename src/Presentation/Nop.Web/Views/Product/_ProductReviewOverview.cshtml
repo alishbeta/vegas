@@ -12,59 +12,66 @@
 {
 <div class="question-wrap clearfix">
     <div class="title clearfix">
-        <h5>@T("reviews.title")</h5>
-        <p class="icons-wrap">
-            @if (Model.ProductReviewOverview.TotalReviews > 0)
-            {
-                @for (int i = 0; i < 5; i++)
+        <div class="comment-title-main">
+            <h4>@Model.Name</h4>
+        </div>
+        <div class="stars">
+            <div class="icons-wrap">
+                @if (Model.ProductReviewOverview.TotalReviews > 0)
                 {
-                    if ((int)(Model.ProductReviewOverview.RatingSum / Model.ProductReviewOverview.TotalReviews) > i)
+                    @for (int i = 0; i < 5; i++)
                     {
-                        <i class="star"></i>
-                    }
-                    else
-                    {
-                        <i class="star grey"></i>
+                        if ((int)(Model.ProductReviewOverview.RatingSum / Model.ProductReviewOverview.TotalReviews) > i)
+                        {
+                            <i class="star"></i>
+                        }
+                        else
+                        {
+                            <i class="star grey"></i>
+                        }
                     }
                 }
-            }
-        </p>
+            </div>
+        </div>
+        <button id="comment-activate" class="btn btn-blue btn-sm pl-4 pr-4">@T("Reviews.SubmitButton")</button>
     </div>
-    <div class="title">
-        <strong>@T("Reviews.Write")</strong>
-    </div>
-    <form asp-route="ProductReviews" method="post" id="add-review-form">
-        <div asp-validation-summary="ModelOnly" class="message-error" id="message-error"></div>
-        <div class="fieldset">
-            <div class="form-fields">
-                <div class="inputs">
-                    <label for="AddProductReview.Title">@T("review.title"):</label>
-                    <input name="AddProductReview.Title" class="review-title" required />
-                </div>
-                <div class="inputs">
-                    <label for="AddProductReview.ReviewText">@T("review.text"):</label>
-                    <textarea name="AddProductReview.ReviewText" class="review-text" required></textarea>
-                </div>
-                <div class="review-rating">
-                    <div class="name-description">
-                        <label for="AddProductReview.Rating">@T("review.rating"):</label>
-                    </div>
-                    <div class="rating-wrapper">
-                        <div class="label first">@T("Reviews.Fields.Rating.Bad")</div>
-                        <div class="rating-options">
-                            <input name="AddProductReview.Rating" value="1" type="radio" id="addproductrating_1" />
-                            <input name="AddProductReview.Rating" value="2" type="radio" id="addproductrating_2" />
-                            <input name="AddProductReview.Rating" value="3" type="radio" id="addproductrating_3" checked />
-                            <input name="AddProductReview.Rating" value="4" type="radio" id="addproductrating_4" />
-                            <input name="AddProductReview.Rating" value="5" type="radio" id="addproductrating_5" />
-                        </div>
-                        <div class="label last">@T("Reviews.Fields.Rating.Excellent")</div>
-                    </div>
+    <form asp-route="ProductReviews" method="post" id="add-review-form" style="display:none;">
+        <div class="comment-title">
+            <h5>@T("reviews.write")</h5>
+        </div>
+        <div class="form-group">
+            <label for="AddProductReview.Title">@T("review.title"):</label>
+            <input oninvalid="this.setCustomValidity(' ')" oninput="setCustomValidity('')" name="AddProductReview.Title" class="form-control" required="">
+        </div>
+        <div class="form-group">
+            <label for="AddProductReview.ReviewText">@T("review.text"):</label>
+            <textarea oninvalid="this.setCustomValidity(' ')" oninput="setCustomValidity('')" name="AddProductReview.ReviewText" class="form-control" required=""></textarea>
+        </div>
+        <div class="review-rating">
+            <div class="name-description">
+                <label for="AddProductReview.Rating">Оценка:</label>
+            </div>
+            <div class="rating-wrapper">
+                <div id="reviewStars-input">
+                    <input id="star-4" type="radio" name="AddProductReview.Rating" value="5" />
+                    <label title="gorgeous" for="star-4"></label>
+
+                    <input id="star-3" type="radio" name="AddProductReview.Rating" value="4" checked />
+                    <label title="good" for="star-3"></label>
+
+                    <input id="star-2" type="radio" name="AddProductReview.Rating" value="3" />
+                    <label title="regular" for="star-2"></label>
+
+                    <input id="star-1" type="radio" name="AddProductReview.Rating" value="2" />
+                    <label title="poor" for="star-1"></label>
+
+                    <input id="star-0" type="radio" name="AddProductReview.Rating" value="1" />
+                    <label title="bad" for="star-0"></label>
                 </div>
             </div>
         </div>
         <div class="buttons">
-            <button type="submit" id="add-review-btn" name="add-review" class="btn btn-blue btn-sm pl-4 pr-4">@T("Reviews.SubmitButton")</button>
+            <button type="submit" id="add-review-btn" name="add-review" class="btn btn-blue btn-sm pl-4 pr-4">@T("reviews.send")</button>
         </div>
     </form>
     <script>
@@ -111,7 +118,8 @@
                         </div>
                     </div>
                     <div class="text-wrap">
-                        @review.Title
+                        <strong>@review.Title</strong>
+                        <br />
                         @review.ReviewText
                     </div>
                 </li>
