@@ -7,6 +7,15 @@ namespace Nop.Web.Models.Catalog
 {
     public class FilterRangesModel
     {
+        public FilterRangesModel()
+        {
+            Height = new FilterRange();
+            Width = new FilterRange();
+            Length = new FilterRange();
+            SleepLength = new FilterRange();
+            SleepWidth = new FilterRange();
+            Price = new FilterRange();
+        }
         public FilterRange Height { get; set; }
         public FilterRange Width { get; set; }
         public FilterRange Length { get; set; }
@@ -17,6 +26,7 @@ namespace Nop.Web.Models.Catalog
         {
             public double from { get; set; }
             public double to { get; set; }
+            public double max { get; set; }
         }
         public CatalogPagingFilteringModel.SpecificationFilterModel SpecificationFilter { get; set; }
     }

@@ -14,7 +14,7 @@
             @groupList[0].SpecificationAttributeName
         </div>
         @foreach (var spec in groupList)
-        { 
+        {
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="@spec.SpecificationAttributeOptionId" @(Model.AlreadyFilteredItems.Count(x => x.SpecificationAttributeOptionId == spec.SpecificationAttributeOptionId) > 0 ? "checked" : "")>
                 <label class="form-check-label">
@@ -23,6 +23,7 @@
                 </label>
             </div>
         }
+        <div class="line"></div>
     }
 </div>
 }

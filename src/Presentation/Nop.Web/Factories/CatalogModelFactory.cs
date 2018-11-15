@@ -478,16 +478,10 @@ namespace Nop.Web.Factories
             model.Products = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true);
 
             //filter ranges
-            decimal from, to;
-            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("height"))) ///TODO remove ToList();
-            {                                                                       ///without tolist model.Products is empty                    
-                from = decimal.Parse(_webHelper.QueryString<string>("height").Split('-')[0]);
-                to = decimal.Parse(_webHelper.QueryString<string>("height").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.Height >= from && x.Height <= to).ToList();
-            }
+            decimal from, to;                                                                                          
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("length")))
-            {
-                from = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[0]);
+            {                                                                               ///TODO remove ToList();
+                from = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[0]);///without tolist model.Products is empty  
                 to = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[1]);
                 model.Products = model.Products.Where(x => x.Length >= from && x.Length <= to).ToList();
             }
