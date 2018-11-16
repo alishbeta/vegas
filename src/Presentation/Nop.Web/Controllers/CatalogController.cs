@@ -137,7 +137,7 @@ namespace Nop.Web.Controllers
 			model.AllProducts = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				categoryIds: categories);
-			model.ProductsCount = model.AllProducts.Count;
+			model.ProductsCount = model.AllProducts.Count();
 			var activeCategory = (category.ParentCategoryId != 0 ? category.ParentCategoryId : categoryId);
             ViewBag.ActiveCategory = activeCategory;
             ViewBag.ActiveSubCategory = categoryId;

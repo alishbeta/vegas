@@ -14,6 +14,7 @@ using Nop.Core.Domain.Customers;
 using Nop.Core.Infrastructure;
 using Nop.Services.Common;
 using Nop.Services.Localization;
+using Nop.Services.Security;
 using Nop.Services.Logging;
 using Nop.Services.Stores;
 using Nop.Web.Framework.Kendoui;
@@ -344,7 +345,17 @@ namespace Nop.Web.Framework.Controllers
             var localizationService = EngineContext.Current.Resolve<ILocalizationService>();
             return ErrorForKendoGridJson(localizationService.GetResource("Admin.AccessDenied.Description"));
         }
-        
+
+        #endregion
+
+        #region Location
+
+        protected virtual JsonResult GetCityJson(IWebHelper webHelper, ILocationService locationService)
+        {
+            var location = locationService.GetLocation(webHelper.GetCurrentIpAddress());
+            return Json(location?.city);
+        }
+
         #endregion
     }
 }

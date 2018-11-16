@@ -47,7 +47,7 @@
 		}
 		@if (product.StockQuantity > 0 && product.StatusId != 4)
 		{
-			<button class="btn btn-blue btn-block mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">@T("prod.buy")</button>
+			<button class="btn btn-blue btn-block mt-4 mb-4 buy-btn" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">@T("prod.buy")</button>
 		}
 		else
 		{

@@ -1251,9 +1251,7 @@ namespace Nop.Services.ExportImport
                             CreatedOnUtc = DateTime.UtcNow,
                             UpdatedOnUtc = DateTime.UtcNow,
                             MakeCode = item.Model,
-                            SleepHeight = (int)decimal.Parse(item.SleepHeight.Replace('.', ',')),
                             SleepLength = (int)decimal.Parse(item.SleepLength.Replace('.', ',')),
-                            SleepWeight = (int)decimal.Parse(item.SleepWeight.Replace('.', ',')),
                             SleepWidth = (int)decimal.Parse(item.SleepWidth.Replace('.', ',')),
                             Height = decimal.Parse(item.Height.Replace('.', ',')),
                             Weight = decimal.Parse(item.Weight.Replace('.', ',')),
@@ -1300,9 +1298,7 @@ namespace Nop.Services.ExportImport
                         product.OrderMinimumQuantity = 1;
                         product.StockQuantity = 10000;
                         product.MakeCode = item.Model;
-                        product.SleepHeight = (int)decimal.Parse(item.SleepHeight.Replace('.', ','));
                         product.SleepLength = (int)decimal.Parse(item.SleepLength.Replace('.', ','));
-                        product.SleepWeight = (int)decimal.Parse(item.SleepWeight.Replace('.', ','));
                         product.SleepWidth = (int)decimal.Parse(item.SleepWidth.Replace('.', ','));
                         product.Height = decimal.Parse(item.Height.Replace('.', ','));
                         product.Weight = decimal.Parse(item.Weight.Replace('.', ','));

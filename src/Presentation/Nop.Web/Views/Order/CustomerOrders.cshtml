@@ -25,55 +25,56 @@
 		@await Component.InvokeAsync("AccountMenu", new { active = "/order/history" })
 		<div class="cabinet-info rounded">
 			<div class="row buy-history-wrap">
-				<div class="order-wrap">
-					@if (Model.Orders.Count > 0)
-					{
-						@foreach (var order in Model.Orders)
-						{
-							<div class="orders clearfix">
-								<a data-toggle="collapse" href="@string.Format("#collapseExample{0}", order.Id)" onclick="loadImg(@order.Id)">
-									<div class="title-wrap clearfix">
-										<div>
-											<i class="arrows"></i>№@order.CustomOrderNumber
-										</div>
-										<div>@order.CreatedOn</div>
-										<div><b>@order.OrderItems.Count() @T("order.totaltip") @order.OrderTotal</b></div>
-										<div>@order.OrderStatus</div>
-									</div>
-								</a>
-								<div id="@string.Format("collapseExample{0}", order.Id)" class="collapse order-items clearfix">
-									@foreach (var product in order.OrderItems)
-									{
-										<div class="item">
-											<div class="item-img-wrap"><img id="@string.Format("image{0}_{1}", order.Id, product.ProductId)" src="" alt="@product.Product.ProductPictures.FirstOrDefault()?.Picture.AltAttribute" title="@product.Product.ProductPictures.FirstOrDefault()?.Picture.TitleAttribute"></div>
-											<div class="name">
-												<div class="title" id="@string.Format("title{0}_{1}", order.Id, product.ProductId)"></div>
-												<div>@product.Product.Name</div>
-											</div>
-											<div class="count">
-												@product.Quantity шт
-											</div>
-											<div class="price">
-												@product.Product.Price.ToString("#.##")
-											</div>
-										</div>
-									}
-									<div class="total">
-										<div class="title">@T("order.totalcost")</div>
-										<div><b>@order.OrderTotal</b></div>
-									</div>
-								</div>
-								<div class="line"></div>
-							</div>
-						}
-					}
-					else
-					{
-						<div class="no-data">
-							@T("Account.CustomerOrders.NoOrders")
-						</div>
-					}
-				</div>
+                <div class="order-wrap">
+                    @if (Model.Orders.Count > 0)
+                    {
+                        @foreach (var order in Model.Orders)
+                        {
+                            var itemsCount = order.OrderItems.Sum(item => item.Quantity);
+                            <div class="orders clearfix">
+                                <a data-toggle="collapse" href="@string.Format("#collapseExample{0}", order.Id)" onclick="loadImg(@order.Id)">
+                                    <div class="title-wrap clearfix">
+                                        <div>
+                                            <i class="arrows"></i>№@order.CustomOrderNumber
+                                        </div>
+                                        <div>@order.CreatedOn</div>
+                                        <div><b>@itemsCount @T("order.totaltip") @order.OrderTotal</b></div>
+                                        <div>@order.OrderStatus</div>
+                                    </div>
+                                </a>
+                                <div id="@string.Format("collapseExample{0}", order.Id)" class="collapse order-items clearfix">
+                                    @foreach (var product in order.OrderItems)
+                                    {
+                                        <div class="item">
+                                            <div class="item-img-wrap"><img id="@string.Format("image{0}_{1}", order.Id, product.ProductId)" src="" alt="@product.Product.ProductPictures.FirstOrDefault()?.Picture.AltAttribute" title="@product.Product.ProductPictures.FirstOrDefault()?.Picture.TitleAttribute"></div>
+                                            <div class="name">
+                                                <div class="title" id="@string.Format("title{0}_{1}", order.Id, product.ProductId)"></div>
+                                                <div>@product.Product.Name</div>
+                                            </div>
+                                            <div class="count">
+                                                @product.Quantity шт
+                                            </div>
+                                            <div class="price">
+                                                @product.Product.Price.ToString("#.##")
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="total">
+                                        <div class="title">@T("order.totalcost")</div>
+                                        <div><b>@order.OrderTotal</b></div>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="no-data">
+                            @T("Account.CustomerOrders.NoOrders")
+                        </div>
+                    }
+                </div>
 			</div>
 		</div>
 	</div>
