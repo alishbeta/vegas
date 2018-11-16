@@ -7,7 +7,7 @@
 	<div class="slider">
 		@foreach (var picture in Model.PictureModels)
 		{
-			<div><a href="@picture.ImageUrl"><img alt="@picture.AlternateText" src="@picture.ImageUrl" title="@picture.Title" /></a><span data-full-size-img="@picture.FullSizeImageUrl"></span></div>
+			<div><a href="@picture.FullSizeImageUrl"><img alt="@picture.AlternateText" src="@picture.ImageUrl" title="@picture.Title" /></a></div>
 		}
 	</div>
 	<div class="slider-nav">
