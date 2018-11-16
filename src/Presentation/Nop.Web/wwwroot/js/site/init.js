@@ -109,7 +109,7 @@ $(document).ready(function () {
         $('.side-menu-wrap ul li').on('click', function () {
             $(this).parent().find('li').each(function () {
                 if ($(this).hasClass('active')) {
-                    if ($(this).parent().parent().hasClass('sub-menu') == false){
+                    if ($(this).parent().parent().hasClass('sub-menu') == false) {
                         $(this).removeClass('active');
                     }
                 }
@@ -182,11 +182,21 @@ $(document).ready(function () {
     });
 
     //Скролинг в полной новости.
-    $('#similar-button').on('click', function(){
+    $('#similar-button').on('click', function () {
         let pos = $('#similar-destination').offset().top;
         $('html').animate({ scrollTop: pos }, 1000);
-          }
-        )
+    }
+    );
+
+    //Скролинг в способах оплаты.
+    $('.pay a').on('click', function (event) {
+        event.preventDefault();
+        let elemet = $(this).attr('href').match(/#\S*/);
+        console.log(elemet[0]);
+        let pos = $(elemet[0]).offset().top;
+        $('html').animate({ scrollTop: pos }, 1000);
+    }
+    );
 
     /*#####################    Слайдер для фильтров   ###############################*/
     $('.f-slider').each(function () {
@@ -248,16 +258,16 @@ $(document).ready(function () {
 
     });
 
-        /*#####################    Галерея ###############################*/
+    /*#####################    Галерея ###############################*/
     $(".slider a").fancybox({
         'hideOnContentClick': true
     });
 
-        /*#####################     ###############################*/
-    $('#comment-activate').on('click', function(){
+    /*#####################     ###############################*/
+    $('#comment-activate').on('click', function () {
         $(this).parent().next().slideToggle();
     })
-    
+
 
     /*#####################    Кабинет  (Редактирование личных данных и адреса) ###############################*/
     $('#edit-name, #edit-addres, #edit-pass').on('click', function () {
