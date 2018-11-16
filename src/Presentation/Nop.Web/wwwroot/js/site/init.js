@@ -101,7 +101,7 @@ $(document).ready(function () {
     $('.header-wrap #non-authorized .user_icon').on('click', function () {
         $('.back-shadow, .login-form-wrap').fadeIn();
     });
-    $('.login-form-wrap .close-i').on('click', function () {
+    $('.login-form-wrap .close-i, .back-shadow').on('click', function () {
         $('.back-shadow, .login-form-wrap').fadeOut();
     });
 
@@ -192,7 +192,6 @@ $(document).ready(function () {
     $('.pay a').on('click', function (event) {
         event.preventDefault();
         let elemet = $(this).attr('href').match(/#\S*/);
-        console.log(elemet[0]);
         let pos = $(elemet[0]).offset().top;
         $('html').animate({ scrollTop: pos }, 1000);
     }

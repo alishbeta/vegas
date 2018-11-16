@@ -34,6 +34,9 @@
     .compare_icon + form{
       float: right;
     }
+    .item.active{
+      border: 1px solid transparent;
+    }
   }
   .cabinet-info-main{
     padding: 30px 75px;
