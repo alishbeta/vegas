@@ -138,6 +138,10 @@ section{
     }
     .item {
       min-height: 0;
+      display: none;
+      &.active{
+        display: block;
+      }
       &::before {
         display: none;
       }

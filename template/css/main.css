@@ -3303,6 +3303,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .cabinet .cabinet-info .compare_icon + form {
   float: right;
 }
+.cabinet .cabinet-info .item.active {
+  border: 1px solid transparent;
+}
 .cabinet .cabinet-info-main {
   padding: 30px 75px;
 }
@@ -3693,6 +3696,10 @@ section .item {
   }
   .tabbed-content .item {
     min-height: 0;
+    display: none;
+  }
+  .tabbed-content .item.active {
+    display: block;
   }
   .tabbed-content .item::before {
     display: none;
