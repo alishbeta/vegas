@@ -3,6 +3,13 @@
     margin-left: 80px;
   }
   .all-menu-wrap{
+    #main-menu{
+      li{
+        span{
+          display: none;
+        }
+      }
+    }
     .search-wrap{
       margin-top: 20px;
     }
@@ -56,5 +63,7 @@
       }
     }
   }
-
+  .product .left-wrap {
+    width: 570px;
+}
 }
