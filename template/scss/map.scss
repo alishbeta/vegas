@@ -40,6 +40,9 @@
 }
 
 .show-room{
+  .new-wrap img{
+    width: 100%;
+  }
     &.row{
       margin-right: 0;
       margin-left: 0;
@@ -132,6 +135,7 @@
 
     .img{
       position: relative;
+      margin-right: 15px;
     }
     .text-wrap{
       width: 250px;

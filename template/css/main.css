@@ -3138,6 +3138,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   padding: 15px;
 }
 
+.show-room .new-wrap img {
+  width: 100%;
+}
 .show-room.row {
   margin-right: 0;
   margin-left: 0;
@@ -3227,6 +3230,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .show-room .new-wrap .img {
   position: relative;
+  margin-right: 15px;
 }
 .show-room .new-wrap .text-wrap {
   width: 250px;
