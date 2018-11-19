@@ -329,7 +329,7 @@
                             @await Html.PartialAsync("_CompareProductsButton", Model)
                         </div>
                     </div>
-                    <div class="line"></div>
+                    <div class="line d-none d-lg-block"></div>
                     @if (Model.SleepLength != 0 || Model.SleepWidth != 0)
                     {
                         <div class="prop-wrap">
@@ -469,4 +469,7 @@
 <script src="~/js/site/jquery.mask.js"></script>
 <script>
 	$("#cat-oneclick-phone").mask("(000)0000000");
+    $(".slider a").fancybox({
+        'hideOnContentClick': true
+    });
 </script>

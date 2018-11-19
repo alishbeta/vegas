@@ -73,18 +73,14 @@ namespace Nop.Web.Components
                     to = double.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[1])
                 };
             }
-            try
-            {
-                model.Price.max = (double)(products.OrderByDescending(x => x.Price).FirstOrDefault()?.Price ?? 0);
-                //model.Height.max = (double)(products.OrderByDescending(x => x.Height).FirstOrDefault()?.Height);
-                model.Length.max = (double)(products.OrderByDescending(x => x.Length).FirstOrDefault()?.Length ?? 0);
-                model.Width.max = (double)(products.OrderByDescending(x => x.Width).FirstOrDefault()?.Width ?? 0);
-                model.SleepLength.max = (products.OrderByDescending(x => x.SleepLength).FirstOrDefault()?.SleepLength ?? 0);
-                model.SleepWidth.max = (products.OrderByDescending(x => x.SleepWidth).FirstOrDefault()?.SleepWidth ?? 0);
-            }
-            catch (System.Exception ex)
-            {
-            }
+            
+            model.Price.max = (double)(products.OrderByDescending(x => x.Price).FirstOrDefault()?.Price ?? 0);
+            //model.Height.max = (double)(products.OrderByDescending(x => x.Height).FirstOrDefault()?.Height);
+            model.Length.max = (double)(products.OrderByDescending(x => x.Length).FirstOrDefault()?.Length ?? 0);
+            model.Width.max = (double)(products.OrderByDescending(x => x.Width).FirstOrDefault()?.Width ?? 0);
+            model.SleepLength.max = (products.OrderByDescending(x => x.SleepLength).FirstOrDefault()?.SleepLength ?? 0);
+            model.SleepWidth.max = (products.OrderByDescending(x => x.SleepWidth).FirstOrDefault()?.SleepWidth ?? 0);
+            
             model.SpecificationFilter = specificationFilter;
             return View(model);
         }
