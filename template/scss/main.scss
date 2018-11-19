@@ -638,6 +638,9 @@ small {
         margin-bottom: 15px;
         font-weight: 600;
     }
+    .main-title{
+        margin-left: 30px;
+    }
 }
 
 /*.form-inline .form-control {
@@ -682,7 +685,7 @@ small {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default,
 .ui-button {
-    border: 7px solid #2c96b9;
+    border: 8px solid #2c96b9;
     background: #bfdce6;
     font-weight: normal;
     color: #454545;
@@ -1044,6 +1047,10 @@ html .ui-button.ui-state-disabled {
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
     border: 7px solid transparent;
     background: transparent;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+    top: -.5em!important;
 }
 
 
