@@ -150,14 +150,17 @@
       }
     }
     .order-items{
+      .name{
+        margin-left: 35px;
+      }
       img{
         width: 110px;
       }
       .item{
         div{
           display: inline-block;
-          width: 34%;
-          vertical-align: middle;
+          min-width: 20%;
+          max-width: 34%;
           &:first-child{
             min-width: 110px;
             max-width: 240px;

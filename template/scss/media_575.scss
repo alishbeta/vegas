@@ -40,7 +40,7 @@
                 margin-top: 0;
             }
         }
-        .product .tabbed-content .question-wrap{
+        .product .tabbed-content .question-wrap {
             p.icons-wrap {
                 padding: 4px 0 0 0;
             }
@@ -52,7 +52,7 @@
             .stars {
                 margin-bottom: 25px;
             }
-        } 
+        }
     }
     .news-wrap {
         padding-bottom: 65px;
@@ -185,7 +185,12 @@
                 }
             }
             .outer-wrapp {
-                float: none;
+                .item-wrap img.product {
+                    margin-top: 0px;
+                }
+                &:not(.rounded){
+                    float: none;
+                }
                 li {
                     padding: 10px 10px;
                     margin: 0 -10px;
@@ -198,21 +203,18 @@
                     }
                 }
             }
-            .icons-wrap{
+            .icons-wrap {
                 margin-top: 10px;
                 i {
                     width: 11px;
                     height: 11px;
                     margin-right: 2px;
                 }
-            } 
+            }
         }
         i.close-i {
             margin: 0;
         }
-    }
-    .cabinet .title-wrap {
-        padding: 0 15px;
     }
     nav.blue-menu {
         margin: 0px 0px 30px;
@@ -340,20 +342,47 @@
         padding-left: 0;
     }
     .cabinet {
+        .title-wrap {
+            margin-bottom: 15px;
+        }
         .cabinet-info {
-            padding: 30px 15px;
+            padding: 30px 0;
             .title span {
                 margin-left: 0px;
             }
             .line {
-                margin: 20px -30px;
+                margin: 20px 0;
             }
         }
         .favorite-wrap .close-wrap {
             margin-right: 0;
         }
-        .buy-history-wrap .total {
-            width: 100%;
+        .buy-history-wrap {
+            .order-items {
+                img {
+                    width: 100%;
+                }
+                .item {
+                    div {
+                        max-width: unset;
+                        &:nth-child(2) {
+                            min-width: unset;
+                            max-width: unset;
+                            margin-left: unset;
+                            width: 100%;
+                        }
+                        &:nth-child(4) {
+                            width: 75%;
+                        }
+                    }
+                }
+            }
+            .total {
+                width: 100%;
+            }
+            .order-wrap .title-wrap div:nth-child(4) {
+                margin-top: -25px;
+            }
         }
     }
 }
