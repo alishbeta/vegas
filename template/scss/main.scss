@@ -626,6 +626,10 @@ small {
     overflow: hidden;
     margin-bottom: -5px;
     height: 0px;
+    .h5, h5 {
+        margin-top: 20px;
+        margin-bottom: 0;
+    }
     &.open {
         width: 290px;
         height: auto;
@@ -641,6 +645,10 @@ small {
     .main-title{
         margin-left: 30px;
     }
+}
+
+.modal-content {
+    padding: 5px 20px!important;
 }
 
 /*.form-inline .form-control {

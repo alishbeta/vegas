@@ -1731,6 +1731,10 @@ small {
   margin-bottom: -5px;
   height: 0px;
 }
+.filters-data .h5, .filters-data h5 {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
 .filters-data.open {
   width: 290px;
   height: auto;
@@ -1745,6 +1749,10 @@ small {
 }
 .filters-data .main-title {
   margin-left: 30px;
+}
+
+.modal-content {
+  padding: 5px 20px !important;
 }
 
 /*.form-inline .form-control {
