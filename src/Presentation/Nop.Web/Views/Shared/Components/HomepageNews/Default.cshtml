@@ -19,35 +19,37 @@
 				<div class="scrollableArea clearfix">
 					<div>
 						@foreach (var item in Model.NewsItems)
-						{
-                        <div class="item-wrap">
-							<a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">
-								<div class="img-wrap">
-									@if (string.IsNullOrEmpty(item.Image))
-									{
-										<img src="~/img/news.png" alt="@item.Title">
-									}
-									else
-									{
-										<img src="@item.Image" width="250" alt="@item.Title">
-									}
-								</div>
-								<div class="text-wrap">
-									<div class="title">
-										@item.Title
-									</div>
-									<div class="short-text">
-										@if (item.Short.Length > 100)
-										{
-											@Html.Raw(item.Short + "...")
-										}
-										else
-										{
-											@Html.Raw(item.Short)
-										}
-									</div>
-								</div>
-							</a>
+                        {
+                        <div class="outer-wrapp scroll">
+                            <div class="item-wrap">
+							    <a href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">
+								    <div class="img-wrap">
+									    @if (string.IsNullOrEmpty(item.Image))
+									    {
+										    <img src="~/img/news.png" alt="@item.Title">
+									    }
+									    else
+									    {
+										    <img src="@item.Image" width="250" alt="@item.Title">
+									    }
+								    </div>
+								    <div class="text-wrap">
+									    <div class="title">
+										    @item.Title
+									    </div>
+									    <div class="short-text">
+										    @if (item.Short.Length > 100)
+										    {
+											    @Html.Raw(item.Short + "...")
+										    }
+										    else
+										    {
+											    @Html.Raw(item.Short)
+										    }
+									    </div>
+								    </div>
+							    </a>
+                            </div>
                         </div>
 						}
 					</div>
