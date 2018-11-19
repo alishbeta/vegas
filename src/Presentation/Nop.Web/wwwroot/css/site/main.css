@@ -3816,6 +3816,9 @@ section .item {
     margin-left: 80px;
   }
 
+  .all-menu-wrap #main-menu li span {
+    display: none;
+  }
   .all-menu-wrap .search-wrap {
     margin-top: 20px;
   }
@@ -3863,6 +3866,10 @@ section .item {
 
   .short-menu .content-main-wrap .head-menu {
     margin: 28px 0 0 80px;
+  }
+
+  .product .left-wrap {
+    width: 570px;
   }
 }
 @media (max-width: 992px) {
