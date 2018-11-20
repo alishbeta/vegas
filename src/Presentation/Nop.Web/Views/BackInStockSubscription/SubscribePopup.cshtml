@@ -1,16 +1,16 @@
 ﻿@model BackInStockSubscribeModel
 <div class="page back-in-stock-subscription-page">
 	<div class="page-title">
-		<h6 class="header" style="text-align: center; color: #2c96b9; margin: 20px 0 0 0; font-size: 17px">
-			@if (Model.AlreadySubscribed)
-			{
-				@T("BackInStockSubscriptions.AlreadySubscribed")
-			}
-			else
-			{
-				
-			}
-		</h6>
+        <h6 class="header" style="text-align: center; color: #2c96b9; margin: 20px 0 0 0; font-size: 17px">
+            @if (Model.AlreadySubscribed)
+            {
+                @T("BackInStockSubscriptions.AlreadySubscribed")
+            }
+            else
+            {
+                @T("BackInStockSubscriptions.Tooltip")
+            }
+        </h6>
 	</div>
 	<div class="modal-content" style="border:none;padding: 20px;">
 		@if (!Model.IsCurrentCustomerRegistered)
@@ -27,10 +27,10 @@
 		}
 		else
 		{
-			if (!Model.AlreadySubscribed)
+			@*if (!Model.AlreadySubscribed)
 			{
 				<div>@T("BackInStockSubscriptions.Tooltip")</div>
-			}
+			}*@
 			<div class="body">
 				<div class="item">
 					<img style="float: left; width:110px;" src="@Model.ImageUrl" alt="">
