@@ -1028,7 +1028,10 @@ namespace Nop.Web.Controllers
 				{
 					Name = orderModel.DeliveryType
 				};
-				
+				if (orderModel.PayByBonuses)
+                {
+                    _genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, NopCustomerDefaults.UseRewardPointsDuringCheckoutAttribute, true, _storeContext.CurrentStore.Id);
+                }
 				_genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, NopCustomerDefaults.SelectedShippingOptionAttribute, shippingOption, _storeContext.CurrentStore.Id);
 				var placeOrderResult = _orderProcessingService.PlaceOrder(processPaymentRequest);
 				if (placeOrderResult.Success)

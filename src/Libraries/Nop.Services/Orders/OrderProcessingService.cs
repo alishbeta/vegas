@@ -1490,11 +1490,18 @@ namespace Nop.Services.Orders
             }
 
             if (order.PaymentStatus != PaymentStatus.Paid)
+            {
                 return;
+            }
+            else
+            {
+                AwardRewardPoints(order);
+            }
 
             bool completed;
 
             if (order.ShippingStatus == ShippingStatus.ShippingNotRequired)
+            //if (order.PaymentStatus == PaymentStatus.Paid)
             {
                 //shipping is not required
                 completed = true;

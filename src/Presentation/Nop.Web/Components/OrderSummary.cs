@@ -14,18 +14,22 @@ namespace Nop.Web.Components
         private readonly IShoppingCartModelFactory _shoppingCartModelFactory;
         private readonly IStoreContext _storeContext;
         private readonly IWorkContext _workContext;
+        private readonly IRewardPointService _rewardPointService;
 
         public OrderSummaryViewComponent(IShoppingCartModelFactory shoppingCartModelFactory,
             IStoreContext storeContext,
-            IWorkContext workContext)
+            IWorkContext workContext,
+            IRewardPointService rewardPointService)
         {
             this._shoppingCartModelFactory = shoppingCartModelFactory;
             this._storeContext = storeContext;
             this._workContext = workContext;
+            this._rewardPointService = rewardPointService;
         }
 
         public IViewComponentResult Invoke(bool? prepareAndDisplayOrderReviewData, ShoppingCartModel overriddenModel)
         {
+            ViewBag.BonusesBalance = _rewardPointService.GetRewardPointsBalance(_workContext.CurrentCustomer.Id, _storeContext.CurrentStore.Id);
             //use already prepared (shared) model
             if (overriddenModel != null)
                 return View(overriddenModel);

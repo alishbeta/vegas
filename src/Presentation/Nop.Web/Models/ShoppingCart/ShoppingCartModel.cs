@@ -46,6 +46,9 @@ namespace Nop.Web.Models.ShoppingCart
 
         public bool HideCheckoutButton { get; set; }
         public bool ShowVendorName { get; set; }
+        public int RedeemedRewardPoints { get; internal set; }
+        public string RedeemedRewardPointsAmount { get; internal set; }
+        public int WillEarnRewardPoints { get; internal set; }
 
         #region Nested Classes
 

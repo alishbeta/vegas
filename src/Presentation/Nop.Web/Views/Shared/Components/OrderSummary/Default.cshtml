@@ -647,8 +647,10 @@
 						</div>
 					</div>
 					<div class="form-inline row">
-						<input class="form-check-inline bonus" name="PayByBonuses" type="checkbox">
-						<label class="col-form-label" for="r6">@T("cart.paybybonus")</label>
+						<input class="form-check-inline bonus" name="PayByBonuses" type="checkbox" value="true" onchange="RecountTotal(this.checked)">
+						<label class="col-form-label" for="r6">@T("cart.paybybonus")
+                        @ViewBag.BonusesBalance
+                        </label>
 						<a href="#" class="btn btn-link">@T("cart.moreinfo")</a>
 					</div>
 
@@ -670,6 +672,15 @@
 	</section>
 </article>
 <script>
+    function RecountTotal(value) {
+        if (value) {
+            $("#cart-price-full").text(parseInt($("#cart-price-full").text()) - @ViewBag.BonusesBalance);
+        }
+        else {
+            $("#cart-price-full").text(parseInt($("#cart-price-full").text()) + @ViewBag.BonusesBalance);
+        }
+    }
+
 	function CancelChangesInZone(index) {
 		if (index == 1) {
 			$("#firstZone .row").each(function () {
