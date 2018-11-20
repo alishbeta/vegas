@@ -1441,6 +1441,13 @@ nav.breadcrumb-wrap a:hover {
   border-bottom: 1px solid #cdd2d4;
   padding-bottom: 41px;
 }
+.sell-wrap .scrollM,
+.new-wrap .scrollM,
+.news-wrap .scrollM,
+.news .article-wrap .scrollM,
+.map .article-wrap .scrollM {
+  margin-top: 30px;
+}
 
 .news-wrap .title, .news .article-wrap .title, .map .article-wrap .title {
   margin-bottom: 10px;
@@ -1752,7 +1759,7 @@ small {
 }
 
 .modal-content {
-  padding: 5px 20px !important;
+  padding: 30px 20px !important;
 }
 
 /*.form-inline .form-control {

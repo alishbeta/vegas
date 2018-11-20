@@ -342,6 +342,9 @@
 .news-wrap {
     border-bottom: 1px solid $border_color;
     padding-bottom: 41px;
+    .scrollM{
+        margin-top: 30px;
+    }
 }
 
 .news-wrap {
@@ -648,7 +651,7 @@ small {
 }
 
 .modal-content {
-    padding: 5px 20px!important;
+    padding: 30px 20px !important;
 }
 
 /*.form-inline .form-control {
