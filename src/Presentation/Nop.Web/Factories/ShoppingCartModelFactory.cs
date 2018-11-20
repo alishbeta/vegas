@@ -911,6 +911,29 @@ namespace Nop.Web.Factories
                 model.OrderReviewData = PrepareOrderReviewDataModel(cart);
             }
 
+            var shoppingCartTotalBase = _orderTotalCalculationService.GetShoppingCartTotal(cart, out decimal orderTotalDiscountAmountBase, out List<DiscountForCaching> _, out List<AppliedGiftCard> appliedGiftCards, out int redeemedRewardPoints, out decimal redeemedRewardPointsAmount);
+
+            //reward points to be spent (redeemed)
+            if (redeemedRewardPointsAmount > decimal.Zero)
+            {
+                var redeemedRewardPointsAmountInCustomerCurrency = _currencyService.ConvertFromPrimaryStoreCurrency(redeemedRewardPointsAmount, _workContext.WorkingCurrency);
+                model.RedeemedRewardPoints = redeemedRewardPoints;
+                model.RedeemedRewardPointsAmount = _priceFormatter.FormatPrice(-redeemedRewardPointsAmountInCustomerCurrency, true, false);
+            }
+
+            //reward points to be earned
+            if (_rewardPointsSettings.Enabled && _rewardPointsSettings.DisplayHowMuchWillBeEarned && shoppingCartTotalBase.HasValue)
+            {
+                //get shipping total
+                var shippingBaseInclTax = _orderTotalCalculationService.GetShoppingCartShippingTotal(cart, true) ?? 0;
+
+                //get total for reward points
+                var totalForRewardPoints = _orderTotalCalculationService
+                    .CalculateApplicableOrderTotalForRewardPoints(shippingBaseInclTax, shoppingCartTotalBase.Value);
+                if (totalForRewardPoints > decimal.Zero)
+                    model.WillEarnRewardPoints = _orderTotalCalculationService.CalculateRewardPoints(_workContext.CurrentCustomer, totalForRewardPoints);
+            }
+
             return model;
         }
 
