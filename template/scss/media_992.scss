@@ -9,8 +9,8 @@
         padding-top: 75px;
     }
     .header-wrap .icons-wrap {
-            margin: 0 15px 0;
-            width: auto;
+        margin: 0 15px 0;
+        width: auto;
         i {
             margin-right: 10px;
             margin-top: 22px;
@@ -106,6 +106,9 @@
         overflow-x: hidden;
         height: auto;
         z-index: 1060;
+        .all-menu-wrap #main-menu li span {
+            display: inline;
+        }
         &.open {
             width: 300px;
         }
@@ -339,6 +342,7 @@
             }
             .btn-link {
                 display: block;
+                margin: auto;
             }
         }
         .tabbed-content {
@@ -360,16 +364,16 @@
             @include box-shadow(none);
         }
     }
-    .cabinet{
-       .cabinet-info {
-            padding: 30px 0;
+    .cabinet {
+        .cabinet-info {
+            padding: 30px 45px;
             border: 1px solid transparent;
-            .items{
+            .items {
                 width: 100%;
             }
         }
-        .favorite-wrap .item-wrap{
+        .favorite-wrap .item-wrap {
             margin: 0 8px 15px;
         }
-    } 
+    }
 }

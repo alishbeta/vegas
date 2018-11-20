@@ -1165,9 +1165,6 @@ nav.breadcrumb-wrap a:hover {
   width: 230px;
   margin-top: 35px;
 }
-.header-wrap .icons-wrap img {
-  height: 24px;
-}
 
 .big-links-wrap {
   height: 229px;
@@ -4020,6 +4017,9 @@ section .item {
     height: auto;
     z-index: 1060;
   }
+  .all-menu-wrap .side-menu-wrap .all-menu-wrap #main-menu li span, .all-menu-wrap .side-second-menu-wrap .all-menu-wrap #main-menu li span {
+    display: inline;
+  }
   .all-menu-wrap .side-menu-wrap.open, .all-menu-wrap .open.side-second-menu-wrap {
     width: 300px;
   }
@@ -4245,6 +4245,7 @@ section .item {
   }
   .cart .order-wrapp .btn-link, .cart-popup-wrap .order-wrapp .btn-link {
     display: block;
+    margin: auto;
   }
   .cart .tabbed-content, .cart-popup-wrap .tabbed-content {
     width: 100%;
@@ -4267,7 +4268,7 @@ section .item {
   }
 
   .cabinet .cabinet-info {
-    padding: 30px 0;
+    padding: 30px 45px;
     border: 1px solid transparent;
   }
   .cabinet .cabinet-info .items {
@@ -4317,7 +4318,6 @@ section .item {
     background: white;
     overflow: scroll;
     font-size: 14px;
-    padding-top: 74px;
     position: absolute;
     height: 100vh;
     z-index: 1060;
@@ -4550,6 +4550,7 @@ section .item {
   .news-wrap .item-wrap, .news .article-wrap .item-wrap, .map .article-wrap .item-wrap {
     margin: 0 auto;
     float: none;
+    height: 290px;
   }
 
   .subscription-wrap.row {
@@ -4747,6 +4748,7 @@ section .item {
 
   .scrollComtent div.scrollWrapper .outer-wrapp {
     width: 100%;
+    float: none;
   }
 
   .sell-wrap,
