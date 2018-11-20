@@ -85,12 +85,14 @@
         margin-left: 15px;
         display: none;
     }
-    .content-main-wrap .header-wrap .side-logo-wrap {
-        left: 90px;
-        .logo img {
-            width: 220px;
+    .content-main-wrap .header-wrap{
+        .side-logo-wrap {
+            left: 90px;
+            .logo img {
+                width: 220px;
+            }
         }
-    }
+    } 
     .icons-wrap img {
         margin-left: 10px;
         margin-bottom: 8px;

@@ -1,193 +1,195 @@
-.news{
-  &.row{
-    margin-right: 0;
-    margin-left: 0;
-  }
-  img{
-    max-width: 100%;
-    margin-bottom: 40px;
-    @include border-radius(5px);
-  }
-  .date, .label{
-    display: block;
-    float: right;
-    font-size: 10px;
-    background-color: $background-color;
-    padding: 5px 80px 3px 20px;
-    line-height: 2;
-  }
-  .text{
-    font-size: 16px;
-    a{
-      color: $bluish;
-      text-decoration: underline;
+.news {
+    &.row {
+        margin-right: 0;
+        margin-left: 0;
     }
-  }
-  .news-wrap{
-    border-bottom: none;
-    .title {
-      margin-bottom: 20px;
+    img {
+        max-width: 100%;
+        margin-bottom: 40px;
+        @include border-radius(5px);
     }
-    .item-wrap{
-      margin-bottom: 20px;
-      @include transition(0.5s);
-      &:hover{
-        @include box-shadow($shadow);
-      }
-      .img-wrap{
-        position: relative;
-        .date{
-          position: absolute;
-          bottom: 0;
-          background-color: $background-color;
-          padding: 5px 50px;
-          font-size: 10px;
-          font-weight: 600;
-
-        }
-      }
-    }
-  }
-  .btn-wrap{
-    margin: 60px 0;
-    button:last-child{
-      float: right;
-    }
-    .btn-link{
-      font-size: 14px;
-    }
-  }
-  .about-full-wrap{
-    .slider{
-      &:hover .prev-arrow{
-        opacity: 1;
-      }
-      &:hover .next-arrow{
-        opacity: 1;
-      }
-    }
-    .slider-nav img{
-      margin: 13px 5px;
-      cursor: pointer;
-      border: none;
-      @include transition(box-shadow 0.5s);
-
-      &:hover{
-        @include box-shadow($shadow);
-      }
-    }
-    .prev-arrow{
-      @extend .baner-prev-arrow;
-      top: 0;
-      height: 100%;
-      &:after{
-        border-left: 3px solid white;
-        border-bottom: 3px solid white;
-      }
-    }
-    .next-arrow{
-      @extend .baner-next-arrow;
-      top: 0;
-      height: 100%;
-      &:after{
-        border-left: 3px solid white;
-        border-bottom: 3px solid white;
-      }
-    }
-    .text{
-      margin-bottom: 60px;
-    }
-  }
-  .cert-wrap{
-    .img-wrap{
-      float: left;
-      padding: 70px 0 50px;
-      margin: 0 40px 30px 0;
-      border: 1px solid $border_color;
-      @include transition(.5s);
-      @include border-radius(5px);
-      text-align: center;
-      width: 290px;
-      &:hover{
-        @include box-shadow($shadow);
-
-      }
-      p{
-        margin-top: 40px;
-      }
-      a{
+    .date,
+    .label {
         display: block;
-      }
-      &:hover{
-        text-decoration: underline;
-      }
+        float: right;
+        font-size: 10px;
+        background-color: $background-color;
+        padding: 5px 80px 3px 20px;
+        line-height: 2;
     }
-    img{
-      width: 150px;
+    .text {
+        font-size: 16px;
+        a {
+            color: $bluish;
+            text-decoration: underline;
+        }
     }
-  }
-  .cert-full-wrap{
-    h1 img{
-      width: 50px;
-      margin-left: 30px;
+    .news-wrap {
+        border-bottom: none;
+        .title {
+            margin-bottom: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .item-wrap {
+            margin-bottom: 20px;
+            @include transition(0.5s);
+            &:hover {
+                @include box-shadow($shadow);
+            }
+            .img-wrap {
+                position: relative;
+                .date {
+                    position: absolute;
+                    bottom: 0;
+                    background-color: $background-color;
+                    padding: 5px 50px;
+                    font-size: 10px;
+                    font-weight: 600;
+                }
+            }
+        }
+        .scrollWrapper{
+          height: 370px;
+        }
     }
-  }
-
-  .full{
-    margin: 0 0px 0 -14px;
-    width: calc(100% + 14px);
-  }
-  .article-wrap{
-    @extend .news-wrap;
-    .label{
-      float: none;
-      position: absolute;
-      bottom: 0;
-      text-transform: uppercase;
-      font-weight: 600;
+    .btn-wrap {
+        margin: 60px 0;
+        button:last-child {
+            float: right;
+        }
+        .btn-link {
+            font-size: 14px;
+        }
     }
-    img{
-      margin-bottom: 0px;
+    .about-full-wrap {
+        .slider {
+            &:hover .prev-arrow {
+                opacity: 1;
+            }
+            &:hover .next-arrow {
+                opacity: 1;
+            }
+        }
+        .slider-nav img {
+            margin: 13px 5px;
+            cursor: pointer;
+            border: none;
+            @include transition(box-shadow 0.5s);
+            &:hover {
+                @include box-shadow($shadow);
+            }
+        }
+        .prev-arrow {
+            @extend .baner-prev-arrow;
+            top: 0;
+            height: 100%;
+            &:after {
+                border-left: 3px solid white;
+                border-bottom: 3px solid white;
+            }
+        }
+        .next-arrow {
+            @extend .baner-next-arrow;
+            top: 0;
+            height: 100%;
+            &:after {
+                border-left: 3px solid white;
+                border-bottom: 3px solid white;
+            }
+        }
+        .text {
+            margin-bottom: 60px;
+        }
     }
-  }
-
-  .label.d{
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-  .discount-full-wrap{
-    .img-wrap{
-      position: relative;
+    .cert-wrap {
+        .img-wrap {
+            float: left;
+            padding: 70px 0 50px;
+            margin: 0 40px 30px 0;
+            border: 1px solid $border_color;
+            @include transition(.5s);
+            @include border-radius(5px);
+            text-align: center;
+            width: 290px;
+            &:hover {
+                @include box-shadow($shadow);
+            }
+            p {
+                margin-top: 40px;
+            }
+            a {
+                display: block;
+            }
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        img {
+            width: 150px;
+        }
     }
-    .discount{
-      bottom: 20%;
-      left: 7%;
-      top: 50px;
-      font-size: 48px;
-      width: 150px;
-      height: 150px;
-      @include border-radius(80px);
-      line-height: 3.1;
+    .cert-full-wrap {
+        h1 img {
+            width: 50px;
+            margin-left: 30px;
+        }
     }
-  }
-  .visa{
-    display: block;
-    width: 220px;
-    margin-bottom: 0;
-  }
-  .liq{
-    width: 150px;
-    margin-bottom: 0;
-    margin-left: 15px;
-  }
-  .pci-wrap{
-    background-color: #d9dee0;
-    padding: 20px;
-    margin-top: 40px;
-    img{
-      float: left;
-      margin: 10px 15px 0 0;
+    .full {
+        margin: 0 0px 0 -14px;
+        width: calc(100% + 14px);
     }
-  }
+    .article-wrap {
+        @extend .news-wrap;
+        .label {
+            float: none;
+            position: absolute;
+            bottom: 0;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        img {
+            margin-bottom: 0px;
+        }
+    }
+    .label.d {
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+    .discount-full-wrap {
+        .img-wrap {
+            position: relative;
+        }
+        .discount {
+            bottom: 20%;
+            left: 7%;
+            top: 50px;
+            font-size: 48px;
+            width: 150px;
+            height: 150px;
+            @include border-radius(80px);
+            line-height: 3.1;
+        }
+    }
+    .visa {
+        display: block;
+        width: 220px;
+        margin-bottom: 0;
+    }
+    .liq {
+        width: 150px;
+        margin-bottom: 0;
+        margin-left: 15px;
+    }
+    .pci-wrap {
+        background-color: #d9dee0;
+        padding: 20px;
+        margin-top: 40px;
+        img {
+            float: left;
+            margin: 10px 15px 0 0;
+        }
+    }
 }

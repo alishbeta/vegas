@@ -6,9 +6,9 @@
 @import "aside";
 @import "cat";
 .content {
-    .full>[class*="col"]>.title {
-        margin-left: 15px;
-    }
+    // .full>[class*="col"]>.title {
+    //     margin-left: 15px;
+    // }
     .title {
         position: relative;
         button {
@@ -110,7 +110,7 @@
 }
 
 .pad-norm {
-    padding-top: 65px;
+    padding-top: 10px;
 }
 
 .slider-wrap {
@@ -171,18 +171,16 @@
         width: 20px;
     }
     img.product {
-        width: 228px;
-        //height: 215px;
+        width: 228px; //height: 215px;
         margin-top: 25px;
     }
-    button{
+    button {
         margin: 10px 0;
     }
 }
 
 .item-wrap-full img.product {
-    width: 228px;
-    //height: 215px;
+    width: 228px; //height: 215px;
     margin-top: 25px;
 }
 
@@ -282,12 +280,12 @@
     margin: 0 0 50px 20px;
     padding-left: 20px;
     .item-wrap {
-      position: relative;
+        position: relative;
         margin-right: 30px;
         border: 1px solid #d9dee0;
         border-radius: 5px;
         width: 288px;
-        height: 355px;
+        height: 365px;
         overflow: hidden;
         float: left;
         padding: 0;
@@ -296,24 +294,24 @@
             font-weight: bold;
         }
         .img-wrap {
-          width: 290px;
-          height: 195px;
-          overflow: hidden;
-          img{
-            width: 100%;
-          }
-        }
-        a{
-          //position: absolute;
-          top: 0;
-          display: block;
-          width: 100%;
-          height: 100%;
-          &:hover{
-            .title{
-              text-decoration: underline;
+            width: 290px;
+            height: 195px;
+            overflow: hidden;
+            img {
+                width: 100%;
             }
-          }
+        }
+        a {
+            //position: absolute;
+            top: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            &:hover {
+                .title {
+                    text-decoration: underline;
+                }
+            }
         }
     }
     .title {
@@ -342,7 +340,7 @@
 .news-wrap {
     border-bottom: 1px solid $border_color;
     padding-bottom: 41px;
-    .scrollM{
+    .scrollM {
         margin-top: 30px;
     }
 }
@@ -350,6 +348,9 @@
 .news-wrap {
     .title {
         margin-bottom: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 
@@ -629,7 +630,8 @@ small {
     overflow: hidden;
     margin-bottom: -5px;
     height: 0px;
-    .h5, h5 {
+    .h5,
+    h5 {
         margin-top: 20px;
         margin-bottom: 0;
     }
@@ -645,7 +647,7 @@ small {
         margin-bottom: 15px;
         font-weight: 600;
     }
-    .main-title{
+    .main-title {
         margin-left: 30px;
     }
 }
@@ -683,7 +685,10 @@ small {
     border: 1px solid transparent;
 }
 
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button {
     border: 7px solid transparent;
     background: transparent;
 }
@@ -868,10 +873,10 @@ html .ui-button.ui-state-disabled {
             left: 150px;
             z-index: 5;
         }
-        &.sleep-place .l{
+        &.sleep-place .l {
             left: 85px;
         }
-        .size-opt{
+        .size-opt {
             font-size: 14px;
             color: #212529;
             padding: 25px 0 10px;
@@ -1036,17 +1041,20 @@ html .ui-button.ui-state-disabled {
         }
     }
 }
+
 .modal {
-    z-index: 1060!important;
+    z-index: 1060 !important;
 }
 
-.ui-widget.ui-widget-content{ 
-    border: 1px solid #c5c5c5!important;
+.ui-widget.ui-widget-content {
+    border: 1px solid #c5c5c5 !important;
 }
-.topic-page .text{
-    margin-bottom: 0!important;
+
+.topic-page .text {
+    margin-bottom: 0 !important;
 }
-.ui-dialog{
+
+.ui-dialog {
     z-index: 2000;
     .ui-dialog-title {
         white-space: normal;
@@ -1055,15 +1063,18 @@ html .ui-button.ui-state-disabled {
         float: none;
     }
 }
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button {
     border: 7px solid transparent;
     background: transparent;
 }
 
 .ui-slider-horizontal .ui-slider-handle {
-    top: -.5em!important;
+    top: -.5em !important;
 }
-
 
 @import "cart";
 @import "compare";
