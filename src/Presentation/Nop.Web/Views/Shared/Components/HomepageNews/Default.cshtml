@@ -37,9 +37,9 @@
 										    @item.Title
 									    </div>
 									    <div class="short-text">
-										    @if (item.Short.Length > 100)
+										    @if (item.Short.Length > 125)
 										    {
-											    @Html.Raw(item.Short + "...")
+											    @Html.Raw(item.Short.Substring(0, 125) + "...")
 										    }
 										    else
 										    {
