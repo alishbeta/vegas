@@ -56,8 +56,7 @@
 .header-wrap .icons-wrap {
     float: right;
     width: 230px;
-    margin-top: 35px;
-    // img {
+    margin-top: 35px; // img {
     //     height: 24px;
     // }
 }
@@ -324,8 +323,22 @@
         }
     }
     .short-text {
+        position: relative;
         color: $text_light;
         font-size: 14px;
+        .text-shadow {
+            position: absolute;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            z-index: 2000;
+            background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.63) 50%, rgba(255,255,255,1) 79%);
+            background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0.63) 50%,rgba(255,255,255,1) 79%);
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0.63) 50%,rgba(255,255,255,1) 79%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+
+        }
     }
 }
 
