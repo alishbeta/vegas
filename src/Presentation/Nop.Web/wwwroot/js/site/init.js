@@ -52,6 +52,7 @@ $(document).ready(function () {
     if ($(window).width() >= 575) {
         $('ul li.d-sm-none').remove();
         $('.outer-wrapp.scroll').hover(function () {
+            console.log();
             if ($(this).find(".item-wrap-full").length) {
                 var b = $(this).find(".item-wrap-full"),
                     c = $(this).position(),

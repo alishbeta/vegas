@@ -3482,6 +3482,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .cabinet .buy-history-wrap .order-items .item div:first-child {
   min-width: 110px;
   max-width: 240px;
+  width: 18%;
 }
 .cabinet .buy-history-wrap .order-items .item div:nth-child(2) {
   min-width: 175px;
@@ -3906,6 +3907,9 @@ section .item {
 
   .cart article, .cart-popup-wrap article {
     max-width: 530px;
+  }
+  .cart .cart .order-wrapp, .cart-popup-wrap .cart .order-wrapp, .cart .cart-popup-wrap .order-wrapp, .cart-popup-wrap .cart-popup-wrap .order-wrapp {
+    width: 330px;
   }
 }
 @media (max-width: 992px) {
