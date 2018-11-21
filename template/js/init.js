@@ -188,14 +188,6 @@ $(document).ready(function () {
     }
     );
 
-    //Скролинг в способах оплаты.
-    $('.pay a').on('click', function (event) {
-        event.preventDefault();
-        let elemet = $(this).attr('href').match(/#\S*/);
-        let pos = $(elemet[0]).offset().top;
-        $('html').animate({ scrollTop: pos }, 1000);
-    }
-    );
 
     /*#####################    Слайдер для фильтров   ###############################*/
     $('.f-slider').each(function () {
