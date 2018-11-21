@@ -3903,6 +3903,10 @@ section .item {
   .product .left-wrap {
     width: 570px;
   }
+
+  .cart article, .cart-popup-wrap article {
+    max-width: 530px;
+  }
 }
 @media (max-width: 992px) {
   .r-wrap {
