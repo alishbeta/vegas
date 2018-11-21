@@ -377,28 +377,7 @@
 
                 <div class="line"></div>
 
-                <div class="title"><span>2</span>@T("Cart.Payment")</div>
-                <div class="form-inline row">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" value="1" name="PaymentType" type="radio" id="r4" checked>
-                        <label for="r4"></label>
-                        <label class="col-form-label" for="r4">@T("cart.payment.cash")</label>
-                    </div>
-                    <div class="form-check  form-check-inline">
-                        <input class="form-check-input" value="2" name="PaymentType" type="radio" id="r5">
-                        <label for="r5"></label>
-                        <label class="col-form-label" for="r5">@T("cart.payment.card")</label>
-                    </div>
-                </div>
-                <div class="form-inline row">
-                    <input class="form-check-inline bonus" name="PayByBonuses" type="checkbox">
-                    <label class="col-form-label" for="r6">@T("Cart.PayByBonus")</label>
-                    <a href="#" class="btn btn-link">@T("Cart.MoreInfo")</a>
-                </div>
-
-                <div class="line"></div>
-
-                <div class="title"><span>3</span>@T("Cart.DeliveryType")</div>
+                <div class="title"><span>2</span>@T("Cart.DeliveryType")</div>
                 <div class="form-inline form-group row">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" value="@T("cart.delivery.store")" name="DeliveryType" type="radio" id="r1" checked>
@@ -427,6 +406,27 @@
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">@T("admin.orders.address.address2")</label>
                     <input type="text" name="StreetAddress2" class="form-control col-sm-2">
+                </div>
+
+                <div class="line"></div>
+
+                <div class="title"><span>3</span>@T("Cart.Payment")</div>
+                <div class="form-inline row">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" value="1" name="PaymentType" type="radio" id="r4" checked>
+                        <label for="r4"></label>
+                        <label class="col-form-label" for="r4">@T("cart.payment.cash")</label>
+                    </div>
+                    <div class="form-check  form-check-inline">
+                        <input class="form-check-input" value="2" name="PaymentType" type="radio" id="r5">
+                        <label for="r5"></label>
+                        <label class="col-form-label" for="r5">@T("cart.payment.card")</label>
+                    </div>
+                </div>
+                <div class="form-inline row">
+                    <input class="form-check-inline bonus" name="PayByBonuses" type="checkbox">
+                    <label class="col-form-label" for="r6">@T("Cart.PayByBonus")</label>
+                    <a href="#" class="btn btn-link">@T("Cart.MoreInfo")</a>
                 </div>
 
                 <div class="line"></div>
