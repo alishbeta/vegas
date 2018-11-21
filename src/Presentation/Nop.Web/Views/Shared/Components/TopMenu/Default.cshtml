@@ -124,24 +124,24 @@
 		};
 		@await Html.PartialAsync("_CategoryLine.TopMenu", categoryLineModel)
 	}
-	<li>
+	<li class="d-inline d-xl-none d-md-none">
 		<a onclick="return false;" href="/delivery">
-			<span class="d-inline d-xl-none d-md-none">@T("topmenu.delivery")</span>
+			<span>@T("topmenu.delivery")</span>
 		</a>
 	</li>
-	<li>
+	<li class="d-inline d-xl-none d-md-none">
 		<a onclick="return false;" href="/ourstores">
-			<span class="d-inline d-xl-none d-md-none">@T("main.ourstores")</span>
+			<span>@T("main.ourstores")</span>
 		</a>
 	</li>
-	<li>
+	<li class="d-inline d-xl-none d-md-none">
 		<a onclick="return false;" href="/customer/info">
-			<span class="d-inline d-xl-none d-md-none">@T("account.cabinet")</span>
+			<span>@T("account.cabinet")</span>
 		</a>
 	</li>
-	<li>
+	<li class="d-inline d-xl-none d-md-none">
 		<a onclick="return false;" href="/about-us">
-			<span class="d-inline d-xl-none d-md-none">@T("footer.about")</span>
+			<span>@T("footer.about")</span>
 		</a>
 	</li>
 </ul>
