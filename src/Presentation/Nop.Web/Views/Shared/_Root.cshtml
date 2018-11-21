@@ -93,11 +93,11 @@
 				<span>@T("cart.total") <span id="cart-count">0</span> @T("cart.total.text")</span>
 				<span><span id="cart-price">0</span> грн</span>
 			</div>
-			<div class="text-center">
-				<button class="btn btn-blue pr-4 pl-4" onclick="window.location.replace('/checkout/confirm')" id="cartcontinue">@T("cart.continue")</button>
-				<button class="btn btn-blue-white pr-4 pl-4" data-toggle="modal" data-target="#oneclickbuy">@T("cart.buynow")</button>
+			<div class="text-center mt-2">
+				<button class="btn btn-block btn-blue pr-4 pl-4" onclick="window.location.replace('/checkout/confirm')" id="cartcontinue">@T("cart.continue")</button>
+				<button class="btn btn-block btn-blue-white pr-4 pl-4" data-toggle="modal" data-target="#oneclickbuy">@T("cart.buynow")</button>
 			</div>
-			<div class="text-center">
+			<div class="text-center mt-2">
 				<button id="pop-up-close" class="btn btn-link ">@T("cart.close")</button>
 			</div>
 		</div>
@@ -438,7 +438,16 @@
 						$("#cartItems").removeClass("load");
 					});
 				}
-				$(document).ready(GetCrossSellProducts());
+                $(document).ready(GetCrossSellProducts());
+                $(document).ready(function () {
+                    $.ajax({
+                        url: '@Url.Action("CityJson", "Common")',
+                        type: 'json',
+                    }).done(function (data) {
+                        console.log(data);
+                        $("#your-city").text(data);
+                    });
+                });
 			</script>
 		</div>
 		@await Component.InvokeAsync("Footer")
