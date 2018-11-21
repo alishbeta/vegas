@@ -360,87 +360,87 @@
 	</nav>
 	<section id="tab1" class="item @(!string.IsNullOrEmpty(ViewBag.IsAuthenticated) ? "" : "active")" data-title="@T("Cart.NewClient")">
 		<div class="item-content">
-			<form asp-route="CheckoutConfirm" method="post">
-				<div class="title"><span>1</span>@T("Cart.FillInfo")</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3" for="i1">@T("Cart.Name")</label>
-					<input id="i1" type="text" name="Name" class="form-control col-sm-8">
-				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3" for="i2">@T("Cart.Phone")</label>
-					<input id="i2" type="text" name="Phone" class="form-control col-sm-8">
-				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3" for="i3">@T("Cart.Email")</label>
-					<input id="i3" type="text" name="Email" class="form-control col-sm-8">
-				</div>
+            <form asp-route="CheckoutConfirm" method="post">
+                <div class="title"><span>1</span>@T("Cart.FillInfo")</div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="i1">@T("Cart.Name")</label>
+                    <input id="i1" type="text" name="Name" class="form-control col-sm-8">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="i2">@T("Cart.Phone")</label>
+                    <input id="i2" type="text" name="Phone" class="form-control col-sm-8">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="i3">@T("Cart.Email")</label>
+                    <input id="i3" type="text" name="Email" class="form-control col-sm-8">
+                </div>
 
-				<div class="line"></div>
+                <div class="line"></div>
 
-				<div class="title"><span>2</span>@T("Cart.DeliveryType")</div>
-				<div class="form-inline form-group row">
-					<div class="form-check form-check-inline">
-						<input class="form-check-input" value="@T("cart.delivery.store")" name="DeliveryType" type="radio" id="r1" checked>
-						<label for="r1"></label>
-						<label class="col-form-label" for="r1">@T("cart.delivery.store")</label>
-					</div>
-					<div class="form-check  form-check-inline">
-						<input class="form-check-input" value="@T("cart.delivery.default")" name="DeliveryType" type="radio" id="r2">
-						<label for="r2"></label>
-						<label class="col-form-label" for="r2">@T("cart.delivery.default")</label>
-					</div>
-					<div class="form-check  form-check-inline">
-						<input class="form-check-input" value="@T("cart.delivery.novaposhta")" name="DeliveryType" type="radio" id="r3">
-						<label for="r3"></label>
-						<label class="col-form-label" for="r3">@T("cart.delivery.novaposhta")</label>
-					</div>
-				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3">@T("Cart.City")</label>
-					<input type="text" name="City" class="form-control col-sm-8">
-				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3">@T("admin.orders.address.address1")</label>
-					<input type="text" name="StreetAddress1" class="form-control col-sm-8">
-				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3">@T("admin.orders.address.address2")</label>
-					<input type="text" name="StreetAddress2" class="form-control col-sm-2">
-				</div>
+                <div class="title"><span>2</span>@T("Cart.Payment")</div>
+                <div class="form-inline row">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" value="1" name="PaymentType" type="radio" id="r4" checked>
+                        <label for="r4"></label>
+                        <label class="col-form-label" for="r4">@T("cart.payment.cash")</label>
+                    </div>
+                    <div class="form-check  form-check-inline">
+                        <input class="form-check-input" value="2" name="PaymentType" type="radio" id="r5">
+                        <label for="r5"></label>
+                        <label class="col-form-label" for="r5">@T("cart.payment.card")</label>
+                    </div>
+                </div>
+                <div class="form-inline row">
+                    <input class="form-check-inline bonus" name="PayByBonuses" type="checkbox">
+                    <label class="col-form-label" for="r6">@T("Cart.PayByBonus")</label>
+                    <a href="#" class="btn btn-link">@T("Cart.MoreInfo")</a>
+                </div>
 
-				<div class="line"></div>
+                <div class="line"></div>
 
-				<div class="title"><span>3</span>@T("Cart.Payment")</div>
-				<div class="form-inline row">
-					<div class="form-check form-check-inline">
-						<input class="form-check-input" value="1" name="PaymentType" type="radio" id="r4" checked>
-						<label for="r4"></label>
-						<label class="col-form-label" for="r4">@T("cart.payment.cash")</label>
-					</div>
-					<div class="form-check  form-check-inline">
-						<input class="form-check-input" value="2" name="PaymentType" type="radio" id="r5">
-						<label for="r5"></label>
-						<label class="col-form-label" for="r5">@T("cart.payment.card")</label>
-					</div>
-				</div>
-				<div class="form-inline row">
-					<input class="form-check-inline bonus" name="PayByBonuses" type="checkbox">
-					<label class="col-form-label" for="r6">@T("Cart.PayByBonus")</label>
-					<a href="#" class="btn btn-link">@T("Cart.MoreInfo")</a>
-				</div>
+                <div class="title"><span>3</span>@T("Cart.DeliveryType")</div>
+                <div class="form-inline form-group row">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" value="@T("cart.delivery.store")" name="DeliveryType" type="radio" id="r1" checked>
+                        <label for="r1"></label>
+                        <label class="col-form-label" for="r1">@T("cart.delivery.store")</label>
+                    </div>
+                    <div class="form-check  form-check-inline">
+                        <input class="form-check-input" value="@T("cart.delivery.default")" name="DeliveryType" type="radio" id="r2">
+                        <label for="r2"></label>
+                        <label class="col-form-label" for="r2">@T("cart.delivery.default")</label>
+                    </div>
+                    <div class="form-check  form-check-inline">
+                        <input class="form-check-input" value="@T("cart.delivery.novaposhta")" name="DeliveryType" type="radio" id="r3">
+                        <label for="r3"></label>
+                        <label class="col-form-label" for="r3">@T("cart.delivery.novaposhta")</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3">@T("Cart.City")</label>
+                    <input type="text" name="City" class="form-control col-sm-8">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3">@T("admin.orders.address.address1")</label>
+                    <input type="text" name="StreetAddress1" class="form-control col-sm-8">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3">@T("admin.orders.address.address2")</label>
+                    <input type="text" name="StreetAddress2" class="form-control col-sm-2">
+                </div>
 
-				<div class="line"></div>
+                <div class="line"></div>
 
-				<div class="title">@T("Cart.Comment")</div>
-				<div class="form-group row text-left">
-					<textarea class="form-control col-sm-8" name="Comment" rows="4"></textarea>
-				</div>
-				<div class="row">
-					<button type="submit" id="checkout-new" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
-						@T("Cart.Confirm")
-					</button>
-				</div>
-			</form>
+                <div class="title">@T("Cart.Comment")</div>
+                <div class="form-group row text-left">
+                    <textarea class="form-control col-sm-8" name="Comment" rows="4"></textarea>
+                </div>
+                <div class="row">
+                    <button type="submit" id="checkout-new" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
+                        @T("Cart.Confirm")
+                    </button>
+                </div>
+            </form>
 		</div>
 	</section>
 	<section id="tab2" class="item @(string.IsNullOrEmpty(ViewBag.IsAuthenticated) ? "" : "active")" data-title="@T("cart.oldclient")">
@@ -508,164 +508,165 @@
 			else
 			{
 			<div class="row login-wrap">
-				<form asp-route="CheckoutConfirm" method="post">
-					<div id="firstZone">
-						<div class="title"><span>1</span>@T("cart.personalinfo")</div>
-						<button type="button" id="edit-name" class="btn btn-link">
-							@T("cart.changeinfo")
-						</button>
-						<button style="display: none;" onclick="CancelChangesInZone(1)" type="button" id="edit-name-close" class="btn btn-link">
-							@T("cart.cancel")
-						</button>
+                <form asp-route="CheckoutConfirm" method="post">
+                    <div id="firstZone">
+                        <div class="title"><span>1</span>@T("cart.personalinfo")</div>
+                        <button type="button" id="edit-name" class="btn btn-link">
+                            @T("cart.changeinfo")
+                        </button>
+                        <button style="display: none;" onclick="CancelChangesInZone(1)" type="button" id="edit-name-close" class="btn btn-link">
+                            @T("cart.cancel")
+                        </button>
 
-						<div class="form-group row">
-							<label style="display: none" class="col-form-label col-sm-3" for="li1">
-								@T("cart.name")
-							</label>
-							<input id="li1" style="display: none" type="text" name="Name" class="form-control col-sm-8" value="@Model.CustomerInfo.FirstName">
-							<div class="col-sm-4">@T("cart.name")</div>
-							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.FirstName</div>
-						</div>
-						<div class="form-group row">
-							<label style="display: none" class="col-form-label col-sm-3" for="li2">
-								@T("cart.phone")
-							</label>
-							<input style="display: none" id="li2" type="text" name="Phone" class="form-control col-sm-8" value="@Model.CustomerInfo.Phone">
-							<div class="col-sm-4">@T("cart.phone")</div>
-							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.Phone</div>
-						</div>
-						<div class="form-group row">
-							<label style="display: none" class="col-form-label col-sm-3" for="li1">E-mail</label>
-							<input id="li3" type="text" style="display: none" name="Email" class="form-control col-sm-8" value="@Model.CustomerInfo.Email">
-							<div class="col-sm-4">E-mail</div>
-							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.Email</div>
-						</div>
-					</div>
+                        <div class="form-group row">
+                            <label style="display: none" class="col-form-label col-sm-3" for="li1">
+                                @T("cart.name")
+                            </label>
+                            <input id="li1" style="display: none" type="text" name="Name" class="form-control col-sm-8" value="@Model.CustomerInfo.FirstName">
+                            <div class="col-sm-4">@T("cart.name")</div>
+                            <div class="col-sm-8 text-light-c">@Model.CustomerInfo.FirstName</div>
+                        </div>
+                        <div class="form-group row">
+                            <label style="display: none" class="col-form-label col-sm-3" for="li2">
+                                @T("cart.phone")
+                            </label>
+                            <input style="display: none" id="li2" type="text" name="Phone" class="form-control col-sm-8" value="@Model.CustomerInfo.Phone">
+                            <div class="col-sm-4">@T("cart.phone")</div>
+                            <div class="col-sm-8 text-light-c">@Model.CustomerInfo.Phone</div>
+                        </div>
+                        <div class="form-group row">
+                            <label style="display: none" class="col-form-label col-sm-3" for="li1">E-mail</label>
+                            <input id="li3" type="text" style="display: none" name="Email" class="form-control col-sm-8" value="@Model.CustomerInfo.Email">
+                            <div class="col-sm-4">E-mail</div>
+                            <div class="col-sm-8 text-light-c">@Model.CustomerInfo.Email</div>
+                        </div>
+                    </div>
 
-					<div class="line"></div>
+                    <div class="line"></div>
 
-					<div class="title"><span>2</span>@T("cart.delivery")</div>
-					<div class="form-inline row">
-						<div class="form-check form-check-inline">
-							<input class="form-check-input"
-								   value="@T("cart.delivery.store")"
-								   name="DeliveryType"
-								   type="radio"
-								   id="lr1" checked>
-							<label for="lr1"></label>
-							<label class="col-form-label" for="lr1">@T("cart.delivery.store")</label>
-						</div>
-						<div class="form-check  form-check-inline">
-							<input class="form-check-input"
-								   value="@T("cart.delivery.default")"
-								   name="DeliveryType"
-								   type="radio"
-								   id="lr2">
-							<label for="lr2"></label>
-							<label class="col-form-label" for="lr2">
-								@T("cart.delivery.default")
-							</label>
-						</div>
-						<div class="form-check  form-check-inline">
-							<input class="form-check-input"
-								   value="@T("cart.delivery.novaposhta")"
-								   name="DeliveryType"
-								   type="radio"
-								   id="lr3">
-							<label for="lr3"></label>
-							<label class="col-form-label" for="lr3">@T("cart.delivery.novaposhta")</label>
-						</div>
-					</div>
+                    <div id="secondZone">
+                        <div class="title"><span>2</span>@T("cart.address")</div>
+                        <button type="button" id="edit-addres" class="btn btn-link">
+                            @T("cart.changeaddr")
+                        </button>
+                        <button type="button" id="edit-addres-close" onclick="CancelChangesInZone(2)" style="display: none" class="btn btn-link">
+                            @T("cart.cancel")
+                        </button>
 
-					<div class="line"></div>
+                        <div class="form-group row">
+                            <label style="display: none" class="col-form-label col-sm-3" for="li1">
+                                @T("cart.city")
+                            </label>
+                            <input type="text"
+                                   style="display: none"
+                                   id="ai1"
+                                   name="City"
+                                   class="form-control col-sm-8"
+                                   value="@Model.CustomerInfo.City">
+                            <div class="col-sm-4">@T("cart.city")</div>
+                            <div class="col-sm-8 text-light-c">@Model.CustomerInfo.City</div>
+                        </div>
+                        <div class="form-group row">
+                            <label style="display: none" class="col-form-label col-sm-3" for="li2">
+                                @T("cart.address")
+                            </label>
+                            <input style="display: none"
+                                   id="ai2"
+                                   type="text"
+                                   name="StreetAddress1"
+                                   class="form-control col-sm-8"
+                                   value="@Model.CustomerInfo.StreetAddress">
+                            <div class="col-sm-4">@T("cart.address")</div>
+                            <div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress</div>
+                        </div>
+                        <div class="form-group row">
+                            <label style="display: none" class="col-form-label col-sm-3" for="li2">
+                                @T("cart.flat")
+                            </label>
+                            <input style="display: none"
+                                   id="ai2"
+                                   type="text"
+                                   name="StreetAddress2"
+                                   class="form-control col-sm-8"
+                                   value="@Model.CustomerInfo.StreetAddress2">
+                            <div class="col-sm-4">@T("cart.flat")</div>
+                            <div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress2</div>
+                        </div>
+                    </div>
 
-					<div id="secondZone">
-						<div class="title"><span>3</span>@T("cart.address")</div>
-						<button type="button" id="edit-addres" class="btn btn-link">
-							@T("cart.changeaddr")
-						</button>
-						<button type="button" id="edit-addres-close" onclick="CancelChangesInZone(2)" style="display: none" class="btn btn-link">
-							@T("cart.cancel")
-						</button>
+                    <div class="line"></div>
 
-						<div class="form-group row">
-							<label style="display: none" class="col-form-label col-sm-3" for="li1">
-								@T("cart.city")
-							</label>
-							<input type="text"
-								   style="display: none"
-								   id="ai1"
-								   name="City"
-								   class="form-control col-sm-8"
-								   value="@Model.CustomerInfo.City">
-							<div class="col-sm-4">@T("cart.city")</div>
-							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.City</div>
-						</div>
-						<div class="form-group row">
-							<label style="display: none" class="col-form-label col-sm-3" for="li2">
-								@T("cart.address")
-							</label>
-							<input style="display: none"
-								   id="ai2"
-								   type="text"
-								   name="StreetAddress1"
-								   class="form-control col-sm-8"
-								   value="@Model.CustomerInfo.StreetAddress">
-							<div class="col-sm-4">@T("cart.address")</div>
-							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress</div>
-						</div>
-						<div class="form-group row">
-							<label style="display: none" class="col-form-label col-sm-3" for="li2">
-								@T("cart.flat")
-							</label>
-							<input style="display: none"
-								   id="ai2"
-								   type="text"
-								   name="StreetAddress2"
-								   class="form-control col-sm-8"
-								   value="@Model.CustomerInfo.StreetAddress2">
-							<div class="col-sm-4">@T("cart.flat")</div>
-							<div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress2</div>
-						</div>
-					</div>
+                    <div class="title"><span>3</span>@T("cart.delivery")</div>
+                    <div class="form-inline row">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   value="@T("cart.delivery.store")"
+                                   name="DeliveryType"
+                                   type="radio"
+                                   id="lr1" checked>
+                            <label for="lr1"></label>
+                            <label class="col-form-label" for="lr1">@T("cart.delivery.store")</label>
+                        </div>
+                        <div class="form-check  form-check-inline">
+                            <input class="form-check-input"
+                                   value="@T("cart.delivery.default")"
+                                   name="DeliveryType"
+                                   type="radio"
+                                   id="lr2">
+                            <label for="lr2"></label>
+                            <label class="col-form-label" for="lr2">
+                                @T("cart.delivery.default")
+                            </label>
+                        </div>
+                        <div class="form-check  form-check-inline">
+                            <input class="form-check-input"
+                                   value="@T("cart.delivery.novaposhta")"
+                                   name="DeliveryType"
+                                   type="radio"
+                                   id="lr3">
+                            <label for="lr3"></label>
+                            <label class="col-form-label" for="lr3">@T("cart.delivery.novaposhta")</label>
+                        </div>
+                    </div>
 
-					<div class="line"></div>
+                    <div class="line"></div>
 
-					<div class="title"><span>4</span>@T("cart.payment")</div>
-					<div class="form-inline row">
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" value="1" name="PaymentType" type="radio" id="lr4" checked>
-							<label for="lr4"></label>
-							<label class="col-form-label" for="lr4">
-								@T("cart.payment.cash")
-							</label>
-						</div>
-						<div class="form-check  form-check-inline">
-							<input class="form-check-input" value="2" name="PaymentType" type="radio" id="lr5">
-							<label for="lr5"></label>
-							<label class="col-form-label" for="lr5">@T("cart.payment.card")</label>
-						</div>
-					</div>
-					<div class="form-inline row">
-						<input class="form-check-inline bonus" name="PayByBonuses" type="checkbox" value="true" onchange="RecountTotal(this.checked)">
-						<label class="col-form-label" for="r6">@T("cart.paybybonus")
+                    <div class="title"><span>4</span>@T("cart.payment")</div>
+                    <div class="form-inline row">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" value="1" name="PaymentType" type="radio" id="lr4" checked>
+                            <label for="lr4"></label>
+                            <label class="col-form-label" for="lr4">
+                                @T("cart.payment.cash")
+                            </label>
+                        </div>
+                        <div class="form-check  form-check-inline">
+                            <input class="form-check-input" value="2" name="PaymentType" type="radio" id="lr5">
+                            <label for="lr5"></label>
+                            <label class="col-form-label" for="lr5">@T("cart.payment.card")</label>
+                        </div>
+                    </div>
+                    <div class="form-inline row">
+                        <input class="form-check-inline bonus" name="PayByBonuses" type="checkbox" value="true" onchange="RecountTotal(this.checked)">
+                        <label class="col-form-label" for="r6">
+                            @T("cart.paybybonus")
                         @ViewBag.BonusesBalance
-                        </label>
-						<a href="#" class="btn btn-link">@T("cart.moreinfo")</a>
-					</div>
+                    </label>
+                    <a href="#" class="btn btn-link">@T("cart.moreinfo")</a>
+                </div>
 
-					<div class="line"></div>
+                <div class="line"></div>
 
-					<div class="title">@T("cart.comment")</div>
-					<div class="form-group row text-left">
-						<textarea class="form-control col-sm-8" name="Comment" rows="4"></textarea>
-					</div>
-					<div class="row">
-						<button type="submit" id="checkout-old" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
-							@T("Cart.Confirm")
-						</button>
-					</div>
-				</form>
+                <div class="title">@T("cart.comment")</div>
+                <div class="form-group row text-left">
+                    <textarea class="form-control col-sm-8" name="Comment" rows="4"></textarea>
+                </div>
+                <div class="row">
+                    <button type="submit" id="checkout-old" name="checkout" value="checkout" class="btn btn-blue pl-5 pr-5">
+                        @T("Cart.Confirm")
+                    </button>
+                </div>
+                </form>
 			</div>
 			}
 		</div>

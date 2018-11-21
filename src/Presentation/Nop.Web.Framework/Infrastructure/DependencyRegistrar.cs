@@ -225,6 +225,7 @@ namespace Nop.Web.Framework.Infrastructure
             builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
             builder.RegisterType<SettingService>().As<ISettingService>().InstancePerLifetimeScope();
+            builder.RegisterType<LocationService>().As<ILocationService>().InstancePerLifetimeScope();
 
 
             builder.RegisterType<ActionContextAccessor>().As<IActionContextAccessor>().InstancePerLifetimeScope();

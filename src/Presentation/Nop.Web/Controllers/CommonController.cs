@@ -18,6 +18,7 @@ using Nop.Services.Localization;
 using Nop.Services.Logging;
 using Nop.Services.Messages;
 using Nop.Services.Orders;
+using Nop.Services.Security;
 using Nop.Services.Shipping;
 using Nop.Services.Vendors;
 using Nop.Web.Areas.Admin.Models.Shipping;
@@ -54,6 +55,8 @@ namespace Nop.Web.Controllers
         private readonly LocalizationSettings _localizationSettings;
         private readonly StoreInformationSettings _storeInformationSettings;
         private readonly VendorSettings _vendorSettings;
+        private readonly IWebHelper _webHelper;
+        private readonly ILocationService _locationService;
         
         #endregion
         
@@ -77,7 +80,9 @@ namespace Nop.Web.Controllers
             LocalizationSettings localizationSettings,
             StoreInformationSettings storeInformationSettings,
             VendorSettings vendorSettings,
-			IShippingService shippingService)
+			IShippingService shippingService,
+            IWebHelper webHelper,
+            ILocationService locationService)
         {
             this._captchaSettings = captchaSettings;
             this._commonSettings = commonSettings;
@@ -98,6 +103,8 @@ namespace Nop.Web.Controllers
             this._storeInformationSettings = storeInformationSettings;
             this._vendorSettings = vendorSettings;
 			this._shippingService = shippingService;
+            this._webHelper = webHelper;
+            this._locationService = locationService;
 		}
 
 		#endregion
@@ -488,6 +495,12 @@ namespace Nop.Web.Controllers
 			return View(model);
 		}
 
-		#endregion
-	}
+        #endregion
+
+        public JsonResult CityJson()
+        {
+            var location = _locationService.GetLocation(_webHelper.GetCurrentIpAddress());
+            return Json(_localizationService.GetResource(string.Format("cities.{0}", location?.city)));
+        }
+    }
 }

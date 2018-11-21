@@ -14,11 +14,11 @@
 <div class="row news">
 	<div class="full">
 		<div class="col-xl-11">
-			<h1 class="title">Статьи</h1>
+			<h1 class="title">@T("articles.title")</h1>
 		</div>
 		<nav class="blue-menu">
 			<ul class="clearfix" id="links">
-				<li><a href="#" id="cat0" class="active" onclick="ShowOnly('#cat0')">Все статьи</a></li>
+				<li><a href="#" id="cat0" class="active" onclick="ShowOnly('#cat0')">@T("articles.all")</a></li>
 				@{
 					var itemsList = new List<int>();
 
@@ -36,18 +36,19 @@
 		<div class="article-wrap" id="items">
 			@foreach (var item in Model)
 			{
-				<div class="item-wrap @(string.Format("cat{0}", item.TopicCategoryId))">
-					<div class="img-wrap">
-						<img src="/img/news.png" alt="news">
-						<div class="label">@T(string.Format("topic.category{0}", item.TopicCategoryId))</div>
-					</div>
-					<div class="text-wrap">
-						<div class="title"><a href='/topic/topicdetails?topicId=@item.Id'>@item.Title</a></div>
-						<div class="short-text">
-                            @Html.Raw(item.Body)    
-						</div>
-					</div>
-				</div>
+            <div class="item-wrap @(string.Format("cat{0}", item.TopicCategoryId))">
+                <div class="img-wrap">
+                    <img src="/img/news.png" alt="news">
+                    <div class="label">@T(string.Format("topic.category{0}", item.TopicCategoryId))</div>
+                </div>
+                <div class="text-wrap">
+                    <div class="title"><a href='/topic/topicdetails?topicId=@item.Id'>@item.Title</a></div>
+                    <div class="short-text">
+                        @Html.Raw(item.Body)
+                    </div>
+                </div>
+                <div class="text-shadow"></div>
+            </div>
 			}
 		</div>
 	</div>

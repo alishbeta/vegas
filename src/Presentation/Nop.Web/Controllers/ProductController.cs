@@ -57,6 +57,7 @@ namespace Nop.Web.Controllers
         private readonly LocalizationSettings _localizationSettings;
         private readonly ShoppingCartSettings _shoppingCartSettings;
 		private readonly IOrderReportService _orderReportService;
+        private readonly ILocationService _locationService;
 
 		#endregion
 
@@ -83,7 +84,8 @@ namespace Nop.Web.Controllers
 			IWorkContext workContext,
             IWorkflowMessageService workflowMessageService,
             LocalizationSettings localizationSettings,
-            ShoppingCartSettings shoppingCartSettings)
+            ShoppingCartSettings shoppingCartSettings,
+            ILocationService locationService)
         {
             this._captchaSettings = captchaSettings;
 			this._orderReportService = orderReportService;
@@ -107,6 +109,7 @@ namespace Nop.Web.Controllers
             this._localizationSettings = localizationSettings;
             this._shoppingCartSettings = shoppingCartSettings;
 			this._cacheManager = cacheManager;
+            this._locationService = locationService;
 		}
 
         #endregion

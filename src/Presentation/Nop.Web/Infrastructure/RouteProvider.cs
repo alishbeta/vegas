@@ -117,6 +117,10 @@ namespace Nop.Web.Infrastructure
 			//new products
 			routeBuilder.MapLocalizedRoute("TopicDetails", "/topic/topicdetails",
 				new { controller = "Topic", action = "CustomTopicDetails" });
+            
+            //get city by ip
+			routeBuilder.MapLocalizedRoute("getcityjson", "/GetCityJson",
+				new { controller = "Common", action = "CityJson" });
 				 
 			//our stores
             routeBuilder.MapLocalizedRoute("OurStores", "ourstores/",

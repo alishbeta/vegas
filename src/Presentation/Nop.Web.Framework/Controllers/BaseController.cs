@@ -350,7 +350,7 @@ namespace Nop.Web.Framework.Controllers
 
         #region Location
 
-        protected virtual JsonResult GetCityJson(IWebHelper webHelper, ILocationService locationService)
+        public virtual JsonResult GetCityJson(IWebHelper webHelper, ILocationService locationService)
         {
             var location = locationService.GetLocation(webHelper.GetCurrentIpAddress());
             return Json(location?.city);

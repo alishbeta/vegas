@@ -49,7 +49,7 @@
 <div class="cart">
 	<div class="cart-wrap">
 		<div class="row">
-			<div class="col-sm-10 col-md-8 offset-md-1 offset-lg-1 col-lg-7 offset-xl-1 col-xl-6">
+			<div class="col-sm-10 col-md-8 col-lg-7 offset-xl-1 col-xl-6">
 				<h1 class="title d-none d-lg-block">@T("ShoppingCart")</h1>
 				@await Component.InvokeAsync("OrderSummary", new { overriddenModel = Model })
 			</div>
@@ -82,9 +82,9 @@
 							<span><span id="cart-price-full">0</span> грн </span>
                             <span>@T("cart.willearn") @Model.WillEarnRewardPoints</span>
 						</div>
-					<button class="btn btn-link">Использовать промокод</button>
-					<button class="btn btn-link">Использовать скидочную карточку</button>
-					<small>Стоимость указана без учета доставки</small>
+					<button class="btn btn-link">@T("cart.usepromocode")</button>
+					<button class="btn btn-link">@T("cart.usegiftcard")</button>
+					<small>@T("cart.price.tip")</small>
 				</div>
 			</div>
 		</div>
