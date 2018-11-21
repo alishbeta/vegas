@@ -849,7 +849,6 @@ nav.breadcrumb-wrap a:hover {
   bottom: 0;
   width: 318px;
   background: white;
-  padding-top: 65px;
   -moz-box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
@@ -4030,7 +4029,7 @@ section .item {
     height: auto;
     z-index: 1060;
   }
-  .all-menu-wrap .side-menu-wrap .all-menu-wrap #main-menu li span, .all-menu-wrap .side-second-menu-wrap .all-menu-wrap #main-menu li span {
+  .all-menu-wrap .side-menu-wrap #main-menu li span, .all-menu-wrap .side-second-menu-wrap #main-menu li span {
     display: inline;
   }
   .all-menu-wrap .side-menu-wrap.open, .all-menu-wrap .open.side-second-menu-wrap {

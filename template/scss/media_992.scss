@@ -106,13 +106,13 @@
         overflow-x: hidden;
         height: auto;
         z-index: 1060;
-        .all-menu-wrap #main-menu li span {
+        #main-menu li span {
             display: inline;
         }
         &.open {
             width: 300px;
         }
-        .search-wrap {
+        .inner-menu-wrap .search-wrap {
             border-bottom: none;
             margin-top: 0;
             margin-bottom: 0;
