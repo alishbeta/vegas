@@ -33,19 +33,6 @@ $(document).ready(function () {
 
         });
     }
-    /*#####################    Мобильно меню  ###############################*/
-
-    $('.humburger-wrap').on('click', function () {
-        $('.side-menu-wrap, html, .header-wrap, body').toggleClass('open');
-        $('.back-shadow').fadeToggle();
-        $(this).toggleClass('op');
-    });
-
-    if ($(window).width() <= 575) {
-        $('#main-menu li').on('click', function () {
-            $(this).find('.sub-menu').slideToggle();
-        });
-    }
 
     /*#####################    Карусель  ###############################*/
 
@@ -96,6 +83,21 @@ $(document).ready(function () {
             });
         }
     }, 100);
+
+        /*#####################    Мобильно меню  ###############################*/
+
+        $('.humburger-wrap').on('click', function () {
+            console.log(5);
+            $('.side-menu-wrap, html, .header-wrap, body').toggleClass('open');
+            $('.back-shadow').fadeToggle();
+            $(this).toggleClass('op');
+        });
+    
+        if ($(window).width() <= 800) {
+            $('#main-menu li').on('click', function () {
+                $(this).find('.sub-menu').slideToggle();
+            });
+        }
 
     /*#####################    Отображение подменю   ###############################*/
 
@@ -167,11 +169,11 @@ $(document).ready(function () {
         $('.side-menu-wrap').addClass('open');
     });
 
-    if ($(window).width() >= 768) {
-        $('.content').on('click', function () {
-            $('.side-menu-wrap, .side-second-menu-wrap').removeClass('open');
-        });
-    }
+    // if ($(window).width() >= 768) {
+    //     $('.content').on('click', function () {
+    //         $('.side-menu-wrap, .side-second-menu-wrap').removeClass('open');
+    //     });
+    // }
 
     //Закрываем водменю при клике на крестик.
     $('.side-second-menu-wrap .close-i').on('click', function () {
@@ -236,7 +238,7 @@ $(document).ready(function () {
 
     /*#####################    Корзина (Скрытие pop-up)   ###############################*/
     $('.cart-popup-wrap .close-i, #pop-up-close, .back-shadow').on('click', function () {
-        $('.cart-popup-wrap, .side-menu-wrap, .header-wrap').removeClass('open');
+        $('.cart-popup-wrap, .side-menu-wrap, .header-wrap, .side-second-menu-wrap').removeClass('open');
         $('.back-shadow').fadeOut();
         $('.humburger-wrap').removeClass('op');
     });
