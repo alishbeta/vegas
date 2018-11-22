@@ -44,6 +44,17 @@
             }
         }
     }
+    .short-menu{
+        .all-menu-wrap{
+            #main-menu {
+                li {
+                    span {
+                        display: inline;
+                    }
+                }
+            }
+        }
+    }
     .content-main-wrap {
         .header-wrap .side-logo-wrap {
             float: left;
