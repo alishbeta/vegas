@@ -4047,11 +4047,6 @@ section .item {
   .all-menu-wrap .side-menu-wrap.open, .all-menu-wrap .open.side-second-menu-wrap {
     width: 300px;
   }
-  .all-menu-wrap .side-menu-wrap .inner-menu-wrap .search-wrap, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap .search-wrap {
-    border-bottom: none;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
 
   body.open,
   html.open {
@@ -4897,6 +4892,12 @@ section .item {
   }
   .cabinet .buy-history-wrap .order-wrap .title-wrap div:nth-child(4) {
     margin-top: -25px;
+  }
+
+  .inner-menu-wrap .search-wrap {
+    border-bottom: none;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 

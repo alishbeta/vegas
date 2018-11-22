@@ -236,6 +236,11 @@ $(document).ready(function () {
         $(this).prev().val(count -= 1);
     });
 
+        /*#####################    Закрываем фенсибох по тапу   ###############################*/
+    $('.fancybox-slide').bind('touchstart',function(){
+        $.fancybox.close();
+    });
+
     /*#####################    Корзина (Скрытие pop-up)   ###############################*/
     $('.cart-popup-wrap .close-i, #pop-up-close, .back-shadow').on('click', function () {
         $('.cart-popup-wrap, .side-menu-wrap, .header-wrap, .side-second-menu-wrap').removeClass('open');
