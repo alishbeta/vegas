@@ -1272,7 +1272,7 @@ nav.breadcrumb-wrap a:hover {
 
 .item-wrap {
   width: 268px;
-  height: 370px;
+  height: 270px;
   padding: 0 20px;
 }
 .item-wrap span img {
@@ -4529,7 +4529,7 @@ section .item {
     right: 0;
     left: 0;
     width: 120px;
-    bottom: -410px;
+    bottom: -335px;
     margin: auto;
     z-index: 1054;
   }
@@ -4854,7 +4854,7 @@ section .item {
   }
 
   .see-wrap {
-    padding-left: 0;
+    padding: 0 0 25px 0;
   }
 
   .cabinet .title-wrap {
