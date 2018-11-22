@@ -38,6 +38,7 @@ namespace Nop.Web.Controllers
 
         private readonly CaptchaSettings _captchaSettings;
         private readonly CommonSettings _commonSettings;
+        private readonly Areas.Admin.Factories.ILanguageModelFactory _languageModelFactory;
         private readonly ICommonModelFactory _commonModelFactory;
 		private readonly IAddressService _addressService;
 		private readonly ICurrencyService _currencyService;
@@ -64,6 +65,7 @@ namespace Nop.Web.Controllers
 
         public CommonController(CaptchaSettings captchaSettings,
             CommonSettings commonSettings,
+            Areas.Admin.Factories.ILanguageModelFactory languageModelFactory,
             ICommonModelFactory commonModelFactory,
             ICurrencyService currencyService,
 			IAddressService addressService,
@@ -84,6 +86,7 @@ namespace Nop.Web.Controllers
             IWebHelper webHelper,
             ILocationService locationService)
         {
+            this._languageModelFactory = languageModelFactory;
             this._captchaSettings = captchaSettings;
             this._commonSettings = commonSettings;
             this._commonModelFactory = commonModelFactory;
@@ -501,6 +504,16 @@ namespace Nop.Web.Controllers
         {
             var location = _locationService.GetLocation(_webHelper.GetCurrentIpAddress());
             return Json(_localizationService.GetResource(string.Format("cities.{0}", location?.city)));
+        }
+
+        public JsonResult CitySuggestionsJson(string query)
+        {
+            var language = _languageService.GetLanguageById(_workContext.WorkingLanguage.Id, false);
+
+            //prepare model
+            var model = _languageModelFactory.PrepareLocaleResourceListModel(new Areas.Admin.Models.Localization.LocaleResourceSearchModel() { SearchResourceValue = query,
+                SearchResourceName = "cities." }, language);
+            return Json(model.Data.Where(x => x.Id >= 26617 && x.Id <= 26973).Select(x => new { value = x.Value, name = x.Name})); //ids of cities (translates)
         }
     }
 }

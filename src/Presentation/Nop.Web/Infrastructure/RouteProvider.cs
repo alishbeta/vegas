@@ -121,6 +121,10 @@ namespace Nop.Web.Infrastructure
             //get city by ip
 			routeBuilder.MapLocalizedRoute("getcityjson", "/GetCityJson",
 				new { controller = "Common", action = "CityJson" });
+            
+            //get cities
+			routeBuilder.MapLocalizedRoute("getcities", "/GetCitySuggestions",
+				new { controller = "Common", action = "CitySuggestionsJson" });
 				 
 			//our stores
             routeBuilder.MapLocalizedRoute("OurStores", "ourstores/",
