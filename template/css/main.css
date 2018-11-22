@@ -971,7 +971,7 @@ nav.breadcrumb-wrap a:hover {
   display: none;
 }
 .all-menu-wrap .side-menu-wrap .side-logo-wrap, .all-menu-wrap .side-second-menu-wrap .side-logo-wrap {
-  margin-top: -65px;
+  margin-top: 10px;
 }
 .all-menu-wrap .side-second-menu-wrap {
   padding-left: 318px;
