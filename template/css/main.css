@@ -1305,7 +1305,7 @@ nav.breadcrumb-wrap a:hover {
 .item-wrap-full .product-img-wrap .discount {
   bottom: 15px;
   right: 15px;
-  top: 74px;
+  top: px;
   right: 35px;
 }
 
@@ -2531,7 +2531,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   float: left;
   border: 1px solid #cdd2d4;
   margin: 0 20px 30px;
-  height: 300px;
+  height: auto;
 }
 .favorite .product-img-wrap div:first-child {
   width: 100%;
