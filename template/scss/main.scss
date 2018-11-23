@@ -188,22 +188,25 @@
 }
 
 .item-wrap .product-img-wrap .discount {
-    bottom: 15px;
+    bottom: 0;
     right: 15px;
 }
 
 .item-wrap-full .product-img-wrap .discount {
     bottom: 15px;
     right: 15px;
-    top: 112px;
+    top: 74px;
     right: 35px;
 }
 
-.item-wrap .main-prop-wrap .price-titile,
-.item-wrap-full .main-prop-wrap .price-titile {
+.item-wrap .main-prop-wrap{
     margin-top: 15px;
-    font-size: 14px;
-}
+    .price-titile,
+    .item-wrap-full .main-prop-wrap .price-titile {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+} 
 
 .item-wrap .main-prop-wrap .price-old,
 .item-wrap-full .main-prop-wrap .price-old {

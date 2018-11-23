@@ -93,18 +93,18 @@
     }
     .title {
         font-weight: 600;
-        margin: 0 0 10px 20px;
+        margin: 0 10px 10px 20px;
     }
     .img-wrapp {
         min-height: 120px;
         float: left;
     }
     .price-wrap .discount {
+        position: relative;
         width: 30px;
         height: 30px;
         font-size: 11px;
         line-height: 2.7;
-        top: 104px;
-        right: 80px;
+        margin-left: 15px;
     }
 }
