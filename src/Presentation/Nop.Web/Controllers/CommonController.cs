@@ -513,7 +513,7 @@ namespace Nop.Web.Controllers
             //prepare model
             var model = _languageModelFactory.PrepareLocaleResourceListModel(new Areas.Admin.Models.Localization.LocaleResourceSearchModel() { SearchResourceValue = query,
                 SearchResourceName = "cities." }, language);
-            return Json(model.Data.Where(x => x.Id >= 26617 && x.Id <= 26973).Select(x => new { value = x.Value, name = x.Name})); //ids of cities (translates)
+            return Json(model.Data.Where(x => x.Id >= 26617 && x.Id <= 26973).Select(x => new { value = x.Name, label = x.Value})); //ids of cities (translates)
         }
     }
 }
