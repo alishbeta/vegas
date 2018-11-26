@@ -1309,7 +1309,7 @@ nav.breadcrumb-wrap a:hover {
   right: 35px;
 }
 
-.item-wrap .main-prop-wrap {
+.item-wrap .main-prop-wrap, .item-wrap .price-titile {
   margin-top: 15px;
 }
 
@@ -2159,6 +2159,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   overflow: visible;
   text-overflow: unset;
   float: none;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+ui-dialog-titlebar .ui-button {
+  border: 7px solid transparent;
+  background: transparent;
 }
 
 .ui-slider-horizontal .ui-slider-handle {
