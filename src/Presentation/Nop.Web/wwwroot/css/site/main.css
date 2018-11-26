@@ -4306,6 +4306,15 @@ section .item {
   .cabinet .favorite-wrap .item-wrap {
     margin: 0 8px 15px;
   }
+
+  .slick-track {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .news-wrap .item-wrap, .news .article-wrap .item-wrap, .map .article-wrap .item-wrap {
+    width: 235px;
+  }
 }
 @media (max-width: 765px) {
   body {
