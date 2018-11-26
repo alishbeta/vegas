@@ -207,8 +207,8 @@ $(document).ready(function () {
         $("#slider-" + data.filterNumber + "-r").slider({
             range: true,
             min: data.min,
-            max: data.max,
-            values: [data.min, data.max],
+            max: parseFloat(data.max),
+            values: [data.min, parseFloat(data.max)],
             slide: function (event, ui) {
                 $("#slider-" + data.filterNumber + "-a1").val(ui.values[0]);
                 $("#slider-" + data.filterNumber + "-a2").val(ui.values[1]);
