@@ -80,6 +80,15 @@ $(document).ready(function () {
             $(".scrollM .scrollableArea").slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
+                responsive: [
+                    {
+                      breakpoint: 770,
+                      settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                      }
+                    },
+                ]
             });
         }
     }, 100);
@@ -247,10 +256,6 @@ $(document).ready(function () {
         $('.back-shadow').fadeOut();
         $('.humburger-wrap').removeClass('op');
     });
-
-    $('.item-wrap').bind('touchstart', function(){
-        location.href = $(this).find('a').attr('href');
-        });
 
     /*#####################    Корзина   (Отображение popup)###############################*/
     // $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived), .product .btn-blue:not(.arived), .favorit.shopping_bag_icon').on('click', function () {
