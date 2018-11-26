@@ -1088,9 +1088,15 @@ html .ui-button.ui-state-disabled {
 // .ui-widget-content .ui-state-default,
 // .ui-widget-header .ui-state-default,
 .ui-dialog-titlebar .ui-button {
-    border: 7px solid transparent;
-    background: transparent;
+    border: 7px solid transparent!important;
+    background: transparent!important;
 }
+
+.news-wrap{
+    .slick-slide img {
+        height: 100%;
+    }
+} 
 
 .ui-slider-horizontal .ui-slider-handle {
     top: -.5em !important;

@@ -2161,12 +2161,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   float: none;
 }
 
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default,
-ui-dialog-titlebar .ui-button {
-  border: 7px solid transparent;
-  background: transparent;
+.ui-dialog-titlebar .ui-button {
+  border: 7px solid transparent !important;
+  background: transparent !important;
+}
+
+.news-wrap .slick-slide img, .news .article-wrap .slick-slide img, .map .article-wrap .slick-slide img {
+  height: 100%;
 }
 
 .ui-slider-horizontal .ui-slider-handle {
@@ -2385,7 +2386,7 @@ ui-dialog-titlebar .ui-button {
   color: #2c96b9;
 }
 .compare .optc-wrap .show-wrap + .line {
-  margin: 52px -30px 0;
+  margin: 91px -30px 0;
 }
 .compare .optc-wrap .show-wrap div:first-child {
   color: #767c7e;
@@ -2416,6 +2417,9 @@ ui-dialog-titlebar .ui-button {
 }
 .compare .compare-content .outer-wrapp .item-wrap img.product {
   margin-top: 60px;
+}
+.compare .compare-content .outer-wrapp .item-wrap .product-name {
+  min-height: 45px;
 }
 .compare .compare-content .outer-wrapp .main-prop-wrap {
   margin-bottom: 25px;
@@ -4575,7 +4579,7 @@ section .item {
   .news-wrap .item-wrap, .news .article-wrap .item-wrap, .map .article-wrap .item-wrap {
     margin: 0 auto;
     float: none;
-    height: 290px;
+    height: 350px;
   }
 
   .subscription-wrap.row {

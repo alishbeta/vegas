@@ -39,7 +39,7 @@
     }
     .show-wrap{
       + .line{
-        margin: 52px -30px 0;
+        margin: 91px -30px 0;
       }
       div:first-child{
         color: $text_light;
@@ -69,9 +69,14 @@
     .outer-wrapp{
       float: left;
       border: 1px solid $border_color;
-      .item-wrap img.product {
-        margin-top: 60px;
-      }
+      .item-wrap{
+        img.product {
+          margin-top: 60px;
+        }
+        .product-name{
+          min-height: 45px;
+        }
+      } 
       .main-prop-wrap{
         margin-bottom: 25px;
         + button{
