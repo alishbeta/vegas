@@ -1312,10 +1312,9 @@ nav.breadcrumb-wrap a:hover {
 .item-wrap .main-prop-wrap {
   margin-top: 15px;
 }
-.item-wrap .main-prop-wrap .price-titile,
-.item-wrap .main-prop-wrap .item-wrap-full .main-prop-wrap .price-titile {
+
+.item-wrap-full .main-prop-wrap, .item-wrap-full .price-titile {
   margin-top: 15px;
-  font-size: 14px;
 }
 
 .item-wrap .main-prop-wrap .price-old,
@@ -2162,14 +2161,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   float: none;
 }
 
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default,
-.ui-button {
-  border: 7px solid transparent;
-  background: transparent;
-}
-
 .ui-slider-horizontal .ui-slider-handle {
   top: -.5em !important;
 }
@@ -2693,6 +2684,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cart-popup-wrap .price-wrap .discount {
   position: relative;
+  top: 0;
+  right: 0;
   width: 30px;
   height: 30px;
   font-size: 11px;
