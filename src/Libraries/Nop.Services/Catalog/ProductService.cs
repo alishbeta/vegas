@@ -2143,7 +2143,7 @@ namespace Nop.Services.Catalog
                 query = query.Where(pr => pr.Product.VendorId == vendorId);
 
             //ignore deleted products
-            query = query.Where(pr => !pr.Product.Deleted);
+            query = query.Where(pr => pr.ProductId == 1 || !pr.Product.Deleted); //id 1 - store reviews
 
             //filter by limited to store products
             if (storeId > 0 && !showHidden && !_catalogSettings.IgnoreStoreLimitations)

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Domain;
+using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Localization;
@@ -12,6 +14,7 @@ using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Vendors;
+using Nop.Services.Catalog;
 using Nop.Services.Common;
 using Nop.Services.Directory;
 using Nop.Services.Localization;
@@ -28,6 +31,7 @@ using Nop.Web.Framework.Mvc.Filters;
 using Nop.Web.Framework.Security;
 using Nop.Web.Framework.Security.Captcha;
 using Nop.Web.Framework.Themes;
+using Nop.Web.Models.Catalog;
 using Nop.Web.Models.Common;
 
 namespace Nop.Web.Controllers
@@ -37,6 +41,9 @@ namespace Nop.Web.Controllers
         #region Fields
 
         private readonly CaptchaSettings _captchaSettings;
+        private readonly IProductService _productService;
+        private readonly CatalogSettings _catalogSettings;
+        private readonly IProductModelFactory _productModelFactory;
         private readonly CommonSettings _commonSettings;
         private readonly Areas.Admin.Factories.ILanguageModelFactory _languageModelFactory;
         private readonly ICommonModelFactory _commonModelFactory;
@@ -65,6 +72,9 @@ namespace Nop.Web.Controllers
 
         public CommonController(CaptchaSettings captchaSettings,
             CommonSettings commonSettings,
+            CatalogSettings catalogSettings,
+            IProductService productService,
+            IProductModelFactory productModelFactory,
             Areas.Admin.Factories.ILanguageModelFactory languageModelFactory,
             ICommonModelFactory commonModelFactory,
             ICurrencyService currencyService,
@@ -86,6 +96,9 @@ namespace Nop.Web.Controllers
             IWebHelper webHelper,
             ILocationService locationService)
         {
+            this._catalogSettings = catalogSettings;
+            this._productModelFactory = productModelFactory;
+            this._productService = productService;
             this._languageModelFactory = languageModelFactory;
             this._captchaSettings = captchaSettings;
             this._commonSettings = commonSettings;
@@ -514,6 +527,115 @@ namespace Nop.Web.Controllers
             var model = _languageModelFactory.PrepareLocaleResourceListModel(new Areas.Admin.Models.Localization.LocaleResourceSearchModel() { SearchResourceValue = query,
                 SearchResourceName = "cities." }, language);
             return Json(model.Data.Where(x => x.Id >= 26617 && x.Id <= 26973).Select(x => new { value = x.Name, label = x.Value})); //ids of cities (translates)
+        }
+
+        public virtual IActionResult StoreReviews()
+        {
+            var product = _productService.GetProductById(1);
+            if (product == null)
+                return RedirectToRoute("HomePage");
+
+            var model = new ProductReviewsModel();
+            model = _productModelFactory.PrepareProductReviewsModel(model, product);
+
+            //default value
+            model.AddProductReview.Rating = _catalogSettings.DefaultProductRatingValue;
+
+            //default value for all additional review types
+            if (model.ReviewTypeList.Count > 0)
+                foreach (var additionalProductReview in model.AddAdditionalProductReviewList)
+                {
+                    additionalProductReview.Rating = additionalProductReview.IsRequired ? _catalogSettings.DefaultProductRatingValue : 0;
+                }
+
+            return View(model);
+        }
+
+        [HttpPost, ActionName("StoreReviews")]
+        [PublicAntiForgery]
+        [ValidateCaptcha]
+        public virtual dynamic StoreReviewsAdd(ProductReviewsModel model, bool captchaValid)
+        {
+            var product = _productService.GetProductById(1);
+            if (product == null)
+                return RedirectToRoute("HomePage");
+
+            //validate CAPTCHA
+            if (_captchaSettings.Enabled && _captchaSettings.ShowOnProductReviewPage && !captchaValid)
+            {
+                ModelState.AddModelError("", _captchaSettings.GetWrongCaptchaMessage(_localizationService));
+            }
+
+            if (_workContext.CurrentCustomer.IsGuest() && !_catalogSettings.AllowAnonymousUsersToReviewProduct)
+            {
+                ModelState.AddModelError("", _localizationService.GetResource("Reviews.OnlyRegisteredUsersCanWriteReviews"));
+            }
+
+            if (ModelState.IsValid)
+            {
+                //save review
+                var rating = model.AddProductReview.Rating;
+                if (rating < 1 || rating > 5)
+                    rating = _catalogSettings.DefaultProductRatingValue;
+                var isApproved = !_catalogSettings.ProductReviewsMustBeApproved;
+
+                var productReview = new ProductReview
+                {
+                    ProductId = product.Id,
+                    CustomerId = _workContext.CurrentCustomer.Id,
+                    Title = model.AddProductReview.Title,
+                    ReviewText = model.AddProductReview.ReviewText,
+                    Rating = rating,
+                    HelpfulYesTotal = 0,
+                    HelpfulNoTotal = 0,
+                    IsApproved = isApproved,
+                    CreatedOnUtc = DateTime.UtcNow,
+                    StoreId = _storeContext.CurrentStore.Id,
+                };
+
+                product.ProductReviews.Add(productReview);
+
+                //add product review and review type mapping                
+                foreach (var additionalReview in model.AddAdditionalProductReviewList)
+                {
+                    var additionalProductReview = new ProductReviewReviewTypeMapping
+                    {
+                        ProductReviewId = productReview.Id,
+                        ReviewTypeId = additionalReview.ReviewTypeId,
+                        Rating = additionalReview.Rating
+                    };
+                    productReview.ProductReviewReviewTypeMappingEntries.Add(additionalProductReview);
+                }
+
+                //update product totals
+                _productService.UpdateProductReviewTotals(product);
+
+                //notify store owner
+                if (_catalogSettings.NotifyStoreOwnerAboutNewProductReviews)
+                    _workflowMessageService.SendProductReviewNotificationMessage(productReview, _localizationSettings.DefaultAdminLanguageId);
+
+                //activity log
+                _customerActivityService.InsertActivity("PublicStore.AddProductReview",
+                    string.Format(_localizationService.GetResource("ActivityLog.PublicStore.AddProductReview"), product.Name), product);
+
+
+                model = _productModelFactory.PrepareProductReviewsModel(model, product);
+                model.AddProductReview.Title = null;
+                model.AddProductReview.ReviewText = null;
+
+                model.AddProductReview.SuccessfullyAdded = true;
+                if (!isApproved)
+                    model.AddProductReview.Result = _localizationService.GetResource("Reviews.SeeAfterApproving");
+                else
+                    model.AddProductReview.Result = _localizationService.GetResource("Reviews.SuccessfullyAdded");
+
+                return new { success = model.AddProductReview.SuccessfullyAdded };
+            }
+            else
+            {
+                return new { error = true, message = ModelState };
+            }
+
         }
     }
 }
