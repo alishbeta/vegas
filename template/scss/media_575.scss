@@ -186,8 +186,11 @@
                 }
             }
             .outer-wrapp {
+                .main-prop-wrap {
+                    min-height: 140px;
+                }
                 .item-wrap img.product {
-                    margin-top: 0px;
+                    margin-top: 35px;
                 }
                 &:not(.rounded){
                     float: none;

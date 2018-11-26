@@ -4707,8 +4707,11 @@ section .item {
     height: 41px;
     padding: 10px 0;
   }
+  .compare .compare-content .outer-wrapp .main-prop-wrap {
+    min-height: 140px;
+  }
   .compare .compare-content .outer-wrapp .item-wrap img.product {
-    margin-top: 0px;
+    margin-top: 35px;
   }
   .compare .compare-content .outer-wrapp:not(.rounded) {
     float: none;
