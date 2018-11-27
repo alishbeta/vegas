@@ -820,7 +820,7 @@ html .ui-button.ui-state-disabled {
     }
 }
 
-.price-wrap div {
+.price-wrap div:not(.dropdown) {
     display: inline-block;
 }
 

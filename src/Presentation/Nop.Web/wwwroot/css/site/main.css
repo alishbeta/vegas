@@ -1020,6 +1020,7 @@ nav.breadcrumb-wrap a:hover {
 }
 .short-menu .side-menu-wrap.open, .short-menu .all-menu-wrap .open.side-second-menu-wrap, .all-menu-wrap .short-menu .open.side-second-menu-wrap {
   width: 300px;
+  padding-top: 50px;
 }
 .short-menu .side-menu-wrap.open ul li, .short-menu .all-menu-wrap .open.side-second-menu-wrap ul li, .all-menu-wrap .short-menu .open.side-second-menu-wrap ul li {
   width: 300px;
@@ -1905,7 +1906,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   display: block;
 }
 
-.price-wrap div {
+.price-wrap div:not(.dropdown) {
   display: inline-block;
 }
 
@@ -3747,6 +3748,10 @@ section .item {
   height: auto;
   padding: 25px;
   min-height: 200px;
+}
+
+.product .tabbed-content {
+  max-width: 840px;
 }
 
 @media all and (min-width: 800px) {
