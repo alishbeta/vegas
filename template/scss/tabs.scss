@@ -96,7 +96,7 @@ section{
   }
 }
 
-// Accordion for small screens (mobile first principle)
+
 .tabbed-content {
   .tabs {
     display: none;
@@ -120,6 +120,12 @@ section{
         min-height: 200px;
       }
     }
+  }
+}
+
+.product{
+  .tabbed-content{
+    max-width: 840px;
   }
 }
 

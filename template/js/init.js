@@ -88,6 +88,13 @@ $(document).ready(function () {
                         slidesToScroll: 1,
                       }
                     },
+                    {
+                        breakpoint: 440,
+                        settings: {
+                          slidesToShow: 1,
+                          slidesToScroll: 1,
+                        }
+                      },
                 ]
             });
         }
