@@ -869,7 +869,7 @@ nav.breadcrumb-wrap a:hover {
   width: 100%;
 }
 .all-menu-wrap .side-menu-wrap .inner-menu-wrap #main-menu, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap #main-menu {
-  width: 300px;
+  width: 100%;
 }
 .all-menu-wrap .side-menu-wrap .inner-menu-wrap img, .all-menu-wrap .side-second-menu-wrap .inner-menu-wrap img {
   margin-left: 5px;
@@ -985,6 +985,7 @@ nav.breadcrumb-wrap a:hover {
 }
 .all-menu-wrap .side-second-menu-wrap.open {
   width: 700px;
+  padding-top: 74px;
 }
 .all-menu-wrap .side-second-menu-wrap .close-i {
   float: right;
@@ -1774,7 +1775,7 @@ small {
 }
 
 .modal-content {
-  padding: 30px 20px !important;
+  padding: 50px 20px !important;
 }
 
 /*.form-inline .form-control {
@@ -4553,7 +4554,7 @@ section .item {
     right: 0;
     left: 0;
     width: 120px;
-    bottom: -335px;
+    bottom: -310px;
     margin: auto;
     z-index: 1054;
   }
@@ -4881,7 +4882,10 @@ section .item {
   }
 
   .see-wrap {
-    padding: 0 0 25px 0;
+    padding: 0 0 50px 0;
+  }
+  .see-wrap .row.title {
+    margin-bottom: 0;
   }
 
   .cabinet .title-wrap {
