@@ -116,7 +116,8 @@ namespace Nop.Web.Areas.Admin.Factories
                 storeId: searchModel.SearchStoreId,
                 productId: searchModel.SearchProductId,
                 vendorId: vendorId,
-                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize);
+                pageIndex: searchModel.Page - 1, 
+                pageSize: searchModel.PageSize);
 
             //prepare list model
             var model = new ProductReviewListModel
