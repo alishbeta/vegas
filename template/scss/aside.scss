@@ -24,7 +24,7 @@ $i: 0;
     }
     .inner-menu-wrap {
       #main-menu{
-        width: 300px;
+        width: 100%;
       }
       img {
         margin-left: 5px;
@@ -99,6 +99,7 @@ $i: 0;
     z-index: 1049;
     &.open{
       width: 700px;
+      padding-top: 74px;
     }
     .close-i{
       float: right;

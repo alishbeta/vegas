@@ -16,7 +16,7 @@
             right: 0;
             left: 0;
             width: 120px;
-            bottom: -335px;
+            bottom: -310px;
             margin: auto;
             z-index: 1054;
         }
@@ -344,7 +344,10 @@
         }
     }
     .see-wrap {
-        padding: 0 0 25px 0;
+        padding: 0 0 50px 0;
+        .row.title {
+            margin-bottom: 0;
+        }
     }
     .cabinet {
         .title-wrap {
