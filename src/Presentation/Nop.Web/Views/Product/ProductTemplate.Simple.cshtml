@@ -285,14 +285,21 @@
                         {
                             <div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
                         }
-                        <div class="available text-center mt-3 mb-2"><a href="#">@T("prod.availablity")</a></div>
-                        @foreach (var warehouse in Model.ProductWarehouses)
-                        {
-                            @if (!string.IsNullOrEmpty(warehouse.Name))
-                            {
-                                <span class="row">@warehouse.Name</span>
-                            }
-                        }
+
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @T("prod.availablity")
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 32px, 0px);">
+                                @foreach (var warehouse in Model.ProductWarehouses)
+                                {
+                                    @if (!string.IsNullOrEmpty(warehouse.Name))
+                                    {
+                                        <a class="dropdown-item" href="#">@warehouse.Name</a>
+                                    }
+                                }
+                            </div>
+                        </div>
                         <div class="btn-group-vertical btn-block">
                             @{
                                 if (Model.InStock)

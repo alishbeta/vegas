@@ -144,7 +144,7 @@
                             <div class="item">
                                 <img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
                                 <div class="title">@item.ProductName</div>
-                                <div class="item-name">@item.ProductSeName</div>
+                                <div class="item-name"></div>
                                 <div class="count-wrap mt-2 mb-2">
                                     <button class="minus" onclick="ChangeProductQuantity(@item.ProductId, 1, -1, false)"></button>
                                     <div class="count">@item.Quantity</div>
@@ -168,7 +168,6 @@
                         <br />
                         <small>@T("cart.willearn") @Model.WillEarnRewardPoints @T("cart.points")</small>
                     </div>
-                    <button class="btn btn-link">@T("cart.usepromocode")</button>
                     <button class="btn btn-link">@T("cart.usebonuscard")</button>
                     <small>@T("cart.price.tip")</small>
                 </div>

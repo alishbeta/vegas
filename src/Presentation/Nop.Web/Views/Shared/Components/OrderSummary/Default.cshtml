@@ -547,20 +547,20 @@
                     <div class="line"></div>
 
                     <div id="secondZone">
-                        <div class="title"><span>2</span>@T("cart.address")</div>
+                        <div class="title"><span>2</span>@T("Cart.DeliveryType")</div>
                         <button type="button" id="edit-addres" class="btn btn-link">
                             @T("cart.changeaddr")
                         </button>
                         <button type="button" id="edit-addres-close" onclick="CancelChangesInZone(2)" style="display: none" class="btn btn-link">
                             @T("cart.cancel")
                         </button>
-                        <div class="form-inline row">
+                        <div class="form-inline form-group row">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input"
                                        value="@T("cart.delivery.store")"
                                        name="DeliveryType"
                                        type="radio"
-                                       onchange="hideFields(this)"
+                                       onchange="selfDelivery(this)"
                                        id="lr1">
                                 <label for="lr1"></label>
                                 <label class="col-form-label" for="lr1">@T("cart.delivery.store")</label>
@@ -570,8 +570,8 @@
                                        value="@T("cart.delivery.default")"
                                        name="DeliveryType"
                                        type="radio"
-                                       onchange="showFields(this)"
-                                       id="lr2" checked>
+                                       onchange="courierDelivery(this)"
+                                       id="lr2">
                                 <label for="lr2"></label>
                                 <label class="col-form-label" for="lr2">
                                     @T("cart.delivery.default")
@@ -582,7 +582,8 @@
                                        value="@T("cart.delivery.novaposhta")"
                                        name="DeliveryType"
                                        type="radio"
-                                       onchange="showFields(this)"
+                                       onchange="novaPoshta(this)"
+                                       checked
                                        id="lr3">
                                 <label for="lr3"></label>
                                 <label class="col-form-label" for="lr3">@T("cart.delivery.novaposhta")</label>
@@ -630,17 +631,39 @@
                                 <div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress2</div>
                             </div>
                         </div>
+                        <div id="nova-poshta-fields">
+                            <label for="newpost-department">@T("cart.newpost.department")</label>
+                            <input type="text" id="newpost-department" value="" />
+                            <div id="np-map">
+                                <button type="button" id="npw-map-open-button" class="">@T("cart.showmap")</button>
+                                <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPhm7Q29X5ldwjLtA7IMYHU_0xATiWK3A&amp;language=ru"></script>
+                            </div>
+                            <link rel='stylesheet' href='https://apimgmtstorelinmtekiynqw.blob.core.windows.net/content/MediaLibrary/Widget/Map/styles/map.css' />
+                            <script type='text/javascript' id='map' charset='utf-8' data-lang='ru' apiKey='45f32a18b7f954ee48e88d17544ceaaa' data-town='city-not-default' data-town-name='undefined' data-town-id='undefined' src='https://apimgmtstorelinmtekiynqw.blob.core.windows.net/content/MediaLibrary/Widget/Map/dist/map.min.js'></script>
+                            <script>
+                                $("#npw-map-close-button").on("click", function (data) {
+                                    console.log($("#npw-map-state-details").text());
+                                    if ($("#npw-map-state-details div").length > 1) {
+                                        $("#newpost-department").val($("#npw-map-state-details div")[1].innerHTML);
+                                        getDeliveryCost();
+                                    }
+                                });
+                            </script>
+                        </div>
                     </div>
                     <script>
-                        function hideFields(checkbox) {
-                            if (checkbox.checked) {
-                                $("#additional-addr-fields").css("display", "none");
-                            }
+                        function selfDelivery(checkbox) {
+                            $("#additional-addr-fields").css("display", "none");
+                            $("#nova-poshta-fields").css("display", "none");
                         }
-                        function showFields(checkbox) {
-                            if (!checkbox.cheked) {
-                                $("#additional-addr-fields").css("display", "block");
-                            }
+                        function courierDelivery(checkbox) {
+                            $("#additional-addr-fields").css("display", "block"); 
+                            $("#nova-poshta-fields").css("display", "none");
+                        }
+                        function novaPoshta(checkbox) {
+                            $("#additional-addr-fields").css("display", "none");
+                            $("#nova-poshta-fields").css("display", "block");
+                            getDeliveryCost();
                         }
                     </script>
                     <div class="line"></div>
@@ -687,6 +710,18 @@
 	</section>
 </article>
 <script>
+    function getDeliveryCost() {
+        $.ajax({
+            url: @Url.Action("GetNewPostCost", "Checkout"),
+            type: "json",
+            data: {
+                cityName: $("[name=city]").val()
+            }
+        }).done(function (data) {
+            console.log(data);
+        });
+    }
+
     function RecountTotal(value) {
         if (value) {
             $("#cart-price-full").text(parseInt($("#cart-price-full").text()) - @ViewBag.BonusesBalance);
