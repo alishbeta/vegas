@@ -3662,7 +3662,7 @@ If you want to style everything yourself, you shouldn't need these
 */
 .tabbed-content {
   background: #fff;
-  min-width: 660px;
+  min-width: 320px;
   padding: 1em;
 }
 
@@ -3925,7 +3925,7 @@ section .item {
   }
 
   .cart article, .cart-popup-wrap article {
-    min-width: 525px;
+    min-width: 330px;
   }
   .cart .order-wrapp, .cart-popup-wrap .order-wrapp {
     width: 100%;
