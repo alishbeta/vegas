@@ -1906,7 +1906,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   display: block;
 }
 
-.price-wrap div:not(.dropdown) {
+.price-wrap div:not(.dropdown-menu) {
   display: inline-block;
 }
 
