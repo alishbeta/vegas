@@ -1,0 +1,61 @@
+.commets-wrap {
+    border: 1px solid $border_color;
+    border-radius: 5px;
+    padding: 30px;
+    .line {
+        margin: 30px 35px;
+    }
+    .sub-heder-wrapp {
+        width: 100%;
+        text-align: right;
+        margin-bottom: 30px;
+    }
+    .icons-wrap i {
+        height: 24px;
+    }
+    .comment{
+        .list{
+            .icons-wrap i {
+                width: 15px;
+                height: 14px;
+                margin-right: 2px;
+            }
+            .name{
+                font-weight: 800;
+            }
+            .date{
+                color: $text_light;
+            }
+            .info-wrap{
+                float: left;
+                margin-right: 40px;
+            }
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .commets-wrap {
+        border: 1px solid transparent;
+        padding: 0;
+        .icons-wrap{
+            margin-top: 8px!important;
+            i {
+                height: 20px;
+                width: 21px;
+                margin-right: 3px;
+            }
+        } 
+        .sub-heder-wrapp{
+            text-align: left;
+            .stars{
+                display: inline-block;
+                float: left;
+            }
+            button{
+                vertical-align: super;
+                float: right;
+            }
+        } 
+    }
+}

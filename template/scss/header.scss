@@ -51,9 +51,45 @@ ul {
   li {
     list-style: none;
   }
-  &.head-menu li {
-    float: left;
-    margin-left: 30px;
+  &.head-menu{
+    font-size: 14px;
+    &>li {
+      float: left;
+      margin-left: 30px;
+    }
+    .dropdown{
+      .drop-wrapp{
+        padding: 20px;
+        div:not(.input-wrapp){
+          margin-right: 15px;
+          li{
+            padding: 5px;
+            margin-bottom: 5px;
+          }
+        }
+        .city-wrapp{
+          margin-top: 15px;
+          text-align: center;
+          a{
+            display: block;
+            width: 100%;
+          }
+          li{
+            border-radius: 5px;
+            &:hover{
+              background-color: #d6eaf1;
+            }
+            &.active{
+              background-color: $bluish;
+            }
+          }
+        }
+      }
+      .btn-city{
+        font-size: 14px;
+        line-height: 1;
+      }
+    }
   }
 }
 a {
@@ -167,9 +203,6 @@ footer {
     }
     .btn-blue {
       margin: 28px 0 0 24px;
-    }
-    .head-menu {
-      font-size: 14px;
     }
   }
 }

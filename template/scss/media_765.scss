@@ -57,6 +57,7 @@
         }
         &.open{
             overflow: scroll;
+            height: auto;
         }
     }
     .closed {
@@ -102,7 +103,7 @@
     }
     .mob-lang {
         margin-top: 20px;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         font-size: 12px;
         .select {
             text-decoration: underline;

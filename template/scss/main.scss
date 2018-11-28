@@ -676,6 +676,10 @@ small {
     padding: 50px 20px !important;
 }
 
+.btn-city{
+    padding: 0;
+}
+
 /*.form-inline .form-control {
   width: 70px;
   margin: 0 15px;
@@ -1115,6 +1119,7 @@ html .ui-button.ui-state-disabled {
 @import "carusel";
 @import "tabs";
 @import "order_complete";
+@import "comments";
 @import "media_1199";
 @import "media_992";
 @import "media_765";

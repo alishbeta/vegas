@@ -276,8 +276,12 @@ $(document).ready(function () {
     /*#####################   Комментарии отображаем  ###############################*/
     $('#comment-activate').on('click', function () {
         $(this).parent().next().slideToggle();
-    })
+    });
 
+        /*#####################   Города  ###############################*/
+        $('.city-wrapp li').on('click', function(){
+            $('.btn-city').html($(this).find('a').html());
+        });
 
     /*#####################    Кабинет  (Редактирование личных данных и адреса) ###############################*/
     $('#edit-name, #edit-addres, #edit-pass').on('click', function () {
