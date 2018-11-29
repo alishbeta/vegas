@@ -719,13 +719,13 @@ namespace Nop.Services.ExportImport
         public virtual Tuple<int, IEnumerable<OneCUser>> ExportUsersToOneC()
         {
             var totalCustomers = _customerService.GetNotSyncCustomers();
-            var customers = totalCustomers.Take(100);
+            IEnumerable<Customer> customers = totalCustomers.Take(100);
 
-            foreach (var customer in customers)
-            {
-                customer.IsSync = true;
-                _customerService.UpdateCustomer(customer);
-            }
+            //foreach (var customer in customers)
+            //{
+            //    customer.IsSync = true;
+            //    _customerService.UpdateCustomer(customer);
+            //}
 
             return Tuple.Create(
                 _customerService.GetNotSyncCustomers().Count, 
@@ -734,8 +734,25 @@ namespace Nop.Services.ExportImport
                     Id = d.Id,
                     Username = d?.Username,
                     Email = d?.Email,
-                    Addresses = d?.Addresses ?? new List<Address>()
+                    //Addresses = d?.Addresses ?? new List<Address>()
                 }));
+        }
+
+        public virtual void DoneUsersToOneC(IList<int> ids)
+        {
+            foreach (var id in ids)
+            {
+                try
+                {
+                    var customer = _customerService.GetCustomerById(id);
+                    customer.IsSync = true;
+                    _customerService.UpdateCustomer(customer);
+                }
+                catch (Exception)
+                {
+
+                }
+            }
         }
 
         /// <summary>

@@ -257,6 +257,44 @@ namespace Nop.Web.Controllers
         }
 
         [HttpPost]
+        [CheckAccessClosedStore(true)]
+        [CheckAccessPublicStore(true)]
+        public virtual JsonResult DoneCustomer([FromBody]OneCUserIds model)
+        {
+            if (model == null)
+            {
+                return Json(new OneCResponse() { Success = false, Message = "JSON format is incorrect." });
+            }
+
+            var response = IsLogin(model?.Username, model?.Email, model?.Password);
+            if (response.Success)
+            {
+                var customer = _customerSettings.UsernamesEnabled
+                    ? _customerService.GetCustomerByUsername(model.Username)
+                    : _customerService.GetCustomerByEmail(model.Email);
+
+                //activity log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.DoneCustomer.Login", "1C Done customers begin.");
+
+                if (model?.Ids != null && model.Ids.Count > 0)
+                {
+                    _exportManager.DoneUsersToOneC(model.Ids);
+                    response.Success = true;
+                    response.Message = "Done.";
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "List of ids is empty.";
+                }
+
+                //activiti log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.DoneCustomer.LogOut", "1C Done customers end.");
+            }
+            return Json(response);
+        }
+
+        [HttpPost]
         //available even when a store is closed
         [CheckAccessClosedStore(true)]
         //available even when navigation is not allowed
