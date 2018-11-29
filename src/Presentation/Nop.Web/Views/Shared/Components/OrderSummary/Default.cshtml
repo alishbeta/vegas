@@ -712,7 +712,7 @@
 <script>
     function getDeliveryCost() {
         $.ajax({
-            url: @Url.Action("GetNewPostCost", "Checkout"),
+            url: '@Url.Action("GetNewPostCost", "Checkout")',
             type: "json",
             data: {
                 cityName: $("[name=city]").val()
