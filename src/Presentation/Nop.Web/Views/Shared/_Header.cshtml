@@ -61,7 +61,7 @@
                         <div class="city-wrapp d-flex">
                             <div>
                                 <ul>
-                                    <li class="active"><a onclick="return false;" href="#">Киев</a></li>
+                                    <li><a onclick="return false;" href="#">Киев</a></li>
                                     <li><a onclick="return false;" href="#">Одесса</a></li>
                                     <li><a onclick="return false;" href="#">Запорожье</a></li>
                                     <li><a onclick="return false;" href="#">Сумы</a></li>
@@ -139,6 +139,7 @@
             minLength: 2,
             select: function (event, ui) {
                 console.log(ui);
+                $("#city-input").val("");
                 $("#your-city").text(ui.item.label);
             }
         });
