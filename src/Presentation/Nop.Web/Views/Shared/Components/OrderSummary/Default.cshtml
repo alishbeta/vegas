@@ -471,7 +471,9 @@
 							</div>
 						</div>
 						<div class="row">
-							<input type="submit" class="offset-sm-3 col-sm-6 text-center btn btn-blue-white btn-block" id="loginSubmit" value="@T("login.continue")" />
+                            <div class="offset-sm-3 col-sm-8">
+                                <input type="submit" class="text-center btn btn-blue-white btn-block" id="loginSubmit" value="@T("login.continue")" />
+                            </div>
 							<script>
 								$("#loginSubmit").on("click", function (e) {
 									if ($("#loginEmail").val().length == 0) {
@@ -501,7 +503,9 @@
 									}
 								});
 							</script>
-							<a class="btn btn-link" asp-route="PasswordRecovery">@T("login.forgotpass")</a>
+                            <div class="offset-sm-3 col-sm-8 text-center">
+							    <a class="btn btn-link" asp-route="PasswordRecovery">@T("login.forgotpass")</a>
+                            </div>
 						</div>
 					</form>
 				</div>
