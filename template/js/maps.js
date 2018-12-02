@@ -2,7 +2,7 @@ var icomsBase = 'img/';
 var map;
 var adresses = $('#address').data('address');
 function initMap() {
-    if ($('*').is('#map')) {
+    if ($('*').is('#map') && adresses != 'undefined') {
         geocoder = new google.maps.Geocoder();
         map = new google.maps.Map(document.getElementById('map'), {
             center: {
