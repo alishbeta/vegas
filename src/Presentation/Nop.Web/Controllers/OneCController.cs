@@ -257,9 +257,49 @@ namespace Nop.Web.Controllers
         }
 
         [HttpPost]
+        //available even when a store is closed
+        [CheckAccessClosedStore(true)]
+        //available even when navigation is not allowed
+        [CheckAccessPublicStore(true)]
+        public virtual JsonResult ImportCustomers([FromBody]OneCUsers model)
+        {
+            if (model == null)
+            {
+                return Json(new OneCResponse() { Success = false, Message = "JSON format is incorrect." });
+            }
+
+            var response = IsLogin(model?.Username, model?.Email, model?.Password);
+            if (response.Success)
+            {
+                var customer = _customerSettings.UsernamesEnabled
+                    ? _customerService.GetCustomerByUsername(model.Username)
+                    : _customerService.GetCustomerByEmail(model.Email);
+
+                //activity log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportCustomers.Login", "1C Exporting customers begin.");
+
+                if (model?.Users != null && model.Users.Count > 0)
+                {
+                    var result = _importManager.ImportUsersFromOneC(model.Users);
+                    response.Success = result.Item1;
+                    response.Message = result.Item2;
+                }
+                else
+                {
+                    response.Message = "Users is null.";
+                    response.Success = false;
+                }
+
+                //activiti log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ExportCustomers.LogOut", "1C Exporting customers end.");
+            }
+            return Json(response);
+        }
+
+        [HttpPost]
         [CheckAccessClosedStore(true)]
         [CheckAccessPublicStore(true)]
-        public virtual JsonResult DoneCustomer([FromBody]OneCUserIds model)
+        public virtual JsonResult DoneCustomers([FromBody]OneCUserIds model)
         {
             if (model == null)
             {

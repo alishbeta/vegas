@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Nop.Core;
 using Nop.Core.Data;
 using Nop.Core.Domain.Catalog;
+using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Media;
 using Nop.Core.Domain.Messages;
@@ -17,6 +18,7 @@ using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Vendors;
 using Nop.Core.Infrastructure;
 using Nop.Services.Catalog;
+using Nop.Services.Customers;
 using Nop.Services.Directory;
 using Nop.Services.ExportImport.Help;
 using Nop.Services.Localization;
@@ -80,6 +82,7 @@ namespace Nop.Services.ExportImport
         private readonly IWorkContext _workContext;
         private readonly MediaSettings _mediaSettings;
         private readonly VendorSettings _vendorSettings;
+        private readonly ICustomerService _customerService;
 
         #endregion
 
@@ -114,7 +117,8 @@ namespace Nop.Services.ExportImport
             IVendorService vendorService,
             IWorkContext workContext,
             MediaSettings mediaSettings,
-            VendorSettings vendorSettings)
+            VendorSettings vendorSettings,
+            ICustomerService customerService)
         {
             this._catalogSettings = catalogSettings;
             this._categoryService = categoryService;
@@ -146,6 +150,7 @@ namespace Nop.Services.ExportImport
             this._workContext = workContext;
             this._mediaSettings = mediaSettings;
             this._vendorSettings = vendorSettings;
+            this._customerService = customerService;
         }
 
         #endregion
@@ -1150,6 +1155,60 @@ namespace Nop.Services.ExportImport
             }
 
             return properties;
+        }
+
+        public virtual Tuple<bool, string> ImportUsersFromOneC(IList<OneCUser> users)
+        {
+            try
+            {
+                int usersAdded = 0, usersUpdated = 0;
+                foreach (var user in users)
+                {
+                    var customer = _customerService.GetCustomerById(user.Id);
+
+                    if (customer == null)
+                    {
+                        usersAdded++;
+                        customer = new Customer()
+                        {
+                            Username = user?.Username,
+                            Email = user?.Email,
+                            IdOneC = user.IdOneC,
+                            City = user.City,
+                            Address = user.Address,
+                            Apartament = user.Apartament,
+                            NumberDiscountCard = user.NumberDiscountCard,
+                            Percent = user.Percent,
+                            SumActiveBonus = user.SumActiveBonus,
+                            SumBonus = user.SumBonus,
+                            TotalSpent = user.TotalSpent,
+
+                        };
+                        _customerService.InsertCustomer(customer);
+                    }
+                    else
+                    {
+                        usersUpdated++;
+                        customer.Username = user?.Username;
+                        customer.Email = user?.Email;
+                        customer.IdOneC = user.IdOneC;
+                        customer.City = user.City;
+                        customer.Address = user.Address;
+                        customer.Apartament = user.Apartament;
+                        customer.NumberDiscountCard = user.NumberDiscountCard;
+                        customer.Percent = user.Percent;
+                        customer.SumActiveBonus = user.SumActiveBonus;
+                        customer.SumBonus = user.SumBonus;
+                        customer.TotalSpent = user.TotalSpent;
+                        _customerService.UpdateCustomer(customer);
+                    }
+                }
+                return new Tuple<bool, string>(true, String.Format("Users {0} added. Users {1} updated.", usersAdded, usersUpdated));
+            }
+            catch (Exception ex)
+            {
+                return new Tuple<bool, string>(false, ex.Message);
+            }
         }
 
         /// <summary>
