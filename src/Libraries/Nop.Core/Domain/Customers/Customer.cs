@@ -69,7 +69,7 @@ namespace Nop.Core.Domain.Customers
         public string Address { get; set; }
         public string Apartament { get; set; }
         public string NumberDiscountCard { get; set; }
-        public int Percent { get; set; }
+        public int DiscountPercent { get; set; }
         public int SumActiveBonus { get; set; }
         public int SumBonus { get; set; }
         public int TotalSpent { get; set; }

@@ -1178,7 +1178,7 @@ namespace Nop.Services.ExportImport
                             Address = user.Address,
                             Apartament = user.Apartament,
                             NumberDiscountCard = user.NumberDiscountCard,
-                            Percent = user.Percent,
+                            DiscountPercent = user.Percent,
                             SumActiveBonus = user.SumActiveBonus,
                             SumBonus = user.SumBonus,
                             TotalSpent = user.TotalSpent,
@@ -1196,7 +1196,7 @@ namespace Nop.Services.ExportImport
                         customer.Address = user.Address;
                         customer.Apartament = user.Apartament;
                         customer.NumberDiscountCard = user.NumberDiscountCard;
-                        customer.Percent = user.Percent;
+                        customer.DiscountPercent = user.Percent;
                         customer.SumActiveBonus = user.SumActiveBonus;
                         customer.SumBonus = user.SumBonus;
                         customer.TotalSpent = user.TotalSpent;
