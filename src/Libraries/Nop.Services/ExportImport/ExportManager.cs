@@ -726,7 +726,6 @@ namespace Nop.Services.ExportImport
             //    customer.IsSync = true;
             //    _customerService.UpdateCustomer(customer);
             //}
-
             return Tuple.Create(
                 _customerService.GetNotSyncCustomers().Count, 
                 customers.Select(d => new OneCUser()
@@ -734,7 +733,9 @@ namespace Nop.Services.ExportImport
                     Id = d.Id,
                     Username = d?.Username,
                     Email = d?.Email,
-                    
+                    Address = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.StreetAddressAttribute),
+                    Apartament = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.StreetAddress2Attribute),
+                    City = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.CityAttribute)
                     //Addresses = d?.Addresses ?? new List<Address>()
                 }));
         }
