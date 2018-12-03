@@ -103,5 +103,6 @@ namespace Nop.Services.ExportImport
         /// <param name="storeId">Store identifier</param>
         /// <returns>Customer GDPR info</returns>
         byte[] ExportCustomerGdprInfoToXlsx(Customer customer, int storeId);
+        void DoneUsersToOneC(IList<int> ids);
     }
 }

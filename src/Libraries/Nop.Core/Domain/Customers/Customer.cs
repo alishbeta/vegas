@@ -64,6 +64,16 @@ namespace Nop.Core.Domain.Customers
         public int VendorId { get; set; }
 
         public bool IsSync { get; set; }
+        public int IdOneC { get; set; }
+        public string City { get; set; }
+        public string Address { get; set; }
+        public string Apartament { get; set; }
+        public string NumberDiscountCard { get; set; }
+        public int DiscountPercent { get; set; }
+        public int SumActiveBonus { get; set; }
+        public int SumBonus { get; set; }
+        public int TotalSpent { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether this customer has some products in the shopping cart
         /// <remarks>The same as if we run this.ShoppingCartItems.Count > 0

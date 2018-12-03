@@ -285,7 +285,8 @@
                         {
                             <div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
                         }
-
+                        @if (Model.InStock)
+                        {
                         <div class="dropdown">
                             <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @T("prod.availablity")
@@ -300,6 +301,7 @@
                                 }
                             </div>
                         </div>
+                        }
                         <div class="btn-group-vertical btn-block">
                             @{
                                 if (Model.InStock)
@@ -399,9 +401,9 @@
                                 var productColor = Model.ProductSpecifications.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "Цвет".ToLower());
                             }
                             @if (productColor != null)
-                                        {
+                            {
                                 <div class="color-title">
-                                    <span>@T("product.color")</span>
+                                    <span>@T("product.color"):</span>
                                     <span>@Html.Raw(productColor.ValueRaw)</span>
                                 </div>
                             }

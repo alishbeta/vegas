@@ -1,64 +1,147 @@
 ﻿@{
-/*
-<div class="header">
-    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderBefore })
-    <div class="header-upper">
-        <div class="header-selectors-wrapper">
-            @await Component.InvokeAsync("TaxTypeSelector")
-            @await Component.InvokeAsync("CurrencySelector")
-            @await Component.InvokeAsync("LanguageSelector")
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderSelectors })
+    /*
+    <div class="header">
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderBefore })
+        <div class="header-upper">
+            <div class="header-selectors-wrapper">
+                @await Component.InvokeAsync("TaxTypeSelector")
+                @await Component.InvokeAsync("CurrencySelector")
+                @await Component.InvokeAsync("LanguageSelector")
+                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderSelectors })
+            </div>
+            <div class="header-links-wrapper">
+                @await Component.InvokeAsync("HeaderLinks")
+                @await Component.InvokeAsync("FlyoutShoppingCart")
+            </div>
         </div>
-        <div class="header-links-wrapper">
-            @await Component.InvokeAsync("HeaderLinks")
-            @await Component.InvokeAsync("FlyoutShoppingCart")
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderMiddle })
+        <div class="header-lower">
+            <div class="header-logo">
+                @await Component.InvokeAsync("Logo")
+            </div>
+            <div class="search-box store-search-box">
+                @await Component.InvokeAsync("SearchBox")
+            </div>
         </div>
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderAfter })
     </div>
-    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderMiddle })
-    <div class="header-lower">
-        <div class="header-logo">
-            @await Component.InvokeAsync("Logo")
-        </div>
-        <div class="search-box store-search-box">
-            @await Component.InvokeAsync("SearchBox")
-        </div>
-    </div>
-    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderAfter })
-</div>
-*/
+    */
 }
 <div class="header-wrap">
-	<div class="humburger-wrap d-lg-none">
-		<div></div>
-		<div></div>
-		<div></div>
-	</div>
-	<div class="side-logo-wrap d-none d-lg-inline-block">
-		<div class="logo">
-			@await Component.InvokeAsync("Logo")
-		</div>
-	</div>
-	<div class="phone-wrap d-none d-xl-inline-block">
-		<div class="phone-title text-light-c d-none d-xl-inline-block">@T("topmenu.freeline")</div>
-		<div class="phone">0 800 604 597</div>
-	</div>
-	<div class="shedule-wrapp d-none d-xl-inline-block">
-		<div class="text-light-c">09:00-20:00 (@T("topmenu.weekdays"))</div>
-		<div class="text-light-c">10:00-18:00 (@T("topmenu.weekend"))</div>
-	</div>
-	<ul class="head-menu d-none d-lg-inline-block">
-		<li><a class="d-none d-lg-inline" href="/about-us">@T("topmenu.about")</a></li>
-		<li><a class="d-none d-lg-inline" href="/ourstores">@T("topmenu.ourstores")</a></li>
-		<li><a href="/delivery">@T("topmenu.delivery")</a></li>
-	</ul>
-	<div class="icons-wrap">
-		@await Component.InvokeAsync("LanguageSelector")
-		<i class="favorit close"></i>
-		<div class="d-lg-none">
-			<div class="logo-m">
-			@await Component.InvokeAsync("Logo")
-			</div>
-		</div>
-		@await Component.InvokeAsync("HeaderLinks")
-	</div>
+    <div class="humburger-wrap d-lg-none">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="side-logo-wrap d-none d-lg-inline-block">
+        <div class="logo">
+            @await Component.InvokeAsync("Logo")
+        </div>
+    </div>
+    <div class="phone-wrap d-none d-xl-inline-block">
+        <div class="phone-title text-light-c d-none d-xl-inline-block">@T("topmenu.freeline")</div>
+        <div class="phone">0 800 604 597</div>
+    </div>
+    <div class="shedule-wrapp d-none d-xl-inline-block">
+        <div class="text-light-c">09:00-20:00 (@T("topmenu.weekdays"))</div>
+        <div class="text-light-c">10:00-18:00 (@T("topmenu.weekend"))</div>
+    </div>
+    <ul class="head-menu d-none d-lg-inline-block">
+        <li>
+            <div class="dropdown">
+                <button class="btn btn-link btn-city dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="your-city"></span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="drop-wrapp">
+                        <div class="input-wrapp ui-widget">
+                            <input class="form-control" type="text" id="city-input" />
+                        </div>
+                        <div class="ui-widget" style="display:none;margin-top:2em; font-family:Arial"></div>
+                        <div class="city-wrapp d-flex">
+                            <div>
+                                <ul>
+                                    <li><a onclick="return false;" href="#">Киев</a></li>
+                                    <li><a onclick="return false;" href="#">Одесса</a></li>
+                                    <li><a onclick="return false;" href="#">Запорожье</a></li>
+                                    <li><a onclick="return false;" href="#">Сумы</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li><a onclick="return false;" href="#">Днепр</a></li>
+                                    <li><a onclick="return false;" href="#">Мариуполь</a></li>
+                                    <li><a onclick="return false;" href="#">Херсон</a></li>
+                                    <li><a onclick="return false;" href="#">Ужгород</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li><a onclick="return false;" href="#">Харьков</a></li>
+                                    <li><a onclick="return false;" href="#">Умань</a></li>
+                                    <li><a onclick="return false;" href="#">Кропивницкий</a></li>
+                                    <li><a onclick="return false;" href="#">Львов</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        @*<div class="ui-widget">
+                <label for="city-input">Type your city: </label>
+                <input id="city-input" />
+            </div>
+
+            <div class="ui-widget" style="display:none;margin-top:2em; font-family:Arial">
+                Result:
+                <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+            </div>*@
+
+        <li><a class="d-none d-lg-inline" href="/about-us">@T("topmenu.about")</a></li>
+        <li><a class="d-none d-lg-inline" href="/ourstores">@T("topmenu.ourstores")</a></li>
+        <li><a href="/delivery">@T("topmenu.delivery")</a></li>
+    </ul>
+    <div class="icons-wrap">
+        @await Component.InvokeAsync("LanguageSelector")
+        <i class="favorit close"></i>
+        <div class="d-lg-none">
+            <div class="logo-m">
+                @await Component.InvokeAsync("Logo")
+            </div>
+        </div>
+        @await Component.InvokeAsync("HeaderLinks")
+    </div>
 </div>
+
+<style>
+    .ui-autocomplete-loading {
+        background: white url("/img/loader.gif") right center no-repeat;
+    }
+</style>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+
+        $("#city-input").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/getcitysuggestions",//"@Url.Action("GetCitySuggestions", "Common")",
+                    dataType: "json",
+                    data: {
+                        query: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 2,
+            select: function (event, ui) {
+                console.log(ui);
+                $("#city-input").val("");
+                $("#your-city").text(ui.item.label);
+            }
+        });
+    });
+</script>

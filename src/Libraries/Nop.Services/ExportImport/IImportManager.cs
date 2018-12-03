@@ -47,5 +47,6 @@ namespace Nop.Services.ExportImport
         /// </summary>
         /// <param name="products">List<Product></param>
         Tuple<bool, string> ImportProductsFromOneC(List<OneCProduct> products);
+        Tuple<bool, string> ImportUsersFromOneC(IList<OneCUser> users);
     }
 }

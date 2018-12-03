@@ -12,47 +12,4 @@ else
 {
     <a id="non-authorized" href="#"><i class="favorit user_icon d-none d-md-inline-block"></i></a>
 }
-<span id="your-city"></span>
-<style>
-    .ui-autocomplete-loading {
-        background: white url("/img/loader.gif") right center no-repeat;
-    }
-</style>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $(function () {
-        function log(message) {
-            $("<div>").text(message).prependTo("#log");
-            $("#log").scrollTop(0);
-        }
-
-        $("#city-input").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/ru/GetCitySuggestions",//"@Url.Action("GetCitySuggestions", "Common")",
-                    dataType: "json",
-                    data: {
-                        query: request.term
-                    },
-                    success: function (data) {
-                        response(data);
-                    }
-                });
-            },
-            minLength: 2,
-            select: function (event, ui) {
-                log("Selected: " + ui.item.value + " aka " + ui.item.id);
-            }
-        });
-    });
-</script>
-    <div class="ui-widget">
-        <label for="city-input">Type your city: </label>
-        <input id="city-input" />
-    </div>
-
-    <div class="ui-widget" style="display:none;margin-top:2em; font-family:Arial">
-        Result:
-        <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-    </div>
-
+   

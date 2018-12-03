@@ -1,6 +1,6 @@
 ﻿@model CustomerRewardPointsModel
 @{
-    Layout = "_ColumnsTwo";
+    Layout = "_ColumnsOne";
 
     //title
     Html.AddTitleParts(T("PageTitle.Account").Text);
@@ -8,95 +8,67 @@
     Html.AppendPageCssClassParts("html-account-page");
     Html.AppendPageCssClassParts("html-reward-points-page");
 }
-@section left
-{
-    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.RewardPoints })
-}
-<div class="page account-page reward-points-page">
-    <div class="page-title">
-        <h1>@T("Account.MyAccount") - @T("Account.RewardPoints")</h1>
-    </div>
-    <div class="page-body">
-        <div class="reward-points-overview">
-            <div class="current-balance">@T("RewardPoints.CurrentBalance", Model.RewardPointsBalance, Model.RewardPointsAmount)</div>
-            @if (Model.MinimumRewardPointsBalance > 0)
-            {
-                <div class="min-balance">@T("RewardPoints.MinimumBalance", Model.MinimumRewardPointsBalance, Model.MinimumRewardPointsAmount)</div>
-            }
+<nav class="breadcrumb-wrap" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Bed4you</a></li>
+        <li class="breadcrumb-item"><a href="/customer/info">@T("account.cabinet")</a></li>
+        <li class="breadcrumb-item active"><a href="#">@T("account.bonuses")</a></li>
+    </ol>
+</nav>
+<div class="row cabinet">
+    <div class="offset-xl-1 col-xl-8">
+        <div class="title-wrap clearfix">
+            <h1 class="title float-left">@T("account.bonuses")</h1>
+            <button class="btn btn-blue float-right btn-sm" onclick="window.location.replace('/logout')">@T("account.exit")</button>
         </div>
-        <div class="section reward-points-history">
-            <div class="title">
-                <strong>@T("RewardPoints.History")</strong>
-            </div>
-            @if (Model.RewardPoints.Count > 0)
-            {
-                <div class="table-wrapper">
-                    <table class="data-table">
-                        <colgroup>
-                            <col width="20%"/>
-                            <col width="10%"/>
-                            <col width="10%"/>
-                            <col/>
-                            <col width="20%"/>
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th class="date">
-                                @T("RewardPoints.Fields.CreatedDate")
-                            </th>
-                            <th class="points">
-                                @T("RewardPoints.Fields.Points")
-                            </th>
-                            <th class="points-balance">
-                                @T("RewardPoints.Fields.PointsBalance")
-                            </th>
-                            <th class="message">
-                                @T("RewardPoints.Fields.Message")
-                            </th>
-                            <th class="endDate">
-                                @T("RewardPoints.Fields.EndDate")
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @for (var i = 0; i < Model.RewardPoints.Count; i++)
-                        {
-                            var item = Model.RewardPoints[i];
-                            <tr @(i%2 == 0 ? Html.Raw(" class=\"odd\"") : Html.Raw(" class=\"even\""))>
-                                <td class="date">
-                                    @item.CreatedOn
-                                </td>
-                                <td class="points">
-                                    @item.Points
-                                </td>
-                                <td class="points-balance">
-                                    @item.PointsBalance
-                                </td>
-                                <td class="message">
-                                    @item.Message
-                                </td>
-                                <td class="endDate">
-                                    @item.EndDate
-                                </td>
-                            </tr>
-                        }
-                        </tbody>
-                    </table>
-                </div>
-                var pager = Html.Pager(Model.PagerModel);
-                if (!string.IsNullOrEmpty(pager.ToHtmlString()))
+        @await Component.InvokeAsync("AccountMenu", new { active = "/rewardpoints/history" })
+        <div class="cabinet-info rounded">
+            <div class="row bonus-wrap">
+                @if (Model.RewardPoints.Count > 0)
                 {
-                    <div class="pager">
-                        @pager
+                    <div class="row w-100 font-weight-bold">
+                        <div class="col-sm-3">@T("rewardpoints.date")</div>
+                        <div class="col-sm-3">@T("rewardpoints.added")</div>
+                        <div class="col-sm-3">@T("rewardpoints.removed")</div>
+                        <div class="col-sm-3">@T("rewardpoints.balance")</div>
                     </div>
+                    <div class="line w-100"></div>
+                    @foreach (var item in Model.RewardPoints)
+                    {
+                        <div class="row w-100">
+                            <div class="col-sm-3">@item.CreatedOn</div>
+                            <div class="col-sm-3">@((item.Points > 0) ? item.Points.ToString() : "—")</div>
+                            <div class="col-sm-3">@((item.Points < 0) ? (0 - item.Points).ToString() : "—")</div>
+                            <div class="col-sm-3">@item.PointsBalance</div>
+                        </div>
+                        @if (item != Model.RewardPoints.LastOrDefault())
+                        {
+                            <div class="line w-100"></div>
+                        }
+                     }
                 }
-            }
-            else
-            {
-                <div class="no-data">
-                    @T("RewardPoints.NoHistory")
-                </div>
-            }
+            </div>
         </div>
     </div>
 </div>
+                    @*<div class="section reward-points-history">
+                        <div class="title">
+                            <strong>@T("RewardPoints.History")</strong>
+                        </div>
+                        @if (Model.RewardPoints.Count > 0)
+                        {
+                                                        var pager = Html.Pager(Model.PagerModel);
+                            if (!string.IsNullOrEmpty(pager.ToHtmlString()))
+                            {
+                                <div class="pager">
+                                    @pager
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no-data">
+                                @T("RewardPoints.NoHistory")
+                            </div>
+                        }
+                    </div>*@

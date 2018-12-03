@@ -38,7 +38,7 @@ namespace Nop.Web.Controllers
     {
         #region Fields
 
-        private readonly INewPostHelper _newPostHelper;
+        private readonly INewPostService _newPostService;
         private readonly AddressSettings _addressSettings;
 		private readonly IProductService _productService;
         private readonly CustomerSettings _customerSettings;
@@ -72,7 +72,7 @@ namespace Nop.Web.Controllers
         #region Ctor
 
         public CheckoutController(AddressSettings addressSettings,
-            INewPostHelper newPostHelper,
+            INewPostService newPostService,
             CustomerSettings customerSettings,
 			IProductService productService,
             IAddressAttributeParser addressAttributeParser,
@@ -100,7 +100,7 @@ namespace Nop.Web.Controllers
             RewardPointsSettings rewardPointsSettings,
             ShippingSettings shippingSettings)
         {
-            this._newPostHelper = newPostHelper;
+            this._newPostService = newPostService;
             this._addressSettings = addressSettings;
 			this._productService = productService;
             this._customerSettings = customerSettings;
@@ -1105,8 +1105,8 @@ namespace Nop.Web.Controllers
 
         public virtual JsonResult GetNewPostCost(string cityName)
         {
-            var cityFrom = _newPostHelper.GetCityId("Kiev");
-            var cityTo = _newPostHelper.GetCityId(cityName);
+            var cityFrom = _newPostService.GetCityId("Киев");
+            var cityTo = _newPostService.GetCityId(cityName);
             var weight = _workContext.CurrentCustomer.ShoppingCartItems
                 .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
                 .LimitPerStore(_storeContext.CurrentStore.Id)
@@ -1115,7 +1115,7 @@ namespace Nop.Web.Controllers
                 .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
                 .LimitPerStore(_storeContext.CurrentStore.Id)
                 .Sum(x => x.Product.Price * x.Quantity);
-            var cost = _newPostHelper.GetCost(cityFrom, cityTo, weight.ToString(), assessedCost.ToString());
+            var cost = _newPostService.GetCost(cityFrom, cityTo, weight.ToString(), assessedCost.ToString());
             return Json(cost);
         }
 
