@@ -18,6 +18,7 @@ using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Vendors;
 using Nop.Core.Infrastructure;
 using Nop.Services.Catalog;
+using Nop.Services.Common;
 using Nop.Services.Customers;
 using Nop.Services.Directory;
 using Nop.Services.ExportImport.Help;
@@ -83,6 +84,7 @@ namespace Nop.Services.ExportImport
         private readonly MediaSettings _mediaSettings;
         private readonly VendorSettings _vendorSettings;
         private readonly ICustomerService _customerService;
+        private readonly IGenericAttributeService _genericAttributeService;
 
         #endregion
 
@@ -118,7 +120,8 @@ namespace Nop.Services.ExportImport
             IWorkContext workContext,
             MediaSettings mediaSettings,
             VendorSettings vendorSettings,
-            ICustomerService customerService)
+            ICustomerService customerService,
+            IGenericAttributeService genericAttributeService)
         {
             this._catalogSettings = catalogSettings;
             this._categoryService = categoryService;
@@ -151,6 +154,7 @@ namespace Nop.Services.ExportImport
             this._mediaSettings = mediaSettings;
             this._vendorSettings = vendorSettings;
             this._customerService = customerService;
+            this._genericAttributeService = genericAttributeService;
         }
 
         #endregion
@@ -1171,20 +1175,26 @@ namespace Nop.Services.ExportImport
                         usersAdded++;
                         customer = new Customer()
                         {
+                            Id = 0,
                             Username = user?.Username,
                             Email = user?.Email,
                             IdOneC = user.IdOneC,
-                            //City = user.City,
-                            //Address = user.Address,
-                            //Apartament = user.Apartament,
                             NumberDiscountCard = user.NumberDiscountCard,
                             DiscountPercent = user.Percent,
                             SumActiveBonus = user.SumActiveBonus,
                             SumBonus = user.SumBonus,
                             TotalSpent = user.TotalSpent,
-
+                            CustomerGuid = Guid.NewGuid(),
+                            Active = true,
+                            CreatedOnUtc = DateTime.UtcNow,
+                            LastActivityDateUtc = DateTime.UtcNow,
+                            RegisteredInStoreId = _storeContext.CurrentStore.Id
                         };
                         _customerService.InsertCustomer(customer);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CityAttribute, user.City);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
+                        _customerService.UpdateCustomer(customer);
                     }
                     else
                     {
@@ -1192,14 +1202,14 @@ namespace Nop.Services.ExportImport
                         customer.Username = user?.Username;
                         customer.Email = user?.Email;
                         customer.IdOneC = user.IdOneC;
-                        //customer.City = user.City;
-                        //customer.Address = user.Address;
-                        //customer.Apartament = user.Apartament;
                         customer.NumberDiscountCard = user.NumberDiscountCard;
                         customer.DiscountPercent = user.Percent;
                         customer.SumActiveBonus = user.SumActiveBonus;
                         customer.SumBonus = user.SumBonus;
                         customer.TotalSpent = user.TotalSpent;
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CityAttribute, user.City);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
                         _customerService.UpdateCustomer(customer);
                     }
                 }
