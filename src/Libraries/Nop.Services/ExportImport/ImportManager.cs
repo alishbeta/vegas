@@ -1194,6 +1194,9 @@ namespace Nop.Services.ExportImport
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CityAttribute, user.City);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
+
+                        customer.CustomerCustomerRoleMappings.Add(new CustomerCustomerRoleMapping { CustomerRole = new CustomerRole() { Id = 3 } });
+
                         _customerService.UpdateCustomer(customer);
                     }
                     else
