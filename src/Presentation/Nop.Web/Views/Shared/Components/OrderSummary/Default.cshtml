@@ -525,26 +525,20 @@
                         </button>
 
                         <div class="form-group row">
-                            <label style="display: none" class="col-form-label col-sm-3" for="li1">
+                            <label class="col-form-label col-sm-3" for="li1">
                                 @T("cart.name")
                             </label>
-                            <input id="li1" style="display: none" type="text" name="Name" class="form-control col-sm-8" value="@Model.CustomerInfo.FirstName">
-                            <div class="col-sm-4">@T("cart.name")</div>
-                            <div class="col-sm-8 text-light-c">@Model.CustomerInfo.FirstName</div>
+                            <input id="li1" type="text" name="Name" class="form-control col-sm-8" value="@Model.CustomerInfo.FirstName" disabled>                            
                         </div>
                         <div class="form-group row">
-                            <label style="display: none" class="col-form-label col-sm-3" for="li2">
+                            <label class="col-form-label col-sm-3" for="li2">
                                 @T("cart.phone")
                             </label>
-                            <input style="display: none" id="li2" type="text" name="Phone" class="form-control col-sm-8" value="@Model.CustomerInfo.Phone">
-                            <div class="col-sm-4">@T("cart.phone")</div>
-                            <div class="col-sm-8 text-light-c">@Model.CustomerInfo.Phone</div>
+                            <input id="li2" type="text" name="Phone" class="form-control col-sm-8" value="@Model.CustomerInfo.Phone" disabled>
                         </div>
                         <div class="form-group row">
-                            <label style="display: none" class="col-form-label col-sm-3" for="li1">E-mail</label>
-                            <input id="li3" type="text" style="display: none" name="Email" class="form-control col-sm-8" value="@Model.CustomerInfo.Email">
-                            <div class="col-sm-4">E-mail</div>
-                            <div class="col-sm-8 text-light-c">@Model.CustomerInfo.Email</div>
+                            <label class="col-form-label col-sm-3" for="li1">E-mail</label>
+                            <input id="li3" type="text" name="Email" class="form-control col-sm-8" value="@Model.CustomerInfo.Email" disabled>
                         </div>
                     </div>
 
@@ -595,44 +589,35 @@
                         </div>
 
                         <div class="form-group row">
-                            <label style="display: none" class="col-form-label col-sm-3" for="ai1">
+                            <label class="col-form-label col-sm-3" for="ai1">
                                 @T("cart.city")
                             </label>
                             <input type="text"
-                                   style="display: none"
                                    id="ai1"
                                    name="City"
                                    class="form-control col-sm-8"
-                                   value="@Model.CustomerInfo.City">
-                            <div class="col-sm-4">@T("cart.city")</div>
-                            <div class="col-sm-8 text-light-c">@Model.CustomerInfo.City</div>
+                                   value="@Model.CustomerInfo.City" disabled>
                         </div>
                         <div id="additional-addr-fields">
                             <div class="form-group row">
-                                <label style="display: none" class="col-form-label col-sm-3" for="ai2">
+                                <label class="col-form-label col-sm-3" for="ai2">
                                     @T("cart.address")
                                 </label>
-                                <input style="display: none"
-                                       id="ai2"
+                                <input id="ai2"
                                        type="text"
                                        name="StreetAddress1"
                                        class="form-control col-sm-8"
-                                       value="@Model.CustomerInfo.StreetAddress">
-                                <div class="col-sm-4">@T("cart.address")</div>
-                                <div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress</div>
+                                       value="@Model.CustomerInfo.StreetAddress" disabled>
                             </div>
                             <div class="form-group row">
-                                <label style="display: none" class="col-form-label col-sm-3" for="ai3">
+                                <label class="col-form-label col-sm-3" for="ai3">
                                     @T("cart.flat")
                                 </label>
-                                <input style="display: none"
-                                       id="ai3"
+                                <input id="ai3"
                                        type="text"
                                        name="StreetAddress2"
                                        class="form-control col-sm-8"
-                                       value="@Model.CustomerInfo.StreetAddress2">
-                                <div class="col-sm-4">@T("cart.flat")</div>
-                                <div class="col-sm-8 text-light-c">@Model.CustomerInfo.StreetAddress2</div>
+                                       value="@Model.CustomerInfo.StreetAddress2" disabled>
                             </div>
                         </div>
                         <div id="nova-poshta-fields">
@@ -736,28 +721,31 @@
     }
 
 	function CancelChangesInZone(index) {
-		if (index == 1) {
-			$("#firstZone .row").each(function () {
-				$(this).find('input').val($(this).find('.text-light-c').text());
-			});
-		}
-		if (index == 2) {
-			$("#secondZone .row").each(function () {
-				$(this).find('input').val($(this).find('.text-light-c').text());
-			});
-		}
+		//if (index == 1) {
+		//	$("#firstZone .row").each(function () {
+		//		$(this).find('input').val($(this).find('.text-light-c').text());
+		//	});
+		//}
+		//if (index == 2) {
+		//	$("#secondZone .row").each(function () {
+		//		$(this).find('input').val($(this).find('.text-light-c').text());
+		//	});
+		//}
 	}
-	$("#checkout-old").on("click", function (e) {
+    $("#checkout-old").on("click", function (e) {
+        var valid = true;
 		if ($("#li1").val().length == 0) {
 			$("#li1").addClass("is-invalid");
-			e.preventDefault();
+            e.preventDefault();
+            valid = false;
 		}
 		else {
 			$("#li1").removeClass("is-invalid");
 		}
 		if ($("#li2").val().length == 0) {
 			$("#li2").addClass("is-invalid");
-			e.preventDefault();
+            e.preventDefault();
+            valid = false;
 		}
 		else {
 			$("#li2").removeClass("is-invalid");
@@ -765,11 +753,18 @@
 		e.pr
 		if ($("#li3").val().length == 0) {
 			$("#li3").addClass("is-invalid");
-			e.preventDefault();
+            e.preventDefault();
+            valid = false;
 		}
 		else {
 			$("#li3").removeClass("is-invalid");
-		}
+        }
+
+        if (valid) {
+            $(".login-wrap input").each(function (data) {
+                $(this).attr("disabled", false);
+            });
+        }
 	});
 	$("#checkout-new").on("click", function (e) {
 		if ($("#i1").val().length == 0) {

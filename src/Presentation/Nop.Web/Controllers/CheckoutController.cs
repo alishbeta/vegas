@@ -931,6 +931,13 @@ namespace Nop.Web.Controllers
 				.Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
 				.LimitPerStore(_storeContext.CurrentStore.Id)
 				.ToList();
+            foreach (var item in cart)
+            {
+                if (item.Product.Deleted)
+                {
+                    _shoppingCartService.DeleteShoppingCartItem(item);
+                }
+            }
 			var model = new ShoppingCartModel();
 			model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
 			return View(model);
