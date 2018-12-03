@@ -401,9 +401,9 @@
                                 var productColor = Model.ProductSpecifications.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "Цвет".ToLower());
                             }
                             @if (productColor != null)
-                                        {
+                            {
                                 <div class="color-title">
-                                    <span>@T("product.color")</span>
+                                    <span>@T("product.color"):</span>
                                     <span>@Html.Raw(productColor.ValueRaw)</span>
                                 </div>
                             }
