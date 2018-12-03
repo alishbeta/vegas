@@ -735,8 +735,13 @@ namespace Nop.Services.ExportImport
                     Email = d?.Email,
                     Address = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.StreetAddressAttribute),
                     Apartament = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.StreetAddress2Attribute),
-                    City = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.CityAttribute)
-                    //Addresses = d?.Addresses ?? new List<Address>()
+                    City = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.CityAttribute),
+                    IdOneC = d.IdOneC,
+                    NumberDiscountCard =d.NumberDiscountCard,
+                    Percent = d.DiscountPercent,
+                    SumActiveBonus = d.SumActiveBonus,
+                    SumBonus = d.SumBonus,
+                    TotalSpent = d.TotalSpent
                 }));
         }
 

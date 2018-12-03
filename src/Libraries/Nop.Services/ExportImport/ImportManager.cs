@@ -1174,9 +1174,9 @@ namespace Nop.Services.ExportImport
                             Username = user?.Username,
                             Email = user?.Email,
                             IdOneC = user.IdOneC,
-                            City = user.City,
-                            Address = user.Address,
-                            Apartament = user.Apartament,
+                            //City = user.City,
+                            //Address = user.Address,
+                            //Apartament = user.Apartament,
                             NumberDiscountCard = user.NumberDiscountCard,
                             DiscountPercent = user.Percent,
                             SumActiveBonus = user.SumActiveBonus,
@@ -1192,9 +1192,9 @@ namespace Nop.Services.ExportImport
                         customer.Username = user?.Username;
                         customer.Email = user?.Email;
                         customer.IdOneC = user.IdOneC;
-                        customer.City = user.City;
-                        customer.Address = user.Address;
-                        customer.Apartament = user.Apartament;
+                        //customer.City = user.City;
+                        //customer.Address = user.Address;
+                        //customer.Apartament = user.Apartament;
                         customer.NumberDiscountCard = user.NumberDiscountCard;
                         customer.DiscountPercent = user.Percent;
                         customer.SumActiveBonus = user.SumActiveBonus;

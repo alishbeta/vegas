@@ -65,9 +65,6 @@ namespace Nop.Core.Domain.Customers
 
         public bool IsSync { get; set; }
         public int IdOneC { get; set; }
-        public string City { get; set; }
-        public string Address { get; set; }
-        public string Apartament { get; set; }
         public string NumberDiscountCard { get; set; }
         public int DiscountPercent { get; set; }
         public int SumActiveBonus { get; set; }
