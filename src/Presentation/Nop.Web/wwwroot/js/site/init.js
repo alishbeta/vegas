@@ -284,65 +284,26 @@ $(document).ready(function () {
         });
 
     /*#####################    Кабинет  (Редактирование личных данных и адреса) ###############################*/
-    $('#edit-name, #edit-addres, #edit-pass').on('click', function () {
-        var el = $(this).next().next().children(),
-            el2 = $(this).next().next().next().children(),
-            el3 = $(this).next().next().next().next().children();
-        $(this).fadeOut(function () {
-            $(this).next().fadeIn();
-        });
-        if (!!el3[2]) {
-            $(el3[2]).fadeToggle(function () {
-                $(el3[0]).fadeToggle();
-                $(el3[1]).fadeToggle();
-            });
-            $(el3[3]).fadeToggle();
-        }
-        if (!!el[2]) {
-            $(el[2]).fadeToggle(function () {
-                $(el[0]).fadeToggle();
-                $(el[1]).fadeToggle();
-            });
-            $(el[3]).fadeToggle();
-
-            $(el2[2]).fadeToggle(function () {
-                $(el2[0]).fadeToggle();
-                $(el2[1]).fadeToggle();
-            });
-            $(el2[3]).fadeToggle();
-        } else {
-            $(el[0]).fadeToggle();
-            $(el[1]).fadeToggle();
-        }
+    $('#edit-addres').on('click', function(){
+        $(this).hide().next().show();
+        $('#secondZone input:not([type="radio"], #newpost-department)').attr('disabled',false);
+    });
+    $('#edit-addres-close').on('click', function(){
+        $(this).hide().prev().show();
+        $('#secondZone input:not([type="radio"], #newpost-department)').attr('disabled',true);
     });
 
-    $('#edit-name-close, #edit-addres-close, #edit-pass-close').on('click', function () {
-        var el = $(this).next().children(),
-            el2 = $(this).next().next().children(),
-            el3 = $(this).next().next().next().children();
-        $(this).fadeOut(function () {
-            $(this).prev().fadeIn();
-        });
-
-        if (!!el3[2]) {
-            $(el3[0]).fadeToggle(function () {
-                $(el3[2]).fadeToggle();
-                $(el3[3]).fadeToggle();
-            });
-            $(el3[1]).fadeToggle()
-        }
-        $(el[0]).fadeToggle(function () {
-            $(el[2]).fadeToggle();
-            $(el[3]).fadeToggle();
-        });
-        $(el[1]).fadeToggle()
-
-        $(el2[0]).fadeToggle(function () {
-            $(el2[2]).fadeToggle();
-            $(el2[3]).fadeToggle();
-        });
-        $(el2[1]).fadeToggle()
+    $('#edit-name').on('click', function(){
+        $(this).hide().next().show();
+        $('#firstZone input').attr('disabled',false);
     });
+    
+    $('#edit-name-close').on('click', function(){
+        $(this).hide().prev().show();
+        $('#firstZone input').attr('disabled',true);
+    });
+
+ 
 
     tabControl();
 

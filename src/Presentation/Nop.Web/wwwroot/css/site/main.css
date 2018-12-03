@@ -1102,11 +1102,11 @@ nav.breadcrumb-wrap a:hover {
   cursor: pointer;
 }
 
-.col-form-label {
-  padding-top: 0;
-  padding-bottom: 0;
+@media (max-width: 575px) {
+  .short-menu .side-menu-wrap.open, .short-menu .all-menu-wrap .open.side-second-menu-wrap, .all-menu-wrap .short-menu .open.side-second-menu-wrap {
+    padding-top: 50px;
+  }
 }
-
 .cat .f1 {
   float: left;
 }
@@ -2218,7 +2218,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .cart form, .cart-popup-wrap form {
   width: 100%;
 }
-.cart label:hover, .cart-popup-wrap label:hover, .cart .form-check-input, .cart-popup-wrap .form-check-input {
+.cart label:hover, .cart-popup-wrap label:hover,
+.cart .form-check-input,
+.cart-popup-wrap .form-check-input {
   cursor: pointer;
 }
 .cart.wrap, .wrap.cart-popup-wrap {
@@ -2304,7 +2306,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   font-size: 14px;
   color: #767c7e;
 }
-.cart .order-wrapp .item .count-wrap div, .cart-popup-wrap .order-wrapp .item .count-wrap div, .cart .order-wrapp .item .count-wrap button, .cart-popup-wrap .order-wrapp .item .count-wrap button {
+.cart .order-wrapp .item .count-wrap div, .cart-popup-wrap .order-wrapp .item .count-wrap div,
+.cart .order-wrapp .item .count-wrap button,
+.cart-popup-wrap .order-wrapp .item .count-wrap button {
   display: inline-block;
   vertical-align: middle;
   margin-right: 3px;
@@ -2381,6 +2385,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cart .tabbed-content, .cart-popup-wrap .tabbed-content {
   margin-left: 0;
+}
+.cart .tabbed-content .form-control:disabled, .cart-popup-wrap .tabbed-content .form-control:disabled {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+.cart .tabbed-content label, .cart-popup-wrap .tabbed-content label {
+  cursor: default;
 }
 
 .compare .title-wrap h1 {
@@ -3406,6 +3417,15 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cabinet .cabinet-info .item.active {
   border: 1px solid transparent;
+}
+.cabinet .cabinet-info .bonus-wrap div.row {
+  padding: 10px 0;
+}
+.cabinet .cabinet-info .bonus-wrap div.row:first-of-type {
+  margin: 0 0 40px;
+}
+.cabinet .cabinet-info .bonus-wrap .line {
+  margin: 0;
 }
 .cabinet .cabinet-info-main {
   padding: 30px 75px;

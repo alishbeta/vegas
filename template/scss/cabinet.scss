@@ -37,6 +37,17 @@
     .item.active{
       border: 1px solid transparent;
     }
+    .bonus-wrap{
+      div.row{
+        padding: 10px 0;
+      }
+      div.row:first-of-type{
+        margin: 0 0 40px;
+      }
+      .line{
+        margin: 0;
+      }
+    }
   }
   .cabinet-info-main{
     padding: 30px 75px;
