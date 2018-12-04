@@ -1112,6 +1112,10 @@ namespace Nop.Web.Controllers
 
         public virtual JsonResult GetNewPostCost(string cityName)
         {
+            if (string.IsNullOrEmpty(cityName))
+            {
+                return Json("");
+            }
             var cityFrom = _newPostService.GetCityId("Киев");
             var cityTo = _newPostService.GetCityId(cityName);
             var weight = _workContext.CurrentCustomer.ShoppingCartItems
