@@ -168,7 +168,8 @@
                         <span>@T("cart.total") <span id="cart-count-full">0</span> @T("cart.total.text")</span>
                         <span><span id="cart-price-full">0</span> грн</span>
                         <br />
-                        <small>@T("cart.willearn") @Model.WillEarnRewardPoints @T("cart.points")</small>
+                        <small id="bonuses-earn-tip">@T("cart.willearn") @Model.WillEarnRewardPoints @T("cart.points")</small>
+                        <small id="bonuses-lost-tip" style="display: none;">@T("cart.willlost") <span id="bonuses-ballance"></span> @T("cart.bonuses")</small>
                     </div>
                     <button class="btn btn-link">@T("cart.usebonuscard")</button>
                     <small>@T("cart.price.tip")</small>

@@ -397,11 +397,6 @@
                         <label class="col-form-label" for="r3">@T("cart.delivery.novaposhta")</label>
                     </div>
                 </div>
-                <div class="form-group row d-none" id="new-newpost-tip">
-                    <label class="col-form-label col-sm-3">@T("cart.delivery.price")</label>
-                    <div class="col-form-label col-sm-3" id="new-delivery-price"></div>
-                    <div class="col-form-label col-sm-3">@("cart.delivery.tip")</div>
-                </div>
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">@T("Cart.City")</label>
                     <input type="text" name="City" class="form-control col-sm-8">
@@ -416,12 +411,14 @@
                 </div>
                 <div id="new-nova-poshta-fields" class="form-group row d-none">
                     <label for="new-newpost-department" class="col-form-label col-sm-3">@T("cart.newpost.department")</label>
-                    <input type="text" id="new-newpost-department" value="" class="form-control col-sm-3" />
+                    <input type="text" id="new-newpost-department" value="" class="form-control col-sm-5" />
                     <div id="np-map" class="d-none">
                         <button type="button" id="npw-map-open-button" class="">@T("cart.showmap")</button>
                         <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPhm7Q29X5ldwjLtA7IMYHU_0xATiWK3A&amp;language=ru"></script>
                     </div>
-                    <a style="cursor:pointer;" class="np-open" onclick="NPSelectDepartment();">@T("cart.showmap")</a>
+                    <label class="col-form-label col-sm-3">
+                        <a style="cursor:pointer;" class="np-open" onclick="NPSelectDepartment();">@T("cart.showmap")</a>
+                    </label>
                     <link rel='stylesheet' href='https://apimgmtstorelinmtekiynqw.blob.core.windows.net/content/MediaLibrary/Widget/Map/styles/map.css' />
                     <script type='text/javascript' id='map' charset='utf-8' data-lang='ru' apiKey='45f32a18b7f954ee48e88d17544ceaaa' data-town='city-not-default' data-town-name='undefined' data-town-id='undefined' src='https://apimgmtstorelinmtekiynqw.blob.core.windows.net/content/MediaLibrary/Widget/Map/dist/map.min.js'></script>
                     <script>
@@ -434,6 +431,11 @@
                             }
                         });
                     </script>
+                </div>
+                <div class="form-group row d-none" id="new-newpost-tip">
+                    <label class="col-form-label col-sm-3">@T("cart.delivery.price")</label>
+                    <div class="col-form-label col-sm-3" id="new-delivery-price"></div>
+                    <div class="col-form-label col-sm-3">@("cart.delivery.tip")</div>
                 </div>
                 <div class="line"></div>
 
@@ -497,7 +499,7 @@
 						</div>
 						<div class="row">
                             <div class="offset-sm-3 col-sm-8">
-                                <input type="submit" class="text-center btn btn-blue-white btn-block" id="loginSubmit" value="@T("login.continue")" />
+                                <input type="submit" class="text-center btn btn-blue-white btn-block btn-blue" id="loginSubmit" value="@T("login.continue")" />
                             </div>
 							<script>
 								$("#loginSubmit").on("click", function (e) {
@@ -612,11 +614,6 @@
                                 <label class="col-form-label" for="lr3">@T("cart.delivery.novaposhta")</label>
                             </div>
                         </div>
-                        <div class="form-group row d-none" id="old-newpost-tip">
-                            <label class="col-form-label col-sm-3">@T("cart.delivery.price")</label>
-                            <div class="col-form-label col-sm-3" id="old-delivery-price"></div>
-                            <div class="col-form-label col-sm-3">@("cart.delivery.tip")</div>
-                        </div>
                         <div class="form-group row">
                             <label class="col-form-label col-sm-3" for="ai1">
                                 @T("cart.city")
@@ -653,6 +650,11 @@
                             <label class="col-form-label col-sm-3">
                                 <a style="cursor:pointer;" class="np-open" onclick="NPSelectDepartment();">@T("cart.showmap")</a>
                             </label>
+                        </div>
+                        <div class="form-group row d-none" id="old-newpost-tip">
+                            <label class="col-form-label col-sm-3">@T("cart.delivery.price")</label>
+                            <div class="col-form-label col-sm-3" id="old-delivery-price"></div>
+                            <div class="col-form-label col-sm-3">@("cart.delivery.tip")</div>
                         </div>
                     </div>
                     <script>
@@ -700,7 +702,7 @@
                         <input class="form-check-inline bonus" name="PayByBonuses" type="checkbox" value="true" onchange="RecountTotal(this.checked)">
                         <label class="col-form-label" for="r6">
                             @T("cart.paybybonus")
-                        @ViewBag.BonusesBalance
+                        (@T("cart.yourbalance") @ViewBag.BonusesBalance @T("cart.bonuses"))
                     </label>
                     <a href="#" class="btn btn-link">@T("cart.moreinfo")</a>
                 </div>
@@ -743,9 +745,14 @@
     function RecountTotal(value) {
         if (value) {
             $("#cart-price-full").text(parseInt($("#cart-price-full").text()) - @ViewBag.BonusesBalance);
+            $("#bonuses-lost-tip").css("display", "block");
+            $("#bonuses-earn-tip").css("display", "none");
+            $("#bonuses-ballance").text("@ViewBag.BonusesBalance");
         }
         else {
             $("#cart-price-full").text(parseInt($("#cart-price-full").text()) + @ViewBag.BonusesBalance);
+            $("#bonuses-lost-tip").css("display", "none");
+            $("#bonuses-earn-tip").css("display", "block");
         }
     }
 
