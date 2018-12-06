@@ -1,4 +1,15 @@
 .product {
+    .opt-wrap{
+        #similar-button{
+            a{
+                color: $text_light;
+                text-decoration: underline;
+                &:hover{
+                    text-decoration: underline; 
+                }
+            }
+        }
+    }
     .price-wrap {
         .icons-wrap {
             margin-right: 0;
