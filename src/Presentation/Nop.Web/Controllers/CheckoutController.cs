@@ -1116,7 +1116,31 @@ namespace Nop.Web.Controllers
             {
                 return Json("");
             }
-            var cityFrom = _newPostService.GetCityId("Киев");
+            string from = "";
+            var product = _workContext.CurrentCustomer.ShoppingCartItems
+                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                .LimitPerStore(_storeContext.CurrentStore.Id)
+                .FirstOrDefault(x => x.Product.UseMultipleWarehouses)?.Product ??
+                 _workContext.CurrentCustomer.ShoppingCartItems
+                                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                                .LimitPerStore(_storeContext.CurrentStore.Id)
+                                .FirstOrDefault(x => x.Product.WarehouseId != 0)?.Product;
+            if (product != null)
+            {
+                if (product.UseMultipleWarehouses)
+                {
+                    from = _addressService.GetAddressById(product.ProductWarehouseInventory.FirstOrDefault(x => x.Warehouse?.AddressId != 0).Warehouse.AddressId).City;
+                }
+                else
+                {
+                    from = _addressService.GetAddressById(_shippingService.GetWarehouseById(product.WarehouseId).AddressId).City;
+                }
+            }
+            if (string.IsNullOrEmpty(from))
+            {
+                from = "Киев";
+            }
+            var cityFrom = _newPostService.GetCityId(from);
             var cityTo = _newPostService.GetCityId(cityName);
             var weight = _workContext.CurrentCustomer.ShoppingCartItems
                 .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)

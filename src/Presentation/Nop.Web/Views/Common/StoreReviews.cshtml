@@ -91,23 +91,7 @@
                 </div>
             </form>
         </div>
-        <script>
-            $('#add-review-form').submit(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: $(this).closest('form').attr('action'),
-                    type: 'post',
-                    data: $('#add-review-form').serialize()
-                }).done(function (data) {
-                    if (data.success) {
-                        window.location.reload();
-                    }
-                    else {
-                        console.log(data.message);
-                    }
-                });
-            });
-        </script>
+        
         @if (Model.Items.Count > 0)
         {
             @foreach (var review in Model.Items)
@@ -148,6 +132,23 @@
         }
     </div>
 </div>
+<script>
+    $('#add-review-form').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).closest('form').attr('action'),
+            type: 'post',
+            data: $('#add-review-form').serialize()
+        }).done(function (data) {
+            if (data.success) {
+                window.location.reload();
+            }
+            else {
+                console.log(data.message);
+            }
+        });
+    });
+</script>
 
     @******************************old*********************************@
 

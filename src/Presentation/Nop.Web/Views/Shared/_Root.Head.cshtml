@@ -135,18 +135,14 @@
 			dots: true,
 			prevArrow: '<div class="baner-prev-arrow"></div>',
 			nextArrow: '<div class="baner-next-arrow"></div>',
-			responsive: [
-				{
-					breakpoint: 575,
-					settings: {
-						prevArrow: '',
-						nextArrow: '',
-					}
-				}
-				// You can unslick at a given breakpoint now by adding:
-				// settings: "unslick"
-				// instead of a settings object
-			]
+            responsive: [
+                {
+                    breakpoint: 575,
+                    settings: {
+                        arrows: false,
+                    }
+                }
+            ]
 		});
 		$('.slider-wrap').slick({
 			dots: false,
