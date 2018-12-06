@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    
+    $(window).on( 'resize', createSlick );
+
     $(window).on('scroll', function () {
         var top = $(window).scrollTop();
         if (top > 400)
