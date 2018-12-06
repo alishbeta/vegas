@@ -737,7 +737,7 @@ namespace Nop.Services.ExportImport
                     Apartament = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.StreetAddress2Attribute),
                     City = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.CityAttribute),
                     IdOneC = d.IdOneC,
-                    NumberDiscountCard =d.NumberDiscountCard,
+                    NumberDiscountCard = d.NumberDiscountCard,
                     Percent = d.DiscountPercent,
                     SumActiveBonus = d.SumActiveBonus,
                     SumBonus = d.SumBonus,
