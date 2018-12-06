@@ -37,8 +37,8 @@
                     {
                         <div class="row w-100">
                             <div class="col-sm-3">@item.CreatedOn</div>
-                            <div class="col-sm-3">@((item.Points > 0) ? item.Points.ToString() : "—")</div>
-                            <div class="col-sm-3">@((item.Points < 0) ? (0 - item.Points).ToString() : "—")</div>
+                            <div class="col-sm-3">@((item.Points > 0) ? "+" + item.Points.ToString() : "—")</div>
+                            <div class="col-sm-3">@((item.Points < 0) ? item.Points.ToString() : "—")</div>
                             <div class="col-sm-3">@item.PointsBalance</div>
                         </div>
                         @if (item != Model.RewardPoints.LastOrDefault())
