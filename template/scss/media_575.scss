@@ -401,9 +401,12 @@
     .header-wrap .icons-wrap img {
         width: 155px;
     }
-    .outer-wrapp {
-        float: none;
+    .cat-content-wrap{
+        .outer-wrapp {
+            float: none;
+        }
     }
+
     .tabbed-content {
         min-width: 100%;
     }

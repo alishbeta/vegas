@@ -1365,7 +1365,7 @@ nav.breadcrumb-wrap a:hover {
   margin-top: 5px;
   font-size: 20px;
   line-height: 0.9;
-  font-size: 600;
+  font-weight: 600;
 }
 
 .items .item-wrap-full:hover,
@@ -2304,11 +2304,12 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cart .order-wrapp .item .img-wrap, .cart-popup-wrap .order-wrapp .item .img-wrap {
   min-height: 120px;
+  float: left;
+  width: 125px;
+  margin-right: 15px;
 }
 .cart .order-wrapp .item img, .cart-popup-wrap .order-wrapp .item img {
-  width: 125px;
-  float: left;
-  margin-right: 15px;
+  width: 100%;
 }
 .cart .order-wrapp .item .title, .cart-popup-wrap .order-wrapp .item .title {
   font-size: 14px;
@@ -2967,11 +2968,11 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   margin: 10px 15px 0 0;
 }
 
-.product .opt-wrap #similar-button a {
+.product .opt-wrap #similar-button {
   color: #767c7e;
   text-decoration: underline;
 }
-.product .opt-wrap #similar-button a:hover {
+.product .opt-wrap #similar-button:hover {
   text-decoration: underline;
 }
 .product .price-wrap .icons-wrap {
@@ -5074,7 +5075,7 @@ section .item {
     width: 155px;
   }
 
-  .outer-wrapp {
+  .cat-content-wrap .outer-wrapp {
     float: none;
   }
 
