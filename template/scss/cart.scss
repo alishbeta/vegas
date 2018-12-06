@@ -71,6 +71,9 @@
         .bonus {
             margin-left: 10px;
         }
+        .np-open {
+            color: $bluish;
+        }
     }
     .order-wrapp {
         width: 370px;
@@ -82,14 +85,20 @@
             font-size: $size-title;
         }
         .item {
-            img {
-                width: 125px;
+            .img-wrap {
+                min-height: 120px;
                 float: left;
+                width: 125px;
                 margin-right: 15px;
+            }
+            img {
+                width: 100%;
             }
             .title {
                 font-size: $size-main;
                 color: $text_light;
+                width: 53%;
+                margin-bottom: 5px;
             }
             .count-wrap {
                 div,
@@ -180,8 +189,8 @@
             background-color: transparent;
             border: 1px solid transparent;
         }
-        label{
-          cursor: default;
+        label {
+            cursor: default;
         }
     }
 }

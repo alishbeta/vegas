@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     $(window).on('scroll', function () {
         var top = $(window).scrollTop();
         if (top > 400)
