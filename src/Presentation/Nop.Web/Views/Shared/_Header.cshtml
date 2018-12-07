@@ -138,10 +138,11 @@
             },
             minLength: 2,
             select: function (event, ui) {
-                console.log(ui);
-                $("#city-input").val("");
                 $("#your-city").text(ui.item.label);
                 localStorage.City = ui.item.label;
+                setTimeout(function () {
+                    $("#city-input").val("")
+                }, 0);
             }
         });
     });

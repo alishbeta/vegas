@@ -742,6 +742,12 @@
         });
     }
 
+    $(document).ready(function () {
+        if (localStorage.City != null && localStorage.City != undefined && localStorage.City != "") {
+            $("#tab1 input[name=City]").val(localStorage.City);
+        }
+    });
+
     function RecountTotal(value) {
         if (value) {
             $("#cart-price-full").text(parseInt($("#cart-price-full").text()) - @ViewBag.BonusesBalance);
