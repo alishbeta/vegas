@@ -2755,6 +2755,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .cart-popup-wrap .img-wrapp {
   min-height: 120px;
   float: left;
+  width: 125px;
+  margin-right: 15px;
 }
 .cart-popup-wrap .price-wrap .discount {
   position: relative;
