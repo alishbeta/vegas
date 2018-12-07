@@ -395,8 +395,14 @@
 							}
 							var element =
 								'<div class="item">' +
-								'<div class="img-wrapp"><img src="' + product.Picture.ImageUrl + '" alt="' + product.Picture.AlternateText + '"></div>' +
-								'<div class="title">' + product.ProductName + '</div>' +
+                                '<div class="img-wrapp">' +
+                                '<a href="/' + product.ProductSeName + '?productId=' + product.ProductId + '">' +
+                                '<img src="' + product.Picture.ImageUrl + '" alt="' + product.Picture.AlternateText + '">' + 
+                                '</a>' +
+                                '</div > ' +
+                                '<a href="/' + product.ProductSeName + '?productId=' + product.ProductId + '">' +
+                                '<div class="title">' + product.ProductName + '</div>' +
+                                '</a>' +
 								'<div class="item-name"></div>' +
 								'<div class="count-wrap mt-2 mb-3">' +
 								'<button class="minus" onclick="ChangeProductQuantity(' + product.ProductId + ', 1, -1, false)"></button>' +

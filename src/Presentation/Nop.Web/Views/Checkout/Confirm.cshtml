@@ -141,26 +141,30 @@
                     <div id="mainCartItems">
                         @foreach (var item in Model.Items)
                         {
-                            <div class="item">
-                                <div class="img-wrap">
+                        <div class="item">
+                            <div class="img-wrap">
+                                <a href="@Url.RouteUrl("Product", new { productId = item.ProductId, SeName = item.ProductSeName })">
                                     <img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
-                                </div>
-                                <div class="title">@item.ProductName</div>
-                                <div class="item-name"></div>
-                                <div class="count-wrap mt-2 mb-2">
-                                    <button class="minus" onclick="ChangeProductQuantity(@item.ProductId, 1, -1, false)"></button>
-                                    <div class="count">@item.Quantity</div>
-                                    <button class="plus" onclick="ChangeProductQuantity(@item.ProductId, 1, 1, false)"></button>
-                                    <div class="closee" onclick="RemoveFromCart(@item.ProductId, 1, false)"></div>
-                                </div>
-                                <div class="price-wrap">
-                                    @if (!string.IsNullOrEmpty(item.Discount))
-                                    {
-                                        <div class="price-old">@item.OldPrice</div>
-                                    }
-                                    <div class="price">@(item.MaximumDiscountedQty.HasValue ? T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value).ToString() : item.UnitPrice)</div>
-                                </div>
+                                </a>
                             </div>
+                            <a href="@Url.RouteUrl("Product", new { productId = item.ProductId, SeName = item.ProductSeName})">
+                                <div class="title">@item.ProductName</div>
+                            </a>
+                            <div class="item-name"></div>
+                            <div class="count-wrap mt-2 mb-2">
+                                <button class="minus" onclick="ChangeProductQuantity(@item.ProductId, 1, -1, false)"></button>
+                                <div class="count">@item.Quantity</div>
+                                <button class="plus" onclick="ChangeProductQuantity(@item.ProductId, 1, 1, false)"></button>
+                                <div class="closee" onclick="RemoveFromCart(@item.ProductId, 1, false)"></div>
+                            </div>
+                            <div class="price-wrap">
+                                @if (!string.IsNullOrEmpty(item.Discount))
+                                {
+                                    <div class="price-old">@item.OldPrice</div>
+                                }
+                                <div class="price">@(item.MaximumDiscountedQty.HasValue ? T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value).ToString() : item.UnitPrice)</div>
+                            </div>
+                        </div>
                             <div class="line"></div>
                         }
                     </div>

@@ -379,7 +379,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item" href="#">@Model.Width.ToString("#.##") см х @Model.Lendth.ToString("#.##") см x @Model.Height.ToString("#.##") см</a>
-                                                @await Component.InvokeAsync("SimilarProductsBlock", new { makeCode = Model.MakeCode, productId = Model.Id, isSleepSizes = false })
+                                                @await Component.InvokeAsync("SimilarProductsSizesBlock", new { makeCode = Model.MakeCode, productId = Model.Id, isSleepSizes = false })
                                             </div>
                                         </div>
                                     </div>
