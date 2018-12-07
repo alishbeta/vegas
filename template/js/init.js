@@ -281,7 +281,9 @@ $(document).ready(function () {
 
         /*#####################   Города  ###############################*/
         $('.city-wrapp li').on('click', function(){
-            $('.btn-city').html($(this).find('a').html());
+            let city = $(this).find('a').html();
+            $('.btn-city').html(city);
+            localStorage.City = city;
         });
 
     /*#####################    Кабинет  (Редактирование личных данных и адреса) ###############################*/
