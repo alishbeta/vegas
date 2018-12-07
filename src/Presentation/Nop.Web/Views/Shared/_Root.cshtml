@@ -441,13 +441,18 @@
 				}
                 $(document).ready(GetCrossSellProducts());
                 $(document).ready(function () {
-                    $.ajax({
-                        url: '@Url.Action("CityJson", "Common")',
-                        type: 'json',
-                    }).done(function (data) {
-                        console.log(data);
-                        $("#your-city").text(data);
-                    });
+                    if (localStorage.City === null || localStorage.City === undefined || localStorage === "") {
+                        $.ajax({
+                            url: '@Url.Action("CityJson", "Common")',
+                            type: 'json',
+                        }).done(function (data) {
+                            $("#your-city").text(data);
+                            localStorage.City = data;
+                        });
+                    }
+                    else {
+                        $("#your-city").text(localStorage.City);
+                    }
                 });
 			</script>
 		</div>

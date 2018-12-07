@@ -141,6 +141,7 @@
                 console.log(ui);
                 $("#city-input").val("");
                 $("#your-city").text(ui.item.label);
+                localStorage.City = ui.item.label;
             }
         });
     });

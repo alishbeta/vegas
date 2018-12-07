@@ -24,6 +24,7 @@ using Nop.Services.Orders;
 using Nop.Services.Security;
 using Nop.Services.Shipping;
 using Nop.Services.Vendors;
+using Nop.Web.Areas.Admin.Models.Localization;
 using Nop.Web.Areas.Admin.Models.Shipping;
 using Nop.Web.Factories;
 using Nop.Web.Framework.Localization;
@@ -524,9 +525,16 @@ namespace Nop.Web.Controllers
             var language = _languageService.GetLanguageById(_workContext.WorkingLanguage.Id, false);
 
             //prepare model
-            var model = _languageModelFactory.PrepareLocaleResourceListModel(new Areas.Admin.Models.Localization.LocaleResourceSearchModel() { SearchResourceValue = query,
+            var model = _languageModelFactory.PrepareLocaleResourceListModel(new LocaleResourceSearchModel() { SearchResourceValue = query,
                 SearchResourceName = "cities." }, language);
-            return Json(model.Data.Where(x => x.Id >= 26617 && x.Id <= 26973).Select(x => new { value = x.Name, label = x.Value})); //ids of cities (translates)
+            if (_workContext.WorkingLanguage.Id == 4)
+            {
+                return Json(model.Data.Where(x => x.Id >= 27081 && x.Id <= 27437).Select(x => new { value = x.Name, label = x.Value })); //ids of cities (translates)
+            }
+            else
+            {
+                return Json(model.Data.Where(x => x.Id >= 26617 && x.Id <= 26973).Select(x => new { value = x.Name, label = x.Value })); //ids of cities (translates)
+            }
         }
 
         public virtual IActionResult StoreReviews()
