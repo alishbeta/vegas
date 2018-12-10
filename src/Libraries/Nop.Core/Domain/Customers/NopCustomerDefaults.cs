@@ -67,6 +67,11 @@ namespace Nop.Core.Domain.Customers
         public static string LastNameAttribute => "LastName";
 
         /// <summary>
+        /// Gets a name of generic attribute to store the value of 'FirstName'
+        /// </summary>
+        public static string FatherNameAttribute => "FatherName";
+
+        /// <summary>
         /// Gets a name of generic attribute to store the value of 'Gender'
         /// </summary>
         public static string GenderAttribute => "Gender";

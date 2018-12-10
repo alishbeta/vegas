@@ -1194,6 +1194,9 @@ namespace Nop.Services.ExportImport
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CityAttribute, user.City);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, user.FirstName);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.LastNameAttribute, user.LastName);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FatherNameAttribute, user.FatherName);
 
                         customer.CustomerCustomerRoleMappings.Add(new CustomerCustomerRoleMapping { CustomerRole = new CustomerRole() { Id = 3 } });
 
@@ -1213,6 +1216,9 @@ namespace Nop.Services.ExportImport
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CityAttribute, user.City);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, user.FirstName);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.LastNameAttribute, user.LastName);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FatherNameAttribute, user.FatherName);
                         _customerService.UpdateCustomer(customer);
                     }
                 }
