@@ -53,9 +53,9 @@
                     showLinkToResultSearch = item.showlinktoresultsearch;
                     //html encode
                     t = htmlEncode(t);
-                    return $("<div></div>")
+                    return $("<li></li>")
                         .data("item.autocomplete", item)
-                        .append("<a>@Html.Raw("<img src='\" + item.productpictureurl + \"'>")<span>" + t + "</span></a>")
+                        .append("<div><a>@Html.Raw("<img src='\" + item.productpictureurl + \"'>")<div>" + t + "</div></a></div>")
                         .appendTo(ul);
                 };
             });
