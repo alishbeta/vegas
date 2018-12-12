@@ -154,28 +154,37 @@
 	</ol>
 </nav>
 <div class="row search">
-	<div class="offset-xl-1 col-xl-10">
-		<h1 class="title">@T("Search")</h1>
-		<form asp-route="ProductSearch" method="get">
-			<div class="form-group form-inline">
-				<input asp-for="q" class="form-control form-control-lg col-sm-4" />
-				<input type="submit" class="btn btn-blue btn-lg" value="@T("Search.Button")" />
-			</div>
-		</form>
-		@if (Model.NoResults)
-		{
-			<p>Результаты поиска по запросу "@Model.q". Найдено <b>@Model.Products.Count</b> товаров.</p>
-		}
+    <div class="offset-xl-1 col-xl-10">
+        <h1 class="title">@T("Search")</h1>
+        <form asp-route="ProductSearch" method="get">
+            <div class="form-group form-inline">
+                <input asp-for="q" class="form-control form-control-lg col-sm-4" />
+                <input type="submit" class="btn btn-blue btn-lg" value="@T("Search.Button")" />
+            </div>
+        </form>
+        @if (Model.NoResults)
+        {
+            <p>Результаты поиска по запросу "@Model.q". Найдено <b>@Model.PagingFilteringContext.TotalItems</b> товаров.</p>
+        }
 
-		@if (Model.Products.Count > 0)
-		{
-			<p>Результаты поиска по запросу "@Model.q". Найдено <b>@Model.Products.Count</b> товаров.</p>
-			<div class="result clearfix">
-				@foreach (var product in Model.Products)
-				{
-					@await Html.PartialAsync("_ProductBox", product)
-				}
-			</div>
-		}
-	</div>
+        @if (Model.Products.Count > 0)
+        {
+            <p>Результаты поиска по запросу "@Model.q". Найдено <b>@Model.PagingFilteringContext.TotalItems</b> товаров.</p>
+            <div class="result clearfix">
+                @foreach (var product in Model.Products)
+                {
+                    @await Html.PartialAsync("_ProductBox", product)
+                }
+            </div>
+        }
+        @{
+            var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber").BooleanParameterName("adv").BooleanParameterName("isc").BooleanParameterName("sid").RenderEmptyParameters(true);
+        }
+        @if (!pager.IsEmpty())
+        {
+            <div class="pager">
+                @pager
+            </div>
+        }
+    </div>
 </div>

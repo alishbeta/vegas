@@ -435,7 +435,6 @@
                 <div class="form-group row d-none" id="new-newpost-tip">
                     <label class="col-form-label col-sm-3">@T("cart.delivery.price")</label>
                     <div class="col-form-label col-sm-3" id="new-delivery-price"></div>
-                    <div class="col-form-label col-sm-3">@("cart.delivery.tip")</div>
                 </div>
                 <div class="line"></div>
 
@@ -654,7 +653,6 @@
                             <div class="form-group row d-none" id="old-newpost-tip">
                                 <label class="col-form-label col-sm-3">@T("cart.delivery.price")</label>
                                 <div class="col-form-label col-sm-3" id="old-delivery-price"></div>
-                                <div class="col-form-label col-sm-3">@("cart.delivery.tip")</div>
                             </div>
                         </div>
                         <div class="line"></div>
@@ -782,9 +780,9 @@
             $(".login-wrap input").each(function (data) {
                 $(this).attr("disabled", false);
             });
-            if (!$("#nova-poshta-fields").hasClass("d-none")) {
-                $("input#ai2").val($("#newpost-department").val());
-                $("input#ai3").val("");
+            if (!$("#old-nova-poshta-fields").hasClass("d-none")) {
+                $(".active [name=StreetAddress1]").val($("#old-newpost-department").val());
+                $(".active [name=StreetAddress2]").val("");
 
             }
         }
@@ -821,9 +819,9 @@
             $(".login-wrap input").each(function (data) {
                 $(this).attr("disabled", false);
             });
-            if (!$("#nova-poshta-fields").hasClass("d-none")) {
-                $("input#i2").val($("#newpost-department").val());
-                $("input#i3").val("");
+            if (!$("#new-nova-poshta-fields").hasClass("d-none")) {
+                $(".active [name=StreetAddress1]").val($("#new-newpost-department").val());
+                $(".active [name=StreetAddress2]").val("");
 
             }
         }

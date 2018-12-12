@@ -69,7 +69,7 @@
 	<div class="title text-center">
 		<h3><b>@Model.Name</b></h3>
 		<p>
-			<small>@Model.ProductsCount @T("prod.products")</small>
+			<small>@Model.PagingFilteringContext.TotalItems @T("prod.products")</small>
 		</p>
 	</div>
 	@await Component.InvokeAsync("CatalogFiltersMenu")
