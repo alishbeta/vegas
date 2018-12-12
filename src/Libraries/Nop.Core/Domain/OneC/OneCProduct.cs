@@ -23,6 +23,10 @@ namespace Nop.Core.Domain.OneC
         public string SleepLength { get; set; }
         public string SleepWidth { get; set; }
         public string SleepHeight { get; set; }
+        public string DiscountPrice { get; set; }
+        public string DiscountRate { get; set; }
+        public string Collection { get; set; }
+        public string ProductType { get; set; }
         public List<OneCAttribute> Attributes { get; set; }
     }
 }
