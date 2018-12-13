@@ -453,8 +453,7 @@
                             type: 'json',
                         }).done(function (data) {
                             $("#your-city").text(data); 
-                            localStorage.City = data;
-                            $("#confirm-city-popup").css("display", "block");
+                            $("#confirm-city-popup").removeClass("d-none");
                             $("#your-city-confirm").text(data);
                         });
                     }

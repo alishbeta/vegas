@@ -87,10 +87,10 @@
                     </div>
                 </div>
             </div>
-            <div class="confirm-city" id="confirm-city-popup" style="display: none;">
+            <div class="confirm-city d-none" id="confirm-city-popup">
                 <div>@T("header.isyourcity") <span id="your-city-confirm"></span>?</div>
                 <div class="buttons">
-                    <button class="btn btn-blue">@T("header.city.confirm")</button>
+                    <button class="btn btn-blue" onclick="localStorage.City = $('#your-city-confirm').text();">@T("header.city.confirm")</button>
                     <button class="btn btn-blue-white">@T("header.city.change")</button>
                 </div>
             </div>
