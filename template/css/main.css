@@ -969,9 +969,12 @@ nav.breadcrumb-wrap a:hover {
 }
 .search-item .img-wrapp {
   margin-right: 15px;
+  width: 105px;
 }
 .search-item .name {
   color: #767c7e;
+  width: 135px;
+  vertical-align: middle;
 }
 
 .all-menu-wrap .side-menu-wrap, .all-menu-wrap .side-second-menu-wrap {
@@ -2284,7 +2287,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   z-index: 1060 !important;
 }
 
-.ui-widget.ui-widget-content {
+.ui-dialog.ui-widget.ui-widget-content {
   border: 1px solid #c5c5c5 !important;
 }
 

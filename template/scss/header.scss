@@ -406,8 +406,11 @@ nav.breadcrumb-wrap {
   }
   .img-wrapp{
     margin-right: 15px;
+    width: 105px;
   }
   .name{
     color: $text_light;
+    width: 135px;
+    vertical-align: middle;
   }
 }
