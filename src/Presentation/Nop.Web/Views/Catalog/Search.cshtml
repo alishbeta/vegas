@@ -164,12 +164,12 @@
         </form>
         @if (Model.NoResults)
         {
-            <p>Результаты поиска по запросу "@Model.q". Найдено <b>@Model.Products.Count</b> товаров.</p>
+            <p>Результаты поиска по запросу "@Model.q". Найдено <b>@Model.PagingFilteringContext.TotalItems</b> товаров.</p>
         }
 
         @if (Model.Products.Count > 0)
         {
-            <p>Результаты поиска по запросу "@Model.q". Найдено <b>@Model.Products.Count</b> товаров.</p>
+            <p>Результаты поиска по запросу "@Model.q". Найдено <b>@Model.PagingFilteringContext.TotalItems</b> товаров.</p>
             <div class="result clearfix">
                 @foreach (var product in Model.Products)
                 {

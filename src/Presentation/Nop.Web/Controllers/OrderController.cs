@@ -77,7 +77,7 @@ namespace Nop.Web.Controllers
                 return Challenge();
 
             var model = _orderModelFactory.PrepareCustomerOrderListModel();
-			ViewBag.PictureService = _pictureService;
+			//ViewBag.PictureService = _pictureService;
 
 			return View(model);
         }

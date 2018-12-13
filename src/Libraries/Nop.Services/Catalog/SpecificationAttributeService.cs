@@ -60,6 +60,15 @@ namespace Nop.Services.Catalog
 
         public virtual SpecificationAttributeOption GetSpecificationAttributeOptionByName(string name, int specificationAttributeId)
         {
+            //if (specificationAttributeId <= 0)
+            //       return null;
+
+            //var query = from s in _specificationAttributeOptionRepository.Table
+            //            orderby s.Id
+            //            where s.SpecificationAttributeId == specificationAttributeId
+            //            select s;
+
+            //return query.FirstOrDefault();
             if (string.IsNullOrEmpty(name))
                 return null;
 

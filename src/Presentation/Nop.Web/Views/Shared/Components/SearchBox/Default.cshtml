@@ -44,7 +44,7 @@
                         //display link to search page
                         if (showLinkToResultSearch) {
                             searchText = document.getElementById("small-searchterms").value;
-                            $(".ui-autocomplete").append("<li class=\"ui-menu-item\" role=\"presentation\"><a href=\"/search?q=" + searchText + "\">@T("Search.SearchBox.SearchPageLink")</a></li>");
+                            $("#ui-id-1.ui-autocomplete").append("<li class=\"ui-menu-item\" role=\"presentation\"><a href=\"/search?q=" + searchText + "\">@T("Search.SearchBox.SearchPageLink")</a></li>");
                         }
                     }
                 })
@@ -55,7 +55,7 @@
                     t = htmlEncode(t);
                     return $("<li></li>")
                         .data("item.autocomplete", item)
-                        .append("<div><a>@Html.Raw("<img src='\" + item.productpictureurl + \"'>")<div>" + t + "</div></a></div>")
+                        .append("<div><a>@Html.Raw("<div class='img-wrapp'><img src='\" + item.productpictureurl + \"'></div>")<div>" + t + "</div></a></div>")
                         .appendTo(ul);
                 };
             });

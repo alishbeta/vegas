@@ -87,6 +87,13 @@
                     </div>
                 </div>
             </div>
+            <div class="confirm-city" id="confirm-city-popup" style="display: none;">
+                <div>@T("header.isyourcity") <span id="your-city-confirm"></span>?</div>
+                <div class="buttons">
+                    <button class="btn btn-blue">@T("header.city.confirm")</button>
+                    <button class="btn btn-blue-white">@T("header.city.change")</button>
+                </div>
+            </div>
         </li>
         @*<div class="ui-widget">
                 <label for="city-input">Type your city: </label>
@@ -117,6 +124,7 @@
 <style>
     .ui-autocomplete-loading {
         background: white url("/img/loader.gif") right center no-repeat;
+        background-size: contain;
     }
 </style>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

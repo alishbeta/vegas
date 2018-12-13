@@ -692,10 +692,8 @@
 							@T("cart.cancel")
 						</button>
 						<div class="form-group row">
-							<label asp-for="FirstName" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.name")</label>
-							<input asp-for="FirstName" style="display: none" class="form-control col-sm-8" />
-							<div class="col-sm-3">@T("cart.name")</div>
-							<div class="col-sm-8 text-light-c">@Model.FirstName</div>
+							<label asp-for="FirstName" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.name")</label>
+							<input asp-for="FirstName" class="form-control col-sm-8" disabled />
 							<nop-required />
 							<span asp-validation-for="FirstName"></span>
 						</div>
@@ -704,10 +702,8 @@
 							@if (Model.PhoneEnabled)
 							{
 								<div class="form-group row">
-									<label asp-for="Phone" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.phone")</label>
-									<input asp-for="Phone" style="display: none" id="cab-phone" class="form-control col-sm-8" />
-									<div class="col-sm-3">@T("cart.phone")</div>
-									<div class="col-sm-8 text-light-c">@Model.Phone</div>
+									<label asp-for="Phone" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.phone")</label>
+									<input asp-for="Phone" id="cab-phone" class="form-control col-sm-8" disabled />
 									@if (Model.PhoneRequired)
 									{
 										<nop-required />
@@ -718,10 +714,8 @@
 
 						}
 						<div class="form-group row">
-							<label asp-for="Email" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">E-mail</label>
-							<input asp-for="Email" style="display: none" class="form-control col-sm-8" />
-							<div class="col-sm-3">E-mail</div>
-							<div class="col-sm-8 text-light-c">@Model.Email</div>
+							<label asp-for="Email" asp-postfix=":" class="col-form-label col-sm-3">E-mail</label>
+							<input asp-for="Email" class="form-control col-sm-8" disabled />
 							<nop-required />
 							<span asp-validation-for="Email"></span>
 						</div>
@@ -751,10 +745,8 @@ Model.CountryEnabled)
 							@if (Model.CityEnabled)
 							{
 								<div class="form-group row">
-									<label asp-for="City" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.city")</label>
-									<input asp-for="City" style="display: none" class="form-control col-sm-8" />
-									<div class="col-sm-3">@T("cart.city")</div>
-									<div class="col-sm-8 text-light-c">@Model.City</div>
+									<label asp-for="City" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.city")</label>
+									<input asp-for="City" class="form-control col-sm-8" disabled />
 									@if (Model.CityRequired)
 									{
 										<nop-required />
@@ -765,10 +757,8 @@ Model.CountryEnabled)
 							@if (Model.StreetAddressEnabled)
 							{
 								<div class="form-group row">
-									<label asp-for="StreetAddress" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.address")</label>
-									<input asp-for="StreetAddress" style="display: none" class="form-control col-sm-8" />
-									<div class="col-sm-3">@T("cart.address")</div>
-									<div class="col-sm-8 text-light-c">@Model.StreetAddress</div>
+									<label asp-for="StreetAddress" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.address")</label>
+									<input asp-for="StreetAddress" class="form-control col-sm-8" disabled />
 									@if (Model.StreetAddressRequired)
 									{
 										<nop-required />
@@ -779,10 +769,8 @@ Model.CountryEnabled)
 							@if (Model.StreetAddress2Enabled)
 							{
 								<div class="form-group row">
-									<label asp-for="StreetAddress2" asp-postfix=":" style="display: none" class="col-form-label col-sm-3">@T("cart.flat")</label>
-									<input asp-for="StreetAddress2" style="display: none" class="form-control col-sm-8" />
-									<div class="col-sm-3">@T("cart.flat")</div>
-									<div class="col-sm-8 text-light-c">@Model.StreetAddress2</div>
+									<label asp-for="StreetAddress2" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.flat")</label>
+									<input asp-for="StreetAddress2" class="form-control col-sm-8" disabled />
 									@if (Model.StreetAddress2Required)
 									{
 										<nop-required />
@@ -802,10 +790,10 @@ Model.CountryEnabled)
 								@T("cabinet.cancel")
 							</button>
 							<div class="form-group row">
-								<label style="display: none" class="col-form-label col-sm-3" for="p">
+								<label class="col-form-label col-sm-3" for="p">
 									@T("cabinet.newpass")
 								</label>
-								<input style="display: none" id="p" type="password" class="form-control col-sm-8" value="">
+								<input id="p" type="password" class="form-control col-sm-8" value="" disabled>
 							</div>
 						</div>
 					}
@@ -823,23 +811,26 @@ Model.CountryEnabled)
 </div>
 <script>
 	function CancelChangesInZone(index) {
-		if (index == 1) {
-			$("#firstZone .row").each(function () {
-				$(this).find('input').val($(this).find('.text-light-c').text());
-			});
-		}
-		if (index == 2) {
-			$("#secondZone .row").each(function () {
-				$(this).find('input').val($(this).find('.text-light-c').text());
-			});
-		}
-		if (index == 3) {
-			$("#thirdZone .row").each(function () {
-				$(this).find('input').val("");
-			});
-		}
+		//if (index == 1) {
+		//	$("#firstZone .row").each(function () {
+		//		$(this).find('input').val($(this).find('.text-light-c').text());
+		//	});
+		//}
+		//if (index == 2) {
+		//	$("#secondZone .row").each(function () {
+		//		$(this).find('input').val($(this).find('.text-light-c').text());
+		//	});
+		//}
+		//if (index == 3) {
+		//	$("#thirdZone .row").each(function () {
+		//		$(this).find('input').val("");
+		//	});
+		//}
 	}
-	$("#save-info-button").on("click", function (e) {
+    $("#save-info-button").on("click", function (e) {
+        $(".login-wrap form input").each(function () {
+            $(this).attr("disabled", false);
+        });
 		var hasErrors = false;
 		$("#firstZone input").each(function () {
 			if ($(this).val() == "") {

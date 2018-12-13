@@ -69,7 +69,7 @@
 	<div class="title text-center">
 		<h3><b>@Model.Name</b></h3>
 		<p>
-			<small>@Model.ProductsCount @T("prod.products")</small>
+			<small>@Model.PagingFilteringContext.TotalItems @T("prod.products")</small>
 		</p>
 	</div>
 	@await Component.InvokeAsync("CatalogFiltersMenu")
@@ -144,7 +144,7 @@
 					buyButton = '<button type="button" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/1/1\');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block buy-btn">@T("product.buy")</button>';
 				}
 				else {
-					buyButton = '<button class="btn btn-sm btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-cat-' + product.Id + '" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>' + 
+					buyButton = '<button class="btn btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-cat-' + product.Id + '" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>' + 
 								'<script>' +
 									'$(document).ready(function () {' + 
 										'$("#back-in-stock-subscribe-cat-' + product.Id + '").on(\'click\', function() {' +

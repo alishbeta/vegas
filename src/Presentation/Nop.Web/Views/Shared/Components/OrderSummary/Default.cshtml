@@ -780,9 +780,9 @@
             $(".login-wrap input").each(function (data) {
                 $(this).attr("disabled", false);
             });
-            if (!$("#nova-poshta-fields").hasClass("d-none")) {
-                $("input#ai2").val($("#newpost-department").val());
-                $("input#ai3").val("");
+            if (!$("#old-nova-poshta-fields").hasClass("d-none")) {
+                $(".active [name=StreetAddress1]").val($("#old-newpost-department").val());
+                $(".active [name=StreetAddress2]").val("");
 
             }
         }
@@ -819,9 +819,9 @@
             $(".login-wrap input").each(function (data) {
                 $(this).attr("disabled", false);
             });
-            if (!$("#nova-poshta-fields").hasClass("d-none")) {
-                $("input#i2").val($("#newpost-department").val());
-                $("input#i3").val("");
+            if (!$("#new-nova-poshta-fields").hasClass("d-none")) {
+                $(".active [name=StreetAddress1]").val($("#new-newpost-department").val());
+                $(".active [name=StreetAddress2]").val("");
 
             }
         }
