@@ -452,8 +452,10 @@
                             url: '@Url.Action("CityJson", "Common")',
                             type: 'json',
                         }).done(function (data) {
-                            $("#your-city").text(data);
+                            $("#your-city").text(data); 
                             localStorage.City = data;
+                            $("#confirm-city-popup").css("display", "block");
+                            $("#your-city-confirm").text(data);
                         });
                     }
                     else {
