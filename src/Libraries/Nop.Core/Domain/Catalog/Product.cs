@@ -522,6 +522,10 @@ namespace Nop.Core.Domain.Catalog
         public string MakeCode { get; set; }
         public int SleepLength { get; set; }
         public int SleepWidth { get; set; }
+        public decimal DiscountPrice { get; set; }
+        public decimal DiscountRate { get; set; }
+        public string Collection { get; set; }
+        public string ProductTypeForOneC { get; set; }
 
         /// <summary>
         /// Gets or sets the available start date and time

@@ -1334,7 +1334,11 @@ namespace Nop.Services.ExportImport
                             Height = decimal.Parse(item.Height.Replace('.', ',')),
                             Weight = decimal.Parse(item.Weight.Replace('.', ',')),
                             Length = decimal.Parse(item.Length.Replace('.', ',')),
-                            Width = decimal.Parse(item.Width.Replace('.', ','))
+                            Width = decimal.Parse(item.Width.Replace('.', ',')),
+                            DiscountPrice = decimal.Parse(item.DiscountPrice.Replace('.', ',')),
+                            DiscountRate = decimal.Parse(item.DiscountRate.Replace('.', ',')),
+                            Collection = item.Collection,
+                            ProductTypeForOneC = item.ProductType
                         };
 
                         if (statusId > 0)
@@ -1433,7 +1437,7 @@ namespace Nop.Services.ExportImport
                     {
                         foreach (var itemAttribute in item.Attributes)
                         {
-                            if (!string.IsNullOrEmpty(itemAttribute.Name) && !string.IsNullOrEmpty(itemAttribute.Value))
+                            if (!string.IsNullOrEmpty(itemAttribute.Name) && string.IsNullOrEmpty(itemAttribute.Name))
                             {
                                 var attribute = _specificationAttributeService.GetSpecificationAttributeByName(itemAttribute.Name);
 
@@ -1460,18 +1464,8 @@ namespace Nop.Services.ExportImport
                                     _specificationAttributeService.InsertSpecificationAttributeOption(option);
                                 }
 
-                                //var productOption = _specificationAttributeService.GetProductSpecificationAttributes(product.Id, option.Id);//GetProductSpecificationAttributeById(attribute.Id);// GetProductSpecificationAttributeByProductIdProductSpecificationAttributeId(product.Id, option.Id);
                                 var productOption = _specificationAttributeService.GetProductSpecificationAttributeByProductIdProductSpecificationAttributeId(product.Id, option.Id);
-                                if (productOption == null)
-                                {
-                                    //характеристики с таким значением нет, но не значит что нет с другим значением
-                                    productOption = _specificationAttributeService.GetProductSpecificationAttributes(product.Id)?.FirstOrDefault(x => x.SpecificationAttributeOption.SpecificationAttributeId == attribute.Id);
-                                    if (productOption != null)
-                                    {
-                                        _specificationAttributeService.DeleteProductSpecificationAttribute(productOption);
-                                        productOption = null;
-                                    }
-                                }
+
                                 if (productOption == null)
                                 {
                                     productOption = new ProductSpecificationAttribute()
