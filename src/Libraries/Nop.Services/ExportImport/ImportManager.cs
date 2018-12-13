@@ -1433,7 +1433,7 @@ namespace Nop.Services.ExportImport
                     {
                         foreach (var itemAttribute in item.Attributes)
                         {
-                            if (!string.IsNullOrEmpty(itemAttribute.Name) && string.IsNullOrEmpty(itemAttribute.Name))
+                            if (!string.IsNullOrEmpty(itemAttribute.Name) && !string.IsNullOrEmpty(itemAttribute.Value))
                             {
                                 var attribute = _specificationAttributeService.GetSpecificationAttributeByName(itemAttribute.Name);
 
