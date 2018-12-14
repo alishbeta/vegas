@@ -729,7 +729,7 @@ h3 {
 .btn.btn-blue {
   background-color: #2c96b9;
   color: white;
-  padding: 6px 11px 6px 10px;
+  padding: 5px 11px 5px 10px;
   vertical-align: top;
 }
 .btn.btn-blue:hover {
@@ -808,6 +808,15 @@ footer {
 }
 .content-main-wrap .header-wrap .btn-blue {
   margin: 28px 0 0 24px;
+}
+.content-main-wrap .header-wrap .confirm-city {
+  position: absolute;
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #cdd2d4;
+}
+.content-main-wrap .header-wrap .confirm-city .btn-blue {
+  margin: 0;
 }
 
 .short-menu .content-main-wrap .header-wrap {
@@ -2295,6 +2304,12 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   margin-bottom: 0 !important;
 }
 
+.ui-menu .ui-state-active {
+  border: 1px solid #D5DEDE;
+  background: #D5DEDE;
+  margin: 0 -15px;
+}
+
 .ui-dialog {
   z-index: 2000;
 }
@@ -2508,6 +2523,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cart .tabbed-content label, .cart-popup-wrap .tabbed-content label {
   cursor: default;
+}
+.cart #loginform .offset-sm-3, .cart-popup-wrap #loginform .offset-sm-3 {
+  padding: 0;
 }
 
 .compare .title-wrap h1 {
@@ -3657,6 +3675,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   border-radius: 18px;
   font-size: 14px;
   margin-right: 15px;
+}
+.reg-wraper .tabbed-content .form-control:disabled {
+  background-color: transparent;
+  border: 1px solid transparent;
 }
 
 .scrollComtent {

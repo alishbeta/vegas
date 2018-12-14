@@ -1079,6 +1079,12 @@ html .ui-button.ui-state-disabled {
     margin-bottom: 0 !important;
 }
 
+.ui-menu .ui-state-active{
+    border: 1px solid #D5DEDE;
+    background: #D5DEDE;
+    margin: 0 -15px;
+}
+
 .ui-dialog {
     z-index: 2000;
     .ui-dialog-title {

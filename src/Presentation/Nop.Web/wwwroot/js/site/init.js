@@ -296,9 +296,14 @@ $(document).ready(function () {
         $('#secondZone input:not([type="radio"], #old-newpost-department)').attr('disabled',true);
     });
 
+    $('#edit-pass').on('click' , function() {
+        $(this).hide().next().show();
+        $('#thirdZone').attr('disabled',false);
+    });
+
     $('#edit-name').on('click', function(){
         $(this).hide().next().show();
-        $('#firstZone input').attr('disabled',false);
+        $('#firstZone input').attr('disabled',true);
     });
     
     $('#edit-name-close').on('click', function(){
@@ -306,7 +311,10 @@ $(document).ready(function () {
         $('#firstZone input').attr('disabled',true);
     });
 
- 
+    $('#edit-pass-close').on('click' , function() {
+        $(this).hide().prev().show();
+        $('#thirdZone').attr('disabled',true);
+    });
 
     tabControl();
 

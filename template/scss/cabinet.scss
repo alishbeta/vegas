@@ -229,4 +229,8 @@
       margin-right: 15px;
     }
   }
+  .tabbed-content .form-control:disabled {
+    background-color: transparent;
+    border: 1px solid transparent;
+}
 }
