@@ -236,7 +236,7 @@ footer {
         .btn-blue {
             margin: 28px 0 0 24px;
         }
-        .confirm-city{
+        .confirm-city {
             position: absolute;
             background-color: white;
             padding: 15px;
@@ -244,7 +244,7 @@ footer {
             .btn-blue {
                 margin: 0;
             }
-          }
+        }
     }
 }
 
@@ -406,21 +406,21 @@ nav.breadcrumb-wrap {
 #reviewStars-input #star-5 {
     left: 265px;
 }
-#ui-id-1{
-  padding: 25px 15px;
-}
-.search-item{
-  div{
-    display: inline-block;
-  }
-  .img-wrapp{
-    margin-right: 15px;
-    width: 105px;
-  }
-  .name{
-    color: $text_light;
-    width: 135px;
-    vertical-align: middle;
-  }
 
+.search-item {
+    .ui-menu-item-wrapper {
+        padding: 0 15px;
+    }
+    div {
+        display: inline-block;
+    }
+    .img-wrapp {
+        margin-right: 15px;
+        width: 105px;
+    }
+    .name {
+        color: $text_light;
+        width: 135px;
+        vertical-align: middle;
+    }
 }

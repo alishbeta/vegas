@@ -969,10 +969,9 @@ nav.breadcrumb-wrap a:hover {
   left: 265px;
 }
 
-#ui-id-1 {
-  padding: 25px 15px;
+.search-item .ui-menu-item-wrapper {
+  padding: 0 15px;
 }
-
 .search-item div {
   display: inline-block;
 }
@@ -1941,10 +1940,6 @@ small {
 }
 .filters-data .inner-wrap:last-child {
   border-bottom: none;
-}
-
-.ui-widget.ui-widget-content {
-  border: none;
 }
 
 .ui-widget-header {

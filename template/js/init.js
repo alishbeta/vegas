@@ -316,6 +316,10 @@ $(document).ready(function () {
         $('#thirdZone').attr('disabled',true);
     });
 
+    $('.confirm-city .btn-blue').on('click', function(){
+        $(this).parent().parent().addClass('d-none');
+    });
+
     tabControl();
 
 });
