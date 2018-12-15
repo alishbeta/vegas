@@ -33,14 +33,14 @@ namespace Nop.Web.Components
                     to = double.Parse(_webHelper.QueryString<string>("price").Split('-')[1])
                 };
             }
-            //if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("height")))
-            //{
-            //    model.Height = new FilterRangesModel.FilterRange()
-            //    {
-            //        from = double.Parse(_webHelper.QueryString<string>("height").Split('-')[0]),
-            //        to = double.Parse(_webHelper.QueryString<string>("height").Split('-')[1])
-            //    };
-            //}
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("height")))
+            {
+                model.Height = new FilterRangesModel.FilterRange()
+                {
+                    from = double.Parse(_webHelper.QueryString<string>("height").Split('-')[0]),
+                    to = double.Parse(_webHelper.QueryString<string>("height").Split('-')[1])
+                };
+            }
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("length")))
             {
                 model.Length = new FilterRangesModel.FilterRange()
@@ -75,7 +75,7 @@ namespace Nop.Web.Components
             }
             
             model.Price.max = (double)(products.OrderByDescending(x => x.Price).FirstOrDefault()?.Price ?? 0);
-            //model.Height.max = (double)(products.OrderByDescending(x => x.Height).FirstOrDefault()?.Height);
+            model.Height.max = (double)(products.OrderByDescending(x => x.Height).FirstOrDefault()?.Height ?? 0);
             model.Length.max = (double)(products.OrderByDescending(x => x.Length).FirstOrDefault()?.Length ?? 0);
             model.Width.max = (double)(products.OrderByDescending(x => x.Width).FirstOrDefault()?.Width ?? 0);
             model.SleepLength.max = (products.OrderByDescending(x => x.SleepLength).FirstOrDefault()?.SleepLength ?? 0);

@@ -140,6 +140,7 @@ namespace Nop.Web.Controllers
 			ViewBag.Prefix = "cat"; //prefix for backinstock button
             //check if products in category has sleep sizes (for CatalogFiltersSelector)
             ViewBag.HasSleepSizes = activeCategory == 19; //id of category "Кровати", wich has sleep sizes
+            ViewBag.HasHeight = activeCategory == 21 || activeCategory == 19; //id of category "Кровати" "Тумбы и комоды", wich has sleep sizes
             //ViewBag.HasSleepSizes = model.AllProducts.Count(x => x.SleepWidth != 0 || x.SleepLength != 0) > 0; //works, but slower
 			//template
 			var templateViewPath = _catalogModelFactory.PrepareCategoryTemplateViewPath(category.CategoryTemplateId);

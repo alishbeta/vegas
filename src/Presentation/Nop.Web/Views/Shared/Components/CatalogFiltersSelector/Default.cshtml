@@ -12,7 +12,12 @@
         </div>
         <div id="slider-price-r" class="slider-range"></div>
     </div>
-    @*<div class="inner-wrap f-slider" data-filter-number="height" data-min="0" data-max="@Model.Height?.max">
+    @if ((bool)ViewBag.HasHeight)
+    {
+        <div class="main-title">
+            <h5>@T("filter.dimensions")</h5>
+        </div>
+        <div class="inner-wrap f-slider" data-filter-number="height" data-min="0" data-max="@(Math.Round(Model.Height?.max ?? 0) + 1)" style="border-bottom: none;">
             <div class="title">@T("filters.height")</div>
             <div class="form-inline">
                 <div class="form-group">
@@ -23,10 +28,14 @@
                 </div>
             </div>
             <div id="slider-height-r" class="slider-range"></div>
-        </div>*@
+        </div>
+    }
+    else
+    {
     <div class="main-title">
         <h5>@T("filter.sizes")</h5>
     </div>
+    }
     <div class="inner-wrap f-slider" data-filter-number="width" data-min="0" data-max="@(Math.Round(Model.Width?.max ?? 0) + 1)" style="border-bottom: none;">
         <div class="title">@T("filters.width")</div>
         <div class="form-inline">
@@ -96,8 +105,8 @@
     $("[name=MaxLength]").val(@Model.Length?.to);
     $("[name=MinWidth]").val(@Model.Width?.from);
     $("[name=MaxWidth]").val(@Model.Width?.to);
-    @*$("[name=MinHeight]").val(@Model.Height?.from);
-    $("[name=MaxHeight]").val(@Model.Height?.to);*@
+    $("[name=MinHeight]").val(@Model.Height?.from);
+    $("[name=MaxHeight]").val(@Model.Height?.to);
     $("[name=MinSleeplength]").val(@Model.SleepLength?.from);
     $("[name=MaxSleeplength]").val(@Model.SleepLength?.to);
     $("[name=MinSleepwidth]").val(@Model.SleepWidth?.from);
@@ -110,7 +119,7 @@
         });
         var query = "";
         query += "?price=" + $("[name=MinPrice]").val() + "-" + $("[name=MaxPrice]").val();
-        //query += "&height=" + $("[name=MinHeight]").val() + "-" + $("[name=MaxHeight]").val();
+        query += "&height=" + $("[name=MinHeight]").val() + "-" + $("[name=MaxHeight]").val();
         query += "&length=" + $("[name=MinLength]").val() + "-" + $("[name=MaxLength]").val();
         query += "&width=" + $("[name=MinWidth]").val() + "-" + $("[name=MaxWidth]").val();
         if ('@((bool)ViewBag.HasSleepSizes)'.toLowerCase() == 'true')
