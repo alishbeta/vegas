@@ -44,7 +44,13 @@ namespace Nop.Web.Components
 				orderBy: ProductSortingEnum.CreatedOn
 				).ToList();
 
-            ViewBag.ProductName = products.FirstOrDefault(x => x.Id == productId)?.Name;
+            
+            var product = products.FirstOrDefault(x => x.Id == productId);
+            if (product == null)
+            {
+                return Content("");
+            }
+            ViewBag.ProductName = product.Name;
 
             //ACL and store mapping
             products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
@@ -56,6 +62,10 @@ namespace Nop.Web.Components
 
 			//prepare model
 			var productOverviewModels = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true).ToList();
+            var productOverviewModel = _productModelFactory.PrepareProductOverviewModels(new List<Product>() { product }, false, false, null, true).FirstOrDefault();
+            var color = productOverviewModel.SpecificationAttributeModels?.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw;
+            //var color = productOverviewModel.FirstOrDefault(x => x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")).ValueRaw;
+            productOverviewModels = productOverviewModels.Where(x => x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw == color).ToList();
             List<SimilarProductSizesModel> model = new List<SimilarProductSizesModel>();
             if (isSleepSizes)
             {

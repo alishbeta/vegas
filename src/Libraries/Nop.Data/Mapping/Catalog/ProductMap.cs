@@ -44,6 +44,8 @@ namespace Nop.Data.Mapping.Catalog
             builder.Property(product => product.DiscountPrice).HasColumnType("decimal(18, 2)");
             builder.Property(product => product.DiscountRate).HasColumnType("decimal(18, 2)");
             builder.Property(product => product.MakeCode).HasMaxLength(255);
+            builder.Property(product => product.Collection).HasMaxLength(255);
+            builder.Property(product => product.ProductTypeForOneC).HasMaxLength(255);
 
             builder.Ignore(product => product.ProductType);
             builder.Ignore(product => product.BackorderMode);

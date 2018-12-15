@@ -393,6 +393,18 @@ namespace Nop.Web.Areas.Admin.Models.Catalog
         [NopResourceDisplayName("Admin.Catalog.Products.Fields.SleepHeight")]
         public int SleepHeight { get; set; }
 
+        [NopResourceDisplayName("Admin.Catalog.Products.Fields.Collection")]
+        public string Collection { get; set; }
+
+        [NopResourceDisplayName("Admin.Catalog.Products.Fields.ProductTypeForOneC")]
+        public string ProductTypeForOneC { get; set; }
+
+        [NopResourceDisplayName("Admin.Catalog.Products.Fields.DiscountRate")]
+        public decimal DiscountRate { get; set; }
+
+        [NopResourceDisplayName("Admin.Catalog.Products.Fields.DiscountPrice")]
+        public decimal DiscountPrice { get; set; }
+
         [NopResourceDisplayName("Admin.Catalog.Products.Fields.AvailableStartDateTime")]
         [UIHint("DateTimeNullable")]
         public DateTime? AvailableStartDateTimeUtc { get; set; }

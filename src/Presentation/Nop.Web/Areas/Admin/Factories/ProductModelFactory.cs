@@ -859,6 +859,10 @@ namespace Nop.Web.Areas.Admin.Factories
             model.AvailableStatuses = _productService.GetAllStatuses().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
 
             model.MakeCode = product.MakeCode;
+            model.Collection = product.Collection;
+            model.ProductTypeForOneC = product.ProductTypeForOneC;
+            model.DiscountRate = product.DiscountRate;
+            model.DiscountPrice = product.DiscountPrice;
             model.SleepLength = product.SleepLength;
             model.SleepWidth = product.SleepWidth;
 

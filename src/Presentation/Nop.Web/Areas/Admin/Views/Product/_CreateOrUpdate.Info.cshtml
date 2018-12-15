@@ -614,6 +614,24 @@
                             <span asp-validation-for="MakeCode"></span>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <nop-label asp-for="Collection" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="Collection" />
+                            <span asp-validation-for="Collection"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <nop-label asp-for="ProductTypeForOneC" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="ProductTypeForOneC" />
+                            <span asp-validation-for="ProductTypeForOneC"></span>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <div class="col-md-3">
@@ -1001,6 +1019,33 @@
                     @T("Admin.Catalog.Products.Prices")
                 </div>
                 <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <nop-label asp-for="Price" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="Price" asp-postfix="@Model.PrimaryStoreCurrencyCode" />
+                            <span asp-validation-for="Price"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <nop-label asp-for="DiscountRate" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="DiscountRate" />
+                            <span asp-validation-for="DiscountRate"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <nop-label asp-for="DiscountPrice" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="DiscountPrice" />
+                            <span asp-validation-for="DiscountPrice"></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             <nop-label asp-for="Price" />
