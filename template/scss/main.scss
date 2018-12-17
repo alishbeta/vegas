@@ -701,6 +701,9 @@ small {
 // .ui-widget.ui-widget-content {
 //     border: none;
 // }
+.ui-widget.ui-widget-content {
+    background-color: $color-4;
+}
 
 .ui-widget-header {
     background: transparent;
@@ -726,7 +729,7 @@ small {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default,
 .ui-button {
-    border: 8px solid #2c96b9;
+    border: 6px solid #2c96b9;
     background: #bfdce6;
     font-weight: normal;
     color: #454545;

@@ -1942,6 +1942,10 @@ small {
   border-bottom: none;
 }
 
+.ui-widget.ui-widget-content {
+  background-color: #7bbcd1;
+}
+
 .ui-widget-header {
   background: transparent;
   color: #2c96b9;
@@ -1966,7 +1970,7 @@ small {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default,
 .ui-button {
-  border: 8px solid #2c96b9;
+  border: 6px solid #2c96b9;
   background: #bfdce6;
   font-weight: normal;
   color: #454545;
