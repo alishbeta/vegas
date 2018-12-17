@@ -75,11 +75,17 @@ namespace Nop.Web.Components
             }
             
             model.Price.max = (double)(products.OrderByDescending(x => x.Price).FirstOrDefault()?.Price ?? 0);
+            model.Price.min = (double)(products.OrderBy(x => x.Price).FirstOrDefault()?.Price ?? 0);
             model.Height.max = (double)(products.OrderByDescending(x => x.Height).FirstOrDefault()?.Height ?? 0);
+            model.Height.min = (double)(products.OrderBy(x => x.Height).FirstOrDefault()?.Height ?? 0);
             model.Length.max = (double)(products.OrderByDescending(x => x.Length).FirstOrDefault()?.Length ?? 0);
+            model.Length.min = (double)(products.OrderBy(x => x.Length).FirstOrDefault()?.Length ?? 0);
             model.Width.max = (double)(products.OrderByDescending(x => x.Width).FirstOrDefault()?.Width ?? 0);
+            model.Width.min = (double)(products.OrderBy(x => x.Width).FirstOrDefault()?.Width ?? 0);
             model.SleepLength.max = (products.OrderByDescending(x => x.SleepLength).FirstOrDefault()?.SleepLength ?? 0);
+            model.SleepLength.min = (products.OrderBy(x => x.SleepLength).FirstOrDefault()?.SleepLength ?? 0);
             model.SleepWidth.max = (products.OrderByDescending(x => x.SleepWidth).FirstOrDefault()?.SleepWidth ?? 0);
+            model.SleepWidth.min = (products.OrderBy(x => x.SleepWidth).FirstOrDefault()?.SleepWidth ?? 0);
             
             model.SpecificationFilter = specificationFilter;
             return View(model);
