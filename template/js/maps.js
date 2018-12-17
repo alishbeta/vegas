@@ -23,9 +23,6 @@ function initMap() {
             function addPoint(data, index) {
                 geocoder.geocode({ 'address': data.addr }, function (results, status) {
                     if (status == 'OK') {
-                        console.log(data.addr);
-                        console.log(results[0]);
-
                         var marker = new google.maps.Marker({
                             map: map,
                             icon: icomsBase + 'map_logo.png',
