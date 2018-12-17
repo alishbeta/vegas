@@ -1946,6 +1946,10 @@ small {
   background-color: #7bbcd1;
 }
 
+.ui-menu.ui-widget.ui-widget-content {
+  background-color: white;
+}
+
 .ui-widget-header {
   background: transparent;
   color: #2c96b9;
@@ -2306,7 +2310,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .ui-menu .ui-state-active {
   border: 1px solid #D5DEDE;
   background: #D5DEDE;
-  margin: 0 -15px;
+}
+
+.ui-menu-item:not(.search-item) {
+  padding: 0;
 }
 
 .ui-dialog {
