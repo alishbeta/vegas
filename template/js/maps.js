@@ -1,4 +1,4 @@
-var icomsBase = 'img/';
+var icomsBase = '/img/';
 var map;
 var adresses = $('#address').data('address');
 function initMap() {
