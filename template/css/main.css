@@ -970,7 +970,7 @@ nav.breadcrumb-wrap a:hover {
 }
 
 .search-item .ui-menu-item-wrapper {
-  padding: 0 15px;
+  padding: 5px 15px;
 }
 .search-item div {
   display: inline-block;
@@ -2313,7 +2313,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 
 .ui-menu-item:not(.search-item) {
-  padding: 0;
+  padding: 0 15px 15px;
 }
 
 .ui-dialog {
