@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     $(window).on('scroll', function () {
         var top = $(window).scrollTop();
         if (top > 400)
@@ -83,38 +83,38 @@ $(document).ready(function () {
                 slidesToScroll: 1,
                 responsive: [
                     {
-                      breakpoint: 770,
-                      settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 1,
-                      }
+                        breakpoint: 770,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
+                        }
                     },
                     {
                         breakpoint: 440,
                         settings: {
-                          slidesToShow: 1,
-                          slidesToScroll: 1,
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
                         }
-                      },
+                    },
                 ]
             });
         }
     }, 100);
 
-        /*#####################    Мобильно меню  ###############################*/
+    /*#####################    Мобильно меню  ###############################*/
 
-        $('.humburger-wrap').on('click', function () {
-            console.log(5);
-            $('.side-menu-wrap, html, .header-wrap, body').toggleClass('open');
-            $('.back-shadow').fadeToggle();
-            $(this).toggleClass('op');
+    $('.humburger-wrap').on('click', function () {
+        console.log(5);
+        $('.side-menu-wrap, html, .header-wrap, body').toggleClass('open');
+        $('.back-shadow').fadeToggle();
+        $(this).toggleClass('op');
+    });
+
+    if ($(window).width() <= 800) {
+        $('#main-menu li').on('click', function () {
+            $(this).find('.sub-menu').slideToggle();
         });
-    
-        if ($(window).width() <= 800) {
-            $('#main-menu li').on('click', function () {
-                $(this).find('.sub-menu').slideToggle();
-            });
-        }
+    }
 
     /*#####################    Отображение подменю   ###############################*/
 
@@ -253,8 +253,8 @@ $(document).ready(function () {
         $(this).prev().val(count -= 1);
     });
 
-        /*#####################    Закрываем фенсибох по тапу   ###############################*/
-    $('.fancybox-slide').bind('touchstart',function(){
+    /*#####################    Закрываем фенсибох по тапу   ###############################*/
+    $('.fancybox-slide').bind('touchstart', function () {
         $.fancybox.close();
     });
 
@@ -279,48 +279,49 @@ $(document).ready(function () {
         $(this).parent().next().slideToggle();
     });
 
-        /*#####################   Города  ###############################*/
-        $('.city-wrapp li').on('click', function(){
-            let city = $(this).find('a').html();
-            $('.btn-city').html(city);
-            localStorage.City = city;
-        });
+    /*#####################   Города  ###############################*/
+    $('.city-wrapp li').on('click', function () {
+        $('.head-menu .dropdown-menu').removeClass('show');
+        let city = $(this).find('a').html();
+        $('.btn-city').html(city);
+        localStorage.City = city;
+    });
+
+    $('.confirm-city .btn-blue').on('click', function () {
+        $(this).parent().parent().addClass('d-none');
+    }).next().on('click', function () {
+        $(this).parent().parent().hide();
+        $('.head-menu .dropdown-menu').addClass('show');
+    });
 
     /*#####################    Кабинет  (Редактирование личных данных и адреса) ###############################*/
-    $('#edit-addres').on('click', function(){
+    $('#edit-addres').on('click', function () {
         $(this).hide().next().show();
-        $('#secondZone input:not([type="radio"], #old-newpost-department)').attr('disabled',false);
+        $('#secondZone input:not([type="radio"], #old-newpost-department)').attr('disabled', false);
     });
-    $('#edit-addres-close').on('click', function(){
+    $('#edit-addres-close').on('click', function () {
         $(this).hide().prev().show();
-        $('#secondZone input:not([type="radio"], #old-newpost-department)').attr('disabled',true);
+        $('#secondZone input:not([type="radio"], #old-newpost-department)').attr('disabled', true);
     });
 
-    $('#edit-name').on('click', function(){
+    $('#edit-name').on('click', function () {
         $(this).hide().next().show();
-        $('#firstZone input').attr('disabled',false);
-    });
-    
-    $('#edit-name-close').on('click', function(){
-        $(this).hide().prev().show();
-        $('#firstZone input').attr('disabled',true);
+        $('#firstZone input').attr('disabled', false);
     });
 
-    $('#edit-pass').on('click' , function() {
-        $(this).hide().next().show();
-        $('#thirdZone input').attr('disabled',false);
+    $('#edit-name-close').on('click', function () {
+        $(this).hide().prev().show();
+        $('#firstZone input').attr('disabled', true);
     });
 
-    $('#edit-pass-close').on('click' , function() {
-        $(this).hide().prev().show();
-        $('#thirdZone input').attr('disabled',true);
+    $('#edit-pass').on('click', function () {
+        $(this).hide().next().show();
+        $('#thirdZone input').attr('disabled', false);
     });
-//Подтверждаем города
-    $('.confirm-city .btn-blue').on('click', function(){
-        $(this).parent().parent().addClass('d-none');
-    })
-    .next().on('click', function(){
-        $(this).parent().parent().hide();
+
+    $('#edit-pass-close').on('click', function () {
+        $(this).hide().prev().show();
+        $('#thirdZone input').attr('disabled', true);
     });
 
     tabControl();

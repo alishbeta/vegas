@@ -706,10 +706,8 @@ small {
 }
 
 
-.ui-menu, .ui-dialog {
-    &.ui-widget.ui-widget-content {
-        background-color: white;
-    }
+.ui-menu.ui-widget.ui-widget-content, .ui-dialogui-widget.ui-widget-content {
+    background-color: white;
 }
 
 .ui-widget-header {
