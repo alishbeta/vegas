@@ -29,6 +29,7 @@
             }
         }
         .logo-m {
+            position: absolute;
             width: 114px;
             left: 50px;
         }
@@ -406,8 +407,8 @@
             float: none;
         }
     }
-
     .tabbed-content {
         min-width: 100%;
     }
+    
 }

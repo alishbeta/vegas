@@ -1950,7 +1950,7 @@ small {
   background-color: #7bbcd1;
 }
 
-.ui-menu.ui-widget.ui-widget-content, .ui-dialogui-widget.ui-widget-content {
+.ui-menu.ui-widget.ui-widget-content, .ui-dialog.ui-widget.ui-widget-content {
   background-color: white;
 }
 
@@ -4775,6 +4775,7 @@ section .item {
     bottom: -375px !important;
   }
   .content .logo-m {
+    position: absolute;
     width: 114px;
     left: 50px;
   }

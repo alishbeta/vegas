@@ -283,7 +283,7 @@ $(document).ready(function () {
     $('.city-wrapp li').on('click', function () {
         $('.head-menu .dropdown-menu').removeClass('show');
         let city = $(this).find('a').html();
-        $('.btn-city').html(city);
+        $('#your-city').html(city);
         localStorage.City = city;
     });
 
