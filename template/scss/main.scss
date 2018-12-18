@@ -705,8 +705,11 @@ small {
     background-color: $color-4;
 }
 
-.ui-menu.ui-widget.ui-widget-content {
-    background-color: white;
+
+.ui-menu, .ui-dialog {
+    &.ui-widget.ui-widget-content {
+        background-color: white;
+    }
 }
 
 .ui-widget-header {

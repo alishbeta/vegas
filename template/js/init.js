@@ -296,14 +296,9 @@ $(document).ready(function () {
         $('#secondZone input:not([type="radio"], #old-newpost-department)').attr('disabled',true);
     });
 
-    $('#edit-pass').on('click' , function() {
-        $(this).hide().next().show();
-        $('#thirdZone').attr('disabled',false);
-    });
-
     $('#edit-name').on('click', function(){
         $(this).hide().next().show();
-        $('#firstZone input').attr('disabled',true);
+        $('#firstZone input').attr('disabled',false);
     });
     
     $('#edit-name-close').on('click', function(){
@@ -311,13 +306,21 @@ $(document).ready(function () {
         $('#firstZone input').attr('disabled',true);
     });
 
-    $('#edit-pass-close').on('click' , function() {
-        $(this).hide().prev().show();
-        $('#thirdZone').attr('disabled',true);
+    $('#edit-pass').on('click' , function() {
+        $(this).hide().next().show();
+        $('#thirdZone input').attr('disabled',false);
     });
 
+    $('#edit-pass-close').on('click' , function() {
+        $(this).hide().prev().show();
+        $('#thirdZone input').attr('disabled',true);
+    });
+//Подтверждаем города
     $('.confirm-city .btn-blue').on('click', function(){
         $(this).parent().parent().addClass('d-none');
+    })
+    .next().on('click', function(){
+        $(this).parent().parent().hide();
     });
 
     tabControl();
