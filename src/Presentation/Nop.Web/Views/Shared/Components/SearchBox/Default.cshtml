@@ -7,7 +7,6 @@
     <style>
         .ui-autocomplete {
             z-index: 10000;
-            display: block!important;
         }
     </style>
     @if (Model.SearchTermMinimumLength > 0)
@@ -43,7 +42,7 @@
                         //display link to search page
                         if (showLinkToResultSearch) {
                             searchText = document.getElementById("small-searchterms").value;
-                            $("#ui-id-1.ui-autocomplete").append("<li class=\"ui-menu-item\" role=\"presentation\"><a class='btn btn-block btn-blue mt-3' href=\"/search?q=" + searchText + "\">@T("Search.SearchBox.SearchPageLink")</a></li>");
+                            $("#ui-id-1.ui-autocomplete").append("<li class=\"ui-menu-item\" role=\"presentation\"><a class='btn btn-block btn-blue mt-3' aria-label='searchbtn' href=\"/search?q=" + searchText + "\">@T("Search.SearchBox.SearchPageLink")</a></li>");
                         }
                     }
                 })
