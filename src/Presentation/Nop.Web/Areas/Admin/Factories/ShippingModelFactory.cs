@@ -483,15 +483,11 @@ namespace Nop.Web.Areas.Admin.Factories
                     Name = warehouse.Name,
                     AdminComment = warehouse.AdminComment
                 };
-                //var pics = _shippingService.GetWarehousePictures(warehouse.Id).Select(x => new WarehouseModel.PictureIdModel()
-                //{
-                //    PictureId = x.PictureId
-                //}).ToArray();
-                //for (int i = 0; i < pics.Length - 1; i++)
-                //{
-                //    model.Pictures[i] = pics[i];
-                //}
-                
+
+                _shippingService.GetWarehousePictures(warehouse.Id)
+                    .OrderBy(x => x.PictureId)
+                    .ToList()
+                    .ForEach(x => model.Pictures.Add(new WarehouseModel.PictureIdModel() { PictureId = x.PictureId }));
             }
 
             //prepare address model

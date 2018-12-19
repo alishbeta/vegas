@@ -737,6 +737,11 @@ namespace Nop.Web.Areas.Admin.Controllers
 
                 _shippingService.UpdateWarehouse(warehouse);
 
+                model.Pictures
+                    .Where(x => x.PictureId != null && x.PictureId > 0)
+                    .ToList()
+                    .ForEach(x => _shippingService.InsertWarehousePicture((int)x.PictureId, model.Id));
+
                 //activity log
                 _customerActivityService.InsertActivity("EditWarehouse",
                     string.Format(_localizationService.GetResource("ActivityLog.EditWarehouse"), warehouse.Id), warehouse);
