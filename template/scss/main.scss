@@ -20,6 +20,7 @@
 
 .outer-wrapp {
     float: left;
+    margin-bottom: 15px;
 }
 
 .see-wrap {
@@ -164,7 +165,7 @@
 
 .item-wrap {
     width: 268px;
-    height: 270px;
+    // height: 270px;
     padding: 0 20px;
     span img {
         width: 20px;
@@ -1121,6 +1122,11 @@ html .ui-button.ui-state-disabled {
 
 .ui-slider-horizontal .ui-slider-handle {
     top: -.5em !important;
+}
+
+.items{
+    margin-top: 15px;
+    margin-left: 15px;
 }
 
 @import "cart";

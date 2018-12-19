@@ -1279,6 +1279,7 @@ nav.breadcrumb-wrap a:hover {
 
 .outer-wrapp {
   float: left;
+  margin-bottom: 15px;
 }
 
 .see-wrap {
@@ -1425,7 +1426,6 @@ nav.breadcrumb-wrap a:hover {
 
 .item-wrap {
   width: 268px;
-  height: 270px;
   padding: 0 20px;
 }
 .item-wrap span img {
@@ -2341,6 +2341,11 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 
 .ui-slider-horizontal .ui-slider-handle {
   top: -.5em !important;
+}
+
+.items {
+  margin-top: 15px;
+  margin-left: 15px;
 }
 
 .cart .row, .cart-popup-wrap .row {
