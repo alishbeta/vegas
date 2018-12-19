@@ -119,7 +119,9 @@
         });
         var query = "";
         query += "?price=" + $("[name=MinPrice]").val() + "-" + $("[name=MaxPrice]").val();
-        query += "&height=" + $("[name=MinHeight]").val() + "-" + $("[name=MaxHeight]").val();
+        if ('@((bool)ViewBag.HasHeight)'.toLowerCase() == 'true') {
+            query += "&height=" + $("[name=MinHeight]").val() + "-" + $("[name=MaxHeight]").val();
+        }
         query += "&length=" + $("[name=MinLength]").val() + "-" + $("[name=MaxLength]").val();
         query += "&width=" + $("[name=MinWidth]").val() + "-" + $("[name=MaxWidth]").val();
         if ('@((bool)ViewBag.HasSleepSizes)'.toLowerCase() == 'true')
