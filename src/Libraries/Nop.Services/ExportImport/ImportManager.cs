@@ -1268,31 +1268,34 @@ namespace Nop.Services.ExportImport
                     var productWarehouseStatuses = new List<ProductWarehouseStatus>();
                     foreach (var itemWarehouse in item.Warehouses)
                     {
-                        var warehouse = _shippingService.GetWarehouseByName(itemWarehouse.WarehouseName);
-                        if (warehouse == null)
+                        if (!string.IsNullOrEmpty(itemWarehouse.WarehouseName))
                         {
-                            warehouse = new Warehouse()
+                            var warehouse = _shippingService.GetWarehouseByName(itemWarehouse.WarehouseName);
+                            if (warehouse == null)
                             {
-                                Name = itemWarehouse.WarehouseName
-                            };
-                            _shippingService.InsertWarehouse(warehouse);
-                        }
+                                warehouse = new Warehouse()
+                                {
+                                    Name = itemWarehouse.WarehouseName
+                                };
+                                _shippingService.InsertWarehouse(warehouse);
+                            }
 
-                        var status = _productService.GetStatusByName(itemWarehouse.WarehouseStatus);
-                        if (status == null)
-                        {
-                            status = new Status()
+                            var status = _productService.GetStatusByName(itemWarehouse.WarehouseStatus);
+                            if (status == null)
                             {
-                                Name = itemWarehouse.WarehouseStatus
-                            };
-                            _productService.InsertStatus(status);
-                        }
+                                status = new Status()
+                                {
+                                    Name = itemWarehouse.WarehouseStatus
+                                };
+                                _productService.InsertStatus(status);
+                            }
 
-                        productWarehouseStatuses.Add(new ProductWarehouseStatus()
-                        {
-                            WarehouseId = warehouse.Id,
-                            StatusId = status.Id
-                        });
+                            productWarehouseStatuses.Add(new ProductWarehouseStatus()
+                            {
+                                WarehouseId = warehouse.Id,
+                                StatusId = status.Id
+                            });
+                        }
                     }
 
                     //status
