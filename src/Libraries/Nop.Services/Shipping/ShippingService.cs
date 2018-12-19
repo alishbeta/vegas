@@ -40,6 +40,7 @@ namespace Nop.Services.Shipping
         private readonly IProductService _productService;
         private readonly IRepository<ShippingMethod> _shippingMethodRepository;
         private readonly IRepository<Warehouse> _warehouseRepository;
+        private readonly IRepository<WarehousePictures> _warehousePicturesRepository;
         private readonly IStoreContext _storeContext;
         private readonly ShippingSettings _shippingSettings;
         private readonly ShoppingCartSettings _shoppingCartSettings;
@@ -60,6 +61,7 @@ namespace Nop.Services.Shipping
             IPriceCalculationService priceCalculationService,
             IProductAttributeParser productAttributeParser,
             IProductService productService,
+            IRepository<WarehousePictures> warehousePicturesRepository,
             IRepository<ShippingMethod> shippingMethodRepository,
             IRepository<Warehouse> warehouseRepository,
             IStoreContext storeContext,
@@ -67,6 +69,7 @@ namespace Nop.Services.Shipping
             ShoppingCartSettings shoppingCartSettings,
             IRepository<ProductWarehouseStatus> productWarehouseStatusRepository)
         {
+            this._warehousePicturesRepository = warehousePicturesRepository;
             this._addressService = addressService;
             this._cacheManager = cacheManager;
             this._checkoutAttributeParser = checkoutAttributeParser;
@@ -414,6 +417,24 @@ namespace Nop.Services.Shipping
 
             //event notification
             _eventPublisher.EntityInserted(warehouse);
+        }
+
+        public virtual void InsertWarehousePicture(int pictureId, int warehouseId)
+        {
+            _warehousePicturesRepository.Insert(new WarehousePictures()
+            {
+                PictureId = pictureId,
+                WarehouseId = warehouseId
+            });
+        }
+
+        public virtual IList<WarehousePictures> GetWarehousePictures(int warehouseId)
+        {
+            var query = from wp in _warehousePicturesRepository.Table
+                        where wp.WarehouseId == warehouseId
+                        select wp;
+            var warehousePictures = query.ToList();
+            return warehousePictures;
         }
 
         /// <summary>

@@ -28,6 +28,18 @@
                         </div>
                     </div>
                     <nop-editor asp-for="Address" asp-template="Address" />
+                    @for (int i = 0; i < 20; i++)
+                    {
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="Pictures[i]" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="Pictures[i]" />
+                                <span asp-validation-for="Pictures[i]"></span>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
             @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.WarehouseDetailsBottom, additionalData = Model })

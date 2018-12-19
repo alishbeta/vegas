@@ -127,6 +127,14 @@ namespace Nop.Services.Shipping
         void InsertWarehouse(Warehouse warehouse);
 
         /// <summary>
+        /// Inserts a warehouse picture
+        /// </summary>
+        /// <param name="warehouse">Warehouse</param>
+        void InsertWarehousePicture(int pictureId, int warehouseId);
+
+        IList<WarehousePictures> GetWarehousePictures(int warehouseId);
+
+        /// <summary>
         /// Updates the warehouse
         /// </summary>
         /// <param name="warehouse">Warehouse</param>
