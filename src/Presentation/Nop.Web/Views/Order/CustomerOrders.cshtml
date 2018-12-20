@@ -67,6 +67,10 @@
                                 <div class="line"></div>
                             </div>
                         }
+                        @if (ViewBag.HasViewAllButton)
+                        {
+                            <a class="text-center btn btn-blue-white" href="@Url.Action("CustomerOrders", new { viewAll = true })">@T("orders.viewAll")</a>
+                        }
                     }
                     else
                     {

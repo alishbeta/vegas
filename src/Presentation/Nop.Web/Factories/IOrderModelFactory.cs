@@ -13,7 +13,7 @@ namespace Nop.Web.Factories
         /// Prepare the customer order list model
         /// </summary>
         /// <returns>Customer order list model</returns>
-        CustomerOrderListModel PrepareCustomerOrderListModel();
+        CustomerOrderListModel PrepareCustomerOrderListModel(bool viewAll = true);
 
         /// <summary>
         /// Prepare the order details model

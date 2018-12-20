@@ -131,11 +131,12 @@ namespace Nop.Web.Factories
         /// Prepare the customer order list model
         /// </summary>
         /// <returns>Customer order list model</returns>
-        public virtual CustomerOrderListModel PrepareCustomerOrderListModel()
+        public virtual CustomerOrderListModel PrepareCustomerOrderListModel(bool viewAll = true)
         {
             var model = new CustomerOrderListModel();
             var orders = _orderService.SearchOrders(storeId: _storeContext.CurrentStore.Id,
-                customerId: _workContext.CurrentCustomer.Id);
+                customerId: _workContext.CurrentCustomer.Id,
+                pageSize: viewAll ? int.MaxValue : 15);
 			
             foreach (var order in orders)
             {

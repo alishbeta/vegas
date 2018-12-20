@@ -71,15 +71,16 @@ namespace Nop.Web.Controllers
 
         //My account / Orders
         [HttpsRequirement(SslRequirement.Yes)]
-        public virtual IActionResult CustomerOrders()
+        public virtual IActionResult CustomerOrders(bool viewAll = false)
         {
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return Challenge();
 
-            var model = _orderModelFactory.PrepareCustomerOrderListModel();
-			//ViewBag.PictureService = _pictureService;
+            var model = _orderModelFactory.PrepareCustomerOrderListModel(viewAll);
 
-			return View(model);
+            ViewBag.HasViewAllButton = !viewAll;
+
+            return View(model);
         }
 
 		[HttpPost]
