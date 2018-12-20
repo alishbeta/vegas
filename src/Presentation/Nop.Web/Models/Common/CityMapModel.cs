@@ -10,6 +10,7 @@ namespace Nop.Web.Models.Common
     public class CityMapModel
     {
 		public List<Warehouse> Warehouses { get; set; }
+		public List<ViewWarehouseModel> WarehouseViewModels { get; set; }
 		public List<Address> Addresses { get; set; }
 		public string Name { get; set; }
 	}

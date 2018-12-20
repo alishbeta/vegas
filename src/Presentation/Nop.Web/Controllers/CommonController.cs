@@ -19,6 +19,7 @@ using Nop.Services.Common;
 using Nop.Services.Directory;
 using Nop.Services.Localization;
 using Nop.Services.Logging;
+using Nop.Services.Media;
 using Nop.Services.Messages;
 using Nop.Services.Orders;
 using Nop.Services.Security;
@@ -42,6 +43,7 @@ namespace Nop.Web.Controllers
         #region Fields
 
         private readonly CaptchaSettings _captchaSettings;
+        private readonly IPictureService _pictureService;
         private readonly IProductService _productService;
         private readonly CatalogSettings _catalogSettings;
         private readonly IProductModelFactory _productModelFactory;
@@ -74,6 +76,7 @@ namespace Nop.Web.Controllers
         public CommonController(CaptchaSettings captchaSettings,
             CommonSettings commonSettings,
             CatalogSettings catalogSettings,
+            IPictureService pictureService,
             IProductService productService,
             IProductModelFactory productModelFactory,
             Areas.Admin.Factories.ILanguageModelFactory languageModelFactory,
@@ -97,6 +100,7 @@ namespace Nop.Web.Controllers
             IWebHelper webHelper,
             ILocationService locationService)
         {
+            this._pictureService = pictureService;
             this._catalogSettings = catalogSettings;
             this._productModelFactory = productModelFactory;
             this._productService = productService;
@@ -444,10 +448,10 @@ namespace Nop.Web.Controllers
 			var warehouses = _shippingService.GetAllWarehouses();
 			WarehouseInfoModel model = new WarehouseInfoModel
 			{
-				Cities = new System.Collections.Generic.List<string>(),
+				Cities = new List<string>(),
 				Warehouses = warehouses
 			};
-			var addresses = new System.Collections.Generic.List<Address>();
+			var addresses = new List<Address>();
 			foreach (var warehouse in warehouses)
 			{
 				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
@@ -467,21 +471,37 @@ namespace Nop.Web.Controllers
 		public virtual IActionResult CityMap(string city)
 		{
 			var warehouses = _shippingService.GetAllWarehouses();
-			var addresses = new System.Collections.Generic.List<Address>();
+			var addresses = new List<Address>();
 			foreach (var warehouse in warehouses)
 			{
 				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
 			}
 
 			var cityAdresses = addresses.Where(x => x?.City.ToLower() == city.ToLower()).ToList();
-			var warehousesInCity = new System.Collections.Generic.List<Warehouse>();
+			var warehousesInCity = new List<Warehouse>();
 			foreach (var cityAddress in cityAdresses)
 			{
 				warehousesInCity.AddRange(warehouses.Where(x => x.AddressId == cityAddress.Id));
 			}
+            var viewWarehouseModelList = new List<ViewWarehouseModel>();
+            warehousesInCity.ForEach(x =>
+            {
+                viewWarehouseModelList.Add(new ViewWarehouseModel()
+                {
+
+                    Name = x.Name,
+                    WorkTime = x.AdminComment,
+                    AddressId = x.AddressId,
+                    Pictures = _shippingService.GetWarehousePictures(x.Id).Select(u => new ViewWarehouseModel.WarehousePicture()
+                    {
+                        PictureUrl = _pictureService.GetPictureUrl(u.PictureId)
+                    }).ToList()
+                });
+            });
 			var model = new CityMapModel
 			{
 				Warehouses = warehousesInCity,
+                WarehouseViewModels = viewWarehouseModelList,
 				Addresses = cityAdresses,
 				Name = city
 			};
@@ -496,17 +516,39 @@ namespace Nop.Web.Controllers
 
 			var city = address.City;
 			var warehouses = _shippingService.GetAllWarehouses();
-			var addresses = new System.Collections.Generic.List<Address>();
+			var addresses = new List<Address>();
 			foreach (var warehouse in warehouses)
 			{
 				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
 			}
 
 			var cityAdresses = addresses.Where(x => x?.City.ToLower() == city.ToLower()).Take(3).ToList();
-			var model = new StoreInfoModel
+            var warehousesInCity = new List<Warehouse>();
+            foreach (var cityAddress in cityAdresses)
+            {
+                warehousesInCity.AddRange(warehouses.Where(x => x.AddressId == cityAddress.Id));
+            }
+            var viewWarehouseModelList = new List<ViewWarehouseModel>();
+            warehousesInCity.ForEach(x =>
+            {
+                viewWarehouseModelList.Add(new ViewWarehouseModel()
+                {
+
+                    Name = x.Name,
+                    WorkTime = x.AdminComment,
+                    AddressId = x.AddressId,
+                    Pictures = _shippingService.GetWarehousePictures(x.Id).Select(u => new ViewWarehouseModel.WarehousePicture()
+                    {
+                        PictureUrl = _pictureService.GetPictureUrl(u.PictureId)
+                    }).ToList()
+                });
+            });
+
+            var model = new StoreInfoModel
 			{
 				Address = address,
-				OtherStores = cityAdresses,
+                WarehouseViewModels = viewWarehouseModelList,
+                OtherStores = cityAdresses,
 				Warehouses = warehouses
 			};
 			return View(model);

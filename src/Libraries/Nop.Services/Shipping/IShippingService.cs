@@ -134,6 +134,12 @@ namespace Nop.Services.Shipping
 
         IList<WarehousePictures> GetWarehousePictures(int warehouseId);
 
+        void UpdateWarehousePicture(WarehousePictures warehousePicture);
+
+        void DeleteWarehousePicture(int pictureId, int warehouseId);
+
+        void DeleteWarehousePictures(int warehouseId);
+
         /// <summary>
         /// Updates the warehouse
         /// </summary>

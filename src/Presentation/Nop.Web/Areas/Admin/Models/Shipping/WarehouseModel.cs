@@ -20,11 +20,15 @@ namespace Nop.Web.Areas.Admin.Models.Shipping
         {
             this.Address = new AddressModel();
             this.Pictures = new List<PictureIdModel>();
+            this.AddPictureModel = new PictureIdModel();
         }
 
         #endregion
         [NopResourceDisplayName("Admin.Configuration.Shipping.Warehouses.Fields.Picture.Number")]
         public List<PictureIdModel> Pictures { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Shipping.Warehouses.Fields.Picture.Number")]
+        public PictureIdModel AddPictureModel { get; set; }
 
         #region Properties
 

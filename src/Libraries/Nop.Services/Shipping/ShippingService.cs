@@ -428,6 +428,12 @@ namespace Nop.Services.Shipping
             });
         }
 
+        public virtual void UpdateWarehousePicture(WarehousePictures warehousePictures)
+        {
+            //GetWarehousePictures(warehouseId).FirstOrDefault(x => x.)
+            //_warehousePicturesRepository.Update(warehousePicture);
+        }
+
         public virtual IList<WarehousePictures> GetWarehousePictures(int warehouseId)
         {
             var query = from wp in _warehousePicturesRepository.Table
@@ -435,6 +441,22 @@ namespace Nop.Services.Shipping
                         select wp;
             var warehousePictures = query.ToList();
             return warehousePictures;
+        }
+
+        public virtual void DeleteWarehousePicture(int pictureId, int warehouseId)
+        {
+            var query = from wp in _warehousePicturesRepository.Table
+                        where wp.WarehouseId == warehouseId && wp.PictureId == pictureId
+                        select wp;
+            query.ToList().ForEach(x => _warehousePicturesRepository.Delete(x));
+        }
+
+        public virtual void DeleteWarehousePictures(int warehouseId)
+        {
+            var query = from wp in _warehousePicturesRepository.Table
+                        where wp.WarehouseId == warehouseId
+                        select wp;
+            query.ToList().ForEach(x => _warehousePicturesRepository.Delete(x));
         }
 
         /// <summary>

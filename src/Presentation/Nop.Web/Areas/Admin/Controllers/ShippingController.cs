@@ -670,7 +670,7 @@ namespace Nop.Web.Areas.Admin.Controllers
 
                 _shippingService.InsertWarehouse(warehouse);
 
-                foreach (var picture in model.Pictures.Where(x => x.PictureId != null))
+                foreach (var picture in model.Pictures.Where(x => x.PictureId != null && x.PictureId > 0))
                 {
                     _shippingService.InsertWarehousePicture(picture.PictureId ?? 0, warehouse.Id);
                 }
@@ -737,10 +737,26 @@ namespace Nop.Web.Areas.Admin.Controllers
 
                 _shippingService.UpdateWarehouse(warehouse);
 
-                model.Pictures
+                var newPics = model.Pictures
                     .Where(x => x.PictureId != null && x.PictureId > 0)
-                    .ToList()
-                    .ForEach(x => _shippingService.InsertWarehousePicture((int)x.PictureId, model.Id));
+                    .Select(x => (int)x.PictureId)
+                    .ToList();
+
+                var oldPics = _shippingService.GetWarehousePictures(warehouse.Id).Select(x => x.PictureId).ToList();
+
+                newPics.ForEach(x =>
+                    {
+                        if (!oldPics.Contains(x))
+                        {
+                            _shippingService.InsertWarehousePicture(x, warehouse.Id);
+                        }
+                        else
+                        {
+                            oldPics.Remove(x);
+                        }
+                    });
+                oldPics.ForEach(x => _shippingService.DeleteWarehousePicture(x, warehouse.Id));
+                //.ForEach(x => _shippingService.UpdateWarehousePicture((int)x.PictureId, model.Id));
 
                 //activity log
                 _customerActivityService.InsertActivity("EditWarehouse",
@@ -759,6 +775,24 @@ namespace Nop.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        public virtual IActionResult AddWarehousePicture(int pictureId, int warehouseId)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageProducts))
+                return AccessDeniedView();
+
+            if (pictureId <= 0 || warehouseId <= 0)
+                throw new ArgumentException();
+
+            //try to get a warehouse with the specified id
+            var product = _shippingService.GetWarehouseById(warehouseId)
+                ?? throw new ArgumentException("No warehouse found with the specified id");
+
+            _shippingService.InsertWarehousePicture(pictureId, warehouseId);
+
+            return Json(new { Result = true });
+        }
+
+        [HttpPost]
         public virtual IActionResult DeleteWarehouse(int id)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageShippingSettings))
@@ -770,7 +804,7 @@ namespace Nop.Web.Areas.Admin.Controllers
                 return RedirectToAction("Warehouses");
 
             _shippingService.DeleteWarehouse(warehouse);
-
+            _shippingService.DeleteWarehousePictures(id);
             //activity log
             _customerActivityService.InsertActivity("DeleteWarehouse",
                 string.Format(_localizationService.GetResource("ActivityLog.DeleteWarehouse"), warehouse.Id), warehouse);

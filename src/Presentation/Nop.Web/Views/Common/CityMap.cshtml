@@ -1,5 +1,5 @@
 ﻿@{
-	Layout = "_ColumnsOne";
+    Layout = "_ColumnsOne";
 }
 @model CityMapModel
 
@@ -12,35 +12,46 @@
 
 <div class="row map">
 	<div class="offset-xl-2 col-xl-8">
-		<h1 class="title">Наши салоны</h1>
+		<h1 class="title">@T("ourstores.title")</h1>
 		@await Component.InvokeAsync("OurStoresMenu", new { active = Model.Name })
 		<div class="map-wrap">
 			<div id="map"></div>
 			<div class="row img-wrap clearfix text-center">
+                
 				@{
-					var addresses = new List<dynamic>();
-				}
-				@foreach (var address in Model.Addresses)
-				{
+                    var addresses = new List<dynamic>();
+                    foreach (var address in Model.Addresses)
+                    {
 					<div class="img col-lg-6">
 						<a href="/storeinfo?addressId=@address.Id">
-							<img src="https://via.placeholder.com/540x320" alt="">
+							<img src="@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Pictures?.FirstOrDefault(x => x.PictureUrl != null)?.PictureUrl" alt="">
 							<div class="text-wrap">
-								<div><b>"Матрасы Vegas"</b></div>
+								<div><b>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Name</b></div>
 								<div class="address" data-addr="@address.Address1">@address.Address1</div>
-								<div>пн-вс 10:00-20:00</div>
+                                <div>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.WorkTime</div>
 							</div>
 						</a>
 					</div>
-					var description = Model.Warehouses.FirstOrDefault(x => x.AddressId == address.Id).AdminComment?.Replace("\n", "").Replace("\r", "");
-					var addr = address.Address1?.Replace("\n", "").Replace("\r", "");
+                        var warehouse = Model.Warehouses.FirstOrDefault(x => x.AddressId == address.Id);
+                        var description = string.Format("{0}\n{1}", address.Address1 ?? "", warehouse.AdminComment);
+                        var addr = warehouse.Name;
 
-					addresses.Add(new
-					{
-						addr,
-						description
-					});
-				}
+                        addresses.Add(new
+                        {
+                            addr,
+                            description,
+                            zoom = 6
+                        });
+                        //var description = Model.Warehouses.FirstOrDefault(x => x.AddressId == address.Id).AdminComment?.Replace("\n", "").Replace("\r", "");
+                        //var addr = address.Address1?.Replace("\n", "").Replace("\r", "");
+
+                        //addresses.Add(new
+                        //{
+                        //	addr,
+                        //	description
+                        //});
+                    }
+                }
 				<span id="address" style="display:none!important;" data-address="@Newtonsoft.Json.JsonConvert.SerializeObject(addresses)"></span>
 			</div>
 		</div>
