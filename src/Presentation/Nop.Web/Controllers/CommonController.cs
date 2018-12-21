@@ -477,7 +477,7 @@ namespace Nop.Web.Controllers
 				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
 			}
 
-			var cityAdresses = addresses.Where(x => x?.City.ToLower() == city.ToLower()).ToList();
+			var cityAdresses = addresses.Where(x => x?.City?.ToLower() == city.ToLower()).ToList();
 			var warehousesInCity = new List<Warehouse>();
 			foreach (var cityAddress in cityAdresses)
 			{
@@ -522,7 +522,7 @@ namespace Nop.Web.Controllers
 				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
 			}
 
-			var cityAdresses = addresses.Where(x => x?.City.ToLower() == city.ToLower()).Take(3).ToList();
+			var cityAdresses = addresses.Where(x => x?.City?.ToLower() == city.ToLower()).Take(3).ToList();
             var warehousesInCity = new List<Warehouse>();
             foreach (var cityAddress in cityAdresses)
             {

@@ -24,7 +24,7 @@
                     {
 					<div class="img col-lg-6">
 						<a href="/storeinfo?addressId=@address.Id">
-							<img src="@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Pictures?.FirstOrDefault(x => x.PictureUrl != null)?.PictureUrl" alt="">
+							<img src="@(Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Pictures?.FirstOrDefault(x => x.PictureUrl != null)?.PictureUrl ?? "/img/logo.png")" alt="">
 							<div class="text-wrap">
 								<div><b>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Name</b></div>
 								<div class="address" data-addr="@address.Address1">@address.Address1</div>

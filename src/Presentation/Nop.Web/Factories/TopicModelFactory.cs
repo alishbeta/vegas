@@ -6,6 +6,7 @@ using Nop.Core.Caching;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Topics;
 using Nop.Services.Localization;
+using Nop.Services.Media;
 using Nop.Services.Security;
 using Nop.Services.Seo;
 using Nop.Services.Topics;
@@ -24,6 +25,7 @@ namespace Nop.Web.Factories
         private readonly IAclService _aclService;
         private readonly ILocalizationService _localizationService;
         private readonly IStaticCacheManager _cacheManager;
+        private readonly IPictureService _pictureService;
         private readonly IStoreContext _storeContext;
         private readonly ITopicService _topicService;
         private readonly ITopicTemplateService _topicTemplateService;
@@ -39,10 +41,12 @@ namespace Nop.Web.Factories
             IStaticCacheManager cacheManager,
             IStoreContext storeContext,
             ITopicService topicService,
+            IPictureService pictureService,
             ITopicTemplateService topicTemplateService,
             IUrlRecordService urlRecordService,
             IWorkContext workContext)
         {
+            this._pictureService = pictureService;
             this._aclService = aclService;
             this._localizationService = localizationService;
             this._cacheManager = cacheManager;
@@ -120,6 +124,7 @@ namespace Nop.Web.Factories
 			var test = _topicService.GetAllTopics(storeId);
 			model.PreviousTopic = _topicService.GetAllTopics(storeId).FirstOrDefault(x => x.TopicCategoryId == model.Topic.TopicCategoryId && x.Id < topicId);
 			model.NextTopic = _topicService.GetAllTopics(storeId).FirstOrDefault(x => x.TopicCategoryId == model.Topic.TopicCategoryId && x.Id > topicId);
+            model.PictureUrl = _pictureService.GetPictureUrl(model.Topic.PictureId);
 			return model;
         }
 

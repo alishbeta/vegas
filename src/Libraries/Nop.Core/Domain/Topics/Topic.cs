@@ -107,5 +107,7 @@ namespace Nop.Core.Domain.Topics
         public bool LimitedToStores { get; set; }
 
         public string Tags { get; set; }
+        
+        public int PictureId { get; set; }
     }
 }

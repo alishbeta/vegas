@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using FluentValidation.Attributes;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core.Domain.Topics;
@@ -81,6 +82,10 @@ namespace Nop.Web.Areas.Admin.Models.Topics
 
         [NopResourceDisplayName("Admin.ContentManagement.Topics.Fields.TopicCategory")]
         public int TopicCategoryId { get; set; }
+
+        [UIHint("Picture")]
+        [NopResourceDisplayName("Admin.ContentManagement.Topics.Fields.PictureId")]
+        public int PictureId { get; set; }
 
         public IList<SelectListItem> AvailableTopicTemplates { get; set; }
 

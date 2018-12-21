@@ -10,7 +10,8 @@ namespace Nop.Web.Models.Topics
     public class CustomTopicModel : BaseNopModel
     {
 		public Topic Topic { get; set; }
-		public Topic NextTopic { get; set; }
+        public string PictureUrl { get; set; }
+        public Topic NextTopic { get; set; }
 		public Topic PreviousTopic { get; set; }
 	}
 }

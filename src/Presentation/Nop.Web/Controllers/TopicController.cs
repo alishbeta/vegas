@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Services.Localization;
+using Nop.Services.Media;
 using Nop.Services.Security;
 using Nop.Services.Stores;
 using Nop.Services.Topics;
@@ -22,19 +23,22 @@ namespace Nop.Web.Controllers
         private readonly ITopicModelFactory _topicModelFactory;
         private readonly ITopicService _topicService;
 		private readonly IStoreContext _storeContext;
+        private readonly IPictureService _pictureService;
 
-		#endregion
+        #endregion
 
-		#region Ctor
+        #region Ctor
 
-		public TopicController(IAclService aclService,
+        public TopicController(IAclService aclService,
             ILocalizationService localizationService,
             IPermissionService permissionService,
             IStoreMappingService storeMappingService,
             ITopicModelFactory topicModelFactory,
 			IStoreContext storeContext,
+            IPictureService pictureService,
 			ITopicService topicService)
         {
+            this._pictureService = pictureService;
             this._aclService = aclService;
             this._localizationService = localizationService;
             this._permissionService = permissionService;
@@ -79,6 +83,7 @@ namespace Nop.Web.Controllers
 		{
 			var storeId = _storeContext.CurrentStore.Id;
 			var model = _topicModelFactory.PrepareTopicListModel(storeId);
+            ViewBag.pictureService = _pictureService;
 			return View(model);
 		}
 

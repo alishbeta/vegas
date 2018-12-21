@@ -25,7 +25,7 @@
 		<div class="news-full-wrap">
 			<h1 class="title">@Model.Topic.Title <span class="date">@T(string.Format("topic.category{0}", Model.Topic.TopicCategoryId))</span></h1>
 			<div class="img-wrap">
-				<img src="https://via.placeholder.com/920x500" alt="">
+				<img src="@Model.PictureUrl" alt="">
 			</div>
 			<div class="text">
 				@Html.Raw(Model.Topic.Body)

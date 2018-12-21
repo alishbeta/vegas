@@ -63,7 +63,7 @@
 				{
 					<a href="/storeinfo?addressId=@address.Id">
 						<div class="img">
-							<img src="@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Pictures.FirstOrDefault(x => x.PictureUrl != null).PictureUrl" alt="">
+							<img src="@(Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Pictures.FirstOrDefault(x => x.PictureUrl != null).PictureUrl ?? "/img/logo.png")" alt="">
 							<div class="text-wrap">
 								<div><b>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Name</b></div>
 								<div>@address.Address1</div>

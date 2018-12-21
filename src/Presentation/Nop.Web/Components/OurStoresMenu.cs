@@ -34,7 +34,7 @@ namespace Nop.Web.Components
 			foreach (var warehouse in warehouses)
 			{
 				var address = _addressService.GetAddressById(warehouse?.AddressId ?? 0);
-				if (address != null && !model.Cities.Contains(address.City))
+				if (address != null && address.City != null && !model.Cities.Contains(address.City))
 				{
 					model.Cities.Add(address.City);
 				}

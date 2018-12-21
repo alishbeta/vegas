@@ -38,7 +38,7 @@
 			{
             <div class="item-wrap @(string.Format("cat{0}", item.TopicCategoryId))">
                 <div class="img-wrap">
-                    <img src="/img/news.png" alt="news">
+                    <img src="@(ViewBag.pictureService.GetPictureUrl(item.PictureId) ?? "/img/news.png")" alt="ifws">
                     <div class="label">@T(string.Format("topic.category{0}", item.TopicCategoryId))</div>
                 </div>
                 <div class="text-wrap">
