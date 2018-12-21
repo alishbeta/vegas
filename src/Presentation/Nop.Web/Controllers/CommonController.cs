@@ -488,7 +488,6 @@ namespace Nop.Web.Controllers
             {
                 viewWarehouseModelList.Add(new ViewWarehouseModel()
                 {
-
                     Name = x.Name,
                     WorkTime = x.AdminComment,
                     AddressId = x.AddressId,
@@ -496,6 +495,13 @@ namespace Nop.Web.Controllers
                     {
                         PictureUrl = _pictureService.GetPictureUrl(u.PictureId)
                     }).ToList()
+                });
+            });
+            viewWarehouseModelList.Where(x => x.Pictures.Count == 0).ToList().ForEach(x =>
+            {
+                x.Pictures.Add(new ViewWarehouseModel.WarehousePicture()
+                {
+                    PictureUrl = _pictureService.GetPictureUrl(0)
                 });
             });
 			var model = new CityMapModel
@@ -543,7 +549,13 @@ namespace Nop.Web.Controllers
                     }).ToList()
                 });
             });
-
+            viewWarehouseModelList.Where(x => x.Pictures.Count == 0).ToList().ForEach(x =>
+            {
+                x.Pictures.Add(new ViewWarehouseModel.WarehousePicture()
+                {
+                    PictureUrl = _pictureService.GetPictureUrl(0)
+                });
+            });
             var model = new StoreInfoModel
 			{
 				Address = address,
