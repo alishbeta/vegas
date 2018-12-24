@@ -65,8 +65,8 @@ namespace Nop.Services.Shipping
             var request = new NewPostApiRequest<NewPostInternetDocumentGetDocumentPrice>()
             {
                 apiKey = _apiKey,
-                modelName = "Address",
-                calledMethod = "searchSettlements",
+                modelName = "InternetDocument",
+                calledMethod = "getDocumentPrice",
                 methodProperties = new NewPostInternetDocumentGetDocumentPrice()
                 {
                     CargoType = "Cargo",
