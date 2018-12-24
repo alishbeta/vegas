@@ -739,6 +739,7 @@ namespace Nop.Services.ExportImport
                     FirstName = string.Format("{0} {1}", _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.FirstNameAttribute), _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.LastNameAttribute)),
                     //LastName = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.LastNameAttribute),
                     //FatherName = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.FatherNameAttribute),
+                    PhoneNumber = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.PhoneAttribute),
                     IdOneC = d.IdOneC,
                     NumberDiscountCard = d.NumberDiscountCard,
                     Percent = d.DiscountPercent,

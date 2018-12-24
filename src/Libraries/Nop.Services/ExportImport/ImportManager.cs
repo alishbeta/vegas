@@ -1188,13 +1188,14 @@ namespace Nop.Services.ExportImport
                             Active = true,
                             CreatedOnUtc = DateTime.UtcNow,
                             LastActivityDateUtc = DateTime.UtcNow,
-                            RegisteredInStoreId = _storeContext.CurrentStore.Id
+                            RegisteredInStoreId = _storeContext.CurrentStore.Id,
                         };
                         _customerService.InsertCustomer(customer);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CityAttribute, user.City);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, user.FirstName);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.PhoneAttribute, user.PhoneNumber);
                         //_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.LastNameAttribute, user.LastName);
                         //_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FatherNameAttribute, user.FatherName);
 
