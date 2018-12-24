@@ -77,12 +77,17 @@
 	</div>
 </div>
 @{
-	var addresses = new List<dynamic>();
-	addresses.Add(new
-	{
-		addr = Model.Address.Address1?.Replace("\n", "").Replace("\r", ""),
-		description = Model.Warehouses.FirstOrDefault(x => x.AddressId == Model.Address.Id).AdminComment?.Replace("\n", "").Replace("\r", "")
-	});
+    var addresses = new List<dynamic>();
+    var warehouse = Model.Warehouses.FirstOrDefault(x => x.AddressId == Model.Address.Id);
+    addresses.Add(new
+    {
+        city = Model.Address?.City,
+        name = warehouse?.Name,
+        addr = Model.Address?.Address1,
+        phone = Model.Address?.PhoneNumber,
+        workTime = warehouse?.AdminComment,
+        zoom = 6
+    });
 }
 <span id="address" style="display:none!important;" data-address="@Newtonsoft.Json.JsonConvert.SerializeObject(addresses)"></span>
 <script type="text/javascript" src="js/slick.min.js"></script>
