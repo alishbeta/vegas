@@ -169,57 +169,58 @@
                 </div>
             </div>
         </div>
-		<div class="item-wrap-full" style="display: none;">
-			<i class="favorite_i float-left" data-id="@Model.Id" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');$(this).addClass('load');return false;"></i>
-			<i class="compare_icon float-right" data-ids="@Model.Id" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');$(this).addClass('load');return false;"></i>
-			<div class="product-img-wrap">
-				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
-					<img class="product" src="@Model.DefaultPictureModel.ImageUrl" alt="@Model.DefaultPictureModel.AlternateText">
-				</a>
-				@if (Model.ProductPrice.Discount.ToString("#.##") != "")
-				{
-					<div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
-				}
-			</div>
-			<div class="main-prop-wrap text-left">
-				<a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
-					<div class="product-name text-light-c">@Model.Name</div>
-				</a>
-				<div class="product-prop">@Model.ShortDescription</div>
-				<div class="price-titile">@T("product.price")</div>
-				<div class="price-wrap clearfix">
-					@if (!string.IsNullOrEmpty(Model.ProductPrice.OldPrice))
-					{
-						<div class="price-old">@Model.ProductPrice.OldPrice</div>
-					}
-					<div class="price-new">@Model.ProductPrice.Price</div>
-				</div>
-			</div>
-			<div class="sizes-wrap clearfix">
-				<div class="title">@T("product.sizes")</div>
-				<div class="inner-wrap">
-					<div class="block float-left">
-						<div class="title">@T("product.width")</div>
-						<div class="value">@Model.Width.ToString("#.##") см</div>
-					</div>
-					<div class="block float-left">
-						<div class="title">@T("product.length")</div>
-						<div class="value">@Model.Length.ToString("#.##") см</div>
-					</div>
-					<div class="block float-left">
-						<div class="title">@T("product.height")</div>
-						<div class="value">@Model.Height.ToString("#.##") см</div>
-					</div>
-				</div>
-			</div>
-			<div class="text-center"></div>
-			@if (Model.InStock)
-			{
-				<button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="btn btn-sm buy-btn btn-blue btn-block">@T("product.buy")</button>
-			}
-			else
-			{
-				@await Component.InvokeAsync("BackInStockButton", new { productId = Model.Id, prefix = string.IsNullOrEmpty(ViewBag.Prefix) ? "prod" : ViewBag.Prefix });
-			}
-		</div>
+        <div class="item-wrap-full" style="display: none;">
+            <i class="favorite_i float-left" data-id="@Model.Id" onclick="AjaxCart.addproducttocart_catalog('@addtowishlistlink');$(this).addClass('load');return false;"></i>
+            <i class="compare_icon float-right" data-ids="@Model.Id" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');$(this).addClass('load');return false;"></i>
+            <div class="product-img-wrap">
+                <a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
+                    <img class="product" src="@Model.DefaultPictureModel.ImageUrl" alt="@Model.DefaultPictureModel.AlternateText">
+                </a>
+                @if (Model.ProductPrice.Discount.ToString("#.##") != "")
+                {
+                    <div class="discount">-@Model.ProductPrice.Discount.ToString("#.##")%</div>
+                }
+            </div>
+            <div class="main-prop-wrap text-left">
+                <a href="@Url.RouteUrl("Product", new { productId = Model.Id, SeName = Model.SeName })">
+                    <div class="product-name text-light-c">@Model.Name</div>
+                </a>
+                <div class="product-prop">@Model.ShortDescription</div>
+                <div class="price-titile">@T("product.price")</div>
+                <div class="price-wrap clearfix">
+                    @if (!string.IsNullOrEmpty(Model.ProductPrice.OldPrice))
+                    {
+                        <div class="price-old">@Model.ProductPrice.OldPrice</div>
+                    }
+                    <div class="price-new">@Model.ProductPrice.Price</div>
+                </div>
+            </div>
+            <div class="sizes-wrap clearfix">
+                <div class="title">@T("product.sizes")</div>
+                <div class="inner-wrap">
+                    <div class="block float-left">
+                        <div class="title">@T("product.width")</div>
+                        <div class="value">@Model.Width.ToString("#.##") см</div>
+                    </div>
+                    <div class="block float-left">
+                        <div class="title">@T("product.length")</div>
+                        <div class="value">@Model.Length.ToString("#.##") см</div>
+                    </div>
+                    <div class="block float-left">
+                        <div class="title">@T("product.height")</div>
+                        <div class="value">@Model.Height.ToString("#.##") см</div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center"></div>
+            @if (Model.InStock)
+            {
+                <button type="button" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');StartLoadingCart();return false;" class="btn btn-sm buy-btn btn-blue btn-block">@T("product.buy")</button>
+            }
+            else
+            {
+                <button type="button" onclick="DisplayOrderPopup('AjaxCart.addproducttocart_catalog(\'@addtocartlink\')')" class="btn btn-sm btn-blue btn-block">@T("product.order")</button>
+                @await Component.InvokeAsync("BackInStockOrder");
+            }
+        </div>
 	</div>

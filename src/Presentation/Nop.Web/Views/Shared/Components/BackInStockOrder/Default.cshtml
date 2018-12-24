@@ -1,0 +1,32 @@
+﻿@using Nop.Web.Models.Catalog;
+
+<script>
+    function OpenCart() {
+        var subscribePopups = $(".order-popup");
+        subscribePopups.each(function () {
+            $(this).closest('.ui-dialog-content').dialog('destroy').remove();
+        });
+        $('.cart-popup-wrap').addClass('open');
+        $('.back-shadow').fadeIn();
+    }
+    function DisplayOrderPopup(link) {
+        $(".back-shadow").fadeIn().on("click", function () {
+            $(".back-shadow").fadeOut();
+            var subscribePopups = $(".order-popup");
+            subscribePopups.each(function () {
+                $(this).closest('.ui-dialog-content').dialog('destroy').remove();
+            });
+        });
+        $('<div class="order-popup"><span>@T("backinstock.order.tip")</span></div>').append('<button type="button" onclick="' + link + ';OpenCart();StartLoadingCart();return false;" class="btn btn-sm buy-btn btn-blue btn-block mt-3">@T("product.order")</button>')
+            .dialog({
+                modal: false,
+                width: 550,
+                maxHeight: $(window).height() - 20,
+                title: '@T("backinstock.order.title")',
+                close: function (event, ui) {
+                    $(this).dialog('destroy').remove();
+                    $(".back-shadow").fadeOut();
+                }
+            });
+    }
+</script>

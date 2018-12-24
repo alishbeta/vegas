@@ -313,18 +313,8 @@
                                 }
                                 else
                                 {
-                                    <button class="btn btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-prod-@Model.Id" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
-                                    <button class="btn btn-blue-white mb-3 rounded" id="back-in-stock-subscribe-buy-@Model.Id" data-toggle="modal">@T("prod.buynow")</button>
-                                    <script>
-						            $(document).ready(function () {
-							            $("#back-in-stock-subscribe-buy-@Model.Id").on('click', function() {
-								            displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
-							            });
-							            $("#back-in-stock-subscribe-prod-@Model.Id").on('click', function() {
-								            displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
-							            });
-						            });
-                                    </script>
+                                    <button class="btn btn-blue btn-block arived mb-2 rounded" onclick="DisplayOrderPopup('AjaxCart.addproducttocart_details(\'@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.AddToCart.ProductId, shoppingCartTypeId = 1 })\', \'#product-details-form\')')" data-toggle="modal" data-target="#arived">@T("product.order")</button>
+                                    @await Component.InvokeAsync("BackInStockOrder");
                                 }
                             }
 
