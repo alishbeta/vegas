@@ -708,7 +708,7 @@
             }
         }).done(function (data) {
             if (data != -1) {
-                data += " грн";
+                data += " @T("currency.uah")";
             }
             console.log(data);
             $("#new-delivery-price").text(data);
