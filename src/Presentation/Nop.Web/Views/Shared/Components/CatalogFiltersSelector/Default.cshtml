@@ -1,4 +1,6 @@
-﻿@model FilterRangesModel
+﻿
+
+   @model FilterRangesModel
 <div class="filters-data">
     <div class="inner-wrap f-slider" data-filter-number="price" data-min="@(Math.Round(Model.Price?.min ?? 0))" data-max="@(Math.Round(Model.Price?.max ?? 0) + 1)">
         <div class="title">@T("filters.price")</div>
@@ -94,23 +96,37 @@
     <div class="inner-wrap text-center">
         <div class="btn-group-vertical">
             <button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">@T("filters.submit")</button>
-            <button type="button" id="clr-filters" class="btn btn-link" onclick="window.location.replace([location.protocol, '//', location.host, location.pathname].join(''));">@T("filters.clear")</button>
+            <button type="button" id="clr-filters" class="btn btn-link" onclick="">@T("filters.clear")</button>
         </div>
     </div>
 </div>
 <script>
-    $("[name=MinPrice]").val(@Model.Price?.from);
-    $("[name=MaxPrice]").val(@Model.Price?.to);
-    $("[name=MinLength]").val(@Model.Length?.from);
-    $("[name=MaxLength]").val(@Model.Length?.to);
-    $("[name=MinWidth]").val(@Model.Width?.from);
-    $("[name=MaxWidth]").val(@Model.Width?.to);
-    $("[name=MinHeight]").val(@Model.Height?.from);
-    $("[name=MaxHeight]").val(@Model.Height?.to);
-    $("[name=MinSleeplength]").val(@Model.SleepLength?.from);
-    $("[name=MaxSleeplength]").val(@Model.SleepLength?.to);
-    $("[name=MinSleepwidth]").val(@Model.SleepWidth?.from);
-    $("[name=MaxSleepwidth]").val(@Model.SleepWidth?.to);
+        $("[name=MinPrice]").val(@Model.Price?.from);
+        $("[name=MaxPrice]").val(@Model.Price?.to);
+        $("[name=MinLength]").val(@Model.Length?.from);
+        $("[name=MaxLength]").val(@Model.Length?.to);
+        $("[name=MinWidth]").val(@Model.Width?.from);
+        $("[name=MaxWidth]").val(@Model.Width?.to);
+        $("[name=MinHeight]").val(@Model.Height?.from);
+        $("[name=MaxHeight]").val(@Model.Height?.to);
+        $("[name=MinSleeplength]").val(@Model.SleepLength?.from);
+        $("[name=MaxSleeplength]").val(@Model.SleepLength?.to);
+        $("[name=MinSleepwidth]").val(@Model.SleepWidth?.from);
+        $("[name=MaxSleepwidth]").val(@Model.SleepWidth?.to);
+    setTimeout(function () {
+        $("[name=MinPrice]").val(@Model.Price?.from);
+        $("[name=MaxPrice]").val(@Model.Price?.to);
+        $("[name=MinLength]").val(@Model.Length?.from);
+        $("[name=MaxLength]").val(@Model.Length?.to);
+        $("[name=MinWidth]").val(@Model.Width?.from);
+        $("[name=MaxWidth]").val(@Model.Width?.to);
+        $("[name=MinHeight]").val(@Model.Height?.from);
+        $("[name=MaxHeight]").val(@Model.Height?.to);
+        $("[name=MinSleeplength]").val(@Model.SleepLength?.from);
+        $("[name=MaxSleeplength]").val(@Model.SleepLength?.to);
+        $("[name=MinSleepwidth]").val(@Model.SleepWidth?.from);
+        $("[name=MaxSleepwidth]").val(@Model.SleepWidth?.to);
+    }, 500);
     function submitFilters() {
         $(".filters-data .form-group input").each(function () {
             if ($(this).val().trim().length == 0) {
