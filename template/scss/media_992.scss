@@ -30,8 +30,7 @@
     }
     .logo-m {
         width: 135px;
-        overflow: hidden;
-        // position: absolute;
+        overflow: hidden; // position: absolute;
         left: 70px;
         top: 25px;
     }
@@ -42,6 +41,9 @@
             z-index: 1060;
             background-color: white;
             position: fixed;
+        }
+        .side-logo-wrap {
+            left: 55px;
         }
     }
     .short-menu {
@@ -378,8 +380,8 @@
         margin-left: 0;
         margin-right: 0;
     }
-    .news-wrap .item-wrap{
-    width: 235px;
+    .news-wrap .item-wrap {
+        width: 235px;
     }
     .item-wrap {
         width: 255px;

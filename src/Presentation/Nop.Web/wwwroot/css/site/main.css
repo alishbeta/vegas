@@ -1419,6 +1419,9 @@ nav.breadcrumb-wrap a:hover {
   right: 20px;
   top: 20px;
 }
+.item-wrap-full .product-name {
+  height: 40px;
+}
 
 .bx-wrapper {
   min-width: 100%;
@@ -1437,6 +1440,9 @@ nav.breadcrumb-wrap a:hover {
 }
 .item-wrap button {
   margin: 10px 0;
+}
+.item-wrap .product-name {
+  height: 40px;
 }
 
 .item-wrap-full img.product {
@@ -4190,6 +4196,9 @@ section .item {
     z-index: 1060;
     background-color: white;
     position: fixed;
+  }
+  .content-main-wrap .header-wrap .side-logo-wrap {
+    left: 55px;
   }
 
   .short-menu .content-main-wrap .header-wrap {
