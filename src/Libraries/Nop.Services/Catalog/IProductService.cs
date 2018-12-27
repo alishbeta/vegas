@@ -49,6 +49,8 @@ namespace Nop.Services.Catalog
         /// <returns>Product</returns>
         Product GetProductById(int productId);
 
+        int GetProductIdBySeName(string SeName);
+
         /// <summary>
         /// Gets products by identifier
         /// </summary>

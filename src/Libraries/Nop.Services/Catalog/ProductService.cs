@@ -11,6 +11,7 @@ using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Localization;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Security;
+using Nop.Core.Domain.Seo;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Domain.Stores;
 using Nop.Core.Infrastructure;
@@ -44,6 +45,7 @@ namespace Nop.Services.Catalog
         private readonly IProductAttributeParser _productAttributeParser;
         private readonly IProductAttributeService _productAttributeService;
         private readonly IRepository<AclRecord> _aclRepository;
+        private readonly IRepository<UrlRecord> _urlRecord;
         private readonly IRepository<CrossSellProduct> _crossSellProductRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<ProductPicture> _productPictureRepository;
@@ -75,6 +77,7 @@ namespace Nop.Services.Catalog
             ILocalizationService localizationService,
             IProductAttributeParser productAttributeParser,
             IProductAttributeService productAttributeService,
+            IRepository<UrlRecord> urlRecord,
             IRepository<AclRecord> aclRepository,
             IRepository<CrossSellProduct> crossSellProductRepository,
             IRepository<Product> productRepository,
@@ -90,6 +93,7 @@ namespace Nop.Services.Catalog
             LocalizationSettings localizationSettings,
             IRepository<Status> statusRepository)
         {
+            this._urlRecord = urlRecord;
             this._catalogSettings = catalogSettings;
             this._commonSettings = commonSettings;
             this._aclService = aclService;
@@ -306,6 +310,23 @@ namespace Nop.Services.Catalog
                         select p;
             var product = query.FirstOrDefault();
             return product;
+        }
+
+        /// <summary>
+        /// Gets product by SeName
+        /// </summary>
+        /// <param name="SeName">Product identifier</param>
+        /// <returns>Product</returns>
+        public virtual int GetProductIdBySeName(string SeName)
+        {
+            if (string.IsNullOrEmpty(SeName))
+                return 0;
+
+            var query = from p in _urlRecord.Table
+                        where p.Slug.ToLower() == SeName.ToLower() && p.EntityName == "Product"
+                        select p;
+            var product = query.FirstOrDefault();
+            return product?.EntityId ?? 0;
         }
 
         public virtual Status GetStatusByName(string name)

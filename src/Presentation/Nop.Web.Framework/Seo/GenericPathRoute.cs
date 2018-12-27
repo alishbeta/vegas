@@ -146,7 +146,7 @@ namespace Nop.Web.Framework.Seo
                 case "product":
                     currentRouteData.Values["controller"] = "Product";
                     currentRouteData.Values["action"] = "ProductDetails";
-                    currentRouteData.Values["productid"] = urlRecord.EntityId;
+                    //currentRouteData.Values["productid"] = urlRecord.EntityId;
                     currentRouteData.Values["SeName"] = urlRecord.Slug;
                     break;
                 case "producttag":

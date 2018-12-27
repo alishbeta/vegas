@@ -117,8 +117,9 @@ namespace Nop.Web.Controllers
         #region Product details page
 
         [HttpsRequirement(SslRequirement.No)]
-        public virtual IActionResult ProductDetails(int productId, int updatecartitemid = 0)
+        public virtual IActionResult ProductDetails(string SeName, int updatecartitemid = 0)//int productId, int updatecartitemid = 0)
         {
+            var productId = _productService.GetProductIdBySeName(SeName);
             var product = _productService.GetProductById(productId);
             if (product == null || product.Deleted || product.StatusId == 3 || product.StatusId == 5)
                 return InvokeHttp404();
