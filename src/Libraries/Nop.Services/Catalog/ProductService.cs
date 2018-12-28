@@ -1883,7 +1883,7 @@ namespace Nop.Services.Catalog
         /// <param name="cart">Shopping cart</param>
         /// <param name="numberOfProducts">Number of products to return</param>
         /// <returns>Cross-sells</returns>
-        public virtual IList<Product> GetCrosssellProductsByShoppingCart(IList<ShoppingCartItem> cart, int numberOfProducts)
+        public virtual IEnumerable<Product> GetCrosssellProductsByShoppingCart(IEnumerable<ShoppingCartItem> cart, int numberOfProducts)
         {
             var result = new List<Product>();
 
@@ -1893,12 +1893,12 @@ namespace Nop.Services.Catalog
             if (cart == null || !cart.Any())
                 return result;
 
-            var cartProductIds = new List<int>();
+            IEnumerable<int> cartProductIds = new int[] { };
             foreach (var sci in cart)
             {
                 var prodId = sci.ProductId;
                 if (!cartProductIds.Contains(prodId))
-                    cartProductIds.Add(prodId);
+                    cartProductIds.Append(prodId);
             }
 
             var productIds = cart.Select(sci => sci.ProductId).ToArray();

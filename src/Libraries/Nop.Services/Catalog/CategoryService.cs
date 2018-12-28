@@ -9,6 +9,7 @@ using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Security;
+using Nop.Core.Domain.Seo;
 using Nop.Core.Domain.Stores;
 using Nop.Data;
 using Nop.Services.Events;
@@ -25,6 +26,7 @@ namespace Nop.Services.Catalog
     {
         #region Fields
 
+        private readonly IRepository<UrlRecord> _urlRecord;
         private readonly CatalogSettings _catalogSettings;
         private readonly CommonSettings _commonSettings;
         private readonly IAclService _aclService;
@@ -50,6 +52,7 @@ namespace Nop.Services.Catalog
 
         public CategoryService(CatalogSettings catalogSettings,
             CommonSettings commonSettings,
+            IRepository<UrlRecord> urlRecord,
             IAclService aclService,
             ICacheManager cacheManager,
             IDataProvider dataProvider,
@@ -66,6 +69,7 @@ namespace Nop.Services.Catalog
             IStoreMappingService storeMappingService,
             IWorkContext workContext)
         {
+            this._urlRecord = urlRecord;
             this._catalogSettings = catalogSettings;
             this._commonSettings = commonSettings;
             this._aclService = aclService;
@@ -358,6 +362,23 @@ namespace Nop.Services.Catalog
 
             var key = string.Format(NopCatalogDefaults.CategoriesByIdCacheKey, categoryId);
             return _cacheManager.Get(key, () => _categoryRepository.GetById(categoryId));
+        }
+
+        /// <summary>
+        /// Gets a category
+        /// </summary>
+        /// <param name="categoryId">Category identifier</param>
+        /// <returns>Category</returns>
+        public virtual int GetCategoryIdBySeName(string SeName)
+        {
+            if (string.IsNullOrEmpty(SeName))
+                return 0;
+
+            var query = from p in _urlRecord.Table
+                        where p.Slug.ToLower() == SeName.ToLower() && p.EntityName == "Category"
+                        select p;
+            var product = query.FirstOrDefault();
+            return product?.EntityId ?? 0;
         }
 
         /// <summary>

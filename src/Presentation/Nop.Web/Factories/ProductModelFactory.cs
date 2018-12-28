@@ -1187,7 +1187,7 @@ namespace Nop.Web.Factories
         /// <param name="isAssociatedProduct">Whether the product is associated</param>
         /// <returns>Product details model</returns>
         public virtual ProductDetailsModel PrepareProductDetailsModel(Product product,
-            ShoppingCartItem updatecartitem = null, bool isAssociatedProduct = false)
+            ShoppingCartItem updatecartitem = null, bool isAssociatedProduct = false, bool loadSeName = true)
         {
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
@@ -1202,7 +1202,7 @@ namespace Nop.Web.Factories
                 MetaKeywords = _localizationService.GetLocalized(product, x => x.MetaKeywords),
                 MetaDescription = _localizationService.GetLocalized(product, x => x.MetaDescription),
                 MetaTitle = _localizationService.GetLocalized(product, x => x.MetaTitle),
-                SeName = _urlRecordService.GetSeName(product),
+                SeName = loadSeName ? _urlRecordService.GetSeName(product) : "",
                 ProductType = product.ProductType,
                 ShowSku = _catalogSettings.ShowSkuOnProductDetailsPage,
                 Sku = product.Sku,
@@ -1212,7 +1212,7 @@ namespace Nop.Web.Factories
                 ShowGtin = _catalogSettings.ShowGtin,
                 Gtin = product.Gtin,
                 ManageInventoryMethod = product.ManageInventoryMethod,
-                StockAvailability = _productService.FormatStockMessage(product, ""),
+                StockAvailability = "",//_productService.FormatStockMessage(product, ""),
 				Width = product.Width,
 				Height = product.Height,
 				Lendth = product.Length,

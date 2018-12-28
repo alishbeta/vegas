@@ -38,38 +38,36 @@ namespace Nop.Web.Components
 
 		public IViewComponentResult Invoke(string makeCode, int productId = 0)
 		{
-			var products = _productService.SearchProducts(
+			IEnumerable<Product> products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				orderBy: ProductSortingEnum.CreatedOn
-				).ToList();
+				);
 
             ViewBag.ProductName = products.FirstOrDefault(x => x.Id == productId)?.Name;
 
             //ACL and store mapping
-            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
 			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p) && p.MakeCode == makeCode && p.Id != productId).ToList();
+			products = products.Where(p => _productService.ProductIsAvailable(p) && p.MakeCode == makeCode && p.Id != productId);
 
 			if (!products.Any())
 				return Content("");
 
 			//prepare model
-			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true).ToList();
+			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, 250, true);
+            
             var distinctColors = model.Select(x => x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw).Distinct(); //(from product in model
-            var newModel = new List<ProductOverviewModel>();
+            IEnumerable<ProductOverviewModel> newModel = new ProductOverviewModel[] { };
             foreach (var product in model)
             {
                 var color = product.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw;
                 if (!string.IsNullOrEmpty(color) && distinctColors.Contains(color))
                 {
-                    newModel.Add(product);
+                    newModel.Append(product);
                     distinctColors = distinctColors.Where(x => x != color);
                 }
             }
             model = newModel;
-            //model = model.Where(x => distinctColors.Contains(x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw)).ToList(); 
-            //           group product by product.SpecificationAttributeModels?.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw into g
-              //          select g?.ToList())?.ToList();
 			ViewBag.Prefix = "similar";//prefix for backinstock button
 			return View(model);
 		}

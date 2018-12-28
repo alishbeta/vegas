@@ -17,7 +17,13 @@ namespace Nop.Services.Catalog
         /// Gets a "compare products" list
         /// </summary>
         /// <returns>"Compare products" list</returns>
-        IList<Product> GetComparedProducts();
+        IEnumerable<int> GetComparedProductIdsIEnumerable();
+
+        /// <summary>
+        /// Gets a "compare products" list
+        /// </summary>
+        /// <returns>"Compare products" list</returns>
+        IEnumerable<Product> GetComparedProducts();
 
         /// <summary>
         /// Removes a product from a "compare products" list

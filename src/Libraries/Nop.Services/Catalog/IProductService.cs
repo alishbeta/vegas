@@ -529,7 +529,7 @@ namespace Nop.Services.Catalog
         /// <param name="cart">Shopping cart</param>
         /// <param name="numberOfProducts">Number of products to return</param>
         /// <returns>Cross-sells</returns>
-        IList<Product> GetCrosssellProductsByShoppingCart(IList<ShoppingCartItem> cart, int numberOfProducts);
+        IEnumerable<Product> GetCrosssellProductsByShoppingCart(IEnumerable<ShoppingCartItem> cart, int numberOfProducts);
 
         /// <summary>
         /// Finds a cross-sell product item by specified identifiers

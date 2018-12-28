@@ -8,7 +8,5 @@
 	}
 }
 
-@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.MainColumnBefore })
 @RenderBody()
 @await Component.InvokeAsync("NewsletterBox")
-@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.MainColumnAfter })

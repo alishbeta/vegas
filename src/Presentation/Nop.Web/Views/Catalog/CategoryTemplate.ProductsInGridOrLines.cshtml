@@ -62,7 +62,6 @@
 				}
 			</ol>
 		</nav>
-		@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsAfterBreadcrumb, additionalData = Model })
 	}
 }
 <div class="cat-content-wrap">
@@ -97,13 +96,12 @@
                 </nav>
             </div>
         }
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBottom, additionalData = Model })
     </div>
 </div>
-@await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 450, preparePriceModel = true })
+@await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })
 
 
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> @*///TODO local *@
+@*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> @*///TODO local *@
 <script src="~/js/site/tp.js"></script>
 <script>
 	var prodsOnPageCount = 32;
@@ -157,13 +155,13 @@
 					'<div class="outer-wrapp scroll">' +
 						'<div class="item-wrap">' +
 							'<div class="product-img-wrap">' +
-								'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+								'<a href="' + product.SeName + '">' +
 									'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
 								'</a>' +
 								discount +
 							'</div>' +
 							'<div class="main-prop-wrap text-left">' +
-								'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+								'<a href="' + product.SeName + '">' +
 									'<div class="product-name text-light-c">' + product.Name + '</div>' +
 								'</a>' +
 								'<div class="product-prop">' + shortDesc + '</div>' +
@@ -178,13 +176,13 @@
 							'<i class="favorite_i float-left" data-id="' + product.Id + '" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/2/1\');$(this).addClass(\'load\');return false;"></i>' +
 							'<i class="compare_icon float-right" data-ids="' + product.Id + '" onclick="AjaxCart.addproducttocomparelist(\'/ru/compareproducts/add/' + product.Id + '\');$(this).addClass(\'load\');return false;"></i>' +	
 							'<div class="product-img-wrap">' +
-								'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+								'<a href="' + product.SeName + '">' +
 									'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
 								'</a>' +
 								discount +
 							'</div>' +
 							'<div class="main-prop-wrap text-left">' +
-								'<a href="' + product.SeName + '?productId=' + product.Id + '">' +
+								'<a href="' + product.SeName + '">' +
 								'<div class="product-name text-light-c">' + product.Name + '</div>' +
 								'</a>' +
 								'<div class="product-prop">' + shortDesc + '</div>' +

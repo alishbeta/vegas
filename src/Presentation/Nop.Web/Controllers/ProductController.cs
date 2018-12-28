@@ -188,7 +188,8 @@ namespace Nop.Web.Controllers
                 string.Format(_localizationService.GetResource("ActivityLog.PublicStore.ViewProduct"), product.Name), product);
 
             //model
-            var model = _productModelFactory.PrepareProductDetailsModel(product, updatecartitem, false);
+            var model = _productModelFactory.PrepareProductDetailsModel(product, updatecartitem, false, false);
+            model.SeName = SeName;
 
             //reviews
             model.Reviews = new ProductReviewsModel();
@@ -731,6 +732,7 @@ namespace Nop.Web.Controllers
             };
 
             var products = _compareProductsService.GetComparedProducts();
+
 
             //ACL and store mapping
             products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();

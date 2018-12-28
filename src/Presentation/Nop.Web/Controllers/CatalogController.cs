@@ -94,8 +94,9 @@ namespace Nop.Web.Controllers
         #region Categories
         
         [HttpsRequirement(SslRequirement.No)]
-        public virtual IActionResult Category(int categoryId, CatalogPagingFilteringModel command)
+        public virtual IActionResult Category(string SeName, CatalogPagingFilteringModel command) //int categoryId, CatalogPagingFilteringModel command)
         {
+            int categoryId = _categoryService.GetCategoryIdBySeName(SeName);
             var category = _categoryService.GetCategoryById(categoryId);
             if (category == null || category.Deleted)
                 return InvokeHttp404();

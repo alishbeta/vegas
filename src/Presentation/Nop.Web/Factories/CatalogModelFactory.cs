@@ -373,7 +373,7 @@ namespace Nop.Web.Factories
                 );
             }
 
-            var pictureSize = _mediaSettings.CategoryThumbPictureSize;
+            var pictureSize = 250;// _mediaSettings.CategoryThumbPictureSize;
 
             //subcategories
             var subCategoriesCacheKey = string.Format(ModelCacheEventConsumer.CATEGORY_SUBCATEGORIES_KEY,

@@ -360,7 +360,7 @@ namespace Nop.Web.Factories
                     .Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
                     .LimitPerStore(_storeContext.CurrentStore.Id).Count();
 			}
-			model.CompareProductItems = _compareProductsService.GetComparedProducts().Count;
+			model.CompareProductItems = _compareProductsService.GetComparedProducts().Count();
 
 			return model;
         }

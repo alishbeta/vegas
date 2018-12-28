@@ -66,6 +66,7 @@ namespace Nop.Services.Catalog
         /// <param name="categoryId">Category identifier</param>
         /// <returns>Category</returns>
         Category GetCategoryById(int categoryId);
+        int GetCategoryIdBySeName(string SeName);
 
         /// <summary>
         /// Inserts category

@@ -41,12 +41,12 @@ namespace Nop.Web.Components
 				return Content("");
 			
 			var preparePictureModel = productThumbPictureSize.HasValue;
-			var products = _recentlyViewedProductsService.GetRecentlyViewedProducts(_catalogSettings.RecentlyViewedProductsNumber);
+			IEnumerable<Product> products = _recentlyViewedProductsService.GetRecentlyViewedProducts(_catalogSettings.RecentlyViewedProductsNumber);
 
 			//ACL and store mapping
-			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
 			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+			products = products.Where(p => _productService.ProductIsAvailable(p));
 
 			if (!products.Any())
 				return Content("");

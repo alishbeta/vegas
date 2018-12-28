@@ -58,6 +58,28 @@ namespace Nop.Services.Catalog
         }
 
         /// <summary>
+        /// Get a list of identifier of compared products
+        /// </summary>
+        /// <returns>List of identifier</returns>
+        public virtual IEnumerable<int> GetComparedProductIdsIEnumerable()
+        {
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext?.Request == null)
+                return new int[] { };
+
+            //try to get cookie
+            var cookieName = $"{NopCookieDefaults.Prefix}{NopCookieDefaults.ComparedProductsCookie}";
+            if (!httpContext.Request.Cookies.TryGetValue(cookieName, out var productIdsCookie) || string.IsNullOrEmpty(productIdsCookie))
+                return new int[] { };
+
+            //get array of string product identifiers from cookie
+            var productIds = productIdsCookie.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            //return list of int product identifiers
+            return productIds.Select(int.Parse).Distinct();
+        }
+
+        /// <summary>
         /// Add cookie value for the compared products
         /// </summary>
         /// <param name="comparedProductIds">Collection of compared products identifiers</param>
@@ -103,14 +125,14 @@ namespace Nop.Services.Catalog
         /// Gets a "compare products" list
         /// </summary>
         /// <returns>"Compare products" list</returns>
-        public virtual IList<Product> GetComparedProducts()
+        public virtual IEnumerable<Product> GetComparedProducts()
         {
             //get list of compared product identifiers
-            var productIds = GetComparedProductIds();
+            var productIds = GetComparedProductIdsIEnumerable();
 
             //return list of product
             return _productService.GetProductsByIds(productIds.ToArray())
-                .Where(product => product.Published && !product.Deleted).ToList();
+                .Where(product => product.Published && !product.Deleted);
         }
 
         /// <summary>

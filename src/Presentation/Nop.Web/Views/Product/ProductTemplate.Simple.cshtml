@@ -287,20 +287,20 @@
                         }
                         @if (Model.InStock)
                         {
-                        <div class="dropdown">
-                            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @T("prod.availablity")
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 32px, 0px);">
-                                @foreach (var warehouse in Model.ProductWarehouses)
-                                {
-                                    @if (!string.IsNullOrEmpty(warehouse.Name))
+                            <div class="dropdown">
+                                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @T("prod.availablity")
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 32px, 0px);">
+                                    @foreach (var warehouse in Model.ProductWarehouses)
                                     {
-                                        <a class="dropdown-item" href="#">@warehouse.Name</a>
+                                        @if (!string.IsNullOrEmpty(warehouse.Name))
+                                        {
+                                            <a class="dropdown-item" href="#">@warehouse.Name</a>
+                                        }
                                     }
-                                }
+                                </div>
                             </div>
-                        </div>
                         }
                         <div class="btn-group-vertical btn-block">
                             @{
@@ -352,55 +352,55 @@
                             </div>
                         </div>
                     }
-                        <div class="prop-wrap">
-                            @if (Model.SleepLength == 0 && Model.SleepWidth == 0)
-                            {
-                                <div class="size-prop-wrap">
-                                    <div>@T("product.attributes.sizes")</div>
-                                    <div class="drop-wrap">
-                                        <div class="w">@T("product.width")@Model.Breadcrumb.CategoryBreadcrumb.LastOrDefault().Name</div>
-                                        <div class="l">@T("product.length")</div>
-                                        <div class="h">@T("product.height")</div>
-                                        <div class="dropdown">
-                                            <button class="btn btn-light dropdown-toggle mt-4 btn-sm" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                @Model.Width.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Height.ToString("#.##") см
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">@Model.Width.ToString("#.##") см х @Model.Lendth.ToString("#.##") см x @Model.Height.ToString("#.##") см</a>
-                                                @await Component.InvokeAsync("SimilarProductsSizesBlock", new { makeCode = Model.MakeCode, productId = Model.Id, isSleepSizes = false })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="size-prop-wrap">
-                                    <div>@T("product.attributes.sizes")</div>
-                                    <div class="drop-wrap">
-                                        <div class="w">@T("product.width")</div>
-                                        <div class="l">@T("product.length")</div>
-                                        <div class="h">@T("product.height")</div>
-                                        <div class="size-opt">
+                    <div class="prop-wrap">
+                        @if (Model.SleepLength == 0 && Model.SleepWidth == 0)
+                        {
+                            <div class="size-prop-wrap">
+                                <div>@T("product.attributes.sizes")</div>
+                                <div class="drop-wrap">
+                                    <div class="w">@T("product.width")@Model.Breadcrumb.CategoryBreadcrumb.LastOrDefault().Name</div>
+                                    <div class="l">@T("product.length")</div>
+                                    <div class="h">@T("product.height")</div>
+                                    <div class="dropdown">
+                                        <button class="btn btn-light dropdown-toggle mt-4 btn-sm" type="button"
+                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
                                             @Model.Width.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Height.ToString("#.##") см
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">@Model.Width.ToString("#.##") см х @Model.Lendth.ToString("#.##") см x @Model.Height.ToString("#.##") см</a>
+                                            @await Component.InvokeAsync("SimilarProductsSizesBlock", new { makeCode = Model.MakeCode, productId = Model.Id, isSleepSizes = false })
                                         </div>
                                     </div>
                                 </div>
-                            }
-                            @{
-                                var productColor = Model.ProductSpecifications.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "Цвет".ToLower());
-                            }
-                            @if (productColor != null)
-                            {
-                                <div class="color-title">
-                                    <span>@T("product.color"):</span>
-                                    <span>@Html.Raw(productColor.ValueRaw)</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="size-prop-wrap">
+                                <div>@T("product.attributes.sizes")</div>
+                                <div class="drop-wrap">
+                                    <div class="w">@T("product.width")</div>
+                                    <div class="l">@T("product.length")</div>
+                                    <div class="h">@T("product.height")</div>
+                                    <div class="size-opt">
+                                        @Model.Width.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Height.ToString("#.##") см
+                                    </div>
                                 </div>
-                            }
-                            <span><a href="#" id="similar-button">@T("product.showsimilar")</a></span>
-                        </div>
+                            </div>
+                        }
+                        @{
+                            var productColor = Model.ProductSpecifications.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "Цвет".ToLower());
+                        }
+                        @if (productColor != null)
+                        {
+                            <div class="color-title">
+                                <span>@T("product.color"):</span>
+                                <span>@Html.Raw(productColor.ValueRaw)</span>
+                            </div>
+                        }
+                        <span><a href="#" id="similar-button">@T("product.showsimilar")</a></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -425,7 +425,7 @@
             <section id="tab2" class="item" data-title="@T("prod.spec")">
                 <div class="item-content">
                     @foreach (var specification in Model.ProductSpecifications)
-                                        {
+                    {
                         <p>@specification.SpecificationAttributeName @Html.Raw(specification.ValueRaw)</p>
                     }
                 </div>
