@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
@@ -129,12 +130,7 @@ namespace Nop.Web.Controllers
 
             //model
             var model = _catalogModelFactory.PrepareCategoryModel(category, command);
-			System.Collections.Generic.List<int> categories = new System.Collections.Generic.List<int>() { categoryId };
-			if (_catalogSettings.ShowProductsFromSubcategories)
-			{
-				//include subcategories
-				categories.AddRange(_categoryService.GetChildCategoryIds(category.Id, _storeContext.CurrentStore.Id));
-			}
+            
 			var activeCategory = (category.ParentCategoryId != 0 ? category.ParentCategoryId : categoryId);
             ViewBag.ActiveCategory = activeCategory;
             ViewBag.ActiveSubCategory = categoryId;
@@ -142,7 +138,6 @@ namespace Nop.Web.Controllers
             //check if products in category has sleep sizes (for CatalogFiltersSelector)
             ViewBag.HasSleepSizes = activeCategory == 19; //id of category "Кровати", wich has sleep sizes
             ViewBag.HasHeight = activeCategory == 21 || activeCategory == 19; //id of category "Кровати" "Тумбы и комоды", wich has sleep sizes
-            //ViewBag.HasSleepSizes = model.AllProducts.Count(x => x.SleepWidth != 0 || x.SleepLength != 0) > 0; //works, but slower
 			//template
 			var templateViewPath = _catalogModelFactory.PrepareCategoryTemplateViewPath(category.CategoryTemplateId);
             return View(templateViewPath, model);
@@ -152,29 +147,27 @@ namespace Nop.Web.Controllers
 		[HttpsRequirement(SslRequirement.No)]
 		public dynamic GetProducts(int categoryId, int pageIndex)
 		{
-			System.Collections.Generic.List<int> categories = new System.Collections.Generic.List<int>() { categoryId };
-			if (_catalogSettings.ShowProductsFromSubcategories)
-			{
-				//include subcategories
-				categories.AddRange(_categoryService.GetChildCategoryIds(categoryId, _storeContext.CurrentStore.Id));
-			}
-			var products = _productService.SearchProducts(
+            //include subcategories
+            IList<int> categories = _categoryService.GetChildCategoryIds(categoryId, _storeContext.CurrentStore.Id);
+            categories.Add(categoryId);
+
+            IEnumerable<Product> products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				categoryIds: categories,
 				pageIndex: pageIndex - 1,
-				pageSize: 32).ToList();
+				pageSize: 32);
 
 
 			//ACL and store mapping
-			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
 			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+			products = products.Where(p => _productService.ProductIsAvailable(p) && !p.Deleted && p.Published);
 
 			if (!products.Any())
 				return Content("");
 
 			//prepare model
-			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true).ToList();
+			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true);
 			return new { model };
 		}
 
