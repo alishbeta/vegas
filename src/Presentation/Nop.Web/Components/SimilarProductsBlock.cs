@@ -40,8 +40,7 @@ namespace Nop.Web.Components
 		{
 			IEnumerable<Product> products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
-				orderBy: ProductSortingEnum.CreatedOn
-				);
+				orderBy: ProductSortingEnum.CreatedOn);
 
             ViewBag.ProductName = products.FirstOrDefault(x => x.Id == productId)?.Name;
 

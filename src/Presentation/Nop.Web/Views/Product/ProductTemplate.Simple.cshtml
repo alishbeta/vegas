@@ -358,7 +358,7 @@
                             <div class="size-prop-wrap">
                                 <div>@T("product.attributes.sizes")</div>
                                 <div class="drop-wrap">
-                                    <div class="w">@T("product.width")@Model.Breadcrumb.CategoryBreadcrumb.LastOrDefault().Name</div>
+                                    <div class="w">@T("product.width")</div>
                                     <div class="l">@T("product.length")</div>
                                     <div class="h">@T("product.height")</div>
                                     <div class="dropdown">
@@ -440,7 +440,7 @@
     <div class="line"></div>
     @await Component.InvokeAsync("SimilarProductsBlock", new { makeCode = Model.MakeCode, productId = Model.Id })
     @await Component.InvokeAsync("CrossSellProducts", new { productIds = new int[1] { Model.Id } })
-    @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 450, preparePriceModel = true })
+    @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })
 </div>
 
 <!--ALSO PURCHASED-->

@@ -39,10 +39,9 @@ namespace Nop.Web.Components
 
 		public IViewComponentResult Invoke(string makeCode, int productId = 0, bool isSleepSizes = false)
 		{
-			var products = _productService.SearchProducts(
+			IEnumerable<Product> products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
-				orderBy: ProductSortingEnum.CreatedOn
-				).ToList();
+				orderBy: ProductSortingEnum.CreatedOn);
 
             
             var product = products.FirstOrDefault(x => x.Id == productId);
@@ -53,20 +52,20 @@ namespace Nop.Web.Components
             ViewBag.ProductName = product.Name;
 
             //ACL and store mapping
-            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
 			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p) && p.MakeCode == makeCode && p.Id != productId).ToList();
+			products = products.Where(p => _productService.ProductIsAvailable(p) && p.MakeCode == makeCode && p.Id != productId);
 
 			if (!products.Any())
 				return Content("");
 
 			//prepare model
-			var productOverviewModels = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true).ToList();
-            var productOverviewModel = _productModelFactory.PrepareProductOverviewModels(new List<Product>() { product }, false, false, null, true).FirstOrDefault();
+			var productOverviewModels = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true);
+            var productOverviewModel = _productModelFactory.PrepareProductOverviewModels(new Product[] { product }, false, false, null, true).FirstOrDefault();
             var color = productOverviewModel.SpecificationAttributeModels?.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw;
             //var color = productOverviewModel.FirstOrDefault(x => x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")).ValueRaw;
-            productOverviewModels = productOverviewModels.Where(x => x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw == color).ToList();
-            List<SimilarProductSizesModel> model = new List<SimilarProductSizesModel>();
+            productOverviewModels = productOverviewModels.Where(x => x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw == color);
+            IEnumerable<SimilarProductSizesModel> model = new SimilarProductSizesModel[] { };
             if (isSleepSizes)
             {
                 model = productOverviewModels.Select(x => new SimilarProductSizesModel()
@@ -75,7 +74,7 @@ namespace Nop.Web.Components
                     length = x.SleepLength.ToString("#.##"),
                     productUrl = Url.RouteUrl("Product", new { productId = x.Id, x.SeName }),
                     width = x.SleepWidth.ToString("#.##")
-                }).ToList();
+                });
             }
             else
             {
@@ -85,7 +84,7 @@ namespace Nop.Web.Components
                     length = x.Length.ToString("#.##"),
                     productUrl = Url.RouteUrl("Product", new { productId = x.Id, x.SeName }),
                     width = x.Width.ToString("#.##")
-                }).ToList();
+                });
             }
 			return View(model);
 		}

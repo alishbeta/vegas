@@ -52,11 +52,10 @@ namespace Nop.Web.Components
 				return Content("");
 
 			//prepare model
-			var model = new List<ProductOverviewModel>();
-			model.AddRange(_productModelFactory.PrepareProductOverviewModels(products,
+			var model = _productModelFactory.PrepareProductOverviewModels(products,
 				preparePriceModel.GetValueOrDefault(),
 				true,
-				productThumbPictureSize));
+				productThumbPictureSize);
 			ViewBag.Prefix = "rec";//prefix for backinstock button
 			return View(model);
 		}

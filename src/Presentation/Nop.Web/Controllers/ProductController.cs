@@ -154,8 +154,7 @@ namespace Nop.Web.Controllers
             if (_shoppingCartSettings.AllowCartItemEditing && updatecartitemid > 0)
             {
                 var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                    .LimitPerStore(_storeContext.CurrentStore.Id)
-                    .ToList();
+                    .LimitPerStore(_storeContext.CurrentStore.Id);
                 updatecartitem = cart.FirstOrDefault(x => x.Id == updatecartitemid);
                 //not found?
                 if (updatecartitem == null)

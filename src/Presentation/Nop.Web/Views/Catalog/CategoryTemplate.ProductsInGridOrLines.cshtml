@@ -101,7 +101,6 @@
 @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })
 
 
-@*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> @*///TODO local *@
 <script src="~/js/site/tp.js"></script>
 <script>
 	var prodsOnPageCount = 32;
@@ -142,14 +141,7 @@
 					buyButton = '<button type="button" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/1/1\');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block buy-btn">@T("product.buy")</button>';
 				}
 				else {
-					buyButton = '<button class="btn btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-cat-' + product.Id + '" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>' + 
-								'<script>' +
-									'$(document).ready(function () {' + 
-										'$("#back-in-stock-subscribe-cat-' + product.Id + '").on(\'click\', function() {' +
-											'displayPopupContentFromUrl(\'/ru/backinstocksubscribe/' + product.Id + '\', \'@T("BackInStockSubscriptions.NotifyMeWhenAvailable")\');' +
-										'});' +
-									'});' +
-								'<' + '/script>';
+                    buyButton = '<button type="button" onclick="DisplayOrderPopup(\'/ru/addproducttocart/catalog/' + product.Id + '/1/1\')" class="btn btn-sm btn-blue btn-block">@T("product.order")</button>';
 				}
 				var element =
 					'<div class="outer-wrapp scroll">' +
@@ -230,4 +222,34 @@
 		});
 		$("#loadMore").removeClass("load");
 	});
+</script>
+<script>
+    function OpenCart() {
+        var subscribePopups = $(".order-popup");
+        subscribePopups.each(function () {
+            $(this).closest('.ui-dialog-content').dialog('destroy').remove();
+        });
+        $('.cart-popup-wrap').addClass('open');
+        $('.back-shadow').fadeIn();
+    }
+    function DisplayOrderPopup(link) {
+        $(".back-shadow").fadeIn().on("click", function () {
+            $(".back-shadow").fadeOut();
+            var subscribePopups = $(".order-popup");
+            subscribePopups.each(function () {
+                $(this).closest('.ui-dialog-content').dialog('destroy').remove();
+            });
+        });
+        $('<div class="order-popup"><span>@T("backinstock.order.tip")</span></div>').append('<button type="button" onclick="' + link + ';OpenCart();StartLoadingCart();return false;" class="btn btn-sm buy-btn btn-blue btn-block mt-3">@T("product.order")</button>')
+            .dialog({
+                modal: false,
+                width: 550,
+                maxHeight: $(window).height() - 20,
+                title: '@T("backinstock.order.title")',
+                close: function (event, ui) {
+                    $(this).dialog('destroy').remove();
+                    $(".back-shadow").fadeOut();
+                }
+            });
+    }
 </script>

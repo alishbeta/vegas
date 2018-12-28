@@ -88,8 +88,7 @@ namespace Nop.Web.Components
             //even if "ShoppingCartSettings.DisplayCartAfterAddingProduct" setting  is enabled.
             //That's why we force page refresh (redirect) in this case
             var model = _productModelFactory.PrepareProductOverviewModels(products,
-                    productThumbPictureSize: productThumbPictureSize ?? 250, forceRedirectionAfterAddingToCart: false)
-                .ToList();
+                    productThumbPictureSize: productThumbPictureSize ?? 250, forceRedirectionAfterAddingToCart: false);
 			ViewBag.Prefix = "cross";//prefix for backinstock button
 			return View(model);
         }

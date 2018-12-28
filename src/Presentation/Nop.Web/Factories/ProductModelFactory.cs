@@ -1228,7 +1228,7 @@ namespace Nop.Web.Factories
             {
                 foreach (var warehouse in product.ProductWarehouseInventory)
                 {
-                    model.ProductWarehouses.Add(new ProductWarehouse()
+                    model.ProductWarehouses.Append(new ProductWarehouse()
                     {
                         StockQuantity = warehouse.StockQuantity,
                         WarehouseId = warehouse.WarehouseId,
@@ -1238,7 +1238,7 @@ namespace Nop.Web.Factories
             }
             else
             {
-                model.ProductWarehouses.Add(new ProductWarehouse()
+                model.ProductWarehouses.Append(new ProductWarehouse()
                 {
                     WarehouseId = product.WarehouseId,
                     Name = _shippingService.GetWarehouseById(product.WarehouseId)?.Name,
@@ -1272,23 +1272,6 @@ namespace Nop.Web.Factories
             model.CompareProductsEnabled = _catalogSettings.CompareProductsEnabled;
             //store name
             model.CurrentStoreName = _localizationService.GetLocalized(_storeContext.CurrentStore, x => x.Name);
-
-            //vendor details
-            if (_vendorSettings.ShowVendorOnProductDetailsPage)
-            {
-                var vendor = _vendorService.GetVendorById(product.VendorId);
-                if (vendor != null && !vendor.Deleted && vendor.Active)
-                {
-                    model.ShowVendor = true;
-
-                    model.VendorModel = new VendorBriefInfoModel
-                    {
-                        Id = vendor.Id,
-                        Name = _localizationService.GetLocalized(vendor, x => x.Name),
-                        SeName = _urlRecordService.GetSeName(vendor),
-                    };
-                }
-            }
 
             //page sharing
             if (_catalogSettings.ShowShareButton && !string.IsNullOrEmpty(_catalogSettings.PageShareCode))
