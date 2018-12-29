@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Core.Domain.Catalog;
+using Nop.Core.Domain.Common;
 using Nop.Services.Catalog;
 using Nop.Services.Orders;
 using Nop.Services.Security;
@@ -23,13 +24,16 @@ namespace Nop.Web.Components
 		private readonly IProductService _productService;
 		private readonly IStoreContext _storeContext;
 		private readonly IStoreMappingService _storeMappingService;
+        private readonly ISpecificationAttributeService _specificationAttributeService;
 
 		public SimilarProductsSizesBlockViewComponent(IAclService aclService,
 			IProductModelFactory productModelFactory,
 			IProductService productService,
+            ISpecificationAttributeService specificationAttributeService,
 			IStoreContext storeContext,
 			IStoreMappingService storeMappingService)
 		{
+            this._specificationAttributeService = specificationAttributeService;
 			this._aclService = aclService;
 			this._productModelFactory = productModelFactory;
 			this._productService = productService;
@@ -37,56 +41,27 @@ namespace Nop.Web.Components
 			this._storeMappingService = storeMappingService;
 		}
 
-		public IViewComponentResult Invoke(string makeCode, int productId = 0, bool isSleepSizes = false)
+		public IViewComponentResult Invoke(string makeCode, string colorName, int productId = 0, bool isSleepSizes = false)
 		{
+            if (string.IsNullOrEmpty(colorName) || string.IsNullOrEmpty(makeCode))
+            {
+                return Content("");
+            }
 			IEnumerable<Product> products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				orderBy: ProductSortingEnum.CreatedOn);
-
             
             var product = products.FirstOrDefault(x => x.Id == productId);
             if (product == null)
             {
                 return Content("");
             }
+
             ViewBag.ProductName = product.Name;
 
-            //ACL and store mapping
-            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
-			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p) && p.MakeCode == makeCode && p.Id != productId);
-
-			if (!products.Any())
-				return Content("");
-
-			//prepare model
-			var productOverviewModels = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true);
-            var productOverviewModel = _productModelFactory.PrepareProductOverviewModels(new Product[] { product }, false, false, null, true).FirstOrDefault();
-            var color = productOverviewModel.SpecificationAttributeModels?.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw;
-            //var color = productOverviewModel.FirstOrDefault(x => x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")).ValueRaw;
-            productOverviewModels = productOverviewModels.Where(x => x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw == color);
-            IEnumerable<SimilarProductSizesModel> model = new SimilarProductSizesModel[] { };
-            if (isSleepSizes)
-            {
-                model = productOverviewModels.Select(x => new SimilarProductSizesModel()
-                {
-                    height = null,
-                    length = x.SleepLength.ToString("#.##"),
-                    productUrl = Url.RouteUrl("Product", new { productId = x.Id, x.SeName }),
-                    width = x.SleepWidth.ToString("#.##")
-                });
-            }
-            else
-            {
-                model = productOverviewModels.Select(x => new SimilarProductSizesModel()
-                {
-                    height = x.Height.ToString("#.##"),
-                    length = x.Length.ToString("#.##"),
-                    productUrl = Url.RouteUrl("Product", new { productId = x.Id, x.SeName }),
-                    width = x.Width.ToString("#.##")
-                });
-            }
-			return View(model);
+            //prepare model
+            var model = _specificationAttributeService.GetSimilarProductSizes(makeCode, colorName, productId, isSleepSizes);
+            return View(model);
 		}
 	}
 }

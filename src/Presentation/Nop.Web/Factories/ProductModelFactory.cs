@@ -1127,7 +1127,7 @@ namespace Nop.Web.Factories
             if (products == null)
                 throw new ArgumentNullException(nameof(products));
 
-            var models = new List<ProductOverviewModel>();
+            IList<ProductOverviewModel> models = new List<ProductOverviewModel>();
             foreach (var product in products)
 			{
 				var model = new ProductOverviewModel

@@ -5,7 +5,9 @@ using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Core.Data;
 using Nop.Core.Domain.Catalog;
+using Nop.Core.Domain.Common;
 using Nop.Services.Events;
+using Nop.Services.Seo;
 
 namespace Nop.Services.Catalog
 {
@@ -21,6 +23,7 @@ namespace Nop.Services.Catalog
         private readonly IRepository<ProductSpecificationAttribute> _productSpecificationAttributeRepository;
         private readonly IRepository<SpecificationAttribute> _specificationAttributeRepository;
         private readonly IRepository<SpecificationAttributeOption> _specificationAttributeOptionRepository;
+        private readonly IUrlRecordService _urlRecordService;
 
         #endregion
 
@@ -30,8 +33,10 @@ namespace Nop.Services.Catalog
             IEventPublisher eventPublisher,
             IRepository<ProductSpecificationAttribute> productSpecificationAttributeRepository,
             IRepository<SpecificationAttribute> specificationAttributeRepository,
+            IUrlRecordService urlRecordService,
             IRepository<SpecificationAttributeOption> specificationAttributeOptionRepository)
         {
+            _urlRecordService = urlRecordService;
             _cacheManager = cacheManager;
             _eventPublisher = eventPublisher;
             _productSpecificationAttributeRepository = productSpecificationAttributeRepository;
@@ -42,6 +47,89 @@ namespace Nop.Services.Catalog
         #endregion
 
         #region Methods
+
+        public virtual IEnumerable<SimilarProductSizes> GetSimilarProductSizes(string makeCode,string colorName, int productId = 0, bool isSleepSizes = false)
+        {
+            var attributeQuery = from s in _specificationAttributeRepository.Table
+                        orderby s.Id
+                        where s.Name.ToLower() == "цвет"
+                        select s;
+
+            var attribute = attributeQuery.FirstOrDefault();
+
+            if (attribute == null)
+                return null;
+
+            var optionQuery = from s in _specificationAttributeOptionRepository.Table
+                              orderby s.Id
+                              where s.SpecificationAttributeId == attribute.Id && s.Name == colorName
+                              select s.Id;
+
+            var option = optionQuery.FirstOrDefault();
+
+            if (optionQuery == null)
+                return null;
+
+            var similarProductsQuery = from s in _productSpecificationAttributeRepository.Table
+                                       orderby s.Id
+                                       where s.SpecificationAttributeOptionId == option
+                                       select s.Product;
+
+            var products = similarProductsQuery.ToList();
+
+            if (isSleepSizes)
+            {
+                var model = products.Where(x => x.MakeCode == makeCode).Select(x => new SimilarProductSizes()
+                {
+                    height = null,
+                    length = x.SleepLength.ToString("#.##"),
+                    productUrl = string.Format("/{0}", _urlRecordService.GetSeName(x.Id, "Product", null, true, true)),
+                    width = x.SleepWidth.ToString("#.##")
+                });
+                return model;
+            }
+            else
+            {
+                var model = products.Select(x => new SimilarProductSizes()
+                {
+                    height = x.Height.ToString("#.##"),
+                    length = x.Length.ToString("#.##"),
+                    productUrl = string.Format("/{0}", _urlRecordService.GetSeName(x.Id, "Product", null, true, true)),
+                    width = x.Width.ToString("#.##")
+                });
+                return model;
+            }
+        }
+
+        public virtual IEnumerable<int> GetSimilarProductIdsByColor(string makeCode, string colorName, int productId = 0)
+        {
+            var attributeQuery = from s in _specificationAttributeRepository.Table
+                                 orderby s.Id
+                                 where s.Name.ToLower() == "цвет"
+                                 select s;
+
+            var attribute = attributeQuery.FirstOrDefault();
+
+            if (attribute == null)
+                return null;
+
+            var optionsQuery = from s in _specificationAttributeOptionRepository.Table
+                              orderby s.Id
+                              where s.SpecificationAttributeId == attribute.Id && s.Name != colorName
+                              select s.Id;
+
+            var options = optionsQuery;
+
+            if (optionsQuery == null)
+                return null;
+
+            var similarProductsQuery = from s in _productSpecificationAttributeRepository.Table
+                                       orderby s.Id
+                                       where options.Contains(s.SpecificationAttributeOptionId) && s.Product.MakeCode == makeCode
+                                       select s.ProductId;
+
+            return similarProductsQuery.ToList();
+        }
 
         #region Specification attribute
 

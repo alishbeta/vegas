@@ -32,7 +32,7 @@ namespace Nop.Web.Models.Catalog
         public CatalogPagingFilteringModel PagingFilteringContext { get; set; }
 
         public bool DisplayCategoryBreadcrumb { get; set; }
-        public IList<CategoryModel> CategoryBreadcrumb { get; set; }
+        public IEnumerable<CategoryModel> CategoryBreadcrumb { get; set; }
         
         public IList<SubCategoryModel> SubCategories { get; set; }
 

@@ -369,7 +369,6 @@ namespace Nop.Web.Factories
                         Name = _localizationService.GetLocalized(catBr, x => x.Name),
                         SeName = _urlRecordService.GetSeName(catBr)
                     })
-                    .ToList()
                 );
             }
 
@@ -483,25 +482,25 @@ namespace Nop.Web.Factories
             {                                                                               ///TODO remove ToList();
                 from = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[0]);///without tolist model.Products is empty  
                 to = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.Length >= from && x.Length <= to).ToList();
+                model.Products = model.Products.Where(x => x.Length >= from && x.Length <= to);
             }
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("width")))
             {
                 from = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[0]);
                 to = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.Width >= from && x.Width <= to).ToList();
+                model.Products = model.Products.Where(x => x.Width >= from && x.Width <= to);
             }
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleeplength")))
             {
                 from = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[0]);
                 to = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.SleepLength >= from && x.SleepLength <= to).ToList();
+                model.Products = model.Products.Where(x => x.SleepLength >= from && x.SleepLength <= to);
             }
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleepwidth")))
             {
                 from = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[0]);
                 to = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.SleepWidth >= from && x.SleepWidth <= to).ToList();
+                model.Products = model.Products.Where(x => x.SleepWidth >= from && x.SleepWidth <= to);
             }
             if (command.OrderBy == (int)ProductSortingEnum.NewProducts)
 			{
@@ -519,6 +518,7 @@ namespace Nop.Web.Factories
 			{
 				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.PriceValue);
 			}
+            model.Products = model.Products.ToList();
             model.PagingFilteringContext.LoadPagedList(products);
 
             model.AllProducts = _productService.SearchProducts(out filterableSpecificationAttributeOptionIds,  //recall to update filterableSpecificationAttributeOptionIds
@@ -615,7 +615,6 @@ namespace Nop.Web.Factories
                     Name = _localizationService.GetLocalized(t, x => x.Title),
                     SeName = _urlRecordService.GetSeName(t)
                 })
-                .ToList()
             );
             var model = new TopMenuModel
             {

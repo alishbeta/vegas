@@ -22,13 +22,16 @@ namespace Nop.Web.Components
 		private readonly IProductService _productService;
 		private readonly IStoreContext _storeContext;
 		private readonly IStoreMappingService _storeMappingService;
+        private readonly ISpecificationAttributeService _specificationAttributeService;
 
 		public SimilarProductsBlockViewComponent(IAclService aclService,
 			IProductModelFactory productModelFactory,
+            ISpecificationAttributeService specificationAttributeService,
 			IProductService productService,
 			IStoreContext storeContext,
 			IStoreMappingService storeMappingService)
 		{
+            this._specificationAttributeService = specificationAttributeService;
 			this._aclService = aclService;
 			this._productModelFactory = productModelFactory;
 			this._productService = productService;
@@ -36,9 +39,13 @@ namespace Nop.Web.Components
 			this._storeMappingService = storeMappingService;
 		}
 
-		public IViewComponentResult Invoke(string makeCode, int productId = 0)
+		public IViewComponentResult Invoke(string makeCode, string colorName, int productId = 0)
 		{
-			IEnumerable<Product> products = _productService.SearchProducts(
+            if (string.IsNullOrEmpty(colorName) || string.IsNullOrEmpty(makeCode))
+            {
+                return Content("");
+            }
+            IEnumerable<Product> products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				orderBy: ProductSortingEnum.CreatedOn);
 
@@ -52,21 +59,12 @@ namespace Nop.Web.Components
 			if (!products.Any())
 				return Content("");
 
+            var productIds = _specificationAttributeService.GetSimilarProductIdsByColor(makeCode, colorName, productId);
+
+            products = products.Where(x => productIds.Contains(x.Id));
+
 			//prepare model
 			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, 250, true);
-            
-            var distinctColors = model.Select(x => x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw).Distinct(); //(from product in model
-            IEnumerable<ProductOverviewModel> newModel = new ProductOverviewModel[] { };
-            foreach (var product in model)
-            {
-                var color = product.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw;
-                if (!string.IsNullOrEmpty(color) && distinctColors.Contains(color))
-                {
-                    newModel.Append(product);
-                    distinctColors = distinctColors.Where(x => x != color);
-                }
-            }
-            model = newModel;
 			ViewBag.Prefix = "similar";//prefix for backinstock button
 			return View(model);
 		}

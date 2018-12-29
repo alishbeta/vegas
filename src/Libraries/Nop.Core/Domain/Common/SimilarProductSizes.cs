@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Nop.Web.Models.Common
+namespace Nop.Core.Domain.Common
 {
-    public class SimilarProductSizesModel
+    public class SimilarProductSizes
     {
         public string productUrl { get; set; }
         public string width { get; set; }
