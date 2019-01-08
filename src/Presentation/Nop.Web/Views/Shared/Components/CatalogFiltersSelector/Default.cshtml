@@ -96,11 +96,15 @@
     <div class="inner-wrap text-center">
         <div class="btn-group-vertical">
             <button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">@T("filters.submit")</button>
-            <button type="button" id="clr-filters" class="btn btn-link" onclick="">@T("filters.clear")</button>
+            <button type="button" class="btn btn-link" onclick="clearFilters()">@T("filters.clear")</button>
         </div>
     </div>
 </div>
 <script>
+    $(document).ready(function () { 
+        setTimeout(fillFilters(), 500);
+    });
+    function fillFilters() {
         $("[name=MinPrice]").val(@(Model.Price?.from == 0 ? "" : Model.Price?.from.ToString()));
         $("[name=MaxPrice]").val(@(Model.Price?.to == 0 ? "" : Model.Price?.to.ToString()));
         $("[name=MinLength]").val(@(Model.Length?.from == 0 ? "" : Model.Length?.from.ToString()));
@@ -113,6 +117,12 @@
         $("[name=MaxSleeplength]").val(@(Model.SleepLength?.to == 0 ? "" : Model.SleepLength?.to.ToString()));
         $("[name=MinSleepwidth]").val(@(Model.SleepWidth?.from == 0 ? "" : Model.SleepWidth?.from.ToString()));
         $("[name=MaxSleepwidth]").val(@(Model.SleepWidth?.to == 0 ? "" : Model.SleepWidth?.to.ToString()));
+    }
+
+    function clearFilters() {
+        window.location.replace(window.location.href.substring(0, window.location.href.indexOf('?')));
+    }
+
     function submitFilters() {
         $(".filters-data .form-group input").each(function () {
             if ($(this).val().trim().length == 0) {
