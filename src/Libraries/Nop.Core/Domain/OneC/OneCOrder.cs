@@ -7,6 +7,8 @@ namespace Nop.Core.Domain.OneC
     public class OneCOrder
     {
         public int OrderNumber { get; set; }
+        public int UserIdOneC { get; set; }
+        public string ClientName { get; set; }
         public string DeliveryMethod { get; set; }
         public string DeliveryAddress { get; set; }
         public string BillingMethod { get; set; }

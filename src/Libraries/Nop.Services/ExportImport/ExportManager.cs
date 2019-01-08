@@ -677,12 +677,14 @@ namespace Nop.Services.ExportImport
                 {
                     Price = o.OrderTotal,
                     OrderNumber = o.Id,
-                    Discount = o.OrderDiscount,
+                    UserIdOneC = o.Customer.IdOneC,
+                    ClientName = string.Format("{0} {1}", _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.FirstNameAttribute), _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.LastNameAttribute)).Trim(),
+                    CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
                     BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o?.PaymentMethodSystemName)?.PaymentMethodDescription,
                     DeliveryMethod = o.ShippingMethod,
-                    CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
                     DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
-                    Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProduxtSku = oi.Product.Sku, Price = oi.Product.Price, DiscountPrice = oi.Product.DiscountPrice, Quantity = oi.Quantity })
+                    Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProduxtSku = oi.Product.Sku, Price = oi.Product.Price, DiscountPrice = oi.Product.DiscountPrice, Quantity = oi.Quantity }),
+                    Discount = o.OrderDiscount
                 }));
         }
 
