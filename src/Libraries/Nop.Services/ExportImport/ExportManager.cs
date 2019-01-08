@@ -682,7 +682,7 @@ namespace Nop.Services.ExportImport
                     DeliveryMethod = o.ShippingMethod,
                     CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
                     DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
-                    Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProductId = oi.ProductId, ProduxtSku = oi.Product.Sku })
+                    Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProduxtSku = oi.Product.Sku, Price = oi.Product.Price, DiscountPrice = oi.Product.DiscountPrice })
                 }));
         }
 
