@@ -468,7 +468,7 @@
 		@await Component.InvokeAsync("Footer")
 	</div>
 </div>
-<script src="~/js/site/jquery.mask.js"></script>
+<script src="~/js/site/maskedinput.js"></script>
 <script>
-	$("#oneclick-phone").mask("(000)0000000");
+    $("#oneclick-phone").mask("+38 (999)999-99-99", { placeholder: "+38 (000)000-00-00" });
 </script>

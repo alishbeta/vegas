@@ -399,7 +399,9 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">@T("Cart.City")</label>
-                    <input type="text" name="City" class="form-control col-sm-8">
+                    <select type="text" name="City" class="form-control col-sm-8">
+                        @await Component.InvokeAsync("RegionsSelectorBlock", new { selectedCity = Model.CustomerInfo.City })
+                    </select>
                 </div>
                 <div class="form-group row d-none" id="new-field-addr">
                     <label class="col-form-label col-sm-3">@T("admin.orders.address.address1")</label>
@@ -617,11 +619,12 @@
                                 <label class="col-form-label col-sm-3" for="ai1">
                                     @T("cart.city")
                                 </label>
-                                <input type="text"
-                                       id="ai1"
-                                       name="City"
-                                       class="form-control col-sm-8"
-                                       value="@Model.CustomerInfo.City" disabled>
+                                <select type="text"
+                                        id="ai1"
+                                        name="City"
+                                        class="form-control col-sm-8" disabled>
+                                    @await Component.InvokeAsync("RegionsSelectorBlock", new { selectedCity = Model.CustomerInfo.City })
+                                </select>
                             </div>
                             <div id="old-field-addr" class="form-group row d-none">
                                 <label class="col-form-label col-sm-3" for="ai2">
@@ -827,10 +830,10 @@
         }
 	});
 </script>
-<script src="~/js/site/jquery.mask.js"></script>
+<script src="~/js/site/maskedinput.js"></script>
 <script>
-    $("#li2").mask("(000)0000000");
-    $("#i2").mask("(000)0000000");
+    $("#li2").mask("+38 (999)999-99-99", { placeholder: "+38 (000)000-00-00" });
+    $("#i2").mask("+38 (999)999-99-99", { placeholder: "+38 (000)000-00-00" });
 </script>
 <script>
     function selfDelivery(prefix) {

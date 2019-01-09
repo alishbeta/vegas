@@ -467,9 +467,9 @@
             nextArrow: '<div class="next-arrow"></div>',
         });
     </script>
-    <script src="~/js/site/jquery.mask.js"></script>
+    <script src="~/js/site/maskedinput.js"></script>
     <script>
-        $("#cat-oneclick-phone").mask("(000)0000000");
+        $("#cat-oneclick-phone").mask("+38 (999)999-99-99", { placeholder: "+38 (000)000-00-00" });
         $(".slider a").fancybox({
             'hideOnContentClick': true
         });

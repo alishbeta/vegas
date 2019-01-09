@@ -744,15 +744,17 @@ Model.CountryEnabled)
 							</button>
 							@if (Model.CityEnabled)
 							{
-								<div class="form-group row">
-									<label asp-for="City" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.city")</label>
-									<input asp-for="City" class="form-control col-sm-8" disabled />
-									@if (Model.CityRequired)
-									{
-										<nop-required />
-									}
-									<span asp-validation-for="City"></span>
-								</div>
+                            <div class="form-group row">
+                                <label asp-for="City" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.city")</label>
+                                <select asp-for="City" class="form-control col-sm-8" disabled>
+                                    @await Component.InvokeAsync("RegionsSelectorBlock", new { selectedCity = Model.City, disabled = true })
+                                </select>
+                                @if (Model.CityRequired)
+                                {
+                                    <nop-required />
+                                }
+                                <span asp-validation-for="City"></span>
+                            </div>
 							}
 							@if (Model.StreetAddressEnabled)
 							{
@@ -910,7 +912,7 @@ Model.CountryEnabled)
 		</div>
 	</div>
 </div>
-<script src="~/js/site/jquery.mask.js"></script>
+<script src="~/js/site/maskedinput.js"></script>
 <script>
-	$("#cab-phone").mask("(000)0000000");
+    $("#cab-phone").mask("+38 (999)999-99-99", { placeholder: "+38 (000)000-00-00" });
 </script>

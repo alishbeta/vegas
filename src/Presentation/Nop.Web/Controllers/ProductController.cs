@@ -232,8 +232,7 @@ namespace Nop.Web.Controllers
 
             var products = _recentlyViewedProductsService.GetRecentlyViewedProducts(_catalogSettings.RecentlyViewedProductsNumber);
 
-            var model = new List<ProductOverviewModel>();
-            model.AddRange(_productModelFactory.PrepareProductOverviewModels(products));
+            var model = _productModelFactory.PrepareProductOverviewModels(products);
 
             return View(model);
         }
@@ -255,8 +254,7 @@ namespace Nop.Web.Controllers
                 orderBy: ProductSortingEnum.CreatedOn,
                 pageSize: 32);
 
-            var model = new List<ProductOverviewModel>();
-            model.AddRange(_productModelFactory.PrepareProductOverviewModels(products));
+            var model = _productModelFactory.PrepareProductOverviewModels(products);
 
             return View(model);
         }	
@@ -269,9 +267,8 @@ namespace Nop.Web.Controllers
                 visibleIndividuallyOnly: true,
                 orderBy: ProductSortingEnum.CreatedOn);
 
-			var discountedProds = products.Where(x => x.DiscountProductMappings.ToList().Count > 0);
-            var model = new List<ProductOverviewModel>();
-            model.AddRange(_productModelFactory.PrepareProductOverviewModels(discountedProds));
+			var discountedProds = products.Where(x => x.DiscountProductMappings.Count() > 0);
+            var model = _productModelFactory.PrepareProductOverviewModels(discountedProds, true, true, 250, false);
 
             return View(model);
         }
