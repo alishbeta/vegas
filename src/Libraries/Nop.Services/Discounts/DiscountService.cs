@@ -369,6 +369,22 @@ namespace Nop.Services.Discounts
             return new PagedList<Product>(products, pageIndex, pageSize);
         }
 
+        public virtual IEnumerable<Product> GetProductsWithAppliedDiscountIEnumerable(int? discountId = null,
+            bool showHidden = false, int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            var products = _productRepository.Table.Where(product => product.HasDiscountsApplied);
+
+            if (discountId.HasValue)
+                products = products.Where(product => product.DiscountProductMappings.Any(mapping => mapping.DiscountId == discountId.Value));
+
+            if (!showHidden)
+                products = products.Where(product => !product.Deleted && product.Published);
+
+            products = products.OrderBy(product => product.DisplayOrder).ThenBy(product => product.Id);
+
+            return products;
+        }
+
         #endregion
 
         #region Discounts (caching)

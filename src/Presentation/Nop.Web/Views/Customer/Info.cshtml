@@ -719,6 +719,17 @@
 							<nop-required />
 							<span asp-validation-for="Email"></span>
 						</div>
+                        <div class="form-group row">
+                            @{
+                                var attribute = Model.CustomerAttributes.FirstOrDefault(x => x.Id == 1);
+                                var controlId = $"customer_attribute_{attribute.Id}";
+                                var textPrompt = attribute.Name;
+                            }
+                            <label asp-for="@controlId" asp-postfix=":" class="col-form-label col-sm-3">@textPrompt</label>
+                            <input name="@(controlId)" type="text" id="@(controlId)" value="@attribute.DefaultValue" class="form-control col-sm-8" disabled />
+                            <nop-required />
+                            <span asp-validation-for="@controlId"></span>
+                        </div>
 						<div class="line"></div>
 					</div>
 					@if (Model.StreetAddressEnabled ||

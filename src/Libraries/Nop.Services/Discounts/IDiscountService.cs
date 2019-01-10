@@ -88,6 +88,9 @@ namespace Nop.Services.Discounts
         IPagedList<Product> GetProductsWithAppliedDiscount(int? discountId = null,
             bool showHidden = false, int pageIndex = 0, int pageSize = int.MaxValue);
 
+        IEnumerable<Product> GetProductsWithAppliedDiscountIEnumerable(int? discountId = null,
+            bool showHidden = false, int pageIndex = 0, int pageSize = int.MaxValue);
+
         #endregion
 
         #region Discounts (caching)
