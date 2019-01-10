@@ -57,7 +57,7 @@ namespace Nop.Services.Orders
         /// </summary>
         /// <param name="rewardPointsHistoryId">Reward point history entry identifier</param>
         /// <returns>Reward point history entry</returns>
-        RewardPointsHistory GetRewardPointsHistoryEntryById(int rewardPointsHistoryId);
+        RewardPointsHistory GetRewardPointsHistoryEntryById(int? rewardPointsHistoryId);
 
         /// <summary>
         /// Insert the reward point history entry

@@ -244,12 +244,12 @@ namespace Nop.Services.Orders
         /// </summary>
         /// <param name="rewardPointsHistoryId">Reward point history entry identifier</param>
         /// <returns>Reward point history entry</returns>
-        public virtual RewardPointsHistory GetRewardPointsHistoryEntryById(int rewardPointsHistoryId)
+        public virtual RewardPointsHistory GetRewardPointsHistoryEntryById(int? rewardPointsHistoryId)
         {
-            if (rewardPointsHistoryId == 0)
+            if (rewardPointsHistoryId == 0 || rewardPointsHistoryId == null)
                 return null;
 
-            return _rewardPointsHistoryRepository.GetById(rewardPointsHistoryId);
+            return _rewardPointsHistoryRepository.GetById((int)rewardPointsHistoryId);
         }
 
         /// <summary>

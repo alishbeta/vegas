@@ -84,6 +84,7 @@ namespace Nop.Services.ExportImport
         private readonly ProductEditorSettings _productEditorSettings;
         private readonly IPaymentService _paymentService;
         private readonly IDiscountService _discountService;
+        private readonly IRewardPointService _rewardPointService;
 
         #endregion
 
@@ -123,7 +124,8 @@ namespace Nop.Services.ExportImport
             OrderSettings orderSettings,
             ProductEditorSettings productEditorSettings,
             IPaymentService paymentService,
-            IDiscountService discountService)
+            IDiscountService discountService,
+            IRewardPointService rewardPointService)
         {
             this._addressSettings = addressSettings;
             this._catalogSettings = catalogSettings;
@@ -160,6 +162,7 @@ namespace Nop.Services.ExportImport
             this._productEditorSettings = productEditorSettings;
             this._paymentService = paymentService;
             this._discountService = discountService;
+            this._rewardPointService = rewardPointService;
         }
 
         #endregion
@@ -681,7 +684,7 @@ namespace Nop.Services.ExportImport
                     ClientName = string.Format("{0} {1}", _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.FirstNameAttribute), _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.LastNameAttribute)).Trim(),
                     CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
                     BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o?.PaymentMethodSystemName)?.PaymentMethodDescription,
-                    //_paymentService.
+                    Bonus = _rewardPointService.GetRewardPointsHistoryEntryById(o?.RewardPointsHistoryEntryId)?.Points ?? 0,
                     DeliveryMethod = o.ShippingMethod,
                     DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
                     Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProduxtSku = oi.Product.Sku, Quantity = oi.Quantity }),

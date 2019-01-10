@@ -15,6 +15,7 @@ namespace Nop.Core.Domain.OneC
         public string CustomerContact { get; set; }
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
+        public int Bonus { get; set; }
         public IEnumerable<OneCOrderProductInfo> Products { get; set; }
     }
 }
