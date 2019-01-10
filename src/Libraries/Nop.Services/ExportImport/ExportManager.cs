@@ -681,9 +681,10 @@ namespace Nop.Services.ExportImport
                     ClientName = string.Format("{0} {1}", _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.FirstNameAttribute), _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.LastNameAttribute)).Trim(),
                     CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
                     BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o?.PaymentMethodSystemName)?.PaymentMethodDescription,
+                    //_paymentService.
                     DeliveryMethod = o.ShippingMethod,
                     DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
-                    Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProduxtSku = oi.Product.Sku, Price = oi.Product.Price, DiscountPrice = oi.Product.DiscountPrice, Quantity = oi.Quantity }),
+                    Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProduxtSku = oi.Product.Sku, Quantity = oi.Quantity }),
                     Discount = o.OrderDiscount
                 }));
         }
