@@ -479,28 +479,28 @@ namespace Nop.Web.Factories
             //filter ranges
             decimal from, to;                                                                                          
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("length")))
-            {                                                                               ///TODO remove ToList();
-                from = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[0]);///without tolist model.Products is empty  
+            {                                                                               
+                from = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[0]);
                 to = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.Length >= from && x.Length <= to);
+                model.Products = model.Products.Where(x => x.Length >= from && x.Length <= to).ToList();
             }
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("width")))
             {
                 from = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[0]);
                 to = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.Width >= from && x.Width <= to);
+                model.Products = model.Products.Where(x => x.Width >= from && x.Width <= to).ToList();
             }
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleeplength")))
             {
                 from = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[0]);
                 to = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.SleepLength >= from && x.SleepLength <= to);
+                model.Products = model.Products.Where(x => x.SleepLength >= from && x.SleepLength <= to).ToList(); 
             }
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleepwidth")))
             {
                 from = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[0]);
                 to = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.SleepWidth >= from && x.SleepWidth <= to);
+                model.Products = model.Products.Where(x => x.SleepWidth >= from && x.SleepWidth <= to).ToList();
             }
             if (command.OrderBy == (int)ProductSortingEnum.NewProducts)
 			{

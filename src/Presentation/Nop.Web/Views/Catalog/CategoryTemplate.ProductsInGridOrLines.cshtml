@@ -5,73 +5,73 @@
 @inject SeoSettings seoSettings
 @inject CommonSettings commonSettings
 @{
-	Layout = "_ColumnsOne";
+    Layout = "_ColumnsOne";
 
-	//title
-	Html.AddTitleParts(!string.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
-	//meta
-	Html.AddMetaDescriptionParts(Model.MetaDescription);
-	Html.AddMetaKeywordParts(Model.MetaKeywords);
-	//page class
-	Html.AppendPageCssClassParts("html-category-page");
+    //title
+    Html.AddTitleParts(!string.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-category-page");
 
-	if (seoSettings.CanonicalUrlsEnabled)
-	{
-		var categoryUrl = Url.RouteUrl("Category", new { SeName = Model.SeName }, webHelper.CurrentRequestProtocol).ToLowerInvariant();
-		Html.AddCanonicalUrlParts(categoryUrl, seoSettings.QueryStringInCanonicalUrlsEnabled);
-	}
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+        var categoryUrl = Url.RouteUrl("Category", new { SeName = Model.SeName }, webHelper.CurrentRequestProtocol).ToLowerInvariant();
+        Html.AddCanonicalUrlParts(categoryUrl, seoSettings.QueryStringInCanonicalUrlsEnabled);
+    }
 
-	var breadcrumbDelimiter = commonSettings.BreadcrumbDelimiter;
+    var breadcrumbDelimiter = commonSettings.BreadcrumbDelimiter;
 }
 @{
-	Layout = "_ColumnsOne";
-	ViewData["class"] = "wrap short-menu cat";
+    Layout = "_ColumnsOne";
+    ViewData["class"] = "wrap short-menu cat";
 }
 
 @*category breadcrumb*@
 @section Breadcrumb
-	{
-	@if (Model.DisplayCategoryBreadcrumb)
-	{
-		<nav class="breadcrumb-wrap" aria-label="breadcrumb">
-			<ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-				<li class="breadcrumb-item">
-					<a href="@Url.RouteUrl("HomePage")" title="@T("Categories.Breadcrumb.Top")">@T("Categories.Breadcrumb.Top")</a>
-				</li>
-				@{ int position = 1; }
-				@foreach (var cat in Model.CategoryBreadcrumb)
-				{
-					var isLastCategory = cat.Id == Model.Id;
-					<li class="breadcrumb-item @(isLastCategory == true ? "active" : "")" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-						@if (isLastCategory)
-						{
-							<strong class="current-item" itemprop="name">@cat.Name</strong>
-							<span itemprop="item" itemscope itemtype="http://schema.org/Thing">
-								<link itemprop="url" href="@Url.RouteUrl("Category", new { SeName = cat.SeName })" />
-							</span>
-						}
-						else
-						{
-							<a href="@Url.RouteUrl("Category", new { SeName = cat.SeName })" title="@cat.Name" itemprop="item">
-								<span itemprop="name">@cat.Name</span>
-							</a>
-						}
-						<meta itemprop="position" content="@position" />
-					</li>
-					position++;
-				}
-			</ol>
-		</nav>
-	}
+    {
+    @if (Model.DisplayCategoryBreadcrumb)
+    {
+        <nav class="breadcrumb-wrap" aria-label="breadcrumb">
+            <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+                <li class="breadcrumb-item">
+                    <a href="@Url.RouteUrl("HomePage")" title="@T("Categories.Breadcrumb.Top")">@T("Categories.Breadcrumb.Top")</a>
+                </li>
+                @{ int position = 1; }
+                @foreach (var cat in Model.CategoryBreadcrumb)
+                {
+                    var isLastCategory = cat.Id == Model.Id;
+                    <li class="breadcrumb-item @(isLastCategory == true ? "active" : "")" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        @if (isLastCategory)
+                        {
+                            <strong class="current-item" itemprop="name">@cat.Name</strong>
+                            <span itemprop="item" itemscope itemtype="http://schema.org/Thing">
+                                <link itemprop="url" href="@Url.RouteUrl("Category", new { SeName = cat.SeName })" />
+                            </span>
+                        }
+                        else
+                        {
+                            <a href="@Url.RouteUrl("Category", new { SeName = cat.SeName })" title="@cat.Name" itemprop="item">
+                                <span itemprop="name">@cat.Name</span>
+                            </a>
+                        }
+                        <meta itemprop="position" content="@position" />
+                    </li>
+                    position++;
+                }
+            </ol>
+        </nav>
+    }
 }
 <div class="cat-content-wrap">
-	<div class="title text-center">
-		<h3><b>@Model.Name</b></h3>
-		<p>
-			<small>@Model.PagingFilteringContext.TotalItems @T("prod.products")</small>
-		</p>
-	</div>
-	@await Component.InvokeAsync("CatalogFiltersMenu")
+    <div class="title text-center">
+        <h3><b>@Model.Name</b></h3>
+        <p>
+            <small>@Model.PagingFilteringContext.TotalItems @T("prod.products")</small>
+        </p>
+    </div>
+    @await Component.InvokeAsync("CatalogFiltersMenu")
     <div class="items clearfix">
         @await Component.InvokeAsync("CatalogFiltersSelector", new { specificationFilter = Model.PagingFilteringContext.SpecificationFilter, products = Model.AllProducts })
         @if (Model.Products.Count() > 0)
@@ -99,7 +99,19 @@
     </div>
 </div>
 @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })
-
+@if (!string.IsNullOrEmpty(Model.Description))
+{
+<div class="line"></div>
+<div class="some-info d-none d-md-block">
+    <div class="row text-center">
+        <div class="col">
+            <div class="text">
+                @Html.Raw(Model.Description)
+            </div>
+        </div>
+    </div>
+</div>
+}
 
 <script src="~/js/site/tp.js"></script>
 <script>
@@ -166,7 +178,7 @@
 						'</div>' +
 						'<div class="item-wrap-full" style="display: none;">' +
 							'<i class="favorite_i float-left" data-id="' + product.Id + '" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/2/1\');$(this).addClass(\'load\');return false;"></i>' +
-							'<i class="compare_icon float-right" data-ids="' + product.Id + '" onclick="AjaxCart.addproducttocomparelist(\'/ru/compareproducts/add/' + product.Id + '\');$(this).addClass(\'load\');return false;"></i>' +	
+							'<i class="compare_icon float-right" data-ids="' + product.Id + '" onclick="AjaxCart.addproducttocomparelist(\'/ru/compareproducts/add/' + product.Id + '\');$(this).addClass(\'load\');return false;"></i>' +
 							'<div class="product-img-wrap">' +
 								'<a href="' + product.SeName + '">' +
 									'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
@@ -200,9 +212,9 @@
 										'<div class="value">' + product.Height + ' см</div>' +
 									'</div>' +
 								'</div>' +
-							'</div>' + 
+							'</div>' +
 							'<div class="text-center"></div>' +
-							buyButton + 
+							buyButton +
 						'</div>' +
 					'</div>';
 				$("#prods").append(element);
