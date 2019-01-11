@@ -41,7 +41,7 @@ namespace Nop.Web.Components
 				return Content("");
 			
 			var preparePictureModel = productThumbPictureSize.HasValue;
-			IEnumerable<Product> products = _recentlyViewedProductsService.GetRecentlyViewedProducts(_catalogSettings.RecentlyViewedProductsNumber);
+			IEnumerable<Product> products = _recentlyViewedProductsService.GetRecentlyViewedProducts(6);
 
 			//ACL and store mapping
 			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
