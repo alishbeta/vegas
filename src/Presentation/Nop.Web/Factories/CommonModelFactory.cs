@@ -757,6 +757,18 @@ namespace Nop.Web.Factories
 
             //if robots.custom.txt exists, let's use it instead of hard-coded data below
             var robotsFilePath = _fileProvider.Combine(_fileProvider.MapPath("~/"), "robots.custom.txt");
+
+            //************************временная заглушка******************\\
+            if (!_fileProvider.FileExists(robotsFilePath)) 
+            {
+                const string newLine = "\r\n"; //Environment.NewLine
+                sb.Append("User-agent: *");
+                sb.Append(newLine);
+                sb.Append("Disallow: /");
+                return sb.ToString();
+            }
+            //************************временная заглушка******************\\
+
             if (_fileProvider.FileExists(robotsFilePath))
             {
                 //the robots.txt file exists
