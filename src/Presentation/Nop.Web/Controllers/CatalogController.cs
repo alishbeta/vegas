@@ -97,6 +97,10 @@ namespace Nop.Web.Controllers
         [HttpsRequirement(SslRequirement.No)]
         public virtual IActionResult Category(string SeName, CatalogPagingFilteringModel command) //int categoryId, CatalogPagingFilteringModel command)
         {
+            if (command.PageNumber == 1)
+            {
+                return RedirectPermanent(_webHelper.RemoveQueryString(_webHelper.GetThisPageUrl(true), "pagenumber"));
+            }
             int categoryId = _categoryService.GetCategoryIdBySeName(SeName);
             var category = _categoryService.GetCategoryById(categoryId);
             if (category == null || category.Deleted)
