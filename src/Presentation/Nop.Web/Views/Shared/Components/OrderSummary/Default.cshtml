@@ -780,7 +780,7 @@
         }
 
         if (valid) {
-            $(".login-wrap input").each(function (data) {
+            $(".login-wrap input, .login-wrap select").each(function (data) {
                 $(this).attr("disabled", false);
             });
             if (!$("#old-nova-poshta-fields").hasClass("d-none")) {
@@ -819,7 +819,7 @@
         }
 
         if (valid) {
-            $(".login-wrap input").each(function (data) {
+            $(".login-wrap input, .login-wrap select").each(function (data) {
                 $(this).attr("disabled", false);
             });
             if (!$("#new-nova-poshta-fields").hasClass("d-none")) {

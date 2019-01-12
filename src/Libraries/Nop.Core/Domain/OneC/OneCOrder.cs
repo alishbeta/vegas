@@ -16,6 +16,7 @@ namespace Nop.Core.Domain.OneC
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
         public int Bonus { get; set; }
+        public string Region { get; set; }
         public IEnumerable<OneCOrderProductInfo> Products { get; set; }
     }
 }

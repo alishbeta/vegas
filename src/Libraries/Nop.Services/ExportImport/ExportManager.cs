@@ -678,6 +678,7 @@ namespace Nop.Services.ExportImport
             return Tuple.Create(total, orders
                 .Select(o => new OneCOrder()
                 {
+                    Region = o.ShippingAddress?.City,
                     Price = o.OrderTotal,
                     OrderNumber = o.Id,
                     UserIdOneC = o.Customer.IdOneC,
