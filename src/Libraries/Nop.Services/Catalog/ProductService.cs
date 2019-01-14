@@ -611,7 +611,17 @@ namespace Nop.Services.Catalog
             bool? featuredProducts = null,
             decimal? priceMin = null,
             decimal? priceMax = null,
-			string specificationFilters = null,
+            decimal? MinWidth = null,
+            decimal? MaxWidth = null,
+            decimal? MinLength = null,
+            decimal? MaxLength = null,
+            decimal? MinHeight = null,
+            decimal? MaxHeight = null,
+            decimal? MinSleepWidth = null,
+            decimal? MaxSleepWidth = null,
+            decimal? MinSleepLength = null,
+            decimal? MaxSleepLength = null,
+            string specificationFilters = null,
             int productTagId = 0,
             string keywords = null,
             bool searchDescriptions = false,
@@ -629,7 +639,8 @@ namespace Nop.Services.Catalog
                 pageIndex, pageSize, categoryIds, manufacturerId,
                 storeId, vendorId, warehouseId,
                 productType, visibleIndividuallyOnly, markedAsNewOnly, featuredProducts,
-                priceMin, priceMax, specificationFilters, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku,
+                priceMin, priceMax, MinWidth, MaxWidth, MinLength, MaxLength, MinHeight, MaxHeight, MinSleepWidth, MaxSleepWidth, MinSleepLength, MaxSleepLength, 
+                specificationFilters, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku,
                 searchProductTags, languageId, filteredSpecs,
                 orderBy, showHidden, overridePublished, isAdmin);
         }
@@ -684,6 +695,16 @@ namespace Nop.Services.Catalog
 			bool? featuredProducts = null,
 			decimal? priceMin = null,
 			decimal? priceMax = null,
+			decimal? MinWidth = null,
+			decimal? MaxWidth = null,
+			decimal? MinLength = null,
+			decimal? MaxLength = null,
+			decimal? MinHeight = null,
+			decimal? MaxHeight = null,
+			decimal? MinSleepWidth = null,
+			decimal? MaxSleepWidth = null,
+			decimal? MinSleepLength = null,
+			decimal? MaxSleepLength = null,
 			string specificationFilters = null,
             int productTagId = 0,
             string keywords = null,
@@ -754,6 +775,16 @@ namespace Nop.Services.Catalog
             var pFeaturedProducts = _dataProvider.GetBooleanParameter("FeaturedProducts", featuredProducts);
             var pPriceMin = _dataProvider.GetDecimalParameter("PriceMin", priceMin);
             var pPriceMax = _dataProvider.GetDecimalParameter("PriceMax", priceMax);
+            var pMinWidth = _dataProvider.GetDecimalParameter("MinWidth", MinWidth);
+            var pMaxWidth = _dataProvider.GetDecimalParameter("MaxWidth", MaxWidth);
+            var pMinLength = _dataProvider.GetDecimalParameter("MinLength", MinLength);
+            var pMaxLength = _dataProvider.GetDecimalParameter("MaxLength", MaxLength);
+            var pMinHeight = _dataProvider.GetDecimalParameter("MinHeight", MinHeight);
+            var pMaxHeight = _dataProvider.GetDecimalParameter("MaxHeight", MaxHeight);
+            var pMinSleepWidth = _dataProvider.GetDecimalParameter("MinSleepWidth", MinSleepWidth);
+            var pMaxSleepWidth = _dataProvider.GetDecimalParameter("MaxSleepWidth", MaxSleepWidth);
+            var pMinSleepLength = _dataProvider.GetDecimalParameter("MinSleepLength", MinSleepLength);
+            var pMaxSleepLength = _dataProvider.GetDecimalParameter("MaxSleepLength", MaxSleepLength);
 			var pSpecificationFilter = _dataProvider.GetStringParameter("Spec", specificationFilters);
             var pKeywords = _dataProvider.GetStringParameter("Keywords", keywords);
             var pSearchDescriptions = _dataProvider.GetBooleanParameter("SearchDescriptions", searchDescriptions);
@@ -792,6 +823,16 @@ namespace Nop.Services.Catalog
                 pFeaturedProducts,
                 pPriceMin,
                 pPriceMax,
+                pMinWidth,
+                pMaxWidth,
+                pMinHeight,
+                pMaxHeight,
+                pMinLength,
+                pMaxLength,
+                pMinSleepLength,
+                pMaxSleepLength,
+                pMinSleepWidth,
+                pMaxSleepWidth,
 				//pSpecificationFilter,
                 pKeywords,
                 pSearchDescriptions,
