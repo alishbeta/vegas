@@ -114,7 +114,18 @@
     <link rel="stylesheet" type="text/css" href="~/css/site/slick-theme.css" />
     <link rel="stylesheet" href="~/css/site/main.css" crossorigin="anonymous">
     <link rel="stylesheet" href="~/js/site/fancybox/jquery.fancybox.min.css" />
-    <title></title>
+    <title>@Html.NopTitle()</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <meta name="description" content="@(Html.NopMetaDescription())" />
+    <meta name="keywords" content="@(Html.NopMetaKeywords())" />
+    <meta name="generator" content="nopCommerce" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    @Html.NopHeadCustom()
+    @*This is used so that themes can inject content into the header*@
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeadHtmlTag })
+    @Html.NopCssFiles(this.Url, ResourceLocation.Head)
+    @Html.NopScripts(this.Url, ResourceLocation.Head)
+    @Html.NopCanonicalUrls()
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -152,18 +163,6 @@
         document.createElement('footer');
     </script>
     <![endif]-->
-    <title>@Html.NopTitle()</title>
-    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
-    <meta name="description" content="@(Html.NopMetaDescription())" />
-    <meta name="keywords" content="@(Html.NopMetaKeywords())" />
-    <meta name="generator" content="nopCommerce" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    @Html.NopHeadCustom()
-    @*This is used so that themes can inject content into the header*@
-    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeadHtmlTag })
-    @Html.NopCssFiles(this.Url, ResourceLocation.Head)
-    @Html.NopScripts(this.Url, ResourceLocation.Head)
-    @Html.NopCanonicalUrls()
     <!--Powered by nopCommerce - https://www.nopCommerce.com-->
 </head>
 <body>
