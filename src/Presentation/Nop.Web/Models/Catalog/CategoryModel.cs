@@ -37,7 +37,7 @@ namespace Nop.Web.Models.Catalog
         public IList<SubCategoryModel> SubCategories { get; set; }
 
         public IList<ProductOverviewModel> FeaturedProducts { get; set; }
-        public IEnumerable<ProductOverviewModel> Products { get; set; }
+        public IList<ProductOverviewModel> Products { get; set; }
 
 		#region Nested Classes
 

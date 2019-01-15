@@ -516,25 +516,25 @@ namespace Nop.Web.Factories
                 orderBy: orderBy,
                 pageIndex: command.PageNumber - 1,
                 pageSize: 32);
-            model.Products = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true);
+            model.Products = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true).ToList();
 
             if (command.OrderBy == (int)ProductSortingEnum.NewProducts)
 			{
-				model.Products = model.Products.OrderBy(x => x.MarkAsNew ? 0 : 1);
+				model.Products = model.Products.OrderBy(x => x.MarkAsNew ? 0 : 1).ToList();
 			}			  
 			if (command.OrderBy == (int)ProductSortingEnum.Discounts)
 			{
-				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.Discount);
+				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.Discount).ToList();
 			}
 			if (command.OrderBy == (int)ProductSortingEnum.PriceAsc)
 			{
-				model.Products = model.Products.OrderBy(x => x.ProductPrice.PriceValue);
+				model.Products = model.Products.OrderBy(x => x.ProductPrice.PriceValue).ToList();
 			} 
 			if (command.OrderBy == (int)ProductSortingEnum.PriceDesc)
 			{
-				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.PriceValue);
+				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.PriceValue).ToList();
 			}
-            //model.Products = model.Products.ToList();
+            model.Products = model.Products.ToList();
             model.PagingFilteringContext.LoadPagedList(products);
 
             model.AllProducts = _productService.SearchProducts(out filterableSpecificationAttributeOptionIds,  //recall to update filterableSpecificationAttributeOptionIds

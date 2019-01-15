@@ -103,55 +103,68 @@
 <!doctype html>
 <html lang="@languageService.GetTwoLetterIsoLanguageName(workContext.WorkingLanguage)" @(this.ShouldUseRtlTheme() ? Html.Raw(" dir=\"rtl\"") : null) @Html.NopPageCssClasses()>
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="/css/site/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="~/css/site/slick.css" />
-	<link rel="stylesheet" type="text/css" href="~/css/site/slick-theme.css" />
-	<link rel="stylesheet" href="~/css/site/main.css" crossorigin="anonymous">
-	<link rel="stylesheet" href="~/js/site/fancybox/jquery.fancybox.min.css" />
-	<title></title>
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<script src="/js/site/bootstrap.min.js"></script>
-	<script src="~/js/public.ajaxcart.js"></script>
-	<script src="~/js/public.common.js"></script>
-	<script type="text/javascript" src="/js/site/slick.min.js"></script>
-	<script src="~/js/site/fancybox/jquery.fancybox.min.js"></script>
-	<script src="/js/site/init.js" crossorigin="anonymous"></script>
-	<script src="/js/site/jquery-ui-1.8.23.custom.min.js" crossorigin="anonymous"></script>
-	<script src="/js/site/jquery.mousewheel.min.js" crossorigin="anonymous"></script>
-	<script src="/js/site/jquery.kinetic.min.js" crossorigin="anonymous"></script>
-	<script src="/js/site/jquery.smoothdivscroll-1.3-min.js" crossorigin="anonymous"></script>
-	@*<script type="text/javascript">
-		$('.slider-wrap').slick({
-			dots: false,
-			slidesToShow: 5,
-			slidesToScroll: 1,
-			speed: 600,
-			useTransform: false,
-			prevArrow: '<div class="baner-prev-arrow"></div>',
-			nextArrow: '<div class="baner-next-arrow"></div>',
-			infinite: false,
-			variableWidth: true
-		});
-	</script>*@
-	<!--[if lt IE 9]>
-	<script>
-		document.createElement('header');
-		document.createElement('nav');
-		document.createElement('section');
-		document.createElement('article');
-		document.createElement('aside');
-		document.createElement('footer');
-	</script>
-	<![endif]-->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/site/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/site/slick.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/site/slick-theme.css" />
+    <link rel="stylesheet" href="~/css/site/main.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/js/site/fancybox/jquery.fancybox.min.css" />
+    <title></title>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="/js/site/bootstrap.min.js"></script>
+    <script src="~/js/public.ajaxcart.js"></script>
+    <script src="~/js/public.common.js"></script>
+    <script type="text/javascript" src="/js/site/slick.min.js"></script>
+    <script src="~/js/site/fancybox/jquery.fancybox.min.js"></script>
+    <script src="/js/site/init.js" crossorigin="anonymous"></script>
+    <script src="/js/site/jquery-ui-1.8.23.custom.min.js" crossorigin="anonymous"></script>
+    <script src="/js/site/jquery.mousewheel.min.js" crossorigin="anonymous"></script>
+    <script src="/js/site/jquery.kinetic.min.js" crossorigin="anonymous"></script>
+    <script src="/js/site/jquery.smoothdivscroll-1.3-min.js" crossorigin="anonymous"></script>
+    @*<script type="text/javascript">
+            $('.slider-wrap').slick({
+                dots: false,
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                speed: 600,
+                useTransform: false,
+                prevArrow: '<div class="baner-prev-arrow"></div>',
+                nextArrow: '<div class="baner-next-arrow"></div>',
+                infinite: false,
+                variableWidth: true
+            });
+        </script>*@
+    <!--[if lt IE 9]>
+    <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('section');
+        document.createElement('article');
+        document.createElement('aside');
+        document.createElement('footer');
+    </script>
+    <![endif]-->
+    <title>@Html.NopTitle()</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <meta name="description" content="@(Html.NopMetaDescription())" />
+    <meta name="keywords" content="@(Html.NopMetaKeywords())" />
+    <meta name="generator" content="nopCommerce" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    @Html.NopHeadCustom()
+    @*This is used so that themes can inject content into the header*@
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeadHtmlTag })
+    @Html.NopCssFiles(this.Url, ResourceLocation.Head)
+    @Html.NopScripts(this.Url, ResourceLocation.Head)
+    @Html.NopCanonicalUrls()
+    <!--Powered by nopCommerce - https://www.nopCommerce.com-->
 </head>
 <body>
 	@RenderBody()
