@@ -147,25 +147,82 @@ namespace Nop.Web.Controllers
             return View(templateViewPath, model);
         }
 
-		[HttpPost]
 		[HttpsRequirement(SslRequirement.No)]
 		public dynamic GetProducts(int categoryId, int pageIndex)
 		{
             //include subcategories
-            IList<int> categories = _categoryService.GetChildCategoryIds(categoryId, _storeContext.CurrentStore.Id);
-            categories.Add(categoryId);
+            IList<int> categoryIds = _categoryService.GetChildCategoryIds(categoryId, _storeContext.CurrentStore.Id);
+            categoryIds.Add(categoryId);
 
-            IEnumerable<Product> products = _productService.SearchProducts(
-				storeId: _storeContext.CurrentStore.Id,
-				categoryIds: categories,
-				pageIndex: pageIndex - 1,
-				pageSize: 32);
+            decimal? minPrice = null, maxPrice = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("price")))
+            {
+                minPrice = decimal.Parse(_webHelper.QueryString<string>("price").Split('-')[0]);
+                maxPrice = decimal.Parse(_webHelper.QueryString<string>("price").Split('-')[1]);
+            }
+            decimal? minLength = null, maxLength = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("length")))
+            {
+                minLength = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[0]);
+                maxLength = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[1]);
+            }
+            decimal? minWidth = null, maxWidth = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("width")))
+            {
+                minWidth = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[0]);
+                maxWidth = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[1]);
+            }
+            decimal? minHeight = null, maxHeight = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("height")))
+            {
+                minHeight = decimal.Parse(_webHelper.QueryString<string>("height").Split('-')[0]);
+                maxHeight = decimal.Parse(_webHelper.QueryString<string>("height").Split('-')[1]);
+            }
+            decimal? minSleepLength = null, maxSleepLength = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleeplength")))
+            {
+                minSleepLength = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[0]);
+                maxSleepLength = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[1]);
+            }
+            decimal? minSleepWidth = null, maxSleepWidth = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleepwidth")))
+            {
+                minSleepWidth = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[0]);
+                maxSleepWidth = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[1]);
+            }
+
+            var products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
+                true,
+                categoryIds: categoryIds,
+                storeId: _storeContext.CurrentStore.Id,
+                visibleIndividuallyOnly: true,
+                featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
+                priceMin: minPrice,
+                priceMax: maxPrice,
+                MinHeight: minHeight,
+                MaxHeight: maxHeight,
+                MinLength: minLength,
+                MaxLength: maxLength,
+                MinWidth: minWidth,
+                MaxWidth: maxWidth,
+                MinSleepLength: minSleepLength,
+                MaxSleepLength: maxSleepLength,
+                MinSleepWidth: minSleepWidth,
+                MaxSleepWidth: maxSleepWidth,
+                pageIndex: pageIndex - 1,
+                pageSize: 32).ToList();
+
+    //        IEnumerable<Product> products = _productService.SearchProducts(
+				//storeId: _storeContext.CurrentStore.Id,
+				//categoryIds: categories,
+				//pageIndex: pageIndex - 1,
+				//pageSize: 32);
 
 
 			//ACL and store mapping
-			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
+			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
 			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p) && !p.Deleted && p.Published);
+			products = products.Where(p => _productService.ProductIsAvailable(p) && !p.Deleted && p.Published).ToList();
 
 			if (!products.Any())
 				return Content("");
