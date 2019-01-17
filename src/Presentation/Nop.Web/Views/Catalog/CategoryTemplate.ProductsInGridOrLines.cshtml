@@ -126,7 +126,7 @@
 		var activeEl = $("li.page-item.active")[$("li.page-item.active").length - 1];
 		var indexOfLastActive = $("li.page-item").index(activeEl);
 		$.ajax({
-			url: "@Url.Action("GetProducts", "Catalog")",
+			url: "@Url.Action("GetProducts", "Catalog")" + getQuery(),
 			type: "POST",
 			dataType: 'json',
 			traditional: true,

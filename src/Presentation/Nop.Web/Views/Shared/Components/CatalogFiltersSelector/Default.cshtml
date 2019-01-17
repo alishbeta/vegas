@@ -129,8 +129,13 @@
                 $(this).val(0);
             }
         });
-        var query = "";
-        query += "?price=" + $("[name=MinPrice]").val() + "-" + $("[name=MaxPrice]").val();
+        var query = getQuery();
+        
+        window.location.replace(query);
+    }
+
+    function getQuery() {
+        var query = "?price=" + $("[name=MinPrice]").val() + "-" + $("[name=MaxPrice]").val();
         if ('@((bool)ViewBag.HasHeight)'.toLowerCase() == 'true') {
             query += "&height=" + $("[name=MinHeight]").val() + "-" + $("[name=MaxHeight]").val();
         }
@@ -149,6 +154,6 @@
             query += "&specs=" + specsArr.sort().toString();
         }
         query += "&orderby=" + $("[name=orderby]:checked").val();
-        window.location.replace(query);
+        return query;
     }
 </script>

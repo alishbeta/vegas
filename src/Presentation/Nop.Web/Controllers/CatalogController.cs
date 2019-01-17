@@ -191,7 +191,7 @@ namespace Nop.Web.Controllers
                 maxSleepWidth = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[1]);
             }
 
-            var products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
+            IEnumerable<Product> products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
                 true,
                 categoryIds: categoryIds,
                 storeId: _storeContext.CurrentStore.Id,
@@ -210,19 +210,19 @@ namespace Nop.Web.Controllers
                 MinSleepWidth: minSleepWidth,
                 MaxSleepWidth: maxSleepWidth,
                 pageIndex: pageIndex - 1,
-                pageSize: 32).ToList();
+                pageSize: 32);
 
-    //        IEnumerable<Product> products = _productService.SearchProducts(
-				//storeId: _storeContext.CurrentStore.Id,
-				//categoryIds: categories,
-				//pageIndex: pageIndex - 1,
-				//pageSize: 32);
+            //        IEnumerable<Product> products = _productService.SearchProducts(
+            //storeId: _storeContext.CurrentStore.Id,
+            //categoryIds: categories,
+            //pageIndex: pageIndex - 1,
+            //pageSize: 32);
 
 
-			//ACL and store mapping
-			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+            //ACL and store mapping
+            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
 			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p) && !p.Deleted && p.Published).ToList();
+			products = products.Where(p => _productService.ProductIsAvailable(p) && !p.Deleted && p.Published);
 
 			if (!products.Any())
 				return Content("");
