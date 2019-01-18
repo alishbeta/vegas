@@ -1155,7 +1155,13 @@ namespace Nop.Web.Factories
                 //price
                 if (preparePriceModel)
                 {
-                    model.ProductPrice = PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
+                    var cacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_PRICE_MODEL_KEY, product.Id);
+
+                    model.ProductPrice = _cacheManager.Get(cacheKey, () =>
+                    {
+                        return PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
+                    }, 24 * 60);
+                    //model.ProductPrice = PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
                 }
 				model.ProductPrice.Discount = product.DiscountProductMappings.Count > 0 ? product.DiscountProductMappings.FirstOrDefault().Discount.DiscountPercentage : (decimal)0;
 

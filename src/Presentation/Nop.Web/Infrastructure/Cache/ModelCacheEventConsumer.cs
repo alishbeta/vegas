@@ -481,6 +481,8 @@ namespace Nop.Web.Infrastructure.Cache
         public const string PRODUCTS_RELATED_IDS_KEY = "Nop.pres.related-{0}-{1}";
         public const string PRODUCTS_RELATED_IDS_PATTERN_KEY = "Nop.pres.related";
 
+        public const string PRODUCT_PRICE_MODEL_KEY = "Nop.pres.product.pricemodel-{0}";
+
         /// <summary>
         /// Key for default product picture caching (all pictures)
         /// </summary>
