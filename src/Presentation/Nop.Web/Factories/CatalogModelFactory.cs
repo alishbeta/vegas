@@ -516,7 +516,7 @@ namespace Nop.Web.Factories
                 orderBy: orderBy,
                 pageIndex: command.PageNumber - 1,
                 pageSize: 32);
-            model.Products = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true).ToList();
+            model.Products = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, false).ToList();
 
             if (command.OrderBy == (int)ProductSortingEnum.NewProducts)
 			{

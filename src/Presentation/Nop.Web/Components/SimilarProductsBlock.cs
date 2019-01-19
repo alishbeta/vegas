@@ -64,7 +64,7 @@ namespace Nop.Web.Components
             products = products.Where(x => productIds.Contains(x.Id));
 
 			//prepare model
-			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, 250, true);
+			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, 250, false);
 			ViewBag.Prefix = "similar";//prefix for backinstock button
 			return View(model);
 		}
