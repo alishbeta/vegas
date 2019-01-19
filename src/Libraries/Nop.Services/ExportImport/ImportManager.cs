@@ -1200,6 +1200,7 @@ namespace Nop.Services.ExportImport
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, user.FirstName);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.PhoneAttribute, user.PhoneNumber);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.NumberDiscountCard, user.NumberDiscountCard);
                         _rewardPointService.AddRewardPointsHistoryEntry(customer, 
                             (int)customer.SumActiveBonus,
                             _storeContext.CurrentStore.Id,
@@ -1226,6 +1227,7 @@ namespace Nop.Services.ExportImport
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, user.FirstName);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.NumberDiscountCard, user.NumberDiscountCard);
 
                         var balance = _rewardPointService.GetRewardPointsBalance(customer.Id, customer.RegisteredInStoreId);
                         if (balance != (int)customer.SumActiveBonus)

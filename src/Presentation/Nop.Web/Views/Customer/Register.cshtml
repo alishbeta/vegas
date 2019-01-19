@@ -38,6 +38,11 @@
         });
     </script>
 }
+<style>
+    .required-span {
+        color: red;
+    }
+</style>
 <nav class="breadcrumb-wrap" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Bed4you</a></li>
@@ -54,30 +59,26 @@
                 <div asp-validation-summary="ModelOnly" class="message-error"></div>
                 <div class="title"><span>1</span>@T("register.fillinfo")</div>
                 <div class="form-group row">
-                    <label asp-for="FirstName" class="col-form-label col-sm-3" for="i1" asp-postfix="*">@T("register.name")</label>
+                    <label asp-for="FirstName" class="col-form-label col-sm-3" for="i1">@T("register.name")<span class="required-span">*</span></label>
                     <input id="i1" type="text" class="form-control col-sm-5" asp-for="FirstName" />
                     <nop-required />
                     <span asp-validation-for="FirstName"></span>
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label col-sm-3" for="i2" asp-for="Phone" asp-postfix="*">@T("register.phone")</label>
+                    <label class="col-form-label col-sm-3" for="i2" asp-for="Phone">@T("register.phone")<span class="required-span">*</span></label>
                     <input id="i2" type="text" class="form-control col-sm-5" asp-for="Phone" />
                     <span asp-validation-for="Phone"></span>
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label col-sm-3" for="i3" asp-for="Email" asp-postfix="*">@T("register.email")</label>
+                    <label class="col-form-label col-sm-3" for="i3" asp-for="Email">@T("register.email")<span class="required-span">*</span></label>
                     <input asp-for="Email" id="i3" type="text" class="form-control col-sm-5" />
                     <nop-required />
                     <span asp-validation-for="Email"></span>
                 </div>
                 <div class="form-group row">
-                    @{
-                        var attribute = Model.CustomerAttributes.FirstOrDefault(x => x.Id == 1);
-                        var controlId = $"customer_attribute_{attribute.Id}";
-                        var textPrompt = attribute.Name;
-                        <label class="col-form-label col-sm-3">@textPrompt</label>
-                        <input type="text" class="form-control col-sm-5" name="@(controlId)" id="@(controlId)" value="@attribute.DefaultValue" />
-                    }
+                    <label class="col-form-label col-sm-3" for="i3" asp-for="NumberDiscountCard"></label>
+                    <input asp-for="NumberDiscountCard" id="i3" type="text" class="form-control col-sm-5" />
+                    <span asp-validation-for="NumberDiscountCard"></span>
                 </div>
 
                 <div class="line"></div>
@@ -105,13 +106,13 @@
 
                 <div class="title"><span>3</span>Пароль</div>
                 <div class="form-group row">
-                    <label class="col-form-label col-sm-3" for="p1" asp-for="Password" asp-postfix="*"></label>
+                    <label class="col-form-label col-sm-3" for="p1" asp-for="Password">@T("register.pass")<span class="required-span">*</span></label>
                     <input id="p1" type="text" class="form-control col-sm-5" asp-for="Password" />
                     <nop-required />
                     <span asp-validation-for="Password"></span>
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label col-sm-3" for="p2" asp-for="ConfirmPassword" asp-postfix="*"></label>
+                    <label class="col-form-label col-sm-3" for="p2" asp-for="ConfirmPassword">@T("register.pass.confirm")<span class="required-span">*</span></label>
                     <input id="p2" type="text" class="form-control col-sm-5" asp-for="ConfirmPassword" />
                     <nop-required />
                     <span asp-validation-for="ConfirmPassword"></span>

@@ -677,61 +677,59 @@
 			<div class="row login-wrap">
 				<form asp-route="CustomerInfo" class="col-sm-12" method="post" id="infoForm">
 					<div asp-validation-summary="ModelOnly" class="message-error"></div>
-					<div id="firstZone">
-						<div class="title"><span>1</span>@T("cabinet.info")</div>
-						<button type="button"
-								id="edit-name"
-								class="btn btn-link">
-							@T("cart.changeinfo")
-						</button>
-						<button style="display: none;"
-								type="button"
-								onclick="CancelChangesInZone(1)"
-								id="edit-name-close"
-								class="btn btn-link">
-							@T("cart.cancel")
-						</button>
-						<div class="form-group row">
-							<label asp-for="FirstName" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.name")</label>
-							<input asp-for="FirstName" class="form-control col-sm-8" disabled />
-							<nop-required />
-							<span asp-validation-for="FirstName"></span>
-						</div>
-						@if (Model.PhoneEnabled)
-						{
-							@if (Model.PhoneEnabled)
-							{
-								<div class="form-group row">
-									<label asp-for="Phone" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.phone")</label>
-									<input asp-for="Phone" id="cab-phone" class="form-control col-sm-8" disabled />
-									@if (Model.PhoneRequired)
-									{
-										<nop-required />
-									}
-									<span asp-validation-for="Phone"></span>
-								</div>
-							}
-
-						}
-						<div class="form-group row">
-							<label asp-for="Email" asp-postfix=":" class="col-form-label col-sm-3">E-mail</label>
-							<input asp-for="Email" class="form-control col-sm-8" disabled />
-							<nop-required />
-							<span asp-validation-for="Email"></span>
-						</div>
+                    <div id="firstZone">
+                        <div class="title"><span>1</span>@T("cabinet.info")</div>
+                        <button type="button"
+                                id="edit-name"
+                                class="btn btn-link">
+                            @T("cart.changeinfo")
+                        </button>
+                        <button style="display: none;"
+                                type="button"
+                                onclick="CancelChangesInZone(1)"
+                                id="edit-name-close"
+                                class="btn btn-link">
+                            @T("cart.cancel")
+                        </button>
                         <div class="form-group row">
-                            @{
-                                var attribute = Model.CustomerAttributes.FirstOrDefault(x => x.Id == 1);
-                                var controlId = $"customer_attribute_{attribute.Id}";
-                                var textPrompt = attribute.Name;
-                            }
-                            <label asp-for="@controlId" asp-postfix=":" class="col-form-label col-sm-3">@textPrompt</label>
-                            <input name="@(controlId)" type="text" id="@(controlId)" value="@attribute.DefaultValue" class="form-control col-sm-8" disabled />
+                            <label asp-for="FirstName" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.name")</label>
+                            <input asp-for="FirstName" class="form-control col-sm-8" disabled />
                             <nop-required />
-                            <span asp-validation-for="@controlId"></span>
+                            <span asp-validation-for="FirstName"></span>
                         </div>
-						<div class="line"></div>
-					</div>
+                        @if (Model.PhoneEnabled)
+                        {
+                            @if (Model.PhoneEnabled)
+                            {
+                                <div class="form-group row">
+                                    <label asp-for="Phone" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.phone")</label>
+                                    <input asp-for="Phone" id="cab-phone" class="form-control col-sm-8" disabled />
+                                    @if (Model.PhoneRequired)
+                                    {
+                                        <nop-required />
+                                    }
+                                    <span asp-validation-for="Phone"></span>
+                                </div>
+                            }
+
+                        }
+                        <div class="form-group row">
+                            <label asp-for="Email" asp-postfix=":" class="col-form-label col-sm-3">E-mail</label>
+                            <input asp-for="Email" class="form-control col-sm-8" disabled />
+                            <nop-required />
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="NumberDiscountCard" asp-postfix=":" class="col-form-label col-sm-3"></label>
+                            <input asp-for="NumberDiscountCard" class="form-control col-sm-8" disabled />
+                            <span asp-validation-for="NumberDiscountCard"></span>
+                        </div>
+                        <div class="form-group row">
+                            <span asp-for="DiscountPercent" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.disount")</span>
+                            <span asp-for="DiscountPercent" class="col-sm-8">@Model.DiscountPercent</span>
+                        </div>
+                        <div class="line"></div>
+                    </div>
 					@if (Model.StreetAddressEnabled ||
 Model.StreetAddress2Enabled ||
 Model.ZipPostalCodeEnabled ||

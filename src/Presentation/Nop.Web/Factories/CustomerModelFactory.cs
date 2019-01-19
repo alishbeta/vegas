@@ -311,6 +311,8 @@ namespace Nop.Web.Factories
                 model.StateProvinceId = _genericAttributeService.GetAttribute<int>(customer, NopCustomerDefaults.StateProvinceIdAttribute);
                 model.Phone = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.PhoneAttribute);
                 model.Fax = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.FaxAttribute);
+                model.DiscountPercent = customer.DiscountPercent;
+                model.NumberDiscountCard = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.NumberDiscountCard);
 
                 //newsletter
                 var newsletter = _newsLetterSubscriptionService.GetNewsLetterSubscriptionByEmailAndStoreId(customer.Email, _storeContext.CurrentStore.Id);

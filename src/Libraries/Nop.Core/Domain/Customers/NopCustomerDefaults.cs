@@ -130,6 +130,7 @@ namespace Nop.Core.Domain.Customers
         /// Gets a name of generic attribute to store the value of 'Fax'
         /// </summary>
         public static string FaxAttribute => "Fax";
+        public static string NumberDiscountCard => "NumberDiscountCard";
 
         /// <summary>
         /// Gets a name of generic attribute to store the value of 'VatNumber'
