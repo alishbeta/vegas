@@ -664,6 +664,7 @@ namespace Nop.Web.Areas.Admin.Factories
                     model.IsTaxExempt = customer.IsTaxExempt;
                     model.Active = customer.Active;
                     model.FirstName = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.FirstNameAttribute);
+                    model.NumberDiscountCard = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.NumberDiscountCard);
                     model.LastName = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.LastNameAttribute);
                     model.Gender = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.GenderAttribute);
                     model.DateOfBirth = _genericAttributeService.GetAttribute<DateTime?>(customer, NopCustomerDefaults.DateOfBirthAttribute);

@@ -142,6 +142,8 @@ namespace Nop.Web.Areas.Admin.Models.Customers
         [DataType(DataType.PhoneNumber)]
         [NopResourceDisplayName("Admin.Customers.Customers.Fields.Fax")]
         public string Fax { get; set; }
+        [NopResourceDisplayName("Account.Fields.NumberDiscountCard")]
+        public string NumberDiscountCard { get; set; }
 
         public List<CustomerAttributeModel> CustomerAttributes { get; set; }
 
