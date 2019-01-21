@@ -21,7 +21,7 @@
                 <input class="form-check-input" type="checkbox" @(spec.ProductsWithSpecificationCount == 0 ? "disabled" : "") value="@spec.SpecificationAttributeOptionId" @(Model.AlreadyFilteredItems.Count(x => x.SpecificationAttributeOptionId == spec.SpecificationAttributeOptionId) > 0 ? "checked" : "")>
                 <label class="form-check-label">
                     @spec.SpecificationAttributeOptionName
-                    <small>(@spec.ProductsWithSpecificationCount)</small>
+                    <small>(+@spec.ProductsWithSpecificationCount) (@spec.FilteredProductsWithSpecificationCount)</small>
                 </label>
             </div>
         }

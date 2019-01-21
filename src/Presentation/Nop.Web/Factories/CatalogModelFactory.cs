@@ -517,27 +517,26 @@ namespace Nop.Web.Factories
                 pageIndex: command.PageNumber - 1,
                 pageSize: 32
                 );
-            //var allFilteredProducts = _productService.SearchProducts(out IList<int> _,
-            //    true,
-            //    categoryIds: categoryIds,
-            //    storeId: _storeContext.CurrentStore.Id,
-            //    visibleIndividuallyOnly: true,
-            //    featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
-            //    priceMin: minPriceConverted,
-            //    priceMax: maxPriceConverted,
-            //    MinHeight: minHeight,
-            //    MaxHeight: maxHeight,
-            //    MinLength: minLength,
-            //    MaxLength: maxLength,
-            //    MinWidth: minWidth,
-            //    MaxWidth: maxWidth,
-            //    MinSleepLength: minSleepLength,
-            //    MaxSleepLength: maxSleepLength,
-            //    MinSleepWidth: minSleepWidth,
-            //    MaxSleepWidth: maxSleepWidth,
-            //    filteredSpecs: alreadyFilteredSpecOptionIds,
-            //    orderBy: orderBy);
-            //filterableSpecificationAttributeOptionIds = _specificationAttributeService.GetSpecificationAttributeOptionsByProductIds(allFilteredProducts.Select(x => x.Id));
+            var allFilteredProductsIds = _productService.SearchProducts(out IList<int> _,
+                true,
+                categoryIds: categoryIds,
+                storeId: _storeContext.CurrentStore.Id,
+                visibleIndividuallyOnly: true,
+                featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
+                priceMin: minPriceConverted,
+                priceMax: maxPriceConverted,
+                MinHeight: minHeight,
+                MaxHeight: maxHeight,
+                MinLength: minLength,
+                MaxLength: maxLength,
+                MinWidth: minWidth,
+                MaxWidth: maxWidth,
+                MinSleepLength: minSleepLength,
+                MaxSleepLength: maxSleepLength,
+                MinSleepWidth: minSleepWidth,
+                MaxSleepWidth: maxSleepWidth,
+                filteredSpecs: alreadyFilteredSpecOptionIds,
+                orderBy: orderBy).Select(x => x.Id);
             model.Products = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, false).ToList();
 
             if (command.OrderBy == (int)ProductSortingEnum.NewProducts)
@@ -572,7 +571,7 @@ namespace Nop.Web.Factories
             //specs
             model.PagingFilteringContext.SpecificationFilter.PrepareSpecsFilters(alreadyFilteredSpecOptionIds,
                 filterableSpecificationAttributeOptionIds?.ToArray(),
-                _specificationAttributeService, _localizationService, _webHelper, _workContext, _cacheManager, allProducts.Select(x => x.Id));
+                _specificationAttributeService, _localizationService, _webHelper, _workContext, _cacheManager, allProducts.Select(x => x.Id), allFilteredProductsIds);
 
             return model;
         }
