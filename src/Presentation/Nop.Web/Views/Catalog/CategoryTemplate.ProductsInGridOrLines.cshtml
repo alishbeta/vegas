@@ -73,7 +73,7 @@
     </div>
     @await Component.InvokeAsync("CatalogFiltersMenu")
     <div class="items clearfix">
-        @await Component.InvokeAsync("CatalogFiltersSelector", new { specificationFilter = Model.PagingFilteringContext.SpecificationFilter, products = Model.AllProducts })
+        @await Component.InvokeAsync("CatalogFiltersSelector", new { specificationFilter = Model.PagingFilteringContext.SpecificationFilter, products = Model.Products })
         @if (Model.Products.Count() > 0)
         {
             <div class="prod-wrap float-right" id="prods">

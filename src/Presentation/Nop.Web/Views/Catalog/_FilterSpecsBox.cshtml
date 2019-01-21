@@ -18,10 +18,10 @@
         @foreach (var spec in groupList)
         {
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="@spec.SpecificationAttributeOptionId" @(Model.AlreadyFilteredItems.Count(x => x.SpecificationAttributeOptionId == spec.SpecificationAttributeOptionId) > 0 ? "checked" : "")>
+                <input class="form-check-input" type="checkbox" @(spec.ProductsWithSpecificationCount == 0 ? "disabled" : "") value="@spec.SpecificationAttributeOptionId" @(Model.AlreadyFilteredItems.Count(x => x.SpecificationAttributeOptionId == spec.SpecificationAttributeOptionId) > 0 ? "checked" : "")>
                 <label class="form-check-label">
                     @spec.SpecificationAttributeOptionName
-                    <small></small>
+                    <small>(@spec.ProductsWithSpecificationCount)</small>
                 </label>
             </div>
         }

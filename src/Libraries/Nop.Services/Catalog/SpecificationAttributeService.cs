@@ -48,6 +48,27 @@ namespace Nop.Services.Catalog
 
         #region Methods
 
+        public virtual IList<int> GetSpecificationAttributeOptionsByProductIds(IEnumerable<int> productIds)
+        {
+            var specificationAttributeOptionsQuery = from s in _productSpecificationAttributeRepository.Table
+                                                orderby s.Id
+                                                where productIds.Contains(s.ProductId)
+                                                select s.SpecificationAttributeOptionId;
+            return specificationAttributeOptionsQuery.Distinct().ToList();   
+        }
+
+        public virtual int GetProductsCountBySpecification(int specificationAttributeOptionId, IEnumerable<int> productIds)
+        {
+            if (productIds == null)
+                return 0;
+
+            var specificationAttributeOptionsQuery = from s in _productSpecificationAttributeRepository.Table
+                                                     orderby s.Id
+                                                     where productIds.Contains(s.ProductId) && s.SpecificationAttributeOptionId == specificationAttributeOptionId
+                                                     select s.Id;
+            return specificationAttributeOptionsQuery.Count();   
+        }
+
         public virtual IEnumerable<SimilarProductSizes> GetSimilarProductSizes(string makeCode,string colorName, int productId = 0, bool isSleepSizes = false)
         {
             var attributeQuery = from s in _specificationAttributeRepository.Table

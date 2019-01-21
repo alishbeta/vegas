@@ -381,7 +381,7 @@ namespace Nop.Web.Models.Catalog
             public virtual void PrepareSpecsFilters(IList<int> alreadyFilteredSpecOptionIds,
                 int[] filterableSpecificationAttributeOptionIds,
                 ISpecificationAttributeService specificationAttributeService, ILocalizationService localizationService,
-                IWebHelper webHelper, IWorkContext workContext, ICacheManager cacheManager)
+                IWebHelper webHelper, IWorkContext workContext, ICacheManager cacheManager, IEnumerable<int> allProductsIds)
             {
                 Enabled = false;
                 var optionIds = filterableSpecificationAttributeOptionIds != null
@@ -420,7 +420,8 @@ namespace Nop.Web.Models.Catalog
                     {
                         SpecificationAttributeName = x.SpecificationAttributeName,
                         SpecificationAttributeOptionId = x.SpecificationAttributeOptionId,
-                        SpecificationAttributeOptionName = x.SpecificationAttributeOptionName
+                        SpecificationAttributeOptionName = x.SpecificationAttributeOptionName,
+                        ProductsWithSpecificationCount = specificationAttributeService.GetProductsCountBySpecification(x.SpecificationAttributeOptionId, allProductsIds)
                     }).ToList();
 
                 //get already filtered specification options
@@ -506,6 +507,11 @@ namespace Nop.Web.Models.Catalog
             /// Specification attribute option identifier
             /// </summary>
             public int SpecificationAttributeOptionId { get; set; }
+            /// <summary>
+            /// Count of products, that has this specification
+            /// </summary>
+            public int ProductsWithSpecificationCount { get; set; }
+
         }
 
         #endregion
