@@ -10,6 +10,7 @@ using Nop.Core.Data;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Directory;
+using Nop.Core.Domain.Discounts;
 using Nop.Core.Domain.Media;
 using Nop.Core.Domain.Messages;
 using Nop.Core.Domain.OneC;
@@ -21,6 +22,7 @@ using Nop.Services.Catalog;
 using Nop.Services.Common;
 using Nop.Services.Customers;
 using Nop.Services.Directory;
+using Nop.Services.Discounts;
 using Nop.Services.ExportImport.Help;
 using Nop.Services.Localization;
 using Nop.Services.Logging;
@@ -87,6 +89,7 @@ namespace Nop.Services.ExportImport
         private readonly VendorSettings _vendorSettings;
         private readonly ICustomerService _customerService;
         private readonly IGenericAttributeService _genericAttributeService;
+        private readonly IDiscountService _discountService;
 
         #endregion
 
@@ -124,7 +127,8 @@ namespace Nop.Services.ExportImport
             MediaSettings mediaSettings,
             VendorSettings vendorSettings,
             ICustomerService customerService,
-            IGenericAttributeService genericAttributeService)
+            IGenericAttributeService genericAttributeService,
+            IDiscountService discountService)
         {
             this._rewardPointService = rewardPointService;
             this._catalogSettings = catalogSettings;
@@ -159,6 +163,7 @@ namespace Nop.Services.ExportImport
             this._vendorSettings = vendorSettings;
             this._customerService = customerService;
             this._genericAttributeService = genericAttributeService;
+            this._discountService = discountService;
         }
 
         #endregion
@@ -1456,6 +1461,31 @@ namespace Nop.Services.ExportImport
                         }
 
                         updateCount++;
+                    }
+
+                    //aplied discounts
+                    var discountRate = decimal.Parse(item.DiscountRate.Replace('.', ','));
+                    if (discountRate > 0)
+                    {
+                        if (_discountService.GetAllDiscounts().Count(x => x.DiscountPercentage == discountRate) == 0) //discount doesn't exist, need to create 
+                        {
+                            _discountService.InsertDiscount(new Discount()
+                            {
+                                DiscountPercentage = discountRate,
+                                UsePercentage = true,
+                                Name = string.Format("1C_Discount_{0}", discountRate),
+                                DiscountTypeId = 2 //"На варианты товаров (артикулы)"
+                            });
+                        }
+                        var discount = _discountService.GetAllDiscounts().FirstOrDefault(x => x.DiscountPercentage == discountRate);
+                        if (product.DiscountProductMappings.Count(mapping => mapping.DiscountId == discount.Id) == 0) //discount not aplied, need to apply
+                        {
+                            product.DiscountProductMappings.Clear(); //can be other only one discount aplied
+                            product.DiscountProductMappings.Add(new DiscountProductMapping { Discount = discount });
+
+                            _productService.UpdateProduct(product);
+                            _productService.UpdateHasDiscountsApplied(product);
+                        }
                     }
 
                     //specification attribute
