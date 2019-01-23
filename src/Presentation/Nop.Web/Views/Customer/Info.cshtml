@@ -764,6 +764,10 @@ Model.CountryEnabled)
                                 }
                                 <span asp-validation-for="City"></span>
                             </div>
+                            <div class="form-group row">
+                                <label asp-for="City" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.city")</label>
+                                <span>@Model.City</span>
+                            </div>
 							}
 							@if (Model.StreetAddressEnabled)
 							{

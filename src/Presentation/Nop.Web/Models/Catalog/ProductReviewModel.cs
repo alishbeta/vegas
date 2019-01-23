@@ -81,6 +81,18 @@ namespace Nop.Web.Models.Catalog
 
         public string WrittenOnStr { get; set; }
 
+        public int? ConsultationRating { get; set; }
+
+        public int? OnlineOrderRating { get; set; }
+
+        public int? OfflineOrderRating { get; set; }
+
+        public int? DeliveryRating { get; set; }
+
+        public int? InstallationRating { get; set; }
+
+        public bool? WillRecommend { get; set; }
+
         public ProductReviewHelpfulnessModel Helpfulness { get; set; }
 
         public IList<ProductReviewReviewTypeMappingModel> AdditionalProductReviewList { get; set; }
@@ -105,6 +117,18 @@ namespace Nop.Web.Models.Catalog
 
         [NopResourceDisplayName("Reviews.Fields.Rating")]
         public int Rating { get; set; }
+
+        public int? ConsultationRating { get; set; }
+
+        public int? OnlineOrderRating { get; set; }
+
+        public int? OfflineOrderRating { get; set; }
+
+        public int? DeliveryRating { get; set; }
+
+        public int? InstallationRating { get; set; }
+
+        public bool? WillRecommend { get; set; }
 
         public bool DisplayCaptcha { get; set; }
 

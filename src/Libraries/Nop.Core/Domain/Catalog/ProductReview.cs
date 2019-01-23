@@ -53,6 +53,13 @@ namespace Nop.Core.Domain.Catalog
         /// </summary>
         public bool CustomerNotifiedOfReply { get; set; }
 
+        public int? ConsultationRating { get; set; }
+        public int? OnlineOrderRating { get; set; }
+        public int? OfflineOrderRating { get; set; }
+        public int? DeliveryRating { get; set; }
+        public int? InstallationRating { get; set; }
+        public bool? WillRecommend { get; set; }
+
         /// <summary>
         /// Review rating
         /// </summary>

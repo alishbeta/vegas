@@ -211,7 +211,7 @@ namespace Nop.Web.Infrastructure
 				new { controller = "Product", action = "ProductEmailAFriend" });
 
             //reviews
-            routeBuilder.MapLocalizedRoute("ProductReviews", "productreviews/{productId}",
+            routeBuilder.MapLocalizedRoute("ProductReviews", "ProductReviews/{productId}",
 				new { controller = "Product", action = "ProductReviews" });
 
             routeBuilder.MapLocalizedRoute("CustomerProductReviews", "customer/productreviews",

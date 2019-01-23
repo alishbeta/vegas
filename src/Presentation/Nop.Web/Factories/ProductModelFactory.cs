@@ -1459,6 +1459,12 @@ namespace Nop.Web.Factories
                     ReviewText = pr.ReviewText,
                     ReplyText = pr.ReplyText,
                     Rating = pr.Rating,
+                    ConsultationRating = pr.ConsultationRating,
+                    DeliveryRating = pr.DeliveryRating,
+                    InstallationRating = pr.InstallationRating,
+                    OfflineOrderRating = pr.OfflineOrderRating,
+                    OnlineOrderRating = pr.OnlineOrderRating,
+                    WillRecommend = pr.WillRecommend,
                     Helpfulness = new ProductReviewHelpfulnessModel
                     {
                         ProductReviewId = pr.Id,
