@@ -21,7 +21,7 @@
             var counter = 0;
             @if (checkedGroup)
             {
-                counter = Model.AlreadyFilteredItems.Count(x => x.SpecificationAttributeOptionId == spec.SpecificationAttributeOptionId) > 0 ? spec.FilteredProductsWithSpecificationCount : spec.ProductsWithSpecificationCount;
+                counter = isItemChecked ? spec.FilteredProductsWithSpecificationCount : spec.ProductsWithSpecificationCount;
             }
             else
             {
