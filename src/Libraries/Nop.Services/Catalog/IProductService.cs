@@ -70,6 +70,8 @@ namespace Nop.Services.Catalog
         /// <param name="product">Product</param>
         void UpdateProduct(Product product);
 
+        void DeleteAllProductWarehouseInventory(int productId);
+
         /// <summary>
         /// Updates the products
         /// </summary>

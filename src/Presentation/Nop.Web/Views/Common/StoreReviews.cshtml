@@ -52,6 +52,17 @@
             </div>
             <button id="comment-activate" class="btn btn-blue btn-sm pl-4 pr-4">@T("Reviews.SubmitButton")</button>
         </div>
+        <div class="review-analytics">
+            <h6>Delivery Rating: @(Model.Items.Select(x => x.DeliveryRating).Sum() / Model.Items.Where(x => x.DeliveryRating != null).Count())</h6>
+            <h6>Consultation Rating: @(Model.Items.Select(x => x.ConsultationRating).Sum() / Model.Items.Where(x => x.ConsultationRating != null).Count())</h6>
+            <h6>Installation Rating: @(Model.Items.Select(x => x.InstallationRating).Sum() / Model.Items.Where(x => x.InstallationRating != null).Count())</h6>
+            <h6>Offline Order Rating: @(Model.Items.Select(x => x.OfflineOrderRating).Sum() / Model.Items.Where(x => x.OfflineOrderRating != null).Count())</h6>
+            <h6>Online Order Rating: @(Model.Items.Select(x => x.OnlineOrderRating).Sum() / Model.Items.Where(x => x.OnlineOrderRating != null).Count())</h6>
+            <h6>Will Recommend: Да - @Model.Items.Count(x => x.WillRecommend == true) / 
+                                Воздержался - @Model.Items.Count(x => x.WillRecommend == null) / 
+                                Нет - @Model.Items.Count(x => x.WillRecommend == false)</h6>
+            <h6>Total reviews: @Model.Items.Count</h6>
+        </div>
         <form method="post" id="add-review-form" style="display:none;" action="" class="mb-5">
             <div class="comment-title">
                 <h5>@T("reviews.write")</h5>

@@ -1417,6 +1417,8 @@ namespace Nop.Services.ExportImport
                         product.Width = decimal.Parse(item.Width.Replace('.', ','));
                         product.DiscountPrice = decimal.Parse(item.DiscountPrice.Replace('.', ','));
                         product.DiscountRate = decimal.Parse(item.DiscountRate.Replace('.', ','));
+                        product.Collection = item.Collection;
+                        product.ProductTypeForOneC = item.ProductType;
 
                         if (statusId > 0)
                         {
@@ -1461,6 +1463,19 @@ namespace Nop.Services.ExportImport
                         }
 
                         updateCount++;
+                    }
+
+                    //warehouse inventory
+                    _productService.DeleteAllProductWarehouseInventory(product.Id);
+                    if (item.Warehouses.Count > 0)
+                    {
+                        product.UseMultipleWarehouses = true;
+                        productWarehouseStatuses.ForEach(x => product.ProductWarehouseInventory.Add(new ProductWarehouseInventory()
+                        {
+                            ProductId = x.ProductId,
+                            WarehouseId = x.WarehouseId
+                        }));
+                        _productService.UpdateProduct(product);
                     }
 
                     //aplied discounts

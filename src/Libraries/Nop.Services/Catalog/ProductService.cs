@@ -2320,6 +2320,22 @@ namespace Nop.Services.Catalog
             _cacheManager.RemoveByPattern(NopCatalogDefaults.ProductsPatternCacheKey);
         }
 
+        /// <summary>
+        /// Deletes a ProductWarehouseInventory
+        /// </summary>
+        /// <param name="pwi">ProductWarehouseInventory</param>
+        public virtual void DeleteAllProductWarehouseInventory(int productId)
+        {
+            var query = from p in _productWarehouseInventoryRepository.Table
+                        where p.ProductId == productId
+                        select p;
+
+            foreach (var prod in query.ToList())
+            {
+                _productWarehouseInventoryRepository.Delete(prod);
+            }
+        }
+
         #endregion
 
         #region Stock quantity history

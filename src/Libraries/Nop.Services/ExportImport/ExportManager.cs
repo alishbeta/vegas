@@ -683,7 +683,7 @@ namespace Nop.Services.ExportImport
                     OrderNumber = o.Id,
                     UserIdOneC = o.Customer.IdOneC,
                     ClientName = string.Format("{0} {1}", _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.FirstNameAttribute), _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.LastNameAttribute)).Trim(),
-                    CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
+                    CustomerContact = o?.ShippingAddress?.PhoneNumber,
                     BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o?.PaymentMethodSystemName)?.PaymentMethodDescription,
                     Bonus = _rewardPointService.GetRewardPointsHistoryEntryById(o?.RewardPointsHistoryEntryId)?.Points ?? 0,
                     DeliveryMethod = o.ShippingMethod,

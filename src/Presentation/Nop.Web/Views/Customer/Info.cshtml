@@ -725,7 +725,7 @@
                             <span asp-validation-for="NumberDiscountCard"></span>
                         </div>
                         <div class="form-group row">
-                            <span asp-for="DiscountPercent" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.disount")</span>
+                            <label asp-for="DiscountPercent" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.disount")</label>
                             <span asp-for="DiscountPercent" class="col-sm-8">@Model.DiscountPercent</span>
                         </div>
                         <div class="line"></div>
@@ -738,7 +738,7 @@ Model.CountyEnabled ||
 Model.CountryEnabled)
 					{
 						<div id="secondZone">
-							<div class="title"><span>2</span>Адрес</div>
+							<div class="title"><span>2</span>@T("cabinet.address")</div>
 							<button type="button"
 									id="edit-addres"
 									class="btn btn-link">
