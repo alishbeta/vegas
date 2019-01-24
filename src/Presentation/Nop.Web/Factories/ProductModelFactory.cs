@@ -1230,11 +1230,12 @@ namespace Nop.Web.Factories
             };
 
             //product warehouses
+            model.ProductWarehouses = new List<ProductWarehouse>();
             if (product.UseMultipleWarehouses)
             {
                 foreach (var warehouse in product.ProductWarehouseInventory)
                 {
-                    model.ProductWarehouses.Append(new ProductWarehouse()
+                    model.ProductWarehouses.Add(new ProductWarehouse()
                     {
                         StockQuantity = warehouse.StockQuantity,
                         WarehouseId = warehouse.WarehouseId,
@@ -1244,7 +1245,7 @@ namespace Nop.Web.Factories
             }
             else
             {
-                model.ProductWarehouses.Append(new ProductWarehouse()
+                model.ProductWarehouses.Add(new ProductWarehouse()
                 {
                     WarehouseId = product.WarehouseId,
                     Name = _shippingService.GetWarehouseById(product.WarehouseId)?.Name,

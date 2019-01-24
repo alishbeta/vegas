@@ -51,7 +51,7 @@ namespace Nop.Web.Models.Catalog
 		public int SleepWidth { get; set; }
 		public int SleepLength { get; set; }
 		public string MakeCode { get; set; }
-        public IEnumerable<ProductWarehouse> ProductWarehouses { get; set; }
+        public IList<ProductWarehouse> ProductWarehouses { get; set; }
         public ProductReviewsModel Reviews { get; set; }
 
         public ProductType ProductType { get; set; }
