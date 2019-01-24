@@ -741,7 +741,6 @@ namespace Nop.Services.ExportImport
                     Username = d?.Username,
                     Email = d?.Email,
                     Address = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.StreetAddressAttribute),
-                    Apartament = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.StreetAddress2Attribute),
                     City = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.CityAttribute),
                     FirstName = string.Format("{0} {1}", _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.FirstNameAttribute), _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.LastNameAttribute)),
                     //LastName = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.LastNameAttribute),

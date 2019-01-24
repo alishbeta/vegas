@@ -781,18 +781,6 @@ Model.CountryEnabled)
 									<span asp-validation-for="StreetAddress"></span>
 								</div>
 							}
-							@if (Model.StreetAddress2Enabled)
-							{
-								<div class="form-group row">
-									<label asp-for="StreetAddress2" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.flat")</label>
-									<input asp-for="StreetAddress2" class="form-control col-sm-8" disabled />
-									@if (Model.StreetAddress2Required)
-									{
-										<nop-required />
-									}
-									<span asp-validation-for="StreetAddress2"></span>
-								</div>
-							}
 						</div>
 						<div id="thirdZone">
 							<div class="title"><span>3</span>Пароль</div>

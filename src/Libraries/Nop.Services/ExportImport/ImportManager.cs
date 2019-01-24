@@ -1202,7 +1202,6 @@ namespace Nop.Services.ExportImport
                         _customerService.InsertCustomer(customer);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CityAttribute, user.City);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
-                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, user.FirstName);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.PhoneAttribute, user.PhoneNumber);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.NumberDiscountCard, user.NumberDiscountCard);
@@ -1230,7 +1229,6 @@ namespace Nop.Services.ExportImport
                         customer.TotalSpent = user.TotalSpent;
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CityAttribute, user.City);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
-                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, user.FirstName);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.NumberDiscountCard, user.NumberDiscountCard);
 

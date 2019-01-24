@@ -407,10 +407,6 @@
                     <label class="col-form-label col-sm-3">@T("admin.orders.address.address1")</label>
                     <input type="text" name="StreetAddress1" class="form-control col-sm-8">
                 </div>
-                <div class="form-group row d-none" id="new-field-flat">
-                    <label class="col-form-label col-sm-3">@T("admin.orders.address.address2")</label>
-                    <input type="text" name="StreetAddress2" class="form-control col-sm-2">
-                </div>
                 <div id="new-nova-poshta-fields" class="form-group row d-none">
                     <label for="new-newpost-department" class="col-form-label col-sm-3">@T("cart.newpost.department")</label>
                     <input type="text" id="new-newpost-department" value="" class="form-control col-sm-5" />
@@ -636,16 +632,6 @@
                                        class="form-control col-sm-8"
                                        value="@Model.CustomerInfo.StreetAddress" disabled>
                             </div>
-                            <div id="old-field-flat" class="form-group row d-none">
-                                <label class="col-form-label col-sm-3" for="ai3">
-                                    @T("cart.flat")
-                                </label>
-                                <input id="ai3"
-                                       type="text"
-                                       name="StreetAddress2"
-                                       class="form-control col-sm-8"
-                                       value="@Model.CustomerInfo.StreetAddress2" disabled>
-                            </div>
                             <div id="old-nova-poshta-fields" class="form-group row d-none">
                                 <label for="old-newpost-department" class="col-form-label col-sm-3">@T("cart.newpost.department")</label>
                                 <input type="text" id="old-newpost-department" value="" class="form-control col-sm-5" />
@@ -785,7 +771,6 @@
             });
             if (!$("#old-nova-poshta-fields").hasClass("d-none")) {
                 $(".active [name=StreetAddress1]").val($("#old-newpost-department").val());
-                $(".active [name=StreetAddress2]").val("");
 
             }
         }
@@ -824,7 +809,6 @@
             });
             if (!$("#new-nova-poshta-fields").hasClass("d-none")) {
                 $(".active [name=StreetAddress1]").val($("#new-newpost-department").val());
-                $(".active [name=StreetAddress2]").val("");
 
             }
         }

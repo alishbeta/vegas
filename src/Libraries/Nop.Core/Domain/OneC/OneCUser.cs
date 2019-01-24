@@ -17,7 +17,6 @@ namespace Nop.Core.Domain.OneC
         public string PhoneNumber { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-        public string Apartament { get; set; }
         public string NumberDiscountCard { get; set; }
         public int Percent { get; set; }
         public decimal SumActiveBonus { get; set; }
