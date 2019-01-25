@@ -684,12 +684,14 @@ namespace Nop.Services.ExportImport
                     UserIdOneC = o.Customer.IdOneC,
                     ClientName = string.Format("{0} {1}", _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.FirstNameAttribute), _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.LastNameAttribute)).Trim(),
                     CustomerContact = o?.ShippingAddress?.PhoneNumber,
-                    BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o?.PaymentMethodSystemName)?.PaymentMethodDescription,
+                    BillingMethod = o?.PaymentMethodSystemName,
                     Bonus = _rewardPointService.GetRewardPointsHistoryEntryById(o?.RewardPointsHistoryEntryId)?.Points ?? 0,
                     DeliveryMethod = o.ShippingMethod,
                     DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
                     Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProduxtSku = oi.Product.Sku, Quantity = oi.Quantity }),
-                    Discount = o.OrderDiscount
+                    Discount = o.OrderDiscount,
+                    Email = o?.ShippingAddress?.Email
+
                 }));
         }
 

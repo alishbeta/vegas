@@ -14,6 +14,7 @@ using Nop.Core.Domain.Discounts;
 using Nop.Core.Domain.Media;
 using Nop.Core.Domain.Messages;
 using Nop.Core.Domain.OneC;
+using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Vendors;
@@ -29,6 +30,7 @@ using Nop.Services.Logging;
 using Nop.Services.Media;
 using Nop.Services.Messages;
 using Nop.Services.Orders;
+using Nop.Services.Payments;
 using Nop.Services.Security;
 using Nop.Services.Seo;
 using Nop.Services.Shipping;
@@ -90,6 +92,8 @@ namespace Nop.Services.ExportImport
         private readonly ICustomerService _customerService;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly IDiscountService _discountService;
+        private readonly IOrderService _orderService;
+        private readonly IPaymentService _paymentService;
 
         #endregion
 
@@ -128,7 +132,9 @@ namespace Nop.Services.ExportImport
             VendorSettings vendorSettings,
             ICustomerService customerService,
             IGenericAttributeService genericAttributeService,
-            IDiscountService discountService)
+            IDiscountService discountService,
+            IOrderService orderService,
+            IPaymentService paymentService)
         {
             this._rewardPointService = rewardPointService;
             this._catalogSettings = catalogSettings;
@@ -164,6 +170,8 @@ namespace Nop.Services.ExportImport
             this._customerService = customerService;
             this._genericAttributeService = genericAttributeService;
             this._discountService = discountService;
+            this._orderService = orderService;
+            this._paymentService = paymentService;
         }
 
         #endregion
@@ -1610,6 +1618,50 @@ namespace Nop.Services.ExportImport
                     //}
                 }
                 return new Tuple<bool, string>(true, String.Format("Products {0} added. Products {1} Updated. Manufactures {2} added.", newCount, updateCount, manufacturAddedCount));
+            }
+            catch (Exception ex)
+            {
+                return new Tuple<bool, string>(false, ex.Message);
+            }
+        }
+        
+        /// <summary>
+        /// Import orders from 1C
+        /// </summary>
+        /// <param name="products">List<ProductFromOneC></param>
+        public virtual Tuple<bool, string> ImportOrdersFromOneC (List<OneCOrder> orders)
+        {
+            try
+            {
+                int errorsCount = 0, updateCount = 0;
+                foreach (var item in orders)
+                {
+                    var order = _orderService.GetOrderById(item.OrderNumber);
+                    if (order == null || order.Customer?.IdOneC != item.UserIdOneC)
+                    {
+                        errorsCount++;
+                        continue;
+                    }
+                    else
+                    {
+                        order.OrderTotal = item.Price;
+                        order.ShippingMethod = item.DeliveryMethod;
+                        order.OrderDiscount = item.Discount;
+                        order.PaymentMethodSystemName = item.BillingMethod;
+                        _genericAttributeService.SaveAttribute(order.Customer, NopCustomerDefaults.FirstNameAttribute, item.ClientName);
+                        foreach (var orderItem in item.Products)
+                        {
+                            var product = _productService.GetProductBySku(orderItem.ProduxtSku);
+                            order.OrderItems.Add(new OrderItem
+                            {
+                                Id = product.Id,
+                                Quantity = orderItem.Quantity
+                            });
+                        }
+                        updateCount++;
+                    }
+                }
+                return new Tuple<bool, string>(true, String.Format("Orders {0} Updated. Errors {1}.", updateCount, errorsCount));
             }
             catch (Exception ex)
             {
