@@ -632,20 +632,25 @@ namespace Nop.Services.Orders
             if (!useRewardPoints.Value)
                 return;
 
+            int rewardPointsToSpent = _genericAttributeService.GetAttribute<int>(customer, NopCustomerDefaults.RewardPointsToSpentDuringCheckoutAttribute, _storeContext.CurrentStore.Id);
+
             var rewardPointsBalance = _rewardPointService.GetRewardPointsBalance(customer.Id, _storeContext.CurrentStore.Id);
             rewardPointsBalance = _rewardPointService.GetReducedPointsBalance(rewardPointsBalance);
 
             if (!CheckMinimumRewardPointsToUseRequirement(rewardPointsBalance))
                 return;
 
-            var rewardPointsBalanceAmount = ConvertRewardPointsToAmount(rewardPointsBalance);
+            if (rewardPointsBalance < rewardPointsToSpent)
+                return;
+
+            var rewardPointsBalanceAmount = ConvertRewardPointsToAmount(rewardPointsToSpent);//rewardPointsBalance);
 
             if (orderTotal <= decimal.Zero)
                 return;
 
             if (orderTotal > rewardPointsBalanceAmount)
             {
-                redeemedRewardPoints = rewardPointsBalance;
+                redeemedRewardPoints = rewardPointsToSpent;//rewardPointsBalance;
                 redeemedRewardPointsAmount = rewardPointsBalanceAmount;
             }
             else

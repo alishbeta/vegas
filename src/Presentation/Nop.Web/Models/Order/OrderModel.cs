@@ -18,5 +18,6 @@ namespace Nop.Web.Models.Order
 		public string City { get; set; }
 		public string PaymentType { get; set; }
 		public bool PayByBonuses { get; set; }
-	}
+        public int BonusesToSpent { get; set; }
+    }
 }

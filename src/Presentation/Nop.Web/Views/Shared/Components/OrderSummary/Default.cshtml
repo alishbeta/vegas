@@ -544,7 +544,7 @@
                             <button type="button" id="edit-name" class="btn btn-link">
                                 @T("cart.changeinfo")
                             </button>
-                            <button style="display: none;" onclick="CancelChangesInZone(1)" type="button" id="edit-name-close" class="btn btn-link">
+                            <button style="display: none;" type="button" id="edit-name-close" class="btn btn-link">
                                 @T("cart.cancel")
                             </button>
 
@@ -573,7 +573,7 @@
                             <button type="button" id="edit-addres" class="btn btn-link">
                                 @T("cart.changeaddr")
                             </button>
-                            <button type="button" id="edit-addres-close" onclick="CancelChangesInZone(2)" style="display: none" class="btn btn-link">
+                            <button type="button" id="edit-addres-close" style="display: none" class="btn btn-link">
                                 @T("cart.cancel")
                             </button>
                             <div class="form-inline form-group row">
@@ -668,6 +668,8 @@
                                 (@T("cart.yourbalance") @ViewBag.BonusesBalance @T("cart.bonuses"))
                             </label>
                             <a href="#" class="btn btn-link">@T("cart.moreinfo")</a>
+                            <input type="number" id="BonusesToSpent" name="BonusesToSpent" class="form-control col-sm-8" style="display:none;" max="@ViewBag.BonusesBalance" min="0" value="@ViewBag.BonusesBalance">
+                            <button id="setRewardPoints" type="button" class="btn btn-link" style="display:none;">@T("cart.ok")</button>
                         </div>
 
                         <div class="line"></div>
@@ -711,32 +713,43 @@
         }
     });
 
-    function RecountTotal(value) {
-        if (value) {
-            $("#cart-price-full").text(parseInt($("#cart-price-full").text()) - @ViewBag.BonusesBalance);
-            $("#bonuses-lost-tip").css("display", "block");
-            $("#bonuses-earn-tip").css("display", "none");
-            $("#bonuses-ballance").text("@ViewBag.BonusesBalance");
+    $("#setRewardPoints").on("click", function (e) {
+        RecountTotal(true);
+        if ($("#BonusesToSpent").attr("disabled") == "disabled") {
+            $("#BonusesToSpent").attr("disabled", false);
+            $("#setRewardPoints").text("@T("cart.points.ok")");
         }
         else {
-            $("#cart-price-full").text(parseInt($("#cart-price-full").text()) + @ViewBag.BonusesBalance);
+            $("#BonusesToSpent").attr("disabled", true);
+            $("#setRewardPoints").text("@T("cart.points.change")");
+        }
+        return false;
+    });
+
+    function RecountTotal(value) {
+        if (value) {
+            $("#BonusesToSpent").css("display", "block");
+            $("#setRewardPoints").css("display", "block");
+            var newSum = parseInt($("#cart-price-full").data("price")) - $("#BonusesToSpent").val();
+            if (newSum >= 0) {
+                $("#cart-price-full").text(newSum);
+            }
+            else {
+                $("#cart-price-full").text(0);
+            }
+            $("#bonuses-lost-tip").css("display", "block");
+            $("#bonuses-earn-tip").css("display", "none");
+            $("#bonuses-ballance").text($("#BonusesToSpent").val());
+        }
+        else {
+            $("#BonusesToSpent").css("display", "none");
+            $("#setRewardPoints").css("display", "none");
+            $("#cart-price-full").text($("#cart-price-full").data("price"));
             $("#bonuses-lost-tip").css("display", "none");
             $("#bonuses-earn-tip").css("display", "block");
         }
     }
 
-	function CancelChangesInZone(index) {
-		//if (index == 1) {
-		//	$("#firstZone .row").each(function () {
-		//		$(this).find('input').val($(this).find('.text-light-c').text());
-		//	});
-		//}
-		//if (index == 2) {
-		//	$("#secondZone .row").each(function () {
-		//		$(this).find('input').val($(this).find('.text-light-c').text());
-		//	});
-		//}
-	}
     $("#checkout-old").on("click", function (e) {
         var valid = true;
 		if ($("#li1").val().length == 0) {

@@ -170,7 +170,7 @@
                     </div>
                     <div class="total-wrap mb-3 text-center">
                         <span>@T("cart.total") <span id="cart-count-full">0</span> @T("cart.total.text")</span>
-                        <span><span id="cart-price-full">0</span> грн</span>
+                        <span><span data-price="0" id="cart-price-full">0</span> грн</span>
                         <br />
                         <small id="bonuses-earn-tip">@T("cart.willearn") @Model.WillEarnRewardPoints @T("cart.points")</small>
                         <small id="bonuses-lost-tip" style="display: none;">@T("cart.willlost") <span id="bonuses-ballance"></span> @T("cart.bonuses")</small>
@@ -199,6 +199,7 @@
                     count += product.Quantity;
                 });
                 $("#cart-price-full").text(sum);
+                $("#cart-price-full").data("price", sum);
                 $("#cart-count-full").text(count);
             });
         });
