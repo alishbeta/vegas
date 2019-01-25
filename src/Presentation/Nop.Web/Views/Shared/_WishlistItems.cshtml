@@ -20,7 +20,7 @@
             <i class="compare_icon" data-ids="@item.ProductId" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
             <i class="close-i" onclick="RemoveFromCart(@item.ProductId, 2, true)"></i>
         </div>
-        <a href="@Url.RouteUrl("Product", new { productId = item.ProductId, SeName = item.ProductSeName })">
+        <a href="@Url.RouteUrl("ProductInfo", new { SeName = item.ProductSeName })">
             <img class="product" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
         </a>
         @if (item.DiscountPercentage != decimal.Zero)
@@ -29,7 +29,7 @@
         }
     </div>
     <div class="main-prop-wrap text-left">
-        <a href="@Url.RouteUrl("Product", new { productId = item.ProductId, SeName = item.ProductSeName })">
+        <a href="@Url.RouteUrl("ProductInfo", new { SeName = item.ProductSeName })">
             <div class="product-name text-light-c">@item.ProductName</div>
         </a>
         <div class="product-prop"></div>
