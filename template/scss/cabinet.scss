@@ -15,11 +15,6 @@
         font-size: 16px;
         border: 1px solid $border_color;
         padding: 30px 20px;
-        select:disabled{
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
         .title {
             font-weight: 600;
             display: inline-block;
@@ -57,6 +52,11 @@
         .form-control:disabled {
             background-color: transparent;
             border: 1px solid transparent;
+        }
+        select:disabled{
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
     }
     .cabinet-info-main {
