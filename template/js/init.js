@@ -297,11 +297,11 @@ $(document).ready(function () {
     /*#####################    Кабинет  (Редактирование личных данных и адреса) ###############################*/
     $('#edit-addres').on('click', function () {
         $(this).hide().next().show();
-        $('#secondZone input:not([type="radio"], #old-newpost-department)').attr('disabled', false);
+        $('#secondZone input:not([type="radio"], #old-newpost-department), #secondZone select').attr('disabled', false);
     });
     $('#edit-addres-close').on('click', function () {
         $(this).hide().prev().show();
-        $('#secondZone input:not([type="radio"], #old-newpost-department)').attr('disabled', true);
+        $('#secondZone input:not([type="radio"], #old-newpost-department), #secondZone select').attr('disabled', true);
     });
 
     $('#edit-name').on('click', function () {

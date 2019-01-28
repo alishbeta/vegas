@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,900");
 @font-face {
   font-family: Lato;
   src: url("../fonts/Lato-Regular.eot");
@@ -1247,8 +1246,9 @@ nav.breadcrumb-wrap a:hover {
   left: 140px;
 }
 .cat .filters-data input:not([type*='checkbox']) {
-  width: 70px;
-  margin: 0 15px;
+  width: 67px;
+  margin: 0 8px;
+  font-size: 14px;
 }
 .cat button.vg-filter.open:after {
   -moz-transform: rotate(-135deg);
@@ -1267,6 +1267,16 @@ nav.breadcrumb-wrap a:hover {
 }
 .cat .mobile-f .check-fly input + label + label {
   font-size: 12px;
+}
+.cat .description {
+  margin-left: 20px;
+}
+.cat .description ul {
+  margin: 1em;
+  padding-inline-start: 40px;
+}
+.cat .description ul li {
+  list-style: disc;
 }
 
 .content .title {
@@ -1785,7 +1795,7 @@ footer a:hover {
   background-color: #bfdce6;
 }
 .filters-wrap .f1 {
-  padding: 15px 30px;
+  padding: 15px 10px;
   -webkit-box-shadow: 8px 0px 25px -8px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 8px 0px 25px -8px rgba(0, 0, 0, 0.2);
   box-shadow: 8px 0px 25px -8px rgba(0, 0, 0, 0.2);
@@ -1915,8 +1925,10 @@ small {
   margin-bottom: 0;
 }
 .filters-data.open {
-  width: 290px;
+  width: 250px;
   height: auto;
+  margin-top: -15px;
+  margin-left: -14px;
 }
 .filters-data .inner-wrap {
   padding: 20px 30px;
@@ -2430,6 +2442,12 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 }
 .cart .cart-wrap .np-open, .cart-popup-wrap .cart-wrap .np-open {
   color: #2c96b9;
+}
+.cart .cart-wrap .img-wrapp, .cart-popup-wrap .cart-wrap .img-wrapp {
+  min-height: 120px;
+  float: left;
+  width: 125px;
+  margin-right: 15px;
 }
 .cart .order-wrapp, .cart-popup-wrap .order-wrapp {
   width: 370px;
@@ -3494,13 +3512,15 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   border: 1px solid #cdd2d4;
   padding: 30px 20px;
 }
-.cabinet .cabinet-info .title {
+.cabinet .cabinet-info select:disabled
+.title {
   font-weight: 600;
   display: inline-block;
   display: inline-block;
   font-size: 16px;
 }
-.cabinet .cabinet-info .title span {
+.cabinet .cabinet-info select:disabled
+.title span {
   display: inline-block;
   border: 1px solid #2c96b9;
   padding: 5px 11px;

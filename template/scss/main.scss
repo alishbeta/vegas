@@ -541,7 +541,7 @@ footer a {
 .filters-wrap {
     background-color: #bfdce6;
     .f1 {
-        padding: 15px 30px;
+        padding: 15px 10px;
         -webkit-box-shadow: 8px 0px 25px -8px rgba(0, 0, 0, 0.2);
         -moz-box-shadow: 8px 0px 25px -8px rgba(0, 0, 0, 0.2);
         box-shadow: 8px 0px 25px -8px rgba(0, 0, 0, 0.2);
@@ -664,8 +664,10 @@ small {
         margin-bottom: 0;
     }
     &.open {
-        width: 290px;
+        width: 250px;
         height: auto;
+        margin-top: -15px;
+        margin-left: -14px;
     }
     .inner-wrap {
         padding: 20px 30px;

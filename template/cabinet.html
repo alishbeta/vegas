@@ -473,27 +473,79 @@
 
                                     <div class="line"></div>
 
-                                    <div class="title"><span>2</span>Адрес</div>
-                                    <button type="button" id="edit-addres" class="btn btn-link">Изменить адрес</button>
-                                    <button type="button" id="edit-addres-close" style="display: none" class="btn btn-link">Отмена</button>
-                                    <div class="form-group row">
-                                        <label style="display: none" class="col-form-label col-sm-3" for="li1">Имя и
-                                            фамилия</label>
-                                        <input style="display: none" id="ai1" type="text" class="form-control col-sm-8">
-                                        <div class="col-sm-3">Город доставки</div>
-                                        <div class="col-sm-8 text-light-c">Киев</div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label style="display: none" class="col-form-label col-sm-3" for="li2">Улица</label>
-                                        <input style="display: none" id="ai2" type="text" class="form-control col-sm-8">
-                                        <div class="col-sm-3">Улица</div>
-                                        <div class="col-sm-8 text-light-c">Рижская, 25</div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label style="display: none" class="col-form-label col-sm-3" for="li3">Квартира</label>
-                                        <input style="display: none" id="ai3" type="text" class="form-control col-sm-8">
-                                        <div class="col-sm-3">Квартира</div>
-                                        <div class="col-sm-8 text-light-c">34</div>
+                                    <div id="secondZone">
+                                        <div class="title"><span>2</span>Адрес</div>
+                                        <button type="button" id="edit-addres" class="btn btn-link" style="">
+                                            Изменить адрес
+                                        </button>
+                                        <button type="button" id="edit-addres-close" style="display: none;" onclick="CancelChangesInZone(2)" class="btn btn-link">
+                                            Отменить
+                                        </button>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-sm-3" for="City">Регион:</label>
+                                            <select class="form-control col-sm-8" disabled="" id="City" name="City">
+                                                
+                    <option>Винница</option>
+                    <option>Винницкая обл.</option>
+                    <option>Волынская обл.</option>
+                    <option>Днепр</option>
+                    <option>Днепропетровская обл.</option>
+                    <option>Донецкая обл.</option>
+                    <option>Житомир</option>
+                    <option>Житомирская обл.</option>
+                    <option>Закарпатская обл.</option>
+                    <option>Запорожская обл.</option>
+                    <option>Запорожье</option>
+                    <option>Ивано-Франковск</option>
+                    <option>Ивано-Франковская обл.</option>
+                    <option>Киев</option>
+                    <option>Киевская обл.</option>
+                    <option>Кировоградская обл.</option>
+                    <option>Кропивницкий</option>
+                    <option>Луганская обл.</option>
+                    <option>Луцк</option>
+                    <option>Львов</option>
+                    <option>Львовская обл.</option>
+                    <option>Мариуполь</option>
+                    <option>Николаев</option>
+                    <option>Николаевская обл.</option>
+                    <option>Одесса</option>
+                    <option>Одесская обл.</option>
+                    <option>Полтава</option>
+                    <option>Полтавская обл.</option>
+                    <option>Ровненская обл.</option>
+                    <option>Ровно</option>
+                    <option>Северодонецк</option>
+                    <option>Сумская обл.</option>
+                    <option>Сумы</option>
+                    <option>Тернополь</option>
+                    <option>Тернопольская обл.</option>
+                    <option>Ужгород</option>
+                    <option>Харьков</option>
+                    <option>Харьковская обл.</option>
+                    <option>Херсон</option>
+                    <option>Херсонская обл.</option>
+                    <option>Хмельницкая обл.</option>
+                    <option>Хмельницкий</option>
+                    <option>Черкасская обл.</option>
+                    <option>Черкассы</option>
+                    <option>Чернигов</option>
+                    <option>Черниговская обл.</option>
+                    <option>Черновицкая обл.</option>
+                    <option>Черновцы</option>
+            
+                                            </select>
+                                            <span class="field-validation-valid" data-valmsg-for="City" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-sm-3" for="City">Регион:</label>
+                                            <span></span>
+                                        </div>
+                                                                        <div class="form-group row">
+                                                <label class="col-form-label col-sm-3" for="StreetAddress">Адрес:</label>
+                                                <input class="form-control col-sm-8" type="text" id="StreetAddress" name="StreetAddress" value="Мельникова, 83а" disabled="disabled">
+                                                <span class="field-validation-valid" data-valmsg-for="StreetAddress" data-valmsg-replace="true"></span>
+                                            </div>
                                     </div>
 
                                     <div class="line"></div>
@@ -572,5 +624,5 @@
 
     </div>
 </body>
-
+<script src="js/jquery.smoothdivscroll-1.3-min.js" crossorigin="anonymous"></script>
 </html>
