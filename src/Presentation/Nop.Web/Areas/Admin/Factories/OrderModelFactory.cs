@@ -1706,7 +1706,9 @@ namespace Nop.Web.Areas.Admin.Factories
                 _orderReportService.OrderAverageReport(0, OrderStatus.Pending),
                 _orderReportService.OrderAverageReport(0, OrderStatus.Processing),
                 _orderReportService.OrderAverageReport(0, OrderStatus.Complete),
-                _orderReportService.OrderAverageReport(0, OrderStatus.Cancelled)
+                _orderReportService.OrderAverageReport(0, OrderStatus.Cancelled),
+                _orderReportService.OrderAverageReport(0, OrderStatus.CourierDelivery),
+                _orderReportService.OrderAverageReport(0, OrderStatus.SelfDelivery)
             };
 
             //prepare list model

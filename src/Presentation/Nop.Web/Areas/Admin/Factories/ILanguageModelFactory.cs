@@ -38,5 +38,6 @@ namespace Nop.Web.Areas.Admin.Factories
         /// <param name="language">Language</param>
         /// <returns>Locale resource list model</returns>
         LocaleResourceListModel PrepareLocaleResourceListModel(LocaleResourceSearchModel searchModel, Language language);
+        LocaleResourceListModel PrepareLocaleResourceModel(LocaleResourceSearchModel searchModel, Language language);
     }
 }

@@ -16,30 +16,36 @@
 		@await Component.InvokeAsync("OurStoresMenu", new { active = Model.Name })
 		<div class="map-wrap">
 			<div id="map"></div>
-			<div class="row img-wrap clearfix text-center">
-                
-				@{
+            <div class="row img-wrap clearfix text-center">
+
+                @{
                     var addresses = new List<dynamic>();
                     foreach (var address in Model.Addresses)
                     {
-					<div class="img col-lg-6">
-						<a href="/storeinfo?addressId=@address.Id">
-							<img src="@(Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Pictures?.FirstOrDefault(x => x.PictureUrl != null)?.PictureUrl ?? "/img/logo.png")" alt="">
-							<div class="text-wrap">
-								<div><b>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Name</b></div>
-								<div class="address" data-addr="@address.Address1">@address.Address1</div>
-                                <div>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.WorkTime</div>
-							</div>
-						</a>
-					</div>
+                        <div class="img col-lg-6">
+                            <a href="/storeinfo?addressId=@address.Id">
+                                <img src="@(Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Pictures?.FirstOrDefault(x => x.PictureUrl != null)?.PictureUrl ?? "/img/logo.png")" alt="">
+                                <div class="text-wrap">
+                                    <div><b>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Name</b></div>
+                                    <div class="address" data-addr="@address.Address1">@address.Address1</div>
+                                    <div>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.WorkTime</div>
+                                </div>
+                            </a>
+                        </div>
                         var warehouse = Model.Warehouses.FirstOrDefault(x => x.AddressId == address.Id);
-                        var description = string.Format("{0}\n{1}", address.Address1 ?? "", warehouse.AdminComment);
-                        var addr = warehouse.Name;
+                        var workTime = warehouse.AdminComment;
+                        var addr = address.Address1;
+                        var name = warehouse.Name;
+                        var phone = address.PhoneNumber;
+                        var city = address.City;
 
                         addresses.Add(new
                         {
+                            city,
+                            name,
                             addr,
-                            description,
+                            phone,
+                            workTime,
                             zoom = 6
                         });
                         //var description = Model.Warehouses.FirstOrDefault(x => x.AddressId == address.Id).AdminComment?.Replace("\n", "").Replace("\r", "");
@@ -52,8 +58,8 @@
                         //});
                     }
                 }
-				<span id="address" style="display:none!important;" data-address="@Newtonsoft.Json.JsonConvert.SerializeObject(addresses)"></span>
-			</div>
+                <span id="address" style="display:none!important;" data-address="@Newtonsoft.Json.JsonConvert.SerializeObject(addresses)"></span>
+            </div>
 		</div>
 	</div>
 </div>

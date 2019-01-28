@@ -359,6 +359,7 @@ namespace Nop.Web.Areas.Admin.Controllers
                 if (_customerSettings.GenderEnabled)
                     _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.GenderAttribute, model.Gender);
                 _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, model.FirstName);
+                _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.NumberDiscountCard, model.NumberDiscountCard);
                 _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.LastNameAttribute, model.LastName);
                 if (_customerSettings.DateOfBirthEnabled)
                     _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.DateOfBirthAttribute, model.DateOfBirth);

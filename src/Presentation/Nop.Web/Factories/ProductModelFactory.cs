@@ -1127,7 +1127,7 @@ namespace Nop.Web.Factories
             if (products == null)
                 throw new ArgumentNullException(nameof(products));
 
-            var models = new List<ProductOverviewModel>();
+            IList<ProductOverviewModel> models = new List<ProductOverviewModel>();
             foreach (var product in products)
 			{
 				var model = new ProductOverviewModel
@@ -1155,7 +1155,13 @@ namespace Nop.Web.Factories
                 //price
                 if (preparePriceModel)
                 {
-                    model.ProductPrice = PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
+                    var cacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_PRICE_MODEL_KEY, product.Id);
+
+                    model.ProductPrice = _cacheManager.Get(cacheKey, () =>
+                    {
+                        return PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
+                    }, 24 * 60);
+                    //model.ProductPrice = PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
                 }
 				model.ProductPrice.Discount = product.DiscountProductMappings.Count > 0 ? product.DiscountProductMappings.FirstOrDefault().Discount.DiscountPercentage : (decimal)0;
 
@@ -1187,7 +1193,7 @@ namespace Nop.Web.Factories
         /// <param name="isAssociatedProduct">Whether the product is associated</param>
         /// <returns>Product details model</returns>
         public virtual ProductDetailsModel PrepareProductDetailsModel(Product product,
-            ShoppingCartItem updatecartitem = null, bool isAssociatedProduct = false)
+            ShoppingCartItem updatecartitem = null, bool isAssociatedProduct = false, bool loadSeName = true)
         {
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
@@ -1202,7 +1208,7 @@ namespace Nop.Web.Factories
                 MetaKeywords = _localizationService.GetLocalized(product, x => x.MetaKeywords),
                 MetaDescription = _localizationService.GetLocalized(product, x => x.MetaDescription),
                 MetaTitle = _localizationService.GetLocalized(product, x => x.MetaTitle),
-                SeName = _urlRecordService.GetSeName(product),
+                SeName = loadSeName ? _urlRecordService.GetSeName(product) : "",
                 ProductType = product.ProductType,
                 ShowSku = _catalogSettings.ShowSkuOnProductDetailsPage,
                 Sku = product.Sku,
@@ -1212,7 +1218,7 @@ namespace Nop.Web.Factories
                 ShowGtin = _catalogSettings.ShowGtin,
                 Gtin = product.Gtin,
                 ManageInventoryMethod = product.ManageInventoryMethod,
-                StockAvailability = _productService.FormatStockMessage(product, ""),
+                StockAvailability = "",//_productService.FormatStockMessage(product, ""),
 				Width = product.Width,
 				Height = product.Height,
 				Lendth = product.Length,
@@ -1224,6 +1230,7 @@ namespace Nop.Web.Factories
             };
 
             //product warehouses
+            model.ProductWarehouses = new List<ProductWarehouse>();
             if (product.UseMultipleWarehouses)
             {
                 foreach (var warehouse in product.ProductWarehouseInventory)
@@ -1272,23 +1279,6 @@ namespace Nop.Web.Factories
             model.CompareProductsEnabled = _catalogSettings.CompareProductsEnabled;
             //store name
             model.CurrentStoreName = _localizationService.GetLocalized(_storeContext.CurrentStore, x => x.Name);
-
-            //vendor details
-            if (_vendorSettings.ShowVendorOnProductDetailsPage)
-            {
-                var vendor = _vendorService.GetVendorById(product.VendorId);
-                if (vendor != null && !vendor.Deleted && vendor.Active)
-                {
-                    model.ShowVendor = true;
-
-                    model.VendorModel = new VendorBriefInfoModel
-                    {
-                        Id = vendor.Id,
-                        Name = _localizationService.GetLocalized(vendor, x => x.Name),
-                        SeName = _urlRecordService.GetSeName(vendor),
-                    };
-                }
-            }
 
             //page sharing
             if (_catalogSettings.ShowShareButton && !string.IsNullOrEmpty(_catalogSettings.PageShareCode))
@@ -1470,6 +1460,12 @@ namespace Nop.Web.Factories
                     ReviewText = pr.ReviewText,
                     ReplyText = pr.ReplyText,
                     Rating = pr.Rating,
+                    ConsultationRating = pr.ConsultationRating,
+                    DeliveryRating = pr.DeliveryRating,
+                    InstallationRating = pr.InstallationRating,
+                    OfflineOrderRating = pr.OfflineOrderRating,
+                    OnlineOrderRating = pr.OnlineOrderRating,
+                    WillRecommend = pr.WillRecommend,
                     Helpfulness = new ProductReviewHelpfulnessModel
                     {
                         ProductReviewId = pr.Id,
@@ -1680,7 +1676,7 @@ namespace Nop.Web.Factories
                             break;
                     }
                     return m;
-                }).ToList()
+                }).ToList(), 24 * 60
             );
         }
 

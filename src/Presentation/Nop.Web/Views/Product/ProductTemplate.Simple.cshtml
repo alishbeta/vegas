@@ -1,154 +1,154 @@
 ﻿@*@model ProductDetailsModel
-	@using Microsoft.AspNetCore.Http.Extensions
-	@using Nop.Core.Domain.Seo;
-	@inject Nop.Core.IWebHelper webHelper
-	@inject SeoSettings seoSettings
-	@{
-		Layout = "_ColumnsOne";
+    @using Microsoft.AspNetCore.Http.Extensions
+    @using Nop.Core.Domain.Seo;
+    @inject Nop.Core.IWebHelper webHelper
+    @inject SeoSettings seoSettings
+    @{
+        Layout = "_ColumnsOne";
 
-		//title
-		Html.AddTitleParts(!string.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
-		//meta
-		Html.AddMetaDescriptionParts(Model.MetaDescription);
-		Html.AddMetaKeywordParts(Model.MetaKeywords);
-		//page class
-		Html.AppendPageCssClassParts("html-product-details-page");
+        //title
+        Html.AddTitleParts(!string.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+        //meta
+        Html.AddMetaDescriptionParts(Model.MetaDescription);
+        Html.AddMetaKeywordParts(Model.MetaKeywords);
+        //page class
+        Html.AppendPageCssClassParts("html-product-details-page");
 
-		//canonical URL
-		if (seoSettings.CanonicalUrlsEnabled)
-		{
-			var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, webHelper.CurrentRequestProtocol).ToLowerInvariant();
-			Html.AddCanonicalUrlParts(productUrl, seoSettings.QueryStringInCanonicalUrlsEnabled);
-		}
+        //canonical URL
+        if (seoSettings.CanonicalUrlsEnabled)
+        {
+            var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, webHelper.CurrentRequestProtocol).ToLowerInvariant();
+            Html.AddCanonicalUrlParts(productUrl, seoSettings.QueryStringInCanonicalUrlsEnabled);
+        }
 
-		//open graph META tags
-		if (seoSettings.OpenGraphMetaTags)
-		{
-			Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
-			Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
-			Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
-			Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
-			Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + webHelper.GetThisPageUrl(true) + "\" />");
-			Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
-		}
+        //open graph META tags
+        if (seoSettings.OpenGraphMetaTags)
+        {
+            Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + webHelper.GetThisPageUrl(true) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        }
 
-		//Twitter META tags
-		if (seoSettings.TwitterMetaTags)
-		{
-			Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
-			Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
-			Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
-			Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
-			Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
-			Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + webHelper.GetThisPageUrl(true) + "\" />");
-		}
-	}
-	<!--product breadcrumb-->
-	@section Breadcrumb
-	{
-		@await Html.PartialAsync("_ProductBreadcrumb", Model.Breadcrumb)
-	}
-	@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsAfterBreadcrumb, additionalData = Model })
-	<div class="page product-details-page">
-		<div class="page-body">
-			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsTop, additionalData = Model })
-			<form asp-route="Product" asp-route-sename="@Model.SeName" method="post" id="product-details-form">
-				<div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
-					<div class="product-essential">
-						@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsBeforePictures, additionalData = Model })
-						<!--product pictures-->
-						@await Html.PartialAsync("_ProductDetailsPictures", Model)
-						@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsAfterPictures, additionalData = Model })
-						<div class="overview">
-							@await Html.PartialAsync("_Discontinued", Model)
-							<div class="product-name">
-								<h1 itemprop="name">
-									@Model.Name
-								</h1>
-							</div>
-							@if (!string.IsNullOrEmpty(Model.ShortDescription))
-							{
-								<div class="short-description">
-									@Html.Raw(Model.ShortDescription)
-								</div>
-							}
-							@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsOverviewTop, additionalData = Model })
-							<!--product reviews-->
-							@await Html.PartialAsync("_ProductReviewOverview", Model.ProductReviewOverview)
-							<!--manufacturers-->
-							@await Html.PartialAsync("_ProductManufacturers", Model.ProductManufacturers)
-							<!--availability-->
-							@await Html.PartialAsync("_Availability", Model)
-							<!--SKU, MAN, GTIN, vendor-->
-							@await Html.PartialAsync("_SKU_Man_GTIN_Ven", Model)
-							<!--delivery-->
-							@await Html.PartialAsync("_DeliveryInfo", Model)
-							<!--sample download-->
-							@await Html.PartialAsync("_DownloadSample", Model)
-							<!--attributes-->
-							@{
-								var dataDictAttributes = new ViewDataDictionary(ViewData);
-								dataDictAttributes.TemplateInfo.HtmlFieldPrefix = $"attributes_{Model.Id}";
-								@await Html.PartialAsync("_ProductAttributes", Model.ProductAttributes, dataDictAttributes)
-							}
-							<!--gift card-->
-							@{
-								var dataDictGiftCard = new ViewDataDictionary(ViewData);
-								dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = $"giftcard_{Model.Id}";
-								@await Html.PartialAsync("_GiftCardInfo", Model.GiftCard, dataDictGiftCard)
-							}
-							<!--rental info-->
-							@{
-								var dataDictRental = new ViewDataDictionary(ViewData);
-								dataDictRental.TemplateInfo.HtmlFieldPrefix = $"rental_{Model.Id}";
-								@await Html.PartialAsync("_RentalInfo", Model, dataDictRental)
-							}
-							<!--price & add to cart-->
-							@{
-								var dataDictPrice = new ViewDataDictionary(ViewData);
-								dataDictPrice.TemplateInfo.HtmlFieldPrefix = $"price_{Model.Id}";
-								@await Html.PartialAsync("_ProductPrice", Model.ProductPrice, dataDictPrice)
+        //Twitter META tags
+        if (seoSettings.TwitterMetaTags)
+        {
+            Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+            Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + webHelper.GetThisPageUrl(true) + "\" />");
+        }
+    }
+    <!--product breadcrumb-->
+    @section Breadcrumb
+    {
+        @await Html.PartialAsync("_ProductBreadcrumb", Model.Breadcrumb)
+    }
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsAfterBreadcrumb, additionalData = Model })
+    <div class="page product-details-page">
+        <div class="page-body">
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsTop, additionalData = Model })
+            <form asp-route="Product" asp-route-sename="@Model.SeName" method="post" id="product-details-form">
+                <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
+                    <div class="product-essential">
+                        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsBeforePictures, additionalData = Model })
+                        <!--product pictures-->
+                        @await Html.PartialAsync("_ProductDetailsPictures", Model)
+                        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsAfterPictures, additionalData = Model })
+                        <div class="overview">
+                            @await Html.PartialAsync("_Discontinued", Model)
+                            <div class="product-name">
+                                <h1 itemprop="name">
+                                    @Model.Name
+                                </h1>
+                            </div>
+                            @if (!string.IsNullOrEmpty(Model.ShortDescription))
+                            {
+                                <div class="short-description">
+                                    @Html.Raw(Model.ShortDescription)
+                                </div>
+                            }
+                            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsOverviewTop, additionalData = Model })
+                            <!--product reviews-->
+                            @await Html.PartialAsync("_ProductReviewOverview", Model.ProductReviewOverview)
+                            <!--manufacturers-->
+                            @await Html.PartialAsync("_ProductManufacturers", Model.ProductManufacturers)
+                            <!--availability-->
+                            @await Html.PartialAsync("_Availability", Model)
+                            <!--SKU, MAN, GTIN, vendor-->
+                            @await Html.PartialAsync("_SKU_Man_GTIN_Ven", Model)
+                            <!--delivery-->
+                            @await Html.PartialAsync("_DeliveryInfo", Model)
+                            <!--sample download-->
+                            @await Html.PartialAsync("_DownloadSample", Model)
+                            <!--attributes-->
+                            @{
+                                var dataDictAttributes = new ViewDataDictionary(ViewData);
+                                dataDictAttributes.TemplateInfo.HtmlFieldPrefix = $"attributes_{Model.Id}";
+                                @await Html.PartialAsync("_ProductAttributes", Model.ProductAttributes, dataDictAttributes)
+                            }
+                            <!--gift card-->
+                            @{
+                                var dataDictGiftCard = new ViewDataDictionary(ViewData);
+                                dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = $"giftcard_{Model.Id}";
+                                @await Html.PartialAsync("_GiftCardInfo", Model.GiftCard, dataDictGiftCard)
+                            }
+                            <!--rental info-->
+                            @{
+                                var dataDictRental = new ViewDataDictionary(ViewData);
+                                dataDictRental.TemplateInfo.HtmlFieldPrefix = $"rental_{Model.Id}";
+                                @await Html.PartialAsync("_RentalInfo", Model, dataDictRental)
+                            }
+                            <!--price & add to cart-->
+                            @{
+                                var dataDictPrice = new ViewDataDictionary(ViewData);
+                                dataDictPrice.TemplateInfo.HtmlFieldPrefix = $"price_{Model.Id}";
+                                @await Html.PartialAsync("_ProductPrice", Model.ProductPrice, dataDictPrice)
 
-								@await Html.PartialAsync("_ProductTierPrices", Model.TierPrices)
+                                @await Html.PartialAsync("_ProductTierPrices", Model.TierPrices)
 
-								var dataDictAddToCart = new ViewDataDictionary(ViewData);
-								dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
-								@await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
-							}
-							<!--wishlist, compare, email a friend-->
-							<div class="overview-buttons">
-								@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsInsideOverviewButtonsBefore, additionalData = Model })
-								@{
-									var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
-									dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
-									@await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
-								}
-								@await Html.PartialAsync("_CompareProductsButton", Model)
-								@await Html.PartialAsync("_ProductEmailAFriendButton", Model)
-								@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsInsideOverviewButtonsAfter, additionalData = Model })
-							</div>
-							@await Html.PartialAsync("_ShareButton", Model)
-							@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsOverviewBottom, additionalData = Model })
-						</div>
-						@if (!string.IsNullOrEmpty(Model.FullDescription))
-						{
-							<div class="full-description" itemprop="description">
-								@Html.Raw(Model.FullDescription)
-							</div>
-						}
-					</div>
-					@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsBeforeCollateral, additionalData = Model })
-					<div class="product-collateral">
-						@await Html.PartialAsync("_ProductSpecifications", Model.ProductSpecifications)
-						@await Html.PartialAsync("_ProductTags", Model.ProductTags)
-					</div>
-					@await Component.InvokeAsync("ProductsAlsoPurchased", new { productId = Model.Id })
-					@await Component.InvokeAsync("RelatedProducts", new { productId = Model.Id })
-				</div>
-			</form>
-			@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsBottom, additionalData = Model })
-		</div>
-	</div>*@
+                                var dataDictAddToCart = new ViewDataDictionary(ViewData);
+                                dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+                                @await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
+                            }
+                            <!--wishlist, compare, email a friend-->
+                            <div class="overview-buttons">
+                                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsInsideOverviewButtonsBefore, additionalData = Model })
+                                @{
+                                    var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
+                                    dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+                                    @await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
+                                }
+                                @await Html.PartialAsync("_CompareProductsButton", Model)
+                                @await Html.PartialAsync("_ProductEmailAFriendButton", Model)
+                                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsInsideOverviewButtonsAfter, additionalData = Model })
+                            </div>
+                            @await Html.PartialAsync("_ShareButton", Model)
+                            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsOverviewBottom, additionalData = Model })
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.FullDescription))
+                        {
+                            <div class="full-description" itemprop="description">
+                                @Html.Raw(Model.FullDescription)
+                            </div>
+                        }
+                    </div>
+                    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsBeforeCollateral, additionalData = Model })
+                    <div class="product-collateral">
+                        @await Html.PartialAsync("_ProductSpecifications", Model.ProductSpecifications)
+                        @await Html.PartialAsync("_ProductTags", Model.ProductTags)
+                    </div>
+                    @await Component.InvokeAsync("ProductsAlsoPurchased", new { productId = Model.Id })
+                    @await Component.InvokeAsync("RelatedProducts", new { productId = Model.Id })
+                </div>
+            </form>
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsBottom, additionalData = Model })
+        </div>
+    </div>*@
 
 @model ProductDetailsModel
 @using Microsoft.AspNetCore.Http.Extensions
@@ -156,86 +156,86 @@
 @inject Nop.Core.IWebHelper webHelper
 @inject SeoSettings seoSettings
 @{
-	Layout = "_ColumnsOne";
+    Layout = "_ColumnsOne";
 
-	//title
-	Html.AddTitleParts(!string.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
-	//meta
-	Html.AddMetaDescriptionParts(Model.MetaDescription);
-	Html.AddMetaKeywordParts(Model.MetaKeywords);
-	//page class
-	Html.AppendPageCssClassParts("html-product-details-page");
+    //title
+    Html.AddTitleParts(!string.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    Html.AddMetaDescriptionParts(Model.MetaDescription);
+    Html.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    Html.AppendPageCssClassParts("html-product-details-page");
 
-	//canonical URL
-	if (seoSettings.CanonicalUrlsEnabled)
-	{
-		var productUrl = Url.RouteUrl("Product", new { SeName = Model.SeName }, webHelper.CurrentRequestProtocol).ToLowerInvariant();
-		Html.AddCanonicalUrlParts(productUrl, seoSettings.QueryStringInCanonicalUrlsEnabled);
-	}
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+        var productUrl = Url.RouteUrl("ProductInfo", new { SeName = Model.SeName }, webHelper.CurrentRequestProtocol).ToLowerInvariant();
+        Html.AddCanonicalUrlParts(productUrl, seoSettings.QueryStringInCanonicalUrlsEnabled);
+    }
 
-	//open graph META tags
-	if (seoSettings.OpenGraphMetaTags)
-	{
-		Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
-		Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
-		Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
-		Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
-		Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + webHelper.GetThisPageUrl(true) + "\" />");
-		Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
-	}
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + webHelper.GetThisPageUrl(true) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+    }
 
-	//Twitter META tags
-	if (seoSettings.TwitterMetaTags)
-	{
-		Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
-		Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
-		Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
-		Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
-		Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
-		Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + webHelper.GetThisPageUrl(true) + "\" />");
-	}
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        Html.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(Nop.Core.Html.HtmlHelper.StripTags(Model.MetaDescription)) + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        Html.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + webHelper.GetThisPageUrl(true) + "\" />");
+    }
 }
 <!--product breadcrumb-->
 @section Breadcrumb
-	{
-	@await Html.PartialAsync("_ProductBreadcrumb", Model.Breadcrumb)
+    {
+    @await Html.PartialAsync("_ProductBreadcrumb", Model.Breadcrumb)
 }
 <div class="modal fade" id="catoneclickbuy" tabindex="-1" role="dialog" aria-labelledby="catalogBuyInOneClick" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="header">
-				<h5 class="modal-title" id="exampleModalLabel">@T("oneclick.title"):</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="body">
-				<form asp-controller="Checkout" asp-action="Confirm" method="post">
-					<div class="form-group">
-						<div class="col">
-							<input type="text" name="Name" placeholder="@T("oneclick.name")" class="form-control col form-inline" required>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col">
-							<input type="text" name="Phone" placeholder="@T("oneclick.phone")" id="cat-oneclick-phone" class="form-control col form-inline" required>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col">
-							<input type="text" name="Email" placeholder="@T("oneclick.email")" class="form-control col form-inline" required>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col">
-							<input type="hidden" name="productId" value="@Model.Id" />
-							<button type="submit" class="btn btn-blue float-right">@T("oneclick.title")</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="header">
+                <h5 class="modal-title" id="exampleModalLabel">@T("oneclick.title"):</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="body">
+                <form asp-controller="Checkout" asp-action="Confirm" method="post">
+                    <div class="form-group">
+                        <div class="col">
+                            <input type="text" name="Name" placeholder="@T("oneclick.name")" class="form-control col form-inline" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col">
+                            <input type="text" name="Phone" placeholder="@T("oneclick.phone")" id="cat-oneclick-phone" class="form-control col form-inline" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col">
+                            <input type="text" name="Email" placeholder="@T("oneclick.email")" class="form-control col form-inline" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col">
+                            <input type="hidden" name="productId" value="@Model.Id" />
+                            <button type="submit" class="btn btn-blue float-right">@T("oneclick.title")</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="product">
     <div class="container-fluid">
@@ -287,20 +287,20 @@
                         }
                         @if (Model.InStock)
                         {
-                        <div class="dropdown">
-                            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @T("prod.availablity")
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 32px, 0px);">
-                                @foreach (var warehouse in Model.ProductWarehouses)
-                                {
-                                    @if (!string.IsNullOrEmpty(warehouse.Name))
+                            <div class="dropdown">
+                                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @T("prod.availablity")
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 32px, 0px);">
+                                    @foreach (var warehouse in Model.ProductWarehouses)
                                     {
-                                        <a class="dropdown-item" href="#">@warehouse.Name</a>
+                                        @if (!string.IsNullOrEmpty(warehouse.Name))
+                                        {
+                                            <a class="dropdown-item" href="#">@warehouse.Name</a>
+                                        }
                                     }
-                                }
+                                </div>
                             </div>
-                        </div>
                         }
                         <div class="btn-group-vertical btn-block">
                             @{
@@ -313,18 +313,8 @@
                                 }
                                 else
                                 {
-                                    <button class="btn btn-blue btn-block arived mb-2 rounded" id="back-in-stock-subscribe-prod-@Model.Id" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
-                                    <button class="btn btn-blue-white mb-3 rounded" id="back-in-stock-subscribe-buy-@Model.Id" data-toggle="modal">@T("prod.buynow")</button>
-                                    <script>
-						            $(document).ready(function () {
-							            $("#back-in-stock-subscribe-buy-@Model.Id").on('click', function() {
-								            displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
-							            });
-							            $("#back-in-stock-subscribe-prod-@Model.Id").on('click', function() {
-								            displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = Model.Id })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
-							            });
-						            });
-                                    </script>
+                                    <button class="btn btn-blue btn-block arived mb-2 rounded" onclick="DisplayOrderPopup('AjaxCart.addproducttocart_details(\'@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.AddToCart.ProductId, shoppingCartTypeId = 1 })\', \'#product-details-form\')')" data-toggle="modal" data-target="#arived">@T("product.order")</button>
+                                    @await Component.InvokeAsync("BackInStockOrder");
                                 }
                             }
 
@@ -339,6 +329,9 @@
                         </div>
                     </div>
                     <div class="line d-none d-lg-block"></div>
+                    @{
+                        var productColor = Model.ProductSpecifications.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "Цвет".ToLower());
+                    }
                     @if (Model.SleepLength != 0 || Model.SleepWidth != 0)
                     {
                         <div class="prop-wrap">
@@ -355,62 +348,59 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a class="dropdown-item" href="#">@Model.SleepLength.ToString("#.##") см х @Model.SleepWidth.ToString("#.##") см</a>
-                                            @await Component.InvokeAsync("SimilarProductsSizesBlock", new { makeCode = Model.MakeCode, productId = Model.Id, isSleepSizes = true })
+                                            @await Component.InvokeAsync("SimilarProductsSizesBlock", new { makeCode = Model.MakeCode, colorName = productColor?.ValueRaw, productId = Model.Id, isSleepSizes = true })
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     }
-                        <div class="prop-wrap">
-                            @if (Model.SleepLength == 0 && Model.SleepWidth == 0)
-                            {
-                                <div class="size-prop-wrap">
-                                    <div>@T("product.attributes.sizes")</div>
-                                    <div class="drop-wrap">
-                                        <div class="w">@T("product.width")@Model.Breadcrumb.CategoryBreadcrumb.LastOrDefault().Name</div>
-                                        <div class="l">@T("product.length")</div>
-                                        <div class="h">@T("product.height")</div>
-                                        <div class="dropdown">
-                                            <button class="btn btn-light dropdown-toggle mt-4 btn-sm" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                @Model.Width.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Height.ToString("#.##") см
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">@Model.Width.ToString("#.##") см х @Model.Lendth.ToString("#.##") см x @Model.Height.ToString("#.##") см</a>
-                                                @await Component.InvokeAsync("SimilarProductsSizesBlock", new { makeCode = Model.MakeCode, productId = Model.Id, isSleepSizes = false })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="size-prop-wrap">
-                                    <div>@T("product.attributes.sizes")</div>
-                                    <div class="drop-wrap">
-                                        <div class="w">@T("product.width")</div>
-                                        <div class="l">@T("product.length")</div>
-                                        <div class="h">@T("product.height")</div>
-                                        <div class="size-opt">
+                    <div class="prop-wrap">
+                        @if (Model.SleepLength == 0 && Model.SleepWidth == 0)
+                        {
+                            <div class="size-prop-wrap">
+                                <div>@T("product.attributes.sizes")</div>
+                                <div class="drop-wrap">
+                                    <div class="w">@T("product.width")</div>
+                                    <div class="l">@T("product.length")</div>
+                                    <div class="h">@T("product.height")</div>
+                                    <div class="dropdown">
+                                        <button class="btn btn-light dropdown-toggle mt-4 btn-sm" type="button"
+                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
                                             @Model.Width.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Height.ToString("#.##") см
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">@Model.Width.ToString("#.##") см х @Model.Lendth.ToString("#.##") см x @Model.Height.ToString("#.##") см</a>
+                                            @await Component.InvokeAsync("SimilarProductsSizesBlock", new { makeCode = Model.MakeCode, colorName = productColor?.ValueRaw, productId = Model.Id, isSleepSizes = false })
                                         </div>
                                     </div>
                                 </div>
-                            }
-                            @{
-                                var productColor = Model.ProductSpecifications.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "Цвет".ToLower());
-                            }
-                            @if (productColor != null)
-                            {
-                                <div class="color-title">
-                                    <span>@T("product.color"):</span>
-                                    <span>@Html.Raw(productColor.ValueRaw)</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="size-prop-wrap">
+                                <div>@T("product.attributes.sizes")</div>
+                                <div class="drop-wrap">
+                                    <div class="w">@T("product.width")</div>
+                                    <div class="l">@T("product.length")</div>
+                                    <div class="h">@T("product.height")</div>
+                                    <div class="size-opt">
+                                        @Model.Width.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Height.ToString("#.##") см
+                                    </div>
                                 </div>
-                            }
-                            <span><a href="#" id="similar-button">@T("product.showsimilar")</a></span>
-                        </div>
+                            </div>
+                        }
+                        @if (productColor != null)
+                        {
+                            <div class="color-title">
+                                <span>@T("product.color"):</span>
+                                <span>@Html.Raw(productColor?.ValueRaw)</span>
+                            </div>
+                        }
+                        <span><a href="#" id="similar-button">@T("product.showsimilar")</a></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -435,7 +425,7 @@
             <section id="tab2" class="item" data-title="@T("prod.spec")">
                 <div class="item-content">
                     @foreach (var specification in Model.ProductSpecifications)
-                                        {
+                    {
                         <p>@specification.SpecificationAttributeName @Html.Raw(specification.ValueRaw)</p>
                     }
                 </div>
@@ -450,37 +440,37 @@
     <div class="line"></div>
     @await Component.InvokeAsync("SimilarProductsBlock", new { makeCode = Model.MakeCode, productId = Model.Id })
     @await Component.InvokeAsync("CrossSellProducts", new { productIds = new int[1] { Model.Id } })
-    @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 450, preparePriceModel = true })
+    @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })
 </div>
-
-<!--ALSO PURCHASED-->
-@*@await Component.InvokeAsync("ProductsAlsoPurchased", new { productId = Model.Id })*@
-<script type="text/javascript" src="~/js/site/slick.min.js"></script>
-<script type="text/javascript">
-	$('.slider').slick({
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		arrows: false,
-		fade: true,
-		asNavFor: '.slider-nav'
-	});
-	$('.slider-nav').slick({
-		slidesToShow: 3,
-		slidesToScroll: 1,
-		asNavFor: '.slider',
-		dots: false,
-		centerMode: false,
-		focusOnSelect: true,
-		vertical: true,
-		verticalSwiping: true,
-		prevArrow: '<div class="prev-arrow"></div>',
-		nextArrow: '<div class="next-arrow"></div>',
-	});
-</script>
-<script src="~/js/site/jquery.mask.js"></script>
-<script>
-	$("#cat-oneclick-phone").mask("(000)0000000");
-    $(".slider a").fancybox({
-        'hideOnContentClick': true
-    });
-</script>
+    
+    <!--ALSO PURCHASED-->
+    @*@await Component.InvokeAsync("ProductsAlsoPurchased", new { productId = Model.Id })*@
+    <script type="text/javascript" src="~/js/site/slick.min.js"></script>
+    <script type="text/javascript">
+        $('.slider').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            fade: true,
+            asNavFor: '.slider-nav'
+        });
+        $('.slider-nav').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            asNavFor: '.slider',
+            dots: false,
+            centerMode: false,
+            focusOnSelect: true,
+            vertical: true,
+            verticalSwiping: true,
+            prevArrow: '<div class="prev-arrow"></div>',
+            nextArrow: '<div class="next-arrow"></div>',
+        });
+    </script>
+    <script src="~/js/site/maskedinput.js"></script>
+    <script>
+        $("#cat-oneclick-phone").mask("+38 (999) 999-99-99", { placeholder: "+38 (___) ___-__-__" });
+        $(".slider a").fancybox({
+            'hideOnContentClick': true
+        });
+    </script>

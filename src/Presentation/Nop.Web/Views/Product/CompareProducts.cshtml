@@ -107,11 +107,11 @@
 								var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = product.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
 								var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = product.Id });
 								<div class="outer-wrapp rounded">
-									<div class="item-wrap">
-										<div class="product-img-wrap">
-											<div class="top-wrap">
+                                    <div class="item-wrap">
+                                        <div class="product-img-wrap">
+                                            <div class="top-wrap">
                                                 <div class="icons-wrap">
-                                                    @if (product.ReviewOverviewModel.TotalReviews> 0)
+                                                    @if (product.ReviewOverviewModel.TotalReviews > 0)
                                                     {
                                                         @for (int i = 0; i < 5; i++)
                                                         {
@@ -127,42 +127,43 @@
                                                     }
                                                     <small>@product.ReviewOverviewModel.TotalReviews @T("compare.reviews")</small>
                                                 </div>
-												<div class="close-wrap">
-													<i class="close-i" onclick="setLocation('@Url.RouteUrl("RemoveProductFromCompareList", new { productId = product.Id })')"></i>
-												</div>
-											</div>
-											<img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
-											@if (product.ProductPrice.Discount.ToString("#.##") != "")
-											{
-												<div class="discount">-@product.ProductPrice.Discount.ToString("#.##")%</div>
-											}
-										</div>
-										<div class="main-prop-wrap text-left">
-											<div class="product-name text-light-c">@product.Name</div>
-											<div class="product-prop">@product.ShortDescription</div>
-											<div class="price-titile">@T("prod.price")</div>
-											<div class="price-wrap clearfix">
-												<div class="price-old">@product.ProductPrice.OldPrice</div>
-												<div class="price-new">@product.ProductPrice.Price</div>
-											</div>
-										</div>
-										@if (product.InStock)
-										{
-											<button class="btn btn-blue btn-block buy-btn mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">@T("product.buy")</button>
-										}
-										else
-										{
-											@await Component.InvokeAsync("BackInStockButton", new { productId = product.Id, prefix = "compare" });
-										}
-										<div class="line"></div>
-										<ul>
-											@foreach (var spec in specificationAttributes)
-											{
-												<li class="d-sm-none"></li>
-												<li>@(!string.IsNullOrWhiteSpace(product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId)?.ValueRaw) ? product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId).ValueRaw : "—")</li>
-											}
-										</ul>
-									</div>
+                                                <div class="close-wrap">
+                                                    <i class="close-i" onclick="setLocation('@Url.RouteUrl("RemoveProductFromCompareList", new { productId = product.Id })')"></i>
+                                                </div>
+                                            </div>
+                                            <img class="product" src="@product.DefaultPictureModel.ImageUrl" alt="@product.DefaultPictureModel.AlternateText">
+                                            @if (product.ProductPrice.Discount.ToString("#.##") != "")
+                                            {
+                                                <div class="discount">-@product.ProductPrice.Discount.ToString("#.##")%</div>
+                                            }
+                                        </div>
+                                        <div class="main-prop-wrap text-left">
+                                            <div class="product-name text-light-c">@product.Name</div>
+                                            <div class="product-prop">@product.ShortDescription</div>
+                                            <div class="price-titile">@T("prod.price")</div>
+                                            <div class="price-wrap clearfix">
+                                                <div class="price-old">@product.ProductPrice.OldPrice</div>
+                                                <div class="price-new">@product.ProductPrice.Price</div>
+                                            </div>
+                                        </div>
+                                        @if (product.InStock)
+                                        {
+                                            <button class="btn btn-blue btn-block buy-btn mt-4 mb-4" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">@T("product.buy")</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-blue btn-block mt-4 mb-4" onclick="DisplayOrderPopup('AjaxCart.addproducttocart_catalog(\'@addtocartlink\')')">@T("product.order")</button>
+                                            @await Component.InvokeAsync("BackInStockOrder");
+                                        }
+                                        <div class="line"></div>
+                                        <ul>
+                                            @foreach (var spec in specificationAttributes)
+                                            {
+                                                <li class="d-sm-none"></li>
+                                                <li>@(!string.IsNullOrWhiteSpace(product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId)?.ValueRaw) ? product.SpecificationAttributeModels.FirstOrDefault(x => x.SpecificationAttributeId == spec.SpecificationAttributeId).ValueRaw : "—")</li>
+                                            }
+                                        </ul>
+                                    </div>
 								</div>
 							}
 						}

@@ -452,6 +452,7 @@ namespace Nop.Web.Framework.UI.Paging
         /// <returns>Link</returns>
 		protected virtual string CreatePageLink(int pageNumber, string text, string cssClass)
 		{
+            var localizationService = EngineContext.Current.Resolve<ILocalizationService>();
             var liBuilder = new TagBuilder("li");
             if (!string.IsNullOrWhiteSpace(cssClass))
                 liBuilder.AddCssClass(cssClass);
@@ -460,6 +461,8 @@ namespace Nop.Web.Framework.UI.Paging
 			aBuilder.AddCssClass("page-link");
             aBuilder.InnerHtml.AppendHtml(text);
             aBuilder.MergeAttribute("href", CreateDefaultUrl(pageNumber));
+            if (text == localizationService.GetResource("Pager.Next")) aBuilder.MergeAttribute("rel", "next");
+            if (text == localizationService.GetResource("Pager.Previous")) aBuilder.MergeAttribute("rel", "prev");
 
             liBuilder.InnerHtml.AppendHtml(aBuilder);
 		    return liBuilder.RenderHtmlContent();

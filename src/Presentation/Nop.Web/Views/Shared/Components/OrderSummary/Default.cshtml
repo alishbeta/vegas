@@ -399,15 +399,13 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">@T("Cart.City")</label>
-                    <input type="text" name="City" class="form-control col-sm-8">
+                    <select type="text" name="City" class="form-control col-sm-8">
+                        @await Component.InvokeAsync("RegionsSelectorBlock", new { selectedCity = Model.CustomerInfo.City })
+                    </select>
                 </div>
                 <div class="form-group row d-none" id="new-field-addr">
                     <label class="col-form-label col-sm-3">@T("admin.orders.address.address1")</label>
                     <input type="text" name="StreetAddress1" class="form-control col-sm-8">
-                </div>
-                <div class="form-group row d-none" id="new-field-flat">
-                    <label class="col-form-label col-sm-3">@T("admin.orders.address.address2")</label>
-                    <input type="text" name="StreetAddress2" class="form-control col-sm-2">
                 </div>
                 <div id="new-nova-poshta-fields" class="form-group row d-none">
                     <label for="new-newpost-department" class="col-form-label col-sm-3">@T("cart.newpost.department")</label>
@@ -546,7 +544,7 @@
                             <button type="button" id="edit-name" class="btn btn-link">
                                 @T("cart.changeinfo")
                             </button>
-                            <button style="display: none;" onclick="CancelChangesInZone(1)" type="button" id="edit-name-close" class="btn btn-link">
+                            <button style="display: none;" type="button" id="edit-name-close" class="btn btn-link">
                                 @T("cart.cancel")
                             </button>
 
@@ -575,7 +573,7 @@
                             <button type="button" id="edit-addres" class="btn btn-link">
                                 @T("cart.changeaddr")
                             </button>
-                            <button type="button" id="edit-addres-close" onclick="CancelChangesInZone(2)" style="display: none" class="btn btn-link">
+                            <button type="button" id="edit-addres-close" style="display: none" class="btn btn-link">
                                 @T("cart.cancel")
                             </button>
                             <div class="form-inline form-group row">
@@ -617,11 +615,12 @@
                                 <label class="col-form-label col-sm-3" for="ai1">
                                     @T("cart.city")
                                 </label>
-                                <input type="text"
-                                       id="ai1"
-                                       name="City"
-                                       class="form-control col-sm-8"
-                                       value="@Model.CustomerInfo.City" disabled>
+                                <select type="text"
+                                        id="ai1"
+                                        name="City"
+                                        class="form-control col-sm-8" disabled>
+                                    @await Component.InvokeAsync("RegionsSelectorBlock", new { selectedCity = Model.CustomerInfo.City })
+                                </select>
                             </div>
                             <div id="old-field-addr" class="form-group row d-none">
                                 <label class="col-form-label col-sm-3" for="ai2">
@@ -632,16 +631,6 @@
                                        name="StreetAddress1"
                                        class="form-control col-sm-8"
                                        value="@Model.CustomerInfo.StreetAddress" disabled>
-                            </div>
-                            <div id="old-field-flat" class="form-group row d-none">
-                                <label class="col-form-label col-sm-3" for="ai3">
-                                    @T("cart.flat")
-                                </label>
-                                <input id="ai3"
-                                       type="text"
-                                       name="StreetAddress2"
-                                       class="form-control col-sm-8"
-                                       value="@Model.CustomerInfo.StreetAddress2" disabled>
                             </div>
                             <div id="old-nova-poshta-fields" class="form-group row d-none">
                                 <label for="old-newpost-department" class="col-form-label col-sm-3">@T("cart.newpost.department")</label>
@@ -679,6 +668,8 @@
                                 (@T("cart.yourbalance") @ViewBag.BonusesBalance @T("cart.bonuses"))
                             </label>
                             <a href="#" class="btn btn-link">@T("cart.moreinfo")</a>
+                            <input type="number" id="BonusesToSpent" name="BonusesToSpent" class="form-control col-sm-8" style="display:none;" max="@ViewBag.BonusesBalance" min="0" value="@ViewBag.BonusesBalance">
+                            <button id="setRewardPoints" type="button" class="btn btn-link" style="display:none;">@T("cart.ok")</button>
                         </div>
 
                         <div class="line"></div>
@@ -708,7 +699,7 @@
             }
         }).done(function (data) {
             if (data != -1) {
-                data += " грн";
+                data += " @T("currency.uah")";
             }
             console.log(data);
             $("#new-delivery-price").text(data);
@@ -722,32 +713,43 @@
         }
     });
 
-    function RecountTotal(value) {
-        if (value) {
-            $("#cart-price-full").text(parseInt($("#cart-price-full").text()) - @ViewBag.BonusesBalance);
-            $("#bonuses-lost-tip").css("display", "block");
-            $("#bonuses-earn-tip").css("display", "none");
-            $("#bonuses-ballance").text("@ViewBag.BonusesBalance");
+    $("#setRewardPoints").on("click", function (e) {
+        RecountTotal(true);
+        if ($("#BonusesToSpent").attr("disabled") == "disabled") {
+            $("#BonusesToSpent").attr("disabled", false);
+            $("#setRewardPoints").text("@T("cart.points.ok")");
         }
         else {
-            $("#cart-price-full").text(parseInt($("#cart-price-full").text()) + @ViewBag.BonusesBalance);
+            $("#BonusesToSpent").attr("disabled", true);
+            $("#setRewardPoints").text("@T("cart.points.change")");
+        }
+        return false;
+    });
+
+    function RecountTotal(value) {
+        if (value) {
+            $("#BonusesToSpent").css("display", "block");
+            $("#setRewardPoints").css("display", "block");
+            var newSum = parseInt($("#cart-price-full").data("price")) - $("#BonusesToSpent").val();
+            if (newSum >= 0) {
+                $("#cart-price-full").text(newSum);
+            }
+            else {
+                $("#cart-price-full").text(0);
+            }
+            $("#bonuses-lost-tip").css("display", "block");
+            $("#bonuses-earn-tip").css("display", "none");
+            $("#bonuses-ballance").text($("#BonusesToSpent").val());
+        }
+        else {
+            $("#BonusesToSpent").css("display", "none");
+            $("#setRewardPoints").css("display", "none");
+            $("#cart-price-full").text($("#cart-price-full").data("price"));
             $("#bonuses-lost-tip").css("display", "none");
             $("#bonuses-earn-tip").css("display", "block");
         }
     }
 
-	function CancelChangesInZone(index) {
-		//if (index == 1) {
-		//	$("#firstZone .row").each(function () {
-		//		$(this).find('input').val($(this).find('.text-light-c').text());
-		//	});
-		//}
-		//if (index == 2) {
-		//	$("#secondZone .row").each(function () {
-		//		$(this).find('input').val($(this).find('.text-light-c').text());
-		//	});
-		//}
-	}
     $("#checkout-old").on("click", function (e) {
         var valid = true;
 		if ($("#li1").val().length == 0) {
@@ -777,12 +779,11 @@
         }
 
         if (valid) {
-            $(".login-wrap input").each(function (data) {
+            $(".login-wrap input, .login-wrap select").each(function (data) {
                 $(this).attr("disabled", false);
             });
             if (!$("#old-nova-poshta-fields").hasClass("d-none")) {
                 $(".active [name=StreetAddress1]").val($("#old-newpost-department").val());
-                $(".active [name=StreetAddress2]").val("");
 
             }
         }
@@ -816,21 +817,20 @@
         }
 
         if (valid) {
-            $(".login-wrap input").each(function (data) {
+            $(".login-wrap input, .login-wrap select").each(function (data) {
                 $(this).attr("disabled", false);
             });
             if (!$("#new-nova-poshta-fields").hasClass("d-none")) {
                 $(".active [name=StreetAddress1]").val($("#new-newpost-department").val());
-                $(".active [name=StreetAddress2]").val("");
 
             }
         }
 	});
 </script>
-<script src="~/js/site/jquery.mask.js"></script>
+<script src="~/js/site/maskedinput.js"></script>
 <script>
-    $("#li2").mask("(000)0000000");
-    $("#i2").mask("(000)0000000");
+    $("#li2").mask("+38 (999) 999-99-99", { placeholder: "+38 (___) ___-__-__" });
+    $("#i2").mask("+38 (999) 999-99-99", { placeholder: "+38 (___) ___-__-__" });
 </script>
 <script>
     function selfDelivery(prefix) {

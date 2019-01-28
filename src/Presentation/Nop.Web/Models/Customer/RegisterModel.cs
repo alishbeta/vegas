@@ -131,7 +131,9 @@ namespace Nop.Web.Models.Customer
         [DataType(DataType.PhoneNumber)]
         [NopResourceDisplayName("Account.Fields.Fax")]
         public string Fax { get; set; }
-        
+        [NopResourceDisplayName("Account.Fields.NumberDiscountCard")]
+        public string NumberDiscountCard { get; set; }
+
         public bool NewsletterEnabled { get; set; }
         [NopResourceDisplayName("Account.Fields.Newsletter")]
         public bool Newsletter { get; set; }

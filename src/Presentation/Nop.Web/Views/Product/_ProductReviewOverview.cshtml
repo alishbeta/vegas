@@ -35,7 +35,7 @@
         </div>
         <button id="comment-activate" class="btn btn-blue btn-sm pl-4 pr-4">@T("Reviews.SubmitButton")</button>
     </div>
-    <form asp-route="ProductReviews" method="post" id="add-review-form" style="display:none;">
+    <form action="/ProductReviews/" method="post" id="add-review-form" style="display:none;">
         <div class="comment-title">
             <h5>@T("reviews.write")</h5>
         </div>
@@ -70,6 +70,7 @@
                 </div>
             </div>
         </div>
+        @Html.AntiForgeryToken()
         <div class="buttons">
             <button type="submit" id="add-review-btn" name="add-review" class="btn btn-blue btn-sm pl-4 pr-4">@T("reviews.send")</button>
         </div>
@@ -78,7 +79,7 @@
         $('#add-review-form').submit(function (e) {
             e.preventDefault();
             $.ajax({
-                url: $(this).closest('form').attr('action'),
+                url: $(this).closest('form').attr('action') + @Model.Id,
                 type: 'post',
                 data: $('#add-review-form').serialize()
             }).done(function (data) {

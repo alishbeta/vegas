@@ -138,6 +138,47 @@ namespace Nop.Web.Controllers
         [CheckAccessClosedStore(true)]
         //available even when navigation is not allowed
         [CheckAccessPublicStore(true)]
+        public virtual JsonResult ImportOrders([FromBody]OneCOrdersImport model)
+        {
+            if(model == null)
+            {
+                return Json(new OneCResponse() { Success = false, Message = "JSON format is incorrect." });
+            }
+
+            var response = IsLogin(model?.Username, model?.Email, model?.Password);
+            if (response.Success)
+            {
+                var customer = _customerSettings.UsernamesEnabled
+                    ? _customerService.GetCustomerByUsername(model.Username)
+                    : _customerService.GetCustomerByEmail(model.Email);
+
+                //activity log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ImportProducts.Login", "1C Importing orders begin.");
+
+                if (model.Orders != null)
+                {
+                    //import product
+                    var result = _importManager.ImportOrdersFromOneC(model.Orders);
+                    response.Success = result.Item1;
+                    response.Message = result.Item2;
+                }
+                else
+                {
+                    response.Message = "Orders is null.";
+                    response.Success = false;
+                }
+
+                //activiti log
+                _customerActivityService.InsertActivity(customer, "PublicStore.1C.ImportProducts.LogOut", "1C Importing orders end.");
+            }
+            return Json(response);
+        }
+
+        [HttpPost]
+        //available even when a store is closed
+        [CheckAccessClosedStore(true)]
+        //available even when navigation is not allowed
+        [CheckAccessPublicStore(true)]
         public virtual JsonResult ExportOrders([FromBody]OneCAuth model)
         {
             if (model == null)
@@ -341,7 +382,7 @@ namespace Nop.Web.Controllers
         [CheckAccessPublicStore(true)]
         public virtual JsonResult Test()
         {
-            return Json(new OneCProductsImport() { Products = new System.Collections.Generic.List<OneCProduct>() { new OneCProduct() { Attributes = new System.Collections.Generic.List<OneCAttribute>() { new OneCAttribute() { } } } } });
+            return Json(new List<OneCOrder>() { new OneCOrder(), new OneCOrder() });
             //return Json(_exportManager.ExportUsersToOneC());
         }
     }

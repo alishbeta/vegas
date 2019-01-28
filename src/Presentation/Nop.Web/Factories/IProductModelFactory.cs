@@ -39,7 +39,7 @@ namespace Nop.Web.Factories
         /// <param name="updatecartitem">Updated shopping cart item</param>
         /// <param name="isAssociatedProduct">Whether the product is associated</param>
         /// <returns>Product details model</returns>
-        ProductDetailsModel PrepareProductDetailsModel(Product product, ShoppingCartItem updatecartitem = null, bool isAssociatedProduct = false);
+        ProductDetailsModel PrepareProductDetailsModel(Product product, ShoppingCartItem updatecartitem = null, bool isAssociatedProduct = false, bool loadSeName = true);
 
         /// <summary>
         /// Prepare the product reviews model

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
+using Nop.Core.Domain.Common;
 
 namespace Nop.Services.Catalog
 {
@@ -21,6 +22,12 @@ namespace Nop.Services.Catalog
         /// <param name="specificationAttributeId">The specification attribute identifier</param>
         /// <returns>Specification attribute</returns>
         SpecificationAttribute GetSpecificationAttributeById(int specificationAttributeId);
+
+        IList<int> GetSpecificationAttributeOptionsByProductIds(IEnumerable<int> productIds);
+        int GetProductsCountBySpecification(int specificationAttributeOptionId, IEnumerable<int> productIds);
+        IEnumerable<SimilarProductSizes> GetSimilarProductSizes(string makeCode, string colorName, int productId = 0, bool isSleepSizes = false);
+
+        IEnumerable<int> GetSimilarProductIdsByColor(string makeCode, string colorName, int productId = 0);
 
         /// <summary>
         /// Gets specification attributes

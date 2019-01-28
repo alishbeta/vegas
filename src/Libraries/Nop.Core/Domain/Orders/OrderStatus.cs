@@ -23,6 +23,9 @@ namespace Nop.Core.Domain.Orders
         /// <summary>
         /// Cancelled
         /// </summary>
-        Cancelled = 40
+        Cancelled = 40,
+
+        SelfDelivery = 50,
+        CourierDelivery = 60
     }
 }

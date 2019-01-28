@@ -1,4 +1,4 @@
-﻿@model IList<ProductOverviewModel>
+﻿@model IEnumerable<ProductOverviewModel>
 @{
 	Layout = "_ColumnsOne";
 	ViewData["class"] = "wrap short-menu cat";
@@ -14,11 +14,11 @@
 	<div class="title text-center">
 		<h3><b>@ViewData["PageTitle"]</b></h3>
 		<p>
-			<small>@Model.Count @T("product.products")</small>
+			<small>@Model.Count() @T("product.products")</small>
 		</p>
 	</div>
 	<div class="clearfix">
-		@if (Model.Count > 0)
+		@if (Model.Count() > 0)
 		{
 			<div class="prod-wrap float-right" id="prods">
 				@foreach (var product in Model)
@@ -27,7 +27,6 @@
 				}
 			</div>
 		}
-		@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBottom, additionalData = Model })
 	</div>
 </div>
-@await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 450, preparePriceModel = true })
+@await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })

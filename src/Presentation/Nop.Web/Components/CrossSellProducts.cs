@@ -43,7 +43,7 @@ namespace Nop.Web.Components
 
         public IViewComponentResult Invoke(int? productThumbPictureSize, int[] productIds = null)
         {
-			IList<Product> products = new List<Product>();
+			IEnumerable<Product> products = new Product[] { };
 			List<Product> result = new List<Product>();
 			if (productIds == null)
 			{
@@ -54,11 +54,11 @@ namespace Nop.Web.Components
 			
 				products = _productService.GetCrosssellProductsByShoppingCart(cart, _shoppingCartSettings.CrossSellsNumber);
 				//ACL and store mapping
-				products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+				products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
 				//availability dates
-				products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+				products = products.Where(p => _productService.ProductIsAvailable(p));
 				//visible individually
-				products = products.Where(p => p.VisibleIndividually).ToList();
+				products = products.Where(p => p.VisibleIndividually);
 			}
 			else
 			{
@@ -78,7 +78,7 @@ namespace Nop.Web.Components
 					//add a product to result
 					result.Add(productToAdd);
 				}
-				products = result.ToList();
+				products = result;
 			}
             if (!products.Any())
                 return Content("");
@@ -88,8 +88,7 @@ namespace Nop.Web.Components
             //even if "ShoppingCartSettings.DisplayCartAfterAddingProduct" setting  is enabled.
             //That's why we force page refresh (redirect) in this case
             var model = _productModelFactory.PrepareProductOverviewModels(products,
-                    productThumbPictureSize: productThumbPictureSize, forceRedirectionAfterAddingToCart: true)
-                .ToList();
+                    productThumbPictureSize: productThumbPictureSize ?? 250, forceRedirectionAfterAddingToCart: false);
 			ViewBag.Prefix = "cross";//prefix for backinstock button
 			return View(model);
         }

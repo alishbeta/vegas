@@ -44,19 +44,18 @@ namespace Nop.Web.Components
             var products = _recentlyViewedProductsService.GetRecentlyViewedProducts(_catalogSettings.RecentlyViewedProductsNumber);
 
             //ACL and store mapping
-            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
             //availability dates
-            products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+            products = products.Where(p => _productService.ProductIsAvailable(p));
 
             if (!products.Any())
                 return Content("");
 
             //prepare model
-            var model = new List<ProductOverviewModel>();
-            model.AddRange(_productModelFactory.PrepareProductOverviewModels(products,
+            var model = _productModelFactory.PrepareProductOverviewModels(products,
                 preparePriceModel.GetValueOrDefault(),
                 true,
-                productThumbPictureSize));
+                productThumbPictureSize);
 
             return View(model);
         }

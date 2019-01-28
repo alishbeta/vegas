@@ -1,4 +1,4 @@
-﻿@model IList<ProductOverviewModel>
+﻿@model IEnumerable<ProductOverviewModel>
 @using Nop.Core
 @using Nop.Core.Domain.Catalog
 @using Nop.Core.Domain.Orders
@@ -23,11 +23,11 @@
     <div class="title text-center">
         <h3><b>@ViewData["PageTitle"]</b></h3>
         <p>
-            <small>@Model.Count @T("product.products")</small>
+            <small>@Model.Count() @T("product.products")</small>
         </p>
     </div>
     <div class="clearfix">
-        @if (Model.Count > 0)
+        @if (Model.Count() > 0)
         {
             <div class="prod-wrap float-right" id="prods">
                 @foreach (var product in Model)

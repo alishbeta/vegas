@@ -183,6 +183,48 @@ namespace Nop.Web.Areas.Admin.Factories
             return model;
         }
 
+        /// <summary>
+        /// Prepare paged locale resource list model
+        /// </summary>
+        /// <param name="searchModel">Locale resource search model</param>
+        /// <param name="language">Language</param>
+        /// <returns>Locale resource list model</returns>
+        public virtual LocaleResourceListModel PrepareLocaleResourceModel(LocaleResourceSearchModel searchModel, Language language)
+        {
+            if (searchModel == null)
+                throw new ArgumentNullException(nameof(searchModel));
+
+            if (language == null)
+                throw new ArgumentNullException(nameof(language));
+
+            //get locale resources
+            var localeResources = _localizationService.GetAllResourceValues(language.Id, loadPublicLocales: null)
+                .OrderBy(localeResource => localeResource.Key).AsQueryable();
+
+            //filter locale resources
+            //TODO: move filter to language service
+            if (!string.IsNullOrEmpty(searchModel.SearchResourceName))
+                localeResources = localeResources.Where(l => l.Key.ToLowerInvariant().Contains(searchModel.SearchResourceName.ToLowerInvariant()));
+            if (!string.IsNullOrEmpty(searchModel.SearchResourceValue))
+                localeResources = localeResources.Where(l => l.Value.Value.ToLowerInvariant().Contains(searchModel.SearchResourceValue.ToLowerInvariant()));
+
+            //prepare list model
+            var model = new LocaleResourceListModel
+            {
+                //fill in model values from the entity
+                Data = localeResources.Select(localeResource => new LocaleResourceModel
+                {
+                    LanguageId = language.Id,
+                    Id = localeResource.Value.Key,
+                    Name = localeResource.Key,
+                    Value = localeResource.Value.Value
+                }),
+                Total = localeResources.Count()
+            };
+
+            return model;
+        }
+
         #endregion
     }
 }

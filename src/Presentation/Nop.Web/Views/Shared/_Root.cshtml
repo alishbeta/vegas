@@ -105,7 +105,7 @@
 	<div class="line"></div>
 	<div class="similar-wrap" id="relatedItems">
 		<div id="recently">
-			@await Component.InvokeAsync("RecentlyViewedProductsBlock")
+			@*@await Component.InvokeAsync("RecentlyViewedProductsBlock")*@
 		</div>
 	</div>
 </div>
@@ -232,10 +232,12 @@
 									oldPrice = '<div class="price-old">' + product.OldPrice + '</div>';
 								}
 								var element =
-									'<a href="/' + product.SeName + '?productId=' + product.ProductId + '">' +
+									'<a href="/' + product.SeName + '">' +
 									'<div class="item-wrap">' +
-									'<div class="product-img-wrap">' +
-									'<img class="product" src="' + product.ImageUrl + '" alt="' + product.AlternateText + '">' +
+                                    '<div class="product-img-wrap">' +
+                                    '<a href="/' + product.SeName + '">' +
+                                    '<img class="product" src="' + product.ImageUrl + '" alt="' + product.AlternateText + '">' +
+                                    '</a>' +
 									discount +
 									'</div>' +
 									'<div class="main-prop-wrap text-left">' +
@@ -267,7 +269,7 @@
 							$(this).removeClass("active");
 						});
 						responce.wishlist.forEach(function (elem) {
-							$("[data-id='" + elem.ProductId + "']").addClass("active");
+							$("[data-id='" + elem + "']").addClass("active");
 						});
 						$("#wishlistItemsCount").text(responce.wishlist.length);
 						$(".favorite_i:not(.favorit)").each(function () {
@@ -396,11 +398,11 @@
 							var element =
 								'<div class="item">' +
                                 '<div class="img-wrapp">' +
-                                '<a href="/' + product.ProductSeName + '?productId=' + product.ProductId + '">' +
+                                '<a href="/' + product.ProductSeName + '">' +
                                 '<img src="' + product.Picture.ImageUrl + '" alt="' + product.Picture.AlternateText + '">' + 
                                 '</a>' +
                                 '</div > ' +
-                                '<a href="/' + product.ProductSeName + '?productId=' + product.ProductId + '">' +
+                                '<a href="/' + product.ProductSeName + '">' +
                                 '<div class="title">' + product.ProductName + '</div>' +
                                 '</a>' +
 								'<div class="item-name"></div>' +
@@ -466,7 +468,7 @@
 		@await Component.InvokeAsync("Footer")
 	</div>
 </div>
-<script src="~/js/site/jquery.mask.js"></script>
+<script src="~/js/site/maskedinput.js"></script>
 <script>
-	$("#oneclick-phone").mask("(000)0000000");
+    $("#oneclick-phone").mask("+38 (999) 999-99-99", { placeholder: "+38 (___) ___-__-__" });
 </script>

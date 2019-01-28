@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
@@ -94,8 +95,13 @@ namespace Nop.Web.Controllers
         #region Categories
         
         [HttpsRequirement(SslRequirement.No)]
-        public virtual IActionResult Category(int categoryId, CatalogPagingFilteringModel command)
+        public virtual IActionResult Category(string SeName, CatalogPagingFilteringModel command) //int categoryId, CatalogPagingFilteringModel command)
         {
+            if (command.PageNumber == 1)
+            {
+                return RedirectPermanent(_webHelper.RemoveQueryString(_webHelper.GetThisPageUrl(true), "pagenumber"));
+            }
+            int categoryId = _categoryService.GetCategoryIdBySeName(SeName);
             var category = _categoryService.GetCategoryById(categoryId);
             if (category == null || category.Deleted)
                 return InvokeHttp404();
@@ -128,12 +134,7 @@ namespace Nop.Web.Controllers
 
             //model
             var model = _catalogModelFactory.PrepareCategoryModel(category, command);
-			System.Collections.Generic.List<int> categories = new System.Collections.Generic.List<int>() { categoryId };
-			if (_catalogSettings.ShowProductsFromSubcategories)
-			{
-				//include subcategories
-				categories.AddRange(_categoryService.GetChildCategoryIds(category.Id, _storeContext.CurrentStore.Id));
-			}
+            
 			var activeCategory = (category.ParentCategoryId != 0 ? category.ParentCategoryId : categoryId);
             ViewBag.ActiveCategory = activeCategory;
             ViewBag.ActiveSubCategory = categoryId;
@@ -141,39 +142,93 @@ namespace Nop.Web.Controllers
             //check if products in category has sleep sizes (for CatalogFiltersSelector)
             ViewBag.HasSleepSizes = activeCategory == 19; //id of category "Кровати", wich has sleep sizes
             ViewBag.HasHeight = activeCategory == 21 || activeCategory == 19; //id of category "Кровати" "Тумбы и комоды", wich has sleep sizes
-            //ViewBag.HasSleepSizes = model.AllProducts.Count(x => x.SleepWidth != 0 || x.SleepLength != 0) > 0; //works, but slower
 			//template
 			var templateViewPath = _catalogModelFactory.PrepareCategoryTemplateViewPath(category.CategoryTemplateId);
             return View(templateViewPath, model);
         }
 
-		[HttpPost]
 		[HttpsRequirement(SslRequirement.No)]
 		public dynamic GetProducts(int categoryId, int pageIndex)
 		{
-			System.Collections.Generic.List<int> categories = new System.Collections.Generic.List<int>() { categoryId };
-			if (_catalogSettings.ShowProductsFromSubcategories)
-			{
-				//include subcategories
-				categories.AddRange(_categoryService.GetChildCategoryIds(categoryId, _storeContext.CurrentStore.Id));
-			}
-			var products = _productService.SearchProducts(
-				storeId: _storeContext.CurrentStore.Id,
-				categoryIds: categories,
-				pageIndex: pageIndex - 1,
-				pageSize: 32).ToList();
+            //include subcategories
+            IList<int> categoryIds = _categoryService.GetChildCategoryIds(categoryId, _storeContext.CurrentStore.Id);
+            categoryIds.Add(categoryId);
+
+            decimal? minPrice = null, maxPrice = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("price")))
+            {
+                minPrice = decimal.Parse(_webHelper.QueryString<string>("price").Split('-')[0]);
+                maxPrice = decimal.Parse(_webHelper.QueryString<string>("price").Split('-')[1]);
+            }
+            decimal? minLength = null, maxLength = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("length")))
+            {
+                minLength = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[0]);
+                maxLength = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[1]);
+            }
+            decimal? minWidth = null, maxWidth = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("width")))
+            {
+                minWidth = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[0]);
+                maxWidth = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[1]);
+            }
+            decimal? minHeight = null, maxHeight = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("height")))
+            {
+                minHeight = decimal.Parse(_webHelper.QueryString<string>("height").Split('-')[0]);
+                maxHeight = decimal.Parse(_webHelper.QueryString<string>("height").Split('-')[1]);
+            }
+            decimal? minSleepLength = null, maxSleepLength = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleeplength")))
+            {
+                minSleepLength = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[0]);
+                maxSleepLength = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[1]);
+            }
+            decimal? minSleepWidth = null, maxSleepWidth = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleepwidth")))
+            {
+                minSleepWidth = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[0]);
+                maxSleepWidth = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[1]);
+            }
+
+            IEnumerable<Product> products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
+                true,
+                categoryIds: categoryIds,
+                storeId: _storeContext.CurrentStore.Id,
+                visibleIndividuallyOnly: true,
+                featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
+                priceMin: minPrice,
+                priceMax: maxPrice,
+                MinHeight: minHeight,
+                MaxHeight: maxHeight,
+                MinLength: minLength,
+                MaxLength: maxLength,
+                MinWidth: minWidth,
+                MaxWidth: maxWidth,
+                MinSleepLength: minSleepLength,
+                MaxSleepLength: maxSleepLength,
+                MinSleepWidth: minSleepWidth,
+                MaxSleepWidth: maxSleepWidth,
+                pageIndex: pageIndex - 1,
+                pageSize: 32);
+
+            //        IEnumerable<Product> products = _productService.SearchProducts(
+            //storeId: _storeContext.CurrentStore.Id,
+            //categoryIds: categories,
+            //pageIndex: pageIndex - 1,
+            //pageSize: 32);
 
 
-			//ACL and store mapping
-			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+            //ACL and store mapping
+            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
 			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+			products = products.Where(p => _productService.ProductIsAvailable(p) && !p.Deleted && p.Published);
 
 			if (!products.Any())
 				return Content("");
 
 			//prepare model
-			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true).ToList();
+			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true);
 			return new { model };
 		}
 

@@ -677,50 +677,59 @@
 			<div class="row login-wrap">
 				<form asp-route="CustomerInfo" class="col-sm-12" method="post" id="infoForm">
 					<div asp-validation-summary="ModelOnly" class="message-error"></div>
-					<div id="firstZone">
-						<div class="title"><span>1</span>@T("cabinet.info")</div>
-						<button type="button"
-								id="edit-name"
-								class="btn btn-link">
-							@T("cart.changeinfo")
-						</button>
-						<button style="display: none;"
-								type="button"
-								onclick="CancelChangesInZone(1)"
-								id="edit-name-close"
-								class="btn btn-link">
-							@T("cart.cancel")
-						</button>
-						<div class="form-group row">
-							<label asp-for="FirstName" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.name")</label>
-							<input asp-for="FirstName" class="form-control col-sm-8" disabled />
-							<nop-required />
-							<span asp-validation-for="FirstName"></span>
-						</div>
-						@if (Model.PhoneEnabled)
-						{
-							@if (Model.PhoneEnabled)
-							{
-								<div class="form-group row">
-									<label asp-for="Phone" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.phone")</label>
-									<input asp-for="Phone" id="cab-phone" class="form-control col-sm-8" disabled />
-									@if (Model.PhoneRequired)
-									{
-										<nop-required />
-									}
-									<span asp-validation-for="Phone"></span>
-								</div>
-							}
+                    <div id="firstZone">
+                        <div class="title"><span>1</span>@T("cabinet.info")</div>
+                        <button type="button"
+                                id="edit-name"
+                                class="btn btn-link">
+                            @T("cart.changeinfo")
+                        </button>
+                        <button style="display: none;"
+                                type="button"
+                                onclick="CancelChangesInZone(1)"
+                                id="edit-name-close"
+                                class="btn btn-link">
+                            @T("cart.cancel")
+                        </button>
+                        <div class="form-group row">
+                            <label asp-for="FirstName" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.name")</label>
+                            <input asp-for="FirstName" class="form-control col-sm-8" disabled />
+                            <nop-required />
+                            <span asp-validation-for="FirstName"></span>
+                        </div>
+                        @if (Model.PhoneEnabled)
+                        {
+                            @if (Model.PhoneEnabled)
+                            {
+                                <div class="form-group row">
+                                    <label asp-for="Phone" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.phone")</label>
+                                    <input asp-for="Phone" id="cab-phone" class="form-control col-sm-8" disabled />
+                                    @if (Model.PhoneRequired)
+                                    {
+                                        <nop-required />
+                                    }
+                                    <span asp-validation-for="Phone"></span>
+                                </div>
+                            }
 
-						}
-						<div class="form-group row">
-							<label asp-for="Email" asp-postfix=":" class="col-form-label col-sm-3">E-mail</label>
-							<input asp-for="Email" class="form-control col-sm-8" disabled />
-							<nop-required />
-							<span asp-validation-for="Email"></span>
-						</div>
-						<div class="line"></div>
-					</div>
+                        }
+                        <div class="form-group row">
+                            <label asp-for="Email" asp-postfix=":" class="col-form-label col-sm-3">E-mail</label>
+                            <input asp-for="Email" class="form-control col-sm-8" disabled />
+                            <nop-required />
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="NumberDiscountCard" asp-postfix=":" class="col-form-label col-sm-3"></label>
+                            <input asp-for="NumberDiscountCard" class="form-control col-sm-8" disabled />
+                            <span asp-validation-for="NumberDiscountCard"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="DiscountPercent" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.disount")</label>
+                            <span asp-for="DiscountPercent" class="col-sm-8">@Model.DiscountPercent</span>
+                        </div>
+                        <div class="line"></div>
+                    </div>
 					@if (Model.StreetAddressEnabled ||
 Model.StreetAddress2Enabled ||
 Model.ZipPostalCodeEnabled ||
@@ -729,7 +738,7 @@ Model.CountyEnabled ||
 Model.CountryEnabled)
 					{
 						<div id="secondZone">
-							<div class="title"><span>2</span>Адрес</div>
+							<div class="title"><span>2</span>@T("cabinet.address")</div>
 							<button type="button"
 									id="edit-addres"
 									class="btn btn-link">
@@ -744,15 +753,21 @@ Model.CountryEnabled)
 							</button>
 							@if (Model.CityEnabled)
 							{
-								<div class="form-group row">
-									<label asp-for="City" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.city")</label>
-									<input asp-for="City" class="form-control col-sm-8" disabled />
-									@if (Model.CityRequired)
-									{
-										<nop-required />
-									}
-									<span asp-validation-for="City"></span>
-								</div>
+                            <div class="form-group row">
+                                <label asp-for="City" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.city")</label>
+                                <select asp-for="City" class="form-control col-sm-8" disabled>
+                                    @await Component.InvokeAsync("RegionsSelectorBlock", new { selectedCity = Model.City, disabled = true })
+                                </select>
+                                @if (Model.CityRequired)
+                                {
+                                    <nop-required />
+                                }
+                                <span asp-validation-for="City"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="City" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.city")</label>
+                                <span>@Model.City</span>
+                            </div>
 							}
 							@if (Model.StreetAddressEnabled)
 							{
@@ -764,18 +779,6 @@ Model.CountryEnabled)
 										<nop-required />
 									}
 									<span asp-validation-for="StreetAddress"></span>
-								</div>
-							}
-							@if (Model.StreetAddress2Enabled)
-							{
-								<div class="form-group row">
-									<label asp-for="StreetAddress2" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.flat")</label>
-									<input asp-for="StreetAddress2" class="form-control col-sm-8" disabled />
-									@if (Model.StreetAddress2Required)
-									{
-										<nop-required />
-									}
-									<span asp-validation-for="StreetAddress2"></span>
 								</div>
 							}
 						</div>
@@ -910,7 +913,7 @@ Model.CountryEnabled)
 		</div>
 	</div>
 </div>
-<script src="~/js/site/jquery.mask.js"></script>
+<script src="~/js/site/maskedinput.js"></script>
 <script>
-	$("#cab-phone").mask("(000)0000000");
+    $("#cab-phone").mask("+38 (999) 999-99-99", { placeholder: "+38 (___) ___-__-__" });
 </script>

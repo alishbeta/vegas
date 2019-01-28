@@ -22,13 +22,16 @@ namespace Nop.Web.Components
 		private readonly IProductService _productService;
 		private readonly IStoreContext _storeContext;
 		private readonly IStoreMappingService _storeMappingService;
+        private readonly ISpecificationAttributeService _specificationAttributeService;
 
 		public SimilarProductsBlockViewComponent(IAclService aclService,
 			IProductModelFactory productModelFactory,
+            ISpecificationAttributeService specificationAttributeService,
 			IProductService productService,
 			IStoreContext storeContext,
 			IStoreMappingService storeMappingService)
 		{
+            this._specificationAttributeService = specificationAttributeService;
 			this._aclService = aclService;
 			this._productModelFactory = productModelFactory;
 			this._productService = productService;
@@ -36,40 +39,32 @@ namespace Nop.Web.Components
 			this._storeMappingService = storeMappingService;
 		}
 
-		public IViewComponentResult Invoke(string makeCode, int productId = 0)
+		public IViewComponentResult Invoke(string makeCode, string colorName, int productId = 0)
 		{
-			var products = _productService.SearchProducts(
+            if (string.IsNullOrEmpty(colorName) || string.IsNullOrEmpty(makeCode))
+            {
+                return Content("");
+            }
+            IEnumerable<Product> products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
-				orderBy: ProductSortingEnum.CreatedOn
-				).ToList();
+				orderBy: ProductSortingEnum.CreatedOn);
 
             ViewBag.ProductName = products.FirstOrDefault(x => x.Id == productId)?.Name;
 
             //ACL and store mapping
-            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
 			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p) && p.MakeCode == makeCode && p.Id != productId).ToList();
+			products = products.Where(p => _productService.ProductIsAvailable(p) && p.MakeCode == makeCode && p.Id != productId);
 
 			if (!products.Any())
 				return Content("");
 
+            var productIds = _specificationAttributeService.GetSimilarProductIdsByColor(makeCode, colorName, productId);
+
+            products = products.Where(x => productIds.Contains(x.Id));
+
 			//prepare model
-			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true).ToList();
-            var distinctColors = model.Select(x => x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw).Distinct(); //(from product in model
-            var newModel = new List<ProductOverviewModel>();
-            foreach (var product in model)
-            {
-                var color = product.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw;
-                if (!string.IsNullOrEmpty(color) && distinctColors.Contains(color))
-                {
-                    newModel.Add(product);
-                    distinctColors = distinctColors.Where(x => x != color);
-                }
-            }
-            model = newModel;
-            //model = model.Where(x => distinctColors.Contains(x.SpecificationAttributeModels?.FirstOrDefault(u => u.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw)).ToList(); 
-            //           group product by product.SpecificationAttributeModels?.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "цвет")?.ValueRaw into g
-              //          select g?.ToList())?.ToList();
+			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, 250, false);
 			ViewBag.Prefix = "similar";//prefix for backinstock button
 			return View(model);
 		}

@@ -369,11 +369,10 @@ namespace Nop.Web.Factories
                         Name = _localizationService.GetLocalized(catBr, x => x.Name),
                         SeName = _urlRecordService.GetSeName(catBr)
                     })
-                    .ToList()
                 );
             }
 
-            var pictureSize = _mediaSettings.CategoryThumbPictureSize;
+            var pictureSize = 250;// _mediaSettings.CategoryThumbPictureSize;
 
             //subcategories
             var subCategoriesCacheKey = string.Format(ModelCacheEventConsumer.CATEGORY_SUBCATEGORIES_KEY,
@@ -463,7 +462,39 @@ namespace Nop.Web.Factories
 			{
 				orderBy = ProductSortingEnum.Position;
 			}
-			var products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
+
+            decimal? minLength = null, maxLength = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("length")))
+            {
+                minLength = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[0]);
+                maxLength = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[1]);
+            }
+            decimal? minWidth = null, maxWidth = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("width")))
+            {
+                minWidth = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[0]);
+                maxWidth = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[1]);
+            }
+            decimal? minHeight = null, maxHeight = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("height")))
+            {
+                minHeight = decimal.Parse(_webHelper.QueryString<string>("height").Split('-')[0]);
+                maxHeight = decimal.Parse(_webHelper.QueryString<string>("height").Split('-')[1]);
+            }
+            decimal? minSleepLength = null, maxSleepLength = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleeplength")))
+            {
+                minSleepLength = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[0]);
+                maxSleepLength = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[1]);
+            }
+            decimal? minSleepWidth = null, maxSleepWidth = null;
+            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleepwidth")))
+            {
+                minSleepWidth = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[0]);
+                maxSleepWidth = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[1]);
+            }
+
+            var products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
                 true,
                 categoryIds: categoryIds,
                 storeId: _storeContext.CurrentStore.Id,
@@ -471,57 +502,63 @@ namespace Nop.Web.Factories
                 featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
                 priceMin: minPriceConverted,
                 priceMax: maxPriceConverted,
+                MinHeight: minHeight,
+                MaxHeight: maxHeight,
+                MinLength: minLength,
+                MaxLength: maxLength,
+                MinWidth: minWidth,
+                MaxWidth: maxWidth,
+                MinSleepLength: minSleepLength,
+                MaxSleepLength: maxSleepLength,
+                MinSleepWidth: minSleepWidth,
+                MaxSleepWidth: maxSleepWidth,
                 filteredSpecs: alreadyFilteredSpecOptionIds,
                 orderBy: orderBy,
                 pageIndex: command.PageNumber - 1,
-                pageSize: 32);
-            model.Products = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, true);
+                pageSize: 32
+                );
+            var allFilteredProductsIds = _productService.SearchProducts(out IList<int> _,
+                true,
+                categoryIds: categoryIds,
+                storeId: _storeContext.CurrentStore.Id,
+                visibleIndividuallyOnly: true,
+                featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
+                priceMin: minPriceConverted,
+                priceMax: maxPriceConverted,
+                MinHeight: minHeight,
+                MaxHeight: maxHeight,
+                MinLength: minLength,
+                MaxLength: maxLength,
+                MinWidth: minWidth,
+                MaxWidth: maxWidth,
+                MinSleepLength: minSleepLength,
+                MaxSleepLength: maxSleepLength,
+                MinSleepWidth: minSleepWidth,
+                MaxSleepWidth: maxSleepWidth,
+                filteredSpecs: alreadyFilteredSpecOptionIds,
+                orderBy: orderBy).Select(x => x.Id);
+            model.Products = _productModelFactory.PrepareProductOverviewModels(products, true, true, null, false).ToList();
 
-            //filter ranges
-            decimal from, to;                                                                                          
-            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("length")))
-            {                                                                               ///TODO remove ToList();
-                from = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[0]);///without tolist model.Products is empty  
-                to = decimal.Parse(_webHelper.QueryString<string>("length").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.Length >= from && x.Length <= to).ToList();
-            }
-            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("width")))
-            {
-                from = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[0]);
-                to = decimal.Parse(_webHelper.QueryString<string>("width").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.Width >= from && x.Width <= to).ToList();
-            }
-            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleeplength")))
-            {
-                from = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[0]);
-                to = decimal.Parse(_webHelper.QueryString<string>("sleeplength").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.SleepLength >= from && x.SleepLength <= to).ToList();
-            }
-            if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("sleepwidth")))
-            {
-                from = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[0]);
-                to = decimal.Parse(_webHelper.QueryString<string>("sleepwidth").Split('-')[1]);
-                model.Products = model.Products.Where(x => x.SleepWidth >= from && x.SleepWidth <= to).ToList();
-            }
             if (command.OrderBy == (int)ProductSortingEnum.NewProducts)
 			{
-				model.Products = model.Products.OrderBy(x => x.MarkAsNew ? 0 : 1);
+				model.Products = model.Products.OrderBy(x => x.MarkAsNew ? 0 : 1).ToList();
 			}			  
 			if (command.OrderBy == (int)ProductSortingEnum.Discounts)
 			{
-				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.Discount);
+				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.Discount).ToList();
 			}
 			if (command.OrderBy == (int)ProductSortingEnum.PriceAsc)
 			{
-				model.Products = model.Products.OrderBy(x => x.ProductPrice.PriceValue);
+				model.Products = model.Products.OrderBy(x => x.ProductPrice.PriceValue).ToList();
 			} 
 			if (command.OrderBy == (int)ProductSortingEnum.PriceDesc)
 			{
-				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.PriceValue);
+				model.Products = model.Products.OrderByDescending(x => x.ProductPrice.PriceValue).ToList();
 			}
+            model.Products = model.Products.ToList();
             model.PagingFilteringContext.LoadPagedList(products);
 
-            model.AllProducts = _productService.SearchProducts(out filterableSpecificationAttributeOptionIds,  //recall to update filterableSpecificationAttributeOptionIds
+            var allProducts = _productService.SearchProducts(out _,  //recall to update filterableSpecificationAttributeOptionIds
                 true,                                                                           //needs to include already selected options in filters
                 categoryIds: categoryIds,
                 storeId: _storeContext.CurrentStore.Id,
@@ -530,10 +567,11 @@ namespace Nop.Web.Factories
                 orderBy: orderBy
                 );
 
+            filterableSpecificationAttributeOptionIds = _specificationAttributeService.GetSpecificationAttributeOptionsByProductIds(allProducts.Select(x => x.Id));
             //specs
             model.PagingFilteringContext.SpecificationFilter.PrepareSpecsFilters(alreadyFilteredSpecOptionIds,
                 filterableSpecificationAttributeOptionIds?.ToArray(),
-                _specificationAttributeService, _localizationService, _webHelper, _workContext, _cacheManager);
+                _specificationAttributeService, _localizationService, _webHelper, _workContext, _cacheManager, allProducts.Select(x => x.Id), allFilteredProductsIds);
 
             return model;
         }
@@ -615,7 +653,6 @@ namespace Nop.Web.Factories
                     Name = _localizationService.GetLocalized(t, x => x.Title),
                     SeName = _urlRecordService.GetSeName(t)
                 })
-                .ToList()
             );
             var model = new TopMenuModel
             {

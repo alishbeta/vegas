@@ -49,6 +49,8 @@ namespace Nop.Services.Catalog
         /// <returns>Product</returns>
         Product GetProductById(int productId);
 
+        int GetProductIdBySeName(string SeName);
+
         /// <summary>
         /// Gets products by identifier
         /// </summary>
@@ -67,6 +69,8 @@ namespace Nop.Services.Catalog
         /// </summary>
         /// <param name="product">Product</param>
         void UpdateProduct(Product product);
+
+        void DeleteAllProductWarehouseInventory(int productId);
 
         /// <summary>
         /// Updates the products
@@ -128,7 +132,17 @@ namespace Nop.Services.Catalog
             bool? featuredProducts = null,
             decimal? priceMin = null,
             decimal? priceMax = null,
-			string specificationFilters = null,
+            decimal? MinWidth = null,
+            decimal? MaxWidth = null,
+            decimal? MinLength = null,
+            decimal? MaxLength = null,
+            decimal? MinHeight = null,
+            decimal? MaxHeight = null,
+            decimal? MinSleepWidth = null,
+            decimal? MaxSleepWidth = null,
+            decimal? MinSleepLength = null,
+            decimal? MaxSleepLength = null,
+            string specificationFilters = null,
             int productTagId = 0,
             string keywords = null,
             bool searchDescriptions = false,
@@ -192,7 +206,17 @@ namespace Nop.Services.Catalog
             bool? featuredProducts = null,
             decimal? priceMin = null,
             decimal? priceMax = null,
-			string specificationFilters = null,
+            decimal? MinWidth = null,
+            decimal? MaxWidth = null,
+            decimal? MinLength = null,
+            decimal? MaxLength = null,
+            decimal? MinHeight = null,
+            decimal? MaxHeight = null,
+            decimal? MinSleepWidth = null,
+            decimal? MaxSleepWidth = null,
+            decimal? MinSleepLength = null,
+            decimal? MaxSleepLength = null,
+            string specificationFilters = null,
             int productTagId = 0,
             string keywords = null,
             bool searchDescriptions = false,
@@ -527,7 +551,7 @@ namespace Nop.Services.Catalog
         /// <param name="cart">Shopping cart</param>
         /// <param name="numberOfProducts">Number of products to return</param>
         /// <returns>Cross-sells</returns>
-        IList<Product> GetCrosssellProductsByShoppingCart(IList<ShoppingCartItem> cart, int numberOfProducts);
+        IEnumerable<Product> GetCrosssellProductsByShoppingCart(IEnumerable<ShoppingCartItem> cart, int numberOfProducts);
 
         /// <summary>
         /// Finds a cross-sell product item by specified identifiers

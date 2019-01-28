@@ -11,6 +11,7 @@ using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Localization;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Security;
+using Nop.Core.Domain.Seo;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Domain.Stores;
 using Nop.Core.Infrastructure;
@@ -44,6 +45,7 @@ namespace Nop.Services.Catalog
         private readonly IProductAttributeParser _productAttributeParser;
         private readonly IProductAttributeService _productAttributeService;
         private readonly IRepository<AclRecord> _aclRepository;
+        private readonly IRepository<UrlRecord> _urlRecord;
         private readonly IRepository<CrossSellProduct> _crossSellProductRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<ProductPicture> _productPictureRepository;
@@ -75,6 +77,7 @@ namespace Nop.Services.Catalog
             ILocalizationService localizationService,
             IProductAttributeParser productAttributeParser,
             IProductAttributeService productAttributeService,
+            IRepository<UrlRecord> urlRecord,
             IRepository<AclRecord> aclRepository,
             IRepository<CrossSellProduct> crossSellProductRepository,
             IRepository<Product> productRepository,
@@ -90,6 +93,7 @@ namespace Nop.Services.Catalog
             LocalizationSettings localizationSettings,
             IRepository<Status> statusRepository)
         {
+            this._urlRecord = urlRecord;
             this._catalogSettings = catalogSettings;
             this._commonSettings = commonSettings;
             this._aclService = aclService;
@@ -306,6 +310,23 @@ namespace Nop.Services.Catalog
                         select p;
             var product = query.FirstOrDefault();
             return product;
+        }
+
+        /// <summary>
+        /// Gets product by SeName
+        /// </summary>
+        /// <param name="SeName">Product identifier</param>
+        /// <returns>Product</returns>
+        public virtual int GetProductIdBySeName(string SeName)
+        {
+            if (string.IsNullOrEmpty(SeName))
+                return 0;
+
+            var query = from p in _urlRecord.Table
+                        where p.Slug.ToLower() == SeName.ToLower() && p.EntityName == "Product"
+                        select p;
+            var product = query.FirstOrDefault();
+            return product?.EntityId ?? 0;
         }
 
         public virtual Status GetStatusByName(string name)
@@ -590,7 +611,17 @@ namespace Nop.Services.Catalog
             bool? featuredProducts = null,
             decimal? priceMin = null,
             decimal? priceMax = null,
-			string specificationFilters = null,
+            decimal? MinWidth = null,
+            decimal? MaxWidth = null,
+            decimal? MinLength = null,
+            decimal? MaxLength = null,
+            decimal? MinHeight = null,
+            decimal? MaxHeight = null,
+            decimal? MinSleepWidth = null,
+            decimal? MaxSleepWidth = null,
+            decimal? MinSleepLength = null,
+            decimal? MaxSleepLength = null,
+            string specificationFilters = null,
             int productTagId = 0,
             string keywords = null,
             bool searchDescriptions = false,
@@ -608,7 +639,8 @@ namespace Nop.Services.Catalog
                 pageIndex, pageSize, categoryIds, manufacturerId,
                 storeId, vendorId, warehouseId,
                 productType, visibleIndividuallyOnly, markedAsNewOnly, featuredProducts,
-                priceMin, priceMax, specificationFilters, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku,
+                priceMin, priceMax, MinWidth, MaxWidth, MinLength, MaxLength, MinHeight, MaxHeight, MinSleepWidth, MaxSleepWidth, MinSleepLength, MaxSleepLength, 
+                specificationFilters, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku,
                 searchProductTags, languageId, filteredSpecs,
                 orderBy, showHidden, overridePublished, isAdmin);
         }
@@ -663,6 +695,16 @@ namespace Nop.Services.Catalog
 			bool? featuredProducts = null,
 			decimal? priceMin = null,
 			decimal? priceMax = null,
+			decimal? MinWidth = null,
+			decimal? MaxWidth = null,
+			decimal? MinLength = null,
+			decimal? MaxLength = null,
+			decimal? MinHeight = null,
+			decimal? MaxHeight = null,
+			decimal? MinSleepWidth = null,
+			decimal? MaxSleepWidth = null,
+			decimal? MinSleepLength = null,
+			decimal? MaxSleepLength = null,
 			string specificationFilters = null,
             int productTagId = 0,
             string keywords = null,
@@ -733,6 +775,16 @@ namespace Nop.Services.Catalog
             var pFeaturedProducts = _dataProvider.GetBooleanParameter("FeaturedProducts", featuredProducts);
             var pPriceMin = _dataProvider.GetDecimalParameter("PriceMin", priceMin);
             var pPriceMax = _dataProvider.GetDecimalParameter("PriceMax", priceMax);
+            var pMinWidth = _dataProvider.GetDecimalParameter("MinWidth", MinWidth);
+            var pMaxWidth = _dataProvider.GetDecimalParameter("MaxWidth", MaxWidth);
+            var pMinLength = _dataProvider.GetDecimalParameter("MinLength", MinLength);
+            var pMaxLength = _dataProvider.GetDecimalParameter("MaxLength", MaxLength);
+            var pMinHeight = _dataProvider.GetDecimalParameter("MinHeight", MinHeight);
+            var pMaxHeight = _dataProvider.GetDecimalParameter("MaxHeight", MaxHeight);
+            var pMinSleepWidth = _dataProvider.GetDecimalParameter("MinSleepWidth", MinSleepWidth);
+            var pMaxSleepWidth = _dataProvider.GetDecimalParameter("MaxSleepWidth", MaxSleepWidth);
+            var pMinSleepLength = _dataProvider.GetDecimalParameter("MinSleepLength", MinSleepLength);
+            var pMaxSleepLength = _dataProvider.GetDecimalParameter("MaxSleepLength", MaxSleepLength);
 			var pSpecificationFilter = _dataProvider.GetStringParameter("Spec", specificationFilters);
             var pKeywords = _dataProvider.GetStringParameter("Keywords", keywords);
             var pSearchDescriptions = _dataProvider.GetBooleanParameter("SearchDescriptions", searchDescriptions);
@@ -771,6 +823,16 @@ namespace Nop.Services.Catalog
                 pFeaturedProducts,
                 pPriceMin,
                 pPriceMax,
+                pMinWidth,
+                pMaxWidth,
+                pMinHeight,
+                pMaxHeight,
+                pMinLength,
+                pMaxLength,
+                pMinSleepLength,
+                pMaxSleepLength,
+                pMinSleepWidth,
+                pMaxSleepWidth,
 				//pSpecificationFilter,
                 pKeywords,
                 pSearchDescriptions,
@@ -1862,7 +1924,7 @@ namespace Nop.Services.Catalog
         /// <param name="cart">Shopping cart</param>
         /// <param name="numberOfProducts">Number of products to return</param>
         /// <returns>Cross-sells</returns>
-        public virtual IList<Product> GetCrosssellProductsByShoppingCart(IList<ShoppingCartItem> cart, int numberOfProducts)
+        public virtual IEnumerable<Product> GetCrosssellProductsByShoppingCart(IEnumerable<ShoppingCartItem> cart, int numberOfProducts)
         {
             var result = new List<Product>();
 
@@ -1872,12 +1934,12 @@ namespace Nop.Services.Catalog
             if (cart == null || !cart.Any())
                 return result;
 
-            var cartProductIds = new List<int>();
+            IEnumerable<int> cartProductIds = new int[] { };
             foreach (var sci in cart)
             {
                 var prodId = sci.ProductId;
                 if (!cartProductIds.Contains(prodId))
-                    cartProductIds.Add(prodId);
+                    cartProductIds.Append(prodId);
             }
 
             var productIds = cart.Select(sci => sci.ProductId).ToArray();
@@ -2256,6 +2318,22 @@ namespace Nop.Services.Catalog
             _productWarehouseInventoryRepository.Delete(pwi);
 
             _cacheManager.RemoveByPattern(NopCatalogDefaults.ProductsPatternCacheKey);
+        }
+
+        /// <summary>
+        /// Deletes a ProductWarehouseInventory
+        /// </summary>
+        /// <param name="pwi">ProductWarehouseInventory</param>
+        public virtual void DeleteAllProductWarehouseInventory(int productId)
+        {
+            var query = from p in _productWarehouseInventoryRepository.Table
+                        where p.ProductId == productId
+                        select p;
+
+            foreach (var prod in query.ToList())
+            {
+                _productWarehouseInventoryRepository.Delete(prod);
+            }
         }
 
         #endregion

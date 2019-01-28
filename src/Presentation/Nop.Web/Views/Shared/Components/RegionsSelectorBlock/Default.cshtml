@@ -1,0 +1,14 @@
+﻿@using Nop.Web.Areas.Admin.Models.Localization;
+@model IEnumerable<LocaleResourceModel>
+
+@foreach (var item in Model)
+{
+    if (ViewBag.SelectedCity == item.Name)
+    {
+        <option selected="selected">@item.Value</option>
+    }
+    else
+    {
+        <option>@item.Value</option>
+    }
+}

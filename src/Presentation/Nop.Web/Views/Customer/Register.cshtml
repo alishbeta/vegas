@@ -1,16 +1,16 @@
 ﻿@model RegisterModel
 @using System.Text.Encodings.Web
 @{
-	Layout = "_ColumnsOne";
+    Layout = "_ColumnsOne";
 
-	//title
-	Html.AddTitleParts(T("PageTitle.Register").Text);
-	//page class
-	Html.AppendPageCssClassParts("html-registration-page");
+    //title
+    Html.AddTitleParts(T("PageTitle.Register").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-registration-page");
 }
 @if (Model.CountryEnabled && Model.StateProvinceEnabled)
 {
-	<script asp-location="Footer">
+    <script asp-location="Footer">
         $(document).ready(function () {
             $("#@Html.IdFor(model => model.CountryId)").on('change', function () {
                 var selectedItem = $(this).val();
@@ -36,89 +36,91 @@
                 });
             });
         });
-	</script>
+    </script>
 }
-	<nav class="breadcrumb-wrap" aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
-			<li class="breadcrumb-item active"><a href="#">@T("account.register")</a></li>
-		</ol>
-	</nav>
+<style>
+    .required-span {
+        color: red;
+    }
+</style>
+<nav class="breadcrumb-wrap" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Bed4you</a></li>
+        <li class="breadcrumb-item active"><a href="#">@T("account.register")</a></li>
+    </ol>
+</nav>
 
 <div class="row reg">
-	<div class="col-sm-10 col-md-8 offset-md-1 offset-lg-1 col-lg-7 offset-xl-1 col-xl-7">
-		<h1 class="title">Регистрация нового пользователя</h1>
-		<div class="reg-wraper rounded">
+    <div class="col-sm-10 col-md-8 offset-md-1 offset-lg-1 col-lg-7 offset-xl-1 col-xl-7">
+        <h1 class="title">@T("register.newuser")</h1>
+        <div class="reg-wraper rounded">
 
-			<form asp-route="Register" asp-route-returnurl="@Context.Request.Query["ReturnUrl"]" method="post">
-				<div asp-validation-summary="ModelOnly" class="message-error"></div>
-				<div class="title"><span>1</span>@T("register.fillinfo")</div>
-				<div class="form-group row">
-					<label asp-for="FirstName" class="col-form-label col-sm-3" for="i1" asp-postfix="*">@T("register.name")</label>
-					<input id="i1" type="text" class="form-control col-sm-5" asp-for="FirstName" />
-					<nop-required />
-					<span asp-validation-for="FirstName"></span>
-				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3" for="i2" asp-for="Phone" asp-postfix="*">@T("register.phone")</label>
-					<input id="i2" type="text" class="form-control col-sm-5" asp-for="Phone" />
-					<span asp-validation-for="Phone"></span>
-				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3" for="i3" asp-for="Email" asp-postfix="*">@T("register.email")</label>
-					<input asp-for="Email" id="i3" type="text" class="form-control col-sm-5" />
-					<nop-required />
-					<span asp-validation-for="Email"></span>
-				</div>
-				<div class="form-group row">
-					@{
-						var attribute = Model.CustomerAttributes.FirstOrDefault(x => x.Id == 1);
-						var controlId = $"customer_attribute_{attribute.Id}";
-						var textPrompt = attribute.Name;
-						<label class="col-form-label col-sm-3">@textPrompt</label>
-						<input type="text" class="form-control col-sm-5" name="@(controlId)" id="@(controlId)" value="@attribute.DefaultValue" />
-					}
-				</div>
+            <form asp-route="Register" asp-route-returnurl="@Context.Request.Query["ReturnUrl"]" method="post">
+                <div asp-validation-summary="ModelOnly" class="message-error"></div>
+                <div class="title"><span>1</span>@T("register.fillinfo")</div>
+                <div class="form-group row">
+                    <label asp-for="FirstName" class="col-form-label col-sm-3" for="i1">@T("register.name")<span class="required-span">*</span></label>
+                    <input id="i1" type="text" class="form-control col-sm-5" asp-for="FirstName" />
+                    <nop-required />
+                    <span asp-validation-for="FirstName"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="i2" asp-for="Phone">@T("register.phone")<span class="required-span">*</span></label>
+                    <input id="i2" type="text" class="form-control col-sm-5" asp-for="Phone" />
+                    <span asp-validation-for="Phone"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="i3" asp-for="Email">@T("register.email")<span class="required-span">*</span></label>
+                    <input asp-for="Email" id="i3" type="text" class="form-control col-sm-5" />
+                    <nop-required />
+                    <span asp-validation-for="Email"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="i3" asp-for="NumberDiscountCard"></label>
+                    <input asp-for="NumberDiscountCard" id="i3" type="text" class="form-control col-sm-5" />
+                    <span asp-validation-for="NumberDiscountCard"></span>
+                </div>
 
-				<div class="line"></div>
+                <div class="line"></div>
 
-				<div class="title"><span>2</span>Выберитеспособ доставки</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3" asp-for="City" asp-postfix="">@T("register.city")</label>
-					<input type="text" class="form-control col-sm-5" asp-for="City" />
-					<span asp-validation-for="City"></span>
-				</div>
+                <div class="title"><span>2</span>@T("register.delivery.address")</div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" asp-for="City" asp-postfix="">@T("register.city")</label>
+                    <select class="form-control col-sm-5" asp-for="City">
+                        @await Component.InvokeAsync("RegionsSelectorBlock")
+                    </select>
+                    <span asp-validation-for="City"></span>
+                </div>
 
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3" asp-for="StreetAddress" asp-postfix="">@T("register.street")</label>
-					<input type="text" class="form-control col-sm-5" asp-for="StreetAddress" />
-					<span asp-validation-for="StreetAddress"></span>
-				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3" asp-for="StreetAddress2" asp-postfix="">@T("register.flat")</label>
-					<input type="text" class="form-control col-sm-5" asp-for="StreetAddress2" />
-					<span asp-validation-for="StreetAddress2"></span>
-				</div>
-				<div class="line"></div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" asp-for="StreetAddress" asp-postfix="">@T("register.street")</label>
+                    <input type="text" class="form-control col-sm-5" asp-for="StreetAddress" />
+                    <span asp-validation-for="StreetAddress"></span>
+                </div>
+                <div class="line"></div>
 
-				<div class="title"><span>3</span>Пароль</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3" for="p1" asp-for="Password" asp-postfix="*"></label>
-					<input id="p1" type="text" class="form-control col-sm-5" asp-for="Password" />
-					<nop-required />
-					<span asp-validation-for="Password"></span>
-				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3" for="p2" asp-for="ConfirmPassword" asp-postfix="*"></label>
-					<input id="p2" type="text" class="form-control col-sm-5" asp-for="ConfirmPassword" />
-					<nop-required />
-					<span asp-validation-for="ConfirmPassword"></span>
-				</div>
-				<div class="row">
-					<input type="submit" style="display:none;" id="register-button" class="button-1 register-next-step-button" value="@T("Account.Register.Button")" name="register-button" />
-					<button class="btn btn-blue pl-5 pr-5 offset-sm-3 col-sm-5" onclick="$('#register-button').click()">Зарегистрироваться</button>
-				</div>
-			</form>
-		</div>
-	</div>
+                <div class="title"><span>3</span>Пароль</div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="p1" asp-for="Password">@T("register.pass")<span class="required-span">*</span></label>
+                    <input id="p1" type="text" class="form-control col-sm-5" asp-for="Password" />
+                    <nop-required />
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3" for="p2" asp-for="ConfirmPassword">@T("register.pass.confirm")<span class="required-span">*</span></label>
+                    <input id="p2" type="text" class="form-control col-sm-5" asp-for="ConfirmPassword" />
+                    <nop-required />
+                    <span asp-validation-for="ConfirmPassword"></span>
+                </div>
+                <div class="row">
+                    <input type="submit" style="display:none;" id="register-button" class="button-1 register-next-step-button" value="@T("Account.Register.Button")" name="register-button" />
+                    <button class="btn btn-blue pl-5 pr-5 offset-sm-3 col-sm-5" onclick="$('#register-button').click()">@T("Account.Register.Confirm")</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+<script src="~/js/site/maskedinput.js"></script>
+<script>
+    $("#i2").mask("+38 (999) 999-99-99", { placeholder: "+38 (___) ___-__-__" });
+</script>

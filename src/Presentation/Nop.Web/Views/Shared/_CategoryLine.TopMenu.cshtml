@@ -44,7 +44,7 @@
 
 @model TopMenuModel.CategoryLineModel
 <li class="@(ViewBag.ActiveCategory == Model.Category.Id ? "active" : "")">
-    <a onclick="return false;" href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })">
+    <a onclick="return false;" href="@Url.RouteUrl("CategoryInfo", new { SeName = Model.Category.SeName })">
         @if (Model.Category.Id == 17)
         {
             <img class="side-icons" src="/img/on-mattress_icon.svg" alt="@Model.Category.Name">
@@ -77,18 +77,18 @@
             //responsive (all categories)
             Model.Category.SubCategories :
             //standard design (only categories with "IncludeInTopMenu")
-            Model.Category.SubCategories.Where(x => x.IncludeInTopMenu).ToList();
-        if (subCategories.Count > 0)
+            Model.Category.SubCategories.Where(x => x.IncludeInTopMenu);
+        if (subCategories.Count() > 0)
         {
             <div class="sub-menu">
 				<ul>
 					@foreach (var subCategory in subCategories)
 					{
-					<li class="@(ViewBag.ActiveSubCategory == subCategory.Id ? "active" : "")"><a href="@Url.RouteUrl("Category", new { SeName = subCategory.SeName })">@subCategory.Name</a></li>
+					<li class="@(ViewBag.ActiveSubCategory == subCategory.Id ? "active" : "")"><a href="@Url.RouteUrl("CategoryInfo", new { SeName = subCategory.SeName })">@subCategory.Name</a></li>
 					}
 				</ul>
 				<div class="text-center mt-3">
-					<a href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })" class="btn btn-grey btn-sm pl-5 pr-5">@T("bestsellers.ViewAll")</a>
+					<a href="@Url.RouteUrl("CategoryInfo", new { SeName = Model.Category.SeName })" class="btn btn-grey btn-sm pl-5 pr-5">@T("bestsellers.ViewAll")</a>
 				</div>
             </div>
         }

@@ -890,17 +890,16 @@ namespace Nop.Web.Controllers
 		{
 			var cart = _workContext.CurrentCustomer.ShoppingCartItems
 				   .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-				   .LimitPerStore(_storeContext.CurrentStore.Id)
-				   .ToList();
+				   .LimitPerStore(_storeContext.CurrentStore.Id);
 
-			var products = _productService.GetCrosssellProductsByShoppingCart(cart, _shoppingCartSettings.CrossSellsNumber);
+			IEnumerable<Product> products = _productService.GetCrosssellProductsByShoppingCart(cart, _shoppingCartSettings.CrossSellsNumber);
 			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+			products = products.Where(p => _productService.ProductIsAvailable(p));
 			//visible individually
-			products = products.Where(p => p.VisibleIndividually).ToList();
-			var model = _productModelFactory.PrepareProductOverviewModels(products).ToList();
+			products = products.Where(p => p.VisibleIndividually);
+			var model = _productModelFactory.PrepareProductOverviewModels(products);
 
-			List<SimpleProductModel> productModels = new List<SimpleProductModel>();
+			IList<SimpleProductModel> productModels = new List<SimpleProductModel>();
 			foreach (var product in model)
 			{
 				productModels.Add(new SimpleProductModel()
@@ -1806,11 +1805,8 @@ namespace Nop.Web.Controllers
 				return RedirectToRoute("HomePage");
 			var cart = customer.ShoppingCartItems
 				.Where(sci => sci.ShoppingCartType == ShoppingCartType.Wishlist)
-				.LimitPerStore(_storeContext.CurrentStore.Id)
-				.ToList();
-			var model = new WishlistModel();
-			model = _shoppingCartModelFactory.PrepareWishlistModel(model, cart, !customerGuid.HasValue);
-			return Json(new { success = true, wishlist = model.Items});
+				.LimitPerStore(_storeContext.CurrentStore.Id);
+			return Json(new { success = true, wishlist = cart.Select(x => x.ProductId)});
 		}
 
 		[HttpsRequirement(SslRequirement.Yes)]
@@ -1821,13 +1817,8 @@ namespace Nop.Web.Controllers
 				: _workContext.CurrentCustomer;
 			if (customer == null)
 				return RedirectToRoute("HomePage");
-			var productsToCompare = _compareProductsService.GetComparedProducts();
-			List<int> compareIds = new List<int>();
-			foreach (var product in productsToCompare)
-			{
-				compareIds.Add(product.Id);
-			}
-			return Json(new { success = true, compareItems = compareIds });
+			var productsToCompare = _compareProductsService.GetComparedProductIdsIEnumerable();
+			return Json(new { success = true, compareItems = productsToCompare });
 		}
 
 		[HttpPost, ActionName("Wishlist")]

@@ -11,18 +11,28 @@
     @foreach (var group in Model.FilterItems.Where(x => !specificationsExcludeList.Contains(x.SpecificationAttributeName.ToLower())).GroupBy(x => x.SpecificationAttributeName))
     {
         var groupList = group.ToList();
-
+        var checkedGroup = Model.AlreadyFilteredItems.Count(x => groupList.Select(u => u.SpecificationAttributeOptionId).Contains(x.SpecificationAttributeOptionId)) > 0;
         <div class="title">
             @groupList[0].SpecificationAttributeName
         </div>
         @foreach (var spec in groupList)
         {
+            var isItemChecked = Model.AlreadyFilteredItems.Count(x => x.SpecificationAttributeOptionId == spec.SpecificationAttributeOptionId) > 0;
+            var counter = 0;
+            @if (checkedGroup)
+            {
+                counter = isItemChecked ? spec.FilteredProductsWithSpecificationCount : spec.ProductsWithSpecificationCount;
+            }
+            else
+            {
+                counter = spec.FilteredProductsWithSpecificationCount;
+            }
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="@spec.SpecificationAttributeOptionId" @(Model.AlreadyFilteredItems.Count(x => x.SpecificationAttributeOptionId == spec.SpecificationAttributeOptionId) > 0 ? "checked" : "")>
+                <input class="form-check-input" type="checkbox" @(counter == 0 ? "disabled" : "") value="@spec.SpecificationAttributeOptionId" @(isItemChecked ? "checked" : "")>
                 <label class="form-check-label">
                     @spec.SpecificationAttributeOptionName
-                    <small></small>
-                </label>
+                        <small>(@(checkedGroup ? (!isItemChecked ? "+" : "") : "")@counter)</small>
+                    </label>
             </div>
         }
         <div class="line"></div>

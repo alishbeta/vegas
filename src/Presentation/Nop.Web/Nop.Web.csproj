@@ -78,6 +78,12 @@
     <Content Update="Views\Shared\Components\BackInStockButton\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\Components\BackInStockOrder\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\RegionsSelectorBlock\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\Components\SimilarProductsSizesBlock\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

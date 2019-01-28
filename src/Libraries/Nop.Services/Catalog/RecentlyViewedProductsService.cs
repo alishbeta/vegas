@@ -101,14 +101,14 @@ namespace Nop.Services.Catalog
         /// </summary>
         /// <param name="number">Number of products to load</param>
         /// <returns>"recently viewed products" list</returns>
-        public virtual IList<Product> GetRecentlyViewedProducts(int number)
+        public virtual IEnumerable<Product> GetRecentlyViewedProducts(int number)
         {
             //get list of recently viewed product identifiers
             var productIds = GetRecentlyViewedProductsIds(number);
 
             //return list of product
             return _productService.GetProductsByIds(productIds.ToArray())
-                .Where(product => product.Published && !product.Deleted).ToList();
+                .Where(product => product.Published && !product.Deleted);
         }
 
         /// <summary>

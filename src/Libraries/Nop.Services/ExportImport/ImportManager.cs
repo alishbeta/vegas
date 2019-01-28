@@ -10,9 +10,11 @@ using Nop.Core.Data;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Directory;
+using Nop.Core.Domain.Discounts;
 using Nop.Core.Domain.Media;
 using Nop.Core.Domain.Messages;
 using Nop.Core.Domain.OneC;
+using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Vendors;
@@ -21,11 +23,14 @@ using Nop.Services.Catalog;
 using Nop.Services.Common;
 using Nop.Services.Customers;
 using Nop.Services.Directory;
+using Nop.Services.Discounts;
 using Nop.Services.ExportImport.Help;
 using Nop.Services.Localization;
 using Nop.Services.Logging;
 using Nop.Services.Media;
 using Nop.Services.Messages;
+using Nop.Services.Orders;
+using Nop.Services.Payments;
 using Nop.Services.Security;
 using Nop.Services.Seo;
 using Nop.Services.Shipping;
@@ -54,6 +59,7 @@ namespace Nop.Services.ExportImport
         #region Fields
 
         private readonly CatalogSettings _catalogSettings;
+        private readonly IRewardPointService _rewardPointService;
         private readonly ICategoryService _categoryService;
         private readonly ICountryService _countryService;
         private readonly ICustomerActivityService _customerActivityService;
@@ -85,6 +91,9 @@ namespace Nop.Services.ExportImport
         private readonly VendorSettings _vendorSettings;
         private readonly ICustomerService _customerService;
         private readonly IGenericAttributeService _genericAttributeService;
+        private readonly IDiscountService _discountService;
+        private readonly IOrderService _orderService;
+        private readonly IPaymentService _paymentService;
 
         #endregion
 
@@ -92,6 +101,7 @@ namespace Nop.Services.ExportImport
 
         public ImportManager(CatalogSettings catalogSettings,
             ICategoryService categoryService,
+            IRewardPointService rewardPointService,
             ICountryService countryService,
             ICustomerActivityService customerActivityService,
             IDataProvider dataProvider,
@@ -121,8 +131,12 @@ namespace Nop.Services.ExportImport
             MediaSettings mediaSettings,
             VendorSettings vendorSettings,
             ICustomerService customerService,
-            IGenericAttributeService genericAttributeService)
+            IGenericAttributeService genericAttributeService,
+            IDiscountService discountService,
+            IOrderService orderService,
+            IPaymentService paymentService)
         {
+            this._rewardPointService = rewardPointService;
             this._catalogSettings = catalogSettings;
             this._categoryService = categoryService;
             this._countryService = countryService;
@@ -155,6 +169,9 @@ namespace Nop.Services.ExportImport
             this._vendorSettings = vendorSettings;
             this._customerService = customerService;
             this._genericAttributeService = genericAttributeService;
+            this._discountService = discountService;
+            this._orderService = orderService;
+            this._paymentService = paymentService;
         }
 
         #endregion
@@ -1188,13 +1205,18 @@ namespace Nop.Services.ExportImport
                             Active = true,
                             CreatedOnUtc = DateTime.UtcNow,
                             LastActivityDateUtc = DateTime.UtcNow,
-                            RegisteredInStoreId = _storeContext.CurrentStore.Id
+                            RegisteredInStoreId = _storeContext.CurrentStore.Id,
                         };
                         _customerService.InsertCustomer(customer);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CityAttribute, user.City);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
-                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, user.FirstName);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.PhoneAttribute, user.PhoneNumber);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.NumberDiscountCard, user.NumberDiscountCard);
+                        _rewardPointService.AddRewardPointsHistoryEntry(customer, 
+                            (int)customer.SumActiveBonus,
+                            _storeContext.CurrentStore.Id,
+                            _localizationService.GetResource("RewardPoints.Message.FromOneC"));
                         //_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.LastNameAttribute, user.LastName);
                         //_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FatherNameAttribute, user.FatherName);
 
@@ -1215,8 +1237,18 @@ namespace Nop.Services.ExportImport
                         customer.TotalSpent = user.TotalSpent;
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.CityAttribute, user.City);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddressAttribute, user.Address);
-                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.StreetAddress2Attribute, user.Apartament);
                         _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FirstNameAttribute, user.FirstName);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.NumberDiscountCard, user.NumberDiscountCard);
+
+                        var balance = _rewardPointService.GetRewardPointsBalance(customer.Id, customer.RegisteredInStoreId);
+                        if (balance != (int)customer.SumActiveBonus)
+                        {
+                            _rewardPointService.AddRewardPointsHistoryEntry(customer,
+                                (int)customer.SumActiveBonus - balance,
+                                customer.RegisteredInStoreId,
+                                _localizationService.GetResource("RewardPoints.Message.FromOneC"));
+                        }
+
                         //_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.LastNameAttribute, user.LastName);
                         //_genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.FatherNameAttribute, user.FatherName);
                         _customerService.UpdateCustomer(customer);
@@ -1389,6 +1421,10 @@ namespace Nop.Services.ExportImport
                         product.Weight = decimal.Parse(item.Weight.Replace('.', ','));
                         product.Length = decimal.Parse(item.Length.Replace('.', ','));
                         product.Width = decimal.Parse(item.Width.Replace('.', ','));
+                        product.DiscountPrice = decimal.Parse(item.DiscountPrice.Replace('.', ','));
+                        product.DiscountRate = decimal.Parse(item.DiscountRate.Replace('.', ','));
+                        product.Collection = item.Collection;
+                        product.ProductTypeForOneC = item.ProductType;
 
                         if (statusId > 0)
                         {
@@ -1435,12 +1471,50 @@ namespace Nop.Services.ExportImport
                         updateCount++;
                     }
 
+                    //warehouse inventory
+                    _productService.DeleteAllProductWarehouseInventory(product.Id);
+                    if (item.Warehouses.Count > 0)
+                    {
+                        product.UseMultipleWarehouses = true;
+                        productWarehouseStatuses.ForEach(x => product.ProductWarehouseInventory.Add(new ProductWarehouseInventory()
+                        {
+                            ProductId = x.ProductId,
+                            WarehouseId = x.WarehouseId
+                        }));
+                        _productService.UpdateProduct(product);
+                    }
+
+                    //aplied discounts
+                    var discountRate = decimal.Parse(item.DiscountRate.Replace('.', ','));
+                    if (discountRate > 0)
+                    {
+                        if (_discountService.GetAllDiscounts().Count(x => x.DiscountPercentage == discountRate) == 0) //discount doesn't exist, need to create 
+                        {
+                            _discountService.InsertDiscount(new Discount()
+                            {
+                                DiscountPercentage = discountRate,
+                                UsePercentage = true,
+                                Name = string.Format("1C_Discount_{0}", discountRate),
+                                DiscountTypeId = 2 //"На варианты товаров (артикулы)"
+                            });
+                        }
+                        var discount = _discountService.GetAllDiscounts().FirstOrDefault(x => x.DiscountPercentage == discountRate);
+                        if (product.DiscountProductMappings.Count(mapping => mapping.DiscountId == discount.Id) == 0) //discount not aplied, need to apply
+                        {
+                            product.DiscountProductMappings.Clear(); //can be other only one discount aplied
+                            product.DiscountProductMappings.Add(new DiscountProductMapping { Discount = discount });
+
+                            _productService.UpdateProduct(product);
+                            _productService.UpdateHasDiscountsApplied(product);
+                        }
+                    }
+
                     //specification attribute
                     if (item.Attributes != null)
                     {
                         foreach (var itemAttribute in item.Attributes)
                         {
-                            if (!string.IsNullOrEmpty(itemAttribute.Name) && string.IsNullOrEmpty(itemAttribute.Name))
+                            if (!string.IsNullOrEmpty(itemAttribute.Name) && !string.IsNullOrEmpty(itemAttribute.Value))
                             {
                                 var attribute = _specificationAttributeService.GetSpecificationAttributeByName(itemAttribute.Name);
 
@@ -1467,8 +1541,18 @@ namespace Nop.Services.ExportImport
                                     _specificationAttributeService.InsertSpecificationAttributeOption(option);
                                 }
 
+                                //var productOption = _specificationAttributeService.GetProductSpecificationAttributes(product.Id, option.Id);//GetProductSpecificationAttributeById(attribute.Id);// GetProductSpecificationAttributeByProductIdProductSpecificationAttributeId(product.Id, option.Id);
                                 var productOption = _specificationAttributeService.GetProductSpecificationAttributeByProductIdProductSpecificationAttributeId(product.Id, option.Id);
-
+                                if (productOption == null)
+                                {
+                                    //характеристики с таким значением нет, но не значит что нет с другим значением
+                                    productOption = _specificationAttributeService.GetProductSpecificationAttributes(product.Id)?.FirstOrDefault(x => x.SpecificationAttributeOption.SpecificationAttributeId == attribute.Id);
+                                    if (productOption != null)
+                                    {
+                                        _specificationAttributeService.DeleteProductSpecificationAttribute(productOption);
+                                        productOption = null;
+                                    }
+                                }
                                 if (productOption == null)
                                 {
                                     productOption = new ProductSpecificationAttribute()
@@ -1534,6 +1618,50 @@ namespace Nop.Services.ExportImport
                     //}
                 }
                 return new Tuple<bool, string>(true, String.Format("Products {0} added. Products {1} Updated. Manufactures {2} added.", newCount, updateCount, manufacturAddedCount));
+            }
+            catch (Exception ex)
+            {
+                return new Tuple<bool, string>(false, ex.Message);
+            }
+        }
+        
+        /// <summary>
+        /// Import orders from 1C
+        /// </summary>
+        /// <param name="products">List<ProductFromOneC></param>
+        public virtual Tuple<bool, string> ImportOrdersFromOneC (List<OneCOrder> orders)
+        {
+            try
+            {
+                int errorsCount = 0, updateCount = 0;
+                foreach (var item in orders)
+                {
+                    var order = _orderService.GetOrderById(item.OrderNumber);
+                    if (order == null || order.Customer?.IdOneC != item.UserIdOneC)
+                    {
+                        errorsCount++;
+                        continue;
+                    }
+                    else
+                    {
+                        order.OrderTotal = item.Price;
+                        order.ShippingMethod = item.DeliveryMethod;
+                        order.OrderDiscount = item.Discount;
+                        order.PaymentMethodSystemName = item.BillingMethod;
+                        _genericAttributeService.SaveAttribute(order.Customer, NopCustomerDefaults.FirstNameAttribute, item.ClientName);
+                        foreach (var orderItem in item.Products)
+                        {
+                            var product = _productService.GetProductBySku(orderItem.ProduxtSku);
+                            order.OrderItems.Add(new OrderItem
+                            {
+                                Id = product.Id,
+                                Quantity = orderItem.Quantity
+                            });
+                        }
+                        updateCount++;
+                    }
+                }
+                return new Tuple<bool, string>(true, String.Format("Orders {0} Updated. Errors {1}.", updateCount, errorsCount));
             }
             catch (Exception ex)
             {

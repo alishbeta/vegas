@@ -84,6 +84,7 @@ namespace Nop.Services.ExportImport
         private readonly ProductEditorSettings _productEditorSettings;
         private readonly IPaymentService _paymentService;
         private readonly IDiscountService _discountService;
+        private readonly IRewardPointService _rewardPointService;
 
         #endregion
 
@@ -123,7 +124,8 @@ namespace Nop.Services.ExportImport
             OrderSettings orderSettings,
             ProductEditorSettings productEditorSettings,
             IPaymentService paymentService,
-            IDiscountService discountService)
+            IDiscountService discountService,
+            IRewardPointService rewardPointService)
         {
             this._addressSettings = addressSettings;
             this._catalogSettings = catalogSettings;
@@ -160,6 +162,7 @@ namespace Nop.Services.ExportImport
             this._productEditorSettings = productEditorSettings;
             this._paymentService = paymentService;
             this._discountService = discountService;
+            this._rewardPointService = rewardPointService;
         }
 
         #endregion
@@ -675,14 +678,20 @@ namespace Nop.Services.ExportImport
             return Tuple.Create(total, orders
                 .Select(o => new OneCOrder()
                 {
+                    Region = o.ShippingAddress?.City,
                     Price = o.OrderTotal,
                     OrderNumber = o.Id,
-                    Discount = o.OrderDiscount,
-                    BillingMethod = _paymentService.LoadPaymentMethodBySystemName(o?.PaymentMethodSystemName)?.PaymentMethodDescription,
+                    UserIdOneC = o.Customer.IdOneC,
+                    ClientName = string.Format("{0} {1}", _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.FirstNameAttribute), _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.LastNameAttribute)).Trim(),
+                    CustomerContact = o?.ShippingAddress?.PhoneNumber,
+                    BillingMethod = o?.PaymentMethodSystemName,
+                    Bonus = _rewardPointService.GetRewardPointsHistoryEntryById(o?.RewardPointsHistoryEntryId)?.Points ?? 0,
                     DeliveryMethod = o.ShippingMethod,
-                    CustomerContact = $"{o?.ShippingAddress?.FirstName} {o?.ShippingAddress?.LastName} {o?.ShippingAddress?.PhoneNumber} {o?.ShippingAddress?.Email} {o?.ShippingAddress?.Company}",
                     DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
-                    Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProductId = oi.ProductId, ProduxtSku = oi.Product.Sku })
+                    Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProduxtSku = oi.Product.Sku, Quantity = oi.Quantity }),
+                    Discount = o.OrderDiscount,
+                    Email = o?.ShippingAddress?.Email
+
                 }));
         }
 
@@ -734,11 +743,11 @@ namespace Nop.Services.ExportImport
                     Username = d?.Username,
                     Email = d?.Email,
                     Address = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.StreetAddressAttribute),
-                    Apartament = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.StreetAddress2Attribute),
                     City = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.CityAttribute),
                     FirstName = string.Format("{0} {1}", _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.FirstNameAttribute), _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.LastNameAttribute)),
                     //LastName = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.LastNameAttribute),
                     //FatherName = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.FatherNameAttribute),
+                    PhoneNumber = _genericAttributeService.GetAttribute<string>(d, NopCustomerDefaults.PhoneAttribute),
                     IdOneC = d.IdOneC,
                     NumberDiscountCard = d.NumberDiscountCard,
                     Percent = d.DiscountPercent,

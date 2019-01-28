@@ -14,51 +14,45 @@
 	addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.ProductId, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
 	var addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.ProductId, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = quantity });
 	var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = item.ProductId });
-    <div class="item-wrap">
-		<div class="product-img-wrap">
-			<div>
-				<i class="compare_icon" data-ids="@item.ProductId" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
-				<i class="close-i" onclick="RemoveFromCart(@item.ProductId, 2, true)"></i>
-			</div>
-			<a href="@Url.RouteUrl("Product", new { productId = item.ProductId, SeName = item.ProductSeName })">
-				<img class="product" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
-			</a>
-			@if (item.DiscountPercentage != decimal.Zero)
-			{
-				<div class="discount">-@item.DiscountPercentage.ToString("#.##")%</div>
-			}
-		</div>
-		<div class="main-prop-wrap text-left">
-			<a href="@Url.RouteUrl("Product", new { productId = item.ProductId, SeName = item.ProductSeName })">
-				<div class="product-name text-light-c">@item.ProductName</div>
-			</a>
-			<div class="product-prop"></div>
-			<div class="price-titile">@T("prod.price")</div>
-			<div class="price-wrap clearfix">
-				@if (item.OldPrice != string.Empty)
-				{
-					<div class="price-old">@item.OldPrice</div>
-				}
-				<div class="price-new">@item.Price</div>
-			</div>
-		</div>
-		@{
-			var product = ViewBag.productService.GetProductById(item.ProductId);
-		}
-		@if (product.StockQuantity > 0 && product.StatusId != 4)
-		{
-			<button class="btn btn-blue btn-block mt-4 mb-4 buy-btn" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">@T("prod.buy")</button>
-		}
-		else
-		{
-			<button class="btn btn-blue btn-block arived mt-4 mb-4 rounded" id="back-in-stock-subscribe-@item.ProductId" data-toggle="modal" data-target="#arived">@T("contact.availability")</button>
-			<script>
-				$(document).ready(function () {
-					$("#back-in-stock-subscribe-@item.ProductId").on('click', function() {
-						displayPopupContentFromUrl('@Url.RouteUrl("BackInStockSubscribePopup", new { productId = item.ProductId })', '@T("BackInStockSubscriptions.NotifyMeWhenAvailable")');
-					});
-				});
-			</script>
-		}
-	</div>
+<div class="item-wrap">
+    <div class="product-img-wrap">
+        <div>
+            <i class="compare_icon" data-ids="@item.ProductId" onclick="AjaxCart.addproducttocomparelist('@addtocomparelink');return false;"></i>
+            <i class="close-i" onclick="RemoveFromCart(@item.ProductId, 2, true)"></i>
+        </div>
+        <a href="@Url.RouteUrl("ProductInfo", new { SeName = item.ProductSeName })">
+            <img class="product" alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+        </a>
+        @if (item.DiscountPercentage != decimal.Zero)
+        {
+            <div class="discount">-@item.DiscountPercentage.ToString("#.##")%</div>
+        }
+    </div>
+    <div class="main-prop-wrap text-left">
+        <a href="@Url.RouteUrl("ProductInfo", new { SeName = item.ProductSeName })">
+            <div class="product-name text-light-c">@item.ProductName</div>
+        </a>
+        <div class="product-prop"></div>
+        <div class="price-titile">@T("prod.price")</div>
+        <div class="price-wrap clearfix">
+            @if (item.OldPrice != string.Empty)
+            {
+                <div class="price-old">@item.OldPrice</div>
+            }
+            <div class="price-new">@item.Price</div>
+        </div>
+    </div>
+    @{
+        var product = ViewBag.productService.GetProductById(item.ProductId);
+    }
+    @if (product.StockQuantity > 0 && product.StatusId != 4)
+    {
+        <button class="btn btn-blue btn-block mt-4 mb-4 buy-btn" onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;">@T("prod.buy")</button>
+    }
+    else
+    {
+        <button class="btn btn-blue btn-block mt-4 mb-4" onclick="DisplayOrderPopup('AjaxCart.addproducttocart_catalog(\'@addtocartlink\')')">@T("product.order")</button>
+        @await Component.InvokeAsync("BackInStockOrder");
+    }
+</div>
 }

@@ -23,6 +23,12 @@ namespace Nop.Web.Infrastructure
             //areas
             routeBuilder.MapRoute(name: "areaRoute", template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
+            routeBuilder.MapLocalizedRoute("ProductInfo", "product/{SeName}",
+                new { controller = "Product", action = "ProductDetails"});
+
+            routeBuilder.MapLocalizedRoute("CategoryInfo", "category/{SeName}",
+                new { controller = "Catalog", action = "Category"});
+
             //home page
             routeBuilder.MapLocalizedRoute("HomePage", "",
 				new { controller = "Home", action = "Index" });
@@ -205,7 +211,7 @@ namespace Nop.Web.Infrastructure
 				new { controller = "Product", action = "ProductEmailAFriend" });
 
             //reviews
-            routeBuilder.MapLocalizedRoute("ProductReviews", "productreviews/{productId}",
+            routeBuilder.MapLocalizedRoute("ProductReviews", "ProductReviews/{productId}",
 				new { controller = "Product", action = "ProductReviews" });
 
             routeBuilder.MapLocalizedRoute("CustomerProductReviews", "customer/productreviews",

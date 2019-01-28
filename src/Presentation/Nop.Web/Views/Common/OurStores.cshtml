@@ -24,13 +24,19 @@
     foreach (var address in Model.Addresses)
     {
         var warehouse = Model.Warehouses.FirstOrDefault(x => x.AddressId == address.Id);
-        var description = string.Format("{0}\n{1}", address.Address1 ?? "", warehouse.AdminComment);
-        var addr = warehouse.Name;
+        var workTime = warehouse.AdminComment;
+        var addr = address.Address1;
+        var name = warehouse.Name;
+        var phone = address.PhoneNumber;
+        var city = address.City;
 
         addresses.Add(new
         {
+            city,
+            name,
             addr,
-            description,
+            phone,
+            workTime,
             zoom = 6
         });
     }
