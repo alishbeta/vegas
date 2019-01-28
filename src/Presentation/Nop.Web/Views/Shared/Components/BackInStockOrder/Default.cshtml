@@ -17,7 +17,7 @@
                 $(this).closest('.ui-dialog-content').dialog('destroy').remove();
             });
         });
-        $('<div class="order-popup"><span>@T("backinstock.order.tip")</span></div>').append('<button type="button" onclick="' + link + ';OpenCart();StartLoadingCart();return false;" class="btn btn-sm buy-btn btn-blue btn-block mt-3">@T("product.order")</button>')
+        $('<div class="order-popup"><span>@T("backinstock.order.tip")</span></div>').append('<button type="button" onclick="' + link + ';OpenCart();StartLoadingCart();return false;" class="btn btn-sm buy-btn btn-blue btn-block mt-4 mb-3">@T("product.order")</button>')
             .dialog({
                 modal: false,
                 width: 550,

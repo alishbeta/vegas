@@ -101,9 +101,8 @@
 @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })
 @if (!string.IsNullOrEmpty(Model.Description))
 {
-<div class="line"></div>
-<div class="some-info d-none d-md-block">
-    <div class="row description">
+<div class="description d-none d-md-block">
+    <div class="row">
         <div class="col">
             <div class="text">
                 @Html.Raw(Model.Description)

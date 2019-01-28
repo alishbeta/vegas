@@ -726,7 +726,7 @@
                         </div>
                         <div class="form-group row">
                             <label asp-for="DiscountPercent" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.disount")</label>
-                            <span asp-for="DiscountPercent" class="col-sm-8">@Model.DiscountPercent</span>
+                            <div asp-for="DiscountPercent" class="col-sm-8 col-form-label">@Model.DiscountPercent</div>
                         </div>
                         <div class="line"></div>
                     </div>
@@ -763,10 +763,6 @@ Model.CountryEnabled)
                                     <nop-required />
                                 }
                                 <span asp-validation-for="City"></span>
-                            </div>
-                            <div class="form-group row">
-                                <label asp-for="City" asp-postfix=":" class="col-form-label col-sm-3">@T("cart.city")</label>
-                                <span>@Model.City</span>
                             </div>
 							}
 							@if (Model.StreetAddressEnabled)

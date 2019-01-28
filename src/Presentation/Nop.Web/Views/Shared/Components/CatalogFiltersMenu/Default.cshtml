@@ -15,7 +15,24 @@
 	<div class="f2 d-none d-lg-block float-right">
 		<div class="btn-group">
 			<button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="popular" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
-				@T("filters.popular")
+				@switch (Model.orderby)
+                {
+                    case "10":
+                        T("filters.priceAsc");
+                        break;
+                    case "11":
+                        T("filters.priceDesc");
+                        break;
+                    case "16":
+                        T("filters.new");
+                        break;
+                    case "17":
+                        T("filters.discounts");
+                        break;
+                    default:
+                        T("filters.popular");
+                        break;
+                }   
 			</button>
 			<div class="dropdown-menu keep_open" aria-labelledby="popular">
 				<div class="form-group">
