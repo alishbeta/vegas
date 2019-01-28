@@ -684,14 +684,16 @@ namespace Nop.Services.ExportImport
                     UserIdOneC = o.Customer.IdOneC,
                     ClientName = string.Format("{0} {1}", _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.FirstNameAttribute), _genericAttributeService.GetAttribute<string>(o.Customer, NopCustomerDefaults.LastNameAttribute)).Trim(),
                     CustomerContact = o?.ShippingAddress?.PhoneNumber,
-                    BillingMethod = o?.PaymentMethodSystemName,
+                    BillingMethod = _localizationService.GetResource(string.Format("payment.methods.{0}", o?.PaymentMethodSystemName)),
                     Bonus = _rewardPointService.GetRewardPointsHistoryEntryById(o?.RewardPointsHistoryEntryId)?.Points ?? 0,
                     DeliveryMethod = o.ShippingMethod,
                     DeliveryAddress = $"{o?.ShippingAddress?.Country} {o?.ShippingAddress?.StateProvince} {o?.ShippingAddress?.City} {o?.ShippingAddress?.Address1} {o?.ShippingAddress?.Address2}",
                     Products = o.OrderItems.Select(oi => new OneCOrderProductInfo() { ProduxtSku = oi.Product.Sku, Quantity = oi.Quantity }),
                     Discount = o.OrderDiscount,
-                    Email = o?.ShippingAddress?.Email
-
+                    Email = o?.ShippingAddress?.Email,
+                    Comment = o.Comment,
+                    PriceNP = o.OrderShippingInclTax,
+                    OrderStatus = _localizationService.GetLocalizedEnum(o.OrderStatus)
                 }));
         }
 

@@ -81,6 +81,9 @@ namespace Nop.Services.Orders
         private readonly RewardPointsSettings _rewardPointsSettings;
         private readonly ShippingSettings _shippingSettings;
         private readonly TaxSettings _taxSettings;
+        private readonly IStoreContext _storeContext;
+        private readonly IAddressService _addressService;
+        private readonly INewPostService _newPostService;
 
         #endregion
 
@@ -126,7 +129,10 @@ namespace Nop.Services.Orders
             PaymentSettings paymentSettings,
             RewardPointsSettings rewardPointsSettings,
             ShippingSettings shippingSettings,
-            TaxSettings taxSettings)
+            TaxSettings taxSettings,
+            IStoreContext storeContext,
+            IAddressService addressService,
+            INewPostService newPostService)
         {
             this._currencySettings = currencySettings;
             this._affiliateService = affiliateService;
@@ -169,6 +175,9 @@ namespace Nop.Services.Orders
             this._rewardPointsSettings = rewardPointsSettings;
             this._shippingSettings = shippingSettings;
             this._taxSettings = taxSettings;
+            this._storeContext = storeContext;
+            this._addressService = addressService;
+            this._newPostService = newPostService;
         }
 
         #endregion
@@ -236,6 +245,7 @@ namespace Nop.Services.Orders
             /// Selected shipping method
             /// </summary>
             public string ShippingMethodName { get; set; }
+            public string Comment { get; set; }
 
             /// <summary>
             /// Shipping rate computation method system name
@@ -428,6 +438,8 @@ namespace Nop.Services.Orders
             if (details.CustomerLanguage == null || !details.CustomerLanguage.Published)
                 details.CustomerLanguage = _workContext.WorkingLanguage;
 
+            details.Comment = processPaymentRequest.Comment;
+
             //billing address
             if (details.Customer.BillingAddress == null)
                 throw new NopException("Billing address is not provided");
@@ -551,18 +563,27 @@ namespace Nop.Services.Orders
 			else
 				details.ShippingStatus = ShippingStatus.ShippingNotRequired;
 
-			//shipping total
-			var orderShippingTotalInclTax = _orderTotalCalculationService.GetShoppingCartShippingTotal(details.Cart, true, out var _, out var shippingTotalDiscounts);
-            var orderShippingTotalExclTax = _orderTotalCalculationService.GetShoppingCartShippingTotal(details.Cart, false);
-            if (!orderShippingTotalInclTax.HasValue || !orderShippingTotalExclTax.HasValue)
-                throw new NopException("Shipping total couldn't be calculated");
+            //shipping total
+            var deliveryPrice = 0;
+            if (details.ShippingMethodName == _localizationService.GetResource("cart.delivery.novaposhta"))
+            {
+                deliveryPrice = GetNewPostCost(details.ShippingAddress.City);
+                if (deliveryPrice == -1)
+                {
+                    deliveryPrice = 0;
+                }
+            }
+            var orderShippingTotalInclTax = deliveryPrice; //_orderTotalCalculationService.GetShoppingCartShippingTotal(details.Cart, true, out var _, out var shippingTotalDiscounts);
+            var orderShippingTotalExclTax = deliveryPrice; //_orderTotalCalculationService.GetShoppingCartShippingTotal(details.Cart, false);
+            //if (!orderShippingTotalInclTax.HasValue || !orderShippingTotalExclTax.HasValue)
+            //    throw new NopException("Shipping total couldn't be calculated");
 
-            details.OrderShippingTotalInclTax = orderShippingTotalInclTax.Value;
-            details.OrderShippingTotalExclTax = orderShippingTotalExclTax.Value;
+            details.OrderShippingTotalInclTax = orderShippingTotalInclTax; //.Value;
+            details.OrderShippingTotalExclTax = orderShippingTotalExclTax; //.Value;
 
-            foreach (var disc in shippingTotalDiscounts)
-                if (!_discountService.ContainsDiscount(details.AppliedDiscounts, disc))
-                    details.AppliedDiscounts.Add(disc);
+            //foreach (var disc in shippingTotalDiscounts)
+            //    if (!_discountService.ContainsDiscount(details.AppliedDiscounts, disc))
+            //        details.AppliedDiscounts.Add(disc);
 
             //payment total
             var paymentAdditionalFee = _paymentService.GetAdditionalHandlingFee(details.Cart, processPaymentRequest.PaymentMethodSystemName);
@@ -614,6 +635,50 @@ namespace Nop.Services.Orders
             processPaymentRequest.RecurringTotalCycles = recurringTotalCycles;
 
             return details;
+        }
+
+        public virtual int GetNewPostCost(string cityName)
+        {
+            if (string.IsNullOrEmpty(cityName))
+            {
+                return -1;
+            }
+            string from = "";
+            var product = _workContext.CurrentCustomer.ShoppingCartItems
+                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                .LimitPerStore(_storeContext.CurrentStore.Id)
+                .FirstOrDefault(x => x.Product.UseMultipleWarehouses)?.Product ??
+                 _workContext.CurrentCustomer.ShoppingCartItems
+                                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                                .LimitPerStore(_storeContext.CurrentStore.Id)
+                                .FirstOrDefault(x => x.Product.WarehouseId != 0)?.Product;
+            if (product != null)
+            {
+                if (product.UseMultipleWarehouses)
+                {
+                    from = _addressService.GetAddressById(product.ProductWarehouseInventory.FirstOrDefault(x => x.Warehouse?.AddressId != 0).Warehouse.AddressId).City;
+                }
+                else
+                {
+                    from = _addressService.GetAddressById(_shippingService.GetWarehouseById(product.WarehouseId).AddressId).City;
+                }
+            }
+            if (string.IsNullOrEmpty(from))
+            {
+                from = "ส่ๅโ";
+            }
+            var cityFrom = _newPostService.GetCityId(from);
+            var cityTo = _newPostService.GetCityId(cityName);
+            var weight = _workContext.CurrentCustomer.ShoppingCartItems
+                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                .LimitPerStore(_storeContext.CurrentStore.Id)
+                .Sum(x => x.Product.Weight);
+            var assessedCost = _workContext.CurrentCustomer.ShoppingCartItems
+                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                .LimitPerStore(_storeContext.CurrentStore.Id)
+                .Sum(x => x.Product.Price * x.Quantity);
+            var cost = _newPostService.GetCost(cityFrom, cityTo, weight.ToString(), assessedCost.ToString());
+            return cost;
         }
 
         /// <summary>
@@ -800,7 +865,8 @@ namespace Nop.Services.Orders
                 CustomValuesXml = _paymentService.SerializeCustomValues(processPaymentRequest),
                 VatNumber = details.VatNumber,
                 CreatedOnUtc = DateTime.UtcNow,
-                CustomOrderNumber = string.Empty
+                CustomOrderNumber = string.Empty,
+                Comment = details.Comment
             };
 
             _orderService.InsertOrder(order);

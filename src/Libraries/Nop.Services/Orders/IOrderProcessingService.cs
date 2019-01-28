@@ -81,6 +81,7 @@ namespace Nop.Services.Orders
         /// <param name="notifyCustomer">True to notify customer</param>
         void Deliver(Shipment shipment, bool notifyCustomer);
 
+        int GetNewPostCost(string cityName);
         /// <summary>
         /// Gets a value indicating whether cancel is allowed
         /// </summary>

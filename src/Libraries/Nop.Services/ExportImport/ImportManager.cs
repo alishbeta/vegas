@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Nop.Core;
 using Nop.Core.Data;
 using Nop.Core.Domain.Catalog;
+using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Discounts;
@@ -94,6 +95,7 @@ namespace Nop.Services.ExportImport
         private readonly IDiscountService _discountService;
         private readonly IOrderService _orderService;
         private readonly IPaymentService _paymentService;
+        private readonly IAddressService _addressService;
 
         #endregion
 
@@ -134,7 +136,8 @@ namespace Nop.Services.ExportImport
             IGenericAttributeService genericAttributeService,
             IDiscountService discountService,
             IOrderService orderService,
-            IPaymentService paymentService)
+            IPaymentService paymentService,
+            IAddressService addressService)
         {
             this._rewardPointService = rewardPointService;
             this._catalogSettings = catalogSettings;
@@ -172,6 +175,7 @@ namespace Nop.Services.ExportImport
             this._discountService = discountService;
             this._orderService = orderService;
             this._paymentService = paymentService;
+            this._addressService = addressService;
         }
 
         #endregion
@@ -1647,21 +1651,121 @@ namespace Nop.Services.ExportImport
                         order.OrderTotal = item.Price;
                         order.ShippingMethod = item.DeliveryMethod;
                         order.OrderDiscount = item.Discount;
-                        order.PaymentMethodSystemName = item.BillingMethod;
+                        order.OrderShippingInclTax = item.PriceNP;
+                        order.OrderShippingExclTax = item.PriceNP;
+                        order.Comment = item.Comment;
+
+                        //payment method
+                        if (_localizationService.GetResource("payment.methods.Payments.CheckMoneyOrder") == item.BillingMethod)
+                        {
+                            order.PaymentMethodSystemName = "Payments.CheckMoneyOrder";
+                        }
+                        if (_localizationService.GetResource("payment.methods.Payments.LiqPay") == item.BillingMethod)
+                        {
+                            order.PaymentMethodSystemName = "Payments.LiqPay";
+                        }
+
+                        //order status
+                        if (item.OrderStatus == _localizationService.GetLocalizedEnum(OrderStatus.Pending))
+                        {
+                            order.OrderStatus = OrderStatus.Pending;
+                        }
+                        if (item.OrderStatus == _localizationService.GetLocalizedEnum(OrderStatus.Cancelled))
+                        {
+                            order.OrderStatus = OrderStatus.Cancelled;
+                        }
+                        if (item.OrderStatus == _localizationService.GetLocalizedEnum(OrderStatus.Complete))
+                        {
+                            order.OrderStatus = OrderStatus.Complete;
+                        }
+                        if (item.OrderStatus == _localizationService.GetLocalizedEnum(OrderStatus.CourierDelivery))
+                        {
+                            order.OrderStatus = OrderStatus.CourierDelivery;
+                        }
+                        if (item.OrderStatus == _localizationService.GetLocalizedEnum(OrderStatus.Processing))
+                        {
+                            order.OrderStatus = OrderStatus.Processing;
+                        }
+                        if (item.OrderStatus == _localizationService.GetLocalizedEnum(OrderStatus.SelfDelivery))
+                        {
+                            order.OrderStatus = OrderStatus.SelfDelivery;
+                        }
+
+                        //reward points
+                        var rewardPointsHistoryEntry = _rewardPointService.GetRewardPointsHistoryEntryById(order.RewardPointsHistoryEntryId);
+                        if (rewardPointsHistoryEntry != null)
+                        {
+                            rewardPointsHistoryEntry.PointsBalance = rewardPointsHistoryEntry.PointsBalance - rewardPointsHistoryEntry.Points + item.Bonus;
+                            rewardPointsHistoryEntry.Points = item.Bonus;
+                            rewardPointsHistoryEntry.UsedAmount = item.Bonus < 0 ? -item.Bonus : 0;
+                            _rewardPointService.UpdateRewardPointsHistoryEntry(rewardPointsHistoryEntry);
+                        }
+
                         _genericAttributeService.SaveAttribute(order.Customer, NopCustomerDefaults.FirstNameAttribute, item.ClientName);
+
+                        //order items
+                        IList<OrderItem> oldOrderItems = order.OrderItems.ToList();
+                        order.OrderItems.Clear();
                         foreach (var orderItem in item.Products)
                         {
                             var product = _productService.GetProductBySku(orderItem.ProduxtSku);
-                            order.OrderItems.Add(new OrderItem
+                            if (product == null)
                             {
-                                Id = product.Id,
-                                Quantity = orderItem.Quantity
-                            });
+                                errorsCount++;
+                                order.IsSync = false;
+                                continue;
+                            }
+                            var oldOrderItem = oldOrderItems.FirstOrDefault(x => x.ProductId == product.Id);
+                            if (oldOrderItem == null)
+                            {
+                                oldOrderItem = new OrderItem()
+                                {
+                                    ItemWeight = product.Weight,
+                                    PriceExclTax = product.Price * orderItem.Quantity,
+                                    PriceInclTax = product.Price * orderItem.Quantity,
+                                    UnitPriceExclTax = product.Price,
+                                    UnitPriceInclTax = product.Price,
+                                    Product = product,
+                                    ProductId = product.Id
+                                };
+                            }
+                            oldOrderItem.Quantity = orderItem.Quantity;
+                            oldOrderItem.PriceExclTax = oldOrderItem.UnitPriceExclTax * orderItem.Quantity;
+                            oldOrderItem.PriceInclTax = oldOrderItem.UnitPriceInclTax * orderItem.Quantity;
+                            order.OrderItems.Add(oldOrderItem);
                         }
+
+                        //addresses
+                        //try to find an address with the same values (don't duplicate records)
+                        var address = _addressService.FindAddress(order.Customer.Addresses.ToList(),
+                            item.ClientName, null, item.CustomerContact,
+                            item.Email, null, null,
+                            item.DeliveryAddress, null, item.Region,
+                            null, null, null, null, null);
+
+                        if (address == null)
+                        {
+                            //address is not found. let's create a new one
+                            address = new Address()
+                            {
+                                CustomAttributes = null,
+                                Address1 = item.DeliveryAddress,
+                                City = item.Region,
+                                CreatedOnUtc = DateTime.UtcNow,
+                                Email = item.Email,
+                                FirstName = item.ClientName,
+                                PhoneNumber = item.CustomerContact
+                            };
+                            order.Customer.CustomerAddressMappings.Add(new CustomerAddressMapping { Address = address });
+                            _customerService.UpdateCustomer(order.Customer);
+                        }
+                        order.BillingAddress = address;
+                        order.ShippingAddress = address;
+                        _orderService.UpdateOrder(order);
                         updateCount++;
                     }
                 }
-                return new Tuple<bool, string>(true, String.Format("Orders {0} Updated. Errors {1}.", updateCount, errorsCount));
+                return new Tuple<bool, string>(true, String.Format("{0} orders updated. {1} errors.", updateCount, errorsCount));
             }
             catch (Exception ex)
             {

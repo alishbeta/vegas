@@ -41,6 +41,7 @@ namespace Nop.Services.Payments
         /// </summary>
         /// </summary>
         public string PaymentMethodSystemName { get; set; }
+        public string Comment { get; set; }
 
         #region Payment method specific properties 
 

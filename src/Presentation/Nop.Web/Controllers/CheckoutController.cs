@@ -1026,7 +1026,8 @@ namespace Nop.Web.Controllers
                 //place order
                 processPaymentRequest.StoreId = _storeContext.CurrentStore.Id;
                 processPaymentRequest.CustomerId = _workContext.CurrentCustomer.Id;
-				if (orderModel.PaymentType == "1")
+                processPaymentRequest.Comment = orderModel.Comment;
+                if (orderModel.PaymentType == "1")
 				{
 					processPaymentRequest.PaymentMethodSystemName = "Payments.CheckMoneyOrder";
 				} 
@@ -1052,10 +1053,10 @@ namespace Nop.Web.Controllers
 					{
 						Order = placeOrderResult.PlacedOrder
 					};
-					if (!string.IsNullOrEmpty(orderModel.Comment))
-					{
-						_orderProcessingService.SaveComment(placeOrderResult.PlacedOrder, orderModel.Comment);
-					}
+					//if (!string.IsNullOrEmpty(orderModel.Comment))
+					//{
+					//	_orderProcessingService.SaveComment(placeOrderResult.PlacedOrder, orderModel.Comment);
+					//}
 					if (productId != null)	  //only if one click checkout
 					{
 						cartItemsBackup.ForEach(sci => _shoppingCartService.AddToCart(_workContext.CurrentCustomer,
@@ -1113,45 +1114,9 @@ namespace Nop.Web.Controllers
 
         public virtual JsonResult GetNewPostCost(string cityName)
         {
-            if (string.IsNullOrEmpty(cityName))
-            {
+            var cost = _orderProcessingService.GetNewPostCost(cityName);
+            if (cost == -1)
                 return Json("");
-            }
-            string from = "";
-            var product = _workContext.CurrentCustomer.ShoppingCartItems
-                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                .LimitPerStore(_storeContext.CurrentStore.Id)
-                .FirstOrDefault(x => x.Product.UseMultipleWarehouses)?.Product ??
-                 _workContext.CurrentCustomer.ShoppingCartItems
-                                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                                .LimitPerStore(_storeContext.CurrentStore.Id)
-                                .FirstOrDefault(x => x.Product.WarehouseId != 0)?.Product;
-            if (product != null)
-            {
-                if (product.UseMultipleWarehouses)
-                {
-                    from = _addressService.GetAddressById(product.ProductWarehouseInventory.FirstOrDefault(x => x.Warehouse?.AddressId != 0).Warehouse.AddressId).City;
-                }
-                else
-                {
-                    from = _addressService.GetAddressById(_shippingService.GetWarehouseById(product.WarehouseId).AddressId).City;
-                }
-            }
-            if (string.IsNullOrEmpty(from))
-            {
-                from = "Киев";
-            }
-            var cityFrom = _newPostService.GetCityId(from);
-            var cityTo = _newPostService.GetCityId(cityName);
-            var weight = _workContext.CurrentCustomer.ShoppingCartItems
-                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                .LimitPerStore(_storeContext.CurrentStore.Id)
-                .Sum(x => x.Product.Weight);
-            var assessedCost = _workContext.CurrentCustomer.ShoppingCartItems
-                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                .LimitPerStore(_storeContext.CurrentStore.Id)
-                .Sum(x => x.Product.Price * x.Quantity);
-            var cost = _newPostService.GetCost(cityFrom, cityTo, weight.ToString(), assessedCost.ToString());
             return Json(cost);
         }
 

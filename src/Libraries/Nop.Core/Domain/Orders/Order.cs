@@ -146,6 +146,7 @@ namespace Nop.Core.Domain.Orders
         /// Gets or sets the order tax
         /// </summary>
         public decimal OrderTax { get; set; }
+        public string Comment{ get; set; }
 
         /// <summary>
         /// Gets or sets the order discount (applied to order total)

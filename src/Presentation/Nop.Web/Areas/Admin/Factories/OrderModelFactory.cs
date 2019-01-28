@@ -1030,7 +1030,8 @@ namespace Nop.Web.Areas.Admin.Factories
                     CustomerId = order.CustomerId,
                     CustomerIp = order.CustomerIp,
                     VatNumber = order.VatNumber,
-                    CheckoutAttributeInfo = order.CheckoutAttributeDescription
+                    CheckoutAttributeInfo = order.CheckoutAttributeDescription,
+                    Comment = order.Comment
                 };
 
                 model.OrderStatus = _localizationService.GetLocalizedEnum(order.OrderStatus);

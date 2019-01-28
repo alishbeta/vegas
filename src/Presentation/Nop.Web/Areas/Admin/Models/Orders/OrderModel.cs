@@ -149,6 +149,8 @@ namespace Nop.Web.Areas.Admin.Models.Orders
         public int PaymentStatusId { get; set; }
         [NopResourceDisplayName("Admin.Orders.Fields.PaymentMethod")]
         public string PaymentMethod { get; set; }
+        [NopResourceDisplayName("Admin.Orders.Fields.Comment")]
+        public string Comment { get; set; }
 
         //credit card info
         public bool AllowStoringCreditCardNumber { get; set; }
