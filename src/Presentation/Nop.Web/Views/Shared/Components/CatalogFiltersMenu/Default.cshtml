@@ -18,19 +18,19 @@
 				@switch (Model.orderby)
                 {
                     case "10":
-                        T("filters.priceAsc");
+                        @T("filters.priceAsc");
                         break;
                     case "11":
-                        T("filters.priceDesc");
+                        @T("filters.priceDesc");
                         break;
                     case "16":
-                        T("filters.new");
+                        @T("filters.new");
                         break;
                     case "17":
-                        T("filters.discounts");
+                        @T("filters.discounts");
                         break;
                     default:
-                        T("filters.popular");
+                        @T("filters.popular");
                         break;
                 }   
 			</button>
