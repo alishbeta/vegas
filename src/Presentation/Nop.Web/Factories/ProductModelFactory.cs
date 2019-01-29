@@ -1119,7 +1119,7 @@ namespace Nop.Web.Factories
         /// <param name="prepareSpecificationAttributes">Whether to prepare the specification attribute models</param>
         /// <param name="forceRedirectionAfterAddingToCart">Whether to force redirection after adding to cart</param>
         /// <returns>Collection of product overview model</returns>
-        public virtual IEnumerable<ProductOverviewModel> PrepareProductOverviewModels(IEnumerable<Product> products,
+        public virtual IList<ProductOverviewModel> PrepareProductOverviewModels(IEnumerable<Product> products,
             bool preparePriceModel = true, bool preparePictureModel = true,
             int? productThumbPictureSize = null, bool prepareSpecificationAttributes = false,
             bool forceRedirectionAfterAddingToCart = false)
@@ -1134,8 +1134,8 @@ namespace Nop.Web.Factories
                 {
                     Id = product.Id,
                     Name = _localizationService.GetLocalized(product, x => x.Name),
-                    ShortDescription = _localizationService.GetLocalized(product, x => x.ShortDescription),
-                    FullDescription = _localizationService.GetLocalized(product, x => x.FullDescription),
+                    //ShortDescription = _localizationService.GetLocalized(product, x => x.ShortDescription),
+                    //FullDescription = _localizationService.GetLocalized(product, x => x.FullDescription),
                     SeName = _urlRecordService.GetSeName(product),
                     Sku = product.Sku,
                     ProductType = product.ProductType,
@@ -1163,7 +1163,7 @@ namespace Nop.Web.Factories
                     }, 24 * 60);
                     //model.ProductPrice = PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
                 }
-				model.ProductPrice.Discount = product.DiscountProductMappings.Count > 0 ? product.DiscountProductMappings.FirstOrDefault().Discount.DiscountPercentage : (decimal)0;
+                model.ProductPrice.Discount = product.DiscountProductMappings.Count > 0 ? product.DiscountProductMappings.FirstOrDefault().Discount.DiscountPercentage : (decimal)0;
 
 				//picture
 				if (preparePictureModel)

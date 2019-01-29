@@ -565,6 +565,28 @@ namespace Nop.Services.Catalog
             return result;
         }
 
+        public virtual IEnumerable<int> GetProductsIdsInCategory(IList<int> categoryIds = null, int storeId = 0)
+        {
+            //validate "categoryIds" parameter
+            if (categoryIds != null && categoryIds.Contains(0))
+                categoryIds.Remove(0);
+
+            var query = _productRepository.Table;
+            query = query.Where(p => !p.Deleted && p.Published && p.VisibleIndividually);
+
+            //category filtering
+            if (categoryIds != null && categoryIds.Any())
+            {
+                query = from p in query
+                        from pc in p.ProductCategories.Where(pc => categoryIds.Contains(pc.CategoryId))
+                        select p;
+            }
+
+            //only distinct products
+            var result = query.Select(p => p.Id).Distinct().ToList();
+            return result;
+        }
+
         /// <summary>
         /// Search products
         /// </summary>

@@ -22,6 +22,8 @@ namespace Nop.Services.Catalog
 
         Status GetStatusById(int id);
 
+        IEnumerable<int> GetProductsIdsInCategory(IList<int> categoryIds = null, int storeId = 0);
+
         List<Status> GetAllStatuses();
 
         /// <summary>

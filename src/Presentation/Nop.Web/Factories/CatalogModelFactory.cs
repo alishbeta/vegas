@@ -331,7 +331,7 @@ namespace Nop.Web.Factories
             //sorting
             PrepareSortingOptions(model.PagingFilteringContext, command);
             //view mode
-            PrepareViewModes(model.PagingFilteringContext, command);
+            //PrepareViewModes(model.PagingFilteringContext, command);
             //page size
             PreparePageSizeOptions(model.PagingFilteringContext, command,
                 category.AllowCustomersToSelectPageSize,
@@ -558,20 +558,21 @@ namespace Nop.Web.Factories
             model.Products = model.Products.ToList();
             model.PagingFilteringContext.LoadPagedList(products);
 
-            var allProducts = _productService.SearchProducts(out _,  //recall to update filterableSpecificationAttributeOptionIds
-                true,                                                                           //needs to include already selected options in filters
-                categoryIds: categoryIds,
-                storeId: _storeContext.CurrentStore.Id,
-                visibleIndividuallyOnly: true,
-                featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
-                orderBy: orderBy
-                );
+            var allProducts = _productService.GetProductsIdsInCategory(categoryIds);
+            //var allProducts = _productService.SearchProducts(out _,  //recall to update filterableSpecificationAttributeOptionIds
+            //    true,                                                                           //needs to include already selected options in filters
+            //    categoryIds: categoryIds,
+            //    storeId: _storeContext.CurrentStore.Id,
+            //    visibleIndividuallyOnly: true,
+            //    featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
+            //    orderBy: orderBy
+            //    ).Select(x => x.Id);
 
-            filterableSpecificationAttributeOptionIds = _specificationAttributeService.GetSpecificationAttributeOptionsByProductIds(allProducts.Select(x => x.Id));
+            filterableSpecificationAttributeOptionIds = _specificationAttributeService.GetSpecificationAttributeOptionsByProductIds(allProducts);
             //specs
             model.PagingFilteringContext.SpecificationFilter.PrepareSpecsFilters(alreadyFilteredSpecOptionIds,
                 filterableSpecificationAttributeOptionIds?.ToArray(),
-                _specificationAttributeService, _localizationService, _webHelper, _workContext, _cacheManager, allProducts.Select(x => x.Id), allFilteredProductsIds);
+                _specificationAttributeService, _localizationService, _webHelper, _workContext, _cacheManager, allProducts, allFilteredProductsIds);
 
             return model;
         }

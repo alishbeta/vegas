@@ -27,7 +27,7 @@ namespace Nop.Web.Factories
         /// <param name="prepareSpecificationAttributes">Whether to prepare the specification attribute models</param>
         /// <param name="forceRedirectionAfterAddingToCart">Whether to force redirection after adding to cart</param>
         /// <returns>Collection of product overview model</returns>
-        IEnumerable<ProductOverviewModel> PrepareProductOverviewModels(IEnumerable<Product> products,
+        IList<ProductOverviewModel> PrepareProductOverviewModels(IEnumerable<Product> products,
             bool preparePriceModel = true, bool preparePictureModel = true,
             int? productThumbPictureSize = null, bool prepareSpecificationAttributes = false,
             bool forceRedirectionAfterAddingToCart = false);
