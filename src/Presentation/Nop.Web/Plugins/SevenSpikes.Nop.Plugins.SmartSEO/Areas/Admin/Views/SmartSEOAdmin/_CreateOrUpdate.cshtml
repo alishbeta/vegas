@@ -1,0 +1,32 @@
+﻿@model SEOTemplateModel
+
+@using SevenSpikes.Nop.Framework.Domain.Enums;
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+
+@Html.HiddenFor(model => model.Id)
+
+<div class="content">
+    <div class="form-horizontal">
+        @Html.TrialMessage(Model.IsTrialVersion, Plugin.Name, Plugin.UrlInStore)
+
+        @await Component.InvokeAsync("SettingMode")
+
+        <nop-tabs id="smartseo-create-or-edit">
+            <nop-tab asp-name="tab-templates" asp-default="true" asp-title="@T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate")">
+                @await Html.PartialAsync("_CreateOrUpdate.SEOTemplate", Model)
+            </nop-tab>
+            @if (Model.Id > 0)
+            {
+                <nop-tab asp-name="tab-category-mapping" asp-title="@T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.CategoryMapping")">
+                    @await Component.InvokeAsync("CategoryMappingsAdmin", new { entityId = Model.Id, entityType = EntityType.SEO })
+
+                </nop-tab>
+                <nop-tab asp-name="tab-manufacturer-mapping" asp-title="@T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.ManufacturerMapping")">
+                    @await Component.InvokeAsync("ManufacturerMappingsAdmin", new { entityId = Model.Id, entityType = EntityType.SEO })
+                </nop-tab>
+            }
+        </nop-tabs>
+    </div>
+</div>

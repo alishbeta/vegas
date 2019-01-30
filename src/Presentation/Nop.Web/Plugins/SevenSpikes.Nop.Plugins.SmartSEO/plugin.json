@@ -1,0 +1,11 @@
+﻿{
+  "Group": "7Spikes",
+  "FriendlyName": "Nop Smart SEO",
+  "SystemName": "SevenSpikes.Nop.Plugins.SmartSEO",
+  "Version": "4.1",
+  "SupportedVersions": ["4.10"],
+  "Author": "Seven Spikes Ltd",
+  "DisplayOrder": 1,
+  "FileName": "SevenSpikes.Nop.Plugins.SmartSEO.dll",
+  "Description": "This plugin  is an extremely powerful extension, which adds dynamic and relevant content to your meta data tags for products, categories and manufacturers."
+}

@@ -1,0 +1,104 @@
+﻿@model SmartSEOSettingsModel
+
+@{
+    Layout = AdminViewLocations.AdminLayoutViewPath;
+
+    Html.SetActiveMenuItemSystemName("SevenSpikes.NopSmartSEO.Admin.Submenus.Settings");
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#@Html.IdFor(model => model.EnableSmartSEO)").change(showSmartSeoSettings);
+
+        showSmartSeoSettings();
+    });
+
+    function showSmartSeoSettings() {
+        if ($('#@Html.IdFor(model => model.EnableSmartSEO)').is(':checked')) {
+            $('.smartSeoSettings').show();
+        } else {
+            $('.smartSeoSettings').hide();
+        }
+    }
+</script>
+
+<form method="post">
+    <nop-antiforgery-token />
+
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("SevenSpikes.NopSmartSEO.Admin.NopSmartSEO")
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.Save")
+            </button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="form-horizontal">
+            @Html.TrialMessage(Model.IsTrialVersion, Plugin.Name, Plugin.UrlInStore)
+
+            @await Component.InvokeAsync("StoreScopeConfiguration")
+
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="EnableSmartSEO_OverrideForStore" asp-input="EnableSmartSEO" asp-store-scope="Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="EnableSmartSEO" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="EnableSmartSEO" />
+                                <span asp-validation-for="EnableSmartSEO"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="DontOverrideDefaultProductMetaData_OverrideForStore" asp-input="DontOverrideDefaultProductMetaData" asp-store-scope="Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="DontOverrideDefaultProductMetaData" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="DontOverrideDefaultProductMetaData" />
+                                <span asp-validation-for="DontOverrideDefaultProductMetaData"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="DontOverrideDefaultCategoryMetaData_OverrideForStore" asp-input="DontOverrideDefaultCategoryMetaData" asp-store-scope="Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="DontOverrideDefaultCategoryMetaData" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="DontOverrideDefaultCategoryMetaData" />
+                                <span asp-validation-for="DontOverrideDefaultCategoryMetaData"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="DontOverrideDefaultManufacturerMetaData_OverrideForStore" asp-input="DontOverrideDefaultManufacturerMetaData" asp-store-scope="Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="DontOverrideDefaultManufacturerMetaData" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="DontOverrideDefaultManufacturerMetaData" />
+                                <span asp-validation-for="DontOverrideDefaultManufacturerMetaData"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="RemoveDefaultTitle_OverrideForStore" asp-input="RemoveDefaultTitle" asp-store-scope="Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="RemoveDefaultTitle" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="RemoveDefaultTitle" />
+                                <span asp-validation-for="RemoveDefaultTitle"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

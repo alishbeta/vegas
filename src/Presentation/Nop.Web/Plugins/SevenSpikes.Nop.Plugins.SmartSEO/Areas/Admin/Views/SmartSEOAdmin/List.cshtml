@@ -1,0 +1,141 @@
+﻿@{
+    Layout = AdminViewLocations.AdminLayoutViewPath;
+}
+
+@{
+    var defaultGridPageSize = EngineContext.Current.Resolve<AdminAreaSettings>().DefaultGridPageSize;
+    var gridPageSizes = EngineContext.Current.Resolve<AdminAreaSettings>().GridPageSizes;
+
+    Html.SetActiveMenuItemSystemName("SevenSpikes.NopSmartSEO.Admin.Submenus.SmartSEOTemplates");
+}
+
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        @T("SevenSpikes.NopSmartSEO.Admin.NopSmartSEO")
+    </h1>
+    <div class="pull-right">
+
+        <a href="Create" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            @T("SevenSpikes.NopSmartSEO.Admin.NopSmartSEO.AddNew")
+        </a>
+
+    </div>
+</div>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="smartseo-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nop-antiforgery-token/>
+
+<script>
+    $(document).ready(function () {
+        $("#smartseo-grid").kendoGrid({
+            dataSource: {
+                type: "json",
+                transport: {
+                    read: {
+                        url: "@Html.Raw(Url.Action("List", "SmartSEOAdmin"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                    destroy:{
+                        url: "@Html.Raw(Url.Action("DeleteTempleteFromGrid", "SmartSEOAdmin"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors",
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { editable: false, type: "number" },
+                            Name: { editable: false, type: "string" },
+                            CategoriesNames: { editable: false, type: "string" },
+                            ManufacturerNames: { editable: false, type: "string" },
+                            IsActive: { editable: false, type: "bool" },
+                            IsGlobal: { editable: false, type: "bool" }
+                        }
+                    }
+                },
+                requestEnd: function (e) {
+                    if (e.type == "update") {
+                        this.read();
+                    }
+                },
+                error: function (e) {
+                    display_kendoui_grid_error(e);
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                pageSize: @(defaultGridPageSize),
+            },
+            pageable: {
+                refresh: true,
+                pageSizes: [@(gridPageSizes)]
+            },
+            editable: {
+                confirmation: false,
+                mode: "inline"
+            },
+            filterable: true,
+            sortable: true,
+            scrollable: false,
+            columns: [{
+                field: "Name",
+                title: "@T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.Name")"
+            },{
+                field: "CategoriesNames",
+                title: "@T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.CategoriesNames")"
+            },{
+                field: "ManufacturerNames",
+                title: "@T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.ManufacturerNames")"
+            },{
+                field: "IsActive",
+                title: "@T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.Active")",
+                headerAttributes: { style: "text-align:center" },
+                attributes: { style: "text-align:center" },
+                template: '# if(IsActive) {# <i class="fa fa-check true-icon"></i> #} else {# <i class="fa fa-close false-icon"></i> #} #',
+                filterable: false
+            },{
+                field: "IsGlobal",
+                title: "@T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.Global")",
+                headerAttributes: { style: "text-align:center" },
+                attributes: { style: "text-align:center" },
+                template:  '# if(IsGlobal) {# <i class="fa fa-check true-icon"></i> #} else {# <i class="fa fa-close false-icon"></i> #} #',
+                filterable: false
+            },{
+                template: kendo.template($("#commands-template").html()),
+                filterable: false,
+                sortable: false
+            }, {
+                command: [{
+                    name: "destroy",
+                    text: "@T("Admin.Common.Delete")"
+                }],
+                width: 200
+            }]
+        });
+    });
+</script>
+
+<script id="commands-template" type="text/x-kendo-template">
+    <a class="k-button" href="Edit/#: Id#" title="@T("Admin.Common.Edit")">
+        <span class="k-icon k-edit"></span>
+        @T("Admin.Common.Edit")
+    </a>
+</script>

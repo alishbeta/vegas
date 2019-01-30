@@ -1,0 +1,547 @@
+﻿@model SEOTemplateModel
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#@Html.IdFor(model => model.Global)").change(showNotGlobalSeoOptions);
+
+        showNotGlobalSeoOptions();
+
+        $("#@Html.IdFor(model => model.AppendProductsToKeywordsForCategories)").click(function () {
+            togglePrefixProductKeywordsWithManufacturerName($(this), '#pnlPrefixProductKeywordsForCategoriesWithManufacturerName');
+        });
+
+        togglePrefixProductKeywordsWithManufacturerName($("#@Html.IdFor(model => model.AppendProductsToKeywordsForCategories)"), '#pnlPrefixProductKeywordsForCategoriesWithManufacturerName');
+
+        $("#@Html.IdFor(model => model.AppendProductsToKeywordsForManufacturers)").click(function () {
+            togglePrefixProductKeywordsWithManufacturerName($(this), '#pnlPrefixProductKeywordsForManufacturersWithManufacturerName');
+        });
+
+        togglePrefixProductKeywordsWithManufacturerName($("#@Html.IdFor(model => model.AppendProductsToKeywordsForManufacturers)"), '#pnlPrefixProductKeywordsForCategoriesWithManufacturerName');
+        togglePrefixProductKeywordsWithManufacturerName($("#@Html.IdFor(model => model.AppendProductsToKeywordsForManufacturers)"), '#pnlPrefixProductKeywordsForManufacturersWithManufacturerName');
+
+        @*@for(int i = 0; i < Model.Locales.Count; i++)
+        {
+            <text>
+                $("#@Html.IdFor(model => model.Locales[i].AppendProductsToKeywords)").click(function(){
+                    togglePrefixProductKeywordsWithManufacturerName($(this));
+                });
+            </text>
+        }*@
+    });
+
+    function showNotGlobalSeoOptions() {
+        if ($('#@Html.IdFor(model => model.Global)').is(':checked')) {
+            $('.not-global').hide();
+        } else {
+            $('.not-global').show();
+        }
+    }
+
+    function togglePrefixProductKeywordsWithManufacturerName(chkAppendProductToKeyword, pnlPrefixProductKeywordsForCategoriesWithManufacturerNameId) {
+
+        if (chkAppendProductToKeyword.attr('languageId') != undefined) {
+            pnlPrefixProductKeywordsForCategoriesWithManufacturerNameId += '_' + chkAppendProductToKeyword.attr('languageId');
+        }
+
+        if (chkAppendProductToKeyword.attr('checked')) {
+
+            $(pnlPrefixProductKeywordsForCategoriesWithManufacturerNameId).show();
+        }
+        else {
+            $(pnlPrefixProductKeywordsForCategoriesWithManufacturerNameId).hide();
+        }
+    }
+
+</script>
+
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <nop-label asp-for="Name" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <nop-label asp-for="Active" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="Active" />
+                    <span asp-validation-for="Active"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <nop-label asp-for="Global" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="Global" />
+                    <span asp-validation-for="Global"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <nop-label asp-for="CombineWithGlobalTemplate" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="CombineWithGlobalTemplate" />
+                    <span asp-validation-for="CombineWithGlobalTemplate"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <nop-label asp-for="Priority" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="Priority" />
+                    <span asp-validation-for="Priority"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@(Html.LocalizedEditor<SEOTemplateModel, SEOTemplateLocalizedModel>("SmartSEO-Localized",
+    @<div class="raw clearfix">
+        <div class="col-md-7">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("SevenSpikes.NopSmartSEO.Admin.SmartSEOSettings.CategoryTemplate")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="CategoryTitleSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].CategoryTitleSEOTemplate" />
+                                <span asp-validation-for="@Model.Locales[item].CategoryTitleSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="CategoryDescriptionSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].CategoryDescriptionSEOTemplate" />
+                                <span asp-validation-for="@Model.Locales[item].CategoryDescriptionSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="CategoryKeywordsSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].CategoryKeywordsSEOTemplate" />
+                                <span asp-validation-for="@Model.Locales[item].CategoryKeywordsSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="CategoryKeywordsSEOTemplateRegex" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].CategoryKeywordsSEOTemplateRegex" />
+                                <span asp-validation-for="@Model.Locales[item].CategoryKeywordsSEOTemplateRegex"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.AvailableCategoryTokens")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md12">
+                                @await Html.PartialAsync("_CategoryTokens")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("SevenSpikes.NopSmartSEO.Admin.SmartSEOSettings.ProductTemplate")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ProductTitleSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].ProductTitleSEOTemplate" />
+                                <span asp-validation-for="@Model.Locales[item].ProductTitleSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ProductDescriptionSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].ProductDescriptionSEOTemplate" />
+                                <span asp-validation-for="@Model.Locales[item].ProductDescriptionSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ProductKeywordsSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].ProductKeywordsSEOTemplate" />
+                                <span asp-validation-for="@Model.Locales[item].ProductKeywordsSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ProductKeywrodsSEOTemplateRegex" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].ProductKeywrodsSEOTemplateRegex" />
+                                <span asp-validation-for="@Model.Locales[item].ProductKeywrodsSEOTemplateRegex"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ProductKeywrodsSEOTemplateRegex" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].ProductKeywrodsSEOTemplateRegex" />
+                                <span asp-validation-for="@Model.Locales[item].ProductKeywrodsSEOTemplateRegex"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.AvailableProductTokens")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md12">
+                                @await Html.PartialAsync("_ProductTokens")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("SevenSpikes.NopSmartSEO.Admin.SmartSEOSettings.ManufacturerTemplate")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ManufacturerTitleSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].ManufacturerTitleSEOTemplate" />
+                                <span asp-validation-for="@Model.Locales[item].ManufacturerTitleSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ManufacturerDescriptionSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].ManufacturerDescriptionSEOTemplate" />
+                                <span asp-validation-for="@Model.Locales[item].ManufacturerDescriptionSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ManufacturerKeywordsSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].ManufacturerKeywordsSEOTemplate" />
+                                <span asp-validation-for="@Model.Locales[item].ManufacturerKeywordsSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ManufacturerKeywordsSEOTemplateRegex" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="@Model.Locales[item].ManufacturerKeywordsSEOTemplateRegex" />
+                                <span asp-validation-for="@Model.Locales[item].ManufacturerKeywordsSEOTemplateRegex"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <input type="hidden" asp-for="@Model.Locales[item].LanguageId"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.AvailableManufacturerTokens")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md12">
+                                @await Html.PartialAsync("_ManufacturerTokens")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    ,
+    @<div class="raw clearfix">
+        <div class="col-md-7">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("SevenSpikes.NopSmartSEO.Admin.SmartSEOSettings.CategoryTemplate")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="CategoryTitleSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="CategoryTitleSEOTemplate" />
+                                <span asp-validation-for="CategoryTitleSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="CategoryDescriptionSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="CategoryDescriptionSEOTemplate" />
+                                <span asp-validation-for="CategoryDescriptionSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="AppendProductsToKeywordsForCategories" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="AppendProductsToKeywordsForCategories" />
+                                <span asp-validation-for="AppendProductsToKeywordsForCategories"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" id="pnlPrefixProductKeywordsForCategoriesWithManufacturerName">
+                            <div class="col-md-3">
+                                <nop-label asp-for="PrefixProductKeywordsForCategoriesWithManufacturerName" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="PrefixProductKeywordsForCategoriesWithManufacturerName" />
+                                <span asp-validation-for="PrefixProductKeywordsForCategoriesWithManufacturerName"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="CategoryKeywordsSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="CategoryKeywordsSEOTemplate" />
+                                <span asp-validation-for="CategoryKeywordsSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="CategoryKeywordsSEOTemplateRegex" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="CategoryKeywordsSEOTemplateRegex" />
+                                <span asp-validation-for="CategoryKeywordsSEOTemplateRegex"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="col-md-5">
+             <div class="panel-group">
+                 <div class="panel panel-default">
+                     <div class="panel-heading">
+                         @T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.AvailableCategoryTokens")
+                     </div>
+                     <div class="panel-body">
+                         <div class="form-group">
+                             <div class="col-md12">
+                                 @await Html.PartialAsync("_CategoryTokens")
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+        <div class="col-md-7">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("SevenSpikes.NopSmartSEO.Admin.SmartSEOSettings.ProductTemplate")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ProductTitleSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ProductTitleSEOTemplate" />
+                                <span asp-validation-for="ProductTitleSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ProductDescriptionSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ProductDescriptionSEOTemplate" />
+                                <span asp-validation-for="ProductDescriptionSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ProductKeywordsSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ProductKeywordsSEOTemplate" />
+                                <span asp-validation-for="ProductKeywordsSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ProductKeywrodsSEOTemplateRegex" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ProductKeywrodsSEOTemplateRegex" />
+                                <span asp-validation-for="ProductKeywrodsSEOTemplateRegex"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="col-md-5">
+             <div class="panel-group">
+                 <div class="panel panel-default">
+                     <div class="panel-heading">
+                         @T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.AvailableProductTokens")
+                     </div>
+                     <div class="panel-body">
+                         <div class="form-group">
+                             <div class="col-md12">
+                                 @await Html.PartialAsync("_ProductTokens")
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+        <div class="col-md-7">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("SevenSpikes.NopSmartSEO.Admin.SmartSEOSettings.ManufacturerTemplate")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ManufacturerTitleSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ManufacturerTitleSEOTemplate" />
+                                <span asp-validation-for="ManufacturerTitleSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ManufacturerDescriptionSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ManufacturerDescriptionSEOTemplate" />
+                                <span asp-validation-for="ManufacturerDescriptionSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="AppendProductsToKeywordsForManufacturers" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="AppendProductsToKeywordsForManufacturers" />
+                                <span asp-validation-for="AppendProductsToKeywordsForManufacturers"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" id="pnlPrefixProductKeywordsForManufacturersWithManufacturerName">
+                            <div class="col-md-3">
+                                <nop-label asp-for="PrefixProductKeywordsForManufacturersWithManufacturerName" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="PrefixProductKeywordsForManufacturersWithManufacturerName" />
+                                <span asp-validation-for="PrefixProductKeywordsForManufacturersWithManufacturerName"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ManufacturerKeywordsSEOTemplate" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ManufacturerKeywordsSEOTemplate" />
+                                <span asp-validation-for="ManufacturerKeywordsSEOTemplate"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ManufacturerKeywordsSEOTemplateRegex" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ManufacturerKeywordsSEOTemplateRegex" />
+                                <span asp-validation-for="ManufacturerKeywordsSEOTemplateRegex"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="col-md-5">
+             <div class="panel-group">
+                 <div class="panel panel-default">
+                     <div class="panel-heading">
+                         @T("SevenSpikes.NopSmartSEO.Admin.SEOTemplate.AvailableManufacturerTokens")
+                     </div>
+                     <div class="panel-body">
+                         <div class="form-group">
+                             <div class="col-md12">
+                                 @await Html.PartialAsync("_ManufacturerTokens")
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+    </div>
+))
+
+@await Html.PartialAsync("_CreateOrUpdate.StoreSettings", Model)

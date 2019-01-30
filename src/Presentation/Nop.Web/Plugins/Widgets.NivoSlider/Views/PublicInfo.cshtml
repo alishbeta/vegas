@@ -1,0 +1,142 @@
+﻿@model Nop.Plugin.Widgets.NivoSlider.Models.PublicInfoModel
+@{
+    Layout = "";
+
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.NivoSlider/Scripts/jquery.nivo.slider.js");
+    Html.AddCssFileParts("~/Plugins/Widgets.NivoSlider/Content/nivoslider/nivo-slider.css");
+    Html.AddCssFileParts("~/Plugins/Widgets.NivoSlider/Content/nivoslider/themes/custom/custom.css");
+}
+
+<div class="main-baner-wrap">
+        @{
+            var dataSlide1 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture1Url},
+                { "text", Model.Text1},
+                { "link", Model.Link1},
+                {"alttext", Model.AltText1 }
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide1)
+        }
+
+        @{
+            var dataSlide2 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture2Url},
+                { "text", Model.Text2},
+                { "link", Model.Link2},
+                {"alttext", Model.AltText2 }
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide2)
+        }
+
+        @{
+            var dataSlide3 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture3Url},
+                { "text", Model.Text3},
+                { "link", Model.Link3},
+                {"alttext", Model.AltText3 },
+                { "dataTransition", "slideInLeft"}
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide3)
+        }
+
+        @{
+            var dataSlide4 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture4Url},
+                { "text", Model.Text4},
+                { "link", Model.Link4},
+                {"alttext", Model.AltText4 }
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide4)
+        }
+
+        @{
+            var dataSlide5 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture5Url},
+                { "text", Model.Text5},
+                { "link", Model.Link5},
+                {"alttext", Model.AltText5 }
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide5)
+        }
+
+        @{
+            var dataSlide6 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture6Url},
+                { "text", Model.Text6},
+                { "link", Model.Link6}
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide6)
+        }
+
+        @{
+            var dataSlide7 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture7Url},
+                { "text", Model.Text7},
+                { "link", Model.Link7}
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide7)
+        }
+
+        @{
+            var dataSlide8 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture8Url},
+                { "text", Model.Text8},
+                { "link", Model.Link8},
+                { "dataTransition", "slideInLeft"}
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide8)
+        }
+
+        @{
+            var dataSlide9 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture9Url},
+                { "text", Model.Text9},
+                { "link", Model.Link9}
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide9)
+        }
+
+        @{
+            var dataSlide10 = new ViewDataDictionary(ViewData)
+            {
+                {"pictureUrl", Model.Picture10Url},
+                { "text", Model.Text10},
+                { "link", Model.Link10}
+            };
+
+            @await Html.PartialAsync("~/Plugins/Widgets.NivoSlider/Views/_PublicInfo.SliderLine.cshtml", dataSlide10)
+        }
+</div>
+<script>
+	$('.main-baner-wrap').slick({
+		dots: true,
+		prevArrow: '<div class="baner-prev-arrow"></div>',
+		nextArrow: '<div class="baner-next-arrow"></div>',
+        responsive: [
+            {
+                breakpoint: 575,
+                settings: {
+                    arrows: false,
+                }
+            }
+        ]
+	});
+</script>
