@@ -591,6 +591,19 @@ namespace Nop.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public virtual dynamic ChangeRecommendation(int ReviewId, bool? WillRecommend)
+        {
+            var product = _productService.GetProductById(1);
+            if (product == null || product.ProductReviews.FirstOrDefault(x => x.Id == ReviewId && x.CustomerId == _workContext.CurrentCustomer.Id) == null)
+            {
+                return new { success = false };
+            }
+            product.ProductReviews.FirstOrDefault(x => x.Id == ReviewId && x.CustomerId == _workContext.CurrentCustomer.Id).WillRecommend = WillRecommend;
+            _productService.UpdateProductReviewTotals(product);
+            return new { success = true };
+        }
+
         public virtual IActionResult StoreReviews()
         {
             var product = _productService.GetProductById(1);
@@ -609,6 +622,8 @@ namespace Nop.Web.Controllers
                 {
                     additionalProductReview.Rating = additionalProductReview.IsRequired ? _catalogSettings.DefaultProductRatingValue : 0;
                 }
+
+            ViewBag.CustomerId = _workContext.CurrentCustomer.Id;
 
             return View(model);
         }

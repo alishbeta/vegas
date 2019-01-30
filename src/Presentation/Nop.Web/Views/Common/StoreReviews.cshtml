@@ -337,6 +337,18 @@
                             }
                         </div>
                         Will Recommend @(review.WillRecommend != null ? (review.WillRecommend == true ? "Да" : "Нет") : "Воздержался")
+                        @if (review.CustomerId == ViewBag.CustomerId)
+                        {
+                            <form method="post" action="/common/ChangeRecommendation" class="willrecommend">
+                                <select name="WillRecommend">
+                                    <option value="true">Да</option>
+                                    <option value="null">Воздержался</option>
+                                    <option value="false">Нет</option>
+                                </select>
+                                <input type="hidden" name="ReviewId" value="@review.Id" />
+                                <button>Изменить решение</button>
+                            </form>
+                        }
                         <div class="text-wrap">
                             <strong>@review.Title</strong>
                             <br />
@@ -373,6 +385,23 @@
             }
             else {
                 console.log(data.message);
+            }
+        });
+    });
+</script>
+<script>
+    $('form.willrecommend').on("submit", function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: $(this).serialize()
+        }).done(function (data) {
+            if (data.success) {
+                window.location.reload();
+            }
+            else {
+                console.log(data);
             }
         });
     });
