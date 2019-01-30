@@ -1155,15 +1155,23 @@ namespace Nop.Web.Factories
                 //price
                 if (preparePriceModel)
                 {
-                    var cacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_PRICE_MODEL_KEY, product.Id);
+                    //var cacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_PRICE_MODEL_KEY, product.Id);
 
-                    model.ProductPrice = _cacheManager.Get(cacheKey, () =>
+                    model.ProductPrice = new ProductOverviewModel.ProductPriceModel()
                     {
-                        return PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
-                    }, 24 * 60);
+                        Price = string.Format("{0} {1}", product.DiscountRate > 0 ? product.DiscountPrice.ToString("#.##") : product.Price.ToString("#.##"), _localizationService.GetResource("currency.uah")),
+                        PriceValue = product.DiscountPrice > 0 ? product.DiscountPrice : product.Price,
+                        OldPrice = product.DiscountRate > 0 ? string.Format("{0} {1}", product.Price.ToString("#.##"), _localizationService.GetResource("currency.uah")) : null,
+                        Discount = product.DiscountRate
+                    };
+                    //model.ProductPrice = _cacheManager.Get(cacheKey, () =>
+                    //{
+                    //    return PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
+                    //}, 24 * 60);
                     //model.ProductPrice = PrepareProductOverviewPriceModel(product, forceRedirectionAfterAddingToCart);
                 }
-                model.ProductPrice.Discount = product.DiscountProductMappings.Count > 0 ? product.DiscountProductMappings.FirstOrDefault().Discount.DiscountPercentage : (decimal)0;
+                //model.ProductPrice.Discount = product.DiscountProductMappings.Count > 0 ? product.DiscountProductMappings.FirstOrDefault().Discount.DiscountPercentage : (decimal)0;
+                model.ProductPrice.Discount = product.DiscountRate;
 
 				//picture
 				if (preparePictureModel)

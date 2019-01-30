@@ -119,10 +119,10 @@ namespace Nop.Web.Controllers
                 return InvokeHttp404();
 
             //'Continue shopping' URL
-            _genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, 
-                NopCustomerDefaults.LastContinueShoppingPageAttribute, 
-                _webHelper.GetThisPageUrl(false),
-                _storeContext.CurrentStore.Id);
+            //_genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, 
+            //    NopCustomerDefaults.LastContinueShoppingPageAttribute, 
+            //    _webHelper.GetThisPageUrl(false),
+            //    _storeContext.CurrentStore.Id);
 
             //display "edit" (manage) link
             if (_permissionService.Authorize(StandardPermissionProvider.AccessAdminPanel) && _permissionService.Authorize(StandardPermissionProvider.ManageCategories))

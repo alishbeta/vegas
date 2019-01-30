@@ -495,7 +495,7 @@ namespace Nop.Web.Factories
             }
 
             var products = _productService.SearchProducts(out IList<int> filterableSpecificationAttributeOptionIds,
-                true,
+                false,
                 categoryIds: categoryIds,
                 storeId: _storeContext.CurrentStore.Id,
                 visibleIndividuallyOnly: true,
@@ -518,7 +518,7 @@ namespace Nop.Web.Factories
                 pageSize: 32
                 );
             var allFilteredProductsIds = _productService.SearchProducts(out IList<int> _,
-                true,
+                false,
                 categoryIds: categoryIds,
                 storeId: _storeContext.CurrentStore.Id,
                 visibleIndividuallyOnly: true,
