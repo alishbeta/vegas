@@ -1211,7 +1211,7 @@ namespace Nop.Web.Factories
             {
                 Id = product.Id,
                 Name = _localizationService.GetLocalized(product, x => x.Name),
-                ShortDescription = _localizationService.GetLocalized(product, x => x.ShortDescription),
+                //ShortDescription = _localizationService.GetLocalized(product, x => x.ShortDescription),
                 FullDescription = _localizationService.GetLocalized(product, x => x.FullDescription),
                 MetaKeywords = _localizationService.GetLocalized(product, x => x.MetaKeywords),
                 MetaDescription = _localizationService.GetLocalized(product, x => x.MetaDescription),
@@ -1330,9 +1330,16 @@ namespace Nop.Web.Factories
             model.PictureModels = allPictureModels;
 
             //price
-            model.ProductPrice = PrepareProductPriceModel(product);
-			model.ProductPrice.Discount = product.DiscountProductMappings.ToList().Count > 0 ? product.DiscountProductMappings.ToList()[0].Discount.DiscountPercentage : (decimal)0;
-			model.InStock = (product.StockQuantity > 0 && product.StatusId != 4);
+            model.ProductPrice = new ProductDetailsModel.ProductPriceModel()
+            {
+                Price = string.Format("{0} {1}", product.DiscountRate > 0 ? product.DiscountPrice.ToString("#.##") : product.Price.ToString("#.##"), _localizationService.GetResource("currency.uah")),
+                PriceValue = product.DiscountPrice > 0 ? product.DiscountPrice : product.Price,
+                OldPrice = product.DiscountRate > 0 ? string.Format("{0} {1}", product.Price.ToString("#.##"), _localizationService.GetResource("currency.uah")) : null,
+                Discount = product.DiscountRate
+            };
+            //model.ProductPrice = PrepareProductPriceModel(product);
+            //model.ProductPrice.Discount = product.DiscountProductMappings.ToList().Count > 0 ? product.DiscountProductMappings.ToList()[0].Discount.DiscountPercentage : (decimal)0;
+            model.InStock = (product.StockQuantity > 0 && product.StatusId != 4);
 			//'Add to cart' model
 			model.AddToCart = PrepareProductAddToCartModel(product, updatecartitem);
 

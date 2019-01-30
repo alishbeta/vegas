@@ -272,14 +272,14 @@
                 <div class="opt-wrap">
                     <div class="price-wrap">
                         <div class="title">@T("prod.price")</div>
-                        @if (string.IsNullOrEmpty(Model.ProductPrice.PriceWithDiscount))
+                        @if (string.IsNullOrEmpty(Model.ProductPrice.OldPrice))
                         {
                             <div class="price mt-2">@Model.ProductPrice.Price</div>
                         }
                         else
                         {
-                            <div class="price mt-2">@Model.ProductPrice.PriceWithDiscount</div>
-                            <div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.Price</s></div>
+                            <div class="price mt-2">@Model.ProductPrice.Price</div>
+                            <div class="price-old">@T("prod.discount") <s>@Model.ProductPrice.OldPrice</s></div>
                         }
                         @if (Model.ProductPrice.Discount.ToString("#.##") != "")
                         {
