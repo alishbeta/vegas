@@ -438,7 +438,7 @@
         </article>
     </div>
     <div class="line"></div>
-    @await Component.InvokeAsync("SimilarProductsBlock", new { makeCode = Model.MakeCode, colorName = productColor?.ValueRaw, productId = Model.Id })
+    @await Component.InvokeAsync("SimilarProductsBlock", new { makeCode = Model.MakeCode, colorName = productColor?.ValueRaw, productName = Model.Name, productId = Model.Id })
     @await Component.InvokeAsync("CrossSellProducts", new { productIds = new int[1] { Model.Id } })
     @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })
 </div>

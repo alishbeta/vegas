@@ -39,7 +39,7 @@ namespace Nop.Web.Components
 			this._storeMappingService = storeMappingService;
 		}
 
-		public IViewComponentResult Invoke(string makeCode, string colorName, int productId = 0)
+		public IViewComponentResult Invoke(string makeCode, string colorName, string productName, int productId = 0)
 		{
             if (string.IsNullOrEmpty(colorName) || string.IsNullOrEmpty(makeCode))
             {
@@ -49,7 +49,7 @@ namespace Nop.Web.Components
 				storeId: _storeContext.CurrentStore.Id,
 				orderBy: ProductSortingEnum.CreatedOn);
 
-            ViewBag.ProductName = products.FirstOrDefault(x => x.Id == productId)?.Name;
+            ViewBag.ProductName = productName;
 
             //ACL and store mapping
             products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));

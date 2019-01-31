@@ -827,9 +827,12 @@ Model.CountryEnabled)
         $(".login-wrap form input").each(function () {
             $(this).attr("disabled", false);
         });
+        $(".login-wrap form select").each(function () {
+            $(this).attr("disabled", false);
+        });
 		var hasErrors = false;
 		$("#firstZone input").each(function () {
-			if ($(this).val() == "") {
+			if ($(this).val() == "" && $(this).attr("name") != "NumberDiscountCard") {
 				$(this).addClass('is-invalid');
 				e.preventDefault();
 				hasErrors = true;

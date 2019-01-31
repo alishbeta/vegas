@@ -41,7 +41,7 @@ namespace Nop.Web.Components
                 {
                     SearchResourceValue = selectedCity.ToLower(),
                     SearchResourceName = "regions."
-                }, language).Data.Where(x => x.Id >= 27524 && x.Id <= 27571).FirstOrDefault()?.Name;
+                }, language).Data.Where(x => x.Id >= 27476 && x.Id <= 27571).FirstOrDefault()?.Name;
             }
             else
             {
