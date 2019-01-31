@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Caching;
@@ -45,24 +46,24 @@ namespace Nop.Web.Components
 
 		public IViewComponentResult Invoke(int? productThumbPictureSize)
 		{
-			var products = _productService.SearchProducts(
+			IEnumerable<Product> products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				visibleIndividuallyOnly: true,
 				markedAsNewOnly: true,
 				orderBy: ProductSortingEnum.CreatedOn,
-				pageSize: _catalogSettings.NewProductsNumber).ToList();
+				pageSize: _catalogSettings.NewProductsNumber);
 
 
 			//ACL and store mapping
-			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+			products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
 			//availability dates
-			products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+			products = products.Where(p => _productService.ProductIsAvailable(p));
 
 			if (!products.Any())
 				return Content("");
 
 			//prepare model
-			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, productThumbPictureSize).ToList();
+			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, 250);
 			ViewBag.Prefix = "new";//prefix for backinstock button
 			return View(model);
 		}

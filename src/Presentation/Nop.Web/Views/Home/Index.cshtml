@@ -49,13 +49,10 @@
 	</div>
 </div>
 <!--***************Топ продаж***************-->
-@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeBestSellers })
 @await Component.InvokeAsync("HomepageBestSellers")
 <!--***************Новинки***************-->
-@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeBestSellers })
 @await Component.InvokeAsync("HomepageNewProducts")
 <!--***************Новости***************-->
-@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeNews })
 @await Component.InvokeAsync("HomepageNews")
 <div class="some-info">
 	<div class="title row justify-content-center">
