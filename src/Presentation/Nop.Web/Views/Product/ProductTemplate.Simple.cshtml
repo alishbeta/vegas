@@ -426,7 +426,7 @@
                 <div class="item-content">
                     @foreach (var specification in Model.ProductSpecifications)
                     {
-                        <p>@specification.SpecificationAttributeName @Html.Raw(specification.ValueRaw)</p>
+                        <p>@specification.SpecificationAttributeName: @Html.Raw(specification.ValueRaw)</p>
                     }
                 </div>
             </section>
@@ -442,9 +442,6 @@
     @await Component.InvokeAsync("CrossSellProducts", new { productIds = new int[1] { Model.Id } })
     @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })
 </div>
-    
-    <!--ALSO PURCHASED-->
-    @*@await Component.InvokeAsync("ProductsAlsoPurchased", new { productId = Model.Id })*@
     <script type="text/javascript" src="~/js/site/slick.min.js"></script>
     <script type="text/javascript">
         $('.slider').slick({

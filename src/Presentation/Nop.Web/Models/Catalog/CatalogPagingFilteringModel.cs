@@ -399,7 +399,7 @@ namespace Nop.Web.Models.Catalog
                         SpecificationAttributeOptionName = localizationService.GetLocalized(sao, x => x.Name, workContext.WorkingLanguage.Id),
                         //SpecificationAttributeOptionColorRgb = sao.ColorSquaresRgb,
                         SpecificationAttributeOptionDisplayOrder = sao.DisplayOrder
-                    }).ToList());
+                    }).ToList(), 24*60);
 
                 if (!allFilters.Any())
                     return;

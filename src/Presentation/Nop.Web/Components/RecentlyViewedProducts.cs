@@ -7,7 +7,6 @@ using Nop.Services.Security;
 using Nop.Services.Stores;
 using Nop.Web.Factories;
 using Nop.Web.Framework.Components;
-using Nop.Web.Models.Catalog;
 
 namespace Nop.Web.Components
 {

@@ -10,7 +10,6 @@ using Nop.Services.Security;
 using Nop.Services.Stores;
 using Nop.Web.Factories;
 using Nop.Web.Framework.Components;
-using Nop.Web.Models.Order;
 
 namespace Nop.Web.Components
 {
@@ -49,8 +48,7 @@ namespace Nop.Web.Components
 			{
 				var cart = _workContext.CurrentCustomer.ShoppingCartItems
                 .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                .LimitPerStore(_storeContext.CurrentStore.Id)
-                .ToList();
+                .LimitPerStore(_storeContext.CurrentStore.Id);
 			
 				products = _productService.GetCrosssellProductsByShoppingCart(cart, _shoppingCartSettings.CrossSellsNumber);
 				//ACL and store mapping

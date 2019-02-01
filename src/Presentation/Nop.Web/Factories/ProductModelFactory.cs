@@ -1150,7 +1150,6 @@ namespace Nop.Web.Factories
 				model.SleepLength = product.SleepLength;
 				model.SleepWidth = product.SleepWidth;
 				model.Weight = product.Weight;
-				
 				model.InStock = (product.StockQuantity > 0 && product.StatusId != 4);	  //StatusId 4 - not in stock
                 //price
                 if (preparePriceModel)
