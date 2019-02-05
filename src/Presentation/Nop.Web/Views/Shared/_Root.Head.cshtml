@@ -86,12 +86,10 @@
 }
 
 @using Nop.Core.Domain
-@using StackExchange.Profiling
 @using Nop.Core.Domain.Common
 @using Nop.Core.Domain.Seo
 @using Nop.Services.Events
 @using Nop.Services.Security
-@using Nop.Web.Framework.Events
 @using Nop.Core
 @inject CommonSettings commonSettings
 @inject IEventPublisher eventPublisher
@@ -140,19 +138,6 @@
     <script src="/js/site/jquery.mousewheel.min.js" crossorigin="anonymous"></script>
     <script src="/js/site/jquery.kinetic.min.js" crossorigin="anonymous"></script>
     <script src="/js/site/jquery.smoothdivscroll-1.3-min.js" crossorigin="anonymous"></script>
-    @*<script type="text/javascript">
-            $('.slider-wrap').slick({
-                dots: false,
-                slidesToShow: 5,
-                slidesToScroll: 1,
-                speed: 600,
-                useTransform: false,
-                prevArrow: '<div class="baner-prev-arrow"></div>',
-                nextArrow: '<div class="baner-next-arrow"></div>',
-                infinite: false,
-                variableWidth: true
-            });
-        </script>*@
     <!--[if lt IE 9]>
     <script>
         document.createElement('header');
@@ -167,8 +152,6 @@
 </head>
 <body>
 	@RenderBody()
-	<script src="~/js/site/jquery-ui.min.js"></script>
-	<script src="/js/site/maps.js" crossorigin="anonymous"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbEYKU92y_bwmjNE_HOjPxoaNFbnpnD9I&callback=initMap" async defer></script>
+	<script src="~/js/site/jquery-ui.min.js"></script>	
 </body>
 </html>
