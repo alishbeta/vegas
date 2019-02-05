@@ -686,7 +686,6 @@
                         </button>
                         <button style="display: none;"
                                 type="button"
-                                onclick="CancelChangesInZone(1)"
                                 id="edit-name-close"
                                 class="btn btn-link">
                             @T("cart.cancel")
@@ -747,7 +746,6 @@ Model.CountryEnabled)
 							<button type="button"
 									id="edit-addres-close"
 									style="display: none"
-									onclick="CancelChangesInZone(2)"
 									class="btn btn-link">
 								@T("cart.cancel")
 							</button>
@@ -784,7 +782,6 @@ Model.CountryEnabled)
 							<button type="button"
 									id="edit-pass-close"
 									style="display: none"
-									onclick="CancelChangesInZone(3)"
 									class="btn btn-link">
 								@T("cabinet.cancel")
 							</button>
@@ -806,23 +803,6 @@ Model.CountryEnabled)
 	</div>
 </div>
 <script>
-	function CancelChangesInZone(index) {
-		//if (index == 1) {
-		//	$("#firstZone .row").each(function () {
-		//		$(this).find('input').val($(this).find('.text-light-c').text());
-		//	});
-		//}
-		//if (index == 2) {
-		//	$("#secondZone .row").each(function () {
-		//		$(this).find('input').val($(this).find('.text-light-c').text());
-		//	});
-		//}
-		//if (index == 3) {
-		//	$("#thirdZone .row").each(function () {
-		//		$(this).find('input').val("");
-		//	});
-		//}
-	}
     $("#save-info-button").on("click", function (e) {
         $(".login-wrap form input").each(function () {
             $(this).attr("disabled", false);

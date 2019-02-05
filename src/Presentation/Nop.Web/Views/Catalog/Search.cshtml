@@ -164,12 +164,12 @@
         </form>
         @if (Model.NoResults)
         {
-            <p>Результаты поиска по запросу "@Model.q". Найдено <b>@Model.PagingFilteringContext.TotalItems</b> товаров.</p>
+        <p>@T("search.result.title") "@Model.q". @T("search.result.found") <b>@Model.PagingFilteringContext.TotalItems</b> @T("search.result.products")</p>
         }
 
         @if (Model.Products.Count > 0)
         {
-            <p>Результаты поиска по запросу "@Model.q". Найдено <b>@Model.PagingFilteringContext.TotalItems</b> товаров.</p>
+        <p>@T("search.result.title") "@Model.q". @T("search.result.found") <b>@Model.PagingFilteringContext.TotalItems</b> @T("search.result.products")</p>
             <div class="result clearfix">
                 @foreach (var product in Model.Products)
                 {
