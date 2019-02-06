@@ -134,7 +134,7 @@ namespace Nop.Web.Factories
 
             if (newsItem.PictureId > 0)
             {
-                model.Image = _pictureService.GetPictureUrl(newsItem.PictureId);
+                model.Image = _pictureService.GetPictureUrl(newsItem.PictureId) ?? _pictureService.GetDefaultPictureUrl();
             }
             
             //number of news comments

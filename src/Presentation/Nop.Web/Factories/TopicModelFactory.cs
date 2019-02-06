@@ -124,7 +124,7 @@ namespace Nop.Web.Factories
 			var test = _topicService.GetAllTopics(storeId);
 			model.PreviousTopic = _topicService.GetAllTopics(storeId).FirstOrDefault(x => x.TopicCategoryId == model.Topic.TopicCategoryId && x.Id < topicId);
 			model.NextTopic = _topicService.GetAllTopics(storeId).FirstOrDefault(x => x.TopicCategoryId == model.Topic.TopicCategoryId && x.Id > topicId);
-            model.PictureUrl = _pictureService.GetPictureUrl(model.Topic.PictureId);
+            model.PictureUrl = _pictureService.GetPictureUrl(model.Topic.PictureId) ?? _pictureService.GetDefaultPictureUrl(250);
 			return model;
         }
 
