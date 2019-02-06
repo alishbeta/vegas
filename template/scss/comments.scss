@@ -1,61 +1,237 @@
 .commets-wrap {
-    border: 1px solid $border_color;
-    border-radius: 5px;
-    padding: 30px;
-    .line {
-        margin: 30px 35px;
+    .commets-block {
+        margin-top: 30px;
     }
-    .sub-heder-wrapp {
-        width: 100%;
-        text-align: right;
-        margin-bottom: 30px;
-    }
-    .icons-wrap i {
-        height: 24px;
-    }
-    .comment{
-        .list{
-            .icons-wrap i {
-                width: 15px;
-                height: 14px;
-                margin-right: 2px;
+    .diagram-wrapp {
+        font-size: 16px;
+        font-weight: 800;
+        .total-diagram {
+            .item-wrapp {
+                margin-bottom: 15px;
+                div {
+                    display: inline-block;
+                }
+                .item-line-wrapp {
+                    position: relative;
+                    width: 50%;
+                    float: right;
+                    height: 20px;
+                    vertical-align: middle;
+                    .item-line {
+                        text-align: center;
+                        &:first-child {
+                            position: absolute;
+                            background-color: #dbdbdb;
+                            width: 100%;
+                            height: 100%;
+                        }
+                        &:nth-child(2) {
+                            display: block;
+                            position: absolute;
+                            width: 30%;
+                            height: 100%;
+                            background-color: #8cc34c;
+                            left: 0;
+                        }
+                        &:last-child {
+                            display: block;
+                            position: absolute;
+                            width: 40%;
+                            height: 100%;
+                            background-color: #e33840;
+                            right: 0;
+                        }
+                    }
+                }
             }
-            .name{
-                font-weight: 800;
-            }
-            .date{
-                color: $text_light;
-            }
-            .info-wrap{
-                float: left;
-                margin-right: 40px;
+        }
+        .total-rate {
+            .item-wrapp {
+                margin-bottom: 15px;
             }
         }
     }
+    .filters-wrap {
+        margin-left: -15px;
+        .f2 {
+            button:first-child {
+                width: 215px;
+                &:after {
+                    left: 195px !important;
+                }
+            }
+        }
+    }
+    .comment-items {
+        margin-top: 60px;
+        .info-wrap {
+            margin-right: 90px;
+            .no-avatar{
+                margin-right: 20px;
+            }
+            .info {
+                .date {
+                    margin-bottom: 15px;
+                }
+                .btn-link {
+                    font-size: 16px;
+                    &:hover, &:focus {
+                        color: #2c96b9;
+                        text-decoration: none;
+                    }
+                }
+                .dropdown-menu{
+                    font-size: 14px;
+                }
+                .dropdown-toggle::after {
+                    vertical-align: sub;
+                    content: url(/img/pen.png);
+                    border-top: .3em transparent;
+                }
+                .green {
+                    color: #8cc34c;
+                }
+                .red {
+                    color: #e33840;
+                }
+                .grey {
+                    color: #a7a5a5;
+                }
+            }
+        }
+        ul{
+            margin-top: 15px;
+            li{
+                ul{
+                    margin-left: 120px;
+                    .info-wrap{
+                        margin-right: 30px;
+                    }
+                }
+            }
+        }
+    }
+
+    .user-rate-items {
+        font-size: 16px;
+        font-weight: 800;
+        margin-top: 15px;
+        .user-rate-item, div {
+            display: inline-block;
+        }
+    }
+
+    .sprite-smile{
+        width: 40px;
+        height: 41px;
+        background: url(/img/sprite_smile_.png) no-repeat;
+        vertical-align: middle;
+        margin-left: 5px;
+        margin-right: 25px;
+        &.angry{
+            background-position: 0 0;
+        }
+        &.sad{
+            background-position: -40px 0;
+        }
+        &.netral{
+            background-position: -80px 0;
+        }
+        &.good{
+            background-position: -120px 0;
+        }
+        &.perfect{
+            background-position: -160px 0;
+        }
+    }
+
+    .form-wrap{
+        font-size: 16px;
+        font-weight: 800;
+        .rate-rating{
+            div{
+                display: inline-block;
+                vertical-align: bottom;
+            }
+    }
+
+    }
+
+    /*sprite with stars*/
+
+#reviewSmile-input input:checked~label,
+#reviewSmile-input label,
+#reviewSmile-input label:hover,
+#reviewSmile-input label:hover~label {
+    background: url(/img/sprite_smile_.png);
+    // mask-image: url('/img/star_fill.svg');
+    // -webkit-mask-image: url('/img/star_fill.svg');
+    // background-color: gray;
 }
 
-@media (max-width: 575px) {
-    .commets-wrap {
-        border: 1px solid transparent;
-        padding: 0;
-        .icons-wrap{
-            margin-top: 8px!important;
-            i {
-                height: 20px;
-                width: 21px;
-                margin-right: 3px;
-            }
-        } 
-        .sub-heder-wrapp{
-            text-align: left;
-            .stars{
-                display: inline-block;
-                float: left;
-            }
-            button{
-                vertical-align: super;
-                float: right;
-            }
-        } 
-    }
+#reviewSmile-input {
+    /*fix floating problems*/
+    zoom: 1;
+    /*end of fix floating problems*/
+    position: relative;
+    float: left;
+}
+
+#reviewSmile-input input {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    height: 41px;
+    width: 40px;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+}
+
+#reviewSmile-input input:checked~label {
+    background-color: #ff9c32;
+    height: 41px;
+    width: 40px;
+}
+
+#reviewSmile-input label {
+    background-position: 0 0;
+    height: 41px;
+    width: 40px;
+    float: right;
+    cursor: pointer;
+    margin-right: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+#reviewSmile-input label:hover,
+#reviewSmile-input label:hover~label {
+    background-color: #ff9c32;
+    height: 41px;
+    width: 40px;
+}
+
+#reviewSmile-input #star-0 {
+    background-position: 0 0;
+}
+
+#reviewSmile-input #star-1 {
+    left: 53px;
+}
+
+#reviewSmile-input #star-2 {
+    left: 106px;
+}
+
+#reviewSmile-input #star-3 {
+    left: 159px;
+}
+
+#reviewSmile-input #star-4 {
+    left: 212px;
+}
+
+#reviewSmile-input #star-5 {
+    left: 265px;
+}
 }

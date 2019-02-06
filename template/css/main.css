@@ -4042,62 +4042,211 @@ section .item {
 }
 
 .commets-wrap {
-  border: 1px solid #cdd2d4;
-  border-radius: 5px;
-  padding: 30px;
+  /*sprite with stars*/
 }
-.commets-wrap .line {
-  margin: 30px 35px;
+.commets-wrap .commets-block {
+  margin-top: 30px;
 }
-.commets-wrap .sub-heder-wrapp {
-  width: 100%;
-  text-align: right;
-  margin-bottom: 30px;
-}
-.commets-wrap .icons-wrap i {
-  height: 24px;
-}
-.commets-wrap .comment .list .icons-wrap i {
-  width: 15px;
-  height: 14px;
-  margin-right: 2px;
-}
-.commets-wrap .comment .list .name {
+.commets-wrap .diagram-wrapp {
+  font-size: 16px;
   font-weight: 800;
 }
-.commets-wrap .comment .list .date {
-  color: #767c7e;
+.commets-wrap .diagram-wrapp .total-diagram .item-wrapp {
+  margin-bottom: 15px;
 }
-.commets-wrap .comment .list .info-wrap {
+.commets-wrap .diagram-wrapp .total-diagram .item-wrapp div {
+  display: inline-block;
+}
+.commets-wrap .diagram-wrapp .total-diagram .item-wrapp .item-line-wrapp {
+  position: relative;
+  width: 50%;
+  float: right;
+  height: 20px;
+  vertical-align: middle;
+}
+.commets-wrap .diagram-wrapp .total-diagram .item-wrapp .item-line-wrapp .item-line {
+  text-align: center;
+}
+.commets-wrap .diagram-wrapp .total-diagram .item-wrapp .item-line-wrapp .item-line:first-child {
+  position: absolute;
+  background-color: #dbdbdb;
+  width: 100%;
+  height: 100%;
+}
+.commets-wrap .diagram-wrapp .total-diagram .item-wrapp .item-line-wrapp .item-line:nth-child(2) {
+  display: block;
+  position: absolute;
+  width: 30%;
+  height: 100%;
+  background-color: #8cc34c;
+  left: 0;
+}
+.commets-wrap .diagram-wrapp .total-diagram .item-wrapp .item-line-wrapp .item-line:last-child {
+  display: block;
+  position: absolute;
+  width: 40%;
+  height: 100%;
+  background-color: #e33840;
+  right: 0;
+}
+.commets-wrap .diagram-wrapp .total-rate .item-wrapp {
+  margin-bottom: 15px;
+}
+.commets-wrap .filters-wrap {
+  margin-left: -15px;
+}
+.commets-wrap .filters-wrap .f2 button:first-child {
+  width: 215px;
+}
+.commets-wrap .filters-wrap .f2 button:first-child:after {
+  left: 195px !important;
+}
+.commets-wrap .comment-items {
+  margin-top: 60px;
+}
+.commets-wrap .comment-items .info-wrap {
+  margin-right: 90px;
+}
+.commets-wrap .comment-items .info-wrap .no-avatar {
+  margin-right: 20px;
+}
+.commets-wrap .comment-items .info-wrap .info .date {
+  margin-bottom: 15px;
+}
+.commets-wrap .comment-items .info-wrap .info .btn-link {
+  font-size: 16px;
+}
+.commets-wrap .comment-items .info-wrap .info .btn-link:hover, .commets-wrap .comment-items .info-wrap .info .btn-link:focus {
+  color: #2c96b9;
+  text-decoration: none;
+}
+.commets-wrap .comment-items .info-wrap .info .dropdown-menu {
+  font-size: 14px;
+}
+.commets-wrap .comment-items .info-wrap .info .dropdown-toggle::after {
+  vertical-align: sub;
+  content: url(/img/pen.png);
+  border-top: .3em transparent;
+}
+.commets-wrap .comment-items .info-wrap .info .green {
+  color: #8cc34c;
+}
+.commets-wrap .comment-items .info-wrap .info .red {
+  color: #e33840;
+}
+.commets-wrap .comment-items .info-wrap .info .grey {
+  color: #a7a5a5;
+}
+.commets-wrap .comment-items ul {
+  margin-top: 15px;
+}
+.commets-wrap .comment-items ul li ul {
+  margin-left: 120px;
+}
+.commets-wrap .comment-items ul li ul .info-wrap {
+  margin-right: 30px;
+}
+.commets-wrap .user-rate-items {
+  font-size: 16px;
+  font-weight: 800;
+  margin-top: 15px;
+}
+.commets-wrap .user-rate-items .user-rate-item, .commets-wrap .user-rate-items div {
+  display: inline-block;
+}
+.commets-wrap .sprite-smile {
+  width: 40px;
+  height: 41px;
+  background: url(/img/sprite_smile_.png) no-repeat;
+  vertical-align: middle;
+  margin-left: 5px;
+  margin-right: 25px;
+}
+.commets-wrap .sprite-smile.angry {
+  background-position: 0 0;
+}
+.commets-wrap .sprite-smile.sad {
+  background-position: -40px 0;
+}
+.commets-wrap .sprite-smile.netral {
+  background-position: -80px 0;
+}
+.commets-wrap .sprite-smile.good {
+  background-position: -120px 0;
+}
+.commets-wrap .sprite-smile.perfect {
+  background-position: -160px 0;
+}
+.commets-wrap .form-wrap {
+  font-size: 16px;
+  font-weight: 800;
+}
+.commets-wrap .form-wrap .rate-rating div {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.commets-wrap #reviewSmile-input input:checked ~ label,
+.commets-wrap #reviewSmile-input label,
+.commets-wrap #reviewSmile-input label:hover,
+.commets-wrap #reviewSmile-input label:hover ~ label {
+  background: url(/img/sprite_smile_.png);
+}
+.commets-wrap #reviewSmile-input {
+  /*fix floating problems*/
+  zoom: 1;
+  /*end of fix floating problems*/
+  position: relative;
   float: left;
-  margin-right: 40px;
+}
+.commets-wrap #reviewSmile-input input {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  height: 41px;
+  width: 40px;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+.commets-wrap #reviewSmile-input input:checked ~ label {
+  background-color: #ff9c32;
+  height: 41px;
+  width: 40px;
+}
+.commets-wrap #reviewSmile-input label {
+  background-position: 0 0;
+  height: 41px;
+  width: 40px;
+  float: right;
+  cursor: pointer;
+  margin-right: 10px;
+  position: relative;
+  z-index: 1;
+}
+.commets-wrap #reviewSmile-input label:hover,
+.commets-wrap #reviewSmile-input label:hover ~ label {
+  background-color: #ff9c32;
+  height: 41px;
+  width: 40px;
+}
+.commets-wrap #reviewSmile-input #star-0 {
+  background-position: 0 0;
+}
+.commets-wrap #reviewSmile-input #star-1 {
+  left: 53px;
+}
+.commets-wrap #reviewSmile-input #star-2 {
+  left: 106px;
+}
+.commets-wrap #reviewSmile-input #star-3 {
+  left: 159px;
+}
+.commets-wrap #reviewSmile-input #star-4 {
+  left: 212px;
+}
+.commets-wrap #reviewSmile-input #star-5 {
+  left: 265px;
 }
 
-@media (max-width: 575px) {
-  .commets-wrap {
-    border: 1px solid transparent;
-    padding: 0;
-  }
-  .commets-wrap .icons-wrap {
-    margin-top: 8px !important;
-  }
-  .commets-wrap .icons-wrap i {
-    height: 20px;
-    width: 21px;
-    margin-right: 3px;
-  }
-  .commets-wrap .sub-heder-wrapp {
-    text-align: left;
-  }
-  .commets-wrap .sub-heder-wrapp .stars {
-    display: inline-block;
-    float: left;
-  }
-  .commets-wrap .sub-heder-wrapp button {
-    vertical-align: super;
-    float: right;
-  }
-}
 @media (max-width: 1199px) {
   .r-wrap {
     margin-left: 80px;

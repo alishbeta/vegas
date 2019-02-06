@@ -184,138 +184,264 @@
                     </ol>
                 </nav>
                 <div id="iframe"></div>
-
-
-
-                <div class="col-md-12 col-lg-8">
+                <div class="commets-wrap">
                     <div class="title">
                         <div class="comment-title-main">
-                            <h4>Отзывы о нас</h4>
+                            <h4>Отзывы</h4>
                         </div>
                     </div>
-                    <div class="commets-wrap">
-                            <div class="sub-heder-wrapp clearfix">
-                                    <div class="stars">
-                                        <div class="icons-wrap">
-                                            <i class="star"></i>
-                                            <i class="star"></i>
-                                            <i class="star"></i>
-                                            <i class="star grey"></i>
-                                            <i class="star grey"></i>
+                    <div class="filters-wrap clearfix">
+                        <button id="comment-activate" class="btn btn-blue btn-sm pl-3 pr-4 m-md-3">Написать отзыв</button>
+                        <div class="f2 d-none d-lg-block float-right">
+                            <div class="btn-group">
+                                <button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
+                                    За последние 3 месяца
+                                </button>
+                                <div class="dropdown-menu keep_open" aria-labelledby="group">
+                                    <div class="form-group">
+                                        <div class="form-check check-fly">
+                                            <input class="form-check-input" value="1" name="radio1" type="radio" id="lr4"
+                                                checked="">
+                                            <label for="lr4"></label>
+                                            <label class="col-form-label" for="lr4">За неделю</label>
+                                        </div>
+                                        <div class="form-check check-fly">
+                                            <input class="form-check-input" value="2" name="radio1" type="radio" id="lr5">
+                                            <label for="lr5"></label>
+                                            <label class="col-form-label" for="lr5">За день</label>
+                                        </div>
+                                        <div class="form-check check-fly">
+                                            <input class="form-check-input" value="3" name="radio1" type="radio" id="lr6">
+                                            <label for="lr6"></label>
+                                            <label class="col-form-label" for="lr6">За месяц</label>
                                         </div>
                                     </div>
-                                    <button id="comment-activate" class="btn btn-blue btn-sm pl-4 pr-4">Написать отзыв</button>
-                                    <form method="post" id="add-review-form" style="display:none;" action="">
-                                            <div class="comment-title">
-                                                <h5>Напишите свой отзыв</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-10 commets-block">
+                        <div class="form-wrap clearfix">
+                            <div class="title">Поставьте оценку</div>
+                            <form action="">
+                                    <div class="rate-rating">
+                                            <div class="name-description">
+                                                <label for="AddProductReview.Rating">Консультация:</label>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="AddProductReview.Title">Заголовок:</label>
-                                                <input oninvalid="this.setCustomValidity(' ')" oninput="setCustomValidity('')" name="AddProductReview.Title"
-                                                    class="form-control" required="">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="AddProductReview.ReviewText">Текст:</label>
-                                                <textarea oninvalid="this.setCustomValidity(' ')" oninput="setCustomValidity('')" name="AddProductReview.ReviewText"
-                                                    class="form-control" required=""></textarea>
-                                            </div>
-                                            <div class="review-rating">
-                                                <div class="name-description">
-                                                    <label for="AddProductReview.Rating">Оценка:</label>
+                                            <div class="rating-wrapper">
+                                                <div id="reviewSmile-input">
+                                                    <input id="star-4" type="radio" name="reviewSmile">
+                                                    <label title="gorgeous" for="star-4"></label>
+
+                                                    <input id="star-3" type="radio" name="reviewSmile">
+                                                    <label title="good" for="star-3"></label>
+
+                                                    <input id="star-2" type="radio" name="reviewSmile">
+                                                    <label title="regular" for="star-2"></label>
+
+                                                    <input id="star-1" type="radio" name="reviewSmile">
+                                                    <label title="poor" for="star-1"></label>
+
+                                                    <input id="star-0" type="radio" name="reviewSmile">
+                                                    <label title="bad" for="star-0"></label>
                                                 </div>
-                                                <div class="rating-wrapper">
-                                                    <div id="reviewStars-input">
-                                                        <input id="star-4" type="radio" name="AddProductReview.Rating" value="5">
-                                                        <label title="gorgeous" for="star-4"></label>
-                    
-                                                        <input id="star-3" type="radio" name="AddProductReview.Rating" value="4" checked="">
-                                                        <label title="good" for="star-3"></label>
-                    
-                                                        <input id="star-2" type="radio" name="AddProductReview.Rating" value="3">
-                                                        <label title="regular" for="star-2"></label>
-                    
-                                                        <input id="star-1" type="radio" name="AddProductReview.Rating" value="2">
-                                                        <label title="poor" for="star-1"></label>
-                    
-                                                        <input id="star-0" type="radio" name="AddProductReview.Rating" value="1">
-                                                        <label title="bad" for="star-0"></label>
+                                            </div>
+                                        </div>
+                            </form>
+                        </div>
+                        <div class="diagram-wrapp">
+                            <div class="row">
+                                <div class="col-md-8 total-diagram">
+                                    <div class="title mb-4">ИТОГОВАЯ ДИАГРАММА за последние 3 месяца</div>
+                                    <div class="item-wrapp">
+                                        <div class="item-title">Консультация</div>
+                                        <div class="item-line-wrapp">
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">40</div>
+                                        </div>
+                                    </div>
+                                    <div class="item-wrapp">
+                                        <div class="item-title">Оформление заказа через интернет</div>
+                                        <div class="item-line-wrapp">
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">40</div>
+                                        </div>
+                                    </div>
+                                    <div class="item-wrapp">
+                                        <div class="item-title">Оформление заказа в салоне</div>
+                                        <div class="item-line-wrapp">
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">40</div>
+                                        </div>
+                                    </div>
+                                    <div class="item-wrapp">
+                                        <div class="item-title">Доставка</div>
+                                        <div class="item-line-wrapp">
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">40</div>
+                                        </div>
+                                    </div>
+                                    <div class="item-wrapp">
+                                        <div class="item-title">Сборка</div>
+                                        <div class="item-line-wrapp">
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">40</div>
+                                        </div>
+                                    </div>
+                                    <div class="item-wrapp">
+                                        <div class="item-title">Рекомендуют ли нас</div>
+                                        <div class="item-line-wrapp">
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">30</div>
+                                            <div class="item-line">40</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 total-rate">
+                                    <div class="title mb-4">ИТОГОВЫЕ ОЦЕНКИ на основе отзывов</div>
+                                    <div class="item-wrapp clearfix">
+                                        <div class="item-title float-left">Позитивные</div>
+                                        <div class="item-rate float-right">100</div>
+                                    </div>
+                                    <div class="item-wrapp clearfix">
+                                        <div class="item-title float-left">Нейтральные</div>
+                                        <div class="item-rate float-right">60</div>
+                                    </div>
+                                    <div class="item-wrapp clearfix">
+                                        <div class="item-title float-left">Негативные</div>
+                                        <div class="item-rate float-right">20</div>
+                                    </div>
+                                    <div class="item-wrapp clearfix">
+                                        <div class="item-title float-left">Все отзывы</div>
+                                        <div class="item-rate float-right">180</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-items">
+                            <ul>
+                                <li class="list">
+                                    <div class="clearfix">
+                                        <div class="info-wrap float-left">
+                                            <div class="no-avatar float-left"><img src="/img/no_avatar.png" alt="no_avatar.png"></div>
+                                            <div class="info float-right">
+                                                <div class="name">John</div>
+                                                <div class="date">26.11.2018 14:39</div>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownRecomend"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="green">Рекомендую</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownRecomend">
+                                                        <a class="dropdown-item" href="#"><span class="grey">Воздержусь</span></a>
+                                                        <a class="dropdown-item" href="#"><span class="red">Не
+                                                                рекомендую</span></a>
                                                     </div>
                                                 </div>
+                                                <div class="more">Подробнее</div>
                                             </div>
-                                            <div class="buttons">
-                                                <button type="submit" id="add-review-btn" name="add-review" class="btn btn-blue btn-sm pl-4 pr-4">Отправить
-                                                    отзыв</button>
-                                            </div>
-                                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8C_-dwojgClIu_2I6VTLPRcjPg7rDCKVLMMQNNuSS0m7DW-cbSeE1ajJmaToOr0OWLKIFP4x8sywAxXQLz44TzZyr8oUj5X2KVLVS2TkVyWIdEW_Kl1HSducZPdzUNjLaKKCiEwNFAqIrDnHTUeAkBs3Is8GMtY1jEiKD36bMzz8VxDW4rtt_4KUOj-Oeh3SQQ">
-                                        </form>
-                                </div>
-                            <script>
-                                $('#add-review-form').submit(function (e) {
-                                    e.preventDefault();
-                                    $.ajax({
-                                        url: $(this).closest('form').attr('action'),
-                                        type: 'post',
-                                        data: $('#add-review-form').serialize()
-                                    }).done(function (data) {
-                                        if (data.success) {
-                                            window.location.reload();
-                                        }
-                                        else {
-                                            console.log(data.message);
-                                        }
-                                    });
-                                });
-                            </script>
-                        <ul class="comment">
-                            <li class="list clearfix">
-                                <div class="info-wrap">
-                                    <div class="name">John</div>
-                                    <div class="date">26.11.2018 14:39</div>
-                                    <div class="rate">
-                                        <p class="icons-wrap">
-                                            <i class="star"></i>
-                                            <i class="star"></i>
-                                            <i class="star grey"></i>
-                                            <i class="star grey"></i>
-                                            <i class="star grey"></i>
-                                        </p>
+                                        </div>
+                                        <div class="text-wrap">
+                                            Лорем ипсум долор сит амет, но либер нумяуам дебитис ест, еам яуод аперири
+                                            продессет ан. Меа еу проприае цотидиеяуе цонсеяуунтур. Ан суммо промпта
+                                            репудиаре пер, не иуварет лаборес праесент сит, тота модус фиерент цум не.
+                                            Еос
+                                            ет яуандо нонумес, усу ерос нонумы фиерент те, еурипидис мнесарчум ад меа.
+                                        </div>
+                                    </div>
+                                </li>
+                                <div class="user-rate-items">
+                                    <div class="user-rate-item">
+                                        <div class="item-title">Консультация</div>
+                                        <div class="sprite-smile angry"></div>
+                                    </div>
+                                    <div class="user-rate-item">
+                                        <div class="item-title">Оформление заказа чере интернет</div>
+                                        <div class="sprite-smile netral"></div>
+                                    </div>
+                                    <div class="user-rate-item">
+                                        <div class="item-title">Оформление заказа в салоне</div>
+                                        <div class="sprite-smile sad"></div>
+                                    </div>
+                                    <div class="user-rate-item">
+                                        <div class="item-title">Доставка</div>
+                                        <div class="sprite-smile good"></div>
+                                    </div>
+                                    <div class="user-rate-item">
+                                        <div class="item-title">Сборка</div>
+                                        <div class="sprite-smile perfect"></div>
                                     </div>
                                 </div>
-                                <div class="text-wrap">
-                                    <strong>Отзыв о магазине</strong>
-                                    <br>
-                                    Подробный отзыв о магазине.
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="line"></div>
-                        <ul class="comment">
-                            <li class="list clearfix">
-                                <div class="info-wrap">
-                                    <div class="name">John</div>
-                                    <div class="date">26.11.2018 13:55</div>
-                                    <div class="rate">
-                                        <p class="icons-wrap">
-                                            <i class="star"></i>
-                                            <i class="star"></i>
-                                            <i class="star"></i>
-                                            <i class="star"></i>
-                                            <i class="star"></i>
-                                        </p>
+                            </ul>
+                            <ul>
+                                <li class="list">
+                                    <div class="clearfix">
+                                        <div class="info-wrap float-left">
+                                            <div class="no-avatar float-left"><img src="/img/no_avatar.png" alt="no_avatar.png"></div>
+                                            <div class="info float-right">
+                                                <div class="name">John</div>
+                                                <div class="date">26.11.2018 14:39</div>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownRecomend"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="green">Рекомендую</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownRecomend">
+                                                        <a class="dropdown-item" href="#"><span class="grey">Воздержусь</span></a>
+                                                        <a class="dropdown-item" href="#"><span class="red">Не
+                                                                рекомендую</span></a>
+                                                    </div>
+                                                </div>
+                                                <div class="more">Подробнее</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-wrap">
+                                            Лорем ипсум долор сит амет, но либер нумяуам дебитис ест, еам яуод аперири
+                                            продессет ан. Меа еу проприае цотидиеяуе цонсеяуунтур. Ан суммо промпта
+                                            репудиаре пер, не иуварет лаборес праесент сит, тота модус фиерент цум не.
+                                            Еос
+                                            ет яуандо нонумес, усу ерос нонумы фиерент те, еурипидис мнесарчум ад меа.
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="text-wrap">
-                                    <strong>eee</strong>
-                                    <br>
-                                    test
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="line"></div>
+
+                                    <ul>
+                                        <li class="list">
+                                            <div class="clearfix">
+                                                <div class="info-wrap float-left">
+                                                    <div class="no-avatar float-left"><img src="/img/admin_avatar.png"
+                                                            alt="admin_avatar.png"></div>
+                                                    <div class="info float-right">
+                                                        <div class="name">Представитель магазина</div>
+                                                        <div class="date">26.11.2018 14:39</div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-wrap">
+                                                    Лорем ипсум долор сит амет, но либер нумяуам дебитис ест, еам яуод
+                                                    аперири
+                                                    продессет ан. Меа еу проприае цотидиеяуе цонсеяуунтур. Ан суммо
+                                                    промпта
+                                                    репудиаре пер, не иуварет лаборес праесент сит, тота модус фиерент
+                                                    цум
+                                                    не. Еос
+                                                    ет яуандо нонумес, усу ерос нонумы фиерент те, еурипидис мнесарчум
+                                                    ад
+                                                    меа.
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
 
                     </div>
                 </div>
-
 
                 <div class="row justify-content-md-center subscription-wrap">
                     <div class="col-lg-auto">

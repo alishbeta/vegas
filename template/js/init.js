@@ -276,7 +276,7 @@ $(document).ready(function () {
 
     /*#####################   Комментарии отображаем  ###############################*/
     $('#comment-activate').on('click', function () {
-        $(this).parent().next().slideToggle();
+        //$(this).parent().next().slideToggle();
     });
 
     /*#####################   Города  ###############################*/
