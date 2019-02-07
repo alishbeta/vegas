@@ -4224,12 +4224,11 @@ section .item {
 }
 .commets-wrap #reviewSmile-input label:hover,
 .commets-wrap #reviewSmile-input label:hover ~ label {
-  background-color: #ff9c32;
   height: 41px;
   width: 40px;
 }
 .commets-wrap #reviewSmile-input #star-0 {
-  background-position: 0 0;
+  background-position: 0 -40;
 }
 .commets-wrap #reviewSmile-input #star-1 {
   left: 53px;

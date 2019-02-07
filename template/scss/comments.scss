@@ -206,13 +206,13 @@
 
 #reviewSmile-input label:hover,
 #reviewSmile-input label:hover~label {
-    background-color: #ff9c32;
+    //background-color: #ff9c32;
     height: 41px;
     width: 40px;
 }
 
 #reviewSmile-input #star-0 {
-    background-position: 0 0;
+    background-position: 0 -40;
 }
 
 #reviewSmile-input #star-1 {
