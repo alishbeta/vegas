@@ -58,15 +58,22 @@
                 width: 215px;
                 &:after {
                     left: 195px !important;
+                    top: 40%;
                 }
             }
         }
+    }
+    .form-check {
+        padding-left: 0;
+    }
+    .filters-wrap .dropdown-menu {
+        width: 250px;
     }
     .comment-items {
         margin-top: 60px;
         .info-wrap {
             margin-right: 90px;
-            .no-avatar{
+            .no-avatar {
                 margin-right: 20px;
             }
             .info {
@@ -75,12 +82,13 @@
                 }
                 .btn-link {
                     font-size: 16px;
-                    &:hover, &:focus {
+                    &:hover,
+                    &:focus {
                         color: #2c96b9;
                         text-decoration: none;
                     }
                 }
-                .dropdown-menu{
+                .dropdown-menu {
                     font-size: 14px;
                 }
                 .dropdown-toggle::after {
@@ -88,150 +96,217 @@
                     content: url(/img/pen.png);
                     border-top: .3em transparent;
                 }
-                .green {
-                    color: #8cc34c;
-                }
-                .red {
-                    color: #e33840;
-                }
-                .grey {
-                    color: #a7a5a5;
-                }
             }
         }
-        ul{
+        ul {
             margin-top: 15px;
-            li{
-                ul{
+            li {
+                ul {
                     margin-left: 120px;
-                    .info-wrap{
+                    .info-wrap {
                         margin-right: 30px;
                     }
                 }
             }
         }
     }
-
     .user-rate-items {
         font-size: 16px;
         font-weight: 800;
         margin-top: 15px;
-        .user-rate-item, div {
+        .user-rate-item,
+        div {
             display: inline-block;
         }
     }
-
-    .sprite-smile{
+    .sprite-smile {
         width: 40px;
         height: 41px;
         background: url(/img/sprite_smile_.png) no-repeat;
         vertical-align: middle;
         margin-left: 5px;
         margin-right: 25px;
-        &.angry{
+        &.angry {
             background-position: 0 0;
         }
-        &.sad{
+        &.sad {
             background-position: -40px 0;
         }
-        &.netral{
+        &.netral {
             background-position: -80px 0;
         }
-        &.good{
+        &.good {
             background-position: -120px 0;
         }
-        &.perfect{
+        &.perfect {
             background-position: -160px 0;
         }
     }
-
-    .form-wrap{
+    .form-block{
+        height: 0px;
+        overflow: hidden;
+        transition: 1s;
+    }
+    .form-block.open{
+        height: auto;
+    }
+    .line{
+        display: none;
+    }
+    .form-wrap {
         font-size: 16px;
         font-weight: 800;
-        .rate-rating{
-            div{
+        padding: 15px 60px 60px;
+        .title{
+            margin-bottom: 30px;
+        }
+        .rate-rating {
+            div {
                 display: inline-block;
                 vertical-align: bottom;
             }
+            .name-description{
+                float: left;
+            }
+            .rating-wrapper{
+                float: right;
+            }
+        }
     }
-
-    }
-
     /*sprite with stars*/
-
-#reviewSmile-input input:checked~label,
-#reviewSmile-input label,
-#reviewSmile-input label:hover,
-#reviewSmile-input label:hover~label {
-    background: url(/img/sprite_smile_.png);
-    // mask-image: url('/img/star_fill.svg');
-    // -webkit-mask-image: url('/img/star_fill.svg');
-    // background-color: gray;
+    #reviewSmile-input input:checked~label,
+    #reviewSmile-input label,
+    #reviewSmile-input label:hover,
+    #reviewSmile-input label:hover~label {
+        background: url(/img/sprite_smile_.png); // mask-image: url('/img/star_fill.svg');
+        // -webkit-mask-image: url('/img/star_fill.svg');
+        // background-color: gray;
+    }
+    #reviewSmile-input {
+        /*fix floating problems*/
+        zoom: 1;
+        /*end of fix floating problems*/
+        position: relative;
+        float: left;
+    }
+    #reviewSmile-input input {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+        height: 41px;
+        width: 50px;
+        position: absolute;
+        top: 0;
+        z-index: 0;
+    }
+    #reviewSmile-input input:checked~label {
+        //background-color: #ff9c32;
+        height: 41px;
+        width: 40px;
+    }
+    #reviewSmile-input label {
+        height: 41px;
+        width: 40px;
+        float: right;
+        cursor: pointer;
+        margin-right: 20px;
+        position: relative;
+        z-index: 1;
+    }
+    #reviewSmile-input label:hover,
+    #reviewSmile-input label:hover~label {
+        //background-color: #ff9c32;
+        height: 41px;
+        width: 40px;
+    }
+    #reviewSmile-input #smile-0 {
+        left: 0;
+    }
+    #reviewSmile-input {
+        label[for="smile-0"] {
+            background-position: 0 -40px;
+        }
+        label[for="smile-1"] {
+            background-position: -40px -40px;
+        }
+        label[for="smile-2"] {
+            background-position: -80px -40px;
+        }
+        label[for="smile-3"] {
+            background-position: -120px -40px;
+        }
+        label[for="smile-4"] {
+            background-position: -160px -40px;
+        }
+    }
+    #reviewSmile-input {
+        label[for="smile-0"]:hover {
+            background-position: 0 0;
+        }
+        label[for="smile-1"]:hover {
+            background-position: -40px 0;
+        }
+        label[for="smile-2"]:hover {
+            background-position: -80px 0;
+        }
+        label[for="smile-2"]:hover+input+label {
+            background-position: -40px 0;
+        }
+        label[for="smile-3"]:hover {
+            background-position: -120px 0;
+            &+input+label {
+                background-position: -80px 0;
+            }
+            &+input+label+input+label {
+                background-position: -40px 0;
+            }
+        }
+        label[for*="smile-4"]:hover {
+            background-position: -160px 0;
+            &+input+label {
+                background-position: -120px 0;
+            }
+            &+input+label+input+label {
+                background-position: -80px 0;
+            }
+            &+input+label+input+label+input+label {
+                background-position: -40px 0;
+            }
+        }
+    }
+    #reviewSmile-input {
+        #smile-1 {
+            left: 53px;
+        }
+        #smile-2 {
+            left: 106px;
+        }
+        #smile-3 {
+            left: 159px;
+        }
+        #smile-4 {
+            left: 212px;
+        }
+        #smile-5 {
+            left: 265px;
+        }
+    }
+    .check-fly input:checked + label + .green {
+        color: #8cc34c;
+    }
+    .check-fly input:checked + label + .red {
+        color: #e33840;
+    }
+    .check-fly input:checked + label + .grey {
+        color: #a7a5a5;
+    }
 }
 
-#reviewSmile-input {
-    /*fix floating problems*/
-    zoom: 1;
-    /*end of fix floating problems*/
-    position: relative;
-    float: left;
+.green {
+    color: #8cc34c;
 }
-
-#reviewSmile-input input {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-    opacity: 0;
-    height: 41px;
-    width: 40px;
-    position: absolute;
-    top: 0;
-    z-index: 0;
+.red {
+    color: #e33840;
 }
-
-#reviewSmile-input input:checked~label {
-    background-color: #ff9c32;
-    height: 41px;
-    width: 40px;
-}
-
-#reviewSmile-input label {
-    background-position: 0 0;
-    height: 41px;
-    width: 40px;
-    float: right;
-    cursor: pointer;
-    margin-right: 10px;
-    position: relative;
-    z-index: 1;
-}
-
-#reviewSmile-input label:hover,
-#reviewSmile-input label:hover~label {
-    //background-color: #ff9c32;
-    height: 41px;
-    width: 40px;
-}
-
-#reviewSmile-input #star-0 {
-    background-position: 0 -40;
-}
-
-#reviewSmile-input #star-1 {
-    left: 53px;
-}
-
-#reviewSmile-input #star-2 {
-    left: 106px;
-}
-
-#reviewSmile-input #star-3 {
-    left: 159px;
-}
-
-#reviewSmile-input #star-4 {
-    left: 212px;
-}
-
-#reviewSmile-input #star-5 {
-    left: 265px;
-}
+.grey {
+    color: #a7a5a5;
 }

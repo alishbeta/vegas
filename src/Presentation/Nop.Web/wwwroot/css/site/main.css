@@ -4100,6 +4100,13 @@ section .item {
 }
 .commets-wrap .filters-wrap .f2 button:first-child:after {
   left: 195px !important;
+  top: 40%;
+}
+.commets-wrap .form-check {
+  padding-left: 0;
+}
+.commets-wrap .filters-wrap .dropdown-menu {
+  width: 250px;
 }
 .commets-wrap .comment-items {
   margin-top: 60px;
@@ -4128,15 +4135,6 @@ section .item {
   content: url(/img/pen.png);
   border-top: .3em transparent;
 }
-.commets-wrap .comment-items .info-wrap .info .green {
-  color: #8cc34c;
-}
-.commets-wrap .comment-items .info-wrap .info .red {
-  color: #e33840;
-}
-.commets-wrap .comment-items .info-wrap .info .grey {
-  color: #a7a5a5;
-}
 .commets-wrap .comment-items ul {
   margin-top: 15px;
 }
@@ -4151,7 +4149,8 @@ section .item {
   font-weight: 800;
   margin-top: 15px;
 }
-.commets-wrap .user-rate-items .user-rate-item, .commets-wrap .user-rate-items div {
+.commets-wrap .user-rate-items .user-rate-item,
+.commets-wrap .user-rate-items div {
   display: inline-block;
 }
 .commets-wrap .sprite-smile {
@@ -4177,13 +4176,34 @@ section .item {
 .commets-wrap .sprite-smile.perfect {
   background-position: -160px 0;
 }
+.commets-wrap .form-block {
+  height: 0px;
+  overflow: hidden;
+  transition: 1s;
+}
+.commets-wrap .form-block.open {
+  height: auto;
+}
+.commets-wrap .line {
+  display: none;
+}
 .commets-wrap .form-wrap {
   font-size: 16px;
   font-weight: 800;
+  padding: 15px 60px 60px;
+}
+.commets-wrap .form-wrap .title {
+  margin-bottom: 30px;
 }
 .commets-wrap .form-wrap .rate-rating div {
   display: inline-block;
   vertical-align: bottom;
+}
+.commets-wrap .form-wrap .rate-rating .name-description {
+  float: left;
+}
+.commets-wrap .form-wrap .rate-rating .rating-wrapper {
+  float: right;
 }
 .commets-wrap #reviewSmile-input input:checked ~ label,
 .commets-wrap #reviewSmile-input label,
@@ -4202,23 +4222,21 @@ section .item {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
   height: 41px;
-  width: 40px;
+  width: 50px;
   position: absolute;
   top: 0;
   z-index: 0;
 }
 .commets-wrap #reviewSmile-input input:checked ~ label {
-  background-color: #ff9c32;
   height: 41px;
   width: 40px;
 }
 .commets-wrap #reviewSmile-input label {
-  background-position: 0 0;
   height: 41px;
   width: 40px;
   float: right;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 20px;
   position: relative;
   z-index: 1;
 }
@@ -4227,23 +4245,92 @@ section .item {
   height: 41px;
   width: 40px;
 }
-.commets-wrap #reviewSmile-input #star-0 {
-  background-position: 0 -40;
+.commets-wrap #reviewSmile-input #smile-0 {
+  left: 0;
 }
-.commets-wrap #reviewSmile-input #star-1 {
+.commets-wrap #reviewSmile-input label[for="smile-0"] {
+  background-position: 0 -40px;
+}
+.commets-wrap #reviewSmile-input label[for="smile-1"] {
+  background-position: -40px -40px;
+}
+.commets-wrap #reviewSmile-input label[for="smile-2"] {
+  background-position: -80px -40px;
+}
+.commets-wrap #reviewSmile-input label[for="smile-3"] {
+  background-position: -120px -40px;
+}
+.commets-wrap #reviewSmile-input label[for="smile-4"] {
+  background-position: -160px -40px;
+}
+.commets-wrap #reviewSmile-input label[for="smile-0"]:hover {
+  background-position: 0 0;
+}
+.commets-wrap #reviewSmile-input label[for="smile-1"]:hover {
+  background-position: -40px 0;
+}
+.commets-wrap #reviewSmile-input label[for="smile-2"]:hover {
+  background-position: -80px 0;
+}
+.commets-wrap #reviewSmile-input label[for="smile-2"]:hover + input + label {
+  background-position: -40px 0;
+}
+.commets-wrap #reviewSmile-input label[for="smile-3"]:hover {
+  background-position: -120px 0;
+}
+.commets-wrap #reviewSmile-input label[for="smile-3"]:hover + input + label {
+  background-position: -80px 0;
+}
+.commets-wrap #reviewSmile-input label[for="smile-3"]:hover + input + label + input + label {
+  background-position: -40px 0;
+}
+.commets-wrap #reviewSmile-input label[for*="smile-4"]:hover {
+  background-position: -160px 0;
+}
+.commets-wrap #reviewSmile-input label[for*="smile-4"]:hover + input + label {
+  background-position: -120px 0;
+}
+.commets-wrap #reviewSmile-input label[for*="smile-4"]:hover + input + label + input + label {
+  background-position: -80px 0;
+}
+.commets-wrap #reviewSmile-input label[for*="smile-4"]:hover + input + label + input + label + input + label {
+  background-position: -40px 0;
+}
+.commets-wrap #reviewSmile-input #smile-1 {
   left: 53px;
 }
-.commets-wrap #reviewSmile-input #star-2 {
+.commets-wrap #reviewSmile-input #smile-2 {
   left: 106px;
 }
-.commets-wrap #reviewSmile-input #star-3 {
+.commets-wrap #reviewSmile-input #smile-3 {
   left: 159px;
 }
-.commets-wrap #reviewSmile-input #star-4 {
+.commets-wrap #reviewSmile-input #smile-4 {
   left: 212px;
 }
-.commets-wrap #reviewSmile-input #star-5 {
+.commets-wrap #reviewSmile-input #smile-5 {
   left: 265px;
+}
+.commets-wrap .check-fly input:checked + label + .green {
+  color: #8cc34c;
+}
+.commets-wrap .check-fly input:checked + label + .red {
+  color: #e33840;
+}
+.commets-wrap .check-fly input:checked + label + .grey {
+  color: #a7a5a5;
+}
+
+.green {
+  color: #8cc34c;
+}
+
+.red {
+  color: #e33840;
+}
+
+.grey {
+  color: #a7a5a5;
 }
 
 @media (max-width: 1199px) {
