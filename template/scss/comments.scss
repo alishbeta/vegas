@@ -91,10 +91,15 @@
                 .dropdown-menu {
                     font-size: 14px;
                 }
-                .dropdown-toggle::after {
-                    vertical-align: sub;
-                    content: url(/img/pen.png);
-                    border-top: .3em transparent;
+                .dropdown-toggle{
+                    &::after {
+                        vertical-align: sub;
+                        content: '';
+                        border-top: .3em transparent;
+                    }
+                    &.pen::after {
+                        content: url(/img/pen.png);
+                    }
                 }
             }
         }
@@ -114,6 +119,7 @@
         font-size: 16px;
         font-weight: 800;
         margin-top: 15px;
+        display: none;
         .user-rate-item,
         div {
             display: inline-block;
@@ -143,12 +149,8 @@
         }
     }
     .form-block{
-        height: 0px;
         overflow: hidden;
-        transition: 1s;
-    }
-    .form-block.open{
-        height: auto;
+        display: none;
     }
     .line{
         display: none;
@@ -222,36 +224,36 @@
         left: 0;
     }
     #reviewSmile-input {
-        label[for="smile-0"] {
+        label[for*="smile-0"] {
             background-position: 0 -40px;
         }
         label[for="smile-1"] {
             background-position: -40px -40px;
         }
-        label[for="smile-2"] {
+        label[for*="smile-2"] {
             background-position: -80px -40px;
         }
-        label[for="smile-3"] {
+        label[for*="smile-3"] {
             background-position: -120px -40px;
         }
-        label[for="smile-4"] {
+        label[for*="smile-4"] {
             background-position: -160px -40px;
         }
     }
     #reviewSmile-input {
-        label[for="smile-0"]:hover {
+        label[for*="smile-0"]:hover {
             background-position: 0 0;
         }
-        label[for="smile-1"]:hover {
+        label[for*="smile-1"]:hover {
             background-position: -40px 0;
         }
-        label[for="smile-2"]:hover {
+        label[for*="smile-2"]:hover {
             background-position: -80px 0;
         }
-        label[for="smile-2"]:hover+input+label {
+        label[for*="smile-2"]:hover+input+label {
             background-position: -40px 0;
         }
-        label[for="smile-3"]:hover {
+        label[for*="smile-3"]:hover {
             background-position: -120px 0;
             &+input+label {
                 background-position: -80px 0;

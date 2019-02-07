@@ -4132,8 +4132,11 @@ section .item {
 }
 .commets-wrap .comment-items .info-wrap .info .dropdown-toggle::after {
   vertical-align: sub;
-  content: url(/img/pen.png);
+  content: '';
   border-top: .3em transparent;
+}
+.commets-wrap .comment-items .info-wrap .info .dropdown-toggle.pen::after {
+  content: url(/img/pen.png);
 }
 .commets-wrap .comment-items ul {
   margin-top: 15px;
@@ -4148,6 +4151,7 @@ section .item {
   font-size: 16px;
   font-weight: 800;
   margin-top: 15px;
+  display: none;
 }
 .commets-wrap .user-rate-items .user-rate-item,
 .commets-wrap .user-rate-items div {
@@ -4177,12 +4181,8 @@ section .item {
   background-position: -160px 0;
 }
 .commets-wrap .form-block {
-  height: 0px;
   overflow: hidden;
-  transition: 1s;
-}
-.commets-wrap .form-block.open {
-  height: auto;
+  display: none;
 }
 .commets-wrap .line {
   display: none;
@@ -4248,40 +4248,40 @@ section .item {
 .commets-wrap #reviewSmile-input #smile-0 {
   left: 0;
 }
-.commets-wrap #reviewSmile-input label[for="smile-0"] {
+.commets-wrap #reviewSmile-input label[for*="smile-0"] {
   background-position: 0 -40px;
 }
 .commets-wrap #reviewSmile-input label[for="smile-1"] {
   background-position: -40px -40px;
 }
-.commets-wrap #reviewSmile-input label[for="smile-2"] {
+.commets-wrap #reviewSmile-input label[for*="smile-2"] {
   background-position: -80px -40px;
 }
-.commets-wrap #reviewSmile-input label[for="smile-3"] {
+.commets-wrap #reviewSmile-input label[for*="smile-3"] {
   background-position: -120px -40px;
 }
-.commets-wrap #reviewSmile-input label[for="smile-4"] {
+.commets-wrap #reviewSmile-input label[for*="smile-4"] {
   background-position: -160px -40px;
 }
-.commets-wrap #reviewSmile-input label[for="smile-0"]:hover {
+.commets-wrap #reviewSmile-input label[for*="smile-0"]:hover {
   background-position: 0 0;
 }
-.commets-wrap #reviewSmile-input label[for="smile-1"]:hover {
+.commets-wrap #reviewSmile-input label[for*="smile-1"]:hover {
   background-position: -40px 0;
 }
-.commets-wrap #reviewSmile-input label[for="smile-2"]:hover {
+.commets-wrap #reviewSmile-input label[for*="smile-2"]:hover {
   background-position: -80px 0;
 }
-.commets-wrap #reviewSmile-input label[for="smile-2"]:hover + input + label {
+.commets-wrap #reviewSmile-input label[for*="smile-2"]:hover + input + label {
   background-position: -40px 0;
 }
-.commets-wrap #reviewSmile-input label[for="smile-3"]:hover {
+.commets-wrap #reviewSmile-input label[for*="smile-3"]:hover {
   background-position: -120px 0;
 }
-.commets-wrap #reviewSmile-input label[for="smile-3"]:hover + input + label {
+.commets-wrap #reviewSmile-input label[for*="smile-3"]:hover + input + label {
   background-position: -80px 0;
 }
-.commets-wrap #reviewSmile-input label[for="smile-3"]:hover + input + label + input + label {
+.commets-wrap #reviewSmile-input label[for*="smile-3"]:hover + input + label + input + label {
   background-position: -40px 0;
 }
 .commets-wrap #reviewSmile-input label[for*="smile-4"]:hover {

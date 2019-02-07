@@ -280,8 +280,12 @@ $(document).ready(function () {
     });
 
     $('#left-feedback').on('click', function(){
-        $('.form-block').toggleClass('open');
+        $('.form-block').slideToggle();
         $('.line').fadeToggle();
+    })
+    
+    $('.comment-items .more').on('click', function(){
+        $(this).parent().parent().parent().next().slideToggle();
     })
 
     /*#####################   Города  ###############################*/
