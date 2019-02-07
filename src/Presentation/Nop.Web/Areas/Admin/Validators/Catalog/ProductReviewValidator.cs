@@ -16,7 +16,7 @@ namespace Nop.Web.Areas.Admin.Validators.Catalog
             //vendor can edit "Reply text" only
             if (!isLoggedInAsVendor)
             {
-                RuleFor(x => x.Title).NotEmpty().WithMessage(localizationService.GetResource("Admin.Catalog.ProductReviews.Fields.Title.Required"));
+                //RuleFor(x => x.Title).NotEmpty().WithMessage(localizationService.GetResource("Admin.Catalog.ProductReviews.Fields.Title.Required"));
                 RuleFor(x => x.ReviewText).NotEmpty().WithMessage(localizationService.GetResource("Admin.Catalog.ProductReviews.Fields.ReviewText.Required"));
             }
 

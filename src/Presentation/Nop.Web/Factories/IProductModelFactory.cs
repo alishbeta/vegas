@@ -47,7 +47,7 @@ namespace Nop.Web.Factories
         /// <param name="model">Product reviews model</param>
         /// <param name="product">Product</param>
         /// <returns>Product reviews model</returns>
-        ProductReviewsModel PrepareProductReviewsModel(ProductReviewsModel model, Product product);
+        ProductReviewsModel PrepareProductReviewsModel(ProductReviewsModel model, Product product, int? period = null);
 
         /// <summary>
         /// Prepare the customer product reviews model

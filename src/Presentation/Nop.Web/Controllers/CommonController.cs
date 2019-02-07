@@ -610,8 +610,14 @@ namespace Nop.Web.Controllers
             if (product == null)
                 return RedirectToRoute("HomePage");
 
+            if (!int.TryParse(_webHelper.QueryString<string>("period"), out int period))
+            {
+                period = 12;
+            }
+            ViewBag.Period = period;
+
             var model = new ProductReviewsModel();
-            model = _productModelFactory.PrepareProductReviewsModel(model, product);
+            model = _productModelFactory.PrepareProductReviewsModel(model, product, period);
 
             //default value
             model.AddProductReview.Rating = _catalogSettings.DefaultProductRatingValue;
@@ -624,7 +630,7 @@ namespace Nop.Web.Controllers
                 }
 
             ViewBag.CustomerId = _workContext.CurrentCustomer.Id;
-
+            
             return View(model);
         }
 

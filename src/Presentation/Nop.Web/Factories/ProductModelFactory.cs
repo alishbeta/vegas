@@ -1426,7 +1426,7 @@ namespace Nop.Web.Factories
         /// <param name="model">Product reviews model</param>
         /// <param name="product">Product</param>
         /// <returns>Product reviews model</returns>
-        public virtual ProductReviewsModel PrepareProductReviewsModel(ProductReviewsModel model, Product product)
+        public virtual ProductReviewsModel PrepareProductReviewsModel(ProductReviewsModel model, Product product, int? period = null)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
@@ -1445,6 +1445,11 @@ namespace Nop.Web.Factories
             productReviews = _catalogSettings.ProductReviewsSortByCreatedDateAscending
                 ? productReviews.OrderBy(pr => pr.CreatedOnUtc)
                 : productReviews.OrderByDescending(pr => pr.CreatedOnUtc);
+
+            if (period != null && period != 0)
+            {
+                productReviews = productReviews.Where(x => x.CreatedOnUtc >= DateTime.UtcNow.AddMonths(- period ?? 0));
+            }
 
             //get all review types
             foreach (var reviewType in _reviewTypeService.GetAllReviewTypes())

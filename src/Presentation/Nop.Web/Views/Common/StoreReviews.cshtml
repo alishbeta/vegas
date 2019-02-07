@@ -8,6 +8,7 @@
 }
 @using System.Globalization
 @{
+    string[] icons = new string[6] { "", "angry", "sad", "netral", "good", "perfect" };
     var ratingPercent = 0;
     if (Model.Items.Count != 0)
     {
@@ -23,360 +24,418 @@
     </ol>
 </nav>
 <div id="iframe"></div>
-
-<div class="col-md-12 col-lg-8">
+<div class="commets-wrap">
     <div class="title">
         <div class="comment-title-main">
             <h4>@T("reviews.store")</h4>
+        </div>
+    </div>
+    <div class="filters-wrap clearfix">
+        <button id="comment-activate" class="btn btn-blue btn-sm pl-3 pr-4 m-md-3">@T("review.write")</button>
+        <div class="f2 d-none d-lg-block float-right">
+            <div class="btn-group">
+                <button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
+                    @T(string.Format("review.period{0}", ViewBag.Period))
+                </button>
+                <div class="dropdown-menu keep_open" aria-labelledby="group">
+                    <div class="form-group">
+                        <div class="form-check check-fly">
+                            <input class="form-check-input" value="1" name="period" type="radio" id="lr4" onclick="SubmitPeriod(this.value)"
+                                   @(ViewBag.Period == 1 ? "checked" : "")>
+                            <label for="lr4"></label>
+                            <label class="col-form-label" for="lr4">@T("review.period1")</label>
+                        </div>
+                        <div class="form-check check-fly">
+                            <input class="form-check-input" value="3" name="period" type="radio" id="lr5" onclick="SubmitPeriod(this.value)"
+                                   @(ViewBag.Period == 3 ? "checked" : "")>
+                            <label for="lr5"></label>
+                            <label class="col-form-label" for="lr5">@T("review.period3")</label>
+                        </div>
+                        <div class="form-check check-fly">
+                            <input class="form-check-input" value="6" name="period" type="radio" id="lr6" onclick="SubmitPeriod(this.value)"
+                                   @(ViewBag.Period == 6 ? "checked" : "")>
+                            <label for="lr6"></label>
+                            <label class="col-form-label" for="lr6">@T("review.period6")</label>
+                        </div>
+                        <div class="form-check check-fly">
+                            <input class="form-check-input" value="12" name="period" type="radio" id="lr7" onclick="SubmitPeriod(this.value)"
+                                   @(ViewBag.Period == 12 ? "checked" : "")>
+                            <label for="lr7"></label>
+                            <label class="col-form-label" for="lr7">@T("review.period12")</label>
+                        </div>
+                        <div class="form-check check-fly">
+                            <input class="form-check-input" value="0" name="period" type="radio" id="lr8" onclick="SubmitPeriod(this.value)"
+                                   @(ViewBag.Period == 0 ? "checked" : "")>
+                            <label for="lr8"></label>
+                            <label class="col-form-label" for="lr8">@T("review.period0")</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    <div class="commets-wrap">
-        <div class="sub-heder-wrapp clearfix">
-            <div class="stars">
-                <div class="icons-wrap">
-                    @if (Model.Items.Count > 0)
+    </div>
+    <div class="col-md-12 col-lg-10 form-block">
+        <div class="form-wrap clearfix">
+            <div class="title">@T("reviews.rateus")</div>
+            <form method="post" id="add-review-form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="rate-rating clearfix">
+                            <div class="name-description">
+                                <label for="AddProductReview.Rating">@T("reviews.total.rating"):</label>
+                            </div>
+                            <div class="rating-wrapper">
+                                <div id="reviewSmile-input">
+                                    @for (int i = 5; i > 0; i--)
+                                    {
+                                        <input id="smile-@(i-1)-0" type="radio" value="@i" name="AddProductReview.Rating">
+                                        <label title="@icons[i]" for="smile-@(i-1)-0"></label>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rate-rating clearfix">
+                            <div class="name-description">
+                                <label for="AddProductReview.ConsultationRating">@T("reviews.total.consultation"):</label>
+                            </div>
+                            <div class="rating-wrapper">
+                                <div id="reviewSmile-input">
+                                    @for (int i = 5; i > 0; i--)
+                                    {
+                                        <input id="smile-@(i-1)-1" type="radio" value="@i" name="AddProductReview.ConsultationRating">
+                                        <label title="@icons[i]" for="smile-@(i-1)-1"></label>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rate-rating clearfix">
+                            <div class="name-description">
+                                <label for="AddProductReview.OnlineOrderRating">@T("reviews.total.online"):</label>
+                            </div>
+                            <div class="rating-wrapper">
+                                <div id="reviewSmile-input">
+                                    @for (int i = 5; i > 0; i--)
+                                    {
+                                        <input id="smile-@(i-1)-2" type="radio" value="@i" name="AddProductReview.OnlineOrderRating">
+                                        <label title="@icons[i]" for="smile-@(i-1)-2"></label>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rate-rating clearfix">
+                            <div class="name-description">
+                                <label for="AddProductReview.OfflineOrderRating">@T("reviews.total.offline"):</label>
+                            </div>
+                            <div class="rating-wrapper">
+                                <div id="reviewSmile-input">
+                                    @for (int i = 5; i > 0; i--)
+                                    {
+                                        <input id="smile-@(i-1)-3" type="radio" value="@i" name="AddProductReview.OfflineOrderRating">
+                                        <label title="@icons[i]" for="smile-@(i-1)-3"></label>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rate-rating clearfix">
+                            <div class="name-description">
+                                <label for="AddProductReview.DeliveryRating">@T("reviews.total.delivery"):</label>
+                            </div>
+                            <div class="rating-wrapper">
+                                <div id="reviewSmile-input">
+                                    @for (int i = 5; i > 0; i--)
+                                    {
+                                        <input id="smile-@(i-1)-4" type="radio" value="@i" name="AddProductReview.DeliveryRating">
+                                        <label title="@icons[i]" for="smile-@(i-1)-4"></label>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rate-rating clearfix">
+                            <div class="name-description">
+                                <label for="AddProductReview.InstallationRating">@T("reviews.total.install"):</label>
+                            </div>
+                            <div class="rating-wrapper">
+                                <div id="reviewSmile-input">
+                                    @for (int i = 5; i > 0; i--)
+                                    {
+                                        <input id="smile-@(i-1)-5" type="radio" value="@i" name="AddProductReview.InstallationRating">
+                                        <label title="@icons[i]" for="smile-@(i-1)-5"></label>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="title">@T("review.total.willrecommend")?</div>
+                        <div class="form-check-inline">
+                            <div class="form-check check-fly">
+                                <input class="form-check-input" value="true" name="AddProductReview.WillRecommend" type="radio"
+                                       id="recomed1" checked="">
+                                <label for="recomed1"></label>
+                                <label class="col-form-label green" for="recomed1">@T("willrecommend.true")</label>
+                            </div>
+                            <div class="form-check check-fly">
+                                <input class="form-check-input" value="null" name="AddProductReview.WillRecommend" type="radio"
+                                       id="recomed2">
+                                <label for="recomed2"></label>
+                                <label class="col-form-label grey" for="recomed2">@T("willrecommend.null")</label>
+                            </div>
+                            <div class="form-check check-fly">
+                                <input class="form-check-input" value="false" name="AddProductReview.WillRecommend" type="radio"
+                                       id="recomed3">
+                                <label for="recomed3"></label>
+                                <label class="col-form-label red" for="recomed3">@T("willrecommend.false")</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment-form">
+                    <div class="title">@T("review.comment")</div>
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="hidden" name="AddProductReview.Title" value="" />
+                            <textarea rows="6" class="form-control" name="AddProductReview.ReviewText"></textarea>
+                            <button class="mt-5 pl-5 pr-5 btn btn-blue float-right" type="submit">@T("review.confirm")</button>
+                        </div>
+                        <div class="col-4">
+                            <span class="red">*@T("review.tip.warning")</span> @T("review.tip.text").
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="col-md-12 col-lg-10 commets-block">
+        <div class="diagram-wrapp">
+            <div class="row">
+                <div class="col-md-8 total-diagram">
+                    <div class="title mb-4">@T("reviews.total.graph")</div>
+                    @if (Model.Items.Count() > 0)
                     {
-                        @for (int i = 0; i < 5; i++)
-                        {
-                            if ((int)(Model.Items.Sum(x => x.Rating) / Model.Items.Count) > i)
-                            {
-                                <i class="star"></i>
-                            }
-                            else
-                            {
-                                <i class="star grey"></i>
-                            }
-                        }
+                        <div class="item-wrapp">
+                            <div class="item-title">@T("reviews.rating")</div>
+                            <div class="item-line-wrapp">
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.Rating == 2 || x.Rating == 3))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.Rating == 4 || x.Rating == 5))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.Rating == 1))%</div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Items.Count(x => x.ConsultationRating != null) > 0)
+                    {
+                        <div class="item-wrapp">
+                            <div class="item-title">@T("reviews.consultation")</div>
+                            <div class="item-line-wrapp">
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.ConsultationRating != null) * Model.Items.Count(x => x.ConsultationRating == 2 || x.ConsultationRating == 3))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.ConsultationRating != null) * Model.Items.Count(x => x.ConsultationRating == 4 || x.ConsultationRating == 5))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.ConsultationRating != null) * Model.Items.Count(x => x.ConsultationRating == 1))%</div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Items.Count(x => x.OnlineOrderRating != null) > 0)
+                    {
+                        <div class="item-wrapp">
+                            <div class="item-title">@T("reviews.total.online")</div>
+                            <div class="item-line-wrapp">
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OnlineOrderRating != null) * Model.Items.Count(x => x.OnlineOrderRating == 2 || x.OnlineOrderRating == 3))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OnlineOrderRating != null) * Model.Items.Count(x => x.OnlineOrderRating == 4 || x.OnlineOrderRating == 5))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OnlineOrderRating != null) * Model.Items.Count(x => x.OnlineOrderRating == 1))%</div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Items.Count(x => x.OfflineOrderRating != null) > 0)
+                    {
+                        <div class="item-wrapp">
+                            <div class="item-title">@T("reviews.total.offline")</div>
+                            <div class="item-line-wrapp">
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OfflineOrderRating != null) * Model.Items.Count(x => x.OfflineOrderRating == 2 || x.OfflineOrderRating == 3))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OfflineOrderRating != null) * Model.Items.Count(x => x.OfflineOrderRating == 4 || x.OfflineOrderRating == 5))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OfflineOrderRating != null) * Model.Items.Count(x => x.OfflineOrderRating == 1))%</div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Items.Count(x => x.DeliveryRating != null) > 0)
+                    {
+                        <div class="item-wrapp">
+                            <div class="item-title">@T("reviews.total.delivery")</div>
+                            <div class="item-line-wrapp">
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.DeliveryRating != null) * Model.Items.Count(x => x.DeliveryRating == 2 || x.DeliveryRating == 3))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.DeliveryRating != null) * Model.Items.Count(x => x.DeliveryRating == 4 || x.DeliveryRating == 5))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.DeliveryRating != null) * Model.Items.Count(x => x.DeliveryRating == 1))%</div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Items.Count(x => x.InstallationRating != null) > 0)
+                    {
+                        <div class="item-wrapp">
+                            <div class="item-title">@T("reviews.total.install")</div>
+                            <div class="item-line-wrapp">
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.InstallationRating != null) * Model.Items.Count(x => x.InstallationRating == 2 || x.InstallationRating == 3))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.InstallationRating != null) * Model.Items.Count(x => x.InstallationRating == 4 || x.InstallationRating == 5))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.InstallationRating != null) * Model.Items.Count(x => x.InstallationRating == 1))%</div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Items.Count() > 0)
+                    {
+                        <div class="item-wrapp">
+                            <div class="item-title">@T("reviews.total.willrecommend")</div>
+                            <div class="item-line-wrapp">
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.WillRecommend == null))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.WillRecommend == true))%</div>
+                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.WillRecommend == false))%</div>
+                            </div>
+                        </div>
                     }
                 </div>
+                <div class="col-md-4 total-rate">
+                    <div class="title mb-4">@("reviews.total.rate")</div>
+                    <div class="item-wrapp clearfix">
+                        <div class="item-title float-left">@T("reviews.total.positive")</div>
+                        <div class="item-rate float-right">@Model.Items.Count(x => x.Rating == 4 || x.Rating == 5)</div>
+                    </div>
+                    <div class="item-wrapp clearfix">
+                        <div class="item-title float-left">@T("reviews.total.neutral")</div>
+                        <div class="item-rate float-right">@Model.Items.Count(x => x.Rating == 2 || x.Rating == 3)</div>
+                    </div>
+                    <div class="item-wrapp clearfix">
+                        <div class="item-title float-left">@T("reviews.total.negative")</div>
+                        <div class="item-rate float-right">@Model.Items.Count(x => x.Rating == 1)</div>
+                    </div>
+                    <div class="item-wrapp clearfix">
+                        <div class="item-title float-left">@T("reviews.total.allreviews")</div>
+                        <div class="item-rate float-right">@Model.Items.Count</div>
+                    </div>
+                </div>
             </div>
-            <button id="comment-activate" class="btn btn-blue btn-sm pl-4 pr-4">@T("Reviews.SubmitButton")</button>
         </div>
-        <form method="post" id="add-review-form" style="display:none;" action="" class="mb-5">
-            <div class="comment-title">
-                <h5>@T("reviews.write")</h5>
-            </div>
-            <div class="form-group">
-                <label for="AddProductReview.Title">@T("review.title"):</label>
-                <input oninvalid="this.setCustomValidity(' ')" oninput="setCustomValidity('')" name="AddProductReview.Title" class="form-control" required="">
-            </div>
-            <div class="form-group">
-                <label for="AddProductReview.ReviewText">@T("review.text"):</label>
-                <textarea oninvalid="this.setCustomValidity(' ')" oninput="setCustomValidity('')" name="AddProductReview.ReviewText" class="form-control" required=""></textarea>
-            </div>
-            <div class="review-rating">
-                <div class="name-description">
-                    <label for="AddProductReview.Rating">@T("review.rate"):</label>
-                </div>
-                <div class="rating-wrapper">
-                    <div id="reviewStars-input">
-                        <input id="star-4" type="radio" name="AddProductReview.Rating" value="5" />
-                        <label title="gorgeous" for="star-4"></label>
-
-                        <input id="star-3" type="radio" name="AddProductReview.Rating" value="4" checked />
-                        <label title="good" for="star-3"></label>
-
-                        <input id="star-2" type="radio" name="AddProductReview.Rating" value="3" />
-                        <label title="regular" for="star-2"></label>
-
-                        <input id="star-1" type="radio" name="AddProductReview.Rating" value="2" />
-                        <label title="poor" for="star-1"></label>
-
-                        <input id="star-0" type="radio" name="AddProductReview.Rating" value="1" />
-                        <label title="bad" for="star-0"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="review-rating">
-                <div class="name-description">
-                    <label for="AddProductReview.ConsultationRating">Consultation Rating:</label>
-                </div>
-                <div class="rating-wrapper">
-                    <div id="reviewStars-input">
-                        <input id="star-41" type="radio" name="AddProductReview.ConsultationRating" value="5" />
-                        <label title="gorgeous" for="star-4"></label>
-
-                        <input id="star-31" type="radio" name="AddProductReview.ConsultationRating" value="4" checked />
-                        <label title="good" for="star-3"></label>
-
-                        <input id="star-21" type="radio" name="AddProductReview.ConsultationRating" value="3" />
-                        <label title="regular" for="star-2"></label>
-
-                        <input id="star-11" type="radio" name="AddProductReview.ConsultationRating" value="2" />
-                        <label title="poor" for="star-1"></label>
-
-                        <input id="star-01" type="radio" name="AddProductReview.ConsultationRating" value="1" />
-                        <label title="bad" for="star-0"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="review-rating">
-                <div class="name-description">
-                    <label for="AddProductReview.DeliveryRating">Delivery Rating:</label>
-                </div>
-                <div class="rating-wrapper">
-                    <div id="reviewStars-input">
-                        <input id="star-4" type="radio" name="AddProductReview.DeliveryRating" value="5" />
-                        <label title="gorgeous" for="star-4"></label>
-
-                        <input id="star-3" type="radio" name="AddProductReview.DeliveryRating" value="4" checked />
-                        <label title="good" for="star-3"></label>
-
-                        <input id="star-2" type="radio" name="AddProductReview.DeliveryRating" value="3" />
-                        <label title="regular" for="star-2"></label>
-
-                        <input id="star-1" type="radio" name="AddProductReview.DeliveryRating" value="2" />
-                        <label title="poor" for="star-1"></label>
-
-                        <input id="star-0" type="radio" name="AddProductReview.DeliveryRating" value="1" />
-                        <label title="bad" for="star-0"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="review-rating">
-                <div class="name-description">
-                    <label for="AddProductReview.InstallationRating">Installation Rating:</label>
-                </div>
-                <div class="rating-wrapper">
-                    <div id="reviewStars-input">
-                        <input id="star-4" type="radio" name="AddProductReview.InstallationRating" value="5" />
-                        <label title="gorgeous" for="star-4"></label>
-
-                        <input id="star-3" type="radio" name="AddProductReview.InstallationRating" value="4" checked />
-                        <label title="good" for="star-3"></label>
-
-                        <input id="star-2" type="radio" name="AddProductReview.InstallationRating" value="3" />
-                        <label title="regular" for="star-2"></label>
-
-                        <input id="star-1" type="radio" name="AddProductReview.InstallationRating" value="2" />
-                        <label title="poor" for="star-1"></label>
-
-                        <input id="star-0" type="radio" name="AddProductReview.InstallationRating" value="1" />
-                        <label title="bad" for="star-0"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="review-rating">
-                <div class="name-description">
-                    <label for="AddProductReview.OnlineOrderRating">Online Order Rating:</label>
-                </div>
-                <div class="rating-wrapper">
-                    <div id="reviewStars-input">
-                        <input id="star-4" type="radio" name="AddProductReview.OnlineOrderRating" value="5" />
-                        <label title="gorgeous" for="star-4"></label>
-
-                        <input id="star-3" type="radio" name="AddProductReview.OnlineOrderRating" value="4" checked />
-                        <label title="good" for="star-3"></label>
-
-                        <input id="star-2" type="radio" name="AddProductReview.OnlineOrderRating" value="3" />
-                        <label title="regular" for="star-2"></label>
-
-                        <input id="star-1" type="radio" name="AddProductReview.OnlineOrderRating" value="2" />
-                        <label title="poor" for="star-1"></label>
-
-                        <input id="star-0" type="radio" name="AddProductReview.OnlineOrderRating" value="1" />
-                        <label title="bad" for="star-0"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="review-rating">
-                <div class="name-description">
-                    <label for="AddProductReview.OfflineOrderRating">Offline Order Rating:</label>
-                </div>
-                <div class="rating-wrapper">
-                    <div id="reviewStars-input">
-                        <input id="star-4" type="radio" name="AddProductReview.OfflineOrderRating" value="5" />
-                        <label title="gorgeous" for="star-4"></label>
-
-                        <input id="star-3" type="radio" name="AddProductReview.OfflineOrderRating" value="4" checked />
-                        <label title="good" for="star-3"></label>
-
-                        <input id="star-2" type="radio" name="AddProductReview.OfflineOrderRating" value="3" />
-                        <label title="regular" for="star-2"></label>
-
-                        <input id="star-1" type="radio" name="AddProductReview.OfflineOrderRating" value="2" />
-                        <label title="poor" for="star-1"></label>
-
-                        <input id="star-0" type="radio" name="AddProductReview.OfflineOrderRating" value="1" />
-                        <label title="bad" for="star-0"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="review-rating">
-                <div class="name-description">
-                    <label for="AddProductReview.WillRecommend">Will Recommend?</label>
-                </div>
-                <input type="checkbox" name="AddProductReview.WillRecommend" />
-            </div>
-            <div class="buttons">
-                <button type="submit" id="add-review-btn" name="add-review" class="btn btn-blue btn-sm pl-4 pr-4">@T("reviews.send")</button>
-            </div>
-        </form>
-        <div class="review-analytics">
-            <h6>Delivery Rating: @(Model.Items.Select(x => x.DeliveryRating).Sum() / Model.Items.Count(x => x.DeliveryRating != null))</h6>
-            <h6>Consultation Rating: @(Model.Items.Select(x => x.ConsultationRating).Sum() / Model.Items.Count(x => x.ConsultationRating != null))</h6>
-            <h6>Installation Rating: @(Model.Items.Select(x => x.InstallationRating).Sum() / Model.Items.Count(x => x.InstallationRating != null))</h6>
-            <h6>Offline Order Rating: @(Model.Items.Select(x => x.OfflineOrderRating).Sum() / Model.Items.Count(x => x.OfflineOrderRating != null))</h6>
-            <h6>Online Order Rating: @(Model.Items.Select(x => x.OnlineOrderRating).Sum() / Model.Items.Count(x => x.OnlineOrderRating != null))</h6>
-            <h6>
-                Will Recommend: Да - @Model.Items.Count(x => x.WillRecommend == true) /
-                Воздержался - @Model.Items.Count(x => x.WillRecommend == null) /
-                Нет - @Model.Items.Count(x => x.WillRecommend == false)
-            </h6>
-            <h6>Total reviews: @Model.Items.Count</h6>
-        </div>
-        @if (Model.Items.Count > 0)
-        {
-            @foreach (var review in Model.Items)
+        <div class="comment-items">
+            @if (Model.Items.Count > 0)
             {
-                <ul class="comment">
-                    <li class="list clearfix">
-                        <div class="info-wrap">
-                            <div class="name">@review.CustomerName</div>
-                            <div class="date">@review.WrittenOnStr</div>
-                            <div class="rate">
-                                <p class="icons-wrap">
-                                    @for (int i = 0; i < 5; i++)
-                                    {
-                                        if (review.Rating > i)
-                                        {
-                                            <i class="star"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="star grey"></i>
-                                        }
-                                    }
-                                </p>
-                            </div>
-                            <div class="rate">
-                                Consultation Rating
-                                <p class="icons-wrap">
-                                    @for (int i = 0; i < 5; i++)
-                                    {
-                                        if (review.ConsultationRating > i)
-                                        {
-                                            <i class="star"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="star grey"></i>
-                                        }
-                                    }
-                                </p>
-                            </div>
-                            <div class="rate">
-                                Delivery Rating
-                                <p class="icons-wrap">
-                                    @for (int i = 0; i < 5; i++)
-                                    {
-                                        if (review.DeliveryRating > i)
-                                        {
-                                            <i class="star"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="star grey"></i>
-                                        }
-                                    }
-                                </p>
-                            </div>
-                            <div class="rate">
-                                Installation Rating
-                                <p class="icons-wrap">
-                                    @for (int i = 0; i < 5; i++)
-                                    {
-                                        if (review.InstallationRating > i)
-                                        {
-                                            <i class="star"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="star grey"></i>
-                                        }
-                                    }
-                                </p>
-                            </div>
-                            @if (review.OfflineOrderRating == null)
-                            {
-                                <div class="rate">
-                                    Online Order Rating
-                                    <p class="icons-wrap">
-                                        @for (int i = 0; i < 5; i++)
-                                        {
-                                            if (review.OnlineOrderRating > i)
-                                            {
-                                                <i class="star"></i>
-                                            }
-                                            else
-                                            {
-                                                <i class="star grey"></i>
-                                            }
-                                        }
-                                    </p>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="rate">
-                                    Offline Order Rating
-                                    <p class="icons-wrap">
-                                        @for (int i = 0; i < 5; i++)
-                                        {
-                                            if (review.OfflineOrderRating > i)
-                                            {
-                                                <i class="star"></i>
-                                            }
-                                            else
-                                            {
-                                                <i class="star grey"></i>
-                                            }
-                                        }
-                                    </p>
-                                </div>
-                            }
-                        </div>
-                        Will Recommend @(review.WillRecommend != null ? (review.WillRecommend == true ? "Да" : "Нет") : "Воздержался")
-                        @if (review.CustomerId == ViewBag.CustomerId)
-                        {
-                            <form method="post" action="/common/ChangeRecommendation" class="willrecommend">
-                                <select name="WillRecommend">
-                                    <option value="true">Да</option>
-                                    <option value="null">Воздержался</option>
-                                    <option value="false">Нет</option>
-                                </select>
-                                <input type="hidden" name="ReviewId" value="@review.Id" />
-                                <button>Изменить решение</button>
-                            </form>
-                        }
-                        <div class="text-wrap">
-                            <strong>@review.Title</strong>
-                            <br />
-                            @review.ReviewText
-                        </div>
-                        @if (!string.IsNullOrEmpty(review.ReplyText))
-                        {
-                            <div class="replies">
-                                <strong>Ответ от администратора:</strong>
-                                <br />
-                                @review.ReplyText
-                            </div>
-                        }
-                    </li>
-                </ul>
-                @if (review != Model.Items.LastOrDefault())
+                foreach (var review in Model.Items)
                 {
-                    <div class="line"></div>
+                    <ul>
+                        <li class="list">
+                            <div class="clearfix">
+                                <div class="info-wrap float-left">
+                                    <div class="no-avatar float-left"><img src="/img/no_avatar.png" alt="no_avatar.png"></div>
+                                    <div class="info float-right">
+                                        <div class="name">@review.CustomerName</div>
+                                        <div class="date">@review.WrittenOnStr</div>
+                                        <div class="dropdown">
+                                            <button class="btn btn-link dropdown-toggle @(review.CustomerId == ViewBag.CustomerId ? "pen" : "")" type="button" id="dropdownRecomend"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="@(review.WillRecommend == null ? "grey" : review.WillRecommend == true ? "green" : "red")">@(review.WillRecommend == null ? T("willrecommend.null") : review.WillRecommend == true ? T("willrecommend.true") : T("willrecommend.false"))</span>
+                                            </button>
+                                            @if (review.CustomerId == ViewBag.CustomerId)
+                                            {
+                                                <div class="dropdown-menu" aria-labelledby="dropdownRecomend" name="WillRecommend">
+                                                    <a class="dropdown-item" href="#" onclick="ChangeReview(@review.Id, true);return false;"><span class="green">@T("willrecommend.true")</span></a>
+                                                    <a class="dropdown-item" href="#" onclick="ChangeReview(@review.Id, null);return false;"><span class="grey">@T("willrecommend.null")</span></a>
+                                                    <a class="dropdown-item" href="#" onclick="ChangeReview(@review.Id, false);return false;"><span class="red">@T("willrecommend.false")</span></a>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="more">@T("reviews.more")</div>
+                                    </div>
+                                </div>
+                                <div class="text-wrap">
+                                    @review.ReviewText
+                                </div>
+                            </div>
+                            <div class="user-rate-items">
+                                <div class="user-rate-item">
+                                    <div class="item-title">@T("reviews.rating")</div>
+                                    <div class="sprite-smile @icons[review.Rating]"></div>
+                                </div>
+                                @if (review.ConsultationRating != null)
+                                {
+                                    <div class="user-rate-item">
+                                        <div class="item-title">@T("reviews.total.consultation")</div>
+                                        <div class="sprite-smile @icons[review.ConsultationRating ?? 0]"></div>
+                                    </div>
+                                }
+                                @if (review.ConsultationRating != null)
+                                {
+                                    <div class="user-rate-item">
+                                        <div class="item-title">@T("reviews.total.online")</div>
+                                        <div class="sprite-smile @icons[review.OnlineOrderRating ?? 0]"></div>
+                                    </div>
+                                }
+                                @if (review.ConsultationRating != null)
+                                {
+                                    <div class="user-rate-item">
+                                        <div class="item-title">@T("reviews.total.offline")</div>
+                                        <div class="sprite-smile @icons[review.OfflineOrderRating ?? 0]"></div>
+                                    </div>
+                                }
+                                @if (review.ConsultationRating != null)
+                                {
+                                    <div class="user-rate-item">
+                                        <div class="item-title">@T("reviews.total.delivery")</div>
+                                        <div class="sprite-smile @icons[review.DeliveryRating ?? 0]"></div>
+                                    </div>
+                                }
+                                @if (review.ConsultationRating != null)
+                                {
+                                    <div class="user-rate-item">
+                                        <div class="item-title">@T("reviews.total.install")</div>
+                                        <div class="sprite-smile @icons[review.InstallationRating ?? 0]"></div>
+                                    </div>
+                                }
+                            </div>
+                            @if (!string.IsNullOrEmpty(review.ReplyText))
+                            {
+                                <ul>
+                                    <li class="list">
+                                        <div class="clearfix">
+                                            <div class="info-wrap float-left">
+                                                <div class="no-avatar float-left">
+                                                    <img src="/img/admin_avatar.png"
+                                                         alt="admin_avatar.png">
+                                                </div>
+                                                <div class="info float-right">
+                                                    <div class="name">@T("reviews.admin")</div>
+                                                </div>
+                                            </div>
+                                            <div class="text-wrap">
+                                                @review.ReplyText
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            }
+                        </li>
+                    </ul>
                 }
             }
-        }
+        </div>
     </div>
 </div>
 <script>
+    function ChangeReview(ReviewId, WillRecommend) {
+        $.ajax({
+            url: '/common/ChangeRecommendation',
+            type: 'post',
+            data: {
+                ReviewId,
+                WillRecommend
+            }
+        }).done(function (data) {
+            if (data.success) {
+                window.location.reload();
+            }
+            else {
+                console.log(data);
+            }
+        });
+    }
     $('#add-review-form').submit(function (e) {
         e.preventDefault();
         $.ajax({
-            url: $(this).closest('form').attr('action'),
+            url: '/reviews',
             type: 'post',
             data: $('#add-review-form').serialize()
         }).done(function (data) {
@@ -390,26 +449,14 @@
     });
 </script>
 <script>
-    $('form.willrecommend').on("submit", function (e) {
-        e.preventDefault();
-        $.ajax({
-            url: $(this).attr('action'),
-            type: $(this).attr('method'),
-            data: $(this).serialize()
-        }).done(function (data) {
-            if (data.success) {
-                window.location.reload();
-            }
-            else {
-                console.log(data);
-            }
-        });
-    });
+    function SubmitPeriod(value) {
+        window.location.replace('?period=' + value);
+    }
 </script>
 
-    @******************************old*********************************@
+@******************************old*********************************@
 
-    @*<nav class="breadcrumb-wrap">
+@*<nav class="breadcrumb-wrap">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Bed4you</a></li>
             <li class="breadcrumb-item active"><a href="#">@T("reviews.store")</a></li>
