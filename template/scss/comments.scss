@@ -202,11 +202,6 @@
         top: 0;
         z-index: 0;
     }
-    #reviewSmile-input input:checked~label {
-        //background-color: #ff9c32;
-        height: 41px;
-        width: 40px;
-    }
     #reviewSmile-input label {
         height: 41px;
         width: 40px;
@@ -265,6 +260,43 @@
             }
         }
         label[for*="smile-4"]:hover {
+            background-position: -160px 0;
+            &+input+label {
+                background-position: -120px 0;
+            }
+            &+input+label+input+label {
+                background-position: -80px 0;
+            }
+            &+input+label+input+label+input+label {
+                background-position: -40px 0;
+            }
+        }
+    }
+    #reviewSmile-input input:checked~label {
+        //background-color: #ff9c32;
+        height: 41px;
+        width: 40px;
+    }
+    #reviewSmile-input {
+        input[id*="smile-1"]:checked+label {
+            background-position: -40px 0;
+        }
+        input[id*="smile-2"]:checked+label {
+            background-position: -80px 0;
+            &+input+label {
+                background-position: -40px 0;
+            }
+        }
+        input[id*="smile-3"]:checked+label {
+            background-position: -120px 0;
+            &+input+label {
+                background-position: -80px 0;
+            }
+            &+input+label+input+label {
+                background-position: -40px 0;
+            }
+        }
+        input[id*="smile-4"]:checked+label {
             background-position: -160px 0;
             &+input+label {
                 background-position: -120px 0;
