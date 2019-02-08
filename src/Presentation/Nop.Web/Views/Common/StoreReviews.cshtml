@@ -291,7 +291,7 @@
                     }
                 </div>
                 <div class="col-md-4 total-rate">
-                    <div class="title mb-4">@("reviews.total.rate")</div>
+                    <div class="title mb-4">@T("reviews.total.rate")</div>
                     <div class="item-wrapp clearfix">
                         <div class="item-title float-left">@T("reviews.total.positive")</div>
                         <div class="item-rate float-right">@Model.Items.Count(x => x.Rating == 4 || x.Rating == 5)</div>
@@ -338,7 +338,7 @@
                                                 </div>
                                             }
                                         </div>
-                                        <div class="more">@T("reviews.more")</div>
+                                        <div class="more btn btn-link">@T("reviews.more")</div>
                                     </div>
                                 </div>
                                 <div class="text-wrap">
