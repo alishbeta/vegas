@@ -292,6 +292,8 @@ $(document).ready(function () {
     $('.total-diagram .item-line-wrapp').each(function () {
         $(this).find('.item-line').each(function (indx) {
             let persent = $(this).text().split('%')[0].trim();
+            if (parseInt(persent) <= 5)
+                $(this).text('');
             $(this).animate({ width: persent + '%' });
             if (indx == 0) {
                 let left = $(this).next().text().split('%')[0].trim();
