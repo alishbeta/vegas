@@ -279,14 +279,27 @@ $(document).ready(function () {
         $(this).parent().next().slideToggle();
     });
 
-    $('#left-feedback').on('click', function(){
+    $('#left-feedback').on('click', function () {
         $('.form-block').slideToggle();
         $('.line').fadeToggle();
     })
-    
-    $('.comment-items .more').on('click', function(){
+
+    $('.comment-items .more').on('click', function () {
         $(this).parent().parent().parent().next().slideToggle();
     })
+
+    /*#####################   Диаграмма ###############################*/
+    $('.total-diagram .item-line-wrapp').each(function () {
+        $(this).find('.item-line').each(function (indx) {
+            let persent = $(this).text().split('%')[0].trim();
+            $(this).animate({ width: persent + '%' });
+            if (indx == 0) {
+                let left = $(this).next().text().split('%')[0].trim();
+                $(this).animate({ left: left + '%' });
+                //$(this).css("left", left + "%");
+            }
+        })
+    });
 
     /*#####################   Города  ###############################*/
     $('.city-wrapp li').on('click', function () {

@@ -4061,7 +4061,7 @@ section .item {
   position: relative;
   width: 50%;
   float: right;
-  height: 20px;
+  height: 24px;
   vertical-align: middle;
 }
 .commets-wrap .diagram-wrapp .total-diagram .item-wrapp .item-line-wrapp .item-line {
@@ -4070,13 +4070,12 @@ section .item {
 .commets-wrap .diagram-wrapp .total-diagram .item-wrapp .item-line-wrapp .item-line:first-child {
   position: absolute;
   background-color: #dbdbdb;
-  width: 100%;
   height: 100%;
 }
 .commets-wrap .diagram-wrapp .total-diagram .item-wrapp .item-line-wrapp .item-line:nth-child(2) {
   display: block;
   position: absolute;
-  width: 30%;
+  width: 0;
   height: 100%;
   background-color: #8cc34c;
   left: 0;
@@ -4084,7 +4083,7 @@ section .item {
 .commets-wrap .diagram-wrapp .total-diagram .item-wrapp .item-line-wrapp .item-line:last-child {
   display: block;
   position: absolute;
-  width: 40%;
+  width: 0;
   height: 100%;
   background-color: #e33840;
   right: 0;
@@ -4110,6 +4109,9 @@ section .item {
 }
 .commets-wrap .comment-items {
   margin-top: 60px;
+}
+.commets-wrap .comment-items li {
+  margin-bottom: 60px;
 }
 .commets-wrap .comment-items .info-wrap {
   margin-right: 90px;
@@ -4251,7 +4253,7 @@ section .item {
 .commets-wrap #reviewSmile-input label[for*="smile-0"] {
   background-position: 0 -40px;
 }
-.commets-wrap #reviewSmile-input label[for="smile-1"] {
+.commets-wrap #reviewSmile-input label[for*="smile-1"] {
   background-position: -40px -40px;
 }
 .commets-wrap #reviewSmile-input label[for*="smile-2"] {
