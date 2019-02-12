@@ -5,8 +5,8 @@ using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Core.Data;
 using Nop.Core.Domain.Catalog;
-using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Discounts;
+using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Orders;
 using Nop.Services.Catalog;
 using Nop.Services.Customers;
@@ -31,6 +31,7 @@ namespace Nop.Services.Discounts
         private readonly IPluginFinder _pluginFinder;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Discount> _discountRepository;
+        private readonly IRepository<ComplexDiscount> _complexDiscountRepository;
         private readonly IRepository<DiscountRequirement> _discountRequirementRepository;
         private readonly IRepository<DiscountUsageHistory> _discountUsageHistoryRepository;
         private readonly IRepository<Manufacturer> _manufacturerRepository;
@@ -49,6 +50,7 @@ namespace Nop.Services.Discounts
             IPluginFinder pluginFinder,
             IRepository<Category> categoryRepository,
             IRepository<Discount> discountRepository,
+            IRepository<ComplexDiscount> complexDiscountRepository,
             IRepository<DiscountRequirement> discountRequirementRepository,
             IRepository<DiscountUsageHistory> discountUsageHistoryRepository,
             IRepository<Manufacturer> manufacturerRepository,
@@ -56,6 +58,7 @@ namespace Nop.Services.Discounts
             IStaticCacheManager cacheManager,
             IStoreContext storeContext)
         {
+            this._complexDiscountRepository = complexDiscountRepository;
             this._categoryService = categoryService;
             this._customerService = customerService;
             this._eventPublisher = eventPublisher;
@@ -183,6 +186,33 @@ namespace Nop.Services.Discounts
         #endregion
 
         #region Methods
+
+        #region Complex Discounts
+
+        /// <summary>
+        /// Gets all complex discounts
+        /// </summary>
+        public virtual IList<ComplexDiscount> GetAllComplexDiscounts()
+        {
+            IList<ComplexDiscount> complexDiscounts = _complexDiscountRepository.Table.ToList();
+            return complexDiscounts;
+        }
+
+        /// <summary>
+        /// Inserts a complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        public virtual void InsertComplexDiscount(ComplexDiscount discount)
+        {
+            if (discount == null)
+                throw new ArgumentNullException(nameof(discount));
+
+            _complexDiscountRepository.Insert(discount);
+
+            //event notification
+            _eventPublisher.EntityInserted(discount);
+        }
+        #endregion
 
         #region Discounts
 

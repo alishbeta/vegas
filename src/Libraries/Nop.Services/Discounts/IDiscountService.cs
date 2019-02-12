@@ -12,6 +12,20 @@ namespace Nop.Services.Discounts
     /// </summary>
     public partial interface IDiscountService
     {
+        #region Complex Discounts
+
+        /// <summary>
+        /// Gets all complex discounts
+        /// </summary>
+        IList<ComplexDiscount> GetAllComplexDiscounts();
+
+        /// <summary>
+        /// Inserts a complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        void InsertComplexDiscount(ComplexDiscount discount);
+        #endregion
+
         #region Discounts
 
         /// <summary>

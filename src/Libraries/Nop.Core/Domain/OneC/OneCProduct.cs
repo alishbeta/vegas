@@ -26,7 +26,7 @@ namespace Nop.Core.Domain.OneC
         public string DiscountPrice { get; set; }
         public string DiscountRate { get; set; }
         public string Collection { get; set; }
-        public string ProductType { get; set; }
+        public string TypeProduct { get; set; }
         public List<OneCAttribute> Attributes { get; set; }
     }
 }
