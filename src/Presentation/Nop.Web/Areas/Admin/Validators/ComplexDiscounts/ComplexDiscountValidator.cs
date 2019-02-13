@@ -16,7 +16,7 @@ namespace Nop.Web.Areas.Admin.Validators.ComplexDiscount
         public ComplexDiscountValidator(ILocalizationService localizationService, IDbContext dbContext)
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage(localizationService.GetResource("Admin.Promotions.ComplexDiscounts.Fields.Name.Required"));
-            RuleFor(x => x.DiscountPercent).NotEmpty().WithMessage(localizationService.GetResource("Admin.Promotions.ComplexDiscounts.Fields.Name.Required"));
+            RuleFor(x => x.DiscountPercent).NotEmpty().WithMessage(localizationService.GetResource("Admin.Promotions.ComplexDiscounts.Fields.DiscountPercent.Required"));
 
             SetDatabaseValidationRules<Core.Domain.Discounts.ComplexDiscount>(dbContext);
         }

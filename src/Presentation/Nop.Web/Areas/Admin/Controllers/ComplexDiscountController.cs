@@ -182,5 +182,26 @@ namespace Nop.Web.Areas.Admin.Controllers
 
             return RedirectToAction("List");
         }
+
+        [HttpPost]
+        public virtual IActionResult DeleteSelected(int[] selectedIds)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageDiscounts))
+                return AccessDeniedView();
+
+            foreach (var id in selectedIds)
+            {
+                //try to get a discount with the specified id
+                var discount = _discountService.GetComplexDiscountById(id);
+                if (discount == null)
+                    continue;
+
+                _discountService.DeleteComplexDiscount(discount);
+            }
+
+            SuccessNotification(_localizationService.GetResource("Admin.Promotions.ComplexDiscounts.Deleted"));
+
+            return RedirectToAction("List");
+        }
     }
 }

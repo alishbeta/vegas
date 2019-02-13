@@ -18,7 +18,11 @@
             <i class="fa fa-plus-square"></i>
             @T("Admin.Common.AddNew")
         </a>
-        @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DiscountListButtons })
+        <button type="button" id="delete-selected" class="btn bg-red">
+            <i class="fa fa-trash-o"></i>
+            @T("Admin.Catalog.ProductReviews.DeleteSelected")
+        </button>
+        <nop-action-confirmation asp-button-id="delete-selected" />
     </div>
 </div>
 
@@ -130,44 +134,121 @@
                                 },
                                 scrollable: false,
                                 columns: [
-                                {
-                                    field: "Name",
-                                    title: "@T("Admin.Promotions.Discounts.Fields.Name")",
-                                    width: 350
-                                }, {
-                                    field: "DiscountPercent",
-                                    title: "@T("Admin.Promotions.Discounts.Fields.Discount")",
-                                    width: 200,
-                                }, {
-                                    field: "Id",
-                                    title: "@T("Admin.Common.Edit")",
-                                    width: 100,
-                                    headerAttributes: { style: "text-align:center" },
-                                    attributes: { style: "text-align:center" },
-                                    template: '<a class="btn btn-default" href="Edit/#=Id#"><i class="fa fa-pencil"></i>@T("Admin.Common.Edit")</a>'
-                                }
+                                    {
+                                        field: "Id",
+                                        headerTemplate: "<input id='mastercheckbox' type='checkbox'/>",
+                                        headerAttributes: { style: "text-align:center" },
+                                        attributes: { style: "text-align:center" },
+                                        template: "<input type='checkbox' value='#=Id#' class='checkboxGroups'/>",
+                                        width: 50
+                                    }, {
+                                        field: "Name",
+                                        title: "@T("Admin.Promotions.Discounts.Fields.Name")",
+                                        width: 350
+                                    }, {
+                                        field: "DiscountPercent",
+                                        title: "@T("Admin.Promotions.Discounts.Fields.Discount")",
+                                        width: 200,
+                                    }, {
+                                        field: "Id",
+                                        title: "@T("Admin.Common.Edit")",
+                                        width: 100,
+                                        headerAttributes: { style: "text-align:center" },
+                                        attributes: { style: "text-align:center" },
+                                        template: '<a class="btn btn-default" href="Edit/#=Id#"><i class="fa fa-pencil"></i>@T("Admin.Common.Edit")</a>'
+                                    }
                                 ]
                             });
                         });
                     </script>
                     <script>
-                        $(document).ready(function() {
-                            $('#search-discounts').click(function() {
-                                var grid = $('#discounts-grid').data('kendoGrid');
-                                grid.dataSource.page(1); //new search. Set page size to 1
-                                //grid.dataSource.read(); we already loaded the grid above using "page" function
+    var selectedIds = [];
+
+    $(document).ready(function() {
+        //search button
+        $(document).ready(function () {
+            $('#search-discounts').click(function () {
+                var grid = $('#discounts-grid').data('kendoGrid');
+                grid.dataSource.page(1); //new search. Set page size to 1
+                //grid.dataSource.read(); we already loaded the grid above using "page" function
+                return false;
+            });
+        });
+
+        @* $("".concat("#@Html.IdFor(model => model.SearchDiscountName),",
+            "#@Html.IdFor(model => model.SearchDiscountCouponCode)")).keydown(function (event) {
+                if (event.keyCode === 13) {
+                    $("#search-discounts").click();
+                    return false;
+                }
+            });*@
+
+        //"delete selected" button
+                            $("#delete-selected-action-confirmation-submit-button").bind("click", function () {
+                                var postData = {
+                                    selectedIds: selectedIds
+                                };
+                                addAntiForgeryToken(postData);
+                                $.ajax({
+                                    cache: false,
+                                    type: "POST",
+                                    url: "@(Url.Action("DeleteSelected", "ComplexDiscount"))",
+                                    data: postData,
+                                    complete: function (data) {
+                                        //reload grid
+                                        var grid = $('#discounts-grid').data('kendoGrid');
+                                        grid.dataSource.read();
+                                    },
+                                    error: function (xhr, ajaxOptions, thrownError) {
+                                        alert(thrownError);
+                                    }
+                                });
+                                $('#delete-selected-action-confirmation').modal('toggle');
                                 return false;
                             });
-                        });
 
-                        @*$("".concat("#@Html.IdFor(model => model.SearchDiscountName),",
-                            "#@Html.IdFor(model => model.SearchDiscountCouponCode)")).keydown(function(event) {
-                                if (event.keyCode === 13) {
-                                    $("#search-discounts").click();
-                                    return false;
-                                }
-                        });*@
-                    </script>
+        $('#mastercheckbox').click(function() {
+            $('.checkboxGroups').attr('checked', $(this).is(':checked')).change();
+        });
+
+        //wire up checkboxes.
+        $('#discounts-grid').on('change', 'input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]', function(e) {
+            var $check = $(this);
+            var checked = jQuery.inArray($check.val(), selectedIds);
+            if ($check.is(":checked") == true) {
+                if (checked == -1) {
+                    //add id to selectedIds.
+                    selectedIds.push($check.val());
+                }
+            } else if (checked > -1) {
+                //remove id from selectedIds.
+                selectedIds = $.grep(selectedIds, function (item, index) {
+                    return item != $check.val();
+                });
+            }
+            updateMasterCheckbox();
+            console.log(selectedIds);
+        });
+    });
+
+    function onDataBound(e) {
+        $('#customers-grid input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]').each(function() {
+            var currentId = $(this).val();
+            var checked = jQuery.inArray(currentId, selectedIds);
+            //set checked based on if current checkbox's value is in selectedIds.
+            $(this).attr('checked', checked > -1);
+        });
+
+        updateMasterCheckbox();
+    }
+
+    function updateMasterCheckbox() {
+        var numChkBoxes = $('#customers-grid input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]').length;
+        var numChkBoxesChecked = $('#customers-grid input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]:checked').length;
+        $('#mastercheckbox').attr('checked', numChkBoxes == numChkBoxesChecked && numChkBoxes > 0);
+                      }
+
+                        </script>
                 </div>
             </div>
         </div>
