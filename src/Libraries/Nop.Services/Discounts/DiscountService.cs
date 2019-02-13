@@ -192,10 +192,19 @@ namespace Nop.Services.Discounts
         /// <summary>
         /// Gets all complex discounts
         /// </summary>
-        public virtual IList<ComplexDiscount> GetAllComplexDiscounts()
+        public virtual IList<ComplexDiscount> GetAllComplexDiscounts(string searchDiscountGroupName = null)
         {
-            IList<ComplexDiscount> complexDiscounts = _complexDiscountRepository.Table.ToList();
-            return complexDiscounts;
+            if (string.IsNullOrEmpty(searchDiscountGroupName))
+            {
+                return _complexDiscountRepository.Table.ToList();
+            }
+            else
+            {
+                var query = from s in _complexDiscountRepository.Table
+                            where s.GroupName == searchDiscountGroupName
+                            select s;
+                return query.ToList();
+            }
         }
 
         /// <summary>

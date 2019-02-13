@@ -31,6 +31,7 @@ namespace Nop.Data.Mapping.Discounts
             builder.Property(discount => discount.InCollection).HasMaxLength(200);
             builder.Property(discount => discount.InModel).HasMaxLength(200);
             builder.Property(discount => discount.InType).HasMaxLength(200);
+            builder.Property(discount => discount.GroupName).HasMaxLength(200);
             builder.Property(discount => discount.InManufacturerId).HasColumnType("int");
             builder.Property(discount => discount.ComManufacturerId).HasColumnType("int");
 

@@ -17,7 +17,7 @@ namespace Nop.Services.Discounts
         /// <summary>
         /// Gets all complex discounts
         /// </summary>
-        IList<ComplexDiscount> GetAllComplexDiscounts();
+        IList<ComplexDiscount> GetAllComplexDiscounts(string searchDiscountGroupName = null);
 
         /// <summary>
         /// Gets a complex discount

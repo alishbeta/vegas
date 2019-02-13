@@ -16,5 +16,6 @@ namespace Nop.Core.Domain.Discounts
         public int ComManufacturerId { get; set; }
         public string ComCollection { get; set; }
         public string ComModel { get; set; }
+        public string GroupName { get; set; }
     }
 }

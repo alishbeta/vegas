@@ -7,6 +7,15 @@
         <div class="panel-body">
             <div class="form-group">
                 <div class="col-md-3">
+                    <nop-label asp-for="GroupName" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="GroupName" />
+                    <span asp-validation-for="GroupName"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
                     <nop-label asp-for="Name" />
                 </div>
                 <div class="col-md-9">

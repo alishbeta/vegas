@@ -21,6 +21,9 @@ namespace Nop.Web.Areas.Admin.Models.ComplexDiscounts
         [NopResourceDisplayName("Admin.Promotions.ComplexDiscounts.Fields.Name")]
         public string Name { get; set; }
 
+        [NopResourceDisplayName("Admin.Promotions.ComplexDiscounts.Fields.GroupName")]
+        public string GroupName { get; set; }
+
         [NopResourceDisplayName("Admin.Promotions.ComplexDiscounts.Fields.DiscountPercent")]
         public decimal DiscountPercent { get; set; }
 

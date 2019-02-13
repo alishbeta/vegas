@@ -62,7 +62,7 @@ namespace Nop.Web.Areas.Admin.Controllers
                 return AccessDeniedKendoGridJson();
 
             //prepare model
-            var discounts = _discountService.GetAllComplexDiscounts();
+            var discounts = _discountService.GetAllComplexDiscounts(searchModel.SearchDiscountGroupName);
             var model = new ComplexDiscountListModel()
             {
                 Data = discounts.PaginationByRequestModel(searchModel).Select(discount =>
