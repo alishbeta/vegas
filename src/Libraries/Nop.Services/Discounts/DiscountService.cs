@@ -199,6 +199,16 @@ namespace Nop.Services.Discounts
         }
 
         /// <summary>
+        /// Gets a complex discount
+        /// </summary>
+        /// <param name="discountId">Discount identifier</param>
+        /// <returns>Discount</returns>
+        public virtual ComplexDiscount GetComplexDiscountById(int id)
+        {
+            return _complexDiscountRepository.GetById(id);
+        }
+
+        /// <summary>
         /// Inserts a complex discount
         /// </summary>
         /// <param name="discount">Discount</param>
@@ -212,6 +222,37 @@ namespace Nop.Services.Discounts
             //event notification
             _eventPublisher.EntityInserted(discount);
         }
+
+        /// <summary>
+        /// Update complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        public virtual void UpdateComplexDiscount(ComplexDiscount discount)
+        {
+            if (discount == null)
+                throw new ArgumentNullException(nameof(discount));
+
+            _complexDiscountRepository.Update(discount);
+
+            //event notification
+            _eventPublisher.EntityUpdated(discount);
+        }
+
+        /// <summary>
+        /// Delete complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        public virtual void DeleteComplexDiscount(ComplexDiscount discount)
+        {
+            if (discount == null)
+                throw new ArgumentNullException(nameof(discount));
+
+            _complexDiscountRepository.Delete(discount);
+
+            //event notification
+            _eventPublisher.EntityDeleted(discount);
+        }
+
         #endregion
 
         #region Discounts

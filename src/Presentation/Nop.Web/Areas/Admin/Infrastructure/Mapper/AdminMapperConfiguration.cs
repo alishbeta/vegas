@@ -38,6 +38,7 @@ using Nop.Web.Areas.Admin.Models.Blogs;
 using Nop.Web.Areas.Admin.Models.Catalog;
 using Nop.Web.Areas.Admin.Models.Cms;
 using Nop.Web.Areas.Admin.Models.Common;
+using Nop.Web.Areas.Admin.Models.ComplexDiscounts;
 using Nop.Web.Areas.Admin.Models.Customers;
 using Nop.Web.Areas.Admin.Models.Directory;
 using Nop.Web.Areas.Admin.Models.Discounts;
@@ -643,6 +644,8 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(entity => entity.DiscountProductMappings, options => options.Ignore())
                 .ForMember(entity => entity.DiscountRequirements, options => options.Ignore())
                 .ForMember(entity => entity.DiscountType, options => options.Ignore());
+            CreateMap<ComplexDiscount, ComplexDiscountModel>();
+            CreateMap<ComplexDiscountModel, ComplexDiscount>();
         }
 
         /// <summary>

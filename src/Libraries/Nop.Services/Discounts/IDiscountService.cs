@@ -20,10 +20,30 @@ namespace Nop.Services.Discounts
         IList<ComplexDiscount> GetAllComplexDiscounts();
 
         /// <summary>
+        /// Gets a complex discount
+        /// </summary>
+        /// <param name="discountId">Discount identifier</param>
+        /// <returns>Discount</returns>
+        ComplexDiscount GetComplexDiscountById(int id);
+
+        /// <summary>
         /// Inserts a complex discount
         /// </summary>
         /// <param name="discount">Discount</param>
         void InsertComplexDiscount(ComplexDiscount discount);
+
+        /// <summary>
+        /// Update complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        void UpdateComplexDiscount(ComplexDiscount discount);
+
+        /// <summary>
+        /// Delete complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        void DeleteComplexDiscount(ComplexDiscount discount);
+
         #endregion
 
         #region Discounts

@@ -23,78 +23,97 @@
                     <span asp-validation-for="DiscountPercent"></span>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-3">
-                    <nop-label asp-for="InType" />
-                </div>
-                <div class="col-md-9">
-                    <nop-editor asp-for="InType" />
-                    <span asp-validation-for="InType"></span>
-                </div>
-            </div>
-            @*<div class="form-group">
-                <div class="col-md-3">
-                    <nop-label asp-for="ComManufacturerId" />
-                </div>
-                <div class="col-md-9">
-                    <nop-select asp-for="ComManufacturerId" asp-items="@(IList<SelectListItem>)Model.Manufacturers" />
-                    <span asp-validation-for="ComManufacturerId"></span>
-                </div>
-            </div>*@
-            <div class="form-group">
-                <div class="col-md-3">
-                    <nop-label asp-for="InCollection" />
-                </div>
-                <div class="col-md-9">
-                    <nop-editor asp-for="InCollection" />
-                    <span asp-validation-for="InCollection"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-3">
-                    <nop-label asp-for="InModel" />
-                </div>
-                <div class="col-md-9">
-                    <nop-editor asp-for="InModel" />
-                    <span asp-validation-for="InModel"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-3">
-                    <nop-label asp-for="ComType" />
-                </div>
-                <div class="col-md-9">
-                    <nop-editor asp-for="ComType" />
-                    <span asp-validation-for="ComType"></span>
-                </div>
-            </div>
-            @*<div class="form-group">
-                <div class="col-md-3">
-                    <nop-label asp-for="ComManufacturerId" />
-                </div>
-                <div class="col-md-9">
-                    <nop-select asp-for="ComManufacturerId" asp-items="@(IList<SelectListItem>)Model.Manufacturers" />
-                    <span asp-validation-for="ComManufacturerId"></span>
-                </div>
-            </div>*@
-            <div class="form-group">
-                <div class="col-md-3">
-                    <nop-label asp-for="ComCollection" />
-                </div>
-                <div class="col-md-9">
-                    <nop-editor asp-for="ComCollection" />
-                    <span asp-validation-for="ComCollection"></span>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("Admin.ComplexDiscount.InProduct")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="InType" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="InType" />
+                                <span asp-validation-for="InType"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="InManufacturerId" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-select asp-for="InManufacturerId" asp-items="@(IList<SelectListItem>)Model.Manufacturers" />
+                                <span asp-validation-for="InManufacturerId"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="InCollection" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="InCollection" />
+                                <span asp-validation-for="InCollection"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="InModel" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="InModel" />
+                                <span asp-validation-for="InModel"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-3">
-                    <nop-label asp-for="ComModel" />
-                </div>
-                <div class="col-md-9">
-                    <nop-editor asp-for="ComModel" />
-                    <span asp-validation-for="ComModel"></span>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @T("Admin.ComplexDiscount.ComProduct")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ComType" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ComType" />
+                                <span asp-validation-for="ComType"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ComManufacturerId" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-select asp-for="ComManufacturerId" asp-items="@(IList<SelectListItem>)Model.Manufacturers" />
+                                <span asp-validation-for="ComManufacturerId"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ComCollection" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ComCollection" />
+                                <span asp-validation-for="ComCollection"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ComModel" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ComModel" />
+                                <span asp-validation-for="ComModel"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

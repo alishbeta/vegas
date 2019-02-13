@@ -81,7 +81,7 @@ namespace Nop.Web.Areas.Admin.Controllers
 
             //prepare model
             var model = new ComplexDiscountModel();
-            //_baseAdminModelFactory.PrepareManufacturers(model.Manufacturers, true, "Admin.ComplexDiscount.Manufacturer.NotSelected");
+            _baseAdminModelFactory.PrepareManufacturers(model.Manufacturers, true, _localizationService.GetResource("Admin.ComplexDiscount.Manufacturer.NotSelected"));
             return View(model);
         }
 
@@ -108,10 +108,79 @@ namespace Nop.Web.Areas.Admin.Controllers
             }
 
             //prepare manufacturers
-            //_baseAdminModelFactory.PrepareManufacturers(model.Manufacturers, true, "Admin.ComplexDiscount.Manufacturer.NotSelected");
+            _baseAdminModelFactory.PrepareManufacturers(model.Manufacturers, true, _localizationService.GetResource("Admin.ComplexDiscount.Manufacturer.NotSelected"));
 
             //if we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public virtual IActionResult Edit(int id)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageDiscounts))
+                return AccessDeniedView();
+
+            //try to get a discount with the specified id
+            var discount = _discountService.GetComplexDiscountById(id);
+            if (discount == null)
+                return RedirectToAction("List");
+
+            //prepare model
+            var model = discount.ToModel<ComplexDiscountModel>();
+            _baseAdminModelFactory.PrepareManufacturers(model.Manufacturers, true, _localizationService.GetResource("Admin.ComplexDiscount.Manufacturer.NotSelected"));
+
+            return View(model);
+        }
+
+        [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
+        public virtual IActionResult Edit(ComplexDiscountModel model, bool continueEditing)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageDiscounts))
+                return AccessDeniedView();
+
+            //try to get a discount with the specified id
+            var discount = _discountService.GetComplexDiscountById(model.Id);
+            if (discount == null)
+                return RedirectToAction("List");
+
+            if (ModelState.IsValid)
+            {
+                discount = model.ToEntity(discount);
+                _discountService.UpdateComplexDiscount(discount);
+                
+                SuccessNotification(_localizationService.GetResource("Admin.Promotions.Discounts.Updated"));
+
+                if (!continueEditing)
+                    return RedirectToAction("List");
+
+                //selected tab
+                SaveSelectedTabName();
+
+                return RedirectToAction("Edit", new { id = discount.Id });
+            }
+
+            //prepare manufacturers
+            _baseAdminModelFactory.PrepareManufacturers(model.Manufacturers, true, _localizationService.GetResource("Admin.ComplexDiscount.Manufacturer.NotSelected"));
+
+            //if we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [HttpPost]
+        public virtual IActionResult Delete(int id)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageDiscounts))
+                return AccessDeniedView();
+
+            //try to get a discount with the specified id
+            var discount = _discountService.GetComplexDiscountById(id);
+            if (discount == null)
+                return RedirectToAction("List");
+
+            _discountService.DeleteComplexDiscount(discount);
+
+            SuccessNotification(_localizationService.GetResource("Admin.Promotions.ComplexDiscounts.Deleted"));
+
+            return RedirectToAction("List");
         }
     }
 }
