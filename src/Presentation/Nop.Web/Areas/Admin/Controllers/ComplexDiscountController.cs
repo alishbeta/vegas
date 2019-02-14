@@ -203,5 +203,42 @@ namespace Nop.Web.Areas.Admin.Controllers
 
             return RedirectToAction("List");
         }
+
+        [HttpPost]
+        public virtual IActionResult CopyComplexDiscount(int id)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageDiscounts))
+                return AccessDeniedView();
+
+            try
+            {
+                var copyModel = _discountService.GetComplexDiscountById(id);
+                var newModel = new ComplexDiscount()
+                {
+                    InCollection = copyModel.InCollection,
+                    InManufacturerId = copyModel.InManufacturerId,
+                    GroupName = copyModel.GroupName,
+                    InModel = copyModel.InModel,
+                    ComCollection = copyModel.ComCollection,
+                    ComManufacturerId = copyModel.ComManufacturerId,
+                    ComModel = copyModel.ComModel,
+                    ComType = copyModel.ComType,
+                    DiscountPercent = copyModel.DiscountPercent,
+                    InType = copyModel.InType,
+                    Name = string.Format("{0} ({1})", copyModel.Name, _localizationService.GetResource("Admin.ComplexDiscount.Copy"))
+                };
+
+                _discountService.InsertComplexDiscount(newModel);
+
+                SuccessNotification(_localizationService.GetResource("Admin.Catalog.ComplexDiscount.Copied"));
+
+                return RedirectToAction("Edit", new { id = newModel.Id });
+            }
+            catch (Exception exc)
+            {
+                ErrorNotification(exc.Message);
+                return RedirectToAction("Edit", new { id = id });
+            }
+        }
     }
 }

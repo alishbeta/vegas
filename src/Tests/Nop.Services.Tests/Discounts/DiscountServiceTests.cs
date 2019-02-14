@@ -23,6 +23,7 @@ namespace Nop.Services.Tests.Discounts
     public class DiscountServiceTests : ServiceTest
     {
         private Mock<IRepository<Discount>> _discountRepo;
+        private Mock<IRepository<ComplexDiscount>> _complexDiscountRepo;
         private Mock<IRepository<DiscountRequirement>> _discountRequirementRepo;
         private Mock<IRepository<DiscountUsageHistory>> _discountUsageHistoryRepo;
         private Mock<IEventPublisher> _eventPublisher;
@@ -39,6 +40,7 @@ namespace Nop.Services.Tests.Discounts
         public new void SetUp()
         {
             _discountRepo = new Mock<IRepository<Discount>>();
+            _complexDiscountRepo = new Mock<IRepository<ComplexDiscount>>();
             var discount1 = new Discount
             {
                 Id = 1,
@@ -95,6 +97,7 @@ namespace Nop.Services.Tests.Discounts
                 pluginFinder,
                 _categoryRepo.Object,
                 _discountRepo.Object,
+                _complexDiscountRepo.Object,
                 _discountRequirementRepo.Object,
                 _discountUsageHistoryRepo.Object,
                 _manufacturerRepo.Object,
@@ -277,7 +280,7 @@ namespace Nop.Services.Tests.Discounts
 
         static DiscountExtensions()
         {
-            _discountService = new DiscountService(null, null, null, null,
+            _discountService = new DiscountService(null, null, null, null, null,
                 null,null,null,null,null, null, null, null, null);
         }
 

@@ -22,7 +22,7 @@ namespace Nop.Services.Tests
     {
         private readonly List<DiscountForCaching> _discountForCaching;
 
-        public TestDiscountService(ICategoryService categoryService, ICustomerService customerService, IEventPublisher eventPublisher, ILocalizationService localizationService, IPluginFinder pluginFinder, IRepository<Category> categoryRepository, IRepository<Discount> discountRepository, IRepository<DiscountRequirement> discountRequirementRepository, IRepository<DiscountUsageHistory> discountUsageHistoryRepository, IRepository<Manufacturer> manufacturerRepository, IRepository<Product> productRepository, IStaticCacheManager cacheManager, IStoreContext storeContext) : base(categoryService, customerService, eventPublisher, localizationService, pluginFinder, categoryRepository, discountRepository, discountRequirementRepository, discountUsageHistoryRepository, manufacturerRepository, productRepository, cacheManager, storeContext)
+        public TestDiscountService(ICategoryService categoryService, ICustomerService customerService, IEventPublisher eventPublisher, ILocalizationService localizationService, IPluginFinder pluginFinder, IRepository<Category> categoryRepository, IRepository<Discount> discountRepository, IRepository<ComplexDiscount> complexDiscountRepository, IRepository<DiscountRequirement> discountRequirementRepository, IRepository<DiscountUsageHistory> discountUsageHistoryRepository, IRepository<Manufacturer> manufacturerRepository, IRepository<Product> productRepository, IStaticCacheManager cacheManager, IStoreContext storeContext) : base(categoryService, customerService, eventPublisher, localizationService, pluginFinder, categoryRepository, discountRepository, complexDiscountRepository, discountRequirementRepository, discountUsageHistoryRepository, manufacturerRepository, productRepository, cacheManager, storeContext)
         {
             _discountForCaching = new List<DiscountForCaching>();
         }
@@ -75,6 +75,7 @@ namespace Nop.Services.Tests
         {
             var _cacheManager = new TestMemoryCacheManager(new Mock<IMemoryCache>().Object);
             var _discountRepo = new Mock<IRepository<Discount>>();
+            var _complexDiscountRepo = new Mock<IRepository<ComplexDiscount>>();
             var _discountRequirementRepo = new Mock<IRepository<DiscountRequirement>>();
             _discountRequirementRepo.Setup(x => x.Table).Returns(new List<DiscountRequirement>().AsQueryable());
             var _discountUsageHistoryRepo = new Mock<IRepository<DiscountUsageHistory>>();
@@ -101,6 +102,7 @@ namespace Nop.Services.Tests
                 pluginFinder,
                 _categoryRepo.Object,
                 _discountRepo.Object,
+                _complexDiscountRepo.Object,
                 _discountRequirementRepo.Object,
                 _discountUsageHistoryRepo.Object,
                 _manufacturerRepo.Object,
