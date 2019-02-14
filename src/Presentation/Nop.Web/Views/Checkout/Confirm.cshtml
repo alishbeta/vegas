@@ -162,7 +162,13 @@
                                     {
                                         <div class="price-old">@item.OldPrice</div>
                                     }
-                                    <div class="price">@(item.MaximumDiscountedQty.HasValue ? T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value).ToString() : item.UnitPrice)</div>
+                                        <div class="price">
+                                            @(item.MaximumDiscountedQty.HasValue ? T("ShoppingCart.MaximumDiscountedQty", item.MaximumDiscountedQty.Value).ToString() : item.UnitPrice)
+                                            @if (!string.IsNullOrEmpty(item.Discount))
+                                            {
+                                                <div class="discount" style="position: unset;">-@item.Discount%</div>
+                                            }
+                                        </div>
                                 </div>
                             </div>
                             <div class="line"></div>
@@ -177,6 +183,7 @@
                     </div>
                     <button class="btn btn-link">@T("cart.usebonuscard")</button>
                     <small>@T("cart.price.tip")</small>
+                    <small>@Html.Raw(ViewBag.DebugTip)</small>
                 </div>
             </div>
         </div>

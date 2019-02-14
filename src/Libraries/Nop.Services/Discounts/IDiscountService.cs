@@ -4,6 +4,7 @@ using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Discounts;
+using Nop.Core.Domain.Orders;
 
 namespace Nop.Services.Discounts
 {
@@ -43,6 +44,8 @@ namespace Nop.Services.Discounts
         /// </summary>
         /// <param name="discount">Discount</param>
         void DeleteComplexDiscount(ComplexDiscount discount);
+
+        decimal GetComplexDiscountAmount(IList<ShoppingCartItem> cart, out string debugTip, out string discountAttribute);
 
         #endregion
 

@@ -262,6 +262,54 @@ namespace Nop.Services.Discounts
             _eventPublisher.EntityDeleted(discount);
         }
 
+        public virtual decimal GetComplexDiscountAmount(IList<ShoppingCartItem> cart, out string debugTip, out string discountAttribute)
+        {
+            debugTip = "";
+            discountAttribute = "";
+            var allComplexDiscounts = GetAllComplexDiscounts();
+            var mayApliedDiscounts = new List<ComplexDiscount>();
+            decimal discountAmount = 0;
+
+            foreach (var cartItem in cart)
+            {
+                mayApliedDiscounts.Clear();
+                var product = cartItem.Product;
+                var productManufacturerIds = product.ProductManufacturers.Select(x => x.ManufacturerId);
+                var productCollection = product.Collection;
+                var productModel = product.MakeCode;
+                var productType = product.ProductTypeForOneC;
+
+                var discounts = allComplexDiscounts.Where(x => (string.IsNullOrEmpty(x.InCollection) || x.InCollection == productCollection) && (string.IsNullOrEmpty(x.InModel) || x.InModel == productModel) && (string.IsNullOrEmpty(x.InType) || x.InType == productType) && (x.InManufacturerId == 0 || productManufacturerIds.Contains(x.InManufacturerId)));
+                foreach (var complexDiscount in discounts)
+                {
+                    IEnumerable<ShoppingCartItem> cartItems = cart;
+                    if (cartItem.Quantity < 2)
+                    {
+                        cartItems = cart.Where(x => x != cartItem); //Если такой товар в корзине только один, он не может быть соседним самому себе. Если их два - может
+                    }
+                    if (cartItems.Select(x => x.Product).Count(x =>
+                    (string.IsNullOrEmpty(complexDiscount.ComCollection) || x.Collection == complexDiscount.ComCollection) &&
+                    (string.IsNullOrEmpty(complexDiscount.ComModel) || x.MakeCode == complexDiscount.ComModel) &&
+                    (string.IsNullOrEmpty(complexDiscount.ComType) || x.ProductTypeForOneC == complexDiscount.ComType) &&
+                    (complexDiscount.ComManufacturerId == 0 || x.ProductManufacturers.Count(u => u.ManufacturerId == complexDiscount.ComManufacturerId) > 0)
+                    ) > 0)
+                    {
+                        mayApliedDiscounts.Add(complexDiscount);
+                    }
+                }
+                if (mayApliedDiscounts.Count > 0)
+                {
+                    discountAttribute += string.Format("{0}-{1},", cartItem.Id, mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent);
+                    //cartItem.Product.Price = cartItem.Product.Price - (cartItem.Product.Price * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100);
+                    discountAmount += cartItem.Product.Price * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100;
+                    debugTip += string.Format("Применена скидка {0} ({1}%) для {2}[{3}] в размере {4}\n", mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().Name, mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent, cartItem.Product.Name, cartItem.Product.Id, cartItem.Product.Price * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100);
+                }
+            }
+
+            debugTip += "Комплексная скидка составила " + discountAmount;
+            return discountAmount;
+        }
+
         #endregion
 
         #region Discounts

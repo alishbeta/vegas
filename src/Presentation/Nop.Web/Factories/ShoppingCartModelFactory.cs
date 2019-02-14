@@ -913,6 +913,28 @@ namespace Nop.Web.Factories
 
             var shoppingCartTotalBase = _orderTotalCalculationService.GetShoppingCartTotal(cart, out decimal orderTotalDiscountAmountBase, out List<DiscountForCaching> _, out List<AppliedGiftCard> appliedGiftCards, out int redeemedRewardPoints, out decimal redeemedRewardPointsAmount);
 
+            var discountAttribute = _genericAttributeService.GetAttribute<string>(_workContext.CurrentCustomer, NopCustomerDefaults.AppliedDiscountsProductIdDiscount, _storeContext.CurrentStore.Id);
+
+            foreach (var item in discountAttribute.Split(","))
+            {
+                try
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        var id = int.Parse(item.Split("-")[0]);
+                        var discount = item.Split("-")[1];
+                        var unitPrice = _priceCalculationService.GetUnitPrice(cart.FirstOrDefault(x => x.Id == id));
+                        
+                        model.Items.FirstOrDefault(x => x.Id == id).UnitPrice = _priceFormatter.FormatPrice(unitPrice - unitPrice * decimal.Parse(discount) / 100);
+                        model.Items.FirstOrDefault(x => x.Id == id).Discount = discount;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    continue;
+                }
+            }
+
             //reward points to be spent (redeemed)
             if (redeemedRewardPointsAmount > decimal.Zero)
             {
