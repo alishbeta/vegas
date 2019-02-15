@@ -301,12 +301,12 @@ namespace Nop.Services.Discounts
                 {
                     discountAttribute += string.Format("{0}-{1},", cartItem.Id, mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent);
                     //cartItem.Product.Price = cartItem.Product.Price - (cartItem.Product.Price * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100);
-                    discountAmount += cartItem.Product.Price * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100;
-                    debugTip += string.Format("Применена скидка {0} ({1}%) для {2}[{3}] в размере {4}\n", mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().Name, mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent, cartItem.Product.Name, cartItem.Product.Id, cartItem.Product.Price * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100);
+                    discountAmount += cartItem.Product.Price * cartItem.Quantity * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100;
+                    debugTip += string.Format("Применена скидка {0} ({1}%) для {2}[{3}] в размере {4} грн\n", mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().Name, mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent, cartItem.Product.Name, cartItem.Product.Id, cartItem.Product.Price * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100);
                 }
             }
 
-            debugTip += "Комплексная скидка составила " + discountAmount;
+            debugTip += "Комплексная скидка составила " + discountAmount + " грн";
             return discountAmount;
         }
 

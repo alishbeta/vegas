@@ -190,26 +190,105 @@
     </div>
 </div>
 <script>
-    function UpdateCart() {
-        $(document).ready(function () {
-            $("#cartItems").empty();
-            $.ajax({
-                url: "/ShoppingCart/getcart",
-                type: "POST",
-                dataType: 'json',
-                traditional: true
-            }).done(function (responce) {
-                var sum = 0.0;
-                var count = 0;
-                responce.model.Items.forEach(function (product) {
-                    sum += parseFloat(product.SubTotal);
-                    count += product.Quantity;
-                });
-                $("#cart-price-full").text(sum);
-                $("#cart-price-full").data("price", sum);
-                $("#cart-count-full").text(count);
-            });
-        });
-    }
-    $(document).ready(UpdateCart());
+    //function UpdateCartTotal() {
+    //    console.log("update cart in cart");
+    //    $("#cartItems").empty();
+    //    $.ajax({
+    //        url: "/ShoppingCart/getcart",
+    //        type: "POST",
+    //        dataType: 'json',
+    //        traditional: true
+    //    }).done(function (responce) {
+    //        var sum = 0.0;
+    //        var count = 0;
+    //        responce.model.Items.forEach(function (product) {
+    //            sum += parseFloat(product.SubTotal);
+    //            count += product.Quantity;
+    //        });
+    //        $("#cart-price-full").text(sum);
+    //        $("#cart-price-full").data("price", sum);
+    //        $("#cart-count-full").text(count);
+    //        UpdateCart();
+    //    });
+    //}
+    function UpdateFullCart() {
+					$("#mainCartItems").addClass("load");
+					$.ajax({
+						url: "/ShoppingCart/getcart",
+						type: "POST",
+						dataType: 'json',
+						traditional: true
+					}).done(function (responce) {
+						GetCrossSellProducts();
+						if ($("#mainCartItems").length > 0) {
+							$("#mainCartItems").empty();
+						}
+
+						var sum = 0.0;
+						var count = 0;
+						var data = "";
+						$("#cartItems").empty();
+						responce.model.Items.forEach(function (product) {
+							var oldPrice = "";
+							if (product.OldPrice != null && product.OldPrice != product.UnitPrice && product.OldPrice != "") {
+								oldPrice = '<div class="price-old">' + product.OldPrice + '</div>';
+							}
+							var discount = "";
+							if (product.Discount != 0 && product.Discount != null) {
+								discount = '<div class="discount">-' + product.Discount + '%</div>';
+							}
+							var element =
+								'<div class="item">' +
+                                '<div class="img-wrapp">' +
+                                '<a href="/' + product.ProductSeName + '">' +
+                                '<img src="' + product.Picture.ImageUrl + '" alt="' + product.Picture.AlternateText + '">' + 
+                                '</a>' +
+                                '</div > ' +
+                                '<a href="/' + product.ProductSeName + '">' +
+                                '<div class="title">' + product.ProductName + '</div>' +
+                                '</a>' +
+								'<div class="item-name"></div>' +
+								'<div class="count-wrap mt-2 mb-3">' +
+								'<button class="minus" onclick="ChangeProductQuantity(' + product.ProductId + ', 1, -1, false)"></button>' +
+								'<div class="count">' + product.Quantity + '</div>' +
+								'<input id="it-count1" type="hidden" value="' + product.Quantity + '">' +
+								'<button class="plus" onclick="ChangeProductQuantity(' + product.ProductId + ', 1, 1, false)"></button>' +
+								'<div class="closee" onclick="RemoveFromCart(' + product.ProductId + ', 1, false)"></div>' +
+								'</div>' +
+								'<div class="price-wrap">' +
+								oldPrice +
+                                '<div class="price">' + product.UnitPrice +
+                                discount +
+                                '</div>' +
+								'</div>' +
+								'</div>' +
+								'<div class="line"></div>';
+							data = data + element;
+							if ($("#mainCartItems").length > 0) {
+								$("#mainCartItems").append(element);
+							}
+							sum += parseFloat(product.UnitPrice) * product.Quantity;
+							count += product.Quantity;
+						});
+						$("#cart-price").text(sum);
+						$("#cart-count").text(count);
+						if ($("#mainCartItems").length > 0) {
+							$("#cart-price-full").text(sum);
+                            $("#cart-count-full").text(count);
+                            $("#cart-price-full").data("price", sum);
+						}
+						if (sum > 0 && count > 0) {
+							$("#carttotal").css("display", "block");
+							$("#cartcontinue").prop("disabled", false);
+						}
+						else {
+							$("#cartcontinue").prop("disabled", true);
+							$("#carttotal").css("display", "none");
+							$("#cartItems").append("<h3>@T("cart.empty")</h3>");
+						}
+						$("#cartItems").append(data);
+						$("#mainCartItems").removeClass("load");
+					});
+				}
+    $(document).ready(UpdateFullCart());
 </script>

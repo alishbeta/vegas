@@ -369,8 +369,11 @@
 				}
 			</script>
 			<script>
-				function UpdateCart() {
-					$("#cartItems").addClass("load");
+                function UpdateCart() {
+                    $("#cartItems").addClass("load");
+                    if ($("#mainCartItems").length > 0) {
+                        $("#mainCartItems").addClass("load");
+                    }
 					$.ajax({
 						url: "/ShoppingCart/getcart",
 						type: "POST",
@@ -444,7 +447,10 @@
 							$("#cartItems").append("<h3>@T("cart.empty")</h3>");
 						}
 						$("#cartItems").append(data);
-						$("#cartItems").removeClass("load");
+                        $("#cartItems").removeClass("load");
+                        if ($("#mainCartItems").length > 0) {
+                            $("#mainCartItems").removeClass("load");
+                        }
 					});
 				}
                 $(document).ready(GetCrossSellProducts());
