@@ -500,7 +500,7 @@ namespace Nop.Services.Discounts
         public virtual IEnumerable<Product> GetProductsWithAppliedDiscountIEnumerable(int? discountId = null,
             bool showHidden = false, int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var products = _productRepository.Table.Where(product => product.HasDiscountsApplied);
+            var products = _productRepository.Table.Where(product => product.DiscountRate > 0);
 
             if (discountId.HasValue)
                 products = products.Where(product => product.DiscountProductMappings.Any(mapping => mapping.DiscountId == discountId.Value));

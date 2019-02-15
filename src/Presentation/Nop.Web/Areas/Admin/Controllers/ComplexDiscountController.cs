@@ -51,7 +51,19 @@ namespace Nop.Web.Areas.Admin.Controllers
 
             //prepare model
             var model = new ComplexDiscountSearchModel();
-
+            ViewBag.Groups = _discountService.GetAllComplexDiscounts()
+                .Select(x => x.GroupName)
+                .Distinct()
+                .Select(x => new SelectListItem()
+                {
+                    Text = x,
+                    Value = x
+                })
+                .Prepend(new SelectListItem()
+                {
+                    Text = _localizationService.GetResource("Admin.ComplexDiscount.Group.Empty"),
+                    Value = ""
+                });
             return View(model);
         }
 
