@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
@@ -14,6 +15,17 @@ namespace Nop.Services.Catalog
     public partial interface IProductService
     {
         #region Products
+
+        #region ComplexDiscount
+
+        IEnumerable<SelectListItem> GetAllOneCProductTypes();
+
+        IEnumerable<SelectListItem> GetAllProductCollections();
+
+        IEnumerable<SelectListItem> GetAllProductModels();
+
+        #endregion
+
         void InsertStatus(Status status);
 
         Product GetProductByName(string name);

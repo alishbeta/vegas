@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Core.Data;
@@ -281,6 +282,73 @@ namespace Nop.Services.Catalog
         #endregion
 
         #region Methods
+
+        #region ComplexDiscount
+
+        public virtual IEnumerable<SelectListItem> GetAllOneCProductTypes()
+        {
+            //var query = _productRepository.Table.Where(x => !string.IsNullOrEmpty(x.ProductTypeForOneC)).Select(x => x.ProductTypeForOneC).Distinct().ToList();
+            var query = from p in _productRepository.Table
+                        orderby p.Id
+                        where !p.Deleted &&
+                        !string.IsNullOrEmpty(p.ProductTypeForOneC)
+                        select p.ProductTypeForOneC;
+            return query.Distinct().Select(x => new SelectListItem()
+            {
+                Text = x,
+                Value = x
+            })
+            .ToList()
+            .Prepend(new SelectListItem()
+            {
+                Text = _localizationService.GetResource("Admin.ComplexDiscount.ProductTypeOneC.Empty"),
+                Value = ""
+            });
+        }
+
+        public virtual IEnumerable<SelectListItem> GetAllProductCollections()
+        {
+            //var query = _productRepository.Table.Where(x => !string.IsNullOrEmpty(x.Collection)).Select(x => x.Collection).Distinct().ToList();
+            var query = from p in _productRepository.Table
+                        orderby p.Id
+                        where !p.Deleted &&
+                        !string.IsNullOrEmpty(p.Collection)
+                        select p.Collection;
+            return query.Distinct().Select(x => new SelectListItem()
+            {
+                Text = x,
+                Value = x
+            })
+            .ToList()
+            .Prepend(new SelectListItem()
+            {
+                Text = _localizationService.GetResource("Admin.ComplexDiscount.Collection.Empty"),
+                Value = ""
+            });
+        }
+
+        public virtual IEnumerable<SelectListItem> GetAllProductModels()
+        {
+            //var query = _productRepository.Table.Where(x => !string.IsNullOrEmpty(x.MakeCode)).Select(x => x.MakeCode).Distinct().ToList();
+            var query = from p in _productRepository.Table
+                        orderby p.Id
+                        where !p.Deleted &&
+                        !string.IsNullOrEmpty(p.MakeCode)
+                        select p.MakeCode;
+            return query.Distinct().Select(x => new SelectListItem()
+            {
+                Text = x,
+                Value = x
+            })
+            .ToList()
+            .Prepend(new SelectListItem()
+            {
+                Text = _localizationService.GetResource("admin.complexdiscount.model.empty"),
+                Value = ""
+            });
+        }
+
+        #endregion
 
         #region Products
 

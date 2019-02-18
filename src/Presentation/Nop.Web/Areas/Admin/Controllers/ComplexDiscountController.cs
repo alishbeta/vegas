@@ -25,18 +25,21 @@ namespace Nop.Web.Areas.Admin.Controllers
         private readonly IManufacturerService _manufacturerService;
         private readonly IBaseAdminModelFactory _baseAdminModelFactory;
         private readonly ILocalizationService _localizationService;
+        private readonly IProductService _productService;
 
         public ComplexDiscountController(IPermissionService permissionService,
             IDiscountService discountService,
             IManufacturerService manufacturerService,
             IBaseAdminModelFactory baseAdminModelFactory,
-            ILocalizationService localizationService)
+            ILocalizationService localizationService,
+            IProductService productService)
         {
             this._permissionService = permissionService;
             this._discountService = discountService;
             this._manufacturerService = manufacturerService;
             this._baseAdminModelFactory = baseAdminModelFactory;
             this._localizationService = localizationService;
+            this._productService = productService;
         }
 
         public virtual IActionResult Index()
@@ -94,6 +97,9 @@ namespace Nop.Web.Areas.Admin.Controllers
             //prepare model
             var model = new ComplexDiscountModel();
             _baseAdminModelFactory.PrepareManufacturers(model.Manufacturers, true, _localizationService.GetResource("Admin.ComplexDiscount.Manufacturer.NotSelected"));
+            ViewBag.ProductTypes = _productService.GetAllOneCProductTypes();
+            ViewBag.ProductCollections = _productService.GetAllProductCollections();
+            ViewBag.ProductModels = _productService.GetAllProductModels();
             return View(model);
         }
 
@@ -140,6 +146,10 @@ namespace Nop.Web.Areas.Admin.Controllers
             var model = discount.ToModel<ComplexDiscountModel>();
             _baseAdminModelFactory.PrepareManufacturers(model.Manufacturers, true, _localizationService.GetResource("Admin.ComplexDiscount.Manufacturer.NotSelected"));
 
+            ViewBag.ProductTypes = _productService.GetAllOneCProductTypes();
+            ViewBag.ProductCollections = _productService.GetAllProductCollections();
+            ViewBag.ProductModels = _productService.GetAllProductModels();
+
             return View(model);
         }
 
@@ -172,6 +182,10 @@ namespace Nop.Web.Areas.Admin.Controllers
 
             //prepare manufacturers
             _baseAdminModelFactory.PrepareManufacturers(model.Manufacturers, true, _localizationService.GetResource("Admin.ComplexDiscount.Manufacturer.NotSelected"));
+
+            ViewBag.ProductTypes = _productService.GetAllOneCProductTypes();
+            ViewBag.ProductCollections = _productService.GetAllProductCollections();
+            ViewBag.ProductModels = _productService.GetAllProductModels();
 
             //if we got this far, something failed, redisplay form
             return View(model);

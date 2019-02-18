@@ -43,7 +43,7 @@
                                 <nop-label asp-for="InType" />
                             </div>
                             <div class="col-md-9">
-                                <nop-editor asp-for="InType" />
+                                <nop-select asp-for="InType" asp-items="@(IEnumerable<SelectListItem>)ViewBag.ProductTypes" />
                                 <span asp-validation-for="InType"></span>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 <nop-label asp-for="InManufacturerId" />
                             </div>
                             <div class="col-md-9">
-                                <nop-select asp-for="InManufacturerId" asp-items="@(IList<SelectListItem>)Model.Manufacturers" />
+                                <nop-select asp-for="InManufacturerId" asp-items="@(IEnumerable<SelectListItem>)Model.Manufacturers" />
                                 <span asp-validation-for="InManufacturerId"></span>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                 <nop-label asp-for="InCollection" />
                             </div>
                             <div class="col-md-9">
-                                <nop-editor asp-for="InCollection" />
+                                <nop-select asp-for="InCollection" asp-items="@(IEnumerable<SelectListItem>)ViewBag.ProductCollections" />
                                 <span asp-validation-for="InCollection"></span>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <nop-label asp-for="InModel" />
                             </div>
                             <div class="col-md-9">
-                                <nop-editor asp-for="InModel" />
+                                <nop-select asp-for="InModel" asp-items="@(IEnumerable<SelectListItem>)ViewBag.ProductModels" />
                                 <span asp-validation-for="InModel"></span>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                 <nop-label asp-for="ComType" />
                             </div>
                             <div class="col-md-9">
-                                <nop-editor asp-for="ComType" />
+                                <nop-select asp-for="ComType" asp-items="@(IEnumerable<SelectListItem>)ViewBag.ProductTypes" />
                                 <span asp-validation-for="ComType"></span>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                                 <nop-label asp-for="ComManufacturerId" />
                             </div>
                             <div class="col-md-9">
-                                <nop-select asp-for="ComManufacturerId" asp-items="@(IList<SelectListItem>)Model.Manufacturers" />
+                                <nop-select asp-for="ComManufacturerId" asp-items="@(IEnumerable<SelectListItem>)Model.Manufacturers" />
                                 <span asp-validation-for="ComManufacturerId"></span>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                 <nop-label asp-for="ComCollection" />
                             </div>
                             <div class="col-md-9">
-                                <nop-editor asp-for="ComCollection" />
+                                <nop-select asp-for="ComCollection" asp-items="@(IEnumerable<SelectListItem>)ViewBag.ProductCollections" />
                                 <span asp-validation-for="ComCollection"></span>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                                 <nop-label asp-for="ComModel" />
                             </div>
                             <div class="col-md-9">
-                                <nop-editor asp-for="ComModel" />
+                                <nop-select asp-for="ComModel" asp-items="@(IEnumerable<SelectListItem>)ViewBag.ProductModels" />
                                 <span asp-validation-for="ComModel"></span>
                             </div>
                         </div>
