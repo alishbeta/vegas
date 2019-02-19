@@ -223,7 +223,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col">
-                            <input type="text" name="Email" placeholder="@T("oneclick.email")" class="form-control col form-inline" required>
+                            <input type="hidden" name="Email" placeholder="@T("oneclick.email")" class="form-control col form-inline" value="@(User?.Identity?.Name ?? "1@email.com")">
                         </div>
                     </div>
                     <div class="form-group">
@@ -426,7 +426,7 @@
                 <div class="item-content">
                     @foreach (var specification in Model.ProductSpecifications)
                     {
-                        <p>@specification.SpecificationAttributeName: @Html.Raw(specification.ValueRaw)</p>
+                        <p><strong>@specification.SpecificationAttributeName</strong>: @Html.Raw(specification.ValueRaw)</p>
                     }
                 </div>
             </section>
