@@ -277,6 +277,8 @@ namespace Nop.Core.Domain.Customers
         /// </summary>
         public static string UseRewardPointsDuringCheckoutAttribute => "UseRewardPointsDuringCheckout";
         public static string RewardPointsToSpentDuringCheckoutAttribute => "RewardPointsToSpentDuringCheckout";
+        public static string AppliedDiscountsDebugTip => "AppliedDiscountsDebugTip";
+        public static string AppliedDiscountsProductIdDiscount => "AppliedDiscountsProductIdDiscount";
 
         /// <summary>
         /// Gets a name of generic attribute to store the value of 'EuCookieLawAccepted'

@@ -1377,7 +1377,7 @@ namespace Nop.Services.ExportImport
                             DiscountPrice = decimal.Parse(item.DiscountPrice.Replace('.', ',')),
                             DiscountRate = decimal.Parse(item.DiscountRate.Replace('.', ',')),
                             Collection = item.Collection,
-                            ProductTypeForOneC = item.ProductType
+                            ProductTypeForOneC = item.TypeProduct
                         };
 
                         if (statusId > 0)
@@ -1428,7 +1428,7 @@ namespace Nop.Services.ExportImport
                         product.DiscountPrice = decimal.Parse(item.DiscountPrice.Replace('.', ','));
                         product.DiscountRate = decimal.Parse(item.DiscountRate.Replace('.', ','));
                         product.Collection = item.Collection;
-                        product.ProductTypeForOneC = item.ProductType;
+                        product.ProductTypeForOneC = item.TypeProduct;
 
                         if (statusId > 0)
                         {

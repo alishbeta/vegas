@@ -83,20 +83,6 @@
                     <div class="col-md-6">
                         <div class="rate-rating clearfix">
                             <div class="name-description">
-                                <label for="AddProductReview.Rating">@T("reviews.total.rating"):</label>
-                            </div>
-                            <div class="rating-wrapper">
-                                <div id="reviewSmile-input">
-                                    @for (int i = 5; i > 0; i--)
-                                    {
-                                        <input id="smile-@(i-1)-0" type="radio" value="@i" name="AddProductReview.Rating">
-                                        <label title="@icons[i]" for="smile-@(i-1)-0"></label>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rate-rating clearfix">
-                            <div class="name-description">
                                 <label for="AddProductReview.ConsultationRating">@T("reviews.total.consultation"):</label>
                             </div>
                             <div class="rating-wrapper">
@@ -211,98 +197,121 @@
         <div class="diagram-wrapp">
             <div class="row">
                 <div class="col-md-8 total-diagram">
-                    <div class="title mb-4">@T("reviews.total.graph")</div>
-                    @if (Model.Items.Count() > 0)
-                    {
-                        <div class="item-wrapp">
-                            <div class="item-title">@T("reviews.rating")</div>
-                            <div class="item-line-wrapp">
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.Rating == 2 || x.Rating == 3))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.Rating == 4 || x.Rating == 5))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.Rating == 1))%</div>
-                            </div>
-                        </div>
-                    }
+                    <div class="title mb-4">@T("reviews.total.graph") @T(string.Format("review.period{0}", ViewBag.Period)).ToString().ToLower()</div>
                     @if (Model.Items.Count(x => x.ConsultationRating != null) > 0)
                     {
+                        var pos = Math.Round(100.0 / Model.Items.Count(x => x.ConsultationRating != null) * Model.Items.Count(x => x.ConsultationRating == 4 || x.ConsultationRating == 5));
+                        var neg = Math.Round(100.0 / Model.Items.Count(x => x.ConsultationRating != null) * Model.Items.Count(x => x.ConsultationRating == 1));
+                        var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.consultation")</div>
                             <div class="item-line-wrapp">
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.ConsultationRating != null) * Model.Items.Count(x => x.ConsultationRating == 2 || x.ConsultationRating == 3))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.ConsultationRating != null) * Model.Items.Count(x => x.ConsultationRating == 4 || x.ConsultationRating == 5))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.ConsultationRating != null) * Model.Items.Count(x => x.ConsultationRating == 1))%</div>
+                                <div class="item-line">@neytral%</div>
+                                <div class="item-line">@pos%</div>
+                                <div class="item-line">@neg%</div>
                             </div>
                         </div>
                     }
                     @if (Model.Items.Count(x => x.OnlineOrderRating != null) > 0)
                     {
+                        var pos = Math.Round(100.0 / Model.Items.Count(x => x.OnlineOrderRating != null) * Model.Items.Count(x => x.OnlineOrderRating == 4 || x.OnlineOrderRating == 5));
+                        var neg = Math.Round(100.0 / Model.Items.Count(x => x.OnlineOrderRating != null) * Model.Items.Count(x => x.OnlineOrderRating == 1));
+                        var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.total.online")</div>
                             <div class="item-line-wrapp">
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OnlineOrderRating != null) * Model.Items.Count(x => x.OnlineOrderRating == 2 || x.OnlineOrderRating == 3))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OnlineOrderRating != null) * Model.Items.Count(x => x.OnlineOrderRating == 4 || x.OnlineOrderRating == 5))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OnlineOrderRating != null) * Model.Items.Count(x => x.OnlineOrderRating == 1))%</div>
+                                <div class="item-line">@neytral%</div>
+                                <div class="item-line">@pos%</div>
+                                <div class="item-line">@neg%</div>
                             </div>
                         </div>
                     }
                     @if (Model.Items.Count(x => x.OfflineOrderRating != null) > 0)
                     {
+                        var pos = Math.Round(100.0 / Model.Items.Count(x => x.OfflineOrderRating != null) * Model.Items.Count(x => x.OfflineOrderRating == 4 || x.OfflineOrderRating == 5));
+                        var neg = Math.Round(100.0 / Model.Items.Count(x => x.OfflineOrderRating != null) * Model.Items.Count(x => x.OfflineOrderRating == 1));
+                        var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.total.offline")</div>
                             <div class="item-line-wrapp">
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OfflineOrderRating != null) * Model.Items.Count(x => x.OfflineOrderRating == 2 || x.OfflineOrderRating == 3))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OfflineOrderRating != null) * Model.Items.Count(x => x.OfflineOrderRating == 4 || x.OfflineOrderRating == 5))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.OfflineOrderRating != null) * Model.Items.Count(x => x.OfflineOrderRating == 1))%</div>
+                                <div class="item-line">@neytral%</div>
+                                <div class="item-line">@pos%</div>
+                                <div class="item-line">@neg%</div>
                             </div>
                         </div>
                     }
                     @if (Model.Items.Count(x => x.DeliveryRating != null) > 0)
                     {
+                        var pos = Math.Round(100.0 / Model.Items.Count(x => x.DeliveryRating != null) * Model.Items.Count(x => x.DeliveryRating == 4 || x.DeliveryRating == 5));
+                        var neg = Math.Round(100.0 / Model.Items.Count(x => x.DeliveryRating != null) * Model.Items.Count(x => x.DeliveryRating == 1));
+                        var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.total.delivery")</div>
                             <div class="item-line-wrapp">
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.DeliveryRating != null) * Model.Items.Count(x => x.DeliveryRating == 2 || x.DeliveryRating == 3))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.DeliveryRating != null) * Model.Items.Count(x => x.DeliveryRating == 4 || x.DeliveryRating == 5))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.DeliveryRating != null) * Model.Items.Count(x => x.DeliveryRating == 1))%</div>
+                                <div class="item-line">@neytral%</div>
+                                <div class="item-line">@pos%</div>
+                                <div class="item-line">@neg%</div>
                             </div>
                         </div>
                     }
                     @if (Model.Items.Count(x => x.InstallationRating != null) > 0)
                     {
+                        var pos = Math.Round(100.0 / Model.Items.Count(x => x.InstallationRating != null) * Model.Items.Count(x => x.InstallationRating == 4 || x.InstallationRating == 5));
+                        var neg = Math.Round(100.0 / Model.Items.Count(x => x.InstallationRating != null) * Model.Items.Count(x => x.InstallationRating == 1));
+                        var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.total.install")</div>
                             <div class="item-line-wrapp">
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.InstallationRating != null) * Model.Items.Count(x => x.InstallationRating == 2 || x.InstallationRating == 3))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.InstallationRating != null) * Model.Items.Count(x => x.InstallationRating == 4 || x.InstallationRating == 5))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count(x => x.InstallationRating != null) * Model.Items.Count(x => x.InstallationRating == 1))%</div>
+                                <div class="item-line">@neytral%</div>
+                                <div class="item-line">@pos%</div>
+                                <div class="item-line">@neg%</div>
                             </div>
                         </div>
                     }
                     @if (Model.Items.Count() > 0)
                     {
+                        var pos = Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.WillRecommend == true));
+                        var neg = Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.WillRecommend == false));
+                        var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.total.willrecommend")</div>
                             <div class="item-line-wrapp">
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.WillRecommend == null))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.WillRecommend == true))%</div>
-                                <div class="item-line">@Math.Round(100.0 / Model.Items.Count() * Model.Items.Count(x => x.WillRecommend == false))%</div>
+                                <div class="item-line">@neytral%</div>
+                                <div class="item-line">@pos%</div>
+                                <div class="item-line">@neg%</div>
                             </div>
                         </div>
                     }
                 </div>
                 <div class="col-md-4 total-rate">
-                    <div class="title mb-4">@("reviews.total.rate")</div>
+                    <div class="title mb-4">@T("reviews.total.rate")</div>
                     <div class="item-wrapp clearfix">
                         <div class="item-title float-left">@T("reviews.total.positive")</div>
-                        <div class="item-rate float-right">@Model.Items.Count(x => x.Rating == 4 || x.Rating == 5)</div>
+                        <div class="item-rate float-right">@(Model.Items.Count(x => x.ConsultationRating == 4 || x.ConsultationRating == 5) +
+        Model.Items.Count(x => x.InstallationRating == 4 || x.InstallationRating == 5) +
+        Model.Items.Count(x => x.OfflineOrderRating == 4 || x.OfflineOrderRating == 5) +
+        Model.Items.Count(x => x.OnlineOrderRating == 4 || x.OnlineOrderRating == 5) +
+        Model.Items.Count(x => x.DeliveryRating == 4 || x.DeliveryRating == 5))</div>
                     </div>
                     <div class="item-wrapp clearfix">
                         <div class="item-title float-left">@T("reviews.total.neutral")</div>
-                        <div class="item-rate float-right">@Model.Items.Count(x => x.Rating == 2 || x.Rating == 3)</div>
+                        <div class="item-rate float-right">
+                            @(Model.Items.Count(x => x.ConsultationRating == 2 || x.ConsultationRating == 3) +
+Model.Items.Count(x => x.InstallationRating == 2 || x.InstallationRating == 3) +
+Model.Items.Count(x => x.OfflineOrderRating == 2 || x.OfflineOrderRating == 3) +
+Model.Items.Count(x => x.OnlineOrderRating == 2 || x.OnlineOrderRating == 3) +
+Model.Items.Count(x => x.DeliveryRating == 2 || x.DeliveryRating == 3))
+                                            </div>
                     </div>
                     <div class="item-wrapp clearfix">
                         <div class="item-title float-left">@T("reviews.total.negative")</div>
-                        <div class="item-rate float-right">@Model.Items.Count(x => x.Rating == 1)</div>
+                        <div class="item-rate float-right">
+                            @(Model.Items.Count(x => x.ConsultationRating == 1) +
+Model.Items.Count(x => x.InstallationRating == 1) +
+Model.Items.Count(x => x.OfflineOrderRating == 1) +
+Model.Items.Count(x => x.OnlineOrderRating == 1) +
+Model.Items.Count(x => x.DeliveryRating == 1))
+                                            </div>
                     </div>
                     <div class="item-wrapp clearfix">
                         <div class="item-title float-left">@T("reviews.total.allreviews")</div>
@@ -313,9 +322,9 @@
         </div>
         <div class="comment-items">
             @if (Model.Items.Count > 0)
-            {
-                foreach (var review in Model.Items)
-                {
+                        {
+                            foreach (var review in Model.Items)
+                            {
                     <ul>
                         <li class="list">
                             <div class="clearfix">
@@ -330,7 +339,7 @@
                                                 <span class="@(review.WillRecommend == null ? "grey" : review.WillRecommend == true ? "green" : "red")">@(review.WillRecommend == null ? T("willrecommend.null") : review.WillRecommend == true ? T("willrecommend.true") : T("willrecommend.false"))</span>
                                             </button>
                                             @if (review.CustomerId == ViewBag.CustomerId)
-                                            {
+                        {
                                                 <div class="dropdown-menu" aria-labelledby="dropdownRecomend" name="WillRecommend">
                                                     <a class="dropdown-item" href="#" onclick="ChangeReview(@review.Id, true);return false;"><span class="green">@T("willrecommend.true")</span></a>
                                                     <a class="dropdown-item" href="#" onclick="ChangeReview(@review.Id, null);return false;"><span class="grey">@T("willrecommend.null")</span></a>
@@ -338,7 +347,7 @@
                                                 </div>
                                             }
                                         </div>
-                                        <div class="more">@T("reviews.more")</div>
+                                        <div class="more btn btn-link">@T("reviews.more")</div>
                                     </div>
                                 </div>
                                 <div class="text-wrap">
@@ -346,40 +355,36 @@
                                 </div>
                             </div>
                             <div class="user-rate-items">
-                                <div class="user-rate-item">
-                                    <div class="item-title">@T("reviews.rating")</div>
-                                    <div class="sprite-smile @icons[review.Rating]"></div>
-                                </div>
                                 @if (review.ConsultationRating != null)
-                                {
+                    {
                                     <div class="user-rate-item">
                                         <div class="item-title">@T("reviews.total.consultation")</div>
                                         <div class="sprite-smile @icons[review.ConsultationRating ?? 0]"></div>
                                     </div>
                                 }
                                 @if (review.ConsultationRating != null)
-                                {
+                    {
                                     <div class="user-rate-item">
                                         <div class="item-title">@T("reviews.total.online")</div>
                                         <div class="sprite-smile @icons[review.OnlineOrderRating ?? 0]"></div>
                                     </div>
                                 }
                                 @if (review.ConsultationRating != null)
-                                {
+                    {
                                     <div class="user-rate-item">
                                         <div class="item-title">@T("reviews.total.offline")</div>
                                         <div class="sprite-smile @icons[review.OfflineOrderRating ?? 0]"></div>
                                     </div>
                                 }
                                 @if (review.ConsultationRating != null)
-                                {
+                    {
                                     <div class="user-rate-item">
                                         <div class="item-title">@T("reviews.total.delivery")</div>
                                         <div class="sprite-smile @icons[review.DeliveryRating ?? 0]"></div>
                                     </div>
                                 }
                                 @if (review.ConsultationRating != null)
-                                {
+                    {
                                     <div class="user-rate-item">
                                         <div class="item-title">@T("reviews.total.install")</div>
                                         <div class="sprite-smile @icons[review.InstallationRating ?? 0]"></div>
@@ -387,7 +392,7 @@
                                 }
                             </div>
                             @if (!string.IsNullOrEmpty(review.ReplyText))
-                            {
+                    {
                                 <ul>
                                     <li class="list">
                                         <div class="clearfix">
@@ -417,41 +422,41 @@
 <script>
     function ChangeReview(ReviewId, WillRecommend) {
         $.ajax({
-            url: '/common/ChangeRecommendation',
+                            url: '/common/ChangeRecommendation',
             type: 'post',
             data: {
-                ReviewId,
+                                ReviewId,
                 WillRecommend
             }
-        }).done(function (data) {
-            if (data.success) {
-                window.location.reload();
-            }
-            else {
-                console.log(data);
-            }
-        });
-    }
+                        }).done(function (data) {
+                            if (data.success) {
+                                window.location.reload();
+                            }
+                            else {
+                                console.log(data);
+                            }
+                        });
+                    }
     $('#add-review-form').submit(function (e) {
-        e.preventDefault();
+                        e.preventDefault();
         $.ajax({
-            url: '/reviews',
+                            url: '/reviews',
             type: 'post',
             data: $('#add-review-form').serialize()
         }).done(function (data) {
-            if (data.success) {
-                window.location.reload();
-            }
-            else {
-                console.log(data.message);
-            }
-        });
-    });
+                            if (data.success) {
+                                window.location.reload();
+                            }
+                            else {
+                                console.log(data);
+                            }
+                        });
+                    });
 </script>
 <script>
     function SubmitPeriod(value) {
-        window.location.replace('?period=' + value);
-    }
+                        window.location.replace('?period=' + value);
+                    }
 </script>
 
 @******************************old*********************************@

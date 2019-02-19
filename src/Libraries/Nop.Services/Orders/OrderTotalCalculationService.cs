@@ -1299,8 +1299,14 @@ namespace Nop.Services.Orders
             if (_shoppingCartSettings.RoundPricesDuringCalculation)
                 resultTemp = _priceCalculationService.RoundPrice(resultTemp);
 
+            var complexDiscountAmount = _discountService.GetComplexDiscountAmount(cart, out string debugTip, out string discountAttribute);
+            _genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, NopCustomerDefaults.AppliedDiscountsDebugTip, debugTip, _storeContext.CurrentStore.Id);
+            _genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, NopCustomerDefaults.AppliedDiscountsProductIdDiscount, discountAttribute, _storeContext.CurrentStore.Id);
+
+            appliedDiscounts = new List<DiscountForCaching>();
+
             //order total discount
-            discountAmount = GetOrderTotalDiscount(customer, resultTemp, out appliedDiscounts);
+            discountAmount = complexDiscountAmount > 0 ? complexDiscountAmount : GetOrderTotalDiscount(customer, resultTemp, out appliedDiscounts);
 
             //sub totals with discount        
             if (resultTemp < discountAmount)
@@ -1317,6 +1323,8 @@ namespace Nop.Services.Orders
             //let's apply gift cards now (gift cards that can be used)
             appliedGiftCards = new List<AppliedGiftCard>();
             AppliedGiftCards(cart, appliedGiftCards, customer, ref resultTemp);
+
+            
 
             if (resultTemp < decimal.Zero)
                 resultTemp = decimal.Zero;

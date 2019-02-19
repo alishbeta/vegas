@@ -1,0 +1,266 @@
+﻿@using Nop.Web.Areas.Admin.Models.ComplexDiscounts;
+@model ComplexDiscountSearchModel
+
+@{
+    //page title
+    ViewBag.Title = T("Admin.Promotions.ComplexDiscounts").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("ComplexDiscounts");
+}
+
+<nop-antiforgery-token />
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        @T("Admin.Promotions.ComplexDiscounts")
+    </h1>
+    <div class="pull-right">
+        <a asp-action="Create" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            @T("Admin.Common.AddNew")
+        </a>
+        <button type="button" id="delete-selected" class="btn bg-red">
+            <i class="fa fa-trash-o"></i>
+            @T("Admin.Catalog.ProductReviews.DeleteSelected")
+        </button>
+        <nop-action-confirmation asp-button-id="delete-selected" />
+    </div>
+</div>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="panel-group">
+            <div class="panel panel-default panel-search">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @*<div class="col-md-4">
+            <nop-label asp-for="SearchDiscountGroupName" />
+        </div>
+        <div class="col-md-8">
+            <nop-editor asp-for="SearchDiscountGroupName" />
+        </div>*@
+                                <div class="col-md-4">
+                                    <nop-label asp-for="SearchDiscountGroupName" />
+                                </div>
+                                <div class="col-md-8">
+                                    <nop-select asp-for="SearchDiscountGroupName" asp-items="@ViewBag.Groups" />
+                                </div>
+                            </div>
+                            @*<div class="form-group">
+                                <div class="col-md-4">
+                                    <nop-label asp-for="SearchDiscountCouponCode" />
+                                </div>
+                                <div class="col-md-8">
+                                    <nop-editor asp-for="SearchDiscountCouponCode" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <nop-label asp-for="SearchDiscountTypeId" />
+                                </div>
+                                <div class="col-md-8">
+                                    <nop-select asp-for="SearchDiscountTypeId" asp-items="Model.AvailableDiscountTypes" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <nop-label asp-for="SearchStartDate" />
+                                </div>
+                                <div class="col-md-8">
+                                    <nop-editor asp-for="SearchStartDate" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <nop-label asp-for="SearchEndDate" />
+                                </div>
+                                <div class="col-md-8">
+                                    <nop-editor asp-for="SearchEndDate" />
+                                </div>
+                            </div>*@
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-offset-4">
+                                    <button type="button" id="search-discounts" class="btn btn-primary btn-search">
+                                        <i class="fa fa-search"></i>
+                                        @T("Admin.Common.Search")
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="discounts-grid"></div>
+
+                    <script>
+                        $(document).ready(function() {
+                            $("#discounts-grid").kendoGrid({
+                                dataSource: {
+                                    type: "json",
+                                    transport: {
+                                        read: {
+                                            url: "@Html.Raw(Url.Action("List", "ComplexDiscount"))",
+                                            type: "POST",
+                                            dataType: "json",
+                                            data: function() {
+                                                var data = {
+                                                    SearchDiscountGroupName: $('#@Html.IdFor(model => model.SearchDiscountGroupName)').val(),
+                                                };
+                                                addAntiForgeryToken(data);
+                                                return data;
+                                            }
+                                        }
+                                    },
+                                    schema: {
+                                        data: "Data",
+                                        total: "Total",
+                                        errors: "Errors"
+                                    },
+                                    error: function(e) {
+                                        display_kendoui_grid_error(e);
+                                        // Cancel the changes
+                                        this.cancelChanges();
+                                    },
+                                    pageSize: @(Model.PageSize),
+                                    serverPaging: true,
+                                    serverFiltering: true,
+                                    serverSorting: true
+                                },
+                                pageable: {
+                                    refresh: true,
+                                    pageSizes: [@(Model.AvailablePageSizes)],
+                                    @await Html.PartialAsync("_GridPagerMessages")
+                                },
+                                editable: {
+                                    confirmation: "@T("Admin.Common.DeleteConfirmation")",
+                                    mode: "inline"
+                                },
+                                scrollable: false,
+                                columns: [
+                                    {
+                                        field: "Id",
+                                        headerTemplate: "<input id='mastercheckbox' type='checkbox'/>",
+                                        headerAttributes: { style: "text-align:center" },
+                                        attributes: { style: "text-align:center" },
+                                        template: "<input type='checkbox' value='#=Id#' class='checkboxGroups'/>",
+                                        width: 50
+                                    }, {
+                                        field: "Name",
+                                        title: "@T("Admin.Promotions.Discounts.Fields.Name")",
+                                        width: 350
+                                    }, {
+                                        field: "GroupName",
+                                        title: "@T("Admin.Promotions.Discounts.Fields.GroupName")",
+                                        width: 150
+                                    }, {
+                                        field: "DiscountPercent",
+                                        title: "@T("Admin.Promotions.Discounts.Fields.Discount")",
+                                        width: 200,
+                                    }, {
+                                        field: "Id",
+                                        title: "@T("Admin.Common.Edit")",
+                                        width: 100,
+                                        headerAttributes: { style: "text-align:center" },
+                                        attributes: { style: "text-align:center" },
+                                        template: '<a class="btn btn-default" href="Edit/#=Id#"><i class="fa fa-pencil"></i>@T("Admin.Common.Edit")</a>'
+                                    }
+                                ]
+                            });
+                        });
+                    </script>
+                    <script>
+    var selectedIds = [];
+
+    $(document).ready(function() {
+        //search button
+        $(document).ready(function () {
+            $('#search-discounts').click(function () {
+                var grid = $('#discounts-grid').data('kendoGrid');
+                grid.dataSource.page(1); //new search. Set page size to 1
+                //grid.dataSource.read(); we already loaded the grid above using "page" function
+                return false;
+            });
+        });
+
+         $("".concat("#@Html.IdFor(model => model.SearchDiscountGroupName)")).keydown(function (event) {
+                if (event.keyCode === 13) {
+                    $("#search-discounts").click();
+                    return false;
+                }
+            });
+
+        //"delete selected" button
+                            $("#delete-selected-action-confirmation-submit-button").bind("click", function () {
+                                var postData = {
+                                    selectedIds: selectedIds
+                                };
+                                addAntiForgeryToken(postData);
+                                $.ajax({
+                                    cache: false,
+                                    type: "POST",
+                                    url: "@(Url.Action("DeleteSelected", "ComplexDiscount"))",
+                                    data: postData,
+                                    complete: function (data) {
+                                        //reload grid
+                                        var grid = $('#discounts-grid').data('kendoGrid');
+                                        grid.dataSource.read();
+                                    },
+                                    error: function (xhr, ajaxOptions, thrownError) {
+                                        alert(thrownError);
+                                    }
+                                });
+                                $('#delete-selected-action-confirmation').modal('toggle');
+                                return false;
+                            });
+
+        $('#mastercheckbox').click(function() {
+            $('.checkboxGroups').attr('checked', $(this).is(':checked')).change();
+        });
+
+        //wire up checkboxes.
+        $('#discounts-grid').on('change', 'input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]', function(e) {
+            var $check = $(this);
+            var checked = jQuery.inArray($check.val(), selectedIds);
+            if ($check.is(":checked") == true) {
+                if (checked == -1) {
+                    //add id to selectedIds.
+                    selectedIds.push($check.val());
+                }
+            } else if (checked > -1) {
+                //remove id from selectedIds.
+                selectedIds = $.grep(selectedIds, function (item, index) {
+                    return item != $check.val();
+                });
+            }
+            updateMasterCheckbox();
+            console.log(selectedIds);
+        });
+    });
+
+    function onDataBound(e) {
+        $('#customers-grid input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]').each(function() {
+            var currentId = $(this).val();
+            var checked = jQuery.inArray(currentId, selectedIds);
+            //set checked based on if current checkbox's value is in selectedIds.
+            $(this).attr('checked', checked > -1);
+        });
+
+        updateMasterCheckbox();
+    }
+
+    function updateMasterCheckbox() {
+        var numChkBoxes = $('#customers-grid input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]').length;
+        var numChkBoxesChecked = $('#customers-grid input[type=checkbox][id!=mastercheckbox][class=checkboxGroups]:checked').length;
+        $('#mastercheckbox').attr('checked', numChkBoxes == numChkBoxesChecked && numChkBoxes > 0);
+                      }
+
+                        </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

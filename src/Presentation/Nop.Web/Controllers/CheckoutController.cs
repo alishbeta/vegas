@@ -940,6 +940,8 @@ namespace Nop.Web.Controllers
             }
 			var model = new ShoppingCartModel();
 			model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
+            ViewBag.DebugTip = _genericAttributeService.GetAttribute<string>(_workContext.CurrentCustomer, NopCustomerDefaults.AppliedDiscountsDebugTip, _storeContext.CurrentStore.Id);
+            
 			return View(model);
 		}
 

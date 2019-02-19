@@ -1,0 +1,66 @@
+﻿@using Nop.Web.Areas.Admin.Models.ComplexDiscounts;
+@model ComplexDiscountModel
+
+@{
+    //page title
+    ViewBag.Title = T("Admin.Promotions.ComplexDiscounts.EditDiscountDetails").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("ComplexDiscounts");
+}
+
+<form asp-controller="ComplexDiscount" asp-action="Edit" method="post" id="discount-form">
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Admin.Promotions.ComplexDiscounts.EditDiscountDetails") - @Model.Name
+            <small>
+                <i class="fa fa-arrow-circle-left"></i>
+                <a asp-action="List">@T("Admin.Promotions.ComplexDiscounts.BackToList")</a>
+            </small>
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.Save")
+            </button>
+            <button type="submit" name="save-continue" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.SaveContinue")
+            </button>
+            <button type="button" name="copydiscount" class="btn bg-olive" data-toggle="modal" data-target="#copydiscount-window">
+                <i class="fa fa-clone"></i>
+                @T("Admin.Catalog.ComplexDiscount.Copy")
+            </button>
+            <span id="discount-delete" class="btn bg-red">
+                <i class="fa fa-trash-o"></i>
+                @T("Admin.Common.Delete")
+            </span>
+        </div>
+        @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DiscountDetailsButtons, additionalData = Model })
+    </div>
+    @await Html.PartialAsync("_CreateOrUpdate", Model)
+</form>
+<nop-delete-confirmation asp-model-id="@Model.Id" asp-button-id="discount-delete" />
+
+<div id="copydiscount-window" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="copydiscount-window-title">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="copydiscount-window-title">@T("Admin.Catalog.ComplexDiscount.Copy")</h4>
+            </div>
+            <form asp-controller="ComplexDiscount" asp-action="CopyComplexDiscount" method="post">
+                <div class="form-horizontal">
+                    <div class="modal-body">
+                        <input asp-for="@Model.Id" type="hidden" />
+                        <h5>@T("Admin.Catalog.ComplexDiscount.Copy.Confirm")</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">
+                            @T("Admin.Catalog.ComplexDiscount.Copy")
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

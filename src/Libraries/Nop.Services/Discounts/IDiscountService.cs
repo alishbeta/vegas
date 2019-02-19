@@ -4,6 +4,7 @@ using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Discounts;
+using Nop.Core.Domain.Orders;
 
 namespace Nop.Services.Discounts
 {
@@ -12,6 +13,42 @@ namespace Nop.Services.Discounts
     /// </summary>
     public partial interface IDiscountService
     {
+        #region Complex Discounts
+
+        /// <summary>
+        /// Gets all complex discounts
+        /// </summary>
+        IList<ComplexDiscount> GetAllComplexDiscounts(string searchDiscountGroupName = null);
+
+        /// <summary>
+        /// Gets a complex discount
+        /// </summary>
+        /// <param name="discountId">Discount identifier</param>
+        /// <returns>Discount</returns>
+        ComplexDiscount GetComplexDiscountById(int id);
+
+        /// <summary>
+        /// Inserts a complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        void InsertComplexDiscount(ComplexDiscount discount);
+
+        /// <summary>
+        /// Update complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        void UpdateComplexDiscount(ComplexDiscount discount);
+
+        /// <summary>
+        /// Delete complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        void DeleteComplexDiscount(ComplexDiscount discount);
+
+        decimal GetComplexDiscountAmount(IList<ShoppingCartItem> cart, out string debugTip, out string discountAttribute);
+
+        #endregion
+
         #region Discounts
 
         /// <summary>

@@ -5,8 +5,8 @@ using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Core.Data;
 using Nop.Core.Domain.Catalog;
-using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Discounts;
+using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Orders;
 using Nop.Services.Catalog;
 using Nop.Services.Customers;
@@ -31,6 +31,7 @@ namespace Nop.Services.Discounts
         private readonly IPluginFinder _pluginFinder;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Discount> _discountRepository;
+        private readonly IRepository<ComplexDiscount> _complexDiscountRepository;
         private readonly IRepository<DiscountRequirement> _discountRequirementRepository;
         private readonly IRepository<DiscountUsageHistory> _discountUsageHistoryRepository;
         private readonly IRepository<Manufacturer> _manufacturerRepository;
@@ -49,6 +50,7 @@ namespace Nop.Services.Discounts
             IPluginFinder pluginFinder,
             IRepository<Category> categoryRepository,
             IRepository<Discount> discountRepository,
+            IRepository<ComplexDiscount> complexDiscountRepository,
             IRepository<DiscountRequirement> discountRequirementRepository,
             IRepository<DiscountUsageHistory> discountUsageHistoryRepository,
             IRepository<Manufacturer> manufacturerRepository,
@@ -56,6 +58,7 @@ namespace Nop.Services.Discounts
             IStaticCacheManager cacheManager,
             IStoreContext storeContext)
         {
+            this._complexDiscountRepository = complexDiscountRepository;
             this._categoryService = categoryService;
             this._customerService = customerService;
             this._eventPublisher = eventPublisher;
@@ -183,6 +186,131 @@ namespace Nop.Services.Discounts
         #endregion
 
         #region Methods
+
+        #region Complex Discounts
+
+        /// <summary>
+        /// Gets all complex discounts
+        /// </summary>
+        public virtual IList<ComplexDiscount> GetAllComplexDiscounts(string searchDiscountGroupName = null)
+        {
+            if (string.IsNullOrEmpty(searchDiscountGroupName))
+            {
+                return _complexDiscountRepository.Table.ToList();
+            }
+            else
+            {
+                var query = from s in _complexDiscountRepository.Table
+                            where s.GroupName == searchDiscountGroupName
+                            select s;
+                return query.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Gets a complex discount
+        /// </summary>
+        /// <param name="discountId">Discount identifier</param>
+        /// <returns>Discount</returns>
+        public virtual ComplexDiscount GetComplexDiscountById(int id)
+        {
+            return _complexDiscountRepository.GetById(id);
+        }
+
+        /// <summary>
+        /// Inserts a complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        public virtual void InsertComplexDiscount(ComplexDiscount discount)
+        {
+            if (discount == null)
+                throw new ArgumentNullException(nameof(discount));
+
+            _complexDiscountRepository.Insert(discount);
+
+            //event notification
+            _eventPublisher.EntityInserted(discount);
+        }
+
+        /// <summary>
+        /// Update complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        public virtual void UpdateComplexDiscount(ComplexDiscount discount)
+        {
+            if (discount == null)
+                throw new ArgumentNullException(nameof(discount));
+
+            _complexDiscountRepository.Update(discount);
+
+            //event notification
+            _eventPublisher.EntityUpdated(discount);
+        }
+
+        /// <summary>
+        /// Delete complex discount
+        /// </summary>
+        /// <param name="discount">Discount</param>
+        public virtual void DeleteComplexDiscount(ComplexDiscount discount)
+        {
+            if (discount == null)
+                throw new ArgumentNullException(nameof(discount));
+
+            _complexDiscountRepository.Delete(discount);
+
+            //event notification
+            _eventPublisher.EntityDeleted(discount);
+        }
+
+        public virtual decimal GetComplexDiscountAmount(IList<ShoppingCartItem> cart, out string debugTip, out string discountAttribute)
+        {
+            debugTip = "";
+            discountAttribute = "";
+            var allComplexDiscounts = GetAllComplexDiscounts();
+            var mayApliedDiscounts = new List<ComplexDiscount>();
+            decimal discountAmount = 0;
+
+            foreach (var cartItem in cart)
+            {
+                mayApliedDiscounts.Clear();
+                var product = cartItem.Product;
+                var productManufacturerIds = product.ProductManufacturers.Select(x => x.ManufacturerId);
+                var productCollection = product.Collection;
+                var productModel = product.MakeCode;
+                var productType = product.ProductTypeForOneC;
+
+                var discounts = allComplexDiscounts.Where(x => (string.IsNullOrEmpty(x.InCollection) || x.InCollection == productCollection) && (string.IsNullOrEmpty(x.InModel) || x.InModel == productModel) && (string.IsNullOrEmpty(x.InType) || x.InType == productType) && (x.InManufacturerId == 0 || productManufacturerIds.Contains(x.InManufacturerId)));
+                foreach (var complexDiscount in discounts)
+                {
+                    IEnumerable<ShoppingCartItem> cartItems = cart;
+                    if (cartItem.Quantity < 2)
+                    {
+                        cartItems = cart.Where(x => x != cartItem); //Если такой товар в корзине только один, он не может быть соседним самому себе. Если их два - может
+                    }
+                    if (cartItems.Select(x => x.Product).Count(x =>
+                    (string.IsNullOrEmpty(complexDiscount.ComCollection) || x.Collection == complexDiscount.ComCollection) &&
+                    (string.IsNullOrEmpty(complexDiscount.ComModel) || x.MakeCode == complexDiscount.ComModel) &&
+                    (string.IsNullOrEmpty(complexDiscount.ComType) || x.ProductTypeForOneC == complexDiscount.ComType) &&
+                    (complexDiscount.ComManufacturerId == 0 || x.ProductManufacturers.Count(u => u.ManufacturerId == complexDiscount.ComManufacturerId) > 0)
+                    ) > 0)
+                    {
+                        mayApliedDiscounts.Add(complexDiscount);
+                    }
+                }
+                if (mayApliedDiscounts.Count > 0)
+                {
+                    discountAttribute += string.Format("{0}-{1},", cartItem.Id, mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent);
+                    //cartItem.Product.Price = cartItem.Product.Price - (cartItem.Product.Price * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100);
+                    discountAmount += cartItem.Product.Price * cartItem.Quantity * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100;
+                    debugTip += string.Format("Применена скидка {0} ({1}%) для {2}[{3}] в размере {4} грн\n", mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().Name, mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent, cartItem.Product.Name, cartItem.Product.Id, cartItem.Product.Price * mayApliedDiscounts.OrderByDescending(x => x.DiscountPercent).FirstOrDefault().DiscountPercent / 100);
+                }
+            }
+
+            debugTip += "Комплексная скидка составила " + discountAmount + " грн";
+            return discountAmount;
+        }
+
+        #endregion
 
         #region Discounts
 
@@ -372,7 +500,7 @@ namespace Nop.Services.Discounts
         public virtual IEnumerable<Product> GetProductsWithAppliedDiscountIEnumerable(int? discountId = null,
             bool showHidden = false, int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var products = _productRepository.Table.Where(product => product.HasDiscountsApplied);
+            var products = _productRepository.Table.Where(product => product.DiscountRate > 0);
 
             if (discountId.HasValue)
                 products = products.Where(product => product.DiscountProductMappings.Any(mapping => mapping.DiscountId == discountId.Value));
