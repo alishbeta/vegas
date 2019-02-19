@@ -368,7 +368,62 @@
 }
 
 .check-fly{
+    input + label + label {
+        margin-left: 15px;
+    }
     &:first-child{
+        input{
+            + label{
+                display: block;
+                height: 30px;
+                width: 42px;
+                margin: auto;
+                &:after {
+                    content: '';
+                    display: block;
+                    background: url(/img/sprite_smile_.png);
+                    background-position: -161px -41px;
+                    -webkit-mask-image: unset;
+                    border: 1px solid transparent;
+                    height: 41px;
+                    width: 40px;
+                    top: 0;
+                }
+            }
+            &:checked + label{
+                &:after {
+                    background-position: -161px -1px;
+                }
+            }
+        }
+    } 
+    &:nth-child(2){
+        input{
+            + label{
+                display: block;
+                height: 30px;
+                width: 42px;
+                margin: auto;
+                &:after {
+                    content: '';
+                    display: block;
+                    background: url(/img/sprite_smile_.png);
+                    background-position: -161px -41px;
+                    -webkit-mask-image: unset;
+                    border: 1px solid transparent;
+                    height: 41px;
+                    width: 40px;
+                    top: 0;
+                }
+            }
+            &:checked + label{
+                &:after {
+                    background-position: -161px -1px;
+                }
+            }
+        }
+    }
+    &:last-child{
         input{
             + label{
                 display: block;
@@ -389,7 +444,7 @@
             }
             &:checked + label{
                 &:after {
-                    background-position: 0 0;
+                    background-position: -1px -1px;
                 }
             }
         }
@@ -443,9 +498,33 @@
                 width: 100%;
             }
         } 
+        #reviewSmile-input label {
+            margin-right: 9px;
+        }
     }
     .form-block{
         margin-left: -15px;
     }
-
+    .form-check-inline{
+        font-size: 11px;
+    }
+    .check-fly:first-child input + label {
+        height: 40px;
+        width: 25px;
+    }
+    .check-fly:nth-child(2) input + label {
+        height: 40px;
+        width: 25px;
+    }
+    .check-fly:last-child input + label {
+        height: 40px;
+        width: 25px;
+    }
+    .item-title{
+        line-height: 2.5;
+        font-size: 14px;
+    }
+    .kostil{
+        padding: 0;
+    }
 }

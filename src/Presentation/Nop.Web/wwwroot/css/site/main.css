@@ -4383,6 +4383,9 @@ section .item {
   margin-right: 15px;
 }
 
+.check-fly input + label + label {
+  margin-left: 15px;
+}
 .check-fly:first-child input + label {
   display: block;
   height: 30px;
@@ -4393,15 +4396,55 @@ section .item {
   content: '';
   display: block;
   background: url(/img/sprite_smile_.png);
-  background-position: 0 -40px;
+  background-position: -161px -41px;
   -webkit-mask-image: unset;
   border: 1px solid transparent;
-  height: 42px;
-  width: 41px;
+  height: 41px;
+  width: 40px;
   top: 0;
 }
 .check-fly:first-child input:checked + label:after {
-  background-position: 0 0;
+  background-position: -161px -1px;
+}
+.check-fly:nth-child(2) input + label {
+  display: block;
+  height: 30px;
+  width: 42px;
+  margin: auto;
+}
+.check-fly:nth-child(2) input + label:after {
+  content: '';
+  display: block;
+  background: url(/img/sprite_smile_.png);
+  background-position: -161px -41px;
+  -webkit-mask-image: unset;
+  border: 1px solid transparent;
+  height: 41px;
+  width: 40px;
+  top: 0;
+}
+.check-fly:nth-child(2) input:checked + label:after {
+  background-position: -161px -1px;
+}
+.check-fly:last-child input + label {
+  display: block;
+  height: 30px;
+  width: 42px;
+  margin: auto;
+}
+.check-fly:last-child input + label:after {
+  content: '';
+  display: block;
+  background: url(/img/sprite_smile_.png);
+  background-position: -1px -41px;
+  -webkit-mask-image: unset;
+  border: 1px solid transparent;
+  height: 41px;
+  width: 40px;
+  top: 0;
+}
+.check-fly:last-child input:checked + label:after {
+  background-position: -1px -1px;
 }
 
 .green {
@@ -4444,9 +4487,40 @@ section .item {
   .commets-wrap .diagram-wrapp .total-diagram .item-wrapp .item-line-wrapp {
     width: 100%;
   }
+  .commets-wrap #reviewSmile-input label {
+    margin-right: 9px;
+  }
 
   .form-block {
     margin-left: -15px;
+  }
+
+  .form-check-inline {
+    font-size: 11px;
+  }
+
+  .check-fly:first-child input + label {
+    height: 40px;
+    width: 25px;
+  }
+
+  .check-fly:nth-child(2) input + label {
+    height: 40px;
+    width: 25px;
+  }
+
+  .check-fly:last-child input + label {
+    height: 40px;
+    width: 25px;
+  }
+
+  .item-title {
+    line-height: 2.5;
+    font-size: 14px;
+  }
+
+  .kostil {
+    padding: 0;
   }
 }
 @media (max-width: 1199px) {
