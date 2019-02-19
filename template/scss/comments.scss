@@ -1,4 +1,5 @@
 .commets-wrap {
+    padding-left: 15px;
     .commets-block {
         margin-top: 30px;
     }
@@ -19,6 +20,7 @@
                     vertical-align: middle;
                     .item-line {
                         text-align: center;
+                        color: transparent;
                         &:first-child {
                             position: absolute;
                             background-color: #dbdbdb;
@@ -51,7 +53,7 @@
         }
     }
     .filters-wrap {
-        margin-left: -15px;
+        margin-left: -30px;
         .f2 {
             button:first-child {
                 width: 215px;
@@ -84,6 +86,7 @@
                 }
                 .btn-link {
                     font-size: 16px;
+                    padding: 0;
                     &:hover,
                     &:focus {
                         color: #2c96b9;
@@ -122,7 +125,10 @@
         font-weight: 800;
         margin-top: 15px;
         display: none;
-        .user-rate-item,
+        .user-rate-item{
+            margin-right: 15px;
+            display: inline-block;
+        }
         div {
             display: inline-block;
         }
@@ -133,7 +139,7 @@
         background: url(/img/sprite_smile_.png) no-repeat;
         vertical-align: middle;
         margin-left: 5px;
-        margin-right: 25px;
+        margin-right: 5px;
         &.angry {
             background-position: 0 0;
         }
@@ -160,7 +166,7 @@
     .form-wrap {
         font-size: 16px;
         font-weight: 800;
-        padding: 15px 60px 60px;
+        padding: 15px;
         .title{
             margin-bottom: 30px;
         }
@@ -335,7 +341,60 @@
     .check-fly input:checked + label + .grey {
         color: #a7a5a5;
     }
+
 }
+.persent-block{
+    padding: 0 20px;
+    div{
+        display: inline-block;
+        min-width: 10px;
+        height: 10px;
+    }
+    .gren-b{
+        background-color: green;
+        margin-right: 5px;
+    }
+    .grey-b{
+        background-color: grey;
+        margin-right: 5px;
+    }
+    .red-b{
+        background-color: red;
+        margin-right: 5px;
+    }
+    .persent-data{
+        margin-right: 15px;  
+    }
+}
+
+.check-fly{
+    &:first-child{
+        input{
+            + label{
+                display: block;
+                height: 30px;
+                width: 42px;
+                margin: auto;
+                &:after {
+                    content: '';
+                    display: block;
+                    background: url(/img/sprite_smile_.png);
+                    background-position: -1px -41px;
+                    -webkit-mask-image: unset;
+                    border: 1px solid transparent;
+                    height: 41px;
+                    width: 40px;
+                    top: 0;
+                }
+            }
+            &:checked + label{
+                &:after {
+                    background-position: 0 0;
+                }
+            }
+        }
+    } 
+} 
 
 .green {
     color: #8cc34c;
@@ -345,4 +404,48 @@
 }
 .grey {
     color: #a7a5a5;
+}
+
+@media (max-width: 992px) {
+    .commets-wrap{
+        .user-rate-items {
+            .user-rate-item {
+                display: block;
+                margin-bottom: 15px;
+            }
+            div {
+                vertical-align: top;
+            }
+        }
+        .diagram-wrapp .total-diagram .item-wrapp div{
+            display: block;
+        }
+        .diagram-wrapp .total-diagram .item-wrapp div {
+            width: 100%;
+        }
+        .comment-items ul li ul {
+            margin-left: 30px;
+            li{
+                .name{
+                    font-weight: 800;
+                }
+            }
+        }
+    }
+
+}
+
+@media (max-width: 576px) {
+    .commets-wrap{
+        .diagram-wrapp{
+            margin-left: -15px;
+            .total-diagram .item-wrapp .item-line-wrapp {
+                width: 100%;
+            }
+        } 
+    }
+    .form-block{
+        margin-left: -15px;
+    }
+
 }

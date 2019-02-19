@@ -302,6 +302,33 @@ $(document).ready(function () {
         })
     });
 
+    /*#####################   Popover ###############################*/
+
+    $('.item-line-wrapp').on('mouseover', function(){
+        let p_arr = $(this).data('persent');
+        if (p_arr)
+            $('.persent .gren-b>div').text(p_arr[0]);
+        
+        let data = $('.persent').html();
+        $(this).popover({
+            trigger: 'manual',
+            content: '<div class="persent-block">'+
+            '<div class="gren-b"></div>'+
+            '<div  class="persent-data">'+ p_arr[0] +'</div>'+
+            '<div class="grey-b"></div>'+
+            '<div  class="persent-data">'+ p_arr[1] +'</div>'+
+            '<div class="red-b"></div>'+
+            '<div  class="persent-data">'+ p_arr[2] +'</div>'+
+        '</div>',
+            html: true,
+            placement: 'bottom'
+        });
+
+        $(this).popover('show');
+    }).on('mouseleave', function(){
+        $(this).popover('hide');
+    })
+
     /*#####################   Города  ###############################*/
     $('.city-wrapp li').on('click', function () {
         $('.head-menu .dropdown-menu').removeClass('show');
