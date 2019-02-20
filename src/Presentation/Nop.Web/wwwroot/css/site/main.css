@@ -4213,6 +4213,78 @@ section .item {
 .commets-wrap .form-wrap .rate-rating .rating-wrapper {
   float: right;
 }
+.commets-wrap .form-wrap .check-fly input:checked + label + .green {
+  color: #8cc34c;
+}
+.commets-wrap .form-wrap .check-fly input:checked + label + .red {
+  color: #e33840;
+}
+.commets-wrap .form-wrap .check-fly input:checked + label + .grey {
+  color: #a7a5a5;
+}
+.commets-wrap .form-wrap .check-fly input + label + label {
+  margin-left: 15px;
+}
+.commets-wrap .form-wrap .check-fly:first-child input + label {
+  display: block;
+  height: 30px;
+  width: 30px;
+  margin: auto;
+}
+.commets-wrap .form-wrap .check-fly:first-child input + label:after {
+  content: '';
+  display: block;
+  background: url(/img/sprite_smile_.png);
+  background-position: -161px -41px;
+  -webkit-mask-image: unset;
+  border: 1px solid transparent;
+  height: 41px;
+  width: 40px;
+  top: 0;
+}
+.commets-wrap .form-wrap .check-fly:first-child input:checked + label:after {
+  background-position: -161px -1px;
+}
+.commets-wrap .form-wrap .check-fly:nth-child(2) input + label {
+  display: block;
+  height: 30px;
+  width: 30px;
+  margin: auto;
+}
+.commets-wrap .form-wrap .check-fly:nth-child(2) input + label:after {
+  content: '';
+  display: block;
+  background: url(/img/sprite_smile_.png);
+  background-position: -161px -41px;
+  -webkit-mask-image: unset;
+  border: 1px solid transparent;
+  height: 41px;
+  width: 40px;
+  top: 0;
+}
+.commets-wrap .form-wrap .check-fly:nth-child(2) input:checked + label:after {
+  background-position: -161px -1px;
+}
+.commets-wrap .form-wrap .check-fly:last-child input + label {
+  display: block;
+  height: 30px;
+  width: 42px;
+  margin: auto;
+}
+.commets-wrap .form-wrap .check-fly:last-child input + label:after {
+  content: '';
+  display: block;
+  background: url(/img/sprite_smile_.png);
+  background-position: -1px -41px;
+  -webkit-mask-image: unset;
+  border: 1px solid transparent;
+  height: 41px;
+  width: 40px;
+  top: 0;
+}
+.commets-wrap .form-wrap .check-fly:last-child input:checked + label:after {
+  background-position: -1px -1px;
+}
 .commets-wrap #reviewSmile-input input:checked ~ label,
 .commets-wrap #reviewSmile-input label,
 .commets-wrap #reviewSmile-input label:hover,
@@ -4349,15 +4421,6 @@ section .item {
 .commets-wrap #reviewSmile-input #smile-5 {
   left: 265px;
 }
-.commets-wrap .check-fly input:checked + label + .green {
-  color: #8cc34c;
-}
-.commets-wrap .check-fly input:checked + label + .red {
-  color: #e33840;
-}
-.commets-wrap .check-fly input:checked + label + .grey {
-  color: #a7a5a5;
-}
 
 .persent-block {
   padding: 0 20px;
@@ -4381,70 +4444,6 @@ section .item {
 }
 .persent-block .persent-data {
   margin-right: 15px;
-}
-
-.check-fly input + label + label {
-  margin-left: 15px;
-}
-.check-fly:first-child input + label {
-  display: block;
-  height: 30px;
-  width: 42px;
-  margin: auto;
-}
-.check-fly:first-child input + label:after {
-  content: '';
-  display: block;
-  background: url(/img/sprite_smile_.png);
-  background-position: -161px -41px;
-  -webkit-mask-image: unset;
-  border: 1px solid transparent;
-  height: 41px;
-  width: 40px;
-  top: 0;
-}
-.check-fly:first-child input:checked + label:after {
-  background-position: -161px -1px;
-}
-.check-fly:nth-child(2) input + label {
-  display: block;
-  height: 30px;
-  width: 42px;
-  margin: auto;
-}
-.check-fly:nth-child(2) input + label:after {
-  content: '';
-  display: block;
-  background: url(/img/sprite_smile_.png);
-  background-position: -161px -41px;
-  -webkit-mask-image: unset;
-  border: 1px solid transparent;
-  height: 41px;
-  width: 40px;
-  top: 0;
-}
-.check-fly:nth-child(2) input:checked + label:after {
-  background-position: -161px -1px;
-}
-.check-fly:last-child input + label {
-  display: block;
-  height: 30px;
-  width: 42px;
-  margin: auto;
-}
-.check-fly:last-child input + label:after {
-  content: '';
-  display: block;
-  background: url(/img/sprite_smile_.png);
-  background-position: -1px -41px;
-  -webkit-mask-image: unset;
-  border: 1px solid transparent;
-  height: 41px;
-  width: 40px;
-  top: 0;
-}
-.check-fly:last-child input:checked + label:after {
-  background-position: -1px -1px;
 }
 
 .green {
@@ -4499,17 +4498,15 @@ section .item {
     font-size: 11px;
   }
 
-  .check-fly:first-child input + label {
+  .form-wrap .check-fly:first-child input + label {
     height: 40px;
     width: 25px;
   }
-
-  .check-fly:nth-child(2) input + label {
+  .form-wrap .check-fly:nth-child(2) input + label {
     height: 40px;
     width: 25px;
   }
-
-  .check-fly:last-child input + label {
+  .form-wrap .check-fly:last-child input + label {
     height: 40px;
     width: 25px;
   }
