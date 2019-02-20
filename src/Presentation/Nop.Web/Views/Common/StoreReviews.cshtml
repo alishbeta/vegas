@@ -31,8 +31,13 @@
         </div>
     </div>
     <div class="filters-wrap clearfix">
-        <button id="comment-activate" class="btn btn-blue btn-sm pl-3 pr-4 m-md-3">@T("review.write")</button>
-        <div class="f2 d-none d-lg-block float-right">
+        <div class="text-center float-sm-left">
+            <button id="left-feedback"
+                    class="btn btn-blue btn-sm mt-2 pl-sm-3 pr-sm-4 ml-sm-5 mt-sm-3 mb-sm-3 mt-sm-0">
+                @T("review.write")
+            </button>
+        </div>
+        <div class="f2 float-sm-right text-center">
             <div class="btn-group">
                 <button class="btn btn-outline-secondary btn-sm vg-filter rounded" id="group"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">
@@ -75,12 +80,12 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12 col-lg-10 form-block">
+    <div class="col-md-12 col-lg-12 form-block">
         <div class="form-wrap clearfix">
             <div class="title">@T("reviews.rateus")</div>
             <form method="post" id="add-review-form">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12 col-lg-6">
                         <div class="rate-rating clearfix">
                             <div class="name-description">
                                 <label for="AddProductReview.ConsultationRating">@T("reviews.total.consultation"):</label>
@@ -152,7 +157,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12 col-lg-6 mt-md-3 mt-lg-0">
                         <div class="title">@T("review.total.willrecommend")?</div>
                         <div class="form-check-inline">
                             <div class="form-check check-fly">
@@ -176,15 +181,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="comment-form">
+                <div class="comment-form mt-md-5">
                     <div class="title">@T("review.comment")</div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md-6">
                             <input type="hidden" name="AddProductReview.Title" value="" />
                             <textarea rows="6" class="form-control" name="AddProductReview.ReviewText"></textarea>
-                            <button class="mt-5 pl-5 pr-5 btn btn-blue float-right" type="submit">@T("review.confirm")</button>
+                            <button class="mt-5 pl-5 pr-5 btn btn-blue float-md-right" type="submit">@T("review.confirm")</button>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 mt-4 mt-sm-0">
                             <span class="red">*@T("review.tip.warning")</span> @T("review.tip.text").
                         </div>
                     </div>
@@ -193,10 +198,10 @@
         </div>
     </div>
     <div class="line"></div>
-    <div class="col-md-12 col-lg-10 commets-block">
+    <div class="col-md-12 col-lg-12 col-xl-10 commets-block">
         <div class="diagram-wrapp">
             <div class="row">
-                <div class="col-md-8 total-diagram">
+                <div class="col-md-12 col-lg-8 total-diagram">
                     <div class="title mb-4">@T("reviews.total.graph") @T(string.Format("review.period{0}", ViewBag.Period)).ToString().ToLower()</div>
                     @if (Model.Items.Count(x => x.ConsultationRating != null) > 0)
                     {
@@ -205,7 +210,7 @@
                         var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.consultation")</div>
-                            <div class="item-line-wrapp">
+                            <div class="item-line-wrapp" data-persent='["@pos%", "@neytral%", "@neg%"]'>
                                 <div class="item-line">@neytral%</div>
                                 <div class="item-line">@pos%</div>
                                 <div class="item-line">@neg%</div>
@@ -219,7 +224,7 @@
                         var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.total.online")</div>
-                            <div class="item-line-wrapp">
+                            <div class="item-line-wrapp" data-persent='["@pos%", "@neytral%", "@neg%"]'>
                                 <div class="item-line">@neytral%</div>
                                 <div class="item-line">@pos%</div>
                                 <div class="item-line">@neg%</div>
@@ -233,7 +238,7 @@
                         var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.total.offline")</div>
-                            <div class="item-line-wrapp">
+                            <div class="item-line-wrapp" data-persent='["@pos%", "@neytral%", "@neg%"]'>
                                 <div class="item-line">@neytral%</div>
                                 <div class="item-line">@pos%</div>
                                 <div class="item-line">@neg%</div>
@@ -247,7 +252,7 @@
                         var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.total.delivery")</div>
-                            <div class="item-line-wrapp">
+                            <div class="item-line-wrapp" data-persent='["@pos%", "@neytral%", "@neg%"]'>
                                 <div class="item-line">@neytral%</div>
                                 <div class="item-line">@pos%</div>
                                 <div class="item-line">@neg%</div>
@@ -261,7 +266,7 @@
                         var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.total.install")</div>
-                            <div class="item-line-wrapp">
+                            <div class="item-line-wrapp" data-persent='["@pos%", "@neytral%", "@neg%"]'>
                                 <div class="item-line">@neytral%</div>
                                 <div class="item-line">@pos%</div>
                                 <div class="item-line">@neg%</div>
@@ -275,7 +280,7 @@
                         var neytral = 100 - pos - neg;
                         <div class="item-wrapp">
                             <div class="item-title">@T("reviews.total.willrecommend")</div>
-                            <div class="item-line-wrapp">
+                            <div class="item-line-wrapp" data-persent='["@pos%", "@neytral%", "@neg%"]'>
                                 <div class="item-line">@neytral%</div>
                                 <div class="item-line">@pos%</div>
                                 <div class="item-line">@neg%</div>
@@ -283,39 +288,45 @@
                         </div>
                     }
                 </div>
-                <div class="col-md-4 total-rate">
-                    <div class="title mb-4">@T("reviews.total.rate")</div>
-                    <div class="item-wrapp clearfix">
-                        <div class="item-title float-left">@T("reviews.total.positive")</div>
-                        <div class="item-rate float-right">@(Model.Items.Count(x => x.ConsultationRating == 4 || x.ConsultationRating == 5) +
-        Model.Items.Count(x => x.InstallationRating == 4 || x.InstallationRating == 5) +
-        Model.Items.Count(x => x.OfflineOrderRating == 4 || x.OfflineOrderRating == 5) +
-        Model.Items.Count(x => x.OnlineOrderRating == 4 || x.OnlineOrderRating == 5) +
-        Model.Items.Count(x => x.DeliveryRating == 4 || x.DeliveryRating == 5))</div>
+                <div class="col-md-4 d-none d-lg-block total-rate">
+                    <div class="col-12">
+                        <div class="title mb-4">@T("reviews.total.rate")</div>
                     </div>
-                    <div class="item-wrapp clearfix">
-                        <div class="item-title float-left">@T("reviews.total.neutral")</div>
-                        <div class="item-rate float-right">
-                            @(Model.Items.Count(x => x.ConsultationRating == 2 || x.ConsultationRating == 3) +
+                    <div class="col-8">
+                        <div class="item-wrapp clearfix">
+                            <div class="item-title float-left">@T("reviews.total.positive")</div>
+                            <div class="item-rate float-right">
+                                @(Model.Items.Count(x => x.ConsultationRating == 4 || x.ConsultationRating == 5) +
+Model.Items.Count(x => x.InstallationRating == 4 || x.InstallationRating == 5) +
+Model.Items.Count(x => x.OfflineOrderRating == 4 || x.OfflineOrderRating == 5) +
+Model.Items.Count(x => x.OnlineOrderRating == 4 || x.OnlineOrderRating == 5) +
+Model.Items.Count(x => x.DeliveryRating == 4 || x.DeliveryRating == 5))
+                            </div>
+                        </div>
+                        <div class="item-wrapp clearfix">
+                            <div class="item-title float-left">@T("reviews.total.neutral")</div>
+                            <div class="item-rate float-right">
+                                @(Model.Items.Count(x => x.ConsultationRating == 2 || x.ConsultationRating == 3) +
 Model.Items.Count(x => x.InstallationRating == 2 || x.InstallationRating == 3) +
 Model.Items.Count(x => x.OfflineOrderRating == 2 || x.OfflineOrderRating == 3) +
 Model.Items.Count(x => x.OnlineOrderRating == 2 || x.OnlineOrderRating == 3) +
 Model.Items.Count(x => x.DeliveryRating == 2 || x.DeliveryRating == 3))
-                                            </div>
-                    </div>
-                    <div class="item-wrapp clearfix">
-                        <div class="item-title float-left">@T("reviews.total.negative")</div>
-                        <div class="item-rate float-right">
-                            @(Model.Items.Count(x => x.ConsultationRating == 1) +
+                            </div>
+                        </div>
+                        <div class="item-wrapp clearfix">
+                            <div class="item-title float-left">@T("reviews.total.negative")</div>
+                            <div class="item-rate float-right">
+                                @(Model.Items.Count(x => x.ConsultationRating == 1) +
 Model.Items.Count(x => x.InstallationRating == 1) +
 Model.Items.Count(x => x.OfflineOrderRating == 1) +
 Model.Items.Count(x => x.OnlineOrderRating == 1) +
 Model.Items.Count(x => x.DeliveryRating == 1))
-                                            </div>
-                    </div>
-                    <div class="item-wrapp clearfix">
-                        <div class="item-title float-left">@T("reviews.total.allreviews")</div>
-                        <div class="item-rate float-right">@Model.Items.Count</div>
+                            </div>
+                        </div>
+                        <div class="item-wrapp clearfix">
+                            <div class="item-title float-left">@T("reviews.total.allreviews")</div>
+                            <div class="item-rate float-right">@Model.Items.Count</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -328,9 +339,9 @@ Model.Items.Count(x => x.DeliveryRating == 1))
                     <ul>
                         <li class="list">
                             <div class="clearfix">
-                                <div class="info-wrap float-left">
-                                    <div class="no-avatar float-left"><img src="/img/no_avatar.png" alt="no_avatar.png"></div>
-                                    <div class="info float-right">
+                                <div class="info-wrap float-md-left mb-4 mb-sm-0">
+                                    <div class="no-avatar float-left d-none d-sm-block"><img src="/img/no_avatar.png" alt="no_avatar.png"></div>
+                                    <div class="info float-md-left">
                                         <div class="name">@review.CustomerName</div>
                                         <div class="date">@review.WrittenOnStr</div>
                                         <div class="dropdown">
@@ -339,7 +350,7 @@ Model.Items.Count(x => x.DeliveryRating == 1))
                                                 <span class="@(review.WillRecommend == null ? "grey" : review.WillRecommend == true ? "green" : "red")">@(review.WillRecommend == null ? T("willrecommend.null") : review.WillRecommend == true ? T("willrecommend.true") : T("willrecommend.false"))</span>
                                             </button>
                                             @if (review.CustomerId == ViewBag.CustomerId)
-                        {
+                                            {
                                                 <div class="dropdown-menu" aria-labelledby="dropdownRecomend" name="WillRecommend">
                                                     <a class="dropdown-item" href="#" onclick="ChangeReview(@review.Id, true);return false;"><span class="green">@T("willrecommend.true")</span></a>
                                                     <a class="dropdown-item" href="#" onclick="ChangeReview(@review.Id, null);return false;"><span class="grey">@T("willrecommend.null")</span></a>
@@ -355,53 +366,65 @@ Model.Items.Count(x => x.DeliveryRating == 1))
                                 </div>
                             </div>
                             <div class="user-rate-items">
-                                @if (review.ConsultationRating != null)
-                    {
-                                    <div class="user-rate-item">
-                                        <div class="item-title">@T("reviews.total.consultation")</div>
-                                        <div class="sprite-smile @icons[review.ConsultationRating ?? 0]"></div>
+                                <div class="d-flex justify-content-around">
+                                    <div class="col-md-12 kostil">
+                                        <div class="col-md-6 col-lg-auto">
+                                            <div class="row">
+                                                @if (review.ConsultationRating != null)
+                                                {
+                                                    <div class="user-rate-item">
+                                                        <div class="item-title">@T("reviews.total.consultation")</div>
+                                                        <div class="sprite-smile @icons[review.ConsultationRating ?? 0]"></div>
+                                                    </div>
+                                                }
+                                                @if (review.ConsultationRating != null)
+                                                {
+                                                    <div class="user-rate-item">
+                                                        <div class="item-title">@T("reviews.total.online")</div>
+                                                        <div class="sprite-smile @icons[review.OnlineOrderRating ?? 0]"></div>
+                                                    </div>
+                                                }
+                                                @if (review.ConsultationRating != null)
+                                                {
+                                                    <div class="user-rate-item">
+                                                        <div class="item-title">@T("reviews.total.offline")</div>
+                                                        <div class="sprite-smile @icons[review.OfflineOrderRating ?? 0]"></div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 col-lg-auto ">
+                                            <div class="row">
+                                                @if (review.ConsultationRating != null)
+                                                {
+                                                    <div class="user-rate-item">
+                                                        <div class="item-title">@T("reviews.total.delivery")</div>
+                                                        <div class="sprite-smile @icons[review.DeliveryRating ?? 0]"></div>
+                                                    </div>
+                                                }
+                                                @if (review.ConsultationRating != null)
+                                                {
+                                                    <div class="user-rate-item">
+                                                        <div class="item-title">@T("reviews.total.install")</div>
+                                                        <div class="sprite-smile @icons[review.InstallationRating ?? 0]"></div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
-                                }
-                                @if (review.ConsultationRating != null)
-                    {
-                                    <div class="user-rate-item">
-                                        <div class="item-title">@T("reviews.total.online")</div>
-                                        <div class="sprite-smile @icons[review.OnlineOrderRating ?? 0]"></div>
-                                    </div>
-                                }
-                                @if (review.ConsultationRating != null)
-                    {
-                                    <div class="user-rate-item">
-                                        <div class="item-title">@T("reviews.total.offline")</div>
-                                        <div class="sprite-smile @icons[review.OfflineOrderRating ?? 0]"></div>
-                                    </div>
-                                }
-                                @if (review.ConsultationRating != null)
-                    {
-                                    <div class="user-rate-item">
-                                        <div class="item-title">@T("reviews.total.delivery")</div>
-                                        <div class="sprite-smile @icons[review.DeliveryRating ?? 0]"></div>
-                                    </div>
-                                }
-                                @if (review.ConsultationRating != null)
-                    {
-                                    <div class="user-rate-item">
-                                        <div class="item-title">@T("reviews.total.install")</div>
-                                        <div class="sprite-smile @icons[review.InstallationRating ?? 0]"></div>
-                                    </div>
-                                }
+                                </div>
                             </div>
                             @if (!string.IsNullOrEmpty(review.ReplyText))
-                    {
+                            {
                                 <ul>
                                     <li class="list">
                                         <div class="clearfix">
-                                            <div class="info-wrap float-left">
-                                                <div class="no-avatar float-left">
+                                            <div class="info-wrap float-md-left mb-4 mb-sm-0">
+                                                <div class="no-avatar float-left d-none d-sm-block">
                                                     <img src="/img/admin_avatar.png"
                                                          alt="admin_avatar.png">
                                                 </div>
-                                                <div class="info float-right">
+                                                <div class="info float-md-left">
                                                     <div class="name">@T("reviews.admin")</div>
                                                 </div>
                                             </div>
