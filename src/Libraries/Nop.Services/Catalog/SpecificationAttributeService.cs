@@ -100,7 +100,7 @@ namespace Nop.Services.Catalog
 
             if (isSleepSizes)
             {
-                var model = products.Where(x => x.MakeCode == makeCode).Select(x => new SimilarProductSizes()
+                var model = products.Where(x => x.MakeCode == makeCode).OrderBy(x => x.SleepLength).ThenBy(x => x.SleepWidth).Select(x => new SimilarProductSizes()
                 {
                     height = null,
                     length = x.SleepLength.ToString("#.##"),
@@ -111,7 +111,7 @@ namespace Nop.Services.Catalog
             }
             else
             {
-                var model = products.Select(x => new SimilarProductSizes()
+                var model = products.OrderBy(x => x.Width).ThenBy(x => x.Height).ThenBy(x => x.Length).Select(x => new SimilarProductSizes()
                 {
                     height = x.Height.ToString("#.##"),
                     length = x.Length.ToString("#.##"),

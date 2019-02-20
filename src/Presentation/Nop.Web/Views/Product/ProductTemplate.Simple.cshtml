@@ -347,7 +347,6 @@
                                             @Model.SleepLength.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.SleepWidth.ToString("#.##") см
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">@Model.SleepLength.ToString("#.##") см х @Model.SleepWidth.ToString("#.##") см</a>
                                             @await Component.InvokeAsync("SimilarProductsSizesBlock", new { makeCode = Model.MakeCode, colorName = productColor?.ValueRaw, productId = Model.Id, isSleepSizes = true })
                                         </div>
                                     </div>
@@ -371,7 +370,6 @@
                                             @Model.Width.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Lendth.ToString("#.##") см&nbsp;&nbsp;&nbsp;х&nbsp;&nbsp;&nbsp;@Model.Height.ToString("#.##") см
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">@Model.Width.ToString("#.##") см х @Model.Lendth.ToString("#.##") см x @Model.Height.ToString("#.##") см</a>
                                             @await Component.InvokeAsync("SimilarProductsSizesBlock", new { makeCode = Model.MakeCode, colorName = productColor?.ValueRaw, productId = Model.Id, isSleepSizes = false })
                                         </div>
                                     </div>
