@@ -481,7 +481,9 @@ namespace Nop.Web.Areas.Admin.Factories
                 {
                     Id = warehouse.Id,
                     Name = warehouse.Name,
-                    AdminComment = warehouse.AdminComment
+                    AdminComment = warehouse.AdminComment,
+                    Hidden = warehouse.Hidden,
+                    WarehouseDescription = warehouse.WarehouseDescription
                 };
 
                 _shippingService.GetWarehousePictures(warehouse.Id)

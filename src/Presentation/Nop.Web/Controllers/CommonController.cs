@@ -445,7 +445,7 @@ namespace Nop.Web.Controllers
 		[HttpsRequirement(SslRequirement.Yes)]
 		public virtual IActionResult OurStores()
 		{
-			var warehouses = _shippingService.GetAllWarehouses();
+			var warehouses = _shippingService.GetActiveWarehouses();
 			WarehouseInfoModel model = new WarehouseInfoModel
 			{
 				Cities = new List<string>(),
@@ -470,7 +470,7 @@ namespace Nop.Web.Controllers
 		[HttpsRequirement(SslRequirement.Yes)]
 		public virtual IActionResult CityMap(string city)
 		{
-			var warehouses = _shippingService.GetAllWarehouses();
+			var warehouses = _shippingService.GetActiveWarehouses();
 			var addresses = new List<Address>();
 			foreach (var warehouse in warehouses)
 			{
@@ -521,7 +521,7 @@ namespace Nop.Web.Controllers
 			var address = _addressService.GetAddressById(addressId);
 
 			var city = address.City;
-			var warehouses = _shippingService.GetAllWarehouses();
+			var warehouses = _shippingService.GetActiveWarehouses();
 			var addresses = new List<Address>();
 			foreach (var warehouse in warehouses)
 			{
@@ -543,6 +543,7 @@ namespace Nop.Web.Controllers
                     Name = x.Name,
                     WorkTime = x.AdminComment,
                     AddressId = x.AddressId,
+                    WarehouseDescription = x.WarehouseDescription,
                     Pictures = _shippingService.GetWarehousePictures(x.Id).Select(u => new ViewWarehouseModel.WarehousePicture()
                     {
                         PictureUrl = _pictureService.GetPictureUrl(u.PictureId)

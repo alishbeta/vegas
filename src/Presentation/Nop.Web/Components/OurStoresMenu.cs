@@ -25,7 +25,7 @@ namespace Nop.Web.Components
 		public IViewComponentResult Invoke(string active = "main")
 		{
 			ViewBag.Active = active;
-			var warehouses = _shippingService.GetAllWarehouses();
+			var warehouses = _shippingService.GetActiveWarehouses();
 			WarehouseInfoModel model = new WarehouseInfoModel
 			{
 				Cities = new List<string>(),

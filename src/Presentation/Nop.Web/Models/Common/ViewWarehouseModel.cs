@@ -10,6 +10,7 @@ namespace Nop.Web.Models.Common
         public string Name { get; set; }
         public int AddressId { get; set; }
         public string WorkTime { get; set; }
+        public string WarehouseDescription { get; set; }
         public List<WarehousePicture> Pictures { get; set; }
 
         public class WarehousePicture

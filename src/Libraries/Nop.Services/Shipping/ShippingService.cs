@@ -402,6 +402,20 @@ namespace Nop.Services.Shipping
         }
 
         /// <summary>
+        /// Gets all warehouses
+        /// </summary>
+        /// <returns>Warehouses</returns>
+        public virtual IList<Warehouse> GetActiveWarehouses()
+        {
+            var query = from wh in _warehouseRepository.Table
+                        orderby wh.Name
+                        where !wh.Hidden
+                        select wh;
+            var warehouses = query.ToList();
+            return warehouses;
+        }
+
+        /// <summary>
         /// Inserts a warehouse
         /// </summary>
         /// <param name="warehouse">Warehouse</param>

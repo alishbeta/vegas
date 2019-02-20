@@ -119,6 +119,7 @@ namespace Nop.Services.Shipping
         /// </summary>
         /// <returns>Warehouses</returns>
         IList<Warehouse> GetAllWarehouses();
+        IList<Warehouse> GetActiveWarehouses();
 
         /// <summary>
         /// Inserts a warehouse

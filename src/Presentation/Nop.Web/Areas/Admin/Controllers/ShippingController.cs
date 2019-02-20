@@ -733,6 +733,8 @@ namespace Nop.Web.Areas.Admin.Controllers
 
                 warehouse.Name = model.Name;
                 warehouse.AdminComment = model.AdminComment;
+                warehouse.Hidden = model.Hidden;
+                warehouse.WarehouseDescription = model.WarehouseDescription;
                 warehouse.AddressId = address.Id;
 
                 _shippingService.UpdateWarehouse(warehouse);

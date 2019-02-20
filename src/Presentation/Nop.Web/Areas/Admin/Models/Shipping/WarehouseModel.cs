@@ -38,6 +38,12 @@ namespace Nop.Web.Areas.Admin.Models.Shipping
         [NopResourceDisplayName("Admin.Configuration.Shipping.Warehouses.Fields.AdminComment")]
         public string AdminComment { get; set; }
 
+        [NopResourceDisplayName("Admin.Configuration.Shipping.Warehouses.Fields.Hidden")]
+        public bool Hidden { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Shipping.Warehouses.Fields.WarehouseDescription")]
+        public string WarehouseDescription { get; set; }
+
         [NopResourceDisplayName("Admin.Configuration.Shipping.Warehouses.Fields.Address")]
         public AddressModel Address { get; set; }
 

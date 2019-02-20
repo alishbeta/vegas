@@ -14,6 +14,8 @@ namespace Nop.Core.Domain.Shipping
         /// Gets or sets the admin comment
         /// </summary>
         public string AdminComment { get; set; }
+        public bool Hidden { get; set; }
+        public string WarehouseDescription { get; set; }
 
         /// <summary>
         /// Gets or sets the address identifier of the warehouse
