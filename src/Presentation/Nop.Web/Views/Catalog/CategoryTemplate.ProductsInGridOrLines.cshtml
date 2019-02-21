@@ -71,7 +71,7 @@
             <small>@Model.PagingFilteringContext.TotalItems @T("prod.products")</small>
         </p>
     </div>
-    @await Component.InvokeAsync("CatalogFiltersMenu")
+    @await Component.InvokeAsync("CatalogFiltersMenu", new { currentCategory = Model.Id })
     <div class="items clearfix">
         @await Component.InvokeAsync("CatalogFiltersSelector", new { specificationFilter = Model.PagingFilteringContext.SpecificationFilter, products = Model.Products })
         @if (Model.Products.Count() > 0)

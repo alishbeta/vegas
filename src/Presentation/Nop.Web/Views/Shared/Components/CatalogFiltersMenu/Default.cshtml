@@ -69,23 +69,21 @@
 				@T("filters.byGroups")
 			</button>
 			<div class="dropdown-menu keep_open" aria-labelledby="group">
-				<div class="form-group">
-					<div class="form-check form-check-inline check-fly">
-						<input class="form-check-input" value="1" name="groupby" type="radio" id="lr10" checked="">
-						<label for="lr10"></label>
-						<label class="col-form-label" for="lr10">@T("filters.popular")</label>
-					</div>
-					<div class="form-check  form-check-inline check-fly">
-						<input class="form-check-input" value="2" name="groupby" type="radio" id="lr11">
-						<label for="lr11"></label>
-						<label class="col-form-label" for="lr11">@T("filters.priceAsc")</label>
-					</div>
-					<div class="form-check  form-check-inline check-fly">
-						<input class="form-check-input" value="3" name="groupby" type="radio" id="lr12">
-						<label for="lr12"></label>
-						<label class="col-form-label" for="lr12">@T("filters.priceDesc")</label>
-					</div>
-				</div>
+                <div class="form-group">
+                    @foreach (var group in Model.Groups)
+                    {
+                    <div class="form-check form-check-inline check-fly">
+                        <ul class="form-check-input" style="cursor: pointer;" onclick="window.location.replace('/@group.SeName')">
+                            <li style="font-weight: bold;">@group.Name</li>
+                                                @foreach (var child in group.ChildGroups)
+                                                {
+                                                    <li class="form-check-input" style="cursor: pointer;" onclick="window.location.replace('/@child.SeName')">@child.Name</li>
+                                                }
+                                            </ul>
+                        <label for="lr10"></label>
+                    </div>
+                    }
+                </div>
 			</div>
 		</div>
 	</div>

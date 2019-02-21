@@ -96,6 +96,9 @@ namespace Nop.Web.Areas.Admin.Models.Catalog
         [NopResourceDisplayName("Admin.Catalog.Categories.Fields.Deleted")]
         public bool Deleted { get; set; }
 
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.IsGroup")]
+        public bool IsGroup { get; set; }
+
         [NopResourceDisplayName("Admin.Catalog.Categories.Fields.DisplayOrder")]
         public int DisplayOrder { get; set; }
         

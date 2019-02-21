@@ -184,6 +184,7 @@ namespace Nop.Web.Areas.Admin.Factories
                 model.Published = true;
                 model.IncludeInTopMenu = true;
                 model.AllowCustomersToSelectPageSize = true;
+                model.IsGroup = false;
             }
 
             //prepare localized models

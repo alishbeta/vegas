@@ -94,6 +94,14 @@ namespace Nop.Services.Catalog
 
         #region Methods
 
+        public virtual IList<Category> GetChildGroups(int currentCategory)
+        {
+            var query = from c in _categoryRepository.Table
+                        where c.ParentCategoryId == currentCategory && c.IsGroup
+                        select c;
+            return query.ToList();
+        }
+
         /// <summary>
         /// Delete category
         /// </summary>

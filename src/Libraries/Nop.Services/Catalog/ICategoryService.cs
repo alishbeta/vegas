@@ -9,6 +9,7 @@ namespace Nop.Services.Catalog
     /// </summary>
     public partial interface ICategoryService
     {
+        IList<Category> GetChildGroups(int currentCategory);
         /// <summary>
         /// Delete category
         /// </summary>

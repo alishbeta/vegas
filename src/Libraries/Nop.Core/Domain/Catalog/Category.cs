@@ -134,5 +134,7 @@ namespace Nop.Core.Domain.Catalog
             get => _discountCategoryMappings ?? (_discountCategoryMappings = new List<DiscountCategoryMapping>());
             set => _discountCategoryMappings = value;
         }
+
+        public bool IsGroup { get; set; }
     }
 }
