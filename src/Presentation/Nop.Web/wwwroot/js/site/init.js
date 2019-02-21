@@ -218,14 +218,16 @@ $(document).ready(function () {
             max: parseFloat(data.max),
             values: [data.min, parseFloat(data.max)],
             slide: function (event, ui) {
-                $("#slider-" + data.filterNumber + "-a1").val(ui.values[0]);
+                $("#slider-" + data.filterNumber + "-a1").val(ui.values[0]).trigger("change");
                 $("#slider-" + data.filterNumber + "-a2").val(ui.values[1]);
             }
         });
         $("#slider-" + data.filterNumber + "-a1").val($("#slider-" + data.filterNumber + "-r").slider("values", 0));
         $("#slider-" + data.filterNumber + "-a2").val($("#slider-" + data.filterNumber + "-r").slider("values", 1));
     });
-
+    // $('.filters-data input').on("change", function() {
+    //     console.log($(this).val());
+    // });
     $('.filters-wrap .btn-display').on('click', function () {
         $('.filters-data').toggleClass('open');
         $('.f1').toggleClass('open');
