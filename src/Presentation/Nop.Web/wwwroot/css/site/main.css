@@ -1279,6 +1279,12 @@ nav.breadcrumb-wrap a:hover {
   list-style: disc;
 }
 
+.filter-title {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 8px;
+}
+
 .content .title {
   position: relative;
 }

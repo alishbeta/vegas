@@ -331,6 +331,28 @@ $(document).ready(function () {
         $(this).popover('hide');
     })
 
+        /*#####################   Попап на фильтрах  ###############################*/
+        function showPopover(text, btn){
+            let elem = $(this).parent().parent().next().popover({
+                trigger: 'manual',
+                content: '<div class = "filter-title">'+ text +' </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">'+btn+'</button>',
+                html: true,
+            });
+
+            elem.popover('show');
+              $('.ui-slider-handle').on('mouseenter', function(){
+                elem.popover('hide');
+              })
+              $('.prod-wrap').on('mouseenter', function(){
+                elem.popover('hide');
+              })
+              $('input').on('click', function(){
+                elem.popover('hide');
+              })
+        };
+
+
+
     /*#####################   Города  ###############################*/
     $('.city-wrapp li').on('click', function () {
         $('.head-menu .dropdown-menu').removeClass('show');
