@@ -383,8 +383,8 @@ $(document).ready(function () {
 var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
         
 /*#####################   Попап на фильтрах  ###############################*/
-        function showPopover(text, btn){
-            let elem = $(this).parent().parent().next().popover({
+        function showPopover(text, btn, obj){
+            let elem = $(obj).parent().parent().next().popover({
                 trigger: 'manual',
                 content: '<div class = "filter-title">'+ text +' </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">'+btn+'</button>',
                 html: true,
@@ -400,7 +400,7 @@ var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a",
               $('input').on('click', function(){
                 elem.popover('hide');
               })
-        };
+        }
 
 function rgb2hex(rgb) {
     rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
