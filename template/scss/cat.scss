@@ -56,6 +56,19 @@
       }
     }
   }
+  .keep_open{
+    ul{
+      margin-left: 30px;
+      li{
+        &.group{
+          list-style: disc;
+        }
+        ul{
+          margin-left: 15px;
+         }
+      } 
+    } 
+  }
 }
 .filter-title{
   display: inline-block;

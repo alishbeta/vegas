@@ -1278,6 +1278,15 @@ nav.breadcrumb-wrap a:hover {
 .cat .description ul li {
   list-style: disc;
 }
+.cat .keep_open ul {
+  margin-left: 30px;
+}
+.cat .keep_open ul li.group {
+  list-style: disc;
+}
+.cat .keep_open ul li ul {
+  margin-left: 15px;
+}
 
 .filter-title {
   display: inline-block;
