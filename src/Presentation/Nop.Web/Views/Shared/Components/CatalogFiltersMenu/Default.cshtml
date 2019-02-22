@@ -73,14 +73,20 @@
                     @foreach (var group in Model.Groups)
                     {
                     <div class="form-check form-check-inline check-fly">
-                        <ul class="form-check-input" style="cursor: pointer;" onclick="window.location.replace('/@group.SeName')">
-                            <li style="font-weight: bold;">@group.Name</li>
-                                                @foreach (var child in group.ChildGroups)
-                                                {
-                                                    <li class="form-check-input" style="cursor: pointer;" onclick="window.location.replace('/@child.SeName')">@child.Name</li>
-                                                }
-                                            </ul>
-                        <label for="lr10"></label>
+                        <ul class="form-check-input">
+                            <li onclick="window.location.replace('/@group.SeName')">@group.Name</li>
+                            @if (group.ChildGroups.Count() > 0)
+                            {
+                                <li>
+                                    <ul class="form-check-input">
+                                        @foreach (var child in group.ChildGroups)
+                                        {
+                                            <li class="form-check-input" onclick="window.location.replace('/@child.SeName')">@child.Name</li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
                     </div>
                     }
                 </div>
