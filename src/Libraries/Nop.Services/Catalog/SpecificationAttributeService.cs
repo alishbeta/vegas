@@ -23,6 +23,7 @@ namespace Nop.Services.Catalog
         private readonly IRepository<ProductSpecificationAttribute> _productSpecificationAttributeRepository;
         private readonly IRepository<SpecificationAttribute> _specificationAttributeRepository;
         private readonly IRepository<SpecificationAttributeOption> _specificationAttributeOptionRepository;
+        private readonly IRepository<Product> _productRepository;
         private readonly IUrlRecordService _urlRecordService;
 
         #endregion
@@ -34,7 +35,8 @@ namespace Nop.Services.Catalog
             IRepository<ProductSpecificationAttribute> productSpecificationAttributeRepository,
             IRepository<SpecificationAttribute> specificationAttributeRepository,
             IUrlRecordService urlRecordService,
-            IRepository<SpecificationAttributeOption> specificationAttributeOptionRepository)
+            IRepository<SpecificationAttributeOption> specificationAttributeOptionRepository,
+            IRepository<Product> productRepository)
         {
             _urlRecordService = urlRecordService;
             _cacheManager = cacheManager;
@@ -42,6 +44,7 @@ namespace Nop.Services.Catalog
             _productSpecificationAttributeRepository = productSpecificationAttributeRepository;
             _specificationAttributeRepository = specificationAttributeRepository;
             _specificationAttributeOptionRepository = specificationAttributeOptionRepository;
+            _productRepository = productRepository;
         }
 
         #endregion
@@ -147,9 +150,49 @@ namespace Nop.Services.Catalog
             var similarProductsQuery = from s in _productSpecificationAttributeRepository.Table
                                        orderby s.Id
                                        where options.Contains(s.SpecificationAttributeOptionId) && s.Product.MakeCode == makeCode
-                                       select s.ProductId;
+                                       select s;
 
-            return similarProductsQuery.ToList();
+            if (productId != 0)
+            {
+                var productQuery = from s in _productRepository.Table
+                                   orderby s.Id
+                                   where s.Id == productId
+                                   select s;
+
+                var product = productQuery.FirstOrDefault();
+
+                var width = product?.Width;
+                var length = product?.Length;
+
+                var complectationQuery = from s in _specificationAttributeRepository.Table
+                                                where s.Name.ToLower() == "пм"
+                                                select s;
+
+                var complectation = complectationQuery.FirstOrDefault(); //характеристика "Подъемный механизм"
+
+                var complectationValuesQuery = from s in _specificationAttributeOptionRepository.Table
+                                                      where s.SpecificationAttributeId == complectation.Id
+                                                      select s.Id;
+
+                var complectationValues = complectationValuesQuery.ToList(); //Варианты значений характеристики "Подъемный механизм" ("Да", "Нет")
+
+                var productComplectation = product.ProductSpecificationAttributes.FirstOrDefault(x => complectationValues.Contains(x.SpecificationAttributeOptionId))?.SpecificationAttributeOptionId; //получаем значение атрибута подъемный механизм
+
+                if (length != null && length != 0 && width != null && width != 0)
+                {
+
+                    if (productComplectation != null && productComplectation != 0)
+                    {
+                        similarProductsQuery = similarProductsQuery.Where(x => x.Product.ProductSpecificationAttributes.Select(u => u.SpecificationAttributeOptionId).Contains(productComplectation.Value) && x.Product.Length == length && x.Product.Width == width);
+                    }
+                    else
+                    {
+                        similarProductsQuery = similarProductsQuery.Where(x => x.Product.Length == length && x.Product.Width == width);
+                    }
+                }                 
+            }
+
+            return similarProductsQuery.Select(x => x.ProductId).ToList();
         }
 
         #region Specification attribute
