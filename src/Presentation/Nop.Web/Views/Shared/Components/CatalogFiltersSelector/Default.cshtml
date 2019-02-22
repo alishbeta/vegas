@@ -92,6 +92,9 @@
             <div id="slider-sleepwidth-r" class="slider-range"></div>
         </div>
     }
+        <div class="tip">
+            <div class="title invisible" id="found"></div>
+        </div>
     @await Html.PartialAsync("_FilterSpecsBox", Model.SpecificationFilter)
     <div class="inner-wrap text-center">
         <div class="btn-group-vertical">
@@ -133,6 +136,39 @@
         
         window.location.replace(query);
     }
+
+    $(document).ready(function () {
+        $(".filters-data .form-group input").on("change", function () {
+            console.log("changed");
+            $.ajax({
+                url: "@Url.Action("GetFilteredProductsCount", "Catalog")" + getQuery(),
+                type: "POST",
+                dataType: 'json',
+                traditional: true,
+                data: {
+                    categoryId: @Model.CategoryId,
+                }
+            }).done(function (response) {
+                console.log("Найдено " + response);
+                $("#found").text("Найдено: " + response);
+            });
+        });
+        $(".filters-data .form-check input").on("click", function () {
+            console.log("clicked");
+            $.ajax({
+                url: "@Url.Action("GetFilteredProductsCount", "Catalog")" + getQuery(),
+                type: "POST",
+                dataType: 'json',
+                traditional: true,
+                data: {
+                    categoryId: @Model.CategoryId,
+                }
+            }).done(function (response) {
+                console.log("Найдено " + response);
+                $("#found").text("Найдено: " + response);
+            });
+        });
+    });
 
     function getQuery() {
         var query = "?price=" + $("[name=MinPrice]").val() + "-" + $("[name=MaxPrice]").val();

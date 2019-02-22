@@ -16,6 +16,7 @@ namespace Nop.Web.Models.Catalog
             SleepWidth = new FilterRange();
             Price = new FilterRange();
         }
+        public int CategoryId { get; set; }
         public FilterRange Height { get; set; }
         public FilterRange Width { get; set; }
         public FilterRange Length { get; set; }

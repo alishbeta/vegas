@@ -21,7 +21,7 @@ namespace Nop.Web.Components
             this._webHelper = webHelper;
         }
 
-        public IViewComponentResult Invoke(CatalogPagingFilteringModel.SpecificationFilterModel specificationFilter, IEnumerable<ProductOverviewModel> products)
+        public IViewComponentResult Invoke(CatalogPagingFilteringModel.SpecificationFilterModel specificationFilter, IEnumerable<ProductOverviewModel> products, int categoryId)
         {
             FilterRangesModel model = new FilterRangesModel();
             
@@ -86,7 +86,7 @@ namespace Nop.Web.Components
             model.SleepLength.min = (products.OrderBy(x => x.SleepLength).FirstOrDefault()?.SleepLength ?? 0);
             model.SleepWidth.max = (products.OrderByDescending(x => x.SleepWidth).FirstOrDefault()?.SleepWidth ?? 0);
             model.SleepWidth.min = (products.OrderBy(x => x.SleepWidth).FirstOrDefault()?.SleepWidth ?? 0);
-            
+            model.CategoryId = categoryId;
             model.SpecificationFilter = specificationFilter;
             return View(model);
         }
