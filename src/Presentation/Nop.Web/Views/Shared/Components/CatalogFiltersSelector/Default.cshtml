@@ -1,6 +1,4 @@
-﻿
-
-   @model FilterRangesModel
+﻿@model FilterRangesModel
 <div class="filters-data">
     <div class="inner-wrap f-slider" data-filter-number="price" data-min="@(Math.Round(Model.Price?.min ?? 0))" data-max="@(Math.Round(Model.Price?.max ?? 0) + 1)">
         <div class="title">@T("filters.price")</div>
@@ -92,13 +90,10 @@
             <div id="slider-sleepwidth-r" class="slider-range"></div>
         </div>
     }
-        <div class="tip">
-            <div class="title invisible" id="found"></div>
-        </div>
     @await Html.PartialAsync("_FilterSpecsBox", Model.SpecificationFilter)
     <div class="inner-wrap text-center">
         <div class="btn-group-vertical">
-            <button onclick="submitFilters()" class="btn btn-lg btn-blue rounded">@T("filters.submit")</button>
+            <button onclick="submitFilters()" id="submit-filters" class="btn btn-lg btn-blue rounded">@T("filters.submit")</button>
             <button type="button" class="btn btn-link" onclick="clearFilters()">@T("filters.clear")</button>
         </div>
     </div>
@@ -138,7 +133,7 @@
     }
 
     $(document).ready(function () {
-        $(".filters-data .form-group input").on("change", function () {
+        $(".filters-data .form-group input").on("change", function (event) {
             console.log("changed");
             $.ajax({
                 url: "@Url.Action("GetFilteredProductsCount", "Catalog")" + getQuery(),
@@ -149,11 +144,11 @@
                     categoryId: @Model.CategoryId,
                 }
             }).done(function (response) {
-                console.log("Найдено " + response);
-                $("#found").text("Найдено: " + response);
+                showPopover("@T("popover.found")" + ": " + response, "@T("popover.btn.show")", event.target);
+                console.log(response);
             });
         });
-        $(".filters-data .form-check input").on("click", function () {
+        $(".filters-data .form-check input").on("click", function (event) {
             console.log("clicked");
             $.ajax({
                 url: "@Url.Action("GetFilteredProductsCount", "Catalog")" + getQuery(),
@@ -164,8 +159,8 @@
                     categoryId: @Model.CategoryId,
                 }
             }).done(function (response) {
-                console.log("Найдено " + response);
-                $("#found").text("Найдено: " + response);
+                showPopover("@T("popover.found")" + ": " + response, "@T("popover.btn.show")", event.target);
+                console.log(response);
             });
         });
     });
