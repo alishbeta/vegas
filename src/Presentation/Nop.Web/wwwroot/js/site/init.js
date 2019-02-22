@@ -384,17 +384,17 @@ var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a",
         
 /*#####################   Попап на фильтрах  ###############################*/
 function showPopover(text, btn, obj) {
-    $('.popover').popover('dispose');
+    //$('.popover').popover('dispose');
             let elem = $(obj).parent().parent().next().popover({
                 trigger: 'manual',
-                content: '<div class = "filter-title">'+ text +' </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">'+btn+'</button>',
+                content: '<div class = "filter-title" id="filter-count">'+ text +' </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">'+btn+'</button>',
                 html: true,
             });
             
             elem.popover('show');
-              $('.ui-slider-handle').on('mouseenter', function(){
-                  elem.popover('dispose');
-              })
+              //$('.ui-slider-handle').on('mouseenter', function(){
+              //    elem.popover('dispose');
+              //})
               $('.prod-wrap').on('mouseenter', function(){
                   elem.popover('dispose');
               })
