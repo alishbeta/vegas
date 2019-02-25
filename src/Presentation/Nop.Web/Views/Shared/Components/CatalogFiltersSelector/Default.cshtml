@@ -134,7 +134,8 @@
 
     $(document).ready(function () {
         $(".filters-data .form-group input").on("change", function (event) {
-                showPopover("@T("popover.found")" + ": " + 0, "@T("popover.btn.show")", event.target);
+            showPopover("@T("popover.found")" + ": ", 0, "@T("popover.btn.show")", event.target);
+            $("#filter-count").addClass("load");
             console.log("changed");
             $.ajax({
                 url: "@Url.Action("GetFilteredProductsCount", "Catalog")" + getQuery(),
@@ -145,12 +146,14 @@
                     categoryId: @Model.CategoryId,
                 }
             }).done(function (response) {
-                $("#filter-count").text("@T("popover.found")" + ": " + response);
+                $("#filter-count").text(response);
+                $("#filter-count").removeClass("load");
             });
         });
         $(".filters-data .form-check input").on("click", function (event) {
             console.log("clicked");
-            showPopover("@T("popover.found")" + ": " + 0, "@T("popover.btn.show")", event.target);
+            showPopover("@T("popover.found")" + ": ", 0, "@T("popover.btn.show")", event.target);
+            $("#filter-count").addClass("load");
             $.ajax({
                 url: "@Url.Action("GetFilteredProductsCount", "Catalog")" + getQuery(),
                 type: "POST",
@@ -159,9 +162,9 @@
                 data: {
                     categoryId: @Model.CategoryId,
                 }
-            }).done(function (response) {
-                
-                $("#filter-count").text("@T("popover.found")" + ": " + response);
+            }).done(function (response) {                
+                $("#filter-count").text(response);
+                $("#filter-count").removeClass("load");
             });
         });
     });

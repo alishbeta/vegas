@@ -383,11 +383,11 @@ $(document).ready(function () {
 var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
         
 /*#####################   Попап на фильтрах  ###############################*/
-function showPopover(text, btn, obj) {
+function showPopover(tip, text, btn, obj) {
     //$('.popover').popover('dispose');
             let elem = $(obj).parent().parent().next().popover({
                 trigger: 'manual',
-                content: '<div class = "filter-title" id="filter-count">'+ text +' </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">'+btn+'</button>',
+                content: '<div class="filter-title">' + tip + '<span id="filter-count">'+ text +'</span></div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">'+btn+'</button>',
                 html: true,
             });
             
