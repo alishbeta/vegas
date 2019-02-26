@@ -764,7 +764,8 @@ namespace Nop.Web.Factories
                     Id = category.Id,
                     Name = _localizationService.GetLocalized(category, x => x.Name),
                     SeName = _urlRecordService.GetSeName(category),
-                    IncludeInTopMenu = category.IncludeInTopMenu
+                    IncludeInTopMenu = category.IncludeInTopMenu,
+                    ImageUrl = _pictureService.GetPictureUrl(category.PictureId, 150) 
                 };
 
                 //number of products in each category

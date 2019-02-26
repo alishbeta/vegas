@@ -45,7 +45,7 @@
 @model TopMenuModel.CategoryLineModel
 <li class="@(ViewBag.ActiveCategory == Model.Category.Id ? "active" : "")">
     <a onclick="return false;" href="@Url.RouteUrl("CategoryInfo", new { SeName = Model.Category.SeName })">
-        @if (Model.Category.Id == 17)
+        @*@if (Model.Category.Id == 17)
         {
             <img class="side-icons" src="/img/on-mattress_icon.svg" alt="@Model.Category.Name">
         }
@@ -68,7 +68,8 @@
         @if (Model.Category.Id == 20)
         {
             <img class="side-icons" src="/img/accessorize_icon.svg" alt="@Model.Category.Name">
-        }
+        }*@
+        <img class="side-icons" src="@Model.Category.ImageUrl" alt="@Model.Category.Name">
         <span>@Model.Category.Name</span>
     </a>
     @{
@@ -81,12 +82,17 @@
         if (subCategories.Count() > 0)
         {
             <div class="sub-menu">
-				<ul>
-					@foreach (var subCategory in subCategories)
-					{
-					<li class="@(ViewBag.ActiveSubCategory == subCategory.Id ? "active" : "")"><a href="@Url.RouteUrl("CategoryInfo", new { SeName = subCategory.SeName })">@subCategory.Name</a></li>
-					}
-				</ul>
+                <ul>
+                    @foreach (var subCategory in subCategories)
+                    {
+                        <li class="@(ViewBag.ActiveSubCategory == subCategory.Id ? "active" : "")">
+                            <a href="@Url.RouteUrl("CategoryInfo", new { SeName = subCategory.SeName })">
+                                <img class="side-icons" src="@subCategory.ImageUrl" alt="@subCategory.Name">
+                                @subCategory.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
 				<div class="text-center mt-3">
 					<a href="@Url.RouteUrl("CategoryInfo", new { SeName = Model.Category.SeName })" class="btn btn-grey btn-sm pl-5 pr-5">@T("bestsellers.ViewAll")</a>
 				</div>

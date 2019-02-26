@@ -25,6 +25,8 @@ namespace Nop.Services.Catalog
         private readonly IRepository<SpecificationAttributeOption> _specificationAttributeOptionRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IUrlRecordService _urlRecordService;
+        private readonly ICategoryService _categoryService;
+        private readonly IStoreContext _storeContext;
 
         #endregion
 
@@ -36,7 +38,9 @@ namespace Nop.Services.Catalog
             IRepository<SpecificationAttribute> specificationAttributeRepository,
             IUrlRecordService urlRecordService,
             IRepository<SpecificationAttributeOption> specificationAttributeOptionRepository,
-            IRepository<Product> productRepository)
+            IRepository<Product> productRepository,
+            ICategoryService categoryService,
+            IStoreContext storeContext)
         {
             _urlRecordService = urlRecordService;
             _cacheManager = cacheManager;
@@ -45,6 +49,8 @@ namespace Nop.Services.Catalog
             _specificationAttributeRepository = specificationAttributeRepository;
             _specificationAttributeOptionRepository = specificationAttributeOptionRepository;
             _productRepository = productRepository;
+            _categoryService = categoryService;
+            _storeContext = storeContext;
         }
 
         #endregion
@@ -72,45 +78,53 @@ namespace Nop.Services.Catalog
             return specificationAttributeOptionsQuery.Count();   
         }
 
-        public virtual IEnumerable<SimilarProductSizes> GetSimilarProductSizes(string makeCode,string colorName, int productId = 0, bool isSleepSizes = false)
+        public virtual IEnumerable<SimilarProductSizes> GetSimilarProductSizes(string makeCode, string colorName, int productId = 0, bool isSleepSizes = false)
         {
-            var attributeQuery = from s in _specificationAttributeRepository.Table
-                        orderby s.Id
-                        where s.Name.ToLower() == "цвет"
-                        select s;
+            IEnumerable<Product> products = new List<Product>();
+            if (!string.IsNullOrEmpty(colorName))
+            {
+                var attributeQuery = from s in _specificationAttributeRepository.Table
+                                     orderby s.Id
+                                     where s.Name.ToLower() == "цвет"
+                                     select s;
 
-            var attribute = attributeQuery.FirstOrDefault();
+                var attribute = attributeQuery.FirstOrDefault();
 
-            if (attribute == null)
-                return null;
+                if (attribute == null)
+                    return null;
 
-            var optionQuery = from s in _specificationAttributeOptionRepository.Table
-                              orderby s.Id
-                              where s.SpecificationAttributeId == attribute.Id && s.Name == colorName
-                              select s.Id;
+                var optionQuery = from s in _specificationAttributeOptionRepository.Table
+                                  orderby s.Id
+                                  where s.SpecificationAttributeId == attribute.Id && s.Name == colorName
+                                  select s.Id;
 
-            var option = optionQuery.FirstOrDefault();
+                var option = optionQuery.FirstOrDefault();
 
-            if (optionQuery == null)
-                return null;
+                if (optionQuery == null)
+                    return null;
 
-            var similarProductsQuery = from s in _productSpecificationAttributeRepository.Table
-                                       orderby s.Id
-                                       where s.SpecificationAttributeOptionId == option
-                                       select s.Product;
+                var similarProductsQuery = from s in _productSpecificationAttributeRepository.Table
+                                           orderby s.Id
+                                           where s.SpecificationAttributeOptionId == option
+                                           select s.Product;
 
-            var products = similarProductsQuery.ToList();
+                products = similarProductsQuery.Where(x => x.MakeCode == makeCode && !x.Deleted && x.Published);
+            }
+            else
+            {
+                products = _productRepository.Table.Where(x => x.MakeCode == makeCode && !x.Deleted && x.Published);
+            }
 
             if (isSleepSizes)
             {
-                var model = products.Where(x => x.MakeCode == makeCode).OrderBy(x => x.SleepLength).ThenBy(x => x.SleepWidth).Select(x => new SimilarProductSizes()
+                var model = products.OrderBy(x => x.SleepLength).ThenBy(x => x.SleepWidth).Select(x => new SimilarProductSizes()
                 {
                     height = null,
                     length = x.SleepLength.ToString("#.##"),
                     productUrl = string.Format("/{0}", _urlRecordService.GetSeName(x.Id, "Product", null, true, true)),
                     width = x.SleepWidth.ToString("#.##")
                 });
-                return model;
+                return model.Where(x => !string.IsNullOrEmpty(x.productUrl));
             }
             else
             {
@@ -121,7 +135,7 @@ namespace Nop.Services.Catalog
                     productUrl = string.Format("/{0}", _urlRecordService.GetSeName(x.Id, "Product", null, true, true)),
                     width = x.Width.ToString("#.##")
                 });
-                return model;
+                return model.Where(x => !string.IsNullOrEmpty(x.productUrl));
             }
         }
 

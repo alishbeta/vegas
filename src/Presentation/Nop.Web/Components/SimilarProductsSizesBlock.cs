@@ -37,7 +37,7 @@ namespace Nop.Web.Components
 
 		public IViewComponentResult Invoke(string makeCode, string colorName, int productId = 0, bool isSleepSizes = false)
 		{
-            if (string.IsNullOrEmpty(colorName) || string.IsNullOrEmpty(makeCode))
+            if (string.IsNullOrEmpty(makeCode))
             {
                 return Content("");
             }
