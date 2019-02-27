@@ -54,7 +54,7 @@ namespace Nop.Web.Components
             ViewBag.ProductName = product.Name;
 
             //prepare model
-            var model = _specificationAttributeService.GetSimilarProductSizes(makeCode, colorName, productId, isSleepSizes);
+            var model = _specificationAttributeService.GetSimilarProductSizes(makeCode, colorName, product, isSleepSizes);
             return View(model);
 		}
 	}

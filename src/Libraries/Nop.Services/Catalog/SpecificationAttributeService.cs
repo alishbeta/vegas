@@ -6,6 +6,7 @@ using Nop.Core.Caching;
 using Nop.Core.Data;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Common;
+using Nop.Services.Configuration;
 using Nop.Services.Events;
 using Nop.Services.Seo;
 
@@ -27,6 +28,7 @@ namespace Nop.Services.Catalog
         private readonly IUrlRecordService _urlRecordService;
         private readonly ICategoryService _categoryService;
         private readonly IStoreContext _storeContext;
+        private readonly CommonSettings _commonSettings;
 
         #endregion
 
@@ -40,7 +42,8 @@ namespace Nop.Services.Catalog
             IRepository<SpecificationAttributeOption> specificationAttributeOptionRepository,
             IRepository<Product> productRepository,
             ICategoryService categoryService,
-            IStoreContext storeContext)
+            IStoreContext storeContext,
+            CommonSettings commonSettings)
         {
             _urlRecordService = urlRecordService;
             _cacheManager = cacheManager;
@@ -51,6 +54,7 @@ namespace Nop.Services.Catalog
             _productRepository = productRepository;
             _categoryService = categoryService;
             _storeContext = storeContext;
+            _commonSettings = commonSettings;
         }
 
         #endregion
@@ -78,14 +82,14 @@ namespace Nop.Services.Catalog
             return specificationAttributeOptionsQuery.Count();   
         }
 
-        public virtual IEnumerable<SimilarProductSizes> GetSimilarProductSizes(string makeCode, string colorName, int productId = 0, bool isSleepSizes = false)
+        public virtual IEnumerable<SimilarProductSizes> GetSimilarProductSizes(string makeCode, string colorName, Product product = null, bool isSleepSizes = false)
         {
             IEnumerable<Product> products = new List<Product>();
             if (!string.IsNullOrEmpty(colorName))
             {
                 var attributeQuery = from s in _specificationAttributeRepository.Table
                                      orderby s.Id
-                                     where s.Name.ToLower() == "цвет"
+                                     where s.Name.ToLower() == _commonSettings.ColorAttributeName.ToLower()
                                      select s;
 
                 var attribute = attributeQuery.FirstOrDefault();
@@ -115,13 +119,78 @@ namespace Nop.Services.Catalog
                 products = _productRepository.Table.Where(x => x.MakeCode == makeCode && !x.Deleted && x.Published);
             }
 
+            if (product != null)
+            {
+                //характеристика "Подъемный механизм"
+                var complectationQuery = from s in _specificationAttributeRepository.Table
+                                         where s.Name.ToLower() == _commonSettings.ComplectationAttributeName.ToLower()
+                                         select s;
+
+                var complectation = complectationQuery.FirstOrDefault();
+
+                var complectationValuesQuery = from s in _specificationAttributeOptionRepository.Table
+                                               where s.SpecificationAttributeId == complectation.Id
+                                               select s.Id;
+
+                //Варианты значений характеристики "Подъемный механизм" ("Да", "Нет")
+                var complectationValues = complectationValuesQuery.ToList();
+
+                //получаем значение атрибута подъемный механизм
+                var productComplectation = product.ProductSpecificationAttributes.FirstOrDefault(x => complectationValues.Contains(x.SpecificationAttributeOptionId))?.SpecificationAttributeOptionId;
+
+                //характеристика "Категория"
+                var categoryQuery = from s in _specificationAttributeRepository.Table
+                                    where s.Name.ToLower() == _commonSettings.CategoryAttributeName.ToLower()
+                                    select s;
+
+                var category = categoryQuery.FirstOrDefault();
+
+                var categoryValuesQuery = from s in _specificationAttributeOptionRepository.Table
+                                          where s.SpecificationAttributeId == category.Id
+                                          select s.Id;
+
+                //Варианты значений характеристики "Категория" 
+                var categoryValues = categoryValuesQuery.ToList();
+
+                //получаем значение атрибута "Категория"
+                var productCategory = product.ProductSpecificationAttributes.FirstOrDefault(x => categoryValues.Contains(x.SpecificationAttributeOptionId))?.SpecificationAttributeOptionId;
+
+                //характеристика "Способ покрытия"
+                var coveringQuery = from s in _specificationAttributeRepository.Table
+                                    where s.Name.ToLower() == _commonSettings.CoveringAttributeName.ToLower()
+                                    select s;
+
+                var covering = coveringQuery.FirstOrDefault();
+
+                var coveringValuesQuery = from s in _specificationAttributeOptionRepository.Table
+                                          where s.SpecificationAttributeId == covering.Id
+                                          select s.Id;
+
+                //Варианты значений характеристики "Способ покрытия" 
+                var coveringValues = coveringValuesQuery.ToList();
+
+                //получаем значение атрибута "Способ покрытия"
+                var productCovering = product.ProductSpecificationAttributes.FirstOrDefault(x => coveringValues.Contains(x.SpecificationAttributeOptionId))?.SpecificationAttributeOptionId;
+
+                
+                IList<int> specifications = new List<int>();
+
+                if (productComplectation != null && productComplectation != 0) specifications.Add(productComplectation.Value);
+                if (productCategory != null && productCategory != 0) specifications.Add(productCategory.Value);
+                if (productCovering != null && productCovering != 0) specifications.Add(productCovering.Value);
+
+                products = products.Where(x =>
+                x.ProductSpecificationAttributes.Select(u => u.SpecificationAttributeOptionId).Intersect(specifications).Count() == specifications.Count());
+                
+            }
+
             if (isSleepSizes)
             {
                 var model = products.OrderBy(x => x.SleepLength).ThenBy(x => x.SleepWidth).Select(x => new SimilarProductSizes()
                 {
                     height = null,
                     length = x.SleepLength.ToString("#.##"),
-                    productUrl = string.Format("/{0}", _urlRecordService.GetSeName(x.Id, "Product", null, true, true)),
+                    productUrl = string.Format("/product/{0}", _urlRecordService.GetSeName(x.Id, "Product", null, true, true)),
                     width = x.SleepWidth.ToString("#.##")
                 });
                 return model.Where(x => !string.IsNullOrEmpty(x.productUrl));
@@ -132,18 +201,18 @@ namespace Nop.Services.Catalog
                 {
                     height = x.Height.ToString("#.##"),
                     length = x.Length.ToString("#.##"),
-                    productUrl = string.Format("/{0}", _urlRecordService.GetSeName(x.Id, "Product", null, true, true)),
+                    productUrl = string.Format("/product/{0}", _urlRecordService.GetSeName(x.Id, "Product", null, true, true)),
                     width = x.Width.ToString("#.##")
                 });
                 return model.Where(x => !string.IsNullOrEmpty(x.productUrl));
             }
         }
 
-        public virtual IEnumerable<int> GetSimilarProductIdsByColor(string makeCode, string colorName, int productId = 0)
+        public virtual IEnumerable<int> GetSimilarProductIdsByColor(string makeCode, string colorName, Product product = null)
         {
             var attributeQuery = from s in _specificationAttributeRepository.Table
                                  orderby s.Id
-                                 where s.Name.ToLower() == "цвет"
+                                 where s.Name.ToLower() == _commonSettings.ColorAttributeName.ToLower()
                                  select s;
 
             var attribute = attributeQuery.FirstOrDefault();
@@ -166,43 +235,76 @@ namespace Nop.Services.Catalog
                                        where options.Contains(s.SpecificationAttributeOptionId) && s.Product.MakeCode == makeCode
                                        select s;
 
-            if (productId != 0)
+            if (product != null)
             {
-                var productQuery = from s in _productRepository.Table
-                                   orderby s.Id
-                                   where s.Id == productId
-                                   select s;
-
-                var product = productQuery.FirstOrDefault();
-
                 var width = product?.Width;
                 var length = product?.Length;
+                var height = product?.Height;
 
+                //характеристика "Подъемный механизм"
                 var complectationQuery = from s in _specificationAttributeRepository.Table
-                                                where s.Name.ToLower() == "пм"
+                                                where s.Name.ToLower() == _commonSettings.ComplectationAttributeName.ToLower()
                                                 select s;
 
-                var complectation = complectationQuery.FirstOrDefault(); //характеристика "Подъемный механизм"
+                var complectation = complectationQuery.FirstOrDefault(); 
 
                 var complectationValuesQuery = from s in _specificationAttributeOptionRepository.Table
-                                                      where s.SpecificationAttributeId == complectation.Id
-                                                      select s.Id;
+                                               where s.SpecificationAttributeId == complectation.Id
+                                               select s.Id;
+                
+                //Варианты значений характеристики "Подъемный механизм" ("Да", "Нет")
+                var complectationValues = complectationValuesQuery.ToList();
 
-                var complectationValues = complectationValuesQuery.ToList(); //Варианты значений характеристики "Подъемный механизм" ("Да", "Нет")
+                //получаем значение атрибута подъемный механизм
+                var productComplectation = product.ProductSpecificationAttributes.FirstOrDefault(x => complectationValues.Contains(x.SpecificationAttributeOptionId))?.SpecificationAttributeOptionId;
 
-                var productComplectation = product.ProductSpecificationAttributes.FirstOrDefault(x => complectationValues.Contains(x.SpecificationAttributeOptionId))?.SpecificationAttributeOptionId; //получаем значение атрибута подъемный механизм
+                //характеристика "Категория"
+                var categoryQuery = from s in _specificationAttributeRepository.Table
+                                         where s.Name.ToLower() == _commonSettings.CategoryAttributeName.ToLower()
+                                         select s;
+
+                var category = categoryQuery.FirstOrDefault(); 
+
+                var categoryValuesQuery = from s in _specificationAttributeOptionRepository.Table
+                                          where s.SpecificationAttributeId == category.Id
+                                          select s.Id;
+
+                //Варианты значений характеристики "Категория" 
+                var categoryValues = categoryValuesQuery.ToList();
+
+                //получаем значение атрибута "Категория"
+                var productCategory = product.ProductSpecificationAttributes.FirstOrDefault(x => categoryValues.Contains(x.SpecificationAttributeOptionId))?.SpecificationAttributeOptionId;
+
+                //характеристика "Способ покрытия"
+                var coveringQuery = from s in _specificationAttributeRepository.Table
+                                         where s.Name.ToLower() == _commonSettings.CoveringAttributeName.ToLower()
+                                         select s;
+
+                var covering = coveringQuery.FirstOrDefault(); 
+
+                var coveringValuesQuery = from s in _specificationAttributeOptionRepository.Table
+                                            where s.SpecificationAttributeId == covering.Id
+                                            select s.Id;
+
+                //Варианты значений характеристики "Способ покрытия" 
+                var coveringValues = coveringValuesQuery.ToList();
+
+                //получаем значение атрибута "Способ покрытия"
+                var productCovering = product.ProductSpecificationAttributes.FirstOrDefault(x => coveringValues.Contains(x.SpecificationAttributeOptionId))?.SpecificationAttributeOptionId;
 
                 if (length != null && length != 0 && width != null && width != 0)
                 {
+                    IList<int> specifications = new List<int>();
 
-                    if (productComplectation != null && productComplectation != 0)
-                    {
-                        similarProductsQuery = similarProductsQuery.Where(x => x.Product.ProductSpecificationAttributes.Select(u => u.SpecificationAttributeOptionId).Contains(productComplectation.Value) && x.Product.Length == length && x.Product.Width == width);
-                    }
-                    else
-                    {
-                        similarProductsQuery = similarProductsQuery.Where(x => x.Product.Length == length && x.Product.Width == width);
-                    }
+                    if (productComplectation != null && productComplectation != 0) specifications.Add(productComplectation.Value);
+                    if (productCategory != null && productCategory != 0) specifications.Add(productCategory.Value);
+                    if (productCovering != null && productCovering != 0) specifications.Add(productCovering.Value);
+
+                    similarProductsQuery = similarProductsQuery.Where(x => 
+                    x.Product.ProductSpecificationAttributes.Select(u => u.SpecificationAttributeOptionId).Intersect(specifications).Count() == specifications.Count() && 
+                    x.Product.Length == length && 
+                    x.Product.Width == width &&
+                    x.Product.Height == height);
                 }                 
             }
 

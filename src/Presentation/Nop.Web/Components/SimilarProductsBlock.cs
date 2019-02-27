@@ -37,13 +37,15 @@ namespace Nop.Web.Components
 
 		public IViewComponentResult Invoke(string makeCode, string colorName, string productName, int productId = 0)
 		{
-            if (string.IsNullOrEmpty(colorName) || string.IsNullOrEmpty(makeCode))
+            if (string.IsNullOrEmpty(makeCode))
             {
                 return Content("");
             }
             IEnumerable<Product> products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				orderBy: ProductSortingEnum.CreatedOn);
+
+            Product product = products.FirstOrDefault(x => x.Id == productId);
 
             ViewBag.ProductName = productName;
 
@@ -55,7 +57,7 @@ namespace Nop.Web.Components
 			if (!products.Any())
 				return Content("");
 
-            var productIds = _specificationAttributeService.GetSimilarProductIdsByColor(makeCode, colorName, productId);
+            var productIds = _specificationAttributeService.GetSimilarProductIdsByColor(makeCode, colorName, product);
 
             products = products.Where(x => productIds.Contains(x.Id));
 

@@ -25,9 +25,9 @@ namespace Nop.Services.Catalog
 
         IList<int> GetSpecificationAttributeOptionsByProductIds(IEnumerable<int> productIds);
         int GetProductsCountBySpecification(int specificationAttributeOptionId, IEnumerable<int> productIds);
-        IEnumerable<SimilarProductSizes> GetSimilarProductSizes(string makeCode, string colorName, int productId = 0, bool isSleepSizes = false);
+        IEnumerable<SimilarProductSizes> GetSimilarProductSizes(string makeCode, string colorName, Product product = null, bool isSleepSizes = false);
 
-        IEnumerable<int> GetSimilarProductIdsByColor(string makeCode, string colorName, int productId = 0);
+        IEnumerable<int> GetSimilarProductIdsByColor(string makeCode, string colorName, Product product = null);
 
         /// <summary>
         /// Gets specification attributes

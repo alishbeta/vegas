@@ -200,6 +200,9 @@
     {
     @await Html.PartialAsync("_ProductBreadcrumb", Model.Breadcrumb)
 }
+@{
+    var productColor = Model.ProductSpecifications.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "Цвет".ToLower());
+}
 <div class="modal fade" id="catoneclickbuy" tabindex="-1" role="dialog" aria-labelledby="catalogBuyInOneClick" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -329,9 +332,6 @@
                         </div>
                     </div>
                     <div class="line d-none d-lg-block"></div>
-                    @{
-                        var productColor = Model.ProductSpecifications.FirstOrDefault(x => x.SpecificationAttributeName.ToLower() == "Цвет".ToLower());
-                    }
                     @if (Model.SleepLength != 0 || Model.SleepWidth != 0)
                     {
                         <div class="prop-wrap">
@@ -440,8 +440,8 @@
     @await Component.InvokeAsync("CrossSellProducts", new { productIds = new int[1] { Model.Id } })
     @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })
 </div>
-    <script type="text/javascript" src="~/js/site/slick.min.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript" src="~/js/site/slick.min.js"></script>
+<script type="text/javascript">
         $('.slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -461,11 +461,11 @@
             prevArrow: '<div class="prev-arrow"></div>',
             nextArrow: '<div class="next-arrow"></div>',
         });
-    </script>
-    <script src="~/js/site/maskedinput.js"></script>
-    <script>
+</script>
+<script src="~/js/site/maskedinput.js"></script>
+<script>
         $("#cat-oneclick-phone").mask("+38 (999) 999-99-99", { placeholder: "+38 (___) ___-__-__" });
         $(".slider a").fancybox({
             'hideOnContentClick': true
         });
-    </script>
+</script>

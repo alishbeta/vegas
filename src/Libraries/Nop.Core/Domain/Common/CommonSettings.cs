@@ -134,5 +134,10 @@ namespace Nop.Core.Domain.Common
         /// Gets or sets a value of "Cache-Control" header value for static content
         /// </summary>
         public string StaticFilesCacheControl { get; set; }
+
+        public string CoveringAttributeName { get; set; }
+        public string ComplectationAttributeName { get; set; }
+        public string CategoryAttributeName { get; set; }
+        public string ColorAttributeName { get; set; }
     }
 }
