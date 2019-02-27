@@ -8,9 +8,10 @@
 {
 	<div class="see-wrap pad-norm">
 		<div class="title row justify-content-center">
-			<div class="col-auto">
-				<h3 class="">@T("ourstores.product")</h3>
-			</div>
+            <div class="col-auto">
+                <h3>@T("ourstores.product")</h3>
+                <button class="btn btn-sm btn-blue-white float-right d-none d-md-block" id="showMore" onclick="ShowMore()">@T("Bestsellers.ViewAll")</button>
+            </div>
 		</div>
 		<div class="scrollM clearfix">
 			<div class="scrollingHotSpotLeft" style="display: none;">
@@ -20,7 +21,7 @@
 				<div class="arrow"></div>
 			</div>
 			<div class="scrollWrapper kinetic-active" style="cursor: move;">
-				<div class="scrollableArea clearfix">
+				<div class="scrollableArea clearfix" id="prods">
 					@foreach (var item in Model)
 					{
 						@await Html.PartialAsync("_ProductBox", item)
@@ -30,3 +31,108 @@
 		</div>
 	</div>
 }
+@*Копия скрипта из CategoryTemplate GridOrLines*@
+    <script>
+    function ShowMore()  {
+        $("#showMore").addClass("load");
+		$.ajax({
+			url: "@Url.Action("GetWarehouseProducts", "Common")",
+			type: "POST",
+			dataType: 'json',
+			traditional: true,
+			data: {
+				addressId: @ViewBag.AddressId
+			},
+        }).done(function (response) {
+            $("#prods").empty();
+			response.model.forEach(function (product) {
+				var discount = "";
+				if (product.ProductPrice.Discount != 0) {
+					discount = '<div class="discount">-' + + product.ProductPrice.Discount + '%</div>';
+				}
+				var oldPrice = "";
+				if (product.ProductPrice.OldPrice != null && product.ProductPrice.OldPrice != "" ) {
+					oldPrice = '<div class="price-old">' + + product.ProductPrice.OldPrice + '</div>';
+				}
+				var shortDesc = "";
+				if (product.ShortDescription != null) {
+					shortDesc = product.ShortDescription;
+				}
+				var buyButton = "";
+				if (product.InStock) {
+					buyButton = '<button type="button" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/1/1\');StartLoadingCart();return false;" class="btn btn-sm btn-blue btn-block buy-btn">@T("product.buy")</button>';
+				}
+				else {
+                    buyButton = '<button type="button" onclick="DisplayOrderPopup(\'/ru/addproducttocart/catalog/' + product.Id + '/1/1\')" class="btn btn-sm btn-blue btn-block">@T("product.order")</button>';
+				}
+				var element =
+					'<div class="outer-wrapp scroll">' +
+						'<div class="item-wrap">' +
+							'<div class="product-img-wrap">' +
+								'<a href="' + product.SeName + '">' +
+									'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
+								'</a>' +
+								discount +
+							'</div>' +
+							'<div class="main-prop-wrap text-left">' +
+								'<a href="' + product.SeName + '">' +
+									'<div class="product-name text-light-c">' + product.Name + '</div>' +
+								'</a>' +
+								'<div class="product-prop">' + shortDesc + '</div>' +
+								'<div class="price-titile">' + '@T("main.product.price")' + '</div>' +
+								'<div class="price-wrap clearfix">' +
+									oldPrice +
+									'<div class="price-new">' + product.ProductPrice.Price + '</div>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+						'<div class="item-wrap-full" style="display: none;">' +
+							'<i class="favorite_i float-left" data-id="' + product.Id + '" onclick="AjaxCart.addproducttocart_catalog(\'/ru/addproducttocart/catalog/' + product.Id + '/2/1\');$(this).addClass(\'load\');return false;"></i>' +
+							'<i class="compare_icon float-right" data-ids="' + product.Id + '" onclick="AjaxCart.addproducttocomparelist(\'/ru/compareproducts/add/' + product.Id + '\');$(this).addClass(\'load\');return false;"></i>' +
+							'<div class="product-img-wrap">' +
+								'<a href="' + product.SeName + '">' +
+									'<img class="product" src="' + product.DefaultPictureModel.ImageUrl + '" alt="' + product.DefaultPictureModel.AlternateText + '">' +
+								'</a>' +
+								discount +
+							'</div>' +
+							'<div class="main-prop-wrap text-left">' +
+								'<a href="' + product.SeName + '">' +
+								'<div class="product-name text-light-c">' + product.Name + '</div>' +
+								'</a>' +
+								'<div class="product-prop">' + shortDesc + '</div>' +
+								'<div class="price-titile">' + '@T("main.product.price")' + '</div>' +
+								'<div class="price-wrap clearfix">' +
+									oldPrice +
+									'<div class="price-new">' + product.ProductPrice.Price + '</div>' +
+								'</div>' +
+							'</div>' +
+							'<div class="sizes-wrap clearfix">' +
+								'<div class="title">@T("product.sizes")</div>' +
+								'<div class="inner-wrap">' +
+									'<div class="block float-left">' +
+										'<div class="title">@T("product.width")</div>' +
+										'<div class="value">' + product.Width + ' см</div>' +
+									'</div>' +
+									'<div class="block float-left">' +
+										'<div class="title">@T("product.length")</div>' +
+										'<div class="value">' + product.Length + ' см</div>' +
+									'</div>' +
+									'<div class="block float-left">' +
+										'<div class="title">@T("product.height")</div>' +
+										'<div class="value">' + product.Height + ' см</div>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+							'<div class="text-center"></div>' +
+							buyButton +
+						'</div>' +
+					'</div>';
+				$("#prods").append(element);
+			});
+			UpdateWishlist();
+			UpdateCompareItems();
+		});
+        $("#showMore").removeClass("load");
+        $("#showMore").addClass("invisible");
+    }
+</script>

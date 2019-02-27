@@ -70,7 +70,8 @@ namespace Nop.Web.Components
 			//prepare model
 			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, null).ToList();
 			ViewBag.Prefix = "warehouse";//prefix for backinstock button
-			return View(model);
+            ViewBag.AddressId = addressId;
+            return View(model);
 		}
 	}
 }

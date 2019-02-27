@@ -24,6 +24,7 @@ using Nop.Services.Messages;
 using Nop.Services.Orders;
 using Nop.Services.Security;
 using Nop.Services.Shipping;
+using Nop.Services.Stores;
 using Nop.Services.Vendors;
 using Nop.Web.Areas.Admin.Models.Localization;
 using Nop.Web.Areas.Admin.Models.Shipping;
@@ -68,6 +69,8 @@ namespace Nop.Web.Controllers
         private readonly VendorSettings _vendorSettings;
         private readonly IWebHelper _webHelper;
         private readonly ILocationService _locationService;
+        private readonly IAclService _aclService;
+        private readonly IStoreMappingService _storeMappingService;
         
         #endregion
         
@@ -98,7 +101,9 @@ namespace Nop.Web.Controllers
             VendorSettings vendorSettings,
 			IShippingService shippingService,
             IWebHelper webHelper,
-            ILocationService locationService)
+            ILocationService locationService,
+            IAclService aclService,
+            IStoreMappingService storeMappingService)
         {
             this._pictureService = pictureService;
             this._catalogSettings = catalogSettings;
@@ -126,6 +131,8 @@ namespace Nop.Web.Controllers
 			this._shippingService = shippingService;
             this._webHelper = webHelper;
             this._locationService = locationService;
+            this._aclService = aclService;
+            this._storeMappingService = storeMappingService;
 		}
 
 		#endregion
@@ -568,6 +575,30 @@ namespace Nop.Web.Controllers
 		}
 
         #endregion
+
+        public virtual dynamic GetWarehouseProducts(int addressId)
+        {
+            int warehouseId = _shippingService.GetAllWarehouses().FirstOrDefault(x => x.AddressId == addressId)?.Id ?? 0;
+
+            IEnumerable<Product> products = _productService.SearchProducts(
+                storeId: _storeContext.CurrentStore.Id,
+                visibleIndividuallyOnly: true,
+                warehouseId: warehouseId,
+                orderBy: ProductSortingEnum.CreatedOn);
+
+            //ACL and store mapping
+            products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p));
+            //availability dates
+            products = products.Where(p => _productService.ProductIsAvailable(p));
+
+            if (!products.Any())
+                return Content("");
+
+            //prepare model
+            var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, 250);
+            ViewBag.Prefix = "warehouse";//prefix for backinstock button
+            return new { model };
+        }
 
         public JsonResult CityJson()
         {
