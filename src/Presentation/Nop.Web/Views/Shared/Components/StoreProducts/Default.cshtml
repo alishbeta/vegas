@@ -7,12 +7,12 @@
 @if (Model.Count > 0)
 {
 	<div class="see-wrap pad-norm">
-		<div class="title row justify-content-center">
+        <div class="title row justify-content-center">
             <div class="col-auto">
                 <h3>@T("ourstores.product")</h3>
-                <button class="btn btn-sm btn-blue-white float-right d-none d-md-block" id="showMore" onclick="ShowMore()">@T("Bestsellers.ViewAll")</button>
             </div>
-		</div>
+            <button class="btn btn-sm btn-blue-white float-right d-none d-md-block" id="showMore" onclick="ShowMore()">@T("Bestsellers.ViewAll")</button>
+        </div>
 		<div class="scrollM clearfix">
 			<div class="scrollingHotSpotLeft" style="display: none;">
 				<div class="arrow"></div>
@@ -130,9 +130,9 @@
 				$("#prods").append(element);
 			});
 			UpdateWishlist();
-			UpdateCompareItems();
+            UpdateCompareItems();
+            $("#showMore").removeClass("load");
+            $("#showMore").addClass("invisible");
 		});
-        $("#showMore").removeClass("load");
-        $("#showMore").addClass("invisible");
     }
 </script>
