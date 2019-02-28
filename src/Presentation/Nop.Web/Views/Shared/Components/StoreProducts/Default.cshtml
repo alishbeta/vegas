@@ -12,8 +12,9 @@
                 <h3>@T("ourstores.product")</h3>
             </div>
             <button class="btn btn-sm btn-blue-white float-right d-none d-md-block" id="showMore" onclick="ShowMore()">@T("Bestsellers.ViewAll")</button>
+            <button class="btn btn-sm btn-blue-white float-right d-none d-md-block invisible" id="hideMore" onclick="HideMore()">@T("Showroom.HideAll")</button>
         </div>
-		<div class="scrollM clearfix">
+		<div id="preview" class="scrollM clearfix">
 			<div class="scrollingHotSpotLeft" style="display: none;">
 				<div class="arrow"></div>
 			</div>
@@ -21,7 +22,7 @@
 				<div class="arrow"></div>
 			</div>
 			<div class="scrollWrapper kinetic-active" style="cursor: move;">
-				<div class="scrollableArea clearfix" id="prods">
+				<div class="scrollableArea clearfix">
 					@foreach (var item in Model)
 					{
 						@await Html.PartialAsync("_ProductBox", item)
@@ -29,10 +30,19 @@
 				</div>
 			</div>
 		</div>
+		<div id="prods" class="scrollM clearfix">
+			<!--products from ajax-->
+		</div>
 	</div>
 }
 @*Копия скрипта из CategoryTemplate GridOrLines*@
     <script>
+        function HideMore() {
+        $("#preview").show();
+        $("#prods").empty();
+        $("#showMore").removeClass("invisible");
+        $("#hideMore").addClass("invisible");
+    }
     function ShowMore()  {
         $("#showMore").addClass("load");
 		$.ajax({
@@ -44,6 +54,7 @@
 				addressId: @ViewBag.AddressId
 			},
         }).done(function (response) {
+            $("#preview").hide();
             $("#prods").empty();
 			response.model.forEach(function (product) {
 				var discount = "";
@@ -133,6 +144,7 @@
             UpdateCompareItems();
             $("#showMore").removeClass("load");
             $("#showMore").addClass("invisible");
+            $("#hideMore").removeClass("invisible");
 		});
     }
 </script>
