@@ -1,0 +1,7 @@
+﻿@using Nop.Core.Domain.Shipping;
+@model IList<Warehouse>
+
+@foreach (var item in Model)
+{    
+     <option>@item.Name</option>
+}
