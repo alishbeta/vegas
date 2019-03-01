@@ -170,6 +170,18 @@ i.favorite_i:hover {
   background-size: 15%;
 }
 
+button.load {
+  border: transparent;
+  color: transparent;
+}
+button.load:before {
+  position: absolute;
+  height: 33px;
+  background-size: 30%;
+  top: 0;
+  left: 0;
+}
+
 .buy-history-wrap .load:before {
   width: 110px;
   height: 110px;

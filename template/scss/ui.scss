@@ -164,6 +164,18 @@ i {
         background-size: 15%;
     }
 }
+
+button.load{
+    border: transparent;
+    color: transparent;
+    &:before {
+        position: absolute;
+        height: 33px;
+        background-size: 30%;
+        top: 0;
+        left: 0;
+    }
+}
 .buy-history-wrap{
     .load:before {
         width: 110px;

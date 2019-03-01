@@ -37,7 +37,7 @@ function initMap() {
                             '<h3 id="firstHeading" class="firstHeading">' + results[0].address_components[3].long_name + '</h1>' +
                             '<div id="bodyContent">' +
                             '<div>'+ data.name +'</div>' +
-                            '<div><span>ул.</span> '+ data.addr +'</div>' +
+                            '<div>'+ data.addr +'</div>' +
                             '<div><span>Телефон</span>: '+ data.phone +'</div>' +
                             '<div><span>График</span>: '+ data.workTime +'</div>' +
                             '</div>' +
