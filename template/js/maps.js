@@ -11,13 +11,17 @@ function initMap() {
     } else {
         if ($('*').is('#map') && adresses != undefined) {
             geocoder = new google.maps.Geocoder();
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {
-                    lat: 50.458961,
-                    lng: 30.337648
-                },
-                zoom: 11
+            geocoder.geocode({ 'address': data.city }, function (results, status) {
+                if (status == 'OK') {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: results[0].geometry.location,
+                        zoom: 11
+                    });
+                } else {
+                    console.log('Geocode was not successful for the following reason: ' + status);
+                }
             });
+
 
             adresses.forEach(addPoint);
             function addPoint(data, index) {
@@ -34,8 +38,11 @@ function initMap() {
                             '<div id="siteNotice">' +
                             '</div>' +
                             '<h3 id="firstHeading" class="firstHeading">' + results[0].address_components[3].long_name + '</h1>' +
-                            data.description +
                             '<div id="bodyContent">' +
+                            '<div>'+ data.name +'</div>' +
+                            '<div><span>ул.</span> '+ data.addr +'</div>' +
+                            '<div><span>Телефон</span>: '+ data.phone +'</div>' +
+                            '<div><span>График</span>: '+ data.workTime +'</div>' +
                             '</div>' +
                             '</div>';
                         var infowindow = new google.maps.InfoWindow({
