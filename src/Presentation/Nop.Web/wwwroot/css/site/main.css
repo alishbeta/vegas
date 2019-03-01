@@ -1281,8 +1281,12 @@ nav.breadcrumb-wrap a:hover {
 .cat .keep_open ul {
   margin-left: 30px;
 }
+.cat .keep_open ul li {
+  cursor: pointer;
+}
 .cat .keep_open ul li.group {
   list-style: disc;
+  font-weight: 600;
 }
 .cat .keep_open ul li ul {
   margin-left: 15px;
@@ -1305,6 +1309,7 @@ nav.breadcrumb-wrap a:hover {
 .outer-wrapp {
   float: left;
   margin-bottom: 15px;
+  height: 295px;
 }
 
 .see-wrap {
@@ -1958,7 +1963,7 @@ small {
 }
 
 .modal-content {
-  padding: 50px 20px !important;
+  padding: 40px 20px !important;
 }
 
 .btn-city {
@@ -2935,15 +2940,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   width: 125px;
   margin-right: 15px;
 }
-.cart-popup-wrap .price-wrap .discount {
-  position: relative;
-  top: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
-  font-size: 11px;
-  line-height: 2.7;
-  margin-left: 15px;
+.cart-popup-wrap .item .discount {
+  top: 25px;
+  right: 50px;
+  width: 70px;
+  height: 70px;
+  border-radius: 40px;
+  line-height: 3.5;
+  font-size: 20px;
 }
 
 .news.row, .row.map {
@@ -3179,7 +3183,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   width: 30px;
   height: 30px;
   left: 668px;
-  top: 275px;
+  top: 390px;
   z-index: 5;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -3216,7 +3220,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.33);
 }
 .product .next-arrow {
-  top: -275px;
+  top: -390px;
 }
 .product .next-arrow::after {
   top: 10px;

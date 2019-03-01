@@ -60,8 +60,10 @@
     ul{
       margin-left: 30px;
       li{
+        cursor: pointer;
         &.group{
           list-style: disc;
+          font-weight: 600;
         }
         ul{
           margin-left: 15px;
