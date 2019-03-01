@@ -11,17 +11,14 @@ function initMap() {
     } else {
         if ($('*').is('#map') && adresses != undefined) {
             geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'address': adresses[0].city }, function (results, status) {
-                if (status == 'OK') {
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        center: results[0].geometry.location,
-                        zoom: 11
-                    });
-                } else {
-                    console.log('Geocode was not successful for the following reason: ' + status);
-                }
+            
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 50.458961,
+                    lng: 30.337648
+                },
+                zoom: 11
             });
-
 
             adresses.forEach(addPoint);
             function addPoint(data, index) {
