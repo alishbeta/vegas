@@ -87,6 +87,9 @@
     <Content Update="Views\Shared\Components\SimilarProductsSizesBlock\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\Components\WarehouseSelectorBlock\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
   <!-- This target execute after "Build" target.

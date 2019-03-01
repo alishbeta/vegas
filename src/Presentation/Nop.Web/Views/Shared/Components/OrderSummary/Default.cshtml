@@ -403,6 +403,12 @@
                         @await Component.InvokeAsync("RegionsSelectorBlock", new { selectedCity = Model.CustomerInfo.City })
                     </select>
                 </div>
+                <div class="form-group row" id="new-field-warehouse">
+                    <label class="col-form-label col-sm-3">@T("cart.warehouse.select")</label>
+                    <select type="text" name="Warehouse" class="form-control col-sm-8">
+                        @await Component.InvokeAsync("WarehouseSelectorBlock")
+                    </select>
+                </div>
                 <div class="form-group row d-none" id="new-field-addr">
                     <label class="col-form-label col-sm-3">@T("admin.orders.address.address1")</label>
                     <input type="text" name="StreetAddress1" class="form-control col-sm-8">
@@ -622,6 +628,17 @@
                                     @await Component.InvokeAsync("RegionsSelectorBlock", new { selectedCity = Model.CustomerInfo.City })
                                 </select>
                             </div>
+                            <div id="old-field-warehouse" class="form-group row">
+                                <label class="col-form-label col-sm-3" for="ai3">
+                                    @T("cart.warehouse.select")
+                                </label>
+                                <select type="text"
+                                        id="ai3"
+                                        name="Warehouse"
+                                        class="form-control col-sm-8" disabled>
+                                    @await Component.InvokeAsync("WarehouseSelectorBlock")
+                                </select>
+                            </div>
                             <div id="old-field-addr" class="form-group row d-none">
                                 <label class="col-form-label col-sm-3" for="ai2">
                                     @T("cart.address")
@@ -784,7 +801,9 @@
             });
             if (!$("#old-nova-poshta-fields").hasClass("d-none")) {
                 $(".active [name=StreetAddress1]").val($("#old-newpost-department").val());
-
+            }
+            if (!$("#old-field-warehouse").hasClass("d-none")) {
+                $(".active [name=StreetAddress1]").val($("#old-field-warehouse select").val());
             }
         }
 	});
@@ -822,7 +841,9 @@
             });
             if (!$("#new-nova-poshta-fields").hasClass("d-none")) {
                 $(".active [name=StreetAddress1]").val($("#new-newpost-department").val());
-
+            }
+            if (!$("#new-field-warehouse").hasClass("d-none")) {
+                $(".active [name=StreetAddress1]").val($("#new-field-warehouse select").val());
             }
         }
 	});
@@ -839,18 +860,21 @@
         $("#" + prefix + "-nova-poshta-fields").addClass("d-none");
         $("#" + prefix + "-nova-poshta-fields").addClass("d-none");
         $("#" + prefix + "-newpost-tip").addClass("d-none");
+        $("#" + prefix + "-field-warehouse").removeClass("d-none");
     }
     function courierDelivery(prefix) {
         $("#" + prefix + "-field-addr").removeClass("d-none");
         $("#" + prefix + "-field-flat").removeClass("d-none");
         $("#" + prefix + "-nova-poshta-fields").addClass("d-none");
         $("#" + prefix + "-newpost-tip").addClass("d-none");
+        $("#" + prefix + "-field-warehouse").addClass("d-none");
     }
     function novaPoshta(prefix) {
         $("#" + prefix + "-field-addr").addClass("d-none");
         $("#" + prefix + "-field-flat").addClass("d-none");
         $("#" + prefix + "-nova-poshta-fields").removeClass("d-none");
         $("#" + prefix + "-newpost-tip").removeClass("d-none");
+        $("#" + prefix + "-field-warehouse").addClass("d-none");
     }
     function NPSelectDepartment() {
         $("#npw-map-open-button").click();
