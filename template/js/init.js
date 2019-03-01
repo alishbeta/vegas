@@ -218,7 +218,7 @@ $(document).ready(function () {
             max: parseFloat(data.max),
             values: [data.min, parseFloat(data.max)],
             slide: function (event, ui) {
-                $("#slider-" + data.filterNumber + "-a1").val(ui.values[0]).trigger("change");
+                $("#slider-" + data.filterNumber + "-a1").val(ui.values[0]);
                 $("#slider-" + data.filterNumber + "-a2").val(ui.values[1]);
             }
         });
@@ -228,6 +228,11 @@ $(document).ready(function () {
     // $('.filters-data input').on("change", function() {
     //     console.log($(this).val());
     // });
+
+    $('.slider-range').on('mouseup', function(){
+        $('.filters-data .form-group input').trigger("change-filter");
+    });
+
     $('.filters-wrap .btn-display').on('click', function () {
         $('.filters-data').toggleClass('open');
         $('.f1').toggleClass('open');
@@ -383,10 +388,10 @@ $(document).ready(function () {
 var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
         
 /*#####################   Попап на фильтрах  ###############################*/
-        function showPopover(text, btn, obj){
+        function showPopover(text, count, btn, obj){
             let elem = $(obj).parent().parent().next().popover({
                 trigger: 'manual',
-                content: '<div class = "filter-title">'+ text +' </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">'+btn+'</button>',
+                content: '<div class = "filter-title">'+ text +' <span id="filter-count">'+count+'</span> </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">'+btn+'</button>',
                 html: true,
             });
 

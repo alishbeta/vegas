@@ -399,9 +399,14 @@
         margin-top: 0;
         margin-bottom: 0;
     }
-    .header-wrap .icons-wrap img {
-        width: 155px;
-    }
+    .header-wrap .icons-wrap{
+        img {
+            width: 155px;
+        }
+        i.hanburger {
+            margin-top: -10px;
+        }
+    } 
     .cat-content-wrap{
         .outer-wrapp {
             float: none;

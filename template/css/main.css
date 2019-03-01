@@ -5652,6 +5652,13 @@ section .item {
   .header-wrap .icons-wrap img {
     width: 155px;
   }
+  .header-wrap .icons-wrap img i.hanburger {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    left: 0;
+    margin-top: -10px;
+  }
 
   .cat-content-wrap .outer-wrapp {
     float: none;
