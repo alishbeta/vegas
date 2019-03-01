@@ -232,10 +232,10 @@
                             content: '';
                             display: block;
                             background: url(/img/sprite_smile_.png);
-                            background-position: -161px -41px;
+                            background-position: -202px -42px;
                             -webkit-mask-image: unset;
                             border: 1px solid transparent;
-                            height: 41px;
+                            height: 40px;
                             width: 40px;
                             top: 0;
                         }
@@ -301,7 +301,7 @@
         z-index: 0;
     }
     #reviewSmile-input label {
-        height: 41px;
+        height: 40px;
         width: 40px;
         float: right;
         cursor: pointer;
@@ -326,7 +326,7 @@
             background-position: -40px -40px;
         }
         label[for*="smile-2"] {
-            background-position: -80px -40px;
+            background-position: -80px -41px;
         }
         label[for*="smile-3"] {
             background-position: -120px -40px;
