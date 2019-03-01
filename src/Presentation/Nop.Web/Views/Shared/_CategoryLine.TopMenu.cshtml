@@ -69,7 +69,9 @@
         {
             <img class="side-icons" src="/img/accessorize_icon.svg" alt="@Model.Category.Name">
         }*@
-        <img class="side-icons" src="@Model.Category.ImageUrl" alt="@Model.Category.Name">
+        <div class="side-icons-wrap">
+            <img class="side-icons" src="@Model.Category.ImageUrl" alt="@Model.Category.Name">
+        </div>
         <span>@Model.Category.Name</span>
     </a>
     @{

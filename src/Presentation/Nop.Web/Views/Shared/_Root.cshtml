@@ -406,9 +406,11 @@
                                 '<img src="' + product.Picture.ImageUrl + '" alt="' + product.Picture.AlternateText + '">' + 
                                 '</a>' +
                                 '</div > ' +
+                                '<div class="title">' +
                                 '<a href="/' + product.ProductSeName + '">' +
-                                '<div class="title">' + product.ProductName + '</div>' +
+                                product.ProductName +
                                 '</a>' +
+                                '</div>' +
 								'<div class="item-name"></div>' +
 								'<div class="count-wrap mt-2 mb-3">' +
 								'<button class="minus" onclick="ChangeProductQuantity(' + product.ProductId + ', 1, -1, false)"></button>' +
@@ -420,9 +422,9 @@
 								'<div class="price-wrap">' +
 								oldPrice +
                                 '<div class="price">' + product.UnitPrice +
-                                discount +
                                 '</div>' +
-								'</div>' +
+                                '</div>' +
+                                discount +
 								'</div>' +
 								'<div class="line"></div>';
 							data = data + element;
