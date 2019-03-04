@@ -28,17 +28,9 @@ namespace Nop.Web.Components
 			var warehouses = _shippingService.GetActiveWarehouses();
 			WarehouseInfoModel model = new WarehouseInfoModel
 			{
-				Cities = new List<string>(),
+				Cities = warehouses.Select(x => x.City),
 				Warehouses = warehouses
 			};
-			foreach (var warehouse in warehouses)
-			{
-				var address = _addressService.GetAddressById(warehouse?.AddressId ?? 0);
-				if (address != null && address.City != null && !model.Cities.Contains(address.City))
-				{
-					model.Cities.Add(address.City);
-				}
-			}
 
 			return View(model);
 		}

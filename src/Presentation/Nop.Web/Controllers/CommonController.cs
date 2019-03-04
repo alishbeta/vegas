@@ -455,21 +455,9 @@ namespace Nop.Web.Controllers
 			var warehouses = _shippingService.GetActiveWarehouses();
 			WarehouseInfoModel model = new WarehouseInfoModel
 			{
-				Cities = new List<string>(),
+				Cities = warehouses.Select(x => x.City),
 				Warehouses = warehouses
 			};
-			var addresses = new List<Address>();
-			foreach (var warehouse in warehouses)
-			{
-				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
-				var address = _addressService.GetAddressById(warehouse?.AddressId ?? 0);
-				if (address != null && !model.Cities.Contains(address.City))
-				{
-					model.Cities.Add(address.City);
-				}
-			}
-			model.Addresses = addresses.Where(x => x != null).ToList();
-
 			return View(model);
 		}	
 
@@ -478,26 +466,19 @@ namespace Nop.Web.Controllers
 		public virtual IActionResult CityMap(string city)
 		{
 			var warehouses = _shippingService.GetActiveWarehouses();
-			var addresses = new List<Address>();
-			foreach (var warehouse in warehouses)
-			{
-				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
-			}
-
-			var cityAdresses = addresses.Where(x => x?.City?.ToLower() == city.ToLower()).ToList();
-			var warehousesInCity = new List<Warehouse>();
-			foreach (var cityAddress in cityAdresses)
-			{
-				warehousesInCity.AddRange(warehouses.Where(x => x.AddressId == cityAddress.Id));
-			}
+            var warehousesInCity = warehouses.Where(x => x.City?.ToLower() == city?.ToLower()).ToList();
             var viewWarehouseModelList = new List<ViewWarehouseModel>();
             warehousesInCity.ForEach(x =>
             {
                 viewWarehouseModelList.Add(new ViewWarehouseModel()
                 {
-                    Name = x.Name,
-                    WorkTime = x.AdminComment,
-                    AddressId = x.AddressId,
+                    Id = x.Id,
+                    Name = _localizationService.GetLocalized(x, u => u.Name),
+                    WorkTime = _localizationService.GetLocalized(x, u => u.WorkTime),
+                    WarehouseDescription = _localizationService.GetLocalized(x, u => u.WarehouseDescription),
+                    StreetAddress = _localizationService.GetLocalized(x, u => u.StreetAddress),
+                    Phone = _localizationService.GetLocalized(x, u => u.Phone),
+                    City = _localizationService.GetLocalized(x, u => u.City),
                     Pictures = _shippingService.GetWarehousePictures(x.Id).Select(u => new ViewWarehouseModel.WarehousePicture()
                     {
                         PictureUrl = _pictureService.GetPictureUrl(u.PictureId)
@@ -513,9 +494,7 @@ namespace Nop.Web.Controllers
             });
 			var model = new CityMapModel
 			{
-				Warehouses = warehousesInCity,
-                WarehouseViewModels = viewWarehouseModelList,
-				Addresses = cityAdresses,
+                Warehouses = viewWarehouseModelList,
 				Name = city
 			};
 			return View(model);
@@ -523,34 +502,27 @@ namespace Nop.Web.Controllers
 
 		//store info page
 		[HttpsRequirement(SslRequirement.Yes)]
-		public virtual IActionResult StoreInfo(int addressId)
+		public virtual IActionResult StoreInfo(int warehouseId)
 		{
-			var address = _addressService.GetAddressById(addressId);
+			var warehouse = _shippingService.GetWarehouseById(warehouseId);
 
-			var city = address.City;
+			var city = warehouse.City;
 			var warehouses = _shippingService.GetActiveWarehouses();
-			var addresses = new List<Address>();
-			foreach (var warehouse in warehouses)
-			{
-				addresses.Add(_addressService.GetAddressById(warehouse.AddressId));
-			}
 
-			var cityAdresses = addresses.Where(x => x?.City?.ToLower() == city.ToLower()).Take(3).ToList();
-            var warehousesInCity = new List<Warehouse>();
-            foreach (var cityAddress in cityAdresses)
-            {
-                warehousesInCity.AddRange(warehouses.Where(x => x.AddressId == cityAddress.Id));
-            }
+            var warehousesInCity = warehouses.Where(x => x?.City?.ToLower() == city?.ToLower()).ToList();
+			var cityAdresses = warehousesInCity.Where(x => x.Id != warehouseId).Take(3).ToList();
             var viewWarehouseModelList = new List<ViewWarehouseModel>();
             warehousesInCity.ForEach(x =>
             {
                 viewWarehouseModelList.Add(new ViewWarehouseModel()
                 {
-
-                    Name = x.Name,
-                    WorkTime = x.AdminComment,
-                    AddressId = x.AddressId,
-                    WarehouseDescription = x.WarehouseDescription,
+                    Id = x.Id,
+                    Name = _localizationService.GetLocalized(x, u => u.Name),
+                    WorkTime = _localizationService.GetLocalized(x, u => u.WorkTime),
+                    WarehouseDescription = _localizationService.GetLocalized(x, u => u.WarehouseDescription),
+                    StreetAddress = _localizationService.GetLocalized(x, u => u.StreetAddress),
+                    Phone = _localizationService.GetLocalized(x, u => u.Phone),
+                    City = _localizationService.GetLocalized(x, u => u.City),
                     Pictures = _shippingService.GetWarehousePictures(x.Id).Select(u => new ViewWarehouseModel.WarehousePicture()
                     {
                         PictureUrl = _pictureService.GetPictureUrl(u.PictureId)
@@ -566,7 +538,7 @@ namespace Nop.Web.Controllers
             });
             var model = new StoreInfoModel
 			{
-				Address = address,
+                Warehouse = warehouse,
                 WarehouseViewModels = viewWarehouseModelList,
                 OtherStores = cityAdresses,
 				Warehouses = warehouses
@@ -576,9 +548,10 @@ namespace Nop.Web.Controllers
 
         #endregion
 
-        public virtual dynamic GetWarehouseProducts(int addressId)
+        public virtual dynamic GetWarehouseProducts(int warehouseId)
         {
-            int warehouseId = _shippingService.GetAllWarehouses().FirstOrDefault(x => x.AddressId == addressId)?.Id ?? 0;
+            if (warehouseId == 0)
+                return Content("");
 
             IEnumerable<Product> products = _productService.SearchProducts(
                 storeId: _storeContext.CurrentStore.Id,

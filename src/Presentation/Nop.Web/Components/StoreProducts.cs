@@ -47,11 +47,12 @@ namespace Nop.Web.Components
 			this._storeMappingService = storeMappingService;
 		}
 
-		public IViewComponentResult Invoke(int addressId)
+		public IViewComponentResult Invoke(int warehouseId)
 		{
-			int warehouseId = _shippingService.GetAllWarehouses().FirstOrDefault(x => x.AddressId == addressId)?.Id ?? 0;
+            if (warehouseId == 0)
+                return Content("");
 
-			var products = _productService.SearchProducts(
+            var products = _productService.SearchProducts(
 				storeId: _storeContext.CurrentStore.Id,
 				visibleIndividuallyOnly: true,
 				warehouseId: warehouseId,
@@ -70,7 +71,7 @@ namespace Nop.Web.Components
 			//prepare model
 			var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, null).ToList();
 			ViewBag.Prefix = "warehouse";//prefix for backinstock button
-            ViewBag.AddressId = addressId;
+            ViewBag.WarehouseId = warehouseId;
             return View(model);
 		}
 	}

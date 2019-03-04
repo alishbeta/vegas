@@ -10,7 +10,6 @@ namespace Nop.Web.Areas.Admin.Models.Shipping
     public class WarehouseInfoModel
     {
 		public IList<Warehouse> Warehouses { get; set; }
-		public List<string> Cities { get; set; }
-		public List<Address> Addresses { get; set; }
+		public IEnumerable<string> Cities { get; set; }
 	}
 }

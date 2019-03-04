@@ -20,32 +20,26 @@
 
                 @{
                     var addresses = new List<dynamic>();
-                    foreach (var address in Model.Addresses)
+                    foreach (var warehouse in Model.Warehouses)
                     {
-                        var warehouse = Model.Warehouses.FirstOrDefault(x => x.AddressId == address.Id);
-                        var workTime = warehouse.AdminComment;
-                        var addr = address.Address1;
-                        var name = warehouse.Name;
-                        var phone = address.PhoneNumber;
-                        var city = address.City;
                         addresses.Add(new
                         {
-                            city,
-                            name,
-                            addr,
-                            phone,
-                            workTime,
+                            city = warehouse.City,
+                            name = warehouse.Name,
+                            addr = warehouse.StreetAddress,
+                            phone = warehouse.Phone,
+                            workTime = warehouse.WorkTime,
                             zoom = 6
                         });
                         <div class="img col-lg-6">
-                            <a href="/storeinfo?addressId=@address.Id">
-                                <img src="@(Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Pictures?.FirstOrDefault(x => x.PictureUrl != null)?.PictureUrl ?? "/img/logo.png")" alt="">
+                            <a href="/storeinfo?warehouseId=@warehouse?.Id">
+                                <img src="@(warehouse?.Pictures?.FirstOrDefault(x => x.PictureUrl != null)?.PictureUrl ?? "/img/logo.png")" alt="">
                                 <div class="text-wrap">
                                     <div>
-                                        <b>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Name</b>
+                                        <b>@warehouse?.Name</b>
                                     </div>
-                                    <div class="address" data-addr="@addr">@addr</div>
-                                    <div>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.WorkTime</div>
+                                    <div class="address" data-addr="@warehouse?.StreetAddress">@warehouse?.StreetAddress</div>
+                                    <div>@warehouse?.WorkTime</div>
                                 </div>
                             </a>
                         </div>

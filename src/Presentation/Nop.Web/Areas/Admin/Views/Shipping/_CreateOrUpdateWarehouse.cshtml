@@ -9,24 +9,123 @@
             @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.WarehouseDetailsTop, additionalData = Model })
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            <nop-label asp-for="Name" />
-                        </div>
-                        <div class="col-md-9">
-                            <nop-editor asp-for="Name" asp-required="true" />
-                            <span asp-validation-for="Name"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            <nop-label asp-for="AdminComment" />
-                        </div>
-                        <div class="col-md-9">
-                            <nop-editor asp-for="AdminComment" />
-                            <span asp-validation-for="AdminComment"></span>
-                        </div>
-                    </div>
+                    @(Html.LocalizedEditor<WarehouseModel, WarehouseLocalizedModel>("warehouse-info-localized",
+                                                                                    @<div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="@Model.Locales[item].Name" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="@Model.Locales[item].Name" />
+            <span asp-validation-for="@Model.Locales[item].Name"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="@Model.Locales[item].WorkTime" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="@Model.Locales[item].WorkTime" />
+            <span asp-validation-for="@Model.Locales[item].WorkTime"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="@Model.Locales[item].WarehouseDescription" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="@Model.Locales[item].WarehouseDescription" asp-template="RichEditor" />
+            <span asp-validation-for="@Model.Locales[item].WarehouseDescription"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="@Model.Locales[item].City" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="@Model.Locales[item].City" />
+            <span asp-validation-for="@Model.Locales[item].City"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="@Model.Locales[item].StreetAddress" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="@Model.Locales[item].StreetAddress" />
+            <span asp-validation-for="@Model.Locales[item].StreetAddress"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="@Model.Locales[item].Phone" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="@Model.Locales[item].Phone" />
+            <span asp-validation-for="@Model.Locales[item].Phone"></span>
+        </div>
+    </div>
+    <input type="hidden" asp-for="@Model.Locales[item].LanguageId" />
+</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    ,@<div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="Name" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Name" asp-required="true" />
+            <span asp-validation-for="Name"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="WorkTime" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="WorkTime" />
+            <span asp-validation-for="WorkTime"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="WarehouseDescription" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="WarehouseDescription" asp-template="RichEditor" />
+            <span asp-validation-for="WarehouseDescription"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="City" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="City" />
+            <span asp-validation-for="City"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="StreetAddress" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="StreetAddress" />
+            <span asp-validation-for="StreetAddress"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <nop-label asp-for="Phone" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Phone" />
+            <span asp-validation-for="Phone"></span>
+        </div>
+    </div>
+</div>
+))
+
+                    
                     <div class="form-group">
                         <div class="col-md-3">
                             <nop-label asp-for="Hidden" />
@@ -36,16 +135,7 @@
                             <span asp-validation-for="Hidden"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            <nop-label asp-for="WarehouseDescription"/>
-                        </div>
-                        <div class="col-md-9">
-                            <nop-editor asp-for="WarehouseDescription" asp-template="RichEditor" />
-                            <span asp-validation-for="WarehouseDescription"></span>
-                        </div>
-                    </div>
-                    <nop-editor asp-for="Address" asp-template="Address" />
+                    @*<nop-editor asp-for="Address" asp-template="Address" />*@
                     @for (int i = 0; i < Model.Pictures.Count; i++)
                     {
                         <div class="form-group">
