@@ -9,7 +9,7 @@ namespace Nop.Web.Models.Common
 {
     public class StoreInfoModel
     {
-		public Warehouse Warehouse { get; set; }
+		public ViewWarehouseModel Warehouse { get; set; }
 		public IList<Warehouse> Warehouses { get; set; }
 		public IList<ViewWarehouseModel> WarehouseViewModels { get; set; }
 		public IList<Warehouse> OtherStores { get; set; }

@@ -453,11 +453,35 @@ namespace Nop.Web.Controllers
 		public virtual IActionResult OurStores()
 		{
 			var warehouses = _shippingService.GetActiveWarehouses();
-			WarehouseInfoModel model = new WarehouseInfoModel
+            var viewWarehouseModelList = new List<ViewWarehouseModel>();
+            warehouses.ToList().ForEach(x =>
+            {
+                viewWarehouseModelList.Add(new ViewWarehouseModel()
+                {
+                    Id = x.Id,
+                    Name = _localizationService.GetLocalized(x, u => u.Name),
+                    WorkTime = _localizationService.GetLocalized(x, u => u.WorkTime),
+                    WarehouseDescription = _localizationService.GetLocalized(x, u => u.WarehouseDescription),
+                    StreetAddress = _localizationService.GetLocalized(x, u => u.StreetAddress),
+                    Phone = _localizationService.GetLocalized(x, u => u.Phone),
+                    City = _localizationService.GetLocalized(x, u => u.City),
+                    Pictures = _shippingService.GetWarehousePictures(x.Id).Select(u => new ViewWarehouseModel.WarehousePicture()
+                    {
+                        PictureUrl = _pictureService.GetPictureUrl(u.PictureId)
+                    }).ToList()
+                });
+            });
+            viewWarehouseModelList.Where(x => x.Pictures.Count == 0).ToList().ForEach(x =>
+            {
+                x.Pictures.Add(new ViewWarehouseModel.WarehousePicture()
+                {
+                    PictureUrl = _pictureService.GetPictureUrl(0)
+                });
+            });
+            WarehouseInfoModel model = new WarehouseInfoModel
 			{
-				Cities = warehouses.Select(x => x.City),
-				Warehouses = warehouses
-			};
+				Warehouses = viewWarehouseModelList
+            };
 			return View(model);
 		}	
 
@@ -466,7 +490,7 @@ namespace Nop.Web.Controllers
 		public virtual IActionResult CityMap(string city)
 		{
 			var warehouses = _shippingService.GetActiveWarehouses();
-            var warehousesInCity = warehouses.Where(x => x.City?.ToLower() == city?.ToLower()).ToList();
+            var warehousesInCity = warehouses.Where(x => x.City?.ToLower() == city?.ToLower() || _localizationService.GetLocalized(x, u => u.City)?.ToLower() == city?.ToLower()).ToList();
             var viewWarehouseModelList = new List<ViewWarehouseModel>();
             warehousesInCity.ForEach(x =>
             {
@@ -509,8 +533,8 @@ namespace Nop.Web.Controllers
 			var city = warehouse.City;
 			var warehouses = _shippingService.GetActiveWarehouses();
 
-            var warehousesInCity = warehouses.Where(x => x?.City?.ToLower() == city?.ToLower()).ToList();
-			var cityAdresses = warehousesInCity.Where(x => x.Id != warehouseId).Take(3).ToList();
+            var warehousesInCity = warehouses.Where(x => x.City?.ToLower() == city?.ToLower() || _localizationService.GetLocalized(x, u => u.City)?.ToLower() == city?.ToLower()).ToList();
+            var cityAdresses = warehousesInCity.Where(x => x.Id != warehouseId).Take(3).ToList();
             var viewWarehouseModelList = new List<ViewWarehouseModel>();
             warehousesInCity.ForEach(x =>
             {
@@ -538,7 +562,7 @@ namespace Nop.Web.Controllers
             });
             var model = new StoreInfoModel
 			{
-                Warehouse = warehouse,
+                Warehouse = viewWarehouseModelList.FirstOrDefault(x => x.Id == warehouse.Id),
                 WarehouseViewModels = viewWarehouseModelList,
                 OtherStores = cityAdresses,
 				Warehouses = warehouses

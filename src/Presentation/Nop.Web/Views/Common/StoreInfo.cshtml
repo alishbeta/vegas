@@ -65,7 +65,7 @@
                             <img src="@(Model.WarehouseViewModels.FirstOrDefault(x => x.Id == address.Id)?.Pictures.FirstOrDefault(x => x.PictureUrl != null).PictureUrl ?? "/img/logo.png")" alt="">
                             <div class="text-wrap">
                                 <div><b>@Model.WarehouseViewModels.FirstOrDefault(x => x.Id == address.Id)?.Name</b></div>
-                                <div>@address.StreetAddress</div>
+                                <div>@Model.WarehouseViewModels.FirstOrDefault(x => x.Id == address.Id)?.StreetAddress</div>
                                 <div>@Model.WarehouseViewModels.FirstOrDefault(x => x.Id == address.Id)?.WorkTime</div>
                             </div>
                         </div>
