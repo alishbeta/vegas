@@ -46,7 +46,7 @@
     </div>
     <div class="col-xl-12">
         <div class="line"></div>
-        @await Component.InvokeAsync("StoreProducts", new { addressId = Model.Warehouse?.Id })
+        @await Component.InvokeAsync("StoreProducts", new { warehouseId = Model.Warehouse?.Id })
         <div class="line"></div>
     </div>
     <div class="col-xl-12">

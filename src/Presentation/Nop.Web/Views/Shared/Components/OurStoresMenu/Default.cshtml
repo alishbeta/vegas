@@ -13,7 +13,7 @@
 
 		@foreach (var city in Model.Cities.Where(x => x != null).Distinct())
 		{
-			if (city.City.ToLower() == ViewBag.Active.ToLower())
+			if (city.LocalizedCity.ToLower() == ViewBag.Active.ToLower())
 			{
 				<li><a class="active" href="/CityMap?city=@city.City">@city.LocalizedCity</a></li>
 			}
