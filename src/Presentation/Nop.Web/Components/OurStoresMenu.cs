@@ -30,9 +30,9 @@ namespace Nop.Web.Components
 
 		public IViewComponentResult Invoke(string active = "main")
 		{
-			//ViewBag.Active = active;
 			var warehouses = _shippingService.GetActiveWarehouses();
             var activeWarehouse = warehouses.FirstOrDefault(x => x.City?.ToLower() == active?.ToLower() || _localizationService.GetLocalized(x, u => u.City)?.ToLower() == active?.ToLower());
+
             if (activeWarehouse != null)
             {
                 ViewBag.Active = _localizationService.GetLocalized(activeWarehouse, c => c.City);
@@ -41,6 +41,7 @@ namespace Nop.Web.Components
             {
                 ViewBag.Active = active;
             }
+
             var viewWarehouseModelList = new List<ViewWarehouseModel>();
             warehouses.ToList().ForEach(x =>
             {
@@ -55,6 +56,7 @@ namespace Nop.Web.Components
                     City = _localizationService.GetLocalized(x, u => u.City)
                 });
             });
+
             WarehouseInfoModel model = new WarehouseInfoModel
 			{
 				Cities = warehouses

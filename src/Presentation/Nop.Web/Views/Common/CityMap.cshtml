@@ -43,14 +43,6 @@
                                 </div>
                             </a>
                         </div>
-                        //var description = Model.Warehouses.FirstOrDefault(x => x.AddressId == address.Id).AdminComment?.Replace("\n", "").Replace("\r", "");
-                        //var addr = address.Address1?.Replace("\n", "").Replace("\r", "");
-
-                        //addresses.Add(new
-                        //{
-                        //	addr,
-                        //	description
-                        //});
                     }
                 }
                 <span id="address" style="display:none!important;" data-address="@Newtonsoft.Json.JsonConvert.SerializeObject(addresses)"></span>

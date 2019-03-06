@@ -453,6 +453,7 @@ namespace Nop.Web.Controllers
 		public virtual IActionResult OurStores()
 		{
 			var warehouses = _shippingService.GetActiveWarehouses();
+
             var viewWarehouseModelList = new List<ViewWarehouseModel>();
             warehouses.ToList().ForEach(x =>
             {
@@ -471,6 +472,7 @@ namespace Nop.Web.Controllers
                     }).ToList()
                 });
             });
+
             viewWarehouseModelList.Where(x => x.Pictures.Count == 0).ToList().ForEach(x =>
             {
                 x.Pictures.Add(new ViewWarehouseModel.WarehousePicture()
@@ -478,10 +480,12 @@ namespace Nop.Web.Controllers
                     PictureUrl = _pictureService.GetPictureUrl(0)
                 });
             });
+
             WarehouseInfoModel model = new WarehouseInfoModel
 			{
 				Warehouses = viewWarehouseModelList
             };
+
 			return View(model);
 		}	
 
@@ -491,6 +495,7 @@ namespace Nop.Web.Controllers
 		{
 			var warehouses = _shippingService.GetActiveWarehouses();
             var warehousesInCity = warehouses.Where(x => x.City?.ToLower() == city?.ToLower() || _localizationService.GetLocalized(x, u => u.City)?.ToLower() == city?.ToLower()).ToList();
+
             var viewWarehouseModelList = new List<ViewWarehouseModel>();
             warehousesInCity.ForEach(x =>
             {
@@ -509,6 +514,7 @@ namespace Nop.Web.Controllers
                     }).ToList()
                 });
             });
+
             viewWarehouseModelList.Where(x => x.Pictures.Count == 0).ToList().ForEach(x =>
             {
                 x.Pictures.Add(new ViewWarehouseModel.WarehousePicture()
@@ -516,11 +522,13 @@ namespace Nop.Web.Controllers
                     PictureUrl = _pictureService.GetPictureUrl(0)
                 });
             });
+
 			var model = new CityMapModel
 			{
                 Warehouses = viewWarehouseModelList,
 				Name = city
 			};
+
 			return View(model);
 		}	  	
 
@@ -529,12 +537,12 @@ namespace Nop.Web.Controllers
 		public virtual IActionResult StoreInfo(int warehouseId)
 		{
 			var warehouse = _shippingService.GetWarehouseById(warehouseId);
-
 			var city = warehouse.City;
 			var warehouses = _shippingService.GetActiveWarehouses();
 
             var warehousesInCity = warehouses.Where(x => x.City?.ToLower() == city?.ToLower() || _localizationService.GetLocalized(x, u => u.City)?.ToLower() == city?.ToLower()).ToList();
             var cityAdresses = warehousesInCity.Where(x => x.Id != warehouseId).Take(3).ToList();
+
             var viewWarehouseModelList = new List<ViewWarehouseModel>();
             warehousesInCity.ForEach(x =>
             {
@@ -553,6 +561,7 @@ namespace Nop.Web.Controllers
                     }).ToList()
                 });
             });
+
             viewWarehouseModelList.Where(x => x.Pictures.Count == 0).ToList().ForEach(x =>
             {
                 x.Pictures.Add(new ViewWarehouseModel.WarehousePicture()
@@ -560,6 +569,7 @@ namespace Nop.Web.Controllers
                     PictureUrl = _pictureService.GetPictureUrl(0)
                 });
             });
+
             var model = new StoreInfoModel
 			{
                 Warehouse = viewWarehouseModelList.FirstOrDefault(x => x.Id == warehouse.Id),
@@ -567,6 +577,7 @@ namespace Nop.Web.Controllers
                 OtherStores = cityAdresses,
 				Warehouses = warehouses
 			};
+
 			return View(model);
 		}
 
@@ -593,7 +604,6 @@ namespace Nop.Web.Controllers
 
             //prepare model
             var model = _productModelFactory.PrepareProductOverviewModels(products, true, true, 250);
-            ViewBag.Prefix = "warehouse";//prefix for backinstock button
             return new { model };
         }
 
