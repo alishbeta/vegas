@@ -11,15 +11,17 @@ function initMap() {
     } else {
         if ($('*').is('#map') && adresses != undefined) {
             geocoder = new google.maps.Geocoder();
-            
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {
-                    lat: 50.458961,
-                    lng: 30.337648
-                },
-                zoom: 11
-            });
 
+            geocoder.geocode({ 'address': adresses[0].city }, function(results, status){
+                if (status == 'OK') {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: results[0].geometry.location,
+                        zoom: 11
+                    });
+                }
+            });
+            
+            console.log(adresses[0].city);
             adresses.forEach(addPoint);
             function addPoint(data, index) {
                 geocoder.geocode({ 'address': data.addr }, function (results, status) {
@@ -30,16 +32,30 @@ function initMap() {
                             position: results[0].geometry.location,
                             title: 'Bed4you'
                         });
+                        let phone = '';
+                        let work = '';
+                        let name = '';
+
+                        if (typeof data.name == 'undefined'){
+                            name = '<div>'+ data.name +'</div>';
+                        }
+                        if (typeof data.phone == 'undefined'){
+                            phone = '<div><span>Телефон</span>: '+ data.phone +'</div>';
+                        }
+                        if (typeof data.workTime == 'undefined'){
+                            work = '<div><span>График</span>: '+ data.workTime +'</div>';
+                        }
+                            
 
                         var contentString = '<div id="content">' +
                             '<div id="siteNotice">' +
                             '</div>' +
                             '<h3 id="firstHeading" class="firstHeading">' + results[0].address_components[3].long_name + '</h1>' +
                             '<div id="bodyContent">' +
-                            '<div>'+ data.name +'</div>' +
+                             name +
                             '<div>'+ data.addr +'</div>' +
-                            '<div><span>Телефон</span>: '+ data.phone +'</div>' +
-                            '<div><span>График</span>: '+ data.workTime +'</div>' +
+                             phone +
+                             work +
                             '</div>' +
                             '</div>';
                         var infowindow = new google.maps.InfoWindow({

@@ -1182,7 +1182,7 @@ nav.breadcrumb-wrap a:hover {
 .all-menu-wrap .side-icons-wrap {
   display: inline-block;
   height: 30px;
-  width: 30px;
+  width: 32px;
   margin-right: 15px;
 }
 
@@ -1319,6 +1319,12 @@ nav.breadcrumb-wrap a:hover {
 }
 .cat .keep_open ul li ul {
   margin-left: 15px;
+}
+.cat .popover-body .load:before {
+  width: 20px;
+  vertical-align: bottom;
+  height: 20px;
+  background-size: 100%;
 }
 
 .filter-title {
@@ -2616,6 +2622,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   padding: 0;
 }
 
+.compare .outer-wrapp {
+  height: auto;
+}
 .compare .title-wrap h1 {
   display: inline-block;
   margin-right: 10px;
@@ -2650,7 +2659,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   z-index: 10;
 }
 .compare .optc-wrap .add-ct {
-  margin-bottom: 30px;
+  margin-bottom: 201px;
 }
 .compare .optc-wrap .add-ct span {
   color: #2c96b9;
@@ -3532,6 +3541,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 
 .p404 {
   font-size: 16px;
+  margin-right: 0;
 }
 .p404 .text {
   margin-bottom: 15px;
@@ -5652,11 +5662,7 @@ section .item {
   .header-wrap .icons-wrap img {
     width: 155px;
   }
-  .header-wrap .icons-wrap img i.hanburger {
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    left: 0;
+  .header-wrap .icons-wrap i.hanburger {
     margin-top: -10px;
   }
 
