@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nop.Services.Common;
+using Nop.Services.Localization;
 using Nop.Services.Shipping;
 using Nop.Web.Areas.Admin.Models.Shipping;
 using Nop.Web.Framework.Components;
+using Nop.Web.Models.Common;
+using NUglify.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,31 +17,57 @@ namespace Nop.Web.Components
 	{
 		private readonly IShippingService _shippingService;
 		private readonly IAddressService _addressService;
+        private readonly ILocalizationService _localizationService;
 
 		public OurStoresMenuViewComponent(IShippingService shippingService,
-											IAddressService addressService)
+											IAddressService addressService,
+                                            ILocalizationService localizationService)
 		{
 			this._shippingService = shippingService;
 			this._addressService = addressService;
+            this._localizationService = localizationService;
 		}
 
 		public IViewComponentResult Invoke(string active = "main")
 		{
-			ViewBag.Active = active;
 			var warehouses = _shippingService.GetActiveWarehouses();
-			WarehouseInfoModel model = new WarehouseInfoModel
+            var activeWarehouse = warehouses.FirstOrDefault(x => x.City?.ToLower() == active?.ToLower() || _localizationService.GetLocalized(x, u => u.City)?.ToLower() == active?.ToLower());
+
+            if (activeWarehouse != null)
+            {
+                ViewBag.Active = _localizationService.GetLocalized(activeWarehouse, c => c.City);
+            }
+            else
+            {
+                ViewBag.Active = active;
+            }
+
+            var viewWarehouseModelList = new List<ViewWarehouseModel>();
+            warehouses.ToList().ForEach(x =>
+            {
+                viewWarehouseModelList.Add(new ViewWarehouseModel()
+                {
+                    Id = x.Id,
+                    Name = _localizationService.GetLocalized(x, u => u.Name),
+                    WorkTime = _localizationService.GetLocalized(x, u => u.WorkTime),
+                    WarehouseDescription = _localizationService.GetLocalized(x, u => u.WarehouseDescription),
+                    StreetAddress = _localizationService.GetLocalized(x, u => u.StreetAddress),
+                    Phone = _localizationService.GetLocalized(x, u => u.Phone),
+                    City = _localizationService.GetLocalized(x, u => u.City)
+                });
+            });
+
+            WarehouseInfoModel model = new WarehouseInfoModel
 			{
-				Cities = new List<string>(),
-				Warehouses = warehouses
-			};
-			foreach (var warehouse in warehouses)
-			{
-				var address = _addressService.GetAddressById(warehouse?.AddressId ?? 0);
-				if (address != null && address.City != null && !model.Cities.Contains(address.City))
-				{
-					model.Cities.Add(address.City);
-				}
-			}
+				Cities = warehouses
+                .Where(x => x.City != null)
+                .Select(x => new LocalizedCityModel()
+                {
+                    City = x.City,
+                    LocalizedCity = _localizationService.GetLocalized(x, u => u.City)
+                }).DistinctBy(x => x.City),
+				Warehouses = viewWarehouseModelList
+            };
 
 			return View(model);
 		}

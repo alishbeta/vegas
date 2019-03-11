@@ -133,7 +133,7 @@
     }
 
     $(document).ready(function () {
-        $(".filters-data .form-group input").on("change", function (event) {
+        @*$(".filters-data .form-group input").on("change", function (event) {
             showPopover("@T("popover.found")" + ": ", 0, "@T("popover.btn.show")", event.target);
             $("#filter-count").addClass("load");
             console.log("changed");
@@ -149,10 +149,10 @@
                 $("#filter-count").text(response);
                 $("#filter-count").removeClass("load");
             });
-        });
-        $(".filters-data .form-check input").on("click", function (event) {
-            console.log("clicked");
-            showPopover("@T("popover.found")" + ": ", 0, "@T("popover.btn.show")", event.target);
+        });*@
+        $('.slider-range').on('change-filter', function () {
+            console.log("change-filter triggered");
+            showPopover("@T("popover.found")" + ": ", 0, "@T("popover.btn.show")", this);
             $("#filter-count").addClass("load");
             $.ajax({
                 url: "@Url.Action("GetFilteredProductsCount", "Catalog")" + getQuery(),

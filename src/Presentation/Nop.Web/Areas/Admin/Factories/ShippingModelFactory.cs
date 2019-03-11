@@ -474,6 +474,7 @@ namespace Nop.Web.Areas.Admin.Factories
         /// <returns>Warehouse model</returns>
         public virtual WarehouseModel PrepareWarehouseModel(WarehouseModel model, Warehouse warehouse, bool excludeProperties = false)
         {
+            Action<WarehouseLocalizedModel, int> localizedModelConfiguration = null;
             if (warehouse != null)
             {
                 //fill in model values from the entity
@@ -481,8 +482,11 @@ namespace Nop.Web.Areas.Admin.Factories
                 {
                     Id = warehouse.Id,
                     Name = warehouse.Name,
-                    AdminComment = warehouse.AdminComment,
+                    WorkTime = warehouse.WorkTime,
                     Hidden = warehouse.Hidden,
+                    City = warehouse.City,
+                    Phone = warehouse.Phone,
+                    StreetAddress = warehouse.StreetAddress,
                     WarehouseDescription = warehouse.WarehouseDescription
                 };
 
@@ -490,13 +494,20 @@ namespace Nop.Web.Areas.Admin.Factories
                     .OrderBy(x => x.PictureId)
                     .ToList()
                     .ForEach(x => model.Pictures.Add(new WarehouseModel.PictureIdModel() { PictureId = x.PictureId }));
+
+                //define localized model configuration action
+                localizedModelConfiguration = (locale, languageId) =>
+                {
+                    locale.Name = _localizationService.GetLocalized(warehouse, entity => entity.Name, languageId, false, false);
+                    locale.WarehouseDescription = _localizationService.GetLocalized(warehouse, entity => entity.WarehouseDescription, languageId, false, false);
+                    locale.WorkTime = _localizationService.GetLocalized(warehouse, entity => entity.WorkTime, languageId, false, false);
+                    locale.StreetAddress = _localizationService.GetLocalized(warehouse, entity => entity.StreetAddress, languageId, false, false);
+                    locale.City = _localizationService.GetLocalized(warehouse, entity => entity.City, languageId, false, false);
+                    locale.Phone = _localizationService.GetLocalized(warehouse, entity => entity.Phone, languageId, false, false);
+                };
             }
 
-            //prepare address model
-            var address = _addressService.GetAddressById(warehouse?.AddressId ?? 0);
-            if (!excludeProperties && address != null)
-                model.Address = address.ToModel(model.Address);
-            PrepareAddressModel(model.Address, address);
+            model.Locales = _localizedModelFactory.PrepareLocalizedModels(localizedModelConfiguration);
 
             return model;
         }

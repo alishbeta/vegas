@@ -656,11 +656,11 @@ namespace Nop.Services.Orders
             {
                 if (product.UseMultipleWarehouses)
                 {
-                    from = _addressService.GetAddressById(product.ProductWarehouseInventory.FirstOrDefault(x => x.Warehouse?.AddressId != 0).Warehouse.AddressId).City;
+                    from = product.ProductWarehouseInventory.FirstOrDefault(x => !string.IsNullOrEmpty(x.Warehouse?.City)).Warehouse.City;
                 }
                 else
                 {
-                    from = _addressService.GetAddressById(_shippingService.GetWarehouseById(product.WarehouseId).AddressId).City;
+                    from = _shippingService.GetWarehouseById(product.WarehouseId).City;
                 }
             }
             if (string.IsNullOrEmpty(from))

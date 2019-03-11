@@ -21,25 +21,19 @@
 </div>
 @{
     var addresses = new List<dynamic>();
-    foreach (var address in Model.Addresses)
+    foreach (var warehouse in Model.Warehouses)
     {
-        var warehouse = Model.Warehouses.FirstOrDefault(x => x.AddressId == address.Id);
-        var workTime = warehouse.AdminComment;
-        var addr = address.Address1;
-        var name = warehouse.Name;
-        var phone = address.PhoneNumber;
-        var city = address.City;
 
         addresses.Add(new
         {
-            city,
-            name,
-            addr,
-            phone,
-            workTime,
+            city = warehouse.City,
+            name = warehouse.Name,
+            addr = warehouse.StreetAddress,
+            phone = warehouse.Phone,
+            workTime = warehouse.WorkTime,
             zoom = 6
         });
-    }
+}
 }
 <span id="address" style="display:none!important;" data-address="@Newtonsoft.Json.JsonConvert.SerializeObject(addresses)"></span>
 <script>

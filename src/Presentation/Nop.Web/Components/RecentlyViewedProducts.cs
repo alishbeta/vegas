@@ -55,7 +55,6 @@ namespace Nop.Web.Components
 				preparePriceModel.GetValueOrDefault(),
 				true,
 				productThumbPictureSize);
-			ViewBag.Prefix = "rec";//prefix for backinstock button
 			return View(model);
 		}
 	}

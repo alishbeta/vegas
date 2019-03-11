@@ -138,7 +138,6 @@ namespace Nop.Web.Controllers
 			var activeCategory = (category.ParentCategoryId != 0 ? category.ParentCategoryId : categoryId);
             ViewBag.ActiveCategory = activeCategory;
             ViewBag.ActiveSubCategory = categoryId;
-			ViewBag.Prefix = "cat"; //prefix for backinstock button
             //check if products in category has sleep sizes (for CatalogFiltersSelector)
             ViewBag.HasSleepSizes = activeCategory == 19; //id of category "Кровати", wich has sleep sizes
             ViewBag.HasHeight = activeCategory == 21 || activeCategory == 19; //id of category "Кровати" "Тумбы и комоды", wich has sleep sizes

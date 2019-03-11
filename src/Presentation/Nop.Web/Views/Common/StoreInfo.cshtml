@@ -1,32 +1,31 @@
 ﻿@{
 	Layout = "_ColumnsOne";
 }
-@using Nop.Core.Domain.Common;
 @model StoreInfoModel
 <nav class="breadcrumb-wrap" aria-label="breadcrumb">
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="/">Bed4you</a></li>
 		<li class="breadcrumb-item"><a href="/ourstores">@T("map.ourstores")</a></li>
-        <li class="breadcrumb-item active">@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == Model.Address.Id)?.Name</li>
+        <li class="breadcrumb-item active">@Model.Warehouse?.Name</li>
 	</ol>
 </nav>
 <div class="row show-room">
     <div class="offset-xl-2 col-xl-8">
-        <h1 class="title text-center">@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == Model.Address.Id)?.Name</h1>
+        <h1 class="title text-center">@Model.Warehouse?.Name</h1>
         <div class="addres text-center">
-            <p>@Model.Address?.Address1</p>
-            <p>тел. <span>@Model.Address.PhoneNumber</span></p>
-            <p>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == Model.Address.Id)?.WorkTime</p>
+            <p>@Model.Warehouse?.StreetAddress</p>
+            <p>тел. <span>@Model.Warehouse?.Phone</span></p>
+            <p>@Model.Warehouse?.WorkTime</p>
         </div>
         <div class="show-room-wrap">
             <div class="slider">
-                @foreach (var picture in Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == Model.Address.Id)?.Pictures)
+                @foreach (var picture in Model.WarehouseViewModels.FirstOrDefault(x => x.Id == Model.Warehouse.Id)?.Pictures)
                 {
                     <img src="@picture.PictureUrl" alt="">
                 }
             </div>
             <div class="slider-nav">
-                @foreach (var picture in Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == Model.Address.Id)?.Pictures)
+                @foreach (var picture in Model.WarehouseViewModels.FirstOrDefault(x => x.Id == Model.Warehouse.Id)?.Pictures)
                 {
                     <img src="@picture.PictureUrl" alt="">
                 }
@@ -34,9 +33,9 @@
             <div class="bl-1 rounded clearfix">
                 <div class="i-bl-w1">
                     <div class="title"><h4>@T("store.contact")</h4></div>
-                    <p>@Model.Address.Address1</p>
-                    <p>тел. <span>@Model.Address.PhoneNumber</span></p>
-                    <p>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == Model.Address.Id)?.WorkTime</p>
+                    <p>@Model.Warehouse?.StreetAddress</p>
+                    <p>тел. <span>@Model.Warehouse?.Phone</span></p>
+                    <p>@Model.Warehouse?.WorkTime</p>
                     <button class="btn btn-blue pl-5 pr-5" data-toggle="modal" data-target="#writUs" onclick="window.location.replace('/contactus')">@T("store.contactus")</button>
                 </div>
                 <div class="i-bl-w2">
@@ -47,12 +46,12 @@
     </div>
     <div class="col-xl-12">
         <div class="line"></div>
-        @await Component.InvokeAsync("StoreProducts", new { addressId = Model.Address.Id })
+        @await Component.InvokeAsync("StoreProducts", new { warehouseId = Model.Warehouse?.Id })
         <div class="line"></div>
     </div>
     <div class="col-xl-12">
         <div class="title text-center mb-5">
-            <h3 class="">@T("ourstores.other") @Model.Address.City</h3>
+            <h3 class="">@T("ourstores.other") @Model.Warehouse?.City</h3>
             <button class="btn btn-sm btn-blue-white float-right d-none d-md-block" onclick="window.location.replace('/ourstores')">@T("Bestsellers.ViewAll")</button>
         </div>
     </div>
@@ -61,13 +60,13 @@
             <div class="salon-slider-wrap clearfix">
                 @foreach (var address in Model.OtherStores)
                 {
-                    <a href="/storeinfo?addressId=@address.Id">
+                    <a href="/storeinfo?warehouseId=@address.Id">
                         <div class="img">
-                            <img src="@(Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Pictures.FirstOrDefault(x => x.PictureUrl != null).PictureUrl ?? "/img/logo.png")" alt="">
+                            <img src="@(Model.WarehouseViewModels.FirstOrDefault(x => x.Id == address.Id)?.Pictures.FirstOrDefault(x => x.PictureUrl != null).PictureUrl ?? "/img/logo.png")" alt="">
                             <div class="text-wrap">
-                                <div><b>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.Name</b></div>
-                                <div>@address.Address1</div>
-                                <div>@Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == address.Id)?.WorkTime</div>
+                                <div><b>@Model.WarehouseViewModels.FirstOrDefault(x => x.Id == address.Id)?.Name</b></div>
+                                <div>@Model.WarehouseViewModels.FirstOrDefault(x => x.Id == address.Id)?.StreetAddress</div>
+                                <div>@Model.WarehouseViewModels.FirstOrDefault(x => x.Id == address.Id)?.WorkTime</div>
                             </div>
                         </div>
                     </a>
@@ -77,62 +76,61 @@
     </div>
     <div class="col-xl-12">
         <div class="warehouse-description">
-            @Html.Raw(Model.WarehouseViewModels.FirstOrDefault(x => x.AddressId == Model.Address.Id)?.WarehouseDescription)
+            @Html.Raw(Model.Warehouse.WarehouseDescription)
         </div>
     </div>
-    </div>
-    @{
-        var addresses = new List<dynamic>();
-        var warehouse = Model.Warehouses.FirstOrDefault(x => x.AddressId == Model.Address.Id);
-        addresses.Add(new
-        {
-            city = Model.Address?.City,
-            name = warehouse?.Name,
-            addr = Model.Address?.Address1,
-            phone = Model.Address?.PhoneNumber,
-            workTime = warehouse?.AdminComment,
-            zoom = 6
-        });
-    }
-    <span id="address" style="display:none!important;" data-address="@Newtonsoft.Json.JsonConvert.SerializeObject(addresses)"></span>
-    <script type="text/javascript" src="/js/slick.min.js"></script>
-    <script type="text/javascript">
-        $('.slider').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            fade: true,
-            asNavFor: '.slider-nav',
-            prevArrow: '<div class="prev-arrow"></div>',
-            nextArrow: '<div class="next-arrow"></div>',
-        });
-        $('.slider-nav').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            asNavFor: '.slider',
-            dots: false,
-            centerMode: false,
-            focusOnSelect: true,
-            arrows: false,
-        });
-        $('.slider-wrap').slick({
-            dots: false,
-            slidesToShow: 6,
-            slidesToScroll: 1,
-            speed: 600,
-            useTransform: false,
-            prevArrow: '<div class="baner-prev-arrow"></div>',
-            nextArrow: '<div class="baner-next-arrow"></div>',
-            infinite: false,
-        });
-        $('.salon-slider-wrap').slick({
-            dots: false,
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            speed: 600,
-            useTransform: false,
-            prevArrow: '<div class="baner-prev-arrow"></div>',
-            nextArrow: '<div class="baner-next-arrow"></div>',
-            infinite: false,
-        });
-
-    </script>
+</div>
+@{
+    var addresses = new List<dynamic>();
+    var warehouse = Model.Warehouse;
+    addresses.Add(new
+    {
+        city = Model.Warehouse?.City,
+        name = warehouse?.Name,
+        addr = Model.Warehouse?.StreetAddress,
+        phone = Model.Warehouse?.Phone,
+        workTime = warehouse?.WorkTime,
+        zoom = 6
+    });
+}
+<span id="address" style="display:none!important;" data-address="@Newtonsoft.Json.JsonConvert.SerializeObject(addresses)"></span>
+<script type="text/javascript" src="/js/slick.min.js"></script>
+<script type="text/javascript">
+    $('.slider').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        fade: true,
+        asNavFor: '.slider-nav',
+        prevArrow: '<div class="prev-arrow"></div>',
+        nextArrow: '<div class="next-arrow"></div>',
+    });
+    $('.slider-nav').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: '.slider',
+        dots: false,
+        centerMode: false,
+        focusOnSelect: true,
+        arrows: false,
+    });
+    $('.slider-wrap').slick({
+        dots: false,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        speed: 600,
+        useTransform: false,
+        prevArrow: '<div class="baner-prev-arrow"></div>',
+        nextArrow: '<div class="baner-next-arrow"></div>',
+        infinite: false,
+    });
+    $('.salon-slider-wrap').slick({
+        dots: false,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        speed: 600,
+        useTransform: false,
+        prevArrow: '<div class="baner-prev-arrow"></div>',
+        nextArrow: '<div class="baner-next-arrow"></div>',
+        infinite: false,
+    });
+</script>

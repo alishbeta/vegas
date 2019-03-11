@@ -13,6 +13,7 @@ using Nop.Services.Localization;
 using Nop.Services.Logging;
 using Nop.Services.Plugins;
 using Nop.Services.Security;
+using Nop.Services.Seo;
 using Nop.Services.Shipping;
 using Nop.Services.Shipping.Date;
 using Nop.Web.Areas.Admin.Factories;
@@ -39,6 +40,7 @@ namespace Nop.Web.Areas.Admin.Controllers
         private readonly IShippingModelFactory _shippingModelFactory;
         private readonly IShippingService _shippingService;
         private readonly ShippingSettings _shippingSettings;
+        private readonly IUrlRecordService _urlRecordService;
 
         #endregion
 
@@ -55,7 +57,8 @@ namespace Nop.Web.Areas.Admin.Controllers
             ISettingService settingService,
             IShippingModelFactory shippingModelFactory,
             IShippingService shippingService,
-            ShippingSettings shippingSettings)
+            ShippingSettings shippingSettings,
+            IUrlRecordService urlRecordService)
         {
             this._addressService = addressService;
             this._countryService = countryService;
@@ -69,6 +72,7 @@ namespace Nop.Web.Areas.Admin.Controllers
             this._shippingModelFactory = shippingModelFactory;
             this._shippingService = shippingService;
             this._shippingSettings = shippingSettings;
+            this._urlRecordService = urlRecordService;
         }
 
         #endregion
@@ -649,6 +653,37 @@ namespace Nop.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        protected virtual void UpdateLocales(Warehouse warehouse, WarehouseModel model)
+        {
+            foreach (var localized in model.Locales)
+            {
+                _localizedEntityService.SaveLocalizedValue(warehouse,
+                    x => x.Name,
+                    localized.Name,
+                    localized.LanguageId);
+                _localizedEntityService.SaveLocalizedValue(warehouse,
+                    x => x.WorkTime, 
+                    localized.WorkTime,
+                    localized.LanguageId);
+                _localizedEntityService.SaveLocalizedValue(warehouse,
+                    x => x.WarehouseDescription,
+                    localized.WarehouseDescription,
+                    localized.LanguageId);
+                _localizedEntityService.SaveLocalizedValue(warehouse,
+                    x => x.City,
+                    localized.City,
+                    localized.LanguageId);
+                _localizedEntityService.SaveLocalizedValue(warehouse,
+                    x => x.StreetAddress,
+                    localized.StreetAddress,
+                    localized.LanguageId);
+                _localizedEntityService.SaveLocalizedValue(warehouse,
+                    x => x.Phone,
+                    localized.Phone,
+                    localized.LanguageId);
+            }
+        }
+
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
         public virtual IActionResult CreateWarehouse(WarehouseModel model, bool continueEditing)
         {
@@ -657,18 +692,21 @@ namespace Nop.Web.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                var address = model.Address.ToEntity<Address>();
-                address.CreatedOnUtc = DateTime.UtcNow;
-                _addressService.InsertAddress(address);
-
                 var warehouse = new Warehouse
                 {
                     Name = model.Name,
-                    AdminComment = model.AdminComment,
-                    AddressId = address.Id
+                    WorkTime = model.WorkTime,
+                    StreetAddress = model.StreetAddress,
+                    City = model.City,
+                    Phone = model.Phone,
+                    WarehouseDescription = model.WarehouseDescription,
+                    Hidden = model.Hidden,
+                    AddressId = 0
                 };
 
                 _shippingService.InsertWarehouse(warehouse);
+
+                UpdateLocales(warehouse, model);
 
                 foreach (var picture in model.Pictures.Where(x => x.PictureId != null && x.PictureId > 0))
                 {
@@ -720,22 +758,14 @@ namespace Nop.Web.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                var address = _addressService.GetAddressById(warehouse.AddressId) ??
-                    new Address
-                    {
-                        CreatedOnUtc = DateTime.UtcNow
-                    };
-                address = model.Address.ToEntity(address);
-                if (address.Id > 0)
-                    _addressService.UpdateAddress(address);
-                else
-                    _addressService.InsertAddress(address);
-
                 warehouse.Name = model.Name;
-                warehouse.AdminComment = model.AdminComment;
+                warehouse.WorkTime = model.WorkTime;
                 warehouse.Hidden = model.Hidden;
                 warehouse.WarehouseDescription = model.WarehouseDescription;
-                warehouse.AddressId = address.Id;
+                warehouse.AddressId = 0;
+                warehouse.City = model.City;
+                warehouse.Phone = model.Phone;
+                warehouse.StreetAddress = model.StreetAddress;
 
                 _shippingService.UpdateWarehouse(warehouse);
 
@@ -759,6 +789,8 @@ namespace Nop.Web.Areas.Admin.Controllers
                     });
                 oldPics.ForEach(x => _shippingService.DeleteWarehousePicture(x, warehouse.Id));
                 //.ForEach(x => _shippingService.UpdateWarehousePicture((int)x.PictureId, model.Id));
+
+                UpdateLocales(warehouse, model);
 
                 //activity log
                 _customerActivityService.InsertActivity("EditWarehouse",

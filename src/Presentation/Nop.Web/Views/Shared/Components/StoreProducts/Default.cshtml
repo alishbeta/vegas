@@ -1,9 +1,4 @@
-﻿@*
-	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model IList<ProductOverviewModel>
+﻿@model IList<ProductOverviewModel>
 @if (Model.Count > 0)
 {
 	<div class="see-wrap pad-norm">
@@ -51,11 +46,12 @@
 			dataType: 'json',
 			traditional: true,
 			data: {
-				addressId: @ViewBag.AddressId
+				warehouseId: @ViewBag.WarehouseId
 			},
         }).done(function (response) {
             $("#preview").hide();
             $("#prods").empty();
+            console.log(response);
 			response.model.forEach(function (product) {
 				var discount = "";
 				if (product.ProductPrice.Discount != 0) {
@@ -63,7 +59,7 @@
 				}
 				var oldPrice = "";
 				if (product.ProductPrice.OldPrice != null && product.ProductPrice.OldPrice != "" ) {
-					oldPrice = '<div class="price-old">' + + product.ProductPrice.OldPrice + '</div>';
+					oldPrice = '<div class="price-old">' + product.ProductPrice.OldPrice + '</div>';
 				}
 				var shortDesc = "";
 				if (product.ShortDescription != null) {
