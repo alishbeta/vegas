@@ -153,6 +153,7 @@
         $('.slider-range').on('change-filter', function () {
             console.log("change-filter triggered");
             showPopover("@T("popover.found")" + ": ", 0, "@T("popover.btn.show")", this);
+            $("#filter-count").empty();
             $("#filter-count").addClass("load");
             $.ajax({
                 url: "@Url.Action("GetFilteredProductsCount", "Catalog")" + getQuery(),
