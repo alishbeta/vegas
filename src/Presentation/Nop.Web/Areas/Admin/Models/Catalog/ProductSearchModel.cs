@@ -21,6 +21,7 @@ namespace Nop.Web.Areas.Admin.Models.Catalog
             AvailableVendors = new List<SelectListItem>();
             AvailableProductTypes = new List<SelectListItem>();
             AvailablePublishedOptions = new List<SelectListItem>();
+            AvailableStatuses = new List<SelectListItem>();
         }
 
         #endregion
@@ -32,6 +33,9 @@ namespace Nop.Web.Areas.Admin.Models.Catalog
 
         [NopResourceDisplayName("Admin.Catalog.Products.List.SearchCategory")]
         public int SearchCategoryId { get; set; }
+
+        [NopResourceDisplayName("Admin.Catalog.Products.List.Status")]
+        public int SearchStatusId { get; set; }
 
         [NopResourceDisplayName("Admin.Catalog.Products.List.SearchIncludeSubCategories")]
         public bool SearchIncludeSubCategories { get; set; }
@@ -74,6 +78,8 @@ namespace Nop.Web.Areas.Admin.Models.Catalog
         public IList<SelectListItem> AvailableProductTypes { get; set; }
 
         public IList<SelectListItem> AvailablePublishedOptions { get; set; }
+
+        public IList<SelectListItem> AvailableStatuses { get; set; }
 
         #endregion
     }

@@ -670,6 +670,13 @@ namespace Nop.Web.Areas.Admin.Factories
             //prepare available stores
             _baseAdminModelFactory.PrepareStores(searchModel.AvailableStores);
 
+            //prepare available statuses
+            searchModel.AvailableStatuses = _productService.GetAllStatuses().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).Prepend(new SelectListItem()
+            {
+                Text = _localizationService.GetResource("Admin.Catalog.Products.List.SearchStatus.NotSelected"),
+                Value = "0"
+            }).ToList();
+
             //prepare available vendors
             _baseAdminModelFactory.PrepareVendors(searchModel.AvailableVendors);
 
@@ -732,14 +739,21 @@ namespace Nop.Web.Areas.Admin.Factories
                 warehouseId: searchModel.SearchWarehouseId,
                 productType: searchModel.SearchProductTypeId > 0 ? (ProductType?)searchModel.SearchProductTypeId : null,
                 keywords: searchModel.SearchProductName,
-                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
+                pageIndex: searchModel.Page - 1, 
+                pageSize: searchModel.PageSize,
                 overridePublished: overridePublished,
                 isAdmin: true);
+
+            var filteredProds = products;
+            if (searchModel.SearchStatusId != 0)
+            {
+                filteredProds = new PagedList<Product>(products.Where(x => x.StatusId == searchModel.SearchStatusId), searchModel.Page - 1, searchModel.PageSize, products.TotalCount);
+            }
 
             //prepare list model
             var model = new ProductListModel
             {
-                Data = products.Select(product =>
+                Data = filteredProds.Select(product =>
                 {
                     //fill in model values from the entity
                     var productModel = product.ToModel<ProductModel>();
