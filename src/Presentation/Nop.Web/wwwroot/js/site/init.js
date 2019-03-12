@@ -208,7 +208,7 @@ $(document).ready(function () {
         $(this).trigger("change-filter");
     });
 
-    $('.filters-data .form-check input').on('mouseup', function () {
+    $('.filters-data .form-check').on('click', function () {
         $(this).trigger("change-filter");
     });
 
