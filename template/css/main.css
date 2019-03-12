@@ -4322,7 +4322,7 @@ section .item {
   top: 0;
 }
 .commets-wrap .form-wrap .check-fly:nth-child(2) input:checked + label:after {
-  background-position: -161px -1px;
+  background-position: -202px -1px;
 }
 .commets-wrap .form-wrap .check-fly:last-child input + label {
   display: block;
