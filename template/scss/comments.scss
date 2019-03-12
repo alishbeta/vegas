@@ -275,6 +275,10 @@
             } 
         } 
     }
+    #reviewSmile-input{
+        transform: scale(-1, 1);
+    }
+
     /*sprite with stars*/
     #reviewSmile-input input:checked~label,
     #reviewSmile-input label,

@@ -4344,6 +4344,9 @@ section .item {
 .commets-wrap .form-wrap .check-fly:last-child input:checked + label:after {
   background-position: -1px -1px;
 }
+.commets-wrap #reviewSmile-input {
+  transform: scale(-1, 1);
+}
 .commets-wrap #reviewSmile-input input:checked ~ label,
 .commets-wrap #reviewSmile-input label,
 .commets-wrap #reviewSmile-input label:hover,
