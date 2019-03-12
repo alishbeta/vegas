@@ -36,9 +36,6 @@ function initMap() {
                         let work = '';
                         let name = '';
 
-                        console.log(data);
-                        
-
                         if (typeof data.name != 'undefined'){
                             name = '<div>'+ data.name +'</div>';
                         }

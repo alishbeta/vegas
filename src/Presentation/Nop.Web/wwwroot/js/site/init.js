@@ -57,19 +57,6 @@ $(document).ready(function () {
             $(".item-wrap-full").hide();
         });
     }
-    /*    $('.outer-wrapp.scroll .item-wrap').on('mouseover', function () {
-            $(this).next().fadeIn();
-
-
-            console.log($(this).position().left);
-
-        }).next().on('mousedown', function () {
-            var curentPosition = $(this).position().left;
-            console.log(scrollerOffset);
-        }).on('mouseup', function () {
-            var scrollerOffset = $(".scrollComtent").smoothDivScroll("getScrollerOffset");
-            var newPosition = curentPosition
-        });*/
 
     setTimeout(function () {
         if ($(window).width() >= 770) {
@@ -138,7 +125,6 @@ $(document).ready(function () {
             $('.side-second-menu-wrap').addClass('open');
             $('.side-menu-wrap').addClass('open');
             $(this).addClass('active');
-            /*var curent_color = $(this).next().data('color');*/
 
             var data = $(this);
             $('.side-second-menu-wrap .sub-menu').fadeOut(function () {
@@ -156,7 +142,6 @@ $(document).ready(function () {
             $('.side-second-menu-wrap').css("background-color", color_active);
         }
     }
-
 
     //Анимация подменю и открытие по клику
     $('.side-second-menu-wrap').on('mouseover', function () {
@@ -186,12 +171,6 @@ $(document).ready(function () {
         $('.side-menu-wrap').addClass('open');
     });
 
-    // if ($(window).width() >= 768) {
-    //     $('.content').on('click', function () {
-    //         $('.side-menu-wrap, .side-second-menu-wrap').removeClass('open');
-    //     });
-    // }
-
     //Закрываем водменю при клике на крестик.
     $('.side-second-menu-wrap .close-i').on('click', function () {
         $('.side-second-menu-wrap').removeClass('open');
@@ -208,8 +187,7 @@ $(document).ready(function () {
     }
     );
 
-
-    /*#####################    Слайдер для фильтров   ###############################*/
+    /*####################    Слайдер для фильтров   ###############################*/
     $('.f-slider').each(function () {
         var data = $(this).data()
         $("#slider-" + data.filterNumber + "-r").slider({
@@ -225,11 +203,12 @@ $(document).ready(function () {
         $("#slider-" + data.filterNumber + "-a1").val($("#slider-" + data.filterNumber + "-r").slider("values", 0));
         $("#slider-" + data.filterNumber + "-a2").val($("#slider-" + data.filterNumber + "-r").slider("values", 1));
     });
-    // $('.filters-data input').on("change", function() {
-    //     console.log($(this).val());
-    // });
 
-    $('.slider-range').on('mouseup', function(){
+    $('.slider-range').on('mouseup', function () {
+        $(this).trigger("change-filter");
+    });
+
+    $('.filters-data .form-check input').on('mouseup', function () {
         $(this).trigger("change-filter");
     });
 
@@ -244,7 +223,6 @@ $(document).ready(function () {
     $('.cabinet .order-wrap a').on('click', function () {
         $(this).children().toggleClass('open');
     });
-
 
     /*#####################    Корзина   ###############################*/
     $('.cart .minus, .cart-popup-wrap .minus').on('click', function () {
@@ -273,9 +251,8 @@ $(document).ready(function () {
     });
 
     /*#####################    Корзина   (Отображение popup)###############################*/
-    // $('.item-wrap-full button:not(.arived), .item-wrap button:not(.arived), .product .btn-blue:not(.arived), .favorit.shopping_bag_icon').on('click', function () {
+
     $('.buy-btn').on('click', function () {
-        //UpdateCart();
         $('.cart-popup-wrap').addClass('open');
         $('.back-shadow').fadeIn();
 
@@ -311,28 +288,28 @@ $(document).ready(function () {
 
     /*#####################   Popover ###############################*/
 
-    $('.item-line-wrapp').on('mouseover', function(){
+    $('.item-line-wrapp').on('mouseover', function () {
         let p_arr = $(this).data('persent');
         if (p_arr)
             $('.persent .gren-b>div').text(p_arr[0]);
-        
+
         let data = $('.persent').html();
         $(this).popover({
             trigger: 'manual',
-            content: '<div class="persent-block">'+
-            '<div class="gren-b"></div>'+
-            '<div  class="persent-data">'+ p_arr[0] +'</div>'+
-            '<div class="grey-b"></div>'+
-            '<div  class="persent-data">'+ p_arr[1] +'</div>'+
-            '<div class="red-b"></div>'+
-            '<div  class="persent-data">'+ p_arr[2] +'</div>'+
-        '</div>',
+            content: '<div class="persent-block">' +
+                '<div class="gren-b"></div>' +
+                '<div  class="persent-data">' + p_arr[0] + '</div>' +
+                '<div class="grey-b"></div>' +
+                '<div  class="persent-data">' + p_arr[1] + '</div>' +
+                '<div class="red-b"></div>' +
+                '<div  class="persent-data">' + p_arr[2] + '</div>' +
+                '</div>',
             html: true,
             placement: 'bottom'
         });
 
         $(this).popover('show');
-    }).on('mouseleave', function(){
+    }).on('mouseleave', function () {
         $(this).popover('hide');
     })
 
@@ -386,26 +363,26 @@ $(document).ready(function () {
 });
 //Function to convert rgb color to hex format
 var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
-        
-    /*#####################   Попап на фильтрах  ###############################*/
-    function showPopover(text, count, btn, obj){
-        let elem = $(obj).popover({
-            trigger: 'manual',
-            content: '<div class = "filter-title">'+ text +' <span id="filter-count">'+count+'</span> </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">'+btn+'</button>',
-            html: true,
-        });
 
-        elem.popover('show');
-          $('.ui-slider-handle').on('mouseenter', function(){
-            elem.popover('hide');
-          })
-          $('.prod-wrap').on('mouseenter', function(){
-            elem.popover('hide');
-          })
-          $('input').on('click', function(){
-            elem.popover('hide');
-          })
-    }
+/*#####################   Попап на фильтрах  ###############################*/
+function showPopover(text, count, btn, obj) {
+    let elem = $(obj).popover({
+        trigger: 'manual',
+        content: '<div class = "filter-title">' + text + ' <span id="filter-count">' + count + '</span> </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">' + btn + '</button>',
+        html: true,
+    });
+
+    elem.popover('show');
+    $('.ui-slider-handle').on('mouseenter', function () {
+        elem.popover('hide');
+    })
+    $('.prod-wrap').on('mouseenter', function () {
+        elem.popover('hide');
+    })
+    $('input').on('click', function () {
+        elem.popover('hide');
+    })
+}
 
 function rgb2hex(rgb) {
     rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);

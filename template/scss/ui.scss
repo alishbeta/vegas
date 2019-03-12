@@ -83,12 +83,11 @@ i {
     width: 15px;
     height: 15px;
     cursor: pointer;
-    &.load:before{
+    &.load:before {
         position: absolute;
         left: 0;
         height: 100%;
         background-size: 100%;
-
     }
     &.close-i {
         background: url('/img/close.svg') no-repeat center;
@@ -100,16 +99,16 @@ i {
         &:hover {
             background: url("/img/compare_icon_fill.svg") no-repeat center;
         }
-        &.active:hover{
+        &.active:hover {
             opacity: .8;
         }
     }
     &.user_icon {
         background: url("/img/user_icon.svg") no-repeat center;
-        &.active{
-            background: url("/img/user_icon_fill.svg") no-repeat center; 
+        &.active {
+            background: url("/img/user_icon_fill.svg") no-repeat center;
         }
-        &.active:hover{
+        &.active:hover {
             opacity: .8;
         }
     }
@@ -138,23 +137,22 @@ i {
         &:hover {
             background: url("/img/favorite_icon_fill.svg") no-repeat center;
         }
-    }
- //  span {
+    } //  span {
     //   position: absolute;
     //   top: 5px;
     //   left: 11px;
     // }
 }
 
-.load{
+.load {
     -webkit-mask-image: none !important;
     mask-image: none !important;
     background: transparent !important;
     z-index: 1050;
-    & *{
+    & * {
         opacity: 0;
     }
-    &:before{
+    &:before {
         position: relative;
         display: inline-block;
         content: '';
@@ -165,16 +163,16 @@ i {
     }
 }
 
-.popover-body{
+.popover-body {
     .load:before {
-      width: 20px;
-      vertical-align: bottom;
-      height: 20px;
-      background-size: 100%;
-  }
-  }
+        width: 20px;
+        vertical-align: bottom;
+        height: 20px;
+        background-size: 100%;
+    }
+}
 
-button.load{
+button.load {
     border: transparent;
     color: transparent;
     &:before {
@@ -185,7 +183,8 @@ button.load{
         left: 0;
     }
 }
-.buy-history-wrap{
+
+.buy-history-wrap {
     .load:before {
         width: 110px;
         height: 110px;
@@ -193,6 +192,7 @@ button.load{
         vertical-align: text-top;
     }
 }
+
 .discount {
     position: absolute;
     width: 50px;
@@ -372,11 +372,10 @@ nav.blue-menu {
 
 i.favorite_i.active {
     background: url(/img/favorite_icon_fill.svg);
-    &:hover{
+    &:hover {
         opacity: .8;
     }
 }
-
 
 .star {
     -webkit-mask-image: url(/img/star_fill.svg);
