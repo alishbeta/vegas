@@ -36,13 +36,13 @@ function initMap() {
                         let work = '';
                         let name = '';
 
-                        if (typeof data.name == 'undefined'){
+                        if (typeof data.name != 'undefined'){
                             name = '<div>'+ data.name +'</div>';
                         }
-                        if (typeof data.phone == 'undefined'){
+                        if (typeof data.phone != 'undefined'){
                             phone = '<div><span>Телефон</span>: '+ data.phone +'</div>';
                         }
-                        if (typeof data.workTime == 'undefined'){
+                        if (typeof data.workTime != 'undefined'){
                             work = '<div><span>График</span>: '+ data.workTime +'</div>';
                         }
                             

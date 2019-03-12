@@ -233,9 +233,6 @@ $(document).ready(function () {
         $(this).trigger("change-filter");
     });
 
-    /*#####################   Попап на фильтрах  ###############################*/
-    
-
     $('.filters-wrap .btn-display').on('click', function () {
         $('.filters-data').toggleClass('open');
         $('.f1').toggleClass('open');
@@ -390,7 +387,25 @@ $(document).ready(function () {
 //Function to convert rgb color to hex format
 var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
         
+    /*#####################   Попап на фильтрах  ###############################*/
+    function showPopover(text, count, btn, obj){
+        let elem = $(obj).popover({
+            trigger: 'manual',
+            content: '<div class = "filter-title">'+ text +' <span id="filter-count">'+count+'</span> </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">'+btn+'</button>',
+            html: true,
+        });
 
+        elem.popover('show');
+          $('.ui-slider-handle').on('mouseenter', function(){
+            elem.popover('hide');
+          })
+          $('.prod-wrap').on('mouseenter', function(){
+            elem.popover('hide');
+          })
+          $('input').on('click', function(){
+            elem.popover('hide');
+          })
+    }
 
 function rgb2hex(rgb) {
     rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
@@ -426,22 +441,4 @@ function tabControl() {
             container.find('.tabs a[href$="#' + currId + '"]').addClass('active');
         });
     }
-}
-function showPopover(text, count, btn, obj) {
-    let elem = $(obj).popover({
-        trigger: 'manual',
-        content: '<div class = "filter-title">' + text + ' <span id="filter-count">' + count + '</span> </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">' + btn + '</button>',
-        html: true,
-    });
-
-    elem.popover('show');
-    $('.ui-slider-handle').on('mouseenter', function () {
-        elem.popover('hide');
-    })
-    $('.prod-wrap').on('mouseenter', function () {
-        elem.popover('hide');
-    })
-    $('input').on('click', function () {
-        elem.popover('hide');
-    })
 }

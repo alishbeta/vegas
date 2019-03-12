@@ -170,6 +170,13 @@ i.favorite_i:hover {
   background-size: 15%;
 }
 
+.popover-body .load:before {
+  width: 20px;
+  vertical-align: bottom;
+  height: 20px;
+  background-size: 100%;
+}
+
 button.load {
   border: transparent;
   color: transparent;
@@ -1319,12 +1326,6 @@ nav.breadcrumb-wrap a:hover {
 }
 .cat .keep_open ul li ul {
   margin-left: 15px;
-}
-.cat .popover-body .load:before {
-  width: 20px;
-  vertical-align: bottom;
-  height: 20px;
-  background-size: 100%;
 }
 
 .filter-title {

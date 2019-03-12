@@ -165,6 +165,15 @@ i {
     }
 }
 
+.popover-body{
+    .load:before {
+      width: 20px;
+      vertical-align: bottom;
+      height: 20px;
+      background-size: 100%;
+  }
+  }
+
 button.load{
     border: transparent;
     color: transparent;
