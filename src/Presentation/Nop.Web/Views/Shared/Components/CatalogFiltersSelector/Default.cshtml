@@ -150,7 +150,7 @@
                 $("#filter-count").removeClass("load");
             });
         });*@
-        $('.slider-range, .filters-data .form-check input').on('change-filter', function () {
+        $('.slider-range, .filters-data .form-check').on('change-filter', function () {
             console.log("change-filter triggered");
             showPopover("@T("popover.found")" + ": ", 0, "@T("popover.btn.show")", this);
             $("#filter-count").empty();
