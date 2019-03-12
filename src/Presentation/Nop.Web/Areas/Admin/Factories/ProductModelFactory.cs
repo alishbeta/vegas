@@ -742,18 +742,13 @@ namespace Nop.Web.Areas.Admin.Factories
                 pageIndex: searchModel.Page - 1, 
                 pageSize: searchModel.PageSize,
                 overridePublished: overridePublished,
+                statusId: searchModel.SearchStatusId,
                 isAdmin: true);
-
-            var filteredProds = products;
-            if (searchModel.SearchStatusId != 0)
-            {
-                filteredProds = new PagedList<Product>(products.Where(x => x.StatusId == searchModel.SearchStatusId), searchModel.Page - 1, searchModel.PageSize, products.TotalCount);
-            }
 
             //prepare list model
             var model = new ProductListModel
             {
-                Data = filteredProds.Select(product =>
+                Data = products.Select(product =>
                 {
                     //fill in model values from the entity
                     var productModel = product.ToModel<ProductModel>();

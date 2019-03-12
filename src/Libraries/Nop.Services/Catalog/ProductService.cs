@@ -711,6 +711,7 @@ namespace Nop.Services.Catalog
             decimal? MaxSleepWidth = null,
             decimal? MinSleepLength = null,
             decimal? MaxSleepLength = null,
+            int statusId = 0,
             string specificationFilters = null,
             int productTagId = 0,
             string keywords = null,
@@ -729,7 +730,7 @@ namespace Nop.Services.Catalog
                 pageIndex, pageSize, categoryIds, manufacturerId,
                 storeId, vendorId, warehouseId,
                 productType, visibleIndividuallyOnly, markedAsNewOnly, featuredProducts,
-                priceMin, priceMax, MinWidth, MaxWidth, MinLength, MaxLength, MinHeight, MaxHeight, MinSleepWidth, MaxSleepWidth, MinSleepLength, MaxSleepLength, 
+                priceMin, priceMax, MinWidth, MaxWidth, MinLength, MaxLength, MinHeight, MaxHeight, MinSleepWidth, MaxSleepWidth, MinSleepLength, MaxSleepLength, statusId,
                 specificationFilters, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku,
                 searchProductTags, languageId, filteredSpecs,
                 orderBy, showHidden, overridePublished, isAdmin);
@@ -795,6 +796,7 @@ namespace Nop.Services.Catalog
 			decimal? MaxSleepWidth = null,
 			decimal? MinSleepLength = null,
 			decimal? MaxSleepLength = null,
+            int statusId = 0,
 			string specificationFilters = null,
             int productTagId = 0,
             string keywords = null,
@@ -875,6 +877,7 @@ namespace Nop.Services.Catalog
             var pMaxSleepWidth = _dataProvider.GetDecimalParameter("MaxSleepWidth", MaxSleepWidth);
             var pMinSleepLength = _dataProvider.GetDecimalParameter("MinSleepLength", MinSleepLength);
             var pMaxSleepLength = _dataProvider.GetDecimalParameter("MaxSleepLength", MaxSleepLength);
+            var pStatusId = _dataProvider.GetDecimalParameter("StatusId", statusId);
 			var pSpecificationFilter = _dataProvider.GetStringParameter("Spec", specificationFilters);
             var pKeywords = _dataProvider.GetStringParameter("Keywords", keywords);
             var pSearchDescriptions = _dataProvider.GetBooleanParameter("SearchDescriptions", searchDescriptions);
@@ -923,6 +926,7 @@ namespace Nop.Services.Catalog
                 pMaxSleepLength,
                 pMinSleepWidth,
                 pMaxSleepWidth,
+                pStatusId,
 				//pSpecificationFilter,
                 pKeywords,
                 pSearchDescriptions,
