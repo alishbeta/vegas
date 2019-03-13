@@ -190,7 +190,7 @@ $(document).ready(function () {
     /*####################    Слайдер для фильтров   ###############################*/
     $('.f-slider').each(function () {
         var data = $(this).data();
-        //let slider = [];
+        let slider = [];
         let toCurent = $("#slider-" + data.filterNumber + "-a2").val();
         let fromCurent = $("#slider-" + data.filterNumber + "-a1").val();
         $("#slider-" + data.filterNumber + "-r").slider({
@@ -206,6 +206,10 @@ $(document).ready(function () {
         // $("#slider-" + data.filterNumber + "-a1").val($("#slider-" + data.filterNumber + "-r").slider("values", 0));
         // $("#slider-" + data.filterNumber + "-a2").val($("#slider-" + data.filterNumber + "-r").slider("values", 1));
 
+        $("#slider-" + data.filterNumber + "-a1").on('change', function () {
+            //slider.slider('values', this.val());
+            $("#slider-" + data.filterNumber + "-r").slider("values", 200);
+        })
     });
 
     $('.slider-range').on('mouseup', function () {

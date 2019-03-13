@@ -280,10 +280,8 @@
     }
 
     /*sprite with stars*/
-    #reviewSmile-input input:checked~label,
     #reviewSmile-input label,
-    #reviewSmile-input label:hover,
-    #reviewSmile-input label:hover~label {
+    #reviewSmile-input label:hover {
         background: url(/img/sprite_smile_.png); // mask-image: url('/img/star_fill.svg');
         // -webkit-mask-image: url('/img/star_fill.svg');
         // background-color: gray;
@@ -298,8 +296,8 @@
     #reviewSmile-input input {
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
         opacity: 0;
-        height: 41px;
-        width: 50px;
+        height: 40px;
+        width: 40px;
         position: absolute;
         top: 0;
         z-index: 0;
@@ -312,103 +310,106 @@
         margin-right: 20px;
         position: relative;
         z-index: 1;
+        &:hover, &:hover~label{
+            height: 40px;
+            width: 40px;
+        }
     }
-    #reviewSmile-input label:hover,
-    #reviewSmile-input label:hover~label {
-        //background-color: #ff9c32;
-        height: 41px;
-        width: 40px;
-    }
+
     #reviewSmile-input #smile-0 {
         left: 0;
     }
     #reviewSmile-input {
         label[for*="smile-0"] {
-            background-position: 0 -40px;
+            background-position: 0 -41px;
         }
         label[for*="smile-1"] {
-            background-position: -40px -40px;
+            background-position: -41px -41px;
         }
         label[for*="smile-2"] {
-            background-position: -80px -41px;
+            background-position: -81px -41px;
         }
         label[for*="smile-3"] {
-            background-position: -120px -40px;
+            background-position: -121px -41px;
         }
         label[for*="smile-4"] {
-            background-position: -160px -40px;
+            background-position: -161px -41px;
         }
     }
+
     #reviewSmile-input {
         label[for*="smile-0"]:hover {
             background-position: 0 0;
         }
         label[for*="smile-1"]:hover {
-            background-position: -40px 0;
+            background-position: -41px 0;
         }
         label[for*="smile-2"]:hover {
-            background-position: -80px 0;
+            background-position: -81px 0;
         }
-        label[for*="smile-2"]:hover+input+label {
-            background-position: -40px 0;
-        }
+        //label[for*="smile-2"]:hover+input+label {
+        //   background-position: -40px 0;
+        //}
         label[for*="smile-3"]:hover {
-            background-position: -120px 0;
-            &+input+label {
-                background-position: -80px 0;
-            }
-            &+input+label+input+label {
-                background-position: -40px 0;
-            }
+            background-position: -121px 0;
+            //&+input+label {
+            //   background-position: -80px 0;
+            //}
+            //&+input+label+input+label {
+            //   background-position: -40px 0;
+            //}
         }
         label[for*="smile-4"]:hover {
-            background-position: -160px 0;
-            &+input+label {
-                background-position: -120px 0;
-            }
-            &+input+label+input+label {
-                background-position: -80px 0;
-            }
-            &+input+label+input+label+input+label {
-                background-position: -40px 0;
-            }
+            background-position: -161px 0;
+            //&+input+label {
+            //   background-position: -120px 0;
+            //}
+            //&+input+label+input+label {
+            //   background-position: -80px 0;
+            //}
+            //&+input+label+input+label+input+label {
+            //   background-position: -40px 0;
+            //}
         }
     }
+
     #reviewSmile-input input:checked~label {
-        //background-color: #ff9c32;
-        height: 41px;
+        height: 40px;
         width: 40px;
     }
     #reviewSmile-input {
+        input[id*="smile-0"]:checked+label {
+            background-position: 0 0;
+        }
         input[id*="smile-1"]:checked+label {
-            background-position: -40px 0;
+            background-position: -41px 0;
         }
         input[id*="smile-2"]:checked+label {
-            background-position: -80px 0;
-            &+input+label {
-                background-position: -40px 0;
-            }
+            background-position: -81px 0;
+            //&+input+label {
+            //    background-position: -40px 0;
+            //}
         }
         input[id*="smile-3"]:checked+label {
-            background-position: -120px 0;
-            &+input+label {
-                background-position: -80px 0;
-            }
-            &+input+label+input+label {
-                background-position: -40px 0;
-            }
+            background-position: -121px 0;
+            //&+input+label {
+            //    background-position: -80px 0;
+            //}
+            //&+input+label+input+label {
+            //    background-position: -40px 0;
+            //}
         }
         input[id*="smile-4"]:checked+label {
-            background-position: -160px 0;
-            &+input+label {
-                background-position: -120px 0;
-            }
-            &+input+label+input+label {
-                background-position: -80px 0;
-            }
-            &+input+label+input+label+input+label {
-                background-position: -40px 0;
-            }
+            background-position: -161px 0;
+            //&+input+label {
+            //    background-position: -120px 0;
+            //}
+            //&+input+label+input+label {
+            //    background-position: -80px 0;
+            //}
+            //&+input+label+input+label+input+label {
+            //    background-position: -40px 0;
+            //}
         }
     }
     #reviewSmile-input {
