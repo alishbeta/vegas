@@ -139,5 +139,6 @@ namespace Nop.Core.Domain.Common
         public string ComplectationAttributeName { get; set; }
         public string CategoryAttributeName { get; set; }
         public string ColorAttributeName { get; set; }
+        public bool ShowDebugTipInCart { get; set; }
     }
 }

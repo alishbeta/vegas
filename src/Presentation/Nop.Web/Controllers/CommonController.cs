@@ -71,6 +71,7 @@ namespace Nop.Web.Controllers
         private readonly ILocationService _locationService;
         private readonly IAclService _aclService;
         private readonly IStoreMappingService _storeMappingService;
+        private readonly ShippingSettings _shippingSettings;
         
         #endregion
         
@@ -103,7 +104,8 @@ namespace Nop.Web.Controllers
             IWebHelper webHelper,
             ILocationService locationService,
             IAclService aclService,
-            IStoreMappingService storeMappingService)
+            IStoreMappingService storeMappingService,
+            ShippingSettings shippingSettings)
         {
             this._pictureService = pictureService;
             this._catalogSettings = catalogSettings;
@@ -133,6 +135,7 @@ namespace Nop.Web.Controllers
             this._locationService = locationService;
             this._aclService = aclService;
             this._storeMappingService = storeMappingService;
+            this._shippingSettings = shippingSettings;
 		}
 
 		#endregion
@@ -485,8 +488,9 @@ namespace Nop.Web.Controllers
 			{
 				Warehouses = viewWarehouseModelList
             };
+            ViewBag.GoogleMapsApiKey = _shippingSettings.GoogleMapsApiKey;
 
-			return View(model);
+            return View(model);
 		}	
 
 		//our stores page
@@ -529,7 +533,9 @@ namespace Nop.Web.Controllers
 				Name = city
 			};
 
-			return View(model);
+            ViewBag.GoogleMapsApiKey = _shippingSettings.GoogleMapsApiKey;
+
+            return View(model);
 		}	  	
 
 		//store info page
@@ -578,7 +584,9 @@ namespace Nop.Web.Controllers
 				Warehouses = warehouses
 			};
 
-			return View(model);
+            ViewBag.GoogleMapsApiKey = _shippingSettings.GoogleMapsApiKey;
+
+            return View(model);
 		}
 
         #endregion

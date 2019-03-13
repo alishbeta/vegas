@@ -66,6 +66,7 @@ namespace Nop.Web.Controllers
         private readonly PaymentSettings _paymentSettings;
         private readonly RewardPointsSettings _rewardPointsSettings;
         private readonly ShippingSettings _shippingSettings;
+        private readonly CommonSettings _commonSettings;
 
         #endregion
 
@@ -98,7 +99,8 @@ namespace Nop.Web.Controllers
             OrderSettings orderSettings,
             PaymentSettings paymentSettings,
             RewardPointsSettings rewardPointsSettings,
-            ShippingSettings shippingSettings)
+            ShippingSettings shippingSettings,
+            CommonSettings commonSettings)
         {
             this._newPostService = newPostService;
             this._addressSettings = addressSettings;
@@ -128,6 +130,7 @@ namespace Nop.Web.Controllers
             this._paymentSettings = paymentSettings;
             this._rewardPointsSettings = rewardPointsSettings;
             this._shippingSettings = shippingSettings;
+            this._commonSettings = commonSettings;
         }
 
         #endregion
@@ -940,8 +943,12 @@ namespace Nop.Web.Controllers
             }
 			var model = new ShoppingCartModel();
 			model = _shoppingCartModelFactory.PrepareShoppingCartModel(model, cart);
-            ViewBag.DebugTip = _genericAttributeService.GetAttribute<string>(_workContext.CurrentCustomer, NopCustomerDefaults.AppliedDiscountsDebugTip, _storeContext.CurrentStore.Id);
-            
+
+            if (_commonSettings.ShowDebugTipInCart)
+            {
+                ViewBag.DebugTip = _genericAttributeService.GetAttribute<string>(_workContext.CurrentCustomer, NopCustomerDefaults.AppliedDiscountsDebugTip, _storeContext.CurrentStore.Id);
+            }
+
 			return View(model);
 		}
 

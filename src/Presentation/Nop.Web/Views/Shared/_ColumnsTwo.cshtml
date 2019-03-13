@@ -70,4 +70,4 @@
 @RenderBody()
 @await Component.InvokeAsync("NewsletterBox")
 <script src="/js/site/maps.js" crossorigin="anonymous"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUy_Mc1wlhduqnGar8thbub8I8lCa9Cvo&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=@(!string.IsNullOrEmpty(ViewBag.GoogleMapsApiKey) ? ViewBag.GoogleMapsApiKey : "AIzaSyCUy_Mc1wlhduqnGar8thbub8I8lCa9Cvo")&callback=initMap" async defer></script>
