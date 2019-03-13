@@ -3,6 +3,7 @@ using FluentValidation.Attributes;
 using Nop.Web.Framework.Models;
 using Nop.Web.Framework.Mvc.ModelBinding;
 using Nop.Web.Validators.Catalog;
+using System;
 
 namespace Nop.Web.Models.Catalog
 {
@@ -91,7 +92,7 @@ namespace Nop.Web.Models.Catalog
 
         public int? InstallationRating { get; set; }
 
-        public bool? WillRecommend { get; set; }
+        public bool? WillRecommend { get; set; } = null;
 
         public ProductReviewHelpfulnessModel Helpfulness { get; set; }
 
@@ -128,7 +129,7 @@ namespace Nop.Web.Models.Catalog
 
         public int? InstallationRating { get; set; }
 
-        public bool? WillRecommend { get; set; }
+        public bool? WillRecommend { get; set; } = null;
 
         public bool DisplayCaptcha { get; set; }
 
