@@ -194,7 +194,7 @@ $(document).ready(function () {
             range: true,
             min: data.min,
             max: parseFloat(data.max),
-            values: [data.min, parseFloat(data.max)],
+            values: [$("#slider-" + data.filterNumber + "-a1").val(), parseFloat($("#slider-" + data.filterNumber + "-a2").val())],
             slide: function (event, ui) {
                 $("#slider-" + data.filterNumber + "-a1").val(ui.values[0]);
                 $("#slider-" + data.filterNumber + "-a2").val(ui.values[1]);
