@@ -189,19 +189,27 @@ $(document).ready(function () {
 
     /*####################    Слайдер для фильтров   ###############################*/
     $('.f-slider').each(function () {
-        var data = $(this).data()
-        $("#slider-" + data.filterNumber + "-r").slider({
+        var data = $(this).data();
+        let slider = [];
+        let toCurent = $("#slider-" + data.filterNumber + "-a2").val();
+        let fromCurent = $("#slider-" + data.filterNumber + "-a1").val();
+        slider[data.filterNumber] = $("#slider-" + data.filterNumber + "-r").slider({
             range: true,
             min: data.min,
             max: parseFloat(data.max),
-            values: [$("#slider-" + data.filterNumber + "-a1").val(), parseFloat($("#slider-" + data.filterNumber + "-a2").val())],
+            values: [(!fromCurent) ? data.max : fromCurent, (!toCurent) ? data.max : toCurent],
             slide: function (event, ui) {
                 $("#slider-" + data.filterNumber + "-a1").val(ui.values[0]);
                 $("#slider-" + data.filterNumber + "-a2").val(ui.values[1]);
             }
         });
-        $("#slider-" + data.filterNumber + "-a1").val($("#slider-" + data.filterNumber + "-r").slider("values", 0));
-        $("#slider-" + data.filterNumber + "-a2").val($("#slider-" + data.filterNumber + "-r").slider("values", 1));
+        // $("#slider-" + data.filterNumber + "-a1").val($("#slider-" + data.filterNumber + "-r").slider("values", 0));
+        // $("#slider-" + data.filterNumber + "-a2").val($("#slider-" + data.filterNumber + "-r").slider("values", 1));
+
+        $("#slider-" + data.filterNumber + "-a1").on('change', function () {
+            //slider.slider('values', this.val());
+            console.log(slider);
+        })
     });
 
     $('.slider-range').on('mouseup', function () {
