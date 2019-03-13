@@ -73,7 +73,7 @@
     </div>
     @await Component.InvokeAsync("CatalogFiltersMenu", new { currentCategory = Model.Id })
     <div class="items clearfix">
-        @await Component.InvokeAsync("CatalogFiltersSelector", new { specificationFilter = Model.PagingFilteringContext.SpecificationFilter, products = Model.Products, categoryId = Model.Id })
+        @await Component.InvokeAsync("CatalogFiltersSelector", new { specificationFilter = Model.PagingFilteringContext.SpecificationFilter, products = Model.AllProducts, categoryId = Model.Id })
         @if (Model.Products.Count() > 0)
         {
             <div class="prod-wrap float-right" id="prods">
@@ -138,7 +138,7 @@
 			response.model.forEach(function (product) {
 				var discount = "";
 				if (product.ProductPrice.Discount != 0) {
-					discount = '<div class="discount">-' + + product.ProductPrice.Discount + '%</div>';
+					discount = '<div class="discount">-' + product.ProductPrice.Discount + '%</div>';
 				}
 				var oldPrice = "";
 				if (product.ProductPrice.OldPrice != null && product.ProductPrice.OldPrice != "" ) {

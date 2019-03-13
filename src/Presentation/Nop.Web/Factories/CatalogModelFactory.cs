@@ -558,21 +558,21 @@ namespace Nop.Web.Factories
             model.Products = model.Products.ToList();
             model.PagingFilteringContext.LoadPagedList(products);
 
-            var allProducts = _productService.GetProductsIdsInCategory(categoryIds);
-            //var allProducts = _productService.SearchProducts(out _,  //recall to update filterableSpecificationAttributeOptionIds
-            //    true,                                                                           //needs to include already selected options in filters
-            //    categoryIds: categoryIds,
-            //    storeId: _storeContext.CurrentStore.Id,
-            //    visibleIndividuallyOnly: true,
-            //    featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
-            //    orderBy: orderBy
-            //    ).Select(x => x.Id);
+            //var allProducts = _productService.GetProductsIdsInCategory(categoryIds);
+            model.AllProducts = _productService.SearchProducts(out _,  //recall to update filterableSpecificationAttributeOptionIds
+                false,                                                                           //needs to include already selected options in filters
+                categoryIds: categoryIds,
+                storeId: _storeContext.CurrentStore.Id,
+                visibleIndividuallyOnly: true,
+                featuredProducts: _catalogSettings.IncludeFeaturedProductsInNormalLists ? null : (bool?)false,
+                orderBy: orderBy
+                );
 
-            filterableSpecificationAttributeOptionIds = _specificationAttributeService.GetSpecificationAttributeOptionsByProductIds(allProducts);
+            filterableSpecificationAttributeOptionIds = _specificationAttributeService.GetSpecificationAttributeOptionsByProductIds(model.AllProducts.Select(x => x.Id));
             //specs
             model.PagingFilteringContext.SpecificationFilter.PrepareSpecsFilters(alreadyFilteredSpecOptionIds,
                 filterableSpecificationAttributeOptionIds?.ToArray(),
-                _specificationAttributeService, _localizationService, _webHelper, _workContext, _cacheManager, allProducts, allFilteredProductsIds);
+                _specificationAttributeService, _localizationService, _webHelper, _workContext, _cacheManager, model.AllProducts.Select(x => x.Id), allFilteredProductsIds);
 
             return model;
         }

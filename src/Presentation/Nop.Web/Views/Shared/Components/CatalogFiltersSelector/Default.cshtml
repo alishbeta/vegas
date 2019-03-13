@@ -99,22 +99,21 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () { 
-        setTimeout(fillFilters(), 500);
-    });
+    fillFilters();
+    
     function fillFilters() {
-        $("[name=MinPrice]").val(@(Model.Price?.from == 0 ? "" : Model.Price?.from.ToString()));
-        $("[name=MaxPrice]").val(@(Model.Price?.to == 0 ? "" : Model.Price?.to.ToString()));
-        $("[name=MinLength]").val(@(Model.Length?.from == 0 ? "" : Model.Length?.from.ToString()));
-        $("[name=MaxLength]").val(@(Model.Length?.to == 0 ? "" : Model.Length?.to.ToString()));
-        $("[name=MinWidth]").val(@(Model.Width?.from == 0 ? "" : Model.Width?.from.ToString()));
-        $("[name=MaxWidth]").val(@(Model.Width?.to == 0 ? "" : Model.Width?.to.ToString()));
-        $("[name=MinHeight]").val(@(Model.Height?.from == 0 ? "" : Model.Height?.from.ToString()));
-        $("[name=MaxHeight]").val(@(Model.Height?.to == 0 ? "" : Model.Height?.to.ToString()));
-        $("[name=MinSleeplength]").val(@(Model.SleepLength?.from == 0 ? "" : Model.SleepLength?.from.ToString()));
-        $("[name=MaxSleeplength]").val(@(Model.SleepLength?.to == 0 ? "" : Model.SleepLength?.to.ToString()));
-        $("[name=MinSleepwidth]").val(@(Model.SleepWidth?.from == 0 ? "" : Model.SleepWidth?.from.ToString()));
-        $("[name=MaxSleepwidth]").val(@(Model.SleepWidth?.to == 0 ? "" : Model.SleepWidth?.to.ToString()));
+        $("[name=MinPrice]").val(@(Model.Price?.from == 0 ? Model.Price?.min.ToString() : Model.Price?.from.ToString()));
+        $("[name=MaxPrice]").val(@(Model.Price?.to == 0 ? Model.Price?.max.ToString() : Model.Price?.to.ToString()));
+        $("[name=MinLength]").val(@(Model.Length?.from == 0 ? Model.Length?.min.ToString() : Model.Length?.from.ToString()));
+        $("[name=MaxLength]").val(@(Model.Length?.to == 0 ? Model.Length?.max.ToString() : Model.Length?.to.ToString()));
+        $("[name=MinWidth]").val(@(Model.Width?.from == 0 ? Model.Width?.min.ToString() : Model.Width?.from.ToString()));
+        $("[name=MaxWidth]").val(@(Model.Width?.to == 0 ? Model.Width?.max.ToString() : Model.Width?.to.ToString()));
+        $("[name=MinHeight]").val(@(Model.Height?.from == 0 ? Model.Height?.min.ToString() : Model.Height?.from.ToString()));
+        $("[name=MaxHeight]").val(@(Model.Height?.to == 0 ? Model.Height?.max.ToString() : Model.Height?.to.ToString()));
+        $("[name=MinSleeplength]").val(@(Model.SleepLength?.from == 0 ? Model.SleepLength?.min.ToString() : Model.SleepLength?.from.ToString()));
+        $("[name=MaxSleeplength]").val(@(Model.SleepLength?.to == 0 ? Model.SleepLength?.max.ToString() : Model.SleepLength?.to.ToString()));
+        $("[name=MinSleepwidth]").val(@(Model.SleepWidth?.from == 0 ? Model.SleepWidth?.min.ToString() : Model.SleepWidth?.from.ToString()));
+        $("[name=MaxSleepwidth]").val(@(Model.SleepWidth?.to == 0 ? Model.SleepWidth?.max.ToString() : Model.SleepWidth?.to.ToString()));
     }
 
     function clearFilters() {

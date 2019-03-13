@@ -21,7 +21,7 @@ namespace Nop.Web.Components
             this._webHelper = webHelper;
         }
 
-        public IViewComponentResult Invoke(CatalogPagingFilteringModel.SpecificationFilterModel specificationFilter, IEnumerable<ProductOverviewModel> products, int categoryId)
+        public IViewComponentResult Invoke(CatalogPagingFilteringModel.SpecificationFilterModel specificationFilter, IEnumerable<Product> products, int categoryId)
         {
             FilterRangesModel model = new FilterRangesModel();
             
@@ -74,8 +74,8 @@ namespace Nop.Web.Components
                 };
             }
             
-            model.Price.max = (double)(products.OrderByDescending(x => x.ProductPrice.PriceValue).FirstOrDefault()?.ProductPrice?.PriceValue ?? 0);
-            model.Price.min = (double)(products.OrderBy(x => x.ProductPrice.PriceValue).FirstOrDefault()?.ProductPrice?.PriceValue ?? 0);
+            model.Price.max = (double)(products.OrderByDescending(x => x.Price).FirstOrDefault()?.Price ?? 0);
+            model.Price.min = (double)(products.OrderBy(x => x.Price).FirstOrDefault()?.Price ?? 0);
             model.Height.max = (double)(products.OrderByDescending(x => x.Height).FirstOrDefault()?.Height ?? 0);
             model.Height.min = (double)(products.OrderBy(x => x.Height).FirstOrDefault()?.Height ?? 0);
             model.Length.max = (double)(products.OrderByDescending(x => x.Length).FirstOrDefault()?.Length ?? 0);
