@@ -235,7 +235,7 @@ namespace Nop.Web.Controllers
 		{
             //include subcategories
             IList<int> categoryIds = _categoryService.GetChildCategoryIds(categoryId, _storeContext.CurrentStore.Id);
-            categoryIds.Add(categoryId);
+            //categoryIds.Add(categoryId);
 
             decimal? minPrice = null, maxPrice = null;
             if (!string.IsNullOrEmpty(_webHelper.QueryString<string>("price")))

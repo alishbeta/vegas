@@ -449,7 +449,7 @@ namespace Nop.Web.Factories
             }
 
             var categoryIds = new List<int>();
-            categoryIds.Add(category.Id);
+            //categoryIds.Add(category.Id);
             if (_catalogSettings.ShowProductsFromSubcategories)
             {
                 //include subcategories
