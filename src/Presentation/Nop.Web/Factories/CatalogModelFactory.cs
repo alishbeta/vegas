@@ -454,7 +454,8 @@ namespace Nop.Web.Factories
                 //include subcategories
                 categoryIds.AddRange(_categoryService.GetChildCategoryIds(category.Id, _storeContext.CurrentStore.Id));
             }
-            if (categoryIds.Count() == 0)
+            
+            if (category.ParentCategoryId != 0)
             {
                 categoryIds.Add(category.Id);
             }
