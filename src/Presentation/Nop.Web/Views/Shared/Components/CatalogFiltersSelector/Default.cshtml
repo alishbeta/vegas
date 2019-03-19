@@ -12,58 +12,10 @@
         </div>
         <div id="slider-price-r" class="slider-range"></div>
     </div>
-    @if ((bool)ViewBag.HasHeight)
-    {
-        <div class="main-title">
-            <h5>@T("filter.dimensions")</h5>
-        </div>
-        <div class="inner-wrap f-slider" data-filter-number="height" data-min="@(Math.Round(Model.Height?.min ?? 0))" data-max="@(Math.Round(Model.Height?.max ?? 0) + 1)" style="border-bottom: none;">
-            <div class="title">@T("filters.height")</div>
-            <div class="form-inline">
-                <div class="form-group">
-                    <span>@T("filters.from"): </span>
-                    <input class="form-control" name="MinHeight" type="text" id="slider-height-a1">
-                    <span>@T("filters.to"): </span>
-                    <input class="form-control" name="MaxHeight" type="text" id="slider-height-a2">
-                </div>
-            </div>
-            <div id="slider-height-r" class="slider-range"></div>
-        </div>
-    }
-    else
-    {
-    <div class="main-title">
-        <h5>@T("filter.sizes")</h5>
-    </div>
-    }
-    <div class="inner-wrap f-slider" data-filter-number="width" data-min="@(Math.Round(Model.Width?.min ?? 0) )" data-max="@(Math.Round(Model.Width?.max ?? 0) + 1)" style="border-bottom: none;">
-        <div class="title">@T("filters.width")</div>
-        <div class="form-inline">
-            <div class="form-group">
-                <span>@T("filters.from"): </span>
-                <input class="form-control" name="MinWidth" type="text" id="slider-width-a1">
-                <span>@T("filters.to"): </span>
-                <input class="form-control" name="MaxWidth" type="text" id="slider-width-a2">
-            </div>
-        </div>
-        <div id="slider-width-r" class="slider-range"></div>
-    </div>
-    <div class="inner-wrap f-slider" data-filter-number="length" data-min="@(Math.Round(Model.Length?.min ?? 0))" data-max="@(Math.Round(Model.Length?.max ?? 0) + 1)">
-        <div class="title">@T("filters.length")</div>
-        <div class="form-inline">
-            <div class="form-group">
-                <span>@T("filters.from"): </span>
-                <input class="form-control" name="MinLength" type="text" id="slider-length-a1">
-                <span>@T("filters.to"): </span>
-                <input class="form-control" name="MaxLength" type="text" id="slider-length-a2">
-            </div>
-        </div>
-        <div id="slider-length-r" class="slider-range"></div>
-    </div>
     @if ((bool)ViewBag.HasSleepSizes)
     {
         <div class="main-title">
-            @T("filter.sleepsizes")
+            <h5>@T("filter.sleepsizes")</h5>
         </div>
         <div class="inner-wrap f-slider" data-filter-number="sleeplength" data-min="@(Math.Round(Model.SleepLength?.min ?? 0))" data-max="@(Math.Round(Model.SleepLength?.max ?? 0) + 1)" style="border-bottom: none;">
             <div class="title">@T("filters.sleeplength")</div>
@@ -90,6 +42,55 @@
             <div id="slider-sleepwidth-r" class="slider-range"></div>
         </div>
     }
+    @if ((bool)ViewBag.HasHeight)
+    {
+        <div class="main-title">
+            <h5>@T("filter.dimensions")</h5>
+        </div>
+        <div class="inner-wrap f-slider" data-filter-number="height" data-min="@(Math.Round(Model.Height?.min ?? 0))" data-max="@(Math.Round(Model.Height?.max ?? 0) + 1)" style="border-bottom: none;">
+            <div class="title">@T("filters.height")</div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <span>@T("filters.from"): </span>
+                    <input class="form-control" name="MinHeight" type="text" id="slider-height-a1">
+                    <span>@T("filters.to"): </span>
+                    <input class="form-control" name="MaxHeight" type="text" id="slider-height-a2">
+                </div>
+            </div>
+            <div id="slider-height-r" class="slider-range"></div>
+        </div>
+    }
+    else
+    {
+        <div class="main-title">
+            <h5>@T("filter.sizes")</h5>
+        </div>
+    }
+    <div class="inner-wrap f-slider" data-filter-number="width" data-min="@(Math.Round(Model.Width?.min ?? 0) )" data-max="@(Math.Round(Model.Width?.max ?? 0) + 1)" style="border-bottom: none;">
+        <div class="title">@T("filters.width")</div>
+        <div class="form-inline">
+            <div class="form-group">
+                <span>@T("filters.from"): </span>
+                <input class="form-control" name="MinWidth" type="text" id="slider-width-a1">
+                <span>@T("filters.to"): </span>
+                <input class="form-control" name="MaxWidth" type="text" id="slider-width-a2">
+            </div>
+        </div>
+        <div id="slider-width-r" class="slider-range"></div>
+    </div>
+    <div class="inner-wrap f-slider" data-filter-number="length" data-min="@(Math.Round(Model.Length?.min ?? 0))" data-max="@(Math.Round(Model.Length?.max ?? 0) + 1)">
+        <div class="title">@T("filters.length")</div>
+        <div class="form-inline">
+            <div class="form-group">
+                <span>@T("filters.from"): </span>
+                <input class="form-control" name="MinLength" type="text" id="slider-length-a1">
+                <span>@T("filters.to"): </span>
+                <input class="form-control" name="MaxLength" type="text" id="slider-length-a2">
+            </div>
+        </div>
+        <div id="slider-length-r" class="slider-range"></div>
+    </div>
+
     @await Html.PartialAsync("_FilterSpecsBox", Model.SpecificationFilter)
     <div class="inner-wrap text-center">
         <div class="btn-group-vertical">
