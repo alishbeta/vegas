@@ -2,13 +2,12 @@
 @{
     var notFilteredItemsGroups = Model.NotFilteredItems.GroupBy(x => x.SpecificationAttributeName);
     var alreadyFilteredItemsGroups = Model.AlreadyFilteredItems.GroupBy(x => x.SpecificationAttributeName);
-    var specificationsExcludeList = new List<string>() { "вес", "категория", "модель", "степень жесткости верх", "степень жесткости низ" };
     
 }
 @if (Model.Enabled)
 {
 <div class="inner-wrap">
-    @foreach (var group in Model.FilterItems.Where(x => !specificationsExcludeList.Contains(x.SpecificationAttributeName.ToLower())).GroupBy(x => x.SpecificationAttributeName))
+    @foreach (var group in Model.FilterItems.GroupBy(x => x.SpecificationAttributeName))
     {
         var groupList = group.ToList();
         var checkedGroup = Model.AlreadyFilteredItems.Count(x => groupList.Select(u => u.SpecificationAttributeOptionId).Contains(x.SpecificationAttributeOptionId)) > 0;

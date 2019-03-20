@@ -1246,7 +1246,8 @@ namespace Nop.Web.Factories
                     {
                         StockQuantity = warehouse.StockQuantity,
                         WarehouseId = warehouse.WarehouseId,
-                        Name = warehouse.Warehouse.Name
+                        Name = warehouse.Warehouse.Name,
+                        City = warehouse.Warehouse.City
                     });
                 }
             }
@@ -1256,7 +1257,8 @@ namespace Nop.Web.Factories
                 {
                     WarehouseId = product.WarehouseId,
                     Name = _shippingService.GetWarehouseById(product.WarehouseId)?.Name,
-                    StockQuantity = product.StockQuantity
+                    StockQuantity = product.StockQuantity,
+                    City = _shippingService.GetWarehouseById(product.WarehouseId)?.City
                 });
             }
 
