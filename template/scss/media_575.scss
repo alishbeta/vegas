@@ -58,9 +58,9 @@
     .news-wrap {
         padding-bottom: 65px;
         .item-wrap {
-            margin: 0 auto;
             float: none;
             min-height: 350px;
+            margin-bottom: 15px;
         }
     }
     .subscription-wrap.row {
@@ -293,8 +293,6 @@
             bottom: -1215px;
         }
     }
-    .news-wrap,
-    .news .article-wrap,
     .map .article-wrap {
         margin-left: 0;
     }

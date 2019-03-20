@@ -170,7 +170,7 @@
 .item-wrap {
     width: 268px;
     // height: 270px;
-    padding: 0 20px;
+    //padding: 0 20px;
     span img {
         width: 20px;
     }
@@ -296,20 +296,17 @@
     padding-left: 20px;
     .item-wrap {
         position: relative;
-        margin-right: 30px;
         border: 1px solid #d9dee0;
         border-radius: 5px;
-        width: 288px;
+        width: 100%;
         height: 365px;
         overflow: hidden;
         float: left;
-        padding: 0;
         .text-wrap {
             padding: 20px 20px 25px 20px;
             font-weight: bold;
         }
         .img-wrap {
-            width: 290px;
             height: 195px;
             overflow: hidden;
             img {

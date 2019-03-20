@@ -58,10 +58,8 @@
     .slick-dots {
         bottom: -2px;
     }
-    .news-wrap,
-    .news .article-wrap,
-    .map .article-wrap {
-        //padding-left: 0;
+    .news-wrap, .map{
+        padding-left: 0;
         margin-left: 15px;
     }
     .see-wrap .row.title {
@@ -385,6 +383,5 @@
     //}
     .item-wrap {
         width: 255px;
-        padding: 0 20px;
     }
 }
