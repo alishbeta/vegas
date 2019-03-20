@@ -4688,7 +4688,6 @@ section .item {
   .news .article-wrap,
   .map .article-wrap,
   .map .article-wrap {
-    padding-left: 0;
     margin-left: 15px;
   }
 
@@ -5005,10 +5004,6 @@ section .item {
   .slick-track {
     margin-left: 0;
     margin-right: 0;
-  }
-
-  .news-wrap .item-wrap, .news .article-wrap .item-wrap, .map .article-wrap .item-wrap {
-    width: 235px;
   }
 
   .item-wrap {
