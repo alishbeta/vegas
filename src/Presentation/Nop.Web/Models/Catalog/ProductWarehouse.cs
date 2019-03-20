@@ -10,5 +10,6 @@ namespace Nop.Web.Models.Catalog
         public string Name { get; set; }
         public int WarehouseId { get; set; }
         public int StockQuantity { get; set; }
+        public string City { get; set; }
     }
 }

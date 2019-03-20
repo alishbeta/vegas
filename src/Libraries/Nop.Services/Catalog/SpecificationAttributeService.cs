@@ -472,7 +472,7 @@ namespace Nop.Services.Catalog
                 return new List<SpecificationAttributeOption>();
 
             var query = from sao in _specificationAttributeOptionRepository.Table
-                        where specificationAttributeOptionIds.Contains(sao.Id)
+                        where specificationAttributeOptionIds.Contains(sao.Id) && sao.SpecificationAttribute.IsActive
                         select sao;
             var specificationAttributeOptions = query.ToList();
             //sort by passed identifiers

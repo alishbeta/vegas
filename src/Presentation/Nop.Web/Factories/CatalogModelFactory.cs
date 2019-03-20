@@ -449,14 +449,18 @@ namespace Nop.Web.Factories
             }
 
             var categoryIds = new List<int>();
-            categoryIds.Add(category.Id);
             if (_catalogSettings.ShowProductsFromSubcategories)
             {
                 //include subcategories
                 categoryIds.AddRange(_categoryService.GetChildCategoryIds(category.Id, _storeContext.CurrentStore.Id));
             }
-			//products
-			IList<int> alreadyFilteredSpecOptionIds = model.PagingFilteringContext.SpecificationFilter.GetAlreadyFilteredSpecOptionIds(_webHelper);
+            
+            if (category.ParentCategoryId != 0)
+            {
+                categoryIds.Add(category.Id);
+            }
+            //products
+            IList<int> alreadyFilteredSpecOptionIds = model.PagingFilteringContext.SpecificationFilter.GetAlreadyFilteredSpecOptionIds(_webHelper);
 			var orderBy = (ProductSortingEnum)command.OrderBy;
 			if (command.OrderBy == (int)ProductSortingEnum.NewProducts || command.OrderBy == (int)ProductSortingEnum.Discounts)
 			{
