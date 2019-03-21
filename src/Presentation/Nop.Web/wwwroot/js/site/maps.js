@@ -12,16 +12,25 @@ function initMap() {
         if ($('*').is('#map') && adresses != undefined) {
             geocoder = new google.maps.Geocoder();
 
-            geocoder.geocode({ 'address': adresses[0].city }, function(results, status){
-                if (status == 'OK') {
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        center: results[0].geometry.location,
-                        zoom: 11
-                    });
-                }
-            });
-            
-            console.log(adresses[0].city);
+            let isMain = $('.blue-menu ul li:first-child a').hasClass('active');
+
+            if (isMain){
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: 49.443363, lng: 32.062298 },
+                    zoom: 6
+                });
+            }else{
+                geocoder.geocode({ 'address': adresses[0].city }, function(results, status){
+                    if (status == 'OK') {
+                        map = new google.maps.Map(document.getElementById('map'), {
+                            center: results[0].geometry.location,
+                            zoom: 11
+                        });
+                        console.log(results[0].geometry.location);
+                    }
+                });
+            }
+
             adresses.forEach(addPoint);
             function addPoint(data, index) {
                 geocoder.geocode({ 'address': data.addr }, function (results, status) {
