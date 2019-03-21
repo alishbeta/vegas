@@ -16,13 +16,18 @@
             right: 0;
             left: 0;
             width: 120px;
-            bottom: -310px;
+            bottom: -360px;
             margin: auto;
             z-index: 1054;
+            &.salon .title button {
+                bottom: -360px;
+            }
         }
         .show-room {
             .see-wrap .title button {
-                left: 33% !important;
+                left: 0;
+                bottom: -310px;
+                z-index: 5;
             }
             .new-wrap .title button {
                 bottom: -375px !important;
@@ -392,10 +397,15 @@
             }
         }
     }
-    .inner-menu-wrap .search-wrap {
-        border-bottom: none;
-        margin-top: 0;
-        margin-bottom: 0;
+    .all-menu-wrap .side-menu-wrap .inner-menu-wrap{
+        .search-wrap {
+            border-bottom: none;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        .sub-menu a{
+            padding-left: 75px;
+        }
     }
     .header-wrap .icons-wrap{
         img {

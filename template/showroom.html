@@ -703,7 +703,7 @@
                             <button class="btn btn-sm btn-blue-white float-right">Смотреть все</button>
                         </div>
                         <div class="salon-slider-wrap clearfix">
-                            <div class="img">
+                            <div class="img item-wrap">
                                 <img src="https://via.placeholder.com/540x320" alt="">
                                 <div class="text-wrap">
                                     <div><b>"Матрасы Vegas"</b></div>
@@ -711,7 +711,7 @@
                                     <div>пн-вс 10:00-20:00</div>
                                 </div>
                             </div>
-                            <div class="img">
+                            <div class="img item-wrap">
                                 <img src="https://via.placeholder.com/540x320" alt="">
                                 <div class="text-wrap">
                                     <div><b>"Матрасы Vegas"</b></div>
@@ -719,7 +719,7 @@
                                     <div>пн-вс 10:00-20:00</div>
                                 </div>
                             </div>
-                            <div class="img">
+                            <div class="img item-wrap">
                                 <img src="https://via.placeholder.com/540x320" alt="">
                                 <div class="text-wrap">
                                     <div><b>"Матрасы Vegas"</b></div>
@@ -727,7 +727,7 @@
                                     <div>пн-вс 10:00-20:00</div>
                                 </div>
                             </div>
-                            <div class="img">
+                            <div class="img item-wrap">
                                 <img src="https://via.placeholder.com/540x320" alt="">
                                 <div class="text-wrap">
                                     <div><b>"Матрасы Vegas"</b></div>
@@ -879,6 +879,15 @@
         prevArrow: '<div class="baner-prev-arrow"></div>',
         nextArrow: '<div class="baner-next-arrow"></div>',
         infinite:false,
+        responsive: [
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                }
+            }
+        ]
     });
 
 </script>

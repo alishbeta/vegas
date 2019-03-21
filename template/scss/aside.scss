@@ -50,6 +50,7 @@ $i: 0;
                         &:nth-child(#{$i}) {
                             &:hover {
                                 background-color: $color;
+                                height: fit-content;
                             }
                             &.active {
                                 background-color: $color;
@@ -64,6 +65,11 @@ $i: 0;
                         &:hover {
                             text-decoration: none;
                             color: $link_color;
+                        }
+                        &.btn{
+                            max-width: 250px;
+                            padding: 5px;
+                            margin: 5px auto;
                         }
                     } // &:hover:after {
                     //   display: block;
