@@ -1247,7 +1247,8 @@ namespace Nop.Web.Factories
                         StockQuantity = warehouse.StockQuantity,
                         WarehouseId = warehouse.WarehouseId,
                         Name = warehouse.Warehouse.Name,
-                        City = warehouse.Warehouse.City
+                        City = warehouse.Warehouse.City,
+                        Hidden = warehouse.Warehouse.Hidden
                     });
                 }
             }
@@ -1258,7 +1259,8 @@ namespace Nop.Web.Factories
                     WarehouseId = product.WarehouseId,
                     Name = _shippingService.GetWarehouseById(product.WarehouseId)?.Name,
                     StockQuantity = product.StockQuantity,
-                    City = _shippingService.GetWarehouseById(product.WarehouseId)?.City
+                    City = _shippingService.GetWarehouseById(product.WarehouseId)?.City,
+                    Hidden = _shippingService.GetWarehouseById(product.WarehouseId)?.Hidden ?? true
                 });
             }
 

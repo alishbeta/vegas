@@ -23,10 +23,14 @@
 	//page class
 	Html.AppendPageCssClassParts("html-not-found-page");
 }
-<nav class="breadcrumb-wrap">
+<nav class="breadcrumb-wrap" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Bed4you</a></li>
+        <li class="breadcrumb-item active">@T("page.error.404")</li>
+    </ol>
 </nav>
 <div class="row p404">
-	<div class="offset-xl-2 col-xl-8">
+	<div class="offset-xl-2 col-xl-10">
 		<div class="text">
 			@T("PageTitle.PageNotFound")
 		</div>
