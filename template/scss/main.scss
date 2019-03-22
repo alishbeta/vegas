@@ -21,7 +21,7 @@
 .outer-wrapp {
     float: left;
     margin-bottom: 15px;
-    height: 295px;
+    height: 355px
 }
 
 .see-wrap {
@@ -129,6 +129,10 @@
     opacity: 1 !important;
     display: none;
     z-index: 50;
+    .product-img-wrap{
+        height: 230px;
+        overflow: hidden;
+    }
 }
 
 .item-wrap-full {
@@ -166,7 +170,9 @@
 .bx-wrapper {
     min-width: 100%;
 }
-
+.outer-wrapp > .item-wrap{
+    padding: 0 20px;
+}
 .item-wrap {
     width: 268px;
     // height: 270px;
@@ -193,6 +199,8 @@
 
 .item-wrap .product-img-wrap {
     position: relative;
+    height: 230px;
+    overflow: hidden;
 }
 
 .item-wrap .product-img-wrap .discount {
