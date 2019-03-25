@@ -1,12 +1,12 @@
 ﻿@model IList<ProductOverviewModel>
 @if (Model.Count > 0)
 {
-	<div class="see-wrap pad-norm">
+	<div class="see-wrap salon pad-norm">
         <div class="title row justify-content-center">
             <div class="col-auto">
                 <h3>@T("ourstores.product")</h3>
             </div>
-            <button class="btn btn-sm btn-blue-white float-right d-none d-md-block" id="showMore" onclick="ShowMore()">@T("Bestsellers.ViewAll")</button>
+            <button class="btn btn-sm btn-blue-white float-right d-md-block" id="showMore" onclick="ShowMore()">@T("Bestsellers.ViewAll")</button>
             <button class="btn btn-sm btn-blue-white float-right d-none d-md-block invisible" id="hideMore" onclick="HideMore()">@T("Showroom.HideAll")</button>
         </div>
 		<div id="preview" class="scrollM clearfix">

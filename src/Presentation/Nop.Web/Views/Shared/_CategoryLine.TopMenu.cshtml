@@ -96,10 +96,10 @@
                             </a>
                         </li>
                     }
+                        <li>
+                            <a href="@Url.RouteUrl("CategoryInfo", new { SeName = Model.Category.SeName })" class="btn btn-grey btn-sm pl-5 pr-5">@T("bestsellers.ViewAll")</a>
+                        </li>
                 </ul>
-				<div class="text-center mt-3">
-					<a href="@Url.RouteUrl("CategoryInfo", new { SeName = Model.Category.SeName })" class="btn btn-grey btn-sm pl-5 pr-5">@T("bestsellers.ViewAll")</a>
-				</div>
             </div>
         }
     }

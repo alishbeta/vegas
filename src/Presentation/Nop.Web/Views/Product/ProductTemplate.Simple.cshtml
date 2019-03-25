@@ -299,7 +299,7 @@
                                     {
                                         @if (!string.IsNullOrEmpty(warehouse.Name))
                                         {
-                                            <a class="dropdown-item" data-city="@warehouse.City" href="/storeinfo?warehouseId=@warehouse.WarehouseId">@warehouse.Name</a>
+                                            <a class="dropdown-item" data-city="@warehouse.City" href="@(warehouse.Hidden ? "#" : "/storeinfo?warehouseId=" + warehouse.WarehouseId)">@warehouse.Name</a>
                                         }
                                     }
                                 </div>

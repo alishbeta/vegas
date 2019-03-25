@@ -87,30 +87,30 @@
         @{
             var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
         }
-        
-            <div class="more-wrapp text-center">
-                @if (!pager.IsEmpty())
-                {
-                    <button class="btn btn-sm btn-blue-white" id="loadMore">@T("cat.more")</button>
-                    <nav>
-                        @pager
-                    </nav>
-                }
-            </div>
+
+        <div class="more-wrapp text-center">
+            @if (!pager.IsEmpty())
+            {
+                <button class="btn btn-sm btn-blue-white" id="loadMore">@T("cat.more")</button>
+                <nav>
+                    @pager
+                </nav>
+            }
+        </div>
     </div>
 </div>
 @await Component.InvokeAsync("RecentlyViewedProducts", new { productThumbPictureSize = 250, preparePriceModel = true })
 @if (!string.IsNullOrEmpty(Model.Description))
 {
-<div class="description d-none d-md-block">
-    <div class="row">
-        <div class="col">
-            <div class="text">
-                @Html.Raw(Model.Description)
+    <div class="description d-none d-md-block">
+        <div class="row">
+            <div class="col">
+                <div class="text">
+                    @Html.Raw(Model.Description)
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
 
 <script src="~/js/site/tp.js"></script>
