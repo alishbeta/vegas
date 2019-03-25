@@ -1,26 +1,27 @@
 var icomsBase = '/img/';
 var map;
 var adresses = $('#address').data('address');
+
 function initMap() {
     let loc = location.pathname.split('/');
     if (loc[2] == 'contactus') {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 8
-            });
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 8
+        });
     } else {
         if ($('*').is('#map') && adresses != undefined) {
             geocoder = new google.maps.Geocoder();
 
             let isMain = $('.blue-menu ul li:first-child a').hasClass('active');
 
-            if (isMain){
+            if (isMain) {
                 map = new google.maps.Map(document.getElementById('map'), {
-                    center: { lat: 49.443363, lng: 32.062298 },
+                    center: {lat: 49.443363, lng: 32.062298},
                     zoom: 6
                 });
-            }else{
-                geocoder.geocode({ 'address': adresses[0].city }, function(results, status){
+            } else {
+                geocoder.geocode({'address': adresses[0].city}, function (results, status) {
                     if (status == 'OK') {
                         map = new google.maps.Map(document.getElementById('map'), {
                             center: results[0].geometry.location,
@@ -31,9 +32,23 @@ function initMap() {
                 });
             }
 
-            adresses.forEach(addPoint);
-            function addPoint(data, index) {
-                geocoder.geocode({ 'address': data.addr }, function (results, status) {
+            //adresses.forEach(addPoint);
+            processArray(adresses);
+
+            function delay() {
+                return new Promise(resolve => setTimeout(resolve, 600));
+            }
+
+            async function processArray(adresses) {
+                for (const data of adresses) {
+                    await addPoint(data);
+                }
+                console.log('Done!');
+            }
+
+            async  function addPoint(data) {
+                await delay();
+                geocoder.geocode({'address': data.addr}, function (results, status) {
                     if (status == 'OK') {
                         var marker = new google.maps.Marker({
                             map: map,
@@ -45,26 +60,26 @@ function initMap() {
                         let work = '';
                         let name = '';
 
-                        if (typeof data.name != 'undefined'){
-                            name = '<div>'+ data.name +'</div>';
+                        if (typeof data.name != 'undefined') {
+                            name = '<div>' + data.name + '</div>';
                         }
-                        if (typeof data.phone != 'undefined'){
-                            phone = '<div><span>Телефон</span>: '+ data.phone +'</div>';
+                        if (typeof data.phone != 'undefined') {
+                            phone = '<div><span>Телефон</span>: ' + data.phone + '</div>';
                         }
-                        if (typeof data.workTime != 'undefined'){
-                            work = '<div><span>График</span>: '+ data.workTime +'</div>';
+                        if (typeof data.workTime != 'undefined') {
+                            work = '<div><span>График</span>: ' + data.workTime + '</div>';
                         }
-                            
+
 
                         var contentString = '<div id="content">' +
                             '<div id="siteNotice">' +
                             '</div>' +
                             '<h3 id="firstHeading" class="firstHeading">' + results[0].address_components[3].long_name + '</h1>' +
                             '<div id="bodyContent">' +
-                             name +
-                            '<div>'+ data.addr +'</div>' +
-                             phone +
-                             work +
+                            name +
+                            '<div>' + data.addr + '</div>' +
+                            phone +
+                            work +
                             '</div>' +
                             '</div>';
                         var infowindow = new google.maps.InfoWindow({
@@ -78,6 +93,7 @@ function initMap() {
                         console.log('Geocode was not successful for the following reason: ' + status);
                     }
                 });
+
             }
         }
     }

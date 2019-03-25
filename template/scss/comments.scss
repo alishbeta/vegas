@@ -194,6 +194,10 @@
         .check-fly{
             input + label + label {
                 margin-left: 15px;
+                width: 67px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
             &:first-child{
                 input{

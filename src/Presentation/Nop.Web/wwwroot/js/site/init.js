@@ -1,11 +1,11 @@
 $(document).ready(function () {
 
     let width = $(window).width();
-    if (width < 1000){
+    if (width < 1000) {
         window.addEventListener('orientationchange', function () {
             location.reload();
         });
-    }else{
+    } else {
         $(window).resize(function () {
             location.reload();
         });
@@ -52,7 +52,6 @@ $(document).ready(function () {
     if ($(window).width() >= 575) {
         $('ul li.d-sm-none').remove();
         $('.outer-wrapp.scroll').hover(function () {
-            console.log();
             if ($(this).find(".item-wrap-full").length) {
                 var b = $(this).find(".item-wrap-full"),
                     c = $(this).position(),
@@ -68,6 +67,12 @@ $(document).ready(function () {
         $('.scrollWrapper').on('scroll', function () {
             $(".item-wrap-full").hide();
         });
+
+        $('.see-wrap.salon').on('mouseover', '.outer-wrapp.scroll', function () {
+            $(this).find('.item-wrap-full').show();
+        }).on('mouseleave', '.outer-wrapp.scroll', function () {
+            $(this).find(".item-wrap-full").hide();
+        })
     }
 
     setTimeout(function () {
@@ -146,13 +151,13 @@ $(document).ready(function () {
             $(this).addClass('active');
             let data = $(this);
 
-            if (data.find('.sub-menu').length === 0){
+            if (data.find('.sub-menu').length === 0) {
                 let href = $(data.find('a')[0]).attr('href');
                 console.log(href);
-                if (typeof (href) !== "undefined"){
+                if (typeof (href) !== "undefined") {
                     location.href = href;
                 }
-            }else{
+            } else {
                 $('.side-second-menu-wrap .sub-menu').fadeOut(function () {
                     $('.side-second-menu-wrap').css("background-color", color);
                     $(this).html(data.find("div.sub-menu").html()).fadeIn();
@@ -212,9 +217,9 @@ $(document).ready(function () {
 
     //Скролинг в полной новости.
     $('#similar-button').on('click', function () {
-        let pos = $('#similar-destination').offset().top;
-        $('html').animate({ scrollTop: pos }, 1000);
-    }
+            let pos = $('#similar-destination').offset().top;
+            $('html').animate({scrollTop: pos}, 1000);
+        }
     );
 
     /*####################    Слайдер для фильтров   ###############################*/
@@ -316,10 +321,10 @@ $(document).ready(function () {
             let persent = $(this).text().split('%')[0].trim();
             if (parseInt(persent) <= 5)
                 $(this).text('');
-            $(this).animate({ width: persent + '%' });
+            $(this).animate({width: persent + '%'});
             if (indx == 0) {
                 let left = $(this).next().text().split('%')[0].trim();
-                $(this).animate({ left: left + '%' });
+                $(this).animate({left: left + '%'});
             }
         })
     });

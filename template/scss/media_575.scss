@@ -16,7 +16,7 @@
             right: 0;
             left: 0;
             width: 120px;
-            bottom: -360px;
+            bottom: -400px;
             margin: auto;
             z-index: 1054;
             &.salon .title button {
@@ -26,7 +26,7 @@
         .show-room {
             .see-wrap .title button {
                 left: 0;
-                bottom: -365px;
+                bottom: -390px;
                 z-index: 5;
             }
             .new-wrap .title button {
@@ -261,7 +261,7 @@
             margin-left: 0;
         }
         .show-room-wrap {
-            .bl-1 .i-bl-w2 {
+            .bl-1 .i-bl-w2, .bl-1 .i-bl-w1 {
                 width: 100%;
             }
         }
@@ -422,6 +422,9 @@
     }
     .tabbed-content {
         min-width: 100%;
+    }
+    .favorite .item-wrap {
+        margin: 15px auto;
     }
     
 }
