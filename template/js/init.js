@@ -53,7 +53,7 @@ $(document).ready(function () {
         $('ul li.d-sm-none').remove();
         $('.outer-wrapp.scroll').hover(function () {
             if ($(this).find(".item-wrap-full").length) {
-                var b = $(this).find(".item-wrap-full"),
+                let b = $(this).find(".item-wrap-full"),
                     c = $(this).position(),
                     d = $(this).parents(".scrollWrapper");
                 (c.left >= 0 && c.left + $(this).find(".item-wrap-full").width() - Math.abs($(this).width() - $(this).find(".item-wrap-full").width()) / 2 <= $(this).parents(".scrollWrapper").width() || 0 == $(this).parents(".scrollWrapper").length) && $(this).find(".item-wrap-full").css({
@@ -69,7 +69,13 @@ $(document).ready(function () {
         });
 
         $('.see-wrap.salon').on('mouseover', '.outer-wrapp.scroll', function () {
-            $(this).find('.item-wrap-full').show();
+            if ($(this).find(".item-wrap-full").length) {
+                let c = $(this).position();
+                (c.left >= 0 && c.left + $(this).find(".item-wrap-full").width() - Math.abs($(this).width() - $(this).find(".item-wrap-full").width()) / 2 <= $(this).parents(".scrollWrapper").width() || 0 == $(this).parents(".scrollWrapper").length) && $(this).find(".item-wrap-full").css({
+                    left: c.left,
+                    top: c.top
+                }).stop().fadeIn(750)
+            }
         }).on('mouseleave', '.outer-wrapp.scroll', function () {
             $(this).find(".item-wrap-full").hide();
         })
