@@ -90,6 +90,11 @@
         addr = Model.Warehouse?.StreetAddress,
         phone = Model.Warehouse?.Phone,
         workTime = warehouse?.WorkTime,
+        position = new
+        {
+            lat = warehouse.Latitude,
+            lng = warehouse.Longitude
+        },
         zoom = 6
     });
 }

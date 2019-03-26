@@ -15,6 +15,8 @@ namespace Nop.Web.Models.Common
         public string Phone { get; set; }
         public string StreetAddress { get; set; }
         public List<WarehousePicture> Pictures { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         public class WarehousePicture
         {

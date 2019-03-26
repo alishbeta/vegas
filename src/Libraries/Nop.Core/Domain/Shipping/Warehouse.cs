@@ -18,6 +18,8 @@ namespace Nop.Core.Domain.Shipping
         public string City { get; set; }
         public bool Hidden { get; set; }
         public string WarehouseDescription { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         /// <summary>
         /// Gets or sets the address identifier of the warehouse

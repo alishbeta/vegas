@@ -469,6 +469,8 @@ namespace Nop.Web.Controllers
                     StreetAddress = _localizationService.GetLocalized(x, u => u.StreetAddress),
                     Phone = _localizationService.GetLocalized(x, u => u.Phone),
                     City = _localizationService.GetLocalized(x, u => u.City),
+                    Latitude = x.Latitude,
+                    Longitude = x.Longitude,
                     Pictures = _shippingService.GetWarehousePictures(x.Id).Select(u => new ViewWarehouseModel.WarehousePicture()
                     {
                         PictureUrl = _pictureService.GetPictureUrl(u.PictureId)
@@ -512,6 +514,8 @@ namespace Nop.Web.Controllers
                     StreetAddress = _localizationService.GetLocalized(x, u => u.StreetAddress),
                     Phone = _localizationService.GetLocalized(x, u => u.Phone),
                     City = _localizationService.GetLocalized(x, u => u.City),
+                    Longitude = x.Longitude,
+                    Latitude = x.Latitude,
                     Pictures = _shippingService.GetWarehousePictures(x.Id).Select(u => new ViewWarehouseModel.WarehousePicture()
                     {
                         PictureUrl = _pictureService.GetPictureUrl(u.PictureId)
@@ -561,6 +565,8 @@ namespace Nop.Web.Controllers
                     StreetAddress = _localizationService.GetLocalized(x, u => u.StreetAddress),
                     Phone = _localizationService.GetLocalized(x, u => u.Phone),
                     City = _localizationService.GetLocalized(x, u => u.City),
+                    Latitude = x.Latitude,
+                    Longitude = x.Longitude,
                     Pictures = _shippingService.GetWarehousePictures(x.Id).Select(u => new ViewWarehouseModel.WarehousePicture()
                     {
                         PictureUrl = _pictureService.GetPictureUrl(u.PictureId)

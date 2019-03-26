@@ -55,6 +55,12 @@ namespace Nop.Web.Areas.Admin.Models.Shipping
         [NopResourceDisplayName("Admin.Configuration.Shipping.Warehouses.Fields.Phone")]
         public string Phone { get; set; }
 
+        [NopResourceDisplayName("Admin.Configuration.Shipping.Warehouses.Fields.Latitude")]
+        public double Latitude { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Shipping.Warehouses.Fields.Longitude")]
+        public double Longitude { get; set; }
+
         #endregion
 
         

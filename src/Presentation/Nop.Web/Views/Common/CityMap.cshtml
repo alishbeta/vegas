@@ -29,6 +29,11 @@
                             addr = warehouse.StreetAddress,
                             phone = warehouse.Phone,
                             workTime = warehouse.WorkTime,
+                            position = new
+                            {
+                                lat = warehouse.Latitude,
+                                lng = warehouse.Longitude
+                            },
                             zoom = 6
                         });
                         <div class="img col-lg-6">

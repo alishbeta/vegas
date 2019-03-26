@@ -487,7 +487,9 @@ namespace Nop.Web.Areas.Admin.Factories
                     City = warehouse.City,
                     Phone = warehouse.Phone,
                     StreetAddress = warehouse.StreetAddress,
-                    WarehouseDescription = warehouse.WarehouseDescription
+                    WarehouseDescription = warehouse.WarehouseDescription,
+                    Latitude = warehouse.Latitude,
+                    Longitude = warehouse.Longitude
                 };
 
                 _shippingService.GetWarehousePictures(warehouse.Id)

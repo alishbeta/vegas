@@ -701,7 +701,9 @@ namespace Nop.Web.Areas.Admin.Controllers
                     Phone = model.Phone,
                     WarehouseDescription = model.WarehouseDescription,
                     Hidden = model.Hidden,
-                    AddressId = 0
+                    AddressId = 0,//address was removed from warehouse
+                    Latitude = model.Latitude,
+                    Longitude = model.Longitude
                 };
 
                 _shippingService.InsertWarehouse(warehouse);
@@ -766,6 +768,8 @@ namespace Nop.Web.Areas.Admin.Controllers
                 warehouse.City = model.City;
                 warehouse.Phone = model.Phone;
                 warehouse.StreetAddress = model.StreetAddress;
+                warehouse.Longitude = model.Longitude;
+                warehouse.Latitude = model.Latitude;
 
                 _shippingService.UpdateWarehouse(warehouse);
 
