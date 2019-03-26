@@ -26,6 +26,7 @@
     width: 67px;
     margin: 0 8px;
     font-size: 14px;
+    padding: .375rem .5rem;
   }
   button.vg-filter.open:after{
     @include transform(rotate(-135deg));
