@@ -218,6 +218,10 @@ namespace Nop.Web.Controllers
                     additionalProductReview.Rating = additionalProductReview.IsRequired ? _catalogSettings.DefaultProductRatingValue : 0;
                 }
 
+            var activeCategory = product.ProductCategories.FirstOrDefault(x => x.Category.ParentCategoryId == 0)?.CategoryId;
+            var activeSubCategory = product.ProductCategories.FirstOrDefault(x => x.Category.ParentCategoryId == activeCategory)?.CategoryId;
+            ViewBag.ActiveCategory = activeCategory;
+            ViewBag.ActiveSubCategory = activeSubCategory;
             //template
             var productTemplateViewPath = _productModelFactory.PrepareProductTemplateViewPath(product);
 
