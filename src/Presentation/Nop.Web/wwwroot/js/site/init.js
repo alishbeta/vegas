@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     let width = $(window).width();
-    if (width < 1000) {
+    if (width < 1367) {
         window.addEventListener('orientationchange', function () {
             location.reload();
         });
@@ -10,7 +10,6 @@ $(document).ready(function () {
             location.reload();
         });
     }
-
 
     $(window).on('scroll', function () {
         var top = $(window).scrollTop();
@@ -24,7 +23,6 @@ $(document).ready(function () {
             scrollTop: $('head').position().top
         }, 2000);
     });
-
 
     if ($('.wrap').hasClass('product')) {
         var navbar = $('.opt-wrap');
