@@ -5270,10 +5270,11 @@ section .item {
   .content .show-room .new-wrap .title button {
     bottom: -375px !important;
   }
-  .content .show-room .btn {
+  .content .show-room .shr.btn {
     top: 325px;
     margin: auto;
     right: calc(50% - 55px);
+    z-index: 5;
   }
   .content .logo-m {
     position: absolute;
