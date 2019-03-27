@@ -21,79 +21,55 @@ function initMap() {
                     zoom: 6
                 });
             } else {
-                geocoder.geocode({'address': adresses[0].city}, function (results, status) {
-                    if (status == 'OK') {
-                        map = new google.maps.Map(document.getElementById('map'), {
-                            center: results[0].geometry.location,
-                            zoom: 11
-                        });
-                        console.log(results[0].geometry.location);
-                    }
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: adresses[0].position,
+                    zoom: 10
                 });
+
             }
 
-            //adresses.forEach(addPoint);
-            processArray(adresses);
+            adresses.forEach(addPoint);
 
-            function delay() {
-                return new Promise(resolve => setTimeout(resolve, 600));
-            }
+            function addPoint(data, index) {
+                console.log(data.position);
+                let marker = new google.maps.Marker({
+                    map: map,
+                    icon: icomsBase + 'map_logo.png',
+                    position: data.position,
+                    title: 'Bed4you'
+                });
+                let phone = '';
+                let work = '';
+                let name = '';
 
-            async function processArray(adresses) {
-                for (const data of adresses) {
-                    await addPoint(data);
+                if (typeof data.name != 'undefined') {
+                    name = '<div>' + data.name + '</div>';
                 }
-                console.log('Done!');
-            }
+                if (typeof data.phone != 'undefined') {
+                    phone = '<div><span>Телефон</span>: ' + data.phone + '</div>';
+                }
+                if (typeof data.workTime != 'undefined') {
+                    work = '<div><span>График</span>: ' + data.workTime + '</div>';
+                }
 
-            async  function addPoint(data) {
-                await delay();
-                geocoder.geocode({'address': data.addr}, function (results, status) {
-                    if (status == 'OK') {
-                        var marker = new google.maps.Marker({
-                            map: map,
-                            icon: icomsBase + 'map_logo.png',
-                            position: results[0].geometry.location,
-                            title: 'Bed4you'
-                        });
-                        let phone = '';
-                        let work = '';
-                        let name = '';
-
-                        if (typeof data.name != 'undefined') {
-                            name = '<div>' + data.name + '</div>';
-                        }
-                        if (typeof data.phone != 'undefined') {
-                            phone = '<div><span>Телефон</span>: ' + data.phone + '</div>';
-                        }
-                        if (typeof data.workTime != 'undefined') {
-                            work = '<div><span>График</span>: ' + data.workTime + '</div>';
-                        }
-
-
-                        var contentString = '<div id="content">' +
-                            '<div id="siteNotice">' +
-                            '</div>' +
-                            '<h3 id="firstHeading" class="firstHeading">' + results[0].address_components[3].long_name + '</h1>' +
-                            '<div id="bodyContent">' +
-                            name +
-                            '<div>' + data.addr + '</div>' +
-                            phone +
-                            work +
-                            '</div>' +
-                            '</div>';
-                        var infowindow = new google.maps.InfoWindow({
-                            content: contentString
-                        });
-
-                        marker.addListener('click', function () {
-                            infowindow.open(map, marker);
-                        });
-                    } else {
-                        console.log('Geocode was not successful for the following reason: ' + status);
-                    }
+                var contentString = '<div id="content">' +
+                    '<div id="siteNotice">' +
+                    '</div>' +
+                    '<h3 id="firstHeading" class="firstHeading"></h1>' +
+                    '<div id="bodyContent">' + name +
+                    '<div>' + data.addr + '</div>' +
+                    phone +
+                    work +
+                    '</div>' +
+                    '</div>';
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
                 });
 
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                });
             }
         }
     }

@@ -157,7 +157,6 @@ $(document).ready(function () {
 
             if (data.find('.sub-menu').length === 0) {
                 let href = $(data.find('a')[0]).attr('href');
-                console.log(href);
                 if (typeof (href) !== "undefined") {
                     location.href = href;
                 }
@@ -245,11 +244,8 @@ $(document).ready(function () {
                 $("#slider-" + data.filterNumber + "-a2").val(ui.values[1]);
             }
         });
-        // $("#slider-" + data.filterNumber + "-a1").val($("#slider-" + data.filterNumber + "-r").slider("values", 0));
-        // $("#slider-" + data.filterNumber + "-a2").val($("#slider-" + data.filterNumber + "-r").slider("values", 1));
 
         $("#slider-" + data.filterNumber + "-a1").on('change', function () {
-            //slider.slider('values', this.val());
             $("#slider-" + data.filterNumber + "-r").slider("values", 200);
         })
     });
@@ -266,7 +262,6 @@ $(document).ready(function () {
         $('.filters-data').toggleClass('open');
         $('.f1').toggleClass('open');
         $('.prod-wrap').toggleClass('short');
-
     });
 
     /*#####################    Личный кабинет   ###############################*/
@@ -361,7 +356,7 @@ $(document).ready(function () {
         $(this).popover('show');
     }).on('mouseleave', function () {
         $(this).popover('hide');
-    })
+    });
 
     /*#####################   Города  ###############################*/
     $('.city-wrapp li').on('click', function () {
@@ -416,10 +411,12 @@ var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a",
 
 /*#####################   Попап на фильтрах  ###############################*/
 function showPopover(text, count, btn, obj) {
+    let placement = ($(window).width() < 376) ?  'bottom' : 'auto';
     let elem = $(obj).popover({
         trigger: 'manual',
         content: '<div class = "filter-title">' + text + ' <span id="filter-count">' + count + '</span> </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">' + btn + '</button>',
         html: true,
+        placement: placement
     });
 
     elem.popover('show');

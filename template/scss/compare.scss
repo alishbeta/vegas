@@ -60,6 +60,9 @@
         background-color: #efefef;
       }
     }
+    .btn-link{
+      text-decoration: underline;
+    }
   }
 
   .compare-content{
@@ -131,7 +134,6 @@
     .btn-link span{
       transform: rotate(135deg);
       display: inline-block;
-      color: red;
     }
   }
 

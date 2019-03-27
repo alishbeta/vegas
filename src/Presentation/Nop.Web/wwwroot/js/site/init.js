@@ -54,7 +54,8 @@ $(document).ready(function () {
                 let b = $(this).find(".item-wrap-full"),
                     c = $(this).position(),
                     d = $(this).parents(".scrollWrapper");
-                (c.left >= 0 && c.left + $(this).find(".item-wrap-full").width() - Math.abs($(this).width() - $(this).find(".item-wrap-full").width()) / 2 <= $(this).parents(".scrollWrapper").width() || 0 == $(this).parents(".scrollWrapper").length) && $(this).find(".item-wrap-full").css({
+                (c.left >= 0 && c.left + $(this).find(".item-wrap-full").width() - Math.abs($(this).width() - $(this).find(".item-wrap-full").width()) / 2 <= $(this).parents(".scrollWrapper").width() || 0 == $(this).parents(".scrollWrapper").length) &&
+                $(this).find(".item-wrap-full").css({
                     left: c.left,
                     top: c.top
                 }).stop().fadeIn(750)
@@ -68,7 +69,9 @@ $(document).ready(function () {
 
         $('.see-wrap.salon').on('mouseover', '.outer-wrapp.scroll', function () {
             if ($(this).find(".item-wrap-full").length) {
-                let c = $(this).position();
+                let b = $(this).find(".item-wrap-full"),
+                    c = $(this).position(),
+                    d = $(this).parents(".scrollWrapper");
                 (c.left >= 0 && c.left + $(this).find(".item-wrap-full").width() - Math.abs($(this).width() - $(this).find(".item-wrap-full").width()) / 2 <= $(this).parents(".scrollWrapper").width() || 0 == $(this).parents(".scrollWrapper").length) && $(this).find(".item-wrap-full").css({
                     left: c.left,
                     top: c.top
@@ -150,18 +153,17 @@ $(document).ready(function () {
                 }
             });
             let color = rgb2hex($(this).css("background-color"));
-            $('.side-second-menu-wrap').addClass('open');
-            $('.side-menu-wrap').addClass('open');
-            $(this).addClass('active');
             let data = $(this);
 
             if (data.find('.sub-menu').length === 0) {
                 let href = $(data.find('a')[0]).attr('href');
-                console.log(href);
                 if (typeof (href) !== "undefined") {
                     location.href = href;
                 }
             } else {
+                $('.side-second-menu-wrap').addClass('open');
+                $('.side-menu-wrap').addClass('open');
+                $(this).addClass('active');
                 $('.side-second-menu-wrap .sub-menu').fadeOut(function () {
                     $('.side-second-menu-wrap').css("background-color", color);
                     $(this).html(data.find("div.sub-menu").html()).fadeIn();
@@ -242,11 +244,8 @@ $(document).ready(function () {
                 $("#slider-" + data.filterNumber + "-a2").val(ui.values[1]);
             }
         });
-        // $("#slider-" + data.filterNumber + "-a1").val($("#slider-" + data.filterNumber + "-r").slider("values", 0));
-        // $("#slider-" + data.filterNumber + "-a2").val($("#slider-" + data.filterNumber + "-r").slider("values", 1));
 
         $("#slider-" + data.filterNumber + "-a1").on('change', function () {
-            //slider.slider('values', this.val());
             $("#slider-" + data.filterNumber + "-r").slider("values", 200);
         })
     });
@@ -263,7 +262,6 @@ $(document).ready(function () {
         $('.filters-data').toggleClass('open');
         $('.f1').toggleClass('open');
         $('.prod-wrap').toggleClass('short');
-
     });
 
     /*#####################    Личный кабинет   ###############################*/
@@ -358,7 +356,7 @@ $(document).ready(function () {
         $(this).popover('show');
     }).on('mouseleave', function () {
         $(this).popover('hide');
-    })
+    });
 
     /*#####################   Города  ###############################*/
     $('.city-wrapp li').on('click', function () {
@@ -413,10 +411,12 @@ var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a",
 
 /*#####################   Попап на фильтрах  ###############################*/
 function showPopover(text, count, btn, obj) {
+    let placement = ($(window).width() < 376) ?  'bottom' : 'auto';
     let elem = $(obj).popover({
         trigger: 'manual',
         content: '<div class = "filter-title">' + text + ' <span id="filter-count">' + count + '</span> </div><button onclick = "$(\'#submit-filters\').click()" class = "btn btn-blue popover-submit">' + btn + '</button>',
         html: true,
+        placement: placement
     });
 
     elem.popover('show');

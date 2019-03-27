@@ -1488,7 +1488,7 @@ nav.breadcrumb-wrap a:hover {
   background-color: white;
   opacity: 0;
   z-index: -1;
-  /*меняем тут*/
+  /*╨╝╨╡╨╜╤П╨╡╨╝ ╤В╤Г╤В*/
 }
 .item-wrap-full i {
   position: absolute;
@@ -2713,6 +2713,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .compare .optc-wrap li:nth-child(2n + 1) {
   background-color: #efefef;
 }
+.compare .optc-wrap .btn-link {
+  text-decoration: underline;
+}
 .compare .compare-content {
   overflow: auto;
 }
@@ -2781,7 +2784,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 .compare .compare-wrap .btn-link span {
   transform: rotate(135deg);
   display: inline-block;
-  color: red;
 }
 
 .sales .content {
@@ -5265,6 +5267,11 @@ section .item {
   .content .show-room .new-wrap .title button {
     bottom: -375px !important;
   }
+  .content .show-room .btn {
+    top: 325px;
+    margin: auto;
+    right: calc(50% - 55px);
+  }
   .content .logo-m {
     position: absolute;
     width: 114px;
@@ -5653,6 +5660,13 @@ section .item {
 
   .favorite .item-wrap {
     margin: 15px auto;
+  }
+
+  .login-form-wrap {
+    width: 100%;
+  }
+  .login-form-wrap i.close-i {
+    margin: 0px -5px 0px 0px;
   }
 }
 
