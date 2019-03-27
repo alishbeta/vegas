@@ -1488,7 +1488,7 @@ nav.breadcrumb-wrap a:hover {
   background-color: white;
   opacity: 0;
   z-index: -1;
-  /*╨╝╨╡╨╜╤П╨╡╨╝ ╤В╤Г╤В*/
+  /*меняем тут*/
 }
 .item-wrap-full i {
   position: absolute;
@@ -4319,69 +4319,49 @@ section .item {
 .commets-wrap .form-wrap .check-fly input:checked + label + .grey {
   color: #a7a5a5;
 }
-.commets-wrap .form-wrap .check-fly input + label + label {
-  margin-left: 15px;
-  width: 67px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.commets-wrap .form-wrap .cf {
+  margin-top: 15px;
 }
-.commets-wrap .form-wrap .check-fly:first-child input + label {
+.commets-wrap .form-wrap .check-fly {
+  margin-left: 15px;
+}
+.commets-wrap .form-wrap .check-fly input + label {
   display: block;
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   margin: auto;
 }
-.commets-wrap .form-wrap .check-fly:first-child input + label:after {
+.commets-wrap .form-wrap .check-fly input + label:after {
   content: '';
   display: block;
-  background: url(/img/sprite_smile_.png);
-  background-position: -161px -41px;
+  height: 40px;
+  width: 40px;
   -webkit-mask-image: unset;
   border: 1px solid transparent;
-  height: 41px;
-  width: 40px;
   top: 0;
+}
+.commets-wrap .form-wrap .check-fly input + label + label {
+  margin-left: 0;
+  width: 100%;
+  text-align: center;
+}
+.commets-wrap .form-wrap .check-fly:first-child input + label:after {
+  background: url(/img/sprite_smile_.png);
+  background-position: -161px -41px;
 }
 .commets-wrap .form-wrap .check-fly:first-child input:checked + label:after {
   background-position: -161px -1px;
 }
-.commets-wrap .form-wrap .check-fly:nth-child(2) input + label {
-  display: block;
-  height: 30px;
-  width: 30px;
-  margin: auto;
-}
 .commets-wrap .form-wrap .check-fly:nth-child(2) input + label:after {
-  content: '';
-  display: block;
   background: url(/img/sprite_smile_.png);
   background-position: -202px -42px;
-  -webkit-mask-image: unset;
-  border: 1px solid transparent;
-  height: 40px;
-  width: 40px;
-  top: 0;
 }
 .commets-wrap .form-wrap .check-fly:nth-child(2) input:checked + label:after {
   background-position: -202px -1px;
 }
-.commets-wrap .form-wrap .check-fly:last-child input + label {
-  display: block;
-  height: 30px;
-  width: 42px;
-  margin: auto;
-}
 .commets-wrap .form-wrap .check-fly:last-child input + label:after {
-  content: '';
-  display: block;
   background: url(/img/sprite_smile_.png);
   background-position: -1px -41px;
-  -webkit-mask-image: unset;
-  border: 1px solid transparent;
-  height: 41px;
-  width: 40px;
-  top: 0;
 }
 .commets-wrap .form-wrap .check-fly:last-child input:checked + label:after {
   background-position: -1px -1px;
@@ -4564,19 +4544,6 @@ section .item {
 
   .form-check-inline {
     font-size: 11px;
-  }
-
-  .form-wrap .check-fly:first-child input + label {
-    height: 40px;
-    width: 25px;
-  }
-  .form-wrap .check-fly:nth-child(2) input + label {
-    height: 40px;
-    width: 25px;
-  }
-  .form-wrap .check-fly:last-child input + label {
-    height: 40px;
-    width: 25px;
   }
 
   .item-title {

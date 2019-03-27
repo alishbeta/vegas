@@ -1,541 +1,516 @@
 .commets-wrap {
-    padding-left: 15px;
-    .commets-block {
-        margin-top: 30px;
-    }
-    .diagram-wrapp {
-        font-size: 16px;
-        font-weight: 800;
-        .total-diagram {
-            .item-wrapp {
-                margin-bottom: 15px;
-                div {
-                    display: inline-block;
-                }
-                .item-line-wrapp {
-                    position: relative;
-                    width: 50%;
-                    float: right;
-                    height: 24px;
-                    vertical-align: middle;
-                    .item-line {
-                        text-align: center;
-                        color: transparent;
-                        &:first-child {
-                            position: absolute;
-                            background-color: #dbdbdb;
-                            height: 100%;
-                        }
-                        &:nth-child(2) {
-                            display: block;
-                            position: absolute;
-                            width: 0;
-                            height: 100%;
-                            background-color: #8cc34c;
-                            left: 0;
-                        }
-                        &:last-child {
-                            display: block;
-                            position: absolute;
-                            width: 0;
-                            height: 100%;
-                            background-color: #e33840;
-                            right: 0;
-                        }
-                    }
-                }
-            }
-        }
-        .total-rate {
-            .item-wrapp {
-                margin-bottom: 15px;
-            }
-        }
-    }
-    .filters-wrap {
-        margin-left: -30px;
-        .f2 {
-            button:first-child {
-                width: 215px;
-                &:after {
-                    left: 195px !important;
-                    top: 40%;
-                }
-            }
-        }
-    }
-    .form-check {
-        padding-left: 0;
-    }
-    .filters-wrap .dropdown-menu {
-        width: 250px;
-    }
-    .comment-items {
-        margin-top: 60px;
-        li{
-            margin-bottom: 60px;
-        }
-        .info-wrap {
-            margin-right: 90px;
-            .no-avatar {
-                margin-right: 20px;
-            }
-            .info {
-                .date {
-                    margin-bottom: 15px;
-                }
-                .btn-link {
-                    font-size: 16px;
-                    padding: 0;
-                    &:hover,
-                    &:focus {
-                        color: #2c96b9;
-                        text-decoration: none;
-                    }
-                }
-                .dropdown-menu {
-                    font-size: 14px;
-                }
-                .dropdown-toggle{
-                    &::after {
-                        vertical-align: sub;
-                        content: '';
-                        border-top: .3em transparent;
-                    }
-                    &.pen::after {
-                        content: url(/img/pen.png);
-                    }
-                }
-            }
-        }
-        ul {
-            margin-top: 15px;
-            li {
-                ul {
-                    margin-left: 120px;
-                    .info-wrap {
-                        margin-right: 30px;
-                    }
-                }
-            }
-        }
-    }
-    .user-rate-items {
-        font-size: 16px;
-        font-weight: 800;
-        margin-top: 15px;
-        display: none;
-        .user-rate-item{
-            margin-right: 15px;
-            display: inline-block;
-        }
+  padding-left: 15px;
+  .commets-block {
+    margin-top: 30px;
+  }
+  .diagram-wrapp {
+    font-size: 16px;
+    font-weight: 800;
+    .total-diagram {
+      .item-wrapp {
+        margin-bottom: 15px;
         div {
-            display: inline-block;
+          display: inline-block;
         }
-    }
-    .sprite-smile {
-        width: 40px;
-        height: 41px;
-        background: url(/img/sprite_smile_.png) no-repeat;
-        vertical-align: middle;
-        margin-left: 5px;
-        margin-right: 5px;
-        &.angry {
-            background-position: 0 0;
-        }
-        &.sad {
-            background-position: -40px 0;
-        }
-        &.netral {
-            background-position: -80px 0;
-        }
-        &.good {
-            background-position: -120px 0;
-        }
-        &.perfect {
-            background-position: -160px 0;
-        }
-    }
-    .form-block{
-        overflow: hidden;
-        display: none;
-    }
-    .line{
-        display: none;
-    }
-    .form-wrap {
-        font-size: 16px;
-        font-weight: 800;
-        padding: 15px;
-        .title{
-            margin-bottom: 30px;
-        }
-        .rate-rating {
-            div {
-                display: inline-block;
-                vertical-align: bottom;
+        .item-line-wrapp {
+          position: relative;
+          width: 50%;
+          float: right;
+          height: 24px;
+          vertical-align: middle;
+          .item-line {
+            text-align: center;
+            color: transparent;
+            &:first-child {
+              position: absolute;
+              background-color: #dbdbdb;
+              height: 100%;
             }
-            .name-description{
-                float: left;
+            &:nth-child(2) {
+              display: block;
+              position: absolute;
+              width: 0;
+              height: 100%;
+              background-color: #8cc34c;
+              left: 0;
             }
-            .rating-wrapper{
-                float: right;
+            &:last-child {
+              display: block;
+              position: absolute;
+              width: 0;
+              height: 100%;
+              background-color: #e33840;
+              right: 0;
             }
+          }
         }
-        .check-fly input:checked + label + .green {
-            color: #8cc34c;
+      }
+    }
+    .total-rate {
+      .item-wrapp {
+        margin-bottom: 15px;
+      }
+    }
+  }
+  .filters-wrap {
+    margin-left: -30px;
+    .f2 {
+      button:first-child {
+        width: 215px;
+        &:after {
+          left: 195px !important;
+          top: 40%;
         }
-        .check-fly input:checked + label + .red {
-            color: #e33840;
-        }
-        .check-fly input:checked + label + .grey {
-            color: #a7a5a5;
-        }
-        .check-fly{
-            input + label + label {
-                margin-left: 15px;
-                width: 67px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-            &:first-child{
-                input{
-                    + label{
-                        display: block;
-                        height: 30px;
-                        width: 30px;
-                        margin: auto;
-                        &:after {
-                            content: '';
-                            display: block;
-                            background: url(/img/sprite_smile_.png);
-                            background-position: -161px -41px;
-                            -webkit-mask-image: unset;
-                            border: 1px solid transparent;
-                            height: 41px;
-                            width: 40px;
-                            top: 0;
-                        }
-                    }
-                    &:checked + label{
-                        &:after {
-                            background-position: -161px -1px;
-                        }
-                    }
-                }
-            } 
-            &:nth-child(2){
-                input{
-                    + label{
-                        display: block;
-                        height: 30px;
-                        width: 30px;
-                        margin: auto;
-                        &:after {
-                            content: '';
-                            display: block;
-                            background: url(/img/sprite_smile_.png);
-                            background-position: -202px -42px;
-                            -webkit-mask-image: unset;
-                            border: 1px solid transparent;
-                            height: 40px;
-                            width: 40px;
-                            top: 0;
-                        }
-                    }
-                    &:checked + label{
-                        &:after {
-                            background-position: -202px -1px;
-                        }
-                    }
-                }
-            }
-            &:last-child{
-                input{
-                    + label{
-                        display: block;
-                        height: 30px;
-                        width: 42px;
-                        margin: auto;
-                        &:after {
-                            content: '';
-                            display: block;
-                            background: url(/img/sprite_smile_.png);
-                            background-position: -1px -41px;
-                            -webkit-mask-image: unset;
-                            border: 1px solid transparent;
-                            height: 41px;
-                            width: 40px;
-                            top: 0;
-                        }
-                    }
-                    &:checked + label{
-                        &:after {
-                            background-position: -1px -1px;
-                        }
-                    }
-                }
-            } 
-        } 
+      }
     }
-    #reviewSmile-input{
-        transform: scale(-1, 1);
+  }
+  .form-check {
+    padding-left: 0;
+  }
+  .filters-wrap .dropdown-menu {
+    width: 250px;
+  }
+  .comment-items {
+    margin-top: 60px;
+    li {
+      margin-bottom: 60px;
     }
-
-    /*sprite with stars*/
-    #reviewSmile-input label,
-    #reviewSmile-input label:hover {
-        background: url(/img/sprite_smile_.png); // mask-image: url('/img/star_fill.svg');
-        // -webkit-mask-image: url('/img/star_fill.svg');
-        // background-color: gray;
-    }
-    #reviewSmile-input {
-        /*fix floating problems*/
-        zoom: 1;
-        /*end of fix floating problems*/
-        position: relative;
-        float: left;
-    }
-    #reviewSmile-input input {
-        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-        opacity: 0;
-        height: 40px;
-        width: 40px;
-        position: absolute;
-        top: 0;
-        z-index: 0;
-    }
-    #reviewSmile-input label {
-        height: 40px;
-        width: 40px;
-        float: right;
-        cursor: pointer;
+    .info-wrap {
+      margin-right: 90px;
+      .no-avatar {
         margin-right: 20px;
-        position: relative;
-        z-index: 1;
-        &:hover, &:hover~label{
-            height: 40px;
-            width: 40px;
+      }
+      .info {
+        .date {
+          margin-bottom: 15px;
         }
+        .btn-link {
+          font-size: 16px;
+          padding: 0;
+          &:hover,
+          &:focus {
+            color: #2c96b9;
+            text-decoration: none;
+          }
+        }
+        .dropdown-menu {
+          font-size: 14px;
+        }
+        .dropdown-toggle {
+          &::after {
+            vertical-align: sub;
+            content: '';
+            border-top: .3em transparent;
+          }
+          &.pen::after {
+            content: url(/img/pen.png);
+          }
+        }
+      }
     }
-
-    #reviewSmile-input #smile-0 {
-        left: 0;
+    ul {
+      margin-top: 15px;
+      li {
+        ul {
+          margin-left: 120px;
+          .info-wrap {
+            margin-right: 30px;
+          }
+        }
+      }
     }
-    #reviewSmile-input {
-        label[for*="smile-0"] {
-            background-position: 0 -41px;
-        }
-        label[for*="smile-1"] {
-            background-position: -41px -41px;
-        }
-        label[for*="smile-2"] {
-            background-position: -81px -41px;
-        }
-        label[for*="smile-3"] {
-            background-position: -121px -41px;
-        }
-        label[for*="smile-4"] {
-            background-position: -161px -41px;
-        }
+  }
+  .user-rate-items {
+    font-size: 16px;
+    font-weight: 800;
+    margin-top: 15px;
+    display: none;
+    .user-rate-item {
+      margin-right: 15px;
+      display: inline-block;
     }
-
-    #reviewSmile-input {
-        label[for*="smile-0"]:hover {
-            background-position: 0 0;
-        }
-        label[for*="smile-1"]:hover {
-            background-position: -41px 0;
-        }
-        label[for*="smile-2"]:hover {
-            background-position: -81px 0;
-        }
-        //label[for*="smile-2"]:hover+input+label {
-        //   background-position: -40px 0;
-        //}
-        label[for*="smile-3"]:hover {
-            background-position: -121px 0;
-            //&+input+label {
-            //   background-position: -80px 0;
-            //}
-            //&+input+label+input+label {
-            //   background-position: -40px 0;
-            //}
-        }
-        label[for*="smile-4"]:hover {
-            background-position: -161px 0;
-            //&+input+label {
-            //   background-position: -120px 0;
-            //}
-            //&+input+label+input+label {
-            //   background-position: -80px 0;
-            //}
-            //&+input+label+input+label+input+label {
-            //   background-position: -40px 0;
-            //}
-        }
+    div {
+      display: inline-block;
     }
-
-    #reviewSmile-input input:checked~label {
+  }
+  .sprite-smile {
+    width: 40px;
+    height: 41px;
+    background: url(/img/sprite_smile_.png) no-repeat;
+    vertical-align: middle;
+    margin-left: 5px;
+    margin-right: 5px;
+    &.angry {
+      background-position: 0 0;
+    }
+    &.sad {
+      background-position: -40px 0;
+    }
+    &.netral {
+      background-position: -80px 0;
+    }
+    &.good {
+      background-position: -120px 0;
+    }
+    &.perfect {
+      background-position: -160px 0;
+    }
+  }
+  .form-block {
+    overflow: hidden;
+    display: none;
+  }
+  .line {
+    display: none;
+  }
+  .form-wrap {
+    font-size: 16px;
+    font-weight: 800;
+    padding: 15px;
+    .title {
+      margin-bottom: 30px;
+    }
+    .rate-rating {
+      div {
+        display: inline-block;
+        vertical-align: bottom;
+      }
+      .name-description {
+        float: left;
+      }
+      .rating-wrapper {
+        float: right;
+      }
+    }
+    .check-fly input:checked + label + .green {
+      color: #8cc34c;
+    }
+    .check-fly input:checked + label + .red {
+      color: #e33840;
+    }
+    .check-fly input:checked + label + .grey {
+      color: #a7a5a5;
+    }
+    .cf{
+      margin-top: 15px;
+    }
+    .check-fly {
+      margin-left: 15px;
+      input + label {
+        display: block;
         height: 40px;
         width: 40px;
+        margin: auto;
+        &:after{
+          content: '';
+          display: block;
+          height: 40px;
+          width: 40px;
+          -webkit-mask-image: unset;
+          border: 1px solid transparent;
+          top: 0;
+        }
+        + label {
+          margin-left: 0;
+          width: 100%;
+          text-align: center;
+        }
+      }
+      &:first-child {
+        input {
+          + label {
+            &:after {
+              background: url(/img/sprite_smile_.png);
+              background-position: -161px -41px;
+            }
+          }
+          &:checked + label {
+            &:after {
+              background-position: -161px -1px;
+            }
+          }
+        }
+      }
+      &:nth-child(2) {
+        input {
+          + label {
+            &:after {
+              background: url(/img/sprite_smile_.png);
+              background-position: -202px -42px;
+            }
+          }
+          &:checked + label {
+            &:after {
+              background-position: -202px -1px;
+            }
+          }
+        }
+      }
+      &:last-child {
+        input {
+          + label {
+            &:after {
+              background: url(/img/sprite_smile_.png);
+              background-position: -1px -41px;
+            }
+            & + label {
+
+            }
+          }
+          &:checked + label {
+            &:after {
+              background-position: -1px -1px;
+            }
+          }
+        }
+      }
     }
-    #reviewSmile-input {
-        input[id*="smile-0"]:checked+label {
-            background-position: 0 0;
-        }
-        input[id*="smile-1"]:checked+label {
-            background-position: -41px 0;
-        }
-        input[id*="smile-2"]:checked+label {
-            background-position: -81px 0;
-            //&+input+label {
-            //    background-position: -40px 0;
-            //}
-        }
-        input[id*="smile-3"]:checked+label {
-            background-position: -121px 0;
-            //&+input+label {
-            //    background-position: -80px 0;
-            //}
-            //&+input+label+input+label {
-            //    background-position: -40px 0;
-            //}
-        }
-        input[id*="smile-4"]:checked+label {
-            background-position: -161px 0;
-            //&+input+label {
-            //    background-position: -120px 0;
-            //}
-            //&+input+label+input+label {
-            //    background-position: -80px 0;
-            //}
-            //&+input+label+input+label+input+label {
-            //    background-position: -40px 0;
-            //}
-        }
+  }
+  #reviewSmile-input {
+    transform: scale(-1, 1);
+  }
+
+  /*sprite with stars*/
+  #reviewSmile-input label,
+  #reviewSmile-input label:hover {
+    background: url(/img/sprite_smile_.png); // mask-image: url('/img/star_fill.svg');
+    // -webkit-mask-image: url('/img/star_fill.svg');
+    // background-color: gray;
+  }
+  #reviewSmile-input {
+    /*fix floating problems*/
+    zoom: 1;
+    /*end of fix floating problems*/
+    position: relative;
+    float: left;
+  }
+  #reviewSmile-input input {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+  }
+  #reviewSmile-input label {
+    height: 40px;
+    width: 40px;
+    float: right;
+    cursor: pointer;
+    margin-right: 20px;
+    position: relative;
+    z-index: 1;
+    &:hover, &:hover ~ label {
+      height: 40px;
+      width: 40px;
     }
-    #reviewSmile-input {
-        #smile-1 {
-            left: 53px;
-        }
-        #smile-2 {
-            left: 106px;
-        }
-        #smile-3 {
-            left: 159px;
-        }
-        #smile-4 {
-            left: 212px;
-        }
-        #smile-5 {
-            left: 265px;
-        }
+  }
+
+  #reviewSmile-input #smile-0 {
+    left: 0;
+  }
+  #reviewSmile-input {
+    label[for*="smile-0"] {
+      background-position: 0 -41px;
     }
+    label[for*="smile-1"] {
+      background-position: -41px -41px;
+    }
+    label[for*="smile-2"] {
+      background-position: -81px -41px;
+    }
+    label[for*="smile-3"] {
+      background-position: -121px -41px;
+    }
+    label[for*="smile-4"] {
+      background-position: -161px -41px;
+    }
+  }
+
+  #reviewSmile-input {
+    label[for*="smile-0"]:hover {
+      background-position: 0 0;
+    }
+    label[for*="smile-1"]:hover {
+      background-position: -41px 0;
+    }
+    label[for*="smile-2"]:hover {
+      background-position: -81px 0;
+    }
+    //label[for*="smile-2"]:hover+input+label {
+    //   background-position: -40px 0;
+    //}
+    label[for*="smile-3"]:hover {
+      background-position: -121px 0;
+      //&+input+label {
+      //   background-position: -80px 0;
+      //}
+      //&+input+label+input+label {
+      //   background-position: -40px 0;
+      //}
+    }
+    label[for*="smile-4"]:hover {
+      background-position: -161px 0;
+      //&+input+label {
+      //   background-position: -120px 0;
+      //}
+      //&+input+label+input+label {
+      //   background-position: -80px 0;
+      //}
+      //&+input+label+input+label+input+label {
+      //   background-position: -40px 0;
+      //}
+    }
+  }
+
+  #reviewSmile-input input:checked ~ label {
+    height: 40px;
+    width: 40px;
+  }
+  #reviewSmile-input {
+    input[id*="smile-0"]:checked + label {
+      background-position: 0 0;
+    }
+    input[id*="smile-1"]:checked + label {
+      background-position: -41px 0;
+    }
+    input[id*="smile-2"]:checked + label {
+      background-position: -81px 0;
+      //&+input+label {
+      //    background-position: -40px 0;
+      //}
+    }
+    input[id*="smile-3"]:checked + label {
+      background-position: -121px 0;
+      //&+input+label {
+      //    background-position: -80px 0;
+      //}
+      //&+input+label+input+label {
+      //    background-position: -40px 0;
+      //}
+    }
+    input[id*="smile-4"]:checked + label {
+      background-position: -161px 0;
+      //&+input+label {
+      //    background-position: -120px 0;
+      //}
+      //&+input+label+input+label {
+      //    background-position: -80px 0;
+      //}
+      //&+input+label+input+label+input+label {
+      //    background-position: -40px 0;
+      //}
+    }
+  }
+  #reviewSmile-input {
+    #smile-1 {
+      left: 53px;
+    }
+    #smile-2 {
+      left: 106px;
+    }
+    #smile-3 {
+      left: 159px;
+    }
+    #smile-4 {
+      left: 212px;
+    }
+    #smile-5 {
+      left: 265px;
+    }
+  }
 }
 
-.persent-block{
-    padding: 0 20px;
-    div{
-        display: inline-block;
-        min-width: 10px;
-        height: 10px;
-    }
-    .gren-b{
-        background-color: green;
-        margin-right: 5px;
-    }
-    .grey-b{
-        background-color: grey;
-        margin-right: 5px;
-    }
-    .red-b{
-        background-color: red;
-        margin-right: 5px;
-    }
-    .persent-data{
-        margin-right: 15px;  
-    }
+.persent-block {
+  padding: 0 20px;
+  div {
+    display: inline-block;
+    min-width: 10px;
+    height: 10px;
+  }
+  .gren-b {
+    background-color: green;
+    margin-right: 5px;
+  }
+  .grey-b {
+    background-color: grey;
+    margin-right: 5px;
+  }
+  .red-b {
+    background-color: red;
+    margin-right: 5px;
+  }
+  .persent-data {
+    margin-right: 15px;
+  }
 }
 
 .green {
-    color: #8cc34c;
+  color: #8cc34c;
 }
+
 .red {
-    color: #e33840;
+  color: #e33840;
 }
+
 .grey {
-    color: #a7a5a5;
+  color: #a7a5a5;
 }
 
 @media (max-width: 992px) {
-    .commets-wrap{
-        .user-rate-items {
-            .user-rate-item {
-                display: block;
-                margin-bottom: 15px;
-            }
-            div {
-                vertical-align: top;
-            }
-        }
-        .diagram-wrapp .total-diagram .item-wrapp div{
-            display: block;
-        }
-        .diagram-wrapp .total-diagram .item-wrapp div {
-            width: 100%;
-        }
-        .comment-items ul li ul {
-            margin-left: 30px;
-            li{
-                .name{
-                    font-weight: 800;
-                }
-            }
-        }
+  .commets-wrap {
+    .user-rate-items {
+      .user-rate-item {
+        display: block;
+        margin-bottom: 15px;
+      }
+      div {
+        vertical-align: top;
+      }
     }
+    .diagram-wrapp .total-diagram .item-wrapp div {
+      display: block;
+    }
+    .diagram-wrapp .total-diagram .item-wrapp div {
+      width: 100%;
+    }
+    .comment-items ul li ul {
+      margin-left: 30px;
+      li {
+        .name {
+          font-weight: 800;
+        }
+      }
+    }
+  }
 
 }
 
 @media (max-width: 576px) {
-    .commets-wrap{
-        .diagram-wrapp{
-            margin-left: -15px;
-            .total-diagram .item-wrapp .item-line-wrapp {
-                width: 100%;
-            }
-        } 
-        #reviewSmile-input label {
-            margin-right: 9px;
-        }
+  .commets-wrap {
+    .diagram-wrapp {
+      margin-left: -15px;
+      .total-diagram .item-wrapp .item-line-wrapp {
+        width: 100%;
+      }
     }
-    .form-block{
-        margin-left: -15px;
+    #reviewSmile-input label {
+      margin-right: 9px;
     }
-    .form-check-inline{
-        font-size: 11px;
-    }
-    .form-wrap{
-        .check-fly:first-child input + label {
-            height: 40px;
-            width: 25px;
-        }
-        .check-fly:nth-child(2) input + label {
-            height: 40px;
-            width: 25px;
-        }
-        .check-fly:last-child input + label {
-            height: 40px;
-            width: 25px;
-        }
-    }
-    
-    .item-title{
-        line-height: 2.5;
-        font-size: 14px;
-    }
-    .kostil{
-        padding: 0;
-    }
+  }
+  .form-block {
+    margin-left: -15px;
+  }
+  .form-check-inline {
+    font-size: 11px;
+  }
+
+  .item-title {
+    line-height: 2.5;
+    font-size: 14px;
+  }
+  .kostil {
+    padding: 0;
+  }
 }
