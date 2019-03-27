@@ -195,6 +195,9 @@
       margin-top: 15px;
     }
     .check-fly {
+      &:last-child{
+        width: 85px;
+      }
       margin-left: 15px;
       input + label {
         display: block;

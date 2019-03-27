@@ -4327,6 +4327,9 @@ section .item {
 .commets-wrap .form-wrap .check-fly {
   margin-left: 15px;
 }
+.commets-wrap .form-wrap .check-fly:last-child {
+  width: 85px;
+}
 .commets-wrap .form-wrap .check-fly input + label {
   display: block;
   height: 40px;
