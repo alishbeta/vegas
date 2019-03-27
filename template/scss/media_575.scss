@@ -352,6 +352,11 @@
         .row.title {
             margin-bottom: 0;
         }
+        &.salon{
+            .outer-wrapp {
+                position: relative;
+            }
+        }
     }
     .cabinet {
         .title-wrap {
@@ -426,5 +431,4 @@
     .favorite .item-wrap {
         margin: 15px auto;
     }
-    
 }

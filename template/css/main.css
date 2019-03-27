@@ -1371,9 +1371,6 @@ nav.breadcrumb-wrap a:hover {
 .see-wrap .row.title {
   margin: 15px 0 0;
 }
-.see-wrap.salon .outer-wrapp {
-  position: relative;
-}
 
 .map .article-wrap {
   padding-left: 0;
@@ -4739,7 +4736,7 @@ section .item {
     text-align: center;
   }
 
-  .see-wrap .btn-blue-white, .new-wrap .btn-blue-white {
+  .see-wrap .btn-blue-white, .new-wrap .btn-blue-white, .show-room .btn-blue-white {
     margin-right: 0;
   }
 
@@ -5621,6 +5618,9 @@ section .item {
   }
   .see-wrap .row.title {
     margin-bottom: 0;
+  }
+  .see-wrap.salon .outer-wrapp {
+    position: relative;
   }
 
   .cabinet .title-wrap {
