@@ -236,7 +236,7 @@ namespace Nop.Web.Controllers
             //include subcategories
             IList<int> categoryIds = _categoryService.GetChildCategoryIds(categoryId, _storeContext.CurrentStore.Id);
             var category = _categoryService.GetCategoryById(categoryId);
-            if (category.ParentCategoryId != 0)
+            if (category.ParentCategoryId != 0 || categoryIds.Count() == 0)
             {
                 categoryIds.Add(categoryId);
             }
