@@ -869,6 +869,7 @@ html .ui-button.ui-state-disabled {
         border-radius: 3px;
         padding: 25px 30px;
         position: absolute;
+        z-index: 1000;
     }
     .price {
         font-size: 22px;
